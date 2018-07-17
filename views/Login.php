@@ -3,8 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US" class="<?php if (!($this->input->get('login') == "login")){ ?>id<?php } ?>">
 <head>
 <?php 
-if (!isset($_GET["login"])) { ?>
-<meta http-equiv="refresh" content="3;url=<?php echo base_url(); ?>index.php/LoginController/index?login=login" />
+if (!isset($_GET["login"])) {  //redirect(base_url()."index.php?login=login", 'refresh'); 
+redirect(base_url()."index.php/LoginController/index?login=login", 'refresh');?>
+<!--<meta http-equiv="refresh" content="3;url=<?php echo base_url(); ?>index.php/LoginController/index?login=login" />-->
 <!--<meta http-equiv="refresh" content="3;url=<?php echo base_url(); ?>index.php?login=login" />-->
 <?php } ?>
 <meta charset="utf-8">
@@ -16,6 +17,7 @@ if (!isset($_GET["login"])) { ?>
 <link rel='stylesheet' type='text/css' media='all' href="<?php echo base_url(); ?>css/style.css"> 
 <link href="<?php echo base_url(); ?>css/Color-skin3.css" rel="stylesheet" type="text/css" media="all" />
 <link rel="stylesheet" type='text/css' media='screen' href="<?php echo base_url(); ?>icon/style.css">
+<link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url(); ?>css/login.css">
 <title>Login</title>
 <!-- css3-mediaqueries.js for IE less than 9 -->
  <!--[if lt IE 9]>
@@ -29,9 +31,7 @@ if (!isset($_GET["login"])) { ?>
 				<div class="menum"> 
 					<?php if ($this->input->get('login') == "login"){ ?>
 					
-					<img src="<?php echo base_url(); ?>images/iium.png" class="img-login"/> 
-					<span class="title-login">
-					International Islamic University Malaysia <br/>Medical Centre (IIUMMC)</span>
+					<img src="<?php echo base_url(); ?>images/logo.png" class="camsis2-main-logo"/> 
 
 					<?php }else{ ?>
 

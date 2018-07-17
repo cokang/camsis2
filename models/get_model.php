@@ -762,12 +762,11 @@ $this->db->where('A.v_ServiceCode =', $this->session->userdata('usersess'));
 $this->db->where('v_HospitalCode =', $this->session->userdata('hosp_code'));
 $this->db->where('A.v_ActionFlag <> ', 'D');
 $this->db->where('B.v_ActionFlag <> ', 'D');
-//$this->db->where('v_ExpiryDate IN (SELECT MAX(`v_ExpiryDate`) FROM pmis2_egm_lnc_lincense_details GROUP BY v_CertificateNo)');
 $this->db->group_by('A.v_CertificateNo'); 
 $query = $this->db->get();
 //echo "laalla".$query->DWRate;
-/* echo $this->db->last_query();
-exit(); */
+//echo $this->db->last_query();
+//exit();
 return $query->result();
 
 }
