@@ -15,7 +15,7 @@
 						</tr>
 						<tr >
 							<td class="ui-desk-style-table">
-							<table class="ui-content-form" id="no-more-tables" width="100%" border="0">
+							<table class="ui-content-form" id="no-more-tables" data-table="assetworkorder" width="100%" border="0">
 								<tr>	
 									<th>Type</th>
 									<th>Request Number</th>
@@ -38,7 +38,7 @@
 									<?php endforeach;?>  
 										<?php }else { ?>
 										<tr align="center" style="background:white; height:200px;">
-										<td colspan="10"><span style="color:red;">No workorder for asset.</span></td>
+										<td colspan="6"><span style="color:red;">No workorder for asset.</span></td>
 									</tr>
 									<?php } ?>
 								</table>

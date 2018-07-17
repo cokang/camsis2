@@ -41,8 +41,8 @@
 				</td>
 			</tr>
 			<tr class="ui-color-contents-style-1">
-				<td colspan="4" style="" valign="top" >
-					<table class="ui-content-middle-menu-workorder2" width="100%">
+				<td colspan="4" style="background-color: #fffefc;" valign="top" >
+					<table class="ui-content-middle-menu-workorder2 ui-landscape" width="100%">
 						<tr class="ui-menu-color-header" style="color:white; font-size:12px;">
 							<th >&nbsp;</th>
 							<th style="text-align:left;">RN Number</th>
@@ -53,37 +53,71 @@
 							<th >Consignment Date</th>
 						</tr>
 						<style>
-				.ui-content-middle-menu-workorder2 tr th {padding:8px;font-size:14px;}
-				.ui-content-middle-menu-workorder2 tr td {padding:8px;font-size:14px;}
-				.ui-content-middle-menu-workorder2 tr td.td-desk a{ font-weight:bold; font-size:14px;}
-				</style>
-							<?php $numrow = 1; ?>
+							.ui-content-middle-menu-workorder2 tr th {padding:8px;font-size:14px;}
+							.ui-content-middle-menu-workorder2 tr td {padding:8px;font-size:14px;}
+							.ui-content-middle-menu-workorder2 tr td.td-desk a{ font-weight:bold; font-size:14px;}
+						</style>
+						<?php $numrow = 1; ?>
 							   			
-		    				<tr align="center" <?= ($numrow%2==0) ?  'class="ui-color-color-color"' :  '' ?> >
-		    					<td class="td-desk"><?=$numrow++?></td>
-		    					<td class="td-desk" style="text-align:left;"><a href="<?php echo base_url();?>index.php/Procurement/Release_note?pro=edit">	RN/NJ/BPH/00002/12 </a></td>
-		    					<td class="td-desk">Courier </td>
-		    					<td class="td-desk">Others </td>
-		    					<td class="td-desk">Sent</td>
-		    					<td class="td-desk">17 Jul 2012 </td>
-		    					<td class="td-desk">17 Jul 2012 </td>
-		        			</tr>
-							<tr align="center" <?= ($numrow%2==0) ?  'class="ui-color-color-color"' :  '' ?> >
-		    					<td class="td-desk"><?=$numrow++?></td>
-		    					<td class="td-desk" style="text-align:left;"><a href="<?php echo base_url();?>index.php/Procurement/Release_note?pro=edit">	RN/MKA/JAS/00003/12 </a></td>
-		    					<td class="td-desk">Courier </td>
-		    					<td class="td-desk">Others </td>
-		    					<td class="td-desk">Sent</td>
-		    					<td class="td-desk">17 Jul 2012 </td>
-		    					<td class="td-desk">17 Jul 2012 </td>
-		        			</tr>					
-								<tr align="center" style="height:200px; background:white;">
-								<td colspan="10" class="default-NO">NO RELEASE NOTE FOUND FOR <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?></td>
+						<tr align="center" <?= ($numrow%2==0) ?  'class="ui-color-color-color"' :  '' ?> >
+							<td class="td-desk"><?=$numrow++?></td>
+							<td class="td-desk" style="text-align:left;"><a href="<?php echo base_url();?>index.php/Procurement/Release_note?pro=edit">	RN/NJ/BPH/00002/12 </a></td>
+							<td class="td-desk">Courier </td>
+							<td class="td-desk">Others </td>
+							<td class="td-desk">Sent</td>
+							<td class="td-desk">17 Jul 2012 </td>
+							<td class="td-desk">17 Jul 2012 </td>
+						</tr>
+						<tr align="center" <?= ($numrow%2==0) ?  'class="ui-color-color-color"' :  '' ?> >
+							<td class="td-desk"><?=$numrow++?></td>
+							<td class="td-desk" style="text-align:left;"><a href="<?php echo base_url();?>index.php/Procurement/Release_note?pro=edit">	RN/MKA/JAS/00003/12 </a></td>
+							<td class="td-desk">Courier </td>
+							<td class="td-desk">Others </td>
+							<td class="td-desk">Sent</td>
+							<td class="td-desk">17 Jul 2012 </td>
+							<td class="td-desk">17 Jul 2012 </td>
+						</tr>					
+							<tr align="center" style="height:200px; background:white;">
+							<td colspan="10" class="default-NO">NO RELEASE NOTE FOUND FOR <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?></td>
+						</tr>
+					</table>
+
+					<table class="ui-portrait" style="color:black;">
+						<tbody style="width: 100%;">
+							<?php $rownum=1;?>
+							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
+								<td >No</td>
+								<td class="td-desk">: <?=$rownum;?></td>
 							</tr>
-				</table>
-			</td>	
-		</tr>
-		<tr class="ui-header-new" style="height:5px;">
+							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
+								<td >RN Number</td>
+								<td class="td-desk">: <a href="<?php echo base_url();?>index.php/Procurement/Release_note?pro=edit">	RN/NJ/BPH/00002/12 </a></td>
+							</tr>
+							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
+								<td >Shipment Type</td>
+								<td class="td-desk">: Courier</td>
+							</tr>
+							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
+								<td >Courier</td>
+								<td class="td-desk">: Others</td>
+							</tr>
+							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
+								<td >Status</td>
+								<td class="td-desk">: Sent</td>
+							</tr>
+							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
+								<td >RN Date</td>
+								<td class="td-desk">: 17 Jul 2012</td>
+							</tr>
+							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
+								<td >Consignment Date</td>
+								<td class="td-desk">: 17 Jul 2012</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>	
+			</tr>
+			<tr class="ui-header-new" style="height:5px;">
 				<td align="center" colspan="4">
 				</td>
 			</tr>

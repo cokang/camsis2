@@ -39,7 +39,7 @@
 				</td>
 			</tr>
 			<?php  } ?>
-			<?php  } else { if (!in_array("contentcontroller/assets?parent=asset", $chkers)) { ?>
+			<?php  } else { if (!in_array("contentcontroller/assets", $chkers)) { ?>
 			<tr class="ui-content-color-style">
 				<td>
 				<?php echo anchor ('contentcontroller/assets?parent=asset', '<img src="'. base_url() .'images/asset.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Assets'); ?>
@@ -79,7 +79,7 @@
 				</td>	
 			</tr>
 			<?php  } ?>
-			<?php if (!in_array("contentcontroller/fnex", $chkers)) { ?>
+			<?php if (!in_array("contentcontroller/acgreport", $chkers)) { ?>
 			<tr class="ui-content-color-style">
 				<td>
 					<?php echo anchor ('contentcontroller/acg_report?tabIndex=1', '<img src="'. base_url() .'images/Statutory.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deduction Mapping Report'); ?>

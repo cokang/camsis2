@@ -2,7 +2,7 @@
 	<div class="content-workorder">
 		<div class="div-p">&nbsp;</div>
 		<div class="ui-main-form">
-		<?php include 'content_asset_tab.php';?>			
+		<?php include 'content_asset_tab.php';?>
 			<div class="ui-main-form-5">
 				<div class="middle_d2">
 					<table width="100%" class="ui-content-form-reg" style="">
@@ -17,26 +17,26 @@
 						</tr>
 						<tr >
 							<td class="ui-desk-style-table">
-							<table class="ui-content-form" id="no-more-tables" width="100%" border="0">
-								<tr>	
+								<table class="ui-content-form" id="no-more-tables" data-table="fail_bank" width="100%" border="0">
 									<tr>	
-										<th >Document Name</th>
-										<th >Registration Date</th>
-										<th >Registered By</th>
-										<th></th>
-										<th></th>
-									</tr>
-									<?php $numrow = 1; foreach ($record as $row):?>
-									<tr align="center" <?= ($numrow%2==0) ?  'class="tr_color"' :  '' ?> >
-									<td><a href="#" target="pdf-frame" onclick="javascript:fpdf('<?=isset($row->doc_id) ? $row->doc_id : ''?>')"><?=isset($row->Doc_name) ? $row->Doc_name : ''?></a></td>
-									<td><?=isset($row->Date_time_stamp) ? date("d-m-Y",strtotime($row->Date_time_stamp)) : ''?></td>
-									<td><?=isset($row->v_UserName) ? $row->v_UserName : ''?></td>
-									<td><a href="#" onclick="javascript:fbank('<?=$this->input->get('asstno')?>','<?=$row->doc_id?>')" >Change</a></td>
-									<td><?php echo anchor ('contentcontroller/del_filebank?assetno='.$this->input->get('asstno').'&docid='.$row->doc_id,'Delete') ?></td>
-									<?php $numrow++ ?>
-									</tr>
-									<?php endforeach;?>
-								</tr> 
+										<tr>	
+											<th >Document Name</th>
+											<th >Registration Date</th>
+											<th >Registered By</th>
+											<th></th>
+											<th></th>
+										</tr>
+										<?php $numrow = 1; foreach ($record as $row):?>
+										<tr align="center" <?= ($numrow%2==0) ?  'class="tr_color"' :  '' ?> >
+											<td data-title="Document Name :"><a href="#" target="pdf-frame" onclick="javascript:fpdf('<?=isset($row->doc_id) ? $row->doc_id : ''?>')"><?=isset($row->Doc_name) ? $row->Doc_name : ''?></a></td>
+											<td data-title="Registration Date :"><?=isset($row->Date_time_stamp) ? date("d-m-Y",strtotime($row->Date_time_stamp)) : ''?></td>
+											<td data-title="Registered By :"><?=isset($row->v_UserName) ? $row->v_UserName : ''?></td>
+											<td><a href="#" onclick="javascript:fbank('<?=$this->input->get('asstno')?>','<?=$row->doc_id?>')" >Change</a></td>
+											<td><?php echo anchor ('contentcontroller/del_filebank?assetno='.$this->input->get('asstno').'&docid='.$row->doc_id,'Delete') ?></td>
+											<?php $numrow++ ?>
+										</tr>
+										<?php endforeach;?>
+									</tr> 
 								</table>
 							</td>
 						</tr>

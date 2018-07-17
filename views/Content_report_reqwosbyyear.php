@@ -1,6 +1,6 @@
 <?php
 if ($this->input->get('ex') == 'excel'){
-$filename ="Request Work Order Summary by Year".date('F', mktime(0, 0, 0, $month, 10)) .$year.".xls";
+$filename ="Schedule Corrective Maintenance (SCM) Summary by Year".date('F', mktime(0, 0, 0, $month, 10)) .$year.".xls";
 header('Content-type: application/ms-excel');
 header('Content-Disposition: attachment; filename='.$filename);
 }
@@ -15,7 +15,7 @@ function barchart(a,b,c,d,e){
 </script>
 <?php include 'content_btp.php';?>
 <div id="Instruction" class="pr-printer">
-    <div class="header-pr">Work Order Report Summary By Year</div>
+    <div class="header-pr">Schedule Corrective Maintenance (SCM) Report Summary By Year</div>
     <button onclick="javascript:myFunction('report_reqwosbyyear?m=<?=$month?>&y=<?=$year?>&none=closed&grp=<?=$this->input->get('grp');?>&req=<?=$this->input->get('req');?>');" class="btn-button btn-primary-button">PRINT</button>
     <button type="cancel" class="btn-button btn-primary-button" onclick="location.href = '<?php echo $btp ;?>';">CANCEL</button>
 	<?php if (($this->input->get('ex') == '') or ($this->input->get('none') == '')){?>
@@ -141,7 +141,7 @@ function barchart(a,b,c,d,e){
 				break;
 			} ?>
 			<?php if ($this->input->get('req') == $req) {?>
-			<td colspan="5">Work Order Report Summary <?=$year?> - <?php echo $this->session->userdata('usersessn');?> ( <?php if (($this->input->get('req')) and (($this->input->get('grp') == '2') or ($this->input->get('grp') == '3'))){ echo 'Group'.$this->input->get('grp').','.$tulis; } elseif ($this->input->get('req')){echo $tulis; }elseif ($this->input->get('grp') == ''){ echo ' A1 - Breakdown Maintenance (BM)';}else{ echo 'Group '.$this->input->get('grp');} ?> )</td>
+			<td colspan="5">Schedule Corrective Maintenance (SCM) Report Summary <?=$year?> - <?php echo $this->session->userdata('usersessn');?> ( <?php if (($this->input->get('req')) and (($this->input->get('grp') == '2') or ($this->input->get('grp') == '3'))){ echo 'Group'.$this->input->get('grp').','.$tulis; } elseif ($this->input->get('req')){echo $tulis; }elseif ($this->input->get('grp') == ''){ echo ' A1 - Breakdown Maintenance (BM)';}else{ echo 'Group '.$this->input->get('grp');} ?> )</td>
 			<?php } ?>
 		</tr>
 	</table>
@@ -191,7 +191,7 @@ function barchart(a,b,c,d,e){
 			<td valign="top" colspan="2"><hr color="black" size="1Px"></td>
 		</tr>
 		<tr>
-			<td width="50%">Work Order Report Summary <?=$year?><br><i>Computer Generated - CAMSIS</i></td>
+			<td width="50%">Schedule Corrective Maintenance (SCM) Report Summary <?=$year?><br><i>Computer Generated - CAMSIS</i></td>
 			<td width="50%" align="right"></td>
 		</tr>
 	</table>

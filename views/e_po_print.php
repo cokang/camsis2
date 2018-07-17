@@ -129,10 +129,14 @@ img{
     <div class="header-pr">PURCHASE ORDER</div>
     <button onclick="javascript:myFunction('e_po_print?pr=vr&m=<?=$month?>&y=<?=$year?>&none=closed');" class="btn-button btn-primary-button">PRINT</button>
     <button type="cancel" class="btn-button btn-primary-button" onclick="location.href = '<?php base_url();?>e_pr?<?php echo '&m='.$this->input->get('m').'&y='.$this->input->get('y');?>&tab=2';">CANCEL</button>
+		<?php if (($this->input->get('ex') == '') or ($this->input->get('none') == '')){?>
+
+	<a href="<?php echo base_url();?>index.php/Procurement/e_po_print?po=<?=$this->input->get('po')?>&mrin=<?=$this->input->get('mrin')?>&pdf=1" style="float:right; margin-right:80px;"><img src="<?php echo base_url();?>images/pdf.png" style="width:40px; height:35px; position:absolute;" title="export to pdf"></a>
+	<?php } ?>
 </div>
 
 			<div class="wrapper">
-			<?php include 'content_headprint.php';?>
+			<?php include 'content_headprint2.php';?>
 <div class="h1-po-qp">QP 018<br />QF-019</div>
 <div class="h1-po">purchase order</div>
 <div class="h1-po-no">Purchase Order No : <?=($this->input->get('po') <> '') ? $this->input->get('po') : ''?></div>
@@ -160,7 +164,11 @@ img{
 		<tr>
 			<td align="right" style="width:40px;"><b>Po Date</b> </td>
 			<?php 
+	     if (isset($podetail[0]->PO_Date)){
 			$da = new DateTime($podetail[0]->PO_Date);
+		 } else {
+			$da = new DateTime();
+		 } 
 			$das = $da->format('j M Y');
 			$dayy = $da->format('j');
 			$mon = $da->format('m');

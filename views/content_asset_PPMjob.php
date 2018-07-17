@@ -2,7 +2,7 @@
 	<div class="content-workorder">
 		<div class="div-p">&nbsp;</div>
 		<div class="ui-main-form">
-		<?php include 'content_asset_tab.php';?>			
+		<?php include 'content_asset_tab.php';?>
 			<div class="ui-main-form-5">
 				<div class="middle_d2">
 					<table width="100%" class="ui-content-form-reg" style="">
@@ -16,7 +16,7 @@
 						</tr>
 						<tr >
 							<td class="ui-desk-style-table">
-							<table class="ui-content-form" id="no-more-tables" width="100%" border="0">
+							<table class="ui-content-form" id="no-more-tables" data-table="assetPPMjob" width="100%" border="0">
 								<tr>	
 									<th>Year</th>
 									<th>Job Type</th>

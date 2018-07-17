@@ -1,11 +1,24 @@
 <?php
 class wo_visitplus_update_ctrl extends CI_Controller{
 
+	function __construct(){
+     	parent::__construct();
+		$this->is_logged_in();
+	}
+
+	function is_logged_in()
+	{
+		
+		$is_logged_in = $this->session->userdata('v_UserName');
+		
+		if(!isset($is_logged_in) || $is_logged_in !=TRUE)
+		redirect('logincontroller/index');
+	}
+
 	public function index(){
 	//latest date compare function
 	//echo "lalalalla : " . $this->input->post('wrk_ord');
 	//exit();
-	
 	//if (substr($this->input->post('wrk_ord'),0,2) != 'PP'){	
 	if ((substr($this->input->post('wrk_ord'),0,2) != 'PP') && (substr($this->input->post('wrk_ord'),0,2) != 'RI')) {	
 	$this->load->model("get_model");
@@ -39,7 +52,8 @@ class wo_visitplus_update_ctrl extends CI_Controller{
 	$this->form_validation->set_rules('n_Type_of_Work','Type of Work','trim|required');
 	$this->form_validation->set_rules('n_Action_Taken','Action Taken','trim|required');
 
-	$this->form_validation->set_rules('n_rschDate','Reschedule Date','trim');
+	//$this->form_validation->set_rules('n_rschDate','Reschedule Date','trim');
+	$this->form_validation->set_rules('n_rschDate','Reschedule Date','trim|callback_date_check2['.$this->input->post('n_rschDate').']');
 	$this->form_validation->set_rules('n_rschReason','Reason','trim');
 	$this->form_validation->set_rules('n_rschReason1','Reason1','trim');
 	$this->form_validation->set_rules('n_rschAuth','Reschedule Authorised','trim');	
@@ -279,25 +293,65 @@ class wo_visitplus_update_ctrl extends CI_Controller{
 			return TRUE;
 		}
 	}
-function confirmation(){
+
+public function date_check2($shedule = '')
+{
+if ($shedule) {
+	     if ($shedule < date("d-m-Y"))
+			 		{
+					 $this->form_validation->set_message('date_check2','Reschedule date cannot be less than current date');
+					 return FALSE;
+					 }
+					 else
+					 {
+					 return TRUE;
+					 }
+		}else
+		{
+			return TRUE;
+		}
+}
+	
+	function confirmation(){
+	
 	$RN = $this->input->post('wrk_ord');
 	$visit = $this->input->post('visit');
+	
 	if ($visit == ''){
 		$this->load->model('get_model');
+		
 		//if(substr($RN,0,2) == 'PP')	{
 		if ((substr($RN,0,2) == 'PP') || (substr($RN,0,2) == 'RI'))	{
 		$latestvisit = $this->get_model->latestppmvisit($RN);
 		$visit = $latestvisit[0]->n_Visit + 1;
 		}
 		else{
+		
 		$latestvisit = $this->get_model->latestvisit($RN);
+		
 		$visit = $latestvisit[0]->n_Visit + 1;
+		print_r($latestvisit);
+		echo "masukxxcc ::::".$RN."::::::".$visit.$this->input->post('chkbox').$this->session->userdata('usersess').substr(substr($this->input->post('wrk_ord'),0,5),3,2);
+	//exit();
 		}
 	}
 
 	$this->load->model('insert_model');
 	
 	$wrk_ord_test = $this->insert_model->visitplus_woexist('v_WrkOrdNo',$RN,'n_Visit',$visit);
+	if ($this->input->post('chkbox') == 'ON'){
+					//$this->insert_model->job_woexist('v_WrkOrdNo',$variable);
+					echo "nk closed";
+					//exit();
+					
+		if (($this->session->userdata('usersess') == 'FES') && (substr(substr($this->input->post('wrk_ord'),0,5),3,2) == 'A4')) {
+		echo "dpt nama : ".$RN.":".$this->input->post('n_Action_Taken');
+		//exit();
+		//$this->send_mail_frmout('nezam@advancepact.com',$RN,$this->input->post('n_Action_Taken'));
+                }
+		
+		}
+	
 	if ((substr($RN,0,2) == 'PP') || (substr($RN,0,2) == 'RI')){
 	redirect('contentcontroller/visitplus?wrk_ord='.$RN. '&vppm=4');
 	}
@@ -305,6 +359,25 @@ function confirmation(){
 	redirect('contentcontroller/visitplus?wrk_ord='.$RN. '&wo=5');
 	}
 }
+
+
+		
+		 public function send_mail_frmout($emailto, $wono="", $summary="") { 
+         $from_email = "camsis@advancepact.com"; 
+         //$to_email = $this->input->post('email'); 
+         $to_email = $emailto; 
+   
+         //Load email library 
+         $this->load->library('email'); 
+   
+         $this->email->from($from_email, 'CAMSIS System'); 
+         $this->email->to($to_email);
+         $this->email->subject('WO '.$wono.' was closed'); 
+         $this->email->message('WO '.$wono.' have been closed. Summary '.$summary); 
+   
+         //Send mail 
+         $this->email->send();
+      } 
 
 }
 ?>

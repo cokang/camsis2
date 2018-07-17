@@ -8,7 +8,12 @@
 			</tr>
 			<tr>
 				<td class="td-assest" valign="top">Supplier :  </td>
-				<td><input type="text" name="n_supplier" class="form-control-button2 n_wi-date" value="<?=$this->input->post('n_supplier')?>" readonly> <span class="ui-left_mobile n_wi-ec"><br/></span><input type="text" class="form-control-button2 n_wi-s" name="n_supplier2" value="<?=$this->input->post('n_supplier2')?>" size="35"  readonly></td>
+				<td>
+					<input type="text" name="n_supplier" class="form-control-button2 n_wi-date" value="<?=$this->input->post('n_supplier')?>" readonly> 
+					<span class="ui-left_mobile n_wi-ec"><br/></span>
+					<!-- <input type="text" class="form-control-button2 n_wi-s" name="n_supplier2" value="<?=$this->input->post('n_supplier2')?>" size="35"  readonly> -->
+					<input type="text" class="form-control-button2 n_wi-date" name="n_supplier2" value="<?=$this->input->post('n_supplier2')?>" size="35"  readonly>
+				</td>
 			</tr>
 			<tr>
 				<td class="td-assest">Agent :</td>			

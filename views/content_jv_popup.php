@@ -292,6 +292,7 @@ function fCallpricexx(price,vendor,itemcode){
 	Win = window.open(url, 'Location', winProp);
 	Win.window.focus();
 }
+
 function fCallLocatioa(mrinno,tag)
 	{
 		setTimeout(function() {
@@ -369,6 +370,32 @@ function fCallpricexx(price,itemcode){
 	winProp = 'width=1050,height=370,left=' + ((screen.width - 1050) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
 	Win = window.open(url, 'Location', winProp);
 	Win.window.focus();
+}
+function pop_store(a, b, c, d, e){
+  //var http = new XMLHttpRequest();
+//alert("I am an alert box!"+a);
+	//var value = a.getAttribute('value');
+	if (confirm("Use store item!")) {
+        //alert("I am an alert box!"+a);
+				//http.open('get', 'ajaxstore?itemcd='+a+'&mirncd='+b+'&wo='+c+'&sQtyb='+d+'&sQtyt='+e, true);
+  	// Send the XMLHttpRequest
+    	  //http.send(null);
+				$.post("<?php echo base_url('index.php/ajaxstore'); ?>",
+        {
+          itemcd: a,
+          mirncd: b,
+          wo: c,
+          sQtyb: d,
+          sQtyt: e
+        },
+        function(data,status){
+            //alert("Data: " + data + "\nStatus: " + status);
+        });
+				alert('Stock Used');
+				window.location.reload();
+    } else {
+        alert("U press cancel!!");
+    }
 }
 </script> 
 <?php } ?>

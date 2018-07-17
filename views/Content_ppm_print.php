@@ -54,7 +54,7 @@
 					<table class="tbl-wo-1" border="0" align="left">
 						<tr>
 							<td class="tbl-wo-data">Equipment</td>
-							<td style="width:75%;">: <span style="color:blue;"><?= ($row[0][0]->v_asset_name) ? $row[0][0]->v_asset_name : 'NA' ?> (<?= ($row[0][0]->new_asset_type) ? $row[0][0]->new_asset_type : 'NA' ?>)</span></td>
+							<td style="width:75%;">: <span style="color:blue;"><?= ($row[0][0]->v_asset_name) ? $row[0][0]->v_asset_name : 'NA' ?> (<?= ($row[0][0]->new_asset_type) ? $row[0][0]->new_asset_type : 'NA' ?>) <?= ($row[0][0]->TASKDESC) ? $row[0][0]->TASKDESC : '' ?></span></td>
 						</tr>
 						<tr>
 							<td class="tbl-wo-data">Asset No</td>

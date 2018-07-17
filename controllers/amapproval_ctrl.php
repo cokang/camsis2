@@ -49,6 +49,9 @@ class amapproval_ctrl extends CI_Controller{
 									 'DtApprv' => date("Y-m-d H:i:s"));
 				$this->update_model->mrincomp_u($insert_data,$this->input->post('mrinno'),$row->Id);
 			}
+			
+			//$this->send_mail_frmout('nezam@advancepact.com',$this->input->post('mrinno'),$this->input->post('n_remark'));
+			//$this->send_mail_frmout('nezam@advancepact.com',$this->input->post('mrinno'),$this->input->post('n_remark'));
 		}
 		else if ($this->input->post('classid') == 3){
 			$this->load->model('update_model');
@@ -80,10 +83,46 @@ class amapproval_ctrl extends CI_Controller{
 				$this->insert_model->in_pr($insert_pr);
 			}
 			
+			//$this->send_mail_frmoutpo('nezam@advancepact.com',$this->input->post('mrinno'),$this->input->post('n_remark'));
+			//$this->send_mail_frmoutpo('nezam@advancepact.com',$this->input->post('mrinno'),$this->input->post('n_remark'));
 		}
 
 		redirect('Procurement?pro=mrin');
 	}
+		
+		  public function send_mail_frmout($emailto, $wono="", $summary="") { 
+         $from_email = "camsis@advancepact.com"; 
+         //$to_email = $this->input->post('email'); 
+         $to_email = $emailto; 
+   
+         //Load email library 
+         $this->load->library('email'); 
+   
+         $this->email->from($from_email, 'CAMSIS System'); 
+         $this->email->to($to_email);
+         $this->email->subject('MRIN '.$wono.' approval'); 
+         $this->email->message('MRIN '.$wono.' have been approved by manager & awaiting your approval.'); 
+   
+         //Send mail 
+         $this->email->send();
+      } 
+		
+		  public function send_mail_frmoutpo($emailto, $wono="", $summary="") { 
+         $from_email = "camsis@advancepact.com"; 
+         //$to_email = $this->input->post('email'); 
+         $to_email = $emailto; 
+   
+         //Load email library 
+         $this->load->library('email'); 
+   
+         $this->email->from($from_email, 'CAMSIS System'); 
+         $this->email->to($to_email);
+         $this->email->subject('MRIN '.$wono.' approval'); 
+         $this->email->message('MRIN '.$wono.' is awaiting your approval for PO .'); 
+   
+         //Send mail 
+         $this->email->send();
+      } 
 
 }
 ?>

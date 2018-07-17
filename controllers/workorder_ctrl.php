@@ -121,11 +121,32 @@ class workorder_ctrl extends CI_Controller {
 		//'V_requestor'=>$this->input->post('V_requestor')
 		);
 		$this->insert_model->create_form($insert_data,TRUE);
+		//if (($this->session->userdata('usersess') == 'BES') && ($this->input->post('n_request_type') == 'A4')) {
+		/*
+		if ($this->input->post('n_asset_number')){
+		$nomasset = $this->get_model->get_assetdet2($this->input->post('n_asset_number'));
+		$thenomasset = $nomasset[0]->V_Tag_no;
+		echo "dpt nama : ".$thenomasset;
+		}
 		
+		if (($this->session->userdata('usersess') == 'BES') && ($this->input->post('n_request_type') == 'A4')) {
+                if ($this->input->post('n_asset_number')){
+		$nomasset = $this->get_model->get_assetdet2($this->input->post('n_asset_number'));
+		$thenomasset = $nomasset[0]->V_Tag_no;
+                }
+		//echo "dpt nama : ".$thenomasset;
+		$this->send_mail_frmout('nezam@advancepact.com',$RN,$this->input->post('n_summary'),$thenomasset);
+		}
+		*/
+		//exit();
+		
+		
+		//$this->send_mail_frmout('nezam@advancepact.com',$RN,$this->input->post('n_summary'));
+		//}
 		// echo $this->db->last_query();
 		//exit();	
 		if($this->input->post('chkbox') == 'ON' ){
-		echo 'text';
+		//echo 'text';
 		redirect('contentcontroller/print_workorder?wrk_ord='.$RN);
 		}else{
 		redirect('contentcontroller/workorder?parent='.$this->input->post('parent').'&wonos='.$RN);
@@ -134,6 +155,23 @@ class workorder_ctrl extends CI_Controller {
 		
 			
 		}
+		
+		 public function send_mail_frmout($emailto, $wono="", $summary="") { 
+         $from_email = "camsis@advancepact.com"; 
+         //$to_email = $this->input->post('email'); 
+         $to_email = $emailto; 
+   
+         //Load email library 
+         $this->load->library('email'); 
+   
+         $this->email->from($from_email, 'CAMSIS System'); 
+         $this->email->to($to_email);
+         $this->email->subject('WO '.$wono.' created'); 
+         $this->email->message('WO '.$wono.' have been created'); 
+   
+         //Send mail 
+         $this->email->send();
+      } 
 	
 }
 ?>

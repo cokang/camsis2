@@ -16,7 +16,7 @@
 						</tr>
 						<tr >
 							<td class="ui-desk-style-table">
-							<table class="ui-content-form" id="no-more-tables" width="100%" border="0">
+							<table class="ui-content-form" id="no-more-tables" data-table="assetaccessories" width="100%" border="0">
 								<tr>	
 									<th>Accessory Code</th>
 									<th>Description</th>
@@ -31,7 +31,7 @@
 									<?php endforeach;?>  
 										<?php }else { ?>
 										<tr align="center" style="background:white; height:200px;">
-										<td colspan="10" class="default-NO"><span style="color:red;">NO ACCESSORIES FOUND FOR THIS ASSET.</span></td>
+										<td colspan="2" class="default-NO"><span style="color:red;">NO ACCESSORIES FOUND FOR THIS ASSET.</span></td>
 									</tr>
 									<?php } ?>
 								</table>

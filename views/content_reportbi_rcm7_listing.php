@@ -1,5 +1,5 @@
 <body>
-	<button type="cancel" class="btn-button btn-primary-button" onclick="window.history.back()" style="width:10%;">Back</button>
+	<button type="cancel" class="btn-button btn-primary-button" onclick="window.history.back()" style="padding: 3 3 3 3;">Back</button>
 	<div class="header_report_main"> MONTHLY RCM PERFORMANCE 14-7 DAYS REPORT </div>
 	<div class="middle_report_main">
 		<table class="middle_report_tbl">

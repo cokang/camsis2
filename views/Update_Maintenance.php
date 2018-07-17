@@ -256,7 +256,11 @@
 			<tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">Checklist</td></tr>
 			<tr>
 				<td class="td-assest">Checklist Code :&nbsp;</td>			
-				<td><input type="text" id="n_chklistcd" name="n_chklistcd" value="<?=isset($asset_chklist[0]->checklistCode) == TRUE ? $asset_chklist[0]->checklistCode : 'N/A' ?>" class="form-control-button2 n_wi-eq3" readonly> <span class="icon-windows" onclick="fchecklist(this)" value="<?=$this->input->get('assetno')?>"></span></td>
+				<td>
+					<!-- <input type="text" id="n_chklistcd" name="n_chklistcd" value="<?=isset($asset_chklist[0]->checklistCode) == TRUE ? $asset_chklist[0]->checklistCode : 'N/A' ?>" class="form-control-button2 n_wi-eq3" readonly>  -->
+					<input type="text" id="n_chklistcd" name="n_chklistcd" value="<?=isset($asset_chklist[0]->checklistCode) == TRUE ? $asset_chklist[0]->checklistCode : 'N/A' ?>" class="form-control-button2 n_user_d" readonly> 
+					<span class="icon-windows" onclick="fchecklist(this)" value="<?=$this->input->get('assetno')?>"></span>
+				</td>
 			</tr>
 			<tr>
 				<td class="td-assest">Checklist Description :&nbsp;</td>			

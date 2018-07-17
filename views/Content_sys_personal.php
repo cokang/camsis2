@@ -14,7 +14,7 @@
 						</tr>
 						<tr >
 							<td class="ui-desk-style-table">
-							<table class="ui-content-form" id="no-more-tables" width="100%" border="0">
+							<table class="ui-content-form" id="no-more-tables" data-table="personal_info" width="100%" border="0">
 								<tr>	
 									<th width="30px">No</td>
 									<th>Personal Code</th>
@@ -22,7 +22,7 @@
 									<th>Designation</th>
 								</tr>
 								<?php $numrow = 1; foreach($record as $row): ?>
-								<tr align="center" >
+								<tr align="center" <?= ($numrow%2==0) ?  'class="ui-color-color-color"' :  '' ?> >
 									<td data-title="No :"><?=$numrow++?></td>
 									<td data-title="Personal Code :"><?=isset($row->v_PersonalCode) ? anchor ('contentcontroller/sys_admin?gbl=2&sys_id='.$row->Id,$row->v_PersonalCode) : 'N/A'?></td>
 									<td data-title="Name :"><?=isset($row->v_PersonalName) ? $row->v_PersonalName : ''?></td>

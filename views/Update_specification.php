@@ -1,4 +1,11 @@
 <?php echo form_open('contentcontroller/confirmspec');?>
+<style type="text/css">
+	@media only screen and (max-width: 1024px) and (min-width: 760px) and (orientation: landscape){
+		input.n_wi-dep{
+			width: 52%;
+		}
+	}
+</style>
 <div class="ui-middle-screen">
 	<div class="content-workorder" align="center">
 		<div class="div-p"></div>

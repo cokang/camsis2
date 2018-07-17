@@ -7,7 +7,7 @@
 			</tr>
 			<tr>
 				<td colspan="3">
-					<div style="margin-left:50%;" class="ui-left_web">
+					<div style="margin-left:39%;" class="ui-left_web">
 						<table style="color:black;" width="100%" height="40px">
 							<tr style="font-weight: bold;">
 								<td width="180px" align="center">Date</td>
@@ -73,7 +73,11 @@
 						<span style="font-weight: bold;">X</span>
 						Work Order Cancellation	 :
 					</div>
-					<div class="ui-main-form-2"><input type="date" name="V_requestor" value="" class="form-control-button2 n_wi-date" /> <span class="space"></span> Requestor : <input type="text" name="V_requestor" value="" class="form-control-button2 n_wi-dep"></div>
+					<div class="ui-main-form-2">
+						<input type="date" name="V_requestor" value="" class="form-control-button2 n_wi-date" /> 
+						<!-- <span class="space"></span> Requestor : <input type="text" name="V_requestor" value="" class="form-control-button2 n_wi-dep"> -->
+						<input type="text" name="V_requestor" value="" class="form-control-button2 n_wi-date" placeholder="Requestor">
+					</div>
 				</td>
 			</tr>
 			<tr class="ui-header-new" style="height:40px;">

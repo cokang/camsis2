@@ -14,7 +14,7 @@
 						</tr>
 						<tr >
 							<td class="ui-desk-style-table">
-							<table class="ui-content-form" id="no-more-tables" width="100%" border="0">
+							<table class="ui-content-form" id="no-more-tables" data-table="user_setup" width="100%" border="0">
 								<tr>	
 									<th width="30px">No</td>
 									<th>User Name</th>
@@ -22,7 +22,8 @@
 									<th>User Active</th>
 									<th>User Group</th>
 								</tr>
-								<tr align="center" >
+								<?php $numrow=1;?>
+								<tr align="center" <?= ($numrow%2==0) ?  'class="ui-color-color-color"' :  '' ?> >
 									<td data-title="No :">1</td>
 									<td data-title="User Name :"><?php echo anchor ('contentcontroller/sys_admin?us=2&sys_id=Noor Razimy','Noor Razimy Bin Mokhta');?></td>
 									<td data-title="User Id :">Noor Razimy</td>

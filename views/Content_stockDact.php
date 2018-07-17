@@ -61,20 +61,22 @@
 			<table class="ui-content-middle-menu-workorder" border="0" height="" width="95%" align="center">
 			<?php include 'content_stock_d.php';?>
 			<tr class="ui-color-contents-style-1 ui-left_web">
-				<td colspan="11" height="40px" style="padding-left:10px; color:black;">Stock Details</td>
+				<td colspan="0" height="40px" style="padding-left:10px; color:black;">Stock Details</td>
+					<td  align="right" style="padding-right:10px" ><?php echo anchor ('contentcontroller/stockact?&print=1&id='.$this->input->get('id'), '<button class="btn-button btn-primary-button" style="background-color: ##1ee6b8;width:30%; height:33px;">PRINT<span class="icon-printer" style="float:right; margin-top:-4px; margin-right:20px; font-size:30px;"></span></button>');?></td>
 			</tr>
 			<tr class="ui-color-contents-style-1">
 				<td colspan="11" valign="top" class="pd-bttm">
-					<table width="98%" class="ui-content-middle-menu-workorder" style="">
+					<table border="0" width="98%" class="ui-content-middle-menu-workorder" style="">
 						<tr class="ui-color-contents-style-1" height="30px">
-							<td colspan="2" class="ui-header-new" valign="top"><span style="float: left; margin-top:8px; font-weight: bold;">Stock Activity</span><span class="ui-left_web" style="float: left; margin-top:8px; margin-left:8px; font-weight: bold; width: 20%;"></span></td>
+							<td colspan="2" width="5%" class="ui-header-new" valign="top"><span style="float: left; margin-top:8px; font-weight: bold;">Stock Activity</span><span class="ui-left_web" style="float: left; margin-top:8px; margin-left:8px; font-weight: bold; width: 20%;"></span></td>
 						</tr>						
 						<tr >
+
 							<td class="ui-desk-style-table">
 			                 <table class="ui-content-middle-menu-workorder3 ui-left_web" width="100%" height="25px">
 									<tr class="ui-menu-color-header" style="color:white; font-weight:bold;">
 										<th colspan="8">Entire Transaction</th>
-									</tr>
+									</tr> 
 									<tr class="ui-menu-color-header" style="color:white; font-weight:bold;">
 										<th>No</th>
 										<th>Transaction Date</th>
@@ -83,10 +85,21 @@
 										<th>In</th>
 										<th>Out</th>
 										<th>Balance</th>
-										<th>Remark</th>
+										<th>Remark </th>
 									</tr>
+									<?php 
+									$row = 0;
+									$sno = $row + 1;
+									if(isset($_GET['p'])){
+           $sno = (($_GET['p']*$limit)+1) - $limit;
+		
+            if($sno <=0) $sno = 1;
+        }
+									?>
 									<?php foreach ($assetrec as $key): ?>
-									<?php $numrow=1;foreach ($key as $rows): ?>
+								
+									<?php foreach ($key as $rows) : ?>
+
 									<?php if ($rows->ItemCode == $this->input->get('id')) { ?>
 									<?php
 									is_numeric($rows->Qty_Before) ? $Qty_Before = $rows->Qty_Before : $Qty_Before = 0;
@@ -96,7 +109,8 @@
 									?>
 									
 									<tr class="" style="color:black; font-size:12px; text-align:center;">
-										<td><?= $numrow ?></td>
+						
+										<td><?= $sno ?></td>
 										<td><?= date_format(new DateTime($rows->Time_Stamp), 'd-m-Y H:i:s') ?></td>
 										<td><?= $rows->Related_WO ?></td>
 										<td><?= $rows->Last_User_Update ?></td>
@@ -107,7 +121,7 @@
 									</tr>
 									<?php } ?>
 									
-									<?php $numrow++ ?>
+									<?php $sno++ ?>
 									<?php endforeach; ?>
 									<?php endforeach; ?>
 								</table>
@@ -116,13 +130,15 @@
 					  <ul class="paginate pag2 clearfix">
 					  	<?php if ($rec[0]->jumlah > $limit){ ?>
 					  	<li class="single">Page <?=($this->input->get('p') ? $this->input->get('p') : 1)?> of <?php echo $page?></li>
-					  	<li><a href="?tabIndex=1&p=<?php echo $page-1?>&id=<?php echo $this->input->get('id')?>">Prev</a></li>
-		              	<?php for ($i=1;$i<=$page;$i++){ ?>
-		              	<li><a href="?tabIndex=1&p=<?php echo $i?>&id=<?php echo $this->input->get('id')?>"><?=$i?></a></li>
-		              	<?php } ?>
+						<li><a href="?tabIndex=1&p=1&id=<?php echo $this->input->get('id')?>"> << First Page </a></li>
+						<?php if ($this->input->get('p') != ''){ ?>
+					  	<li><a href="?tabIndex=1&p=<?=($this->input->get('p')!=1 ? $this->input->get('p')-1 : $page-1)?>&id=<?php echo $this->input->get('id')?>">Prev</a></li> 
+						<?php } ?>
+						<li><a href=""><?=($this->input->get('p') ? $this->input->get('p') : 1)?></a></li>
 		              	<li><a href="?tabIndex=1&p=<?php echo $page?>&id=<?php echo $this->input->get('id')?>">Next</a></li>
+						<li><a href="?tabIndex=1&p=<?php echo ceil($rec[0]->jumlah/$limit);?>&id=<?php echo $this->input->get('id')?>">Last Page >></a></li>
 		              	<?php } ?>
-					
+				
 					  </ul>
 					</div>
 							</td>

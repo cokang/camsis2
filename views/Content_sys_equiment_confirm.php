@@ -75,7 +75,7 @@
 								<td class="ui-desk-style-table">
 									<table class="ui-content-form" width="100%" border="0">
 										<tr>
-											<td style="padding-left:10px;" valign="top">Team  : </td>
+											<td style="padding-left:10px;" valign="top" class="ui-w">Team  : </td>
 											<td>
 											<?php $Team_list = array(
 															'0' => 'Critical care',

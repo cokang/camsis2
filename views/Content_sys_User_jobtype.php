@@ -14,7 +14,7 @@
 						</tr>
 						<tr >
 							<td class="ui-desk-style-table">
-							<table class="ui-content-form" id="no-more-tables" width="100%" border="0">
+							<table class="ui-content-form" id="no-more-tables" data-table="maintenance_service_code_setup" width="100%" border="0">
 								<tr>	
 									<th width="30px">No</td>
 									<th>Equipment Job Code</th>
@@ -22,7 +22,8 @@
 									<th>Checklist Code</th>
 									<th>Procedure Code</th>
 								</tr>
-								<tr align="center" >
+								<?php $numrow=1;?>
+								<tr align="center" <?= ($numrow%2==0) ?  'class="ui-color-color-color"' :  '' ?> >
 									<td data-title="No :">1</td>
 									<td data-title="Equipment Job Code :"><?php echo anchor ('contentcontroller/sys_admin?jt=2&sys_id=FMVEH01','FMVEH01');?></td>
 									<td data-title="Job Type Code :">Engineer</td>

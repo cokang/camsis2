@@ -233,11 +233,12 @@ class Contentcontroller extends CI_Controller {
 		$this ->load->view("content_catalog_ppm",$data);
 	}	
 		public function report_workorder(){
-		$this->load->model("display_model");
-		$data['records_desk'] = $this->display_model->list_desk();
+		//$this->load->model("display_model");
+		//$data['records_desk'] = $this->display_model->list_desk();
 		$this ->load->view("head");
 		$this ->load->view("left");
-		$this ->load->view("content_report_workorder",$data);
+		//$this ->load->view("content_report_workorder",$data);
+		$this ->load->view("content_report_workorder");
 	}
 
 		public function desklist (){
@@ -3658,6 +3659,7 @@ class Contentcontroller extends CI_Controller {
 		}
 	  	$this->load->model("display_model");
 		$data['records'] = $this->display_model->list_hospinfo();
+		$data['fon']= ($this->input->get('fon')) ? $this->input->get('fon') : "";	
 		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");	
 		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
 		$data['reqtype']= $this->input->get('req') ? $this->input->get('req') : '';
@@ -3676,7 +3678,7 @@ class Contentcontroller extends CI_Controller {
 				}
 			}
 		}
-		$data['record'] = $this->display_model->rpt_volu($data['month'],$data['year'],$this->input->get('stat'),$data['reqtype'],$this->input->get('broughtfwd'),$data['grpsel'],$pilape,$data['tag'],$data['cm'],$data['limab'],$data['bfwd']);
+		$data['record'] = $this->display_model->rpt_volu($data['month'],$data['year'],$this->input->get('stat'),$data['reqtype'],$this->input->get('broughtfwd'),$data['grpsel'],$pilape,$data['tag'],$data['cm'],$data['limab'],$data['bfwd'],"",$data['fon']);
 
 		//print_r($data['record']);
 		//exit();
@@ -3708,6 +3710,7 @@ class Contentcontroller extends CI_Controller {
 	}
 	public function report_vols(){
 	  $this->load->model("display_model");
+		$data['fon']= ($this->input->get('fon')) ? $this->input->get('fon') : "";	
 		$data['records'] = $this->display_model->list_hospinfo();
 		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");	
 		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
@@ -3721,11 +3724,11 @@ class Contentcontroller extends CI_Controller {
 		$pilape = "IIUM C";
 		}
 		//echo "lalalalalla : " . $this->session->userdata('v_UserName');
-		if ($this->session->userdata('v_UserName') == "mariana") {
-		$data['record'] = $this->display_model->rpt_volsmar($data['month'],$data['year'], $this->input->get('stat'), $this->input->get('resch'),$data['grpsel'],$pilape);
-		} else {
-		$data['record'] = $this->display_model->rpt_vols($data['month'],$data['year'], $this->input->get('stat'), $this->input->get('resch'),$data['grpsel'],$pilape);
-		}
+//		if ($this->session->userdata('v_UserName') == "mariana") {
+//		$data['record'] = $this->display_model->rpt_volsmar($data['month'],$data['year'], $this->input->get('stat'), $this->input->get('resch'),$data['grpsel'],$pilape);
+//		} else {
+		$data['record'] = $this->display_model->rpt_vols($data['month'],$data['year'], $this->input->get('stat'), $this->input->get('resch'),$data['grpsel'],$pilape,$data['fon']);
+//		}
 		$data['reqtype'] = 'A2';
 		$data['tag'] = '';
 		$data['cm']= '';
@@ -3904,16 +3907,22 @@ class Contentcontroller extends CI_Controller {
 	
 	  $this->load->model("display_model");
 		$data['records'] = $this->display_model->list_hospinfo();
+		$data['fon']= ($this->input->get('fon')) ? $this->input->get('fon') : "";	
+		//echo "nilai fon : ".$data['fon'].":".$this->input->get('fon');
 		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");	
 		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
-		$data['ppmsum'] = $this->display_model->sumppm($data['month'],$data['year'],$this->input->get('grp'));
+		$data['ppmsum'] = $this->display_model->sumppm($data['month'],$data['year'],$this->input->get('grp'),"",$data['fon']);
 		$data['reschout'] = $this->display_model->reschout($data['month'],$data['year'],$this->input->get('grp'));
-		$data['reqtype'] = 'A2';
+		$data['reqtype'] = 'A2';	
+		$data['total'] = $this->display_model->sumpp_m($data['month'],$data['year'],'total');
+		$data['totale'] = $this->display_model->sumpp_m($data['month'],$data['year'],'totale');
+		$data['totalm'] = $this->display_model->sumpp_m($data['month'],$data['year'],'totalm');
+		$data['totalc'] = $this->display_model->sumpp_m($data['month'],$data['year'],'totalc');
 		//$data['rqsum'] = $this->display_model->sumrq($data['month'],$data['year'],$data['reqtype'],$this->input->get('grp'));
                 if ($this->session->userdata('usersess') == 'FES') {
-		$data['ppmcivil'] = $this->display_model->sumppm($data['month'],$data['year'],$this->input->get('grp'),"IIUM C");
-		$data['ppmmech'] = $this->display_model->sumppm($data['month'],$data['year'],$this->input->get('grp'),"IIUM M");
-		$data['ppmelec'] = $this->display_model->sumppm($data['month'],$data['year'],$this->input->get('grp'),"IIUM E");
+		$data['ppmcivil'] = $this->display_model->sumppm($data['month'],$data['year'],$this->input->get('grp'),"IIUM C",$data['fon']);
+		$data['ppmmech'] = $this->display_model->sumppm($data['month'],$data['year'],$this->input->get('grp'),"IIUM M",$data['fon']);
+		$data['ppmelec'] = $this->display_model->sumppm($data['month'],$data['year'],$this->input->get('grp'),"IIUM E",$data['fon']);
 		$data['reschoutcivil'] = $this->display_model->reschout($data['month'],$data['year'],$this->input->get('grp'),"IIUM C");
 		$data['reschoutmech'] = $this->display_model->reschout($data['month'],$data['year'],$this->input->get('grp'),"IIUM M");
 		$data['reschoutlec'] = $this->display_model->reschout($data['month'],$data['year'],$this->input->get('grp'),"IIUM E");
@@ -3933,18 +3942,19 @@ class Contentcontroller extends CI_Controller {
 	
 	  $this->load->model("display_model");
 		$data['records'] = $this->display_model->list_hospinfo();
+		$data['fon']= ($this->input->get('fon')) ? $this->input->get('fon') : "";	
 		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");	
 		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
 		$data['reqtype']= $this->input->get('req') ? $this->input->get('req') : '';
 		//$data['ppmsum'] = $this->display_model->sumppm($data['month'],$data['year']);
-		$data['rqsum'] = $this->display_model->sumrq($data['month'],$data['year'],$data['reqtype'],$this->input->get('grp'));
+		$data['rqsum'] = $this->display_model->sumrq($data['month'],$data['year'],$data['reqtype'],$this->input->get('grp'),"",$data['fon']);
 		//$data['complntsum'] = $this->display_model->sumcomplnt($data['month'],$data['year']);
 		
 
                 if ($this->session->userdata('usersess') == 'FES') {
-		$data['rqcivil'] = $this->display_model->sumrq($data['month'],$data['year'],$data['reqtype'],$this->input->get('grp'),"IIUM C");
-		$data['rqmech'] = $this->display_model->sumrq($data['month'],$data['year'],$data['reqtype'],$this->input->get('grp'),"IIUM M");
-		$data['rqelec'] = $this->display_model->sumrq($data['month'],$data['year'],$data['reqtype'],$this->input->get('grp'),"IIUM E");
+		$data['rqcivil'] = $this->display_model->sumrq($data['month'],$data['year'],$data['reqtype'],$this->input->get('grp'),"IIUM C",$data['fon']);
+		$data['rqmech'] = $this->display_model->sumrq($data['month'],$data['year'],$data['reqtype'],$this->input->get('grp'),"IIUM M",$data['fon']);
+		$data['rqelec'] = $this->display_model->sumrq($data['month'],$data['year'],$data['reqtype'],$this->input->get('grp'),"IIUM E",$data['fon']);
 		}
 
                 
@@ -5427,13 +5437,14 @@ class Contentcontroller extends CI_Controller {
 		$this->load->model('display_model');
 		$data['record'] = $this->display_model->stock_asset($this->input->post('searchquestion'));
 		//$data['count'] = count($data['record']);
-
+//print_r($data['record']);
 		foreach($data['record'] as $row){
 		$data['pricel'] = $this->display_model->stock_passet($row->ItemCode,$row->Hosp_code);
 		$data['pricerec'][] = $data['pricel'];
 		
 		$data['assetl'] = $this->display_model->storeasset_detail($row->ItemCode,$row->Hosp_code);
-
+//print_r($data['pricel']);
+//exit();
 		$data['assetrec'][] = $data['assetl'];
 		}
 		function toArray($obj)
@@ -5622,6 +5633,7 @@ class Contentcontroller extends CI_Controller {
 		//$data['recordcheck'] = $this->display_model->response_tab($data['wrk_ord']);
 		$data['records'] = $this->display_model->visit1_tab($data['wrk_ord']);
 		$data['recordjob'] = $this->display_model->jobclose_tab($data['wrk_ord']);
+		$data['record'] = $this->display_model->request_tab($data['wrk_ord']);
 		}
 		//print_r($data['records']);
 		//exit();
@@ -8051,10 +8063,72 @@ public function pop_fail(){
 public function new_item (){
 		$this ->load->view("head");
 		$this ->load->view("left");
+		$this->load->model("display_model");
+    	$this->load->model("get_model");
+		$this->load->model('update_model');
+         if (isset($_GET['edit'])){
+	
+		$data['edititem'] = $this->get_model->get_asset_list($_GET['edit']);
+	    // print_r ($data['edititem']);
+		}
+		$data['limit'] = 10; 	
+        isset($_GET['pa']) ? $data['page'] = $_GET['pa'] : $data['page'] = 1;
+	    $data['start'] = ($data['page'] * $data['limit']) - $data['limit'];
+		
+     	$data['records'] = $this->display_model->s_item_detail($data['limit'],$data['start']);
+
+		$data['count'] = count($data['records']);
+        $data['rec'] =  $this->display_model->s_item_detail('0','0');
+		if($data['rec'][0]->jumlah > ($data['page'] * $data['limit']) ){
+	    $data['next'] = ++$data['page'];
+		}	   
+
+
 		if($this->input->get('p') == 'confirm'){
 		$this ->load->view("content_new_item_confirm");
+		}elseif($this->input->get('p') == 'save'){
+
+     	$this->db->select('id');
+        $this->db->from('pmis2_sa_vendor');
+        $this->db->where('v_vendorcode',$this->input->post('n_vendor_code'));
+        $result_array = $this->db->get()->result_array();
+		$insert_data = array(
+
+		'ItemCode'=>$this->input->post('n_code'),
+		'ItemName'=>$this->input->post('n_description'),
+		'ItemLoc'=>$this->input->post('n_location'),
+		'PartNumber'=>$this->input->post('n_partno'),
+		'PartDescription'=>$this->input->post('n_pdescription'),
+	      'UnitPrice'=>$this->input->post('n_unitprice'),
+		'CurrencyID'=>$this->input->post('n_currency'),
+		'MeasurementID'=>$this->input->post('n_Unit_of_measurement'),
+		'VendorID'=>$result_array[0]['id'],
+		'Comments'=>$this->input->post('n_comments'),
+		'CodeCat'=>$this->input->post('n_codecat'),
+		'EquipCat'=>$this->input->post('n_equipcat'),		
+		'Brand'=>$this->input->post('n_brand'),
+		'Model'=>$this->input->post('n_model'),
+
+		'Dept'=>$this->session->userdata('usersess'),
+		'DateCreated'=>date('Y-m-d H:i:s'),
+		//'DateCreated'=>date("Y-m-d"),
+	
+	
+		);
+/* 		print_r($insert_data);
+		exit(); */
+
+		if($this->input->post('editid')){
+		 $this->load->model('update_model');
+		 $this->update_model->updateitems($insert_data,$this->input->post('editid'));
+		 }else{		
+          $this->insert_model->ins_itembaru($insert_data);
+		 }
+	/* 	 echo $this->db->last_query();
+		 exit(); */
+		 redirect('contentcontroller/new_item?itemname='.$this->input->post('n_description').'&itemcode='.$this->input->post('n_code'));
 		}else{
-		$this ->load->view("content_new_item");
+		$this ->load->view("content_new_item",$data);
 		}
 }
 
@@ -8160,7 +8234,17 @@ public function deductmapping_2(){
    
 		$this->load->model("display_model");
 	    $data['record'] = $this->display_model->stock_asset($this->input->get('id'));
-        $data['limit'] = 6; 	
+		
+		if($this->input->get('print')){
+	
+		foreach($data['record'] as $row){
+		$data['rec'] =  $this->display_model->stock_details($row->ItemCode,$row->Hosp_code,'0','0');
+		}
+		$data['limit'] = $data['rec'][0]->jumlah;	
+		}else{
+		$data['limit'] = 10;		
+		}
+         
          isset($_GET['p']) ? $data['page'] = $_GET['p'] : $data['page'] = 1;
 	   $data['start'] = ($data['page'] * $data['limit']) - $data['limit'];		 
 		foreach($data['record'] as $row){
@@ -8172,9 +8256,37 @@ public function deductmapping_2(){
 		if($data['rec'][0]->jumlah > ($data['page'] * $data['limit']) ){
 			$data['next'] = ++$data['page'];
 		}
+		
+		if($this->input->get('print')){
+		$data['print'] = 0;
+		$this ->load->view("headprinter");
+		$this ->load->view("Content_print_stockactvt", $data);
+		}else{	
 		$this ->load->view("head");
 		$this ->load->view("left");
 		$this ->load->view("Content_stockDact",$data);
+	    }
+	}
+	
+	
+	
+public function print_kewpa(){
+	  $data['assetn'] = $this->input->get('asstno');
+	  	$this->load->model("get_model");
+	    $data['asset_det'] = $this->get_model->get_assetdet2($data['assetn']);
+			$data['asset_UMDNS'] = $this->get_model->get_UMDNSAsset($data['asset_det'][0]->V_Equip_code);
+		$data['assetppm'] = $this->get_model->assetppmlist($data['assetn']);
+		if ((null !==$this->input->get('pr')) and ($this->input->get('none') == 'closed')){
+		$data['print'] = $this->input->get('pr');
+		$this ->load->view("headprinter");
+		$this ->load->view("Content_print_kewpa", $data);
+
+		}else{
+		$data['print'] = 0;
+			$this ->load->view("headprinter");
+			$this ->load->view("Content_print_kewpa", $data);
+
+		}
 	}
 	
 }

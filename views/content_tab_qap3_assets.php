@@ -19,50 +19,81 @@
 	<td class="ui-left_mobile">
 <?php
 if (!is_null($this->input->get('asst'))){
-	if ($this->input->get('asst') == 0){ 
-		echo "<table class='ui-mobile-content-header' border='0' align='center'>";
-		echo "<tr>";
-		echo "<td style='width:20px;'>";
-		//echo anchor ('contentcontroller/qap3','<span class="icon-arrow-left"></span>');
-		echo "</td>";
-		echo "<td align='center'>";
+	/*
+		if ($this->input->get('asst') == 0){ 
+			echo "<table class='ui-mobile-content-header' border='0' align='center'>";
+			echo "<tr>";
+			echo "<td style='width:20px;'>";
+			//echo anchor ('contentcontroller/qap3','<span class="icon-arrow-left"></span>');
+			echo "</td>";
+			echo "<td align='center'>";
+			echo "Asset With SIQ";
+			echo"</td>";
+			echo "<td align='right' style='width:20px;'>";
+	 		echo anchor ('contentcontroller/qap3_asset_n_SIQ?&tab=1&asst=1','<span class="icon-arrow-right"></span>');
+			echo "</td>"; 
+			echo "</tr>";
+			echo "</table>";
+		}
+		elseif($this->input->get('asst') == 1){
+			echo "<table class='ui-mobile-content-header' border='0' align='center'>";
+			echo "<tr>";
+			echo "<td style='width:20px;'>";
+			echo anchor ('contentcontroller/qap3_asset?&tab=1&asst=0','<span class="icon-arrow-left"></span>');
+			echo "</td>";
+			echo "<td align='center'>";
+			echo "Asset With No SIQ";
+			echo"</td>";
+			echo "<td align='right' style='width:20px;'>";
+			echo anchor ('contentcontroller/qap3_asset_E?&tab=1&asst=2','<span class="icon-arrow-right"></span>');
+			echo "</td>"; 
+			echo "</tr>";
+			echo "</table>";
+		}
+		elseif($this->input->get('asst') == 2){
+			echo "<table class='ui-mobile-content-header' border='0' align='center'>";
+			echo "<tr>";
+			echo "<td style='width:20px;'>";
+			echo anchor ('contentcontroller/qap3_asset_n_SIQ?&tab=1&asst=1','<span class="icon-arrow-left"></span>');
+			echo "</td>";
+			echo "<td align='center'>";
+			echo "Excluded Asset";
+			echo"</td>";
+			echo "<td align='right' style='width:20px;'>";
+			//echo anchor ('contentcontroller/visitthree?wrk_ord='.$this->input->get('wrk_ord'). '&vppm=3','<span class="icon-arrow-right"></span>');
+			echo "</td>"; 
+			echo "</tr>";
+			echo "</table>";
+		}
+	*/
+	if( $this->input->get('asst') == 0 ){
+		echo "<div class='divmenu'>";
+		echo "<div class='divmenuleft'>";
+		echo "</div>";
 		echo "Asset With SIQ";
-		echo"</td>";
-		echo "<td align='right' style='width:20px;'>";
- 		echo anchor ('contentcontroller/qap3_asset_n_SIQ?&tab=1&asst=1','<span class="icon-arrow-right"></span>');
-		echo "</td>"; 
-		echo "</tr>";
-		echo "</table>";
-	}
-	elseif($this->input->get('asst') == 1){
-		echo "<table class='ui-mobile-content-header' border='0' align='center'>";
-		echo "<tr>";
-		echo "<td style='width:20px;'>";
+		echo "<div class='divmenuright'>";
+		echo anchor ('contentcontroller/qap3_asset_n_SIQ?&tab=1&asst=1','<span class="icon-arrow-right"></span>');
+		echo "</div>";
+		echo "</div>";
+	}elseif( $this->input->get('asst') == 1 ){
+		echo "<div class='divmenu'>";
+		echo "<div class='divmenuleft'>";
 		echo anchor ('contentcontroller/qap3_asset?&tab=1&asst=0','<span class="icon-arrow-left"></span>');
-		echo "</td>";
-		echo "<td align='center'>";
+		echo "</div>";
 		echo "Asset With No SIQ";
-		echo"</td>";
-		echo "<td align='right' style='width:20px;'>";
+		echo "<div class='divmenuright'>";
 		echo anchor ('contentcontroller/qap3_asset_E?&tab=1&asst=2','<span class="icon-arrow-right"></span>');
-		echo "</td>"; 
-		echo "</tr>";
-		echo "</table>";
-	}
-	elseif($this->input->get('asst') == 2){
-		echo "<table class='ui-mobile-content-header' border='0' align='center'>";
-		echo "<tr>";
-		echo "<td style='width:20px;'>";
+		echo "</div>";
+		echo "</div>";
+	}elseif( $this->input->get('asst') == 2 ){
+		echo "<div class='divmenu'>";
+		echo "<div class='divmenuleft'>";
 		echo anchor ('contentcontroller/qap3_asset_n_SIQ?&tab=1&asst=1','<span class="icon-arrow-left"></span>');
-		echo "</td>";
-		echo "<td align='center'>";
+		echo "</div>";
 		echo "Excluded Asset";
-		echo"</td>";
-		echo "<td align='right' style='width:20px;'>";
-		//echo anchor ('contentcontroller/visitthree?wrk_ord='.$this->input->get('wrk_ord'). '&vppm=3','<span class="icon-arrow-right"></span>');
-		echo "</td>"; 
-		echo "</tr>";
-		echo "</table>";
+		echo "<div class='divmenuright'>";
+		echo "</div>";
+		echo "</div>";
 	}
 }
 ?>

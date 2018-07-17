@@ -131,141 +131,180 @@ $array = [
 	['Procurement', '../contentcontroller/Procurement/'.$this->session->userdata('usersess').'?&tab=4', 'Procurement/report/','',''],
 ];
 if ($this->input->get('rs')== 1){
-$array = [
-	//Report//
-	['Back To Main Report', 'Schedule/', 'contentcontroller/report_RSReport/','',''],
-	['Back To Main Report', 'Schedule/', 'contentcontroller/report_search_dwo/','',''],
-	['Back To Main Report', 'Schedule/', 'contentcontroller/report_search_loc/','',''],
-	//end report//
-];
+	$array = [
+		//Report//
+		['Back To Main Report', 'Schedule/', 'contentcontroller/report_RSReport/','',''],
+		['Back To Main Report', 'Schedule/', 'contentcontroller/report_search_dwo/','',''],
+		['Back To Main Report', 'Schedule/', 'contentcontroller/report_search_loc/','',''],
+		//end report//
+	];
 }
 //echo $this->uri->slash_segment(1) .":".$this->uri->slash_segment(2).'<br>';
 foreach ($array as $list) {
-//print_r($list);
-//echo 'nilai c '.$list[2];
-//exit();
-    // $a contains the first element of the nested array,
-    // and $b contains the second element.
-    //echo $this->uri->slash_segment(1) .$this->uri->slash_segment(2).'abis';
-if ($list[2] == $this->uri->slash_segment(1) .$this->uri->slash_segment(2)){
-	//echo "A: $a; B: $b\n C: $c\n <br />" ;
-	if ($this->input->get('parent') == 'wrkodr' ){
-	echo "<div class='menu-class'>
-		<a href='contentcontroller/workorder?parent=wrkodr'><span class='icon-play2' valign='middle'></span> Work Order</a>
-	</div>";
-	}
-	elseif ($this->input->get('siq') == 2 ){
-	echo "<div class='menu-class'>
-		<a href='qap3_SIQ?&siq=2'><span class='icon-play2' valign='middle'></span> SIQ Uptime</a>
-	</div>";
-	}
-	elseif (
-	( $this->input->get('en') == 'JISBMI')or
-	( $this->input->get('en') == 'JISFH' ) or
-	( $this->input->get('en') == 'JIS' ) or
-	( $this->input->get('en') == 'JISDoc' )or
-	( $this->input->get('en') == 'cls' ) or
-	( $this->input->get('en') == 'clshosp' )or
-	( $this->input->get('en') == 'clsdate' ) or
-	( $this->input->get('en') == 'clsmon' )){
+	//print_r($list);
+	//echo 'nilai c '.$list[2];
+	//exit();
+	    // $a contains the first element of the nested array,
+	    // and $b contains the second element.
+	    //echo $this->uri->slash_segment(1) .$this->uri->slash_segment(2).'abis';
+	if ($list[2] == $this->uri->slash_segment(1) .$this->uri->slash_segment(2)){
+		//echo "A: $a; B: $b\n C: $c\n <br />" ;
+		if ($this->input->get('parent') == 'wrkodr' ){
+			echo "
+				<div class='menu-class'>
+					<a href='contentcontroller/workorder?parent=wrkodr'><span class='icon-play2' valign='middle'></span> Work Order</a>
+				</div>";
+		}
+		elseif ($this->input->get('siq') == 2 ){
+			echo "
+				<div class='menu-class'>
+					<a href='qap3_SIQ?&siq=2'><span class='icon-play2' valign='middle'></span> SIQ Uptime</a>
+				</div>";
+		}
+		elseif (
+				( $this->input->get('en') == 'JISBMI')or
+				( $this->input->get('en') == 'JISFH' ) or
+				( $this->input->get('en') == 'JIS' ) or
+				( $this->input->get('en') == 'JISDoc' )or
+				( $this->input->get('en') == 'cls' ) or
+				( $this->input->get('en') == 'clshosp' )or
+				( $this->input->get('en') == 'clsdate' ) or
+				( $this->input->get('en') == 'clsmon' )){
 	
-	}
-	elseif (($this->input->get('en') == 'JISJNum' ) or ($this->input->get('en') == 'clsmondate' )){
-	echo "<div class='menu-class'>
-		<a href='content/".$this->session->userdata('usersess')."'><span class='icon-play2' valign='middle'></span> Back To Main Page</a>
-	</div>";
-	}
-	elseif ( $this->input->get('resch') == 'bfbf') { 
-	echo "<div class='menu-class'>
-		<a href='report_rtlu?m=".$this->input->get('m').'&y='.$this->input->get('y').'&stat='.$this->input->get('stat').'&resch='.$this->input->get('resch').'&state='.$this->input->get('state')."'><span class='icon-play2' valign='middle'></span> Back To Main Page</a>
-	</div>";
-	}
-	elseif (($this->input->get('state') == 'fbfb') and ($this->input->get('resch') == 'fbfb')) { 
-	echo "<div class='menu-class'>
-		<a href='report_reqwos?m=".$this->input->get('m').'&y='.$this->input->get('y').'&stat='.$this->input->get('stat').'&resch='.$this->input->get('resch').'&state='.$this->input->get('state')."'><span class='icon-play2' valign='middle'></span> Back To Main Page</a>
-	</div>";
-	}
-	elseif ($this->input->get('vppm')){
-	echo "<div class='menu-class'>
-		<a href='catalogppm'><span class='icon-play2' valign='middle'></span> PPM Catalog ";
-				if ($this->input->get('wrk_ord') != ''){ 
-		echo " > ".$this->input->get('wrk_ord') ;
 		}
-	echo "</a></div>";
+		elseif (($this->input->get('en') == 'JISJNum' ) or ($this->input->get('en') == 'clsmondate' )){
+			echo "
+				<div class='menu-class'>
+					<a href='content/".$this->session->userdata('usersess')."'><span class='icon-play2' valign='middle'></span> Back To Main Page</a>
+				</div>";
+		}
+		elseif ( $this->input->get('resch') == 'bfbf') { 
+			echo "
+				<div class='menu-class'>
+					<a href='report_rtlu?m=".$this->input->get('m').'&y='.$this->input->get('y').'&stat='.$this->input->get('stat').'&resch='.$this->input->get('resch').'&state='.$this->input->get('state')."'><span class='icon-play2' valign='middle'></span> Back To Main Page</a>
+				</div>";
+		}
+		elseif (($this->input->get('state') == 'fbfb') and ($this->input->get('resch') == 'fbfb')) { 
+			echo "
+				<div class='menu-class'>
+					<a href='report_reqwos?m=".$this->input->get('m').'&y='.$this->input->get('y').'&stat='.$this->input->get('stat').'&resch='.$this->input->get('resch').'&state='.$this->input->get('state')."'><span class='icon-play2' valign='middle'></span> Back To Main Page</a>
+				</div>";
+		}
+		elseif ( $this->input->get('vppm') ){
+			echo "
+				<div class='menu-class'>
+					<a href='catalogppm'><span class='icon-play2' valign='middle'></span> PPM Catalog ";
+			if ($this->input->get('wrk_ord') != ''){ 
+				echo " > ".$this->input->get('wrk_ord') ;
+			}
+			echo "</a></div>";
+		}
+		elseif ($this->input->get('parent') == '' ){
+			echo "
+				<div class='menu-class'>
+					<a href='$list[1]'><span class='icon-play2' valign='middle'></span> $list[0]";
+			if ($this->input->get('wrk_ord') != ''){ 
+				echo " > ".$this->input->get('wrk_ord') ;
+			}elseif ($this->input->get('asstno') != ''){
+		 		echo " > ".$result[0]->V_Tag_no." (".$this->input->get('asstno').")" ;
+			}
+			echo "</a></div>";
+		}
+		elseif ($this->input->get('parent') == 'complaint' ){
+			echo "<div class='menu-class'><a href='$list[1]'><span class='icon-play2' valign='middle'></span> $list[0]";
+			echo "</a></div>";
+		}
+		else {
+			echo "
+				<div class='menu-class'>
+					<a href='$list[1]'><span class='icon-play2' valign='middle'></span> $list[0] > ".$asset_det[0]->V_Tag_no." (".$this->input->get('asstno').")</a>
+				</div>";
+		}
 	}
-	elseif ($this->input->get('parent') == '' ){
-	echo "<div class='menu-class'>
-		<a href='$list[1]'><span class='icon-play2' valign='middle'></span> $list[0]";
+	elseif ($list[4] == $this->uri->slash_segment(1) .$this->uri->slash_segment(2)){ 
+		//if (isset('asstno='.$this->input->get('asstno'))){
+			//print_r ('asstno='.$this->input->get('assetno'));
+			//exit();
+		//}
+		echo "
+			<div class='menu-class'>
+				<a href='$list[1]'><span class='icon-play2' valign='middle'></span>  $list[0]</a><a href='$list[3]'> <span class='icon-play2' valign='middle'></span> $list[2]</a>
+			</div>";
+	}
+
+	/*-- buzzlee keluarkan function ni dari loop --*/
+	/*-- atas alasan hasilnya keluar berulang --*/
+	/*-- refer #pindah 1.0 --*/
+	/*elseif (($this->input->get('asstno') != '') and ($this->input->get('tab') == '7')){
+		echo "
+			<div class='menu-class'>
+				<a href='assets'><span class='icon-play2' valign='middle'></span> Asset";
 		if ($this->input->get('wrk_ord') != ''){ 
-		echo " > ".$this->input->get('wrk_ord') ;
+			echo " > ".$this->input->get('wrk_ord') ;
 		}elseif ($this->input->get('asstno') != ''){
-		 echo " > ".$result[0]->V_Tag_no." (".$this->input->get('asstno').")" ;
+			echo " > ".$result[0]->V_Tag_no." (".$this->input->get('asstno').")" ;
 		}
-	echo "</a></div>";
-	}
-	elseif ($this->input->get('parent') == 'complaint' ){
-	echo "<div class='menu-class'><a href='$list[1]'><span class='icon-play2' valign='middle'></span> $list[0]";
-	echo "</a></div>";
-	}
-	else {
-	echo "<div class='menu-class'>
-	 <a href='$list[1]'><span class='icon-play2' valign='middle'></span> $list[0] > ".$asset_det[0]->V_Tag_no." (".$this->input->get('asstno').")</a>
-	</div>";
-	}
+		echo "</a></div>";
+	}*/
 }
-elseif ($list[4] == $this->uri->slash_segment(1) .$this->uri->slash_segment(2)){ 
-	//if (isset('asstno='.$this->input->get('asstno'))){
-		//print_r ('asstno='.$this->input->get('assetno'));
-		//exit();
-	//}
-	echo "<div class='menu-class'>
-		<a href='$list[1]'><span class='icon-play2' valign='middle'></span>  $list[0]</a><a href='$list[3]'> <span class='icon-play2' valign='middle'></span> $list[2]</a>
-	</div>";
-}
-elseif (($this->input->get('asstno') != '') and ($this->input->get('tab') == '7')){
-echo "<div class='menu-class'>
-		<a href='assets'><span class='icon-play2' valign='middle'></span> Asset";
-		if ($this->input->get('wrk_ord') != ''){ 
+
+/*-- pindah 1.0 --*/
+if (($this->input->get('asstno') != '') and ($this->input->get('tab') == '7')){
+	echo "
+		<div class='menu-class'>
+			<a href='assets'><span class='icon-play2' valign='middle'></span> Asset";
+	if ($this->input->get('wrk_ord') != ''){ 
 		echo " > ".$this->input->get('wrk_ord') ;
-		}elseif ($this->input->get('asstno') != ''){
-		 echo " > ".$result[0]->V_Tag_no." (".$this->input->get('asstno').")" ;
-		}
+	}elseif ($this->input->get('asstno') != ''){
+		echo " > ".$result[0]->V_Tag_no." (".$this->input->get('asstno').")" ;
+	}
 	echo "</a></div>";
 }
-}
+/*-- /pindah 1.0 --*/
 if ($this->uri->slash_segment(1) == 'ppm_planered/'){
-echo "<div class='menu-class'>
-		<a href='contentcontroller/assets'><span class='icon-play2' valign='middle'></span> Asset";
-	echo "</a></div>";
+	echo "
+		<div class='menu-class'>
+			<a href='contentcontroller/assets'><span class='icon-play2' valign='middle'></span> Asset";
+	echo "	</a>
+		</div>";
 }
 if ($this->uri->slash_segment(1) .$this->uri->slash_segment(2) == 'contentcontroller/booking_list/'){
-echo "<div class='menu-class'>
-		<a href='Booking_no?&work-a=0&parent=wrkodr'><span class='icon-play2' valign='middle'></span> Booking";
-	echo "</a></div>";
+	echo "
+		<div class='menu-class'>
+			<a href='Booking_no?&work-a=0&parent=wrkodr'><span class='icon-play2' valign='middle'></span> Booking";
+	echo "	</a>
+		</div>";
 }
 if ('Procurement/' == $this->uri->slash_segment(1)){
-//echo "dier mashuuuk";
+	//echo "dier mashuuuk";
 	if($this->input->get('pro') == 'mrin'){
-		echo "<div class='menu-class'>
-		<a href='contentcontroller/Procurement/".$this->session->userdata('usersess')."?&tab=4'><span class='icon-play2' valign='middle'></span>  $list[0]</a>
+		echo "
+		<div class='menu-class'>
+			<a href='contentcontroller/Procurement/".$this->session->userdata('usersess')."?&tab=4'><span class='icon-play2' valign='middle'></span>  $list[0]</a>
 		</div>";
 	}elseif(($this->input->get('pro') == 'new') or (($this->input->get('pro') == 'pending')) ){
-		echo "<div class='menu-class'>
-		<a href='contentcontroller/Procurement/".$this->session->userdata('usersess')."?&tab=4'><span class='icon-play2' valign='middle'></span>  $list[0]</a><a href='Procurement?pro=mrin'> <span class='icon-play2' valign='middle'></span> MRIN</a>
+		echo "
+		<div class='menu-class'>
+			<a href='contentcontroller/Procurement/".$this->session->userdata('usersess')."?&tab=4'><span class='icon-play2' valign='middle'></span>  $list[0]</a><a href='Procurement?pro=mrin'> <span class='icon-play2' valign='middle'></span> MRIN</a>
 		</div>";
 	}elseif(($this->input->get('po') != '')){
-		echo "<div class='menu-class'>
-		<a href='../contentcontroller/Procurement/".$this->session->userdata('usersess')."?&tab=4'><span class='icon-play2' valign='middle'></span>  $list[0]</a><a href='e_request?tab=0&y=".date('Y')."&m=".date('m')."'> <span class='icon-play2' valign='middle'></span> PO Followup</a>
+		echo "
+		<div class='menu-class'>
+			<a href='../contentcontroller/Procurement/".$this->session->userdata('usersess')."?&tab=4'>
+				<span class='icon-play2' valign='middle'></span>  $list[0]
+			</a>
+			<a href='e_request?tab=0&y=".date('Y')."&m=".date('m')."'> 
+				<span class='icon-play2' valign='middle'></span> PO Followup
+			</a>
 		</div>";
 	}
 
 }
-if ('stockDtail/' == $this->uri->slash_segment(2) || 'stockact/' == $this->uri->slash_segment(2) || 'bar_code/' == $this->uri->slash_segment(2)){
-echo "<div class='menu-class'>
-		<a href='Store'> <span class='icon-play2' valign='middle'></span> Parts Catalog</a>
+if ('stockDtail/' == $this->uri->slash_segment(2) || 'stockact/' == $this->uri->slash_segment(2) || 'bar_code/' == $this->uri->slash_segment(2) || 'new_item/' == $this->uri->slash_segment(2)){
+	echo "
+		<div class='menu-class'>
+			<a href='Store'> <span class='icon-play2' valign='middle'></span> Parts Catalog</a>
 		</div>";
-//echo "dier mashuuuk";
-
-
+	//echo "dier mashuuuk";
 }
 ?>

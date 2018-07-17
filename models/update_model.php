@@ -593,7 +593,24 @@ function updatepomain($insert_data,$pono,$vis){
 	//echo $this->db->last_query();
 	//exit();
 }
+function updateitems($insert_data,$item){
+	$this->db->where('InvItemID',$item);
 
+	$this->db->update('tbl_invitem',$insert_data);
+	//echo $this->db->last_query();
+	//exit();
+}
+function store_take_updatemirncomp($id,$mirncd,$takeadd_data){
+	$this->db->where('ItemCode',$id);
+	$this->db->where('mirncode',$mirncd);
+	$this->db->update('tbl_mirn_comp',$takeadd_data);
+}
+function store_take_updatematerialreq($mirncd,$takeadd_data){
+	$this->db->where('DocReferenceNo',$mirncd);
+	$this->db->update('tbl_MaterialReq',$takeadd_data);
+	//echo $this->db->last_query();
+	//exit();
+}
 
 
 }

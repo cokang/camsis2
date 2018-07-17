@@ -70,7 +70,7 @@
 					<table width="100%" class="ui-content-form-reg" style="">
 						<tr >
 							<td class="ui-desk-style-table">
-								<table class="ui-content-form" width="100%" border="0">
+								<table class="ui-content-form ui-sys_admin-web" width="100%" border="0">
 									<tr>
 										<td style="padding-top:5px;" valign="top">User Hospital  :</td>
 										<td style="text-align:center;">
@@ -88,7 +88,7 @@
 											<INPUT TYPE="button" NAME="left" VALUE="All &lt;&lt;" id="transferAllLeft">
 										</td>
 										<td style="text-align:center;">
-											<select multiple id="select2" SIZE="10" style="width:300px;" disabled></select>
+											<select multiple id="select2" SIZE="10" style="width:300px;" ondblclick="transfer_left(this,'select')" disabled></select>
 										</td>
 									</tr>
 									<tr>
@@ -112,11 +112,71 @@
 										</td>
 									</tr>									
 								</table>
+								<table class="ui-content-form ui-sys_admin-mobile" width="100%" border="0">
+									<tr>
+										<td style="padding-top:5px;" valign="top">User Hospital  :</td>
+										<td style="text-align:center;">
+											<select multiple id="select1" SIZE="10" style="width:300px;" disabled>
+												<option value="IIUM">IIUM Teaching Hospital</option>
+												<option value="KLG">Kluang</option>
+												<option value="JAS">Jasin</option>
+												<option value="HSI">Sultan Ismail</option>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td style="width:100px; text-align:center;">
+											<INPUT TYPE="button" NAME="right" VALUE="&darr;" id="transferRight"></INPUT>
+											<INPUT TYPE="button" NAME="right" VALUE="All &#x21CA;" id="transferAllRight"></INPUT>
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											<INPUT TYPE="button" NAME="left" VALUE="&uarr;" id="transferLeft"></INPUT>
+											<INPUT TYPE="button" NAME="left" VALUE="All &#x21C8;" id="transferAllLeft"></INPUT>
+										</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td style="text-align:center;">
+											<select multiple id="select2" SIZE="10" style="width:300px;" disabled></select>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2"><hr></td>
+									</tr>
+									<tr>
+										<td style="padding-top:5px;" valign="top">User Service  :</td>
+										<td style="text-align:center;">
+											<select multiple id="service1" SIZE="10" style="width:300px;" disabled>
+												<option value="BES">BIOMEDICAL ENGINEERING SERVICES</option>
+												<option value="FMS">FACILITY ENGINEERING SERVICES</option>
+												<option value="HKS">HOUSEKEEPING</option>
+												<option value="CLI">CLINICAL WASTE</option>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td style="width:100px; text-align:center;">
+											<INPUT TYPE="button" NAME="right" VALUE="&darr;" id="transferRights"></INPUT>
+											<INPUT TYPE="button" NAME="right" VALUE="All &#x21CA;" id="transferAllRights"></INPUT>
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											<INPUT TYPE="button" NAME="left" VALUE="&uarr;" id="transferLefts"></INPUT>
+											<INPUT TYPE="button" NAME="left" VALUE="All &#x21C8;" id="transferAllLefts"></INPUT>
+										</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td style="text-align:center;">
+											<select multiple id="service2" SIZE="10" style="width:300px;" disabled></select>
+										</td>
+									</tr>									
+								</table>
 							</td>
 						</tr>
 					</table>
 				</div>
 			</div>
+
 			<table align="center" height="40px" border="0" style="width:100%;" class="ui-main-form-footer">
 				<tr>
 					<td align="center">

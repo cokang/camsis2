@@ -53,6 +53,14 @@ if ('contentcontroller/assetupdate/' == $this->uri->slash_segment(1) .$this->uri
 	echo anchor ('contentcontroller/print_heppm?asstno='.$this->input->get('asstno'), '<button class="btn-button btn-primary-button" style="width:97%; height:33px;">Print Checklist <span class="icon-printer" style="float:right; margin-top:-4px; margin-right:20px; font-size:30px;"></span></button>');
 	}
 	echo"</span>";
+	//funtion kewpa
+	echo "<div style='height:2px;'></div><span style='float:; padding-left:3px;'>";
+	if ($this->session->userdata('usersess') == "BES") {
+	echo anchor ('contentcontroller/print_kewpa?asstno='.$this->input->get('asstno'), '<button class="btn-button btn-primary-button" style="width:97%; height:33px;">Print Kew PA <span class="icon-printer" style="float:right; margin-top:-4px; margin-right:20px; font-size:30px;"></span></button>');
+	} else {
+	echo anchor ('contentcontroller/print_kewpa?asstno='.$this->input->get('asstno'), '<button class="btn-button btn-primary-button" style="width:97%; height:33px;">Print Kew PA <span class="icon-printer" style="float:right; margin-top:-4px; margin-right:20px; font-size:30px;"></span></button>');
+	}
+	echo"</span>";
 	}
 elseif ($this->input->get('ppm') or 'contentcontroller/desk_complaint/' == $this->uri->slash_segment(1) .$this->uri->slash_segment(2)){
 	echo "<span style='float:; padding-left:3px;'>";

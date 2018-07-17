@@ -13,49 +13,74 @@
 
 if (!is_null($this->input->get('desk'))){
 	if ($this->input->get('desk') == 0){ 
-		echo "<table class='ui-mobile-content-header' border='0' align='center'>";
-		echo "<tr>";
-		echo "<td style='width:20px;'>";
-		//echo anchor ('contentcontroller/qap3','<span class="icon-arrow-left"></span>');
-		echo "</td>";
-		echo "<td align='center'>";
+		// echo "<table class='ui-mobile-content-header' border='0' align='center'>";
+		// echo "<tr>";
+		// echo "<td style='width:20%;'>";
+		// //echo anchor ('contentcontroller/qap3','<span class="icon-arrow-left"></span>');
+		// echo "</td>";
+		// echo "<td align='center' style='width:60%;'>";
+		// echo $tulis;
+		// echo"</td>";
+		// echo "<td align='right' style='width:20%;'>";
+		// echo anchor ('contentcontroller/desk?deskno='.$this->input->get('deskno').'&desk=1'.'&y='.$year.'&m='.$month,'<span class="icon-arrow-right"></span>');
+		// echo "</td>"; 
+		// echo "</tr>";
+		// echo "</table>";
+		echo "<div class='divmenu'>";
+		echo "<div class='divmenuleft'>";
+		echo "</div>";
 		echo $tulis;
-		echo"</td>";
-		echo "<td align='right' style='width:20px;'>";
+		echo "<div class='divmenuright'>";
 		echo anchor ('contentcontroller/desk?deskno='.$this->input->get('deskno').'&desk=1'.'&y='.$year.'&m='.$month,'<span class="icon-arrow-right"></span>');
-		echo "</td>"; 
-		echo "</tr>";
-		echo "</table>";
+		echo "</div>";
+		echo "</div>";
 	}
 	elseif($this->input->get('desk') == 1){
-		echo "<table class='ui-mobile-content-header' border='0' align='center'>";
-		echo "<tr>";
-		echo "<td style='width:20px;'>";
+		// echo "<table class='ui-mobile-content-header' border='0' align='center'>";
+		// echo "<tr>";
+		// echo "<td style='width:20%;'>";
+		// echo anchor ('contentcontroller/desk?deskno='.$this->input->get('deskno').'&desk=0'.'&y='.$year.'&m='.$month,'<span class="icon-arrow-left"></span>');
+		// echo "</td>";
+		// echo "<td align='center' style='width:60%'>";
+		// echo $tulis;
+		// echo"</td>";
+		// echo "<td align='right' style='width:20%;'>";
+		// echo anchor ('contentcontroller/desk?deskno='.$this->input->get('deskno').'&desk=2'.'&y='.$year.'&m='.$month,'<span class="icon-arrow-right"></span>');
+		// echo "</td>"; 
+		// echo "</tr>";
+		// echo "</table>";
+		echo "<div class='divmenu'>";
+		echo "<div class='divmenuleft'>";
 		echo anchor ('contentcontroller/desk?deskno='.$this->input->get('deskno').'&desk=0'.'&y='.$year.'&m='.$month,'<span class="icon-arrow-left"></span>');
-		echo "</td>";
-		echo "<td align='center'>";
+		echo "</div>";
 		echo $tulis;
-		echo"</td>";
-		echo "<td align='right' style='width:20px;'>";
+		echo "<div class='divmenuright'>";
 		echo anchor ('contentcontroller/desk?deskno='.$this->input->get('deskno').'&desk=2'.'&y='.$year.'&m='.$month,'<span class="icon-arrow-right"></span>');
-		echo "</td>"; 
-		echo "</tr>";
-		echo "</table>";
+		echo "</div>";
+		echo "</div>";
 	}
 	elseif($this->input->get('desk') == 2){
-		echo "<table class='ui-mobile-content-header' border='0' align='center'>";
-		echo "<tr>";
-		echo "<td style='width:20px;'>";
+		// echo "<table class='ui-mobile-content-header' border='0' align='center'>";
+		// echo "<tr>";
+		// echo "<td style='width:20%;'>";
+		// echo anchor ('contentcontroller/desk?deskno='.$this->input->get('deskno').'&desk=1'.'&y='.$year.'&m='.$month,'<span class="icon-arrow-left"></span>');
+		// echo "</td>";
+		// echo "<td align='center' style='width:60%;'>";
+		// echo $tulis;
+		// echo"</td>";
+		// echo "<td align='right' style='width:20%;'>";
+		// //echo anchor ('contentcontroller/desk?deskno='.$this->input->get('deskno').'&desk=3'.'&y='.$year.'&m='.$month,'<span class="icon-arrow-right"></span>');
+		// echo "</td>"; 
+		// echo "</tr>";
+		// echo "</table>";
+		echo "<div class='divmenu'>";
+		echo "<div class='divmenuleft'>";
 		echo anchor ('contentcontroller/desk?deskno='.$this->input->get('deskno').'&desk=1'.'&y='.$year.'&m='.$month,'<span class="icon-arrow-left"></span>');
-		echo "</td>";
-		echo "<td align='center'>";
+		echo "</div>";
 		echo $tulis;
-		echo"</td>";
-		echo "<td align='right' style='width:20px;'>";
-		//echo anchor ('contentcontroller/desk?deskno='.$this->input->get('deskno').'&desk=3'.'&y='.$year.'&m='.$month,'<span class="icon-arrow-right"></span>');
-		echo "</td>"; 
-		echo "</tr>";
-		echo "</table>";
+		echo "<div class='divmenuright'>";
+		echo "</div>";
+		echo "</div>";
 	}
 }
 ?>

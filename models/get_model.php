@@ -749,12 +749,12 @@ $query = $this->db->get();
 return $query->result();
 
 }
-
+/*
 function licensesandcert()
 {
 
-//$this->db->select("A.v_CertificateNo, A.v_ServiceCode, A.v_AgencyCode, A.v_LicenseCategoryCode, B.v_LicenceCategoryDesc, A.v_IdentificationType, A.v_Identification, A.v_RegistrationNo, A.v_StartDate, A.v_ExpiryDate, A.v_GradeID, A.v_Remarks, A.v_hospitalcode, A.v_key, A.CMIS_Action_Flag, A.d_timestamp,A.id",FALSE);
-$this->db->select("A.v_CertificateNo, A.v_ServiceCode, A.v_AgencyCode, A.v_LicenseCategoryCode, B.v_LicenceCategoryDesc, A.v_IdentificationType, A.v_Identification, A.v_RegistrationNo, A.v_StartDate, A.v_ExpiryDate, A.v_GradeID, A.v_Remarks, A.v_hospitalcode, A.v_key, A.CMIS_Action_Flag, A.d_timestamp, MAX(A.d_timestamp),A.id",FALSE);
+$this->db->select("A.v_CertificateNo, A.v_ServiceCode, A.v_AgencyCode, A.v_LicenseCategoryCode, B.v_LicenceCategoryDesc, A.v_IdentificationType, A.v_Identification, A.v_RegistrationNo, A.v_StartDate, A.v_ExpiryDate, A.v_GradeID, A.v_Remarks, A.v_hospitalcode, A.v_key, A.CMIS_Action_Flag, A.d_timestamp,A.id",FALSE);
+//$this->db->select("A.v_CertificateNo, A.v_ServiceCode, A.v_AgencyCode, A.v_LicenseCategoryCode, B.v_LicenceCategoryDesc, A.v_IdentificationType, A.v_Identification, A.v_RegistrationNo, A.v_StartDate, A.v_ExpiryDate, A.v_GradeID, A.v_Remarks, A.v_hospitalcode, A.v_key, A.CMIS_Action_Flag, A.d_timestamp, MAX(A.d_timestamp),A.id",FALSE);
 //SELECT (case when DWRate = 999 then (case when 500 <= 2000000 then 0.0075 * 100 else 0.0050 * 100 end) else DWRate end) as DWRate, PWRate, (case when DWRate = 999 then (case when 500 <= 2000000 then (500 * 0.0075) / 12 else (500 * 0.0050) / 12 end) else (500 * ( DWRate / 100)) / 12 end) as 'FeeDW', (500 * ( PWRate / 100) / 12) as 'FeePW'
 $this->db->from('pmis2_egm_lnc_lincense_details A');
 $this->db->join('pmis2_egm_lnc_license_category_code B','A.v_LicenseCategoryCode=B.v_LicenceCategoryCode');
@@ -762,11 +762,40 @@ $this->db->where('A.v_ServiceCode =', $this->session->userdata('usersess'));
 $this->db->where('v_HospitalCode =', $this->session->userdata('hosp_code'));
 $this->db->where('A.v_ActionFlag <> ', 'D');
 $this->db->where('B.v_ActionFlag <> ', 'D');
-$this->db->group_by('A.v_CertificateNo'); 
+$this->db->where('A.d_timestamp IN (SELECT MAX(d_timestamp) FROM (`pmis2_egm_lnc_lincense_details`) GROUP BY `v_CertificateNo`,`v_Identification`,`v_RegistrationNo`)', NULL, FALSE);
+//$this->db->group_by('A.v_CertificateNo'); 
 $query = $this->db->get();
 //echo "laalla".$query->DWRate;
 //echo $this->db->last_query();
 //exit();
+return $query->result();
+
+}
+*/
+function licensesandcert()
+{
+
+$this->db->select("A.v_CertificateNo, A.v_ServiceCode, A.v_AgencyCode, A.v_LicenseCategoryCode, B.v_LicenceCategoryDesc, A.v_IdentificationType, A.v_Identification, A.v_RegistrationNo, A.v_StartDate, A.v_ExpiryDate, A.v_GradeID, A.v_Remarks, A.v_hospitalcode, A.v_key, A.CMIS_Action_Flag, A.d_timestamp, A.id",FALSE);
+
+//$this->db->select("A.v_CertificateNo, A.v_ServiceCode, A.v_AgencyCode, A.v_LicenseCategoryCode, B.v_LicenceCategoryDesc, A.v_IdentificationType, A.v_Identification, A.v_RegistrationNo, A.v_StartDate, A.v_ExpiryDate, A.v_GradeID, A.v_Remarks, A.v_hospitalcode, A.v_key, A.CMIS_Action_Flag, A.d_timestamp, MAX(A.d_timestamp),A.id",FALSE);
+//SELECT (case when DWRate = 999 then (case when 500 <= 2000000 then 0.0075 * 100 else 0.0050 * 100 end) else DWRate end) as DWRate, PWRate, (case when DWRate = 999 then (case when 500 <= 2000000 then (500 * 0.0075) / 12 else (500 * 0.0050) / 12 end) else (500 * ( DWRate / 100)) / 12 end) as 'FeeDW', (500 * ( PWRate / 100) / 12) as 'FeePW'
+$this->db->from('pmis2_egm_lnc_lincense_details A');
+$this->db->join('pmis2_egm_lnc_license_category_code B','A.v_LicenseCategoryCode=B.v_LicenceCategoryCode');
+
+$this->db->join("(SELECT v_ExpiryDate AS Expired,id,v_CertificateNo FROM pmis2_egm_lnc_lincense_details 
+ORDER BY v_ExpiryDate DESC)`G`",'G.id=A.id');
+
+$this->db->where('A.v_ServiceCode =', $this->session->userdata('usersess'));
+$this->db->where('v_HospitalCode =', $this->session->userdata('hosp_code'));
+$this->db->where('A.v_ActionFlag <> ', 'D');
+$this->db->where('B.v_ActionFlag <> ', 'D');
+
+$this->db->group_by('A.v_CertificateNo,A.v_RegistrationNo,A.v_Identification');
+
+$query = $this->db->get();
+//echo "laalla".$query->DWRate;
+ echo $this->db->last_query();
+/*exit(); */
 return $query->result();
 
 }
@@ -1048,24 +1077,28 @@ return $query->result();
 
 function ppminfo($wrkordno)
 {
-
-$this->db->select("ppm.*, l.v_Location_Name, job.v_jobtype, job.v_weeksch, IFNULL(ar.V_Equip_code,job.v_checklistcode) AS v_checklistcode, dpt.v_userdeptdesc, ar.v_tag_no, ar.v_user_dept_code, ar.v_location_code, ar.v_model_no, ar.v_serial_no, ar.v_asset_no, am.v_checklistcode, ar.v_asset_name, m.new_asset_type,ag.V_Wrn_end_code",FALSE);
+/*
+$this->db->select("ppm.*, l.v_Location_Name, job.v_jobtype, job.v_weeksch, IFNULL(ar.V_Equip_code,job.v_checklistcode) AS v_checklistcode, dpt.v_userdeptdesc, ar.v_tag_no, ar.v_user_dept_code, ar.v_location_code, ar.v_model_no, ar.v_serial_no, ar.v_asset_no, am.v_checklistcode, ar.v_asset_name, m.new_asset_type,ag.V_Wrn_end_code, right(chklist.task_no,char_length(chklist.task_no)-6) AS TASKDESC",FALSE);
 //SELECT (case when DWRate = 999 then (case when 500 <= 2000000 then 0.0075 * 100 else 0.0050 * 100 end) else DWRate end) as DWRate, PWRate, (case when DWRate = 999 then (case when 500 <= 2000000 then (500 * 0.0075) / 12 else (500 * 0.0050) / 12 end) else (500 * ( DWRate / 100)) / 12 end) as 'FeeDW', (500 * ( PWRate / 100) / 12) as 'FeePW'
-$this->db->from('pmis2_egm_schconfirmmon ppm');
-$this->db->join('pmis2_egm_assetregistration ar' , "ppm.v_HospitalCode=ar.V_Hospitalcode AND ppm.v_HospitalCode=ar.V_Hospitalcode AND ar.V_Asset_no=ppm.v_Asset_no AND ppm.v_Actionflag <> 'D' " );
-$this->db->join('pmis2_egm_assetreg_general ag','ag.v_hospital_code = ar.v_hospitalcode AND ag.v_asset_no = ar.v_asset_no ');
-$this->db->join('pmis2_egm_assetmaintenance am','am.v_hospitalcode = ar.v_hospitalcode AND am.v_assetno = ag.v_asset_no ');
-$this->db->join('pmis2_egm_assetlocation l','ar.V_Location_code = l.V_location_code AND ar.V_hospitalcode = l.v_hospitalcode');
-$this->db->join('pmis2_sa_asset_mapping m','m.old_asset_type = ar.v_equip_code');
-$this->db->join('pmis2_sa_userdept dpt','ag.v_hospital_code = dpt.v_hospitalcode AND ar.v_user_dept_code = dpt.v_userdeptcode ');
-$this->db->join('pmis2_egm_assetjobtype job','ag.v_hospital_code = job.v_hospitalcode AND ar.v_asset_no = job.v_asset_no AND ppm.v_jobtype = job.v_JobType');
+
+$this->db->from('pmis2_egm_schconfirmmon ppm', FALSE);
+$this->db->join('pmis2_egm_assetregistration ar' , "ppm.v_HospitalCode=ar.V_Hospitalcode AND ppm.v_HospitalCode=ar.V_Hospitalcode AND ar.V_Asset_no=ppm.v_Asset_no AND ppm.v_Actionflag <> 'D' " , FALSE);
+$this->db->join('pmis2_egm_assetreg_general ag','ag.v_hospital_code = ar.v_hospitalcode AND ag.v_asset_no = ar.v_asset_no ', FALSE);
+$this->db->join('pmis2_egm_assetmaintenance am','am.v_hospitalcode = ar.v_hospitalcode AND am.v_assetno = ag.v_asset_no ', FALSE);
+$this->db->join('pmis2_egm_assetlocation l','ar.V_Location_code = l.V_location_code AND ar.V_hospitalcode = l.v_hospitalcode', FALSE);
+$this->db->join('pmis2_sa_asset_mapping m','m.old_asset_type = ar.v_equip_code', FALSE);
+$this->db->join('pmis2_sa_userdept dpt','ag.v_hospital_code = dpt.v_hospitalcode AND ar.v_user_dept_code = dpt.v_userdeptcode ', FALSE);
+$this->db->join('pmis2_egm_assetjobtype job','ag.v_hospital_code = job.v_hospitalcode AND ar.v_asset_no = job.v_asset_no AND ppm.v_jobtype = job.v_JobType', FALSE);
+$this->db->join('pmis2_egm_chklist chklist ','left(chklist.task_no ,6) = job.v_ProcedureCode' FALSE, NULL, FALSE);
 $this->db->where('ppm.v_Actionflag <> ', 'D');
 $this->db->where('ppm.v_wrkordno = ', $wrkordno);
 $this->db->where('ar.V_Hospitalcode = ', $this->session->userdata('hosp_code'));
+*/
+$this->db->select("ppm.*, l.v_Location_Name, job.v_jobtype, job.v_weeksch, IFNULL(ar.V_Equip_code, job.v_checklistcode) AS v_checklistcode, dpt.v_userdeptdesc, ar.v_tag_no, ar.v_user_dept_code, ar.v_location_code, ar.v_model_no, ar.v_serial_no, ar.v_asset_no, am.v_checklistcode, ar.v_asset_name, m.new_asset_type, ag.V_Wrn_end_code, right(chklist.task_no, char_length(chklist.task_no)-6) AS TASKDESC FROM (`pmis2_egm_schconfirmmon` ppm) JOIN `pmis2_egm_assetregistration` ar ON `ppm`.`v_HospitalCode`=`ar`.`V_Hospitalcode` AND ppm.v_HospitalCode=ar.V_Hospitalcode AND ar.V_Asset_no=ppm.v_Asset_no AND ppm.v_Actionflag <> 'D' JOIN `pmis2_egm_assetreg_general` ag ON `ag`.`v_hospital_code` = `ar`.`v_hospitalcode` AND ag.v_asset_no = ar.v_asset_no JOIN `pmis2_egm_assetmaintenance` am ON `am`.`v_hospitalcode` = `ar`.`v_hospitalcode` AND am.v_assetno = ag.v_asset_no JOIN `pmis2_egm_assetlocation` l ON `ar`.`V_Location_code` = `l`.`V_location_code` AND ar.V_hospitalcode = l.v_hospitalcode JOIN `pmis2_sa_asset_mapping` m ON `m`.`old_asset_type` = `ar`.`v_equip_code` JOIN `pmis2_sa_userdept` dpt ON `ag`.`v_hospital_code` = `dpt`.`v_hospitalcode` AND ar.v_user_dept_code = dpt.v_userdeptcode JOIN `pmis2_egm_assetjobtype` job ON `ag`.`v_hospital_code` = `job`.`v_hospitalcode` AND ar.v_asset_no = job.v_asset_no AND ppm.v_jobtype = job.v_JobType AND ppm.v_year = job.v_Year LEFT OUTER JOIN `pmis2_egm_chklist` chklist ON left(`chklist`.`task_no` ,6) = job.v_ProcedureCode WHERE `ppm`.`v_Actionflag` <> 'D' AND `ppm`.`v_wrkordno` = '".$wrkordno."' AND `ar`.`V_Hospitalcode` = '".$this->session->userdata('hosp_code')."'", FALSE);
 $query = $this->db->get();
 //echo "laalla".$query->DWRate;
-echo $this->db->last_query();
-exit();
+//echo $this->db->last_query();
+//exit();
 return $query->result();
 
 }
@@ -3727,6 +3760,7 @@ function get_itemdet($codecat){
 	if ($codecat <> ''){
 		$this->db->where('CodeCat',$codecat);
 	}
+	$this->db->where('Dept',$this->session->userdata('usersess'));
 	$query = $this->db->get();
 	//echo $this->db->last_query();
 	//echo '<br><br>';
@@ -3854,6 +3888,20 @@ function qap3_newcarno2($ssiq,$m,$y){
 	exit();  */
 	return $query->result();
 	
+}
+
+function get_asset_list($assetno){
+/* echo "ayam";
+exit(); */
+//$this->db->select('pmis2_sa_asset_mapping.new_asset_type, left(pmis2_sa_moh_asset_type.type_desc, 50)');
+	$this->db->select('a.*, b.v_vendorname');
+			$this->db->from('tbl_invitem a');
+			$this->db->join('pmis2_sa_vendor b','a.VendorID = b.id','left');
+	        $this->db->where('Dept =', $this->session->userdata('usersess'));
+$query=$this->db->where('a.ItemCode = ', $assetno)->get();
+
+return $query->result();
+
 }
 
 }

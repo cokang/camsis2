@@ -96,7 +96,7 @@ if($this->form_validation->run()==FALSE)
 		);
 		$this->update_model->store_takevisit_update($docdetails,$hosp,$update_job);
 
-		if(substr($docdetails,0,3) == 'PPM' OR substr($docdetails,0,3) == 'B00'){
+		if(substr($docdetails,0,2) == 'PP' OR substr($docdetails,0,3) == 'B00'){
 			$update_ppm = array(
 							 	'd_Timestamp' => date('Y-m-d H:i:s')
 		);

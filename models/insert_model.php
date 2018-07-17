@@ -2658,6 +2658,12 @@ function tbl_po_mirn($insert_data){
 function tbl_po($insert_data){
 	$this->db->insert('tbl_po',$insert_data);
 }
+function ins_itembaru($insert_data){
+
+$this->db->insert('tbl_invitem', $insert_data);
+
+
+}
 
 }
 ?>

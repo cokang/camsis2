@@ -121,7 +121,8 @@ class mrinnew_ctrl extends CI_Controller{
 			//exit();
 			
 			$this->insert_model->newmrin($insert_data);
-
+			//$this->send_mail_frmout('nezam@advancepact.com',$data['new_mrin'][0]->mrinno,$this->input->post('n_comment'));
+			//$this->send_mail_frmout('nezam@advancepact.com',$data['new_mrin'][0]->mrinno,$this->$this->input->post('n_comment'));
 			$update_data = array('asset_no' => $data['new_mrin'][0]->mrinno);
 			$this->update_model->u_commassno($update_data,$this->input->post('tempno'));
 			$this->update_model->u_attcassno($update_data,$this->input->post('tempno'));
@@ -270,6 +271,25 @@ class mrinnew_ctrl extends CI_Controller{
 
 		
 	}
+	
+	
+		
+		 public function send_mail_frmout($emailto, $wono="", $summary="") { 
+         $from_email = "camsis@advancepact.com"; 
+         //$to_email = $this->input->post('email'); 
+         $to_email = $emailto; 
+   
+         //Load email library 
+         $this->load->library('email'); 
+   
+         $this->email->from($from_email, 'CAMSIS System'); 
+         $this->email->to($to_email);
+         $this->email->subject('MRIN '.$wono.' approval'); 
+         $this->email->message('MRIN '.$wono.' have been created & awaiting your approval.'); 
+   
+         //Send mail 
+         $this->email->send();
+      } 
 
 }
 ?>

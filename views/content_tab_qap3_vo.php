@@ -20,50 +20,81 @@
 	<td class="ui-left_mobile">
 <?php
 if (!is_null($this->input->get('vo'))){
-	if ($this->input->get('vo') == 0){ 
-		echo "<table class='ui-mobile-content-header' border='0' align='center'>";
-		echo "<tr>";
-		echo "<td style='width:20px;'>";
-		//echo anchor ('contentcontroller/qap3','<span class="icon-arrow-left"></span>');
-		echo "</td>";
-		echo "<td align='center'>";
+	/*
+		if ($this->input->get('vo') == 0){ 
+			echo "<table class='ui-mobile-content-header' border='0' align='center'>";
+			echo "<tr>";
+			echo "<td style='width:20px;'>";
+			//echo anchor ('contentcontroller/qap3','<span class="icon-arrow-left"></span>');
+			echo "</td>";
+			echo "<td align='center'>";
+			echo "Work Orders With SIQ";
+			echo"</td>";
+			echo "<td align='right' style='width:20px;'>";
+	 		echo anchor ('contentcontroller/qap3_wo_n_SIQ?&tab=2&vo=1','<span class="icon-arrow-right"></span>');
+			echo "</td>"; 
+			echo "</tr>";
+			echo "</table>";
+		}
+		elseif($this->input->get('vo') == 1){
+			echo "<table class='ui-mobile-content-header' border='0' align='center'>";
+			echo "<tr>";
+			echo "<td style='width:20px;'>";
+			echo anchor ('contentcontroller/qap3_wo?&tab=2&vo=0','<span class="icon-arrow-left"></span>');
+			echo "</td>";
+			echo "<td align='center'>";
+			echo "Work Orders With No SIQ";
+			echo"</td>";
+			echo "<td align='right' style='width:20px;'>";
+			echo anchor ('contentcontroller/qap3_wo_order?&tab=2&vo=2','<span class="icon-arrow-right"></span>');
+			echo "</td>"; 
+			echo "</tr>";
+			echo "</table>";
+		}
+		elseif($this->input->get('vo') == 2){
+			echo "<table class='ui-mobile-content-header' border='0' align='center'>";
+			echo "<tr>";
+			echo "<td style='width:20px;'>";
+			echo anchor ('contentcontroller/qap3_wo_n_SIQ?&tab=2&vo=1','<span class="icon-arrow-left"></span>');
+			echo "</td>";
+			echo "<td align='center'>";
+			echo "Excluded Work Orders";
+			echo"</td>";
+			echo "<td align='right' style='width:20px;'>";
+			//echo anchor ('contentcontroller/visitthree?wrk_ord='.$this->input->get('wrk_ord'). '&vppm=3','<span class="icon-arrow-right"></span>');
+			echo "</td>"; 
+			echo "</tr>";
+			echo "</table>";
+		}
+	*/
+	if( $this->input->get('vo') == 0 ){
+		echo "<div class='divmenu'>";
+		echo "<div class='divmenuleft'>";
+		echo "</div>";
 		echo "Work Orders With SIQ";
-		echo"</td>";
-		echo "<td align='right' style='width:20px;'>";
- 		echo anchor ('contentcontroller/qap3_wo_n_SIQ?&tab=2&vo=1','<span class="icon-arrow-right"></span>');
-		echo "</td>"; 
-		echo "</tr>";
-		echo "</table>";
-	}
-	elseif($this->input->get('vo') == 1){
-		echo "<table class='ui-mobile-content-header' border='0' align='center'>";
-		echo "<tr>";
-		echo "<td style='width:20px;'>";
+		echo "<div class='divmenuright'>";
+		echo anchor ('contentcontroller/qap3_wo_n_SIQ?&tab=2&vo=1','<span class="icon-arrow-right"></span>');
+		echo "</div>";
+		echo "</div>";
+	}elseif( $this->input->get('vo') == 1 ){
+		echo "<div class='divmenu'>";
+		echo "<div class='divmenuleft'>";
 		echo anchor ('contentcontroller/qap3_wo?&tab=2&vo=0','<span class="icon-arrow-left"></span>');
-		echo "</td>";
-		echo "<td align='center'>";
+		echo "</div>";
 		echo "Work Orders With No SIQ";
-		echo"</td>";
-		echo "<td align='right' style='width:20px;'>";
+		echo "<div class='divmenuright'>";
 		echo anchor ('contentcontroller/qap3_wo_order?&tab=2&vo=2','<span class="icon-arrow-right"></span>');
-		echo "</td>"; 
-		echo "</tr>";
-		echo "</table>";
-	}
-	elseif($this->input->get('vo') == 2){
-		echo "<table class='ui-mobile-content-header' border='0' align='center'>";
-		echo "<tr>";
-		echo "<td style='width:20px;'>";
+		echo "</div>";
+		echo "</div>";
+	}elseif( $this->input->get('vo') == 2 ){
+		echo "<div class='divmenu'>";
+		echo "<div class='divmenuleft'>";
 		echo anchor ('contentcontroller/qap3_wo_n_SIQ?&tab=2&vo=1','<span class="icon-arrow-left"></span>');
-		echo "</td>";
-		echo "<td align='center'>";
+		echo "</div>";
 		echo "Excluded Work Orders";
-		echo"</td>";
-		echo "<td align='right' style='width:20px;'>";
-		//echo anchor ('contentcontroller/visitthree?wrk_ord='.$this->input->get('wrk_ord'). '&vppm=3','<span class="icon-arrow-right"></span>');
-		echo "</td>"; 
-		echo "</tr>";
-		echo "</table>";
+		echo "<div class='divmenuright'>";
+		echo "</div>";
+		echo "</div>";
 	}
 }
 ?>

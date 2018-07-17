@@ -120,6 +120,23 @@
         window.close();
     }
 </script>
+<?php }elseif ($this->input->get('parent') == 'vendorid') {?>
+<script type="text/javascript">
+    function Setasset(vendorcode,vendorname) {
+        if (window.opener != null && !window.opener.closed) {
+		    var a_ag = window.opener.document.getElementById("n_vendor_name");
+            a_ag.value = vendorname;
+            var a_ag = window.opener.document.getElementById("n_vendor_code");
+            a_ag.value = vendorcode;
+		
+    
+
+            //opener.document.f1.n1.value = document.n_tag_number.value;
+			//opener.document.f1.n2.value = document.frm.c_name2.value;
+        }
+        window.close();
+    }
+</script>
 <?php }else{?>
 <script type="text/javascript">
     function Setasset(a_agent,a_agent2) {

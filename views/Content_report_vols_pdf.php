@@ -22,10 +22,10 @@
 			<th rowspan="2">Freq</th>
 			<th rowspan="2">Status</th>
 			<th colspan="2">Test</th>
-			<th rowspan="2">Completion Date</th>
 			<th rowspan="2">Remark</th>
 			<th rowspan="2">Visit Date</th>
 			<th rowspan="2">Reschedule Date</th>
+			<th rowspan="2">Completion Date</th>
 			<th rowspan="2">Deparment (Location Code)</th>
 			<th rowspan="2">Asset Group</th>
 		</tr>
@@ -50,11 +50,11 @@
 			<td><?= ($row->v_Wrkordstatus) ? $row->v_Wrkordstatus : 'N/A' ?></td>
 			<td><?= ($row->v_stest) ? $row->v_stest : 'N/A' ?></td>
 			<td><?= ($row->v_ptest) ? $row->v_ptest : 'N/A' ?></td>
-			<td><?= ($row->d_DateDone) ? $row->d_DateDone : 'N/A' ?></td>
 			<!--<td></td>-->
 			<td><?= ($row->v_summary) ? $row->v_summary : 'N/A' ?></td>
 			<td><?= ($row->d_Date) ? date("d/m/Y",strtotime($row->d_Date)) : 'N/A' ?></td>
 			<td><?= ($row->d_Reschdt) ? date("d/m/Y",strtotime($row->d_Reschdt)) : 'N/A' ?></td>
+			<td><?= ($row->d_DateDone) ? $row->d_DateDone : 'N/A' ?></td>
 			<td><?= ($row->v_UserDeptDesc) ? $row->v_UserDeptDesc.' ('.$row->V_Location_code.')' : 'N/A' ?></td>
 			<td><?= ($row->v_asset_grp) ? $row->v_asset_grp : 'N/A' ?></td>
 		</tr>	

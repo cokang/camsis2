@@ -50,9 +50,9 @@
 		</table>
 		<table class="tbl-wo" border="0" align="center" style="font-weight:bold;">
 			<tr>
-				<td style="width:13%">Assets Category : </td>
+				<td style="width:17%">Assets Category : </td>
 				<td style=""><?=$records_head[$print-1]->asset_cat?></td>
-				<td style="width:10%"> Workgroup : </td>
+				<td style="width:15%"> Workgroup : </td>
 				<td style=""> <?=$records_head[$print-1]->wrkgrp?> </td>
 			</tr>
 			<tr>
@@ -372,7 +372,7 @@
 				<th rowspan="" class="tftable-th-black"><?=$e?></th>
 				<th rowspan="" colspan="5"><b>SAFETY TEST </b></th>
 			<tr>
-				<td class="tftable-td-white" style="width:10%;" align="right">Parameter : </td>
+				<td class="tftable-td-white" style="width:11%;" align="right">Parameter : </td>
 				<td class="tftable-td-white" style="width:45%;"> Continuity </td>
 				<td class="tftable-td-white" style="width:45%;"></td>
 			</tr>

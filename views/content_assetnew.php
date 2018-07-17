@@ -71,7 +71,7 @@
 									</tr>
 									<tr>
 										<td style="padding-left:10px;" valign="top">*Remarks :  </td>
-										<td style="padding-left:10px;"><textarea class="Input" name="n_remarks"  cols="22" rows="4" ><?php echo set_value('n_remarks'); ?></textarea></td>
+										<td style="padding-left:10px;"><textarea class="form-control-button" name="n_remarks"  cols="22" rows="4" ><?php echo set_value('n_remarks'); ?></textarea></td>
 									</tr>	
 									<tr>
 										<td style="padding-left:10px;" valign="top">*Make <br />(Country of Origin) : </td>
@@ -119,7 +119,7 @@
 									</tr>
 									<tr>
 										<td style="padding-left:10px;">Cost :  </td>
-										<td style="padding-left:10px;">RM&nbsp;&nbsp;<input type="text" name="n_cost" value="<?php echo set_value('n_cost','0.00'); ?>" size="18" class="form-control-button2"></td>
+										<td style="padding-left:10px;">RM&nbsp;&nbsp;<input type="text" name="n_cost" value="<?php echo set_value('n_cost','0.00'); ?>" style="width:67%;" class="form-control-button"></td>
 									</tr>
 									<tr>
 										<td style="padding-left:10px;">File Reference :  </td>

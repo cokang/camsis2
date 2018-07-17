@@ -12,7 +12,7 @@
 
 
 if (!is_null($this->input->get('desk'))){
-	if ($this->input->get('desk') == 0){ 
+	/*if ($this->input->get('desk') == 0){ 
 		echo "<table class='ui-mobile-content-header' border='0' align='center'>";
 		echo "<tr>";
 		echo "<td style='width:20px;'>";
@@ -56,6 +56,35 @@ if (!is_null($this->input->get('desk'))){
 		echo "</td>"; 
 		echo "</tr>";
 		echo "</table>";
+	}*/
+	if( $this->input->get('tab') == 0 ){
+		echo "<div class='divmenu'>";
+		echo "<div class='divmenuleft'>";
+		echo "</div>";
+		echo $tulis;
+		echo "<div class='divmenuright'>";
+		echo anchor ('Procurement/e_request?tab=1'.'&y='.$year.'&m='.$month, '<span class="icon-arrow-right"></span>');
+		echo "</div>";
+		echo "</div>";
+	}elseif( $this->input->get('tab') == 1 ){
+		echo "<div class='divmenu'>";
+		echo "<div class='divmenuleft'>";
+		echo anchor ('Procurement/e_request?tab=0'.'&y='.$year.'&m='.$month, '<span class="icon-arrow-left"></span>');
+		echo "</div>";
+		echo $tulis;
+		echo "<div class='divmenuright'>";
+		echo anchor ('Procurement/e_request?tab=2'.'&y='.$year.'&m='.$month, '<span class="icon-arrow-right"></span>');
+		echo "</div>";
+		echo "</div>";
+	}elseif( $this->input->get('tab') == 2 ){
+		echo "<div class='divmenu'>";
+		echo "<div class='divmenuleft'>";
+		echo anchor ('Procurement/e_request?tab=1'.'&y='.$year.'&m='.$month, '<span class="icon-arrow-left"></span>');
+		echo "</div>";
+		echo $tulis;
+		echo "<div class='divmenuright'>";
+		echo "</div>";
+		echo "</div>";
 	}
 }
 ?>

@@ -20,10 +20,12 @@
 		<?php if ($this->input->get('tab') == 'Maintenance' ){ ?>
 		
 			<tr class="ui-color-contents-style-1" height="40px">
-				<td colspan="2" class="ui-header-new"><span style="float: left; font-weight: bold;">Asset Register Detail for : <?=  $record[0]->V_Tag_no    ?></td>
+				<td colspan="0" class="ui-header-new"><span style="float: left; font-weight: bold;">Asset Register Detail for : <?=  $record[0]->V_Tag_no?></td>
+				<td class="ui-header-new" align="right" style="padding-right:5px" ><?php echo anchor ('contentcontroller/print_kewpa?asstno='.$this->input->get('assetno'), '<button class="btn-button btn-primary-button" style="background-color: #1ea92f;width:60%; height:33px;">Print Kew PA <span class="icon-printer" style="float:right; margin-top:-8px; margin-right:20px; font-size:30px;"></span></button>');?></td>
+				
 			</tr>
 			<tr >
-				<td class="ui-desk-style-table">
+				<td colspan="2" class="ui-desk-style-table">
 				 <table class="ui-float-asset-reg">
 				 <?php foreach ($record as $row): ?>
 				  <tr>

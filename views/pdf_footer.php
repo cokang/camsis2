@@ -13,6 +13,7 @@
     ['contentcontroller/deductmapping_2/', 'D Mapping Deduction 2'],
 	['contentcontroller/report_rsls/', 'Statutory & License Summary'],
 	['contentcontroller/report_a2/', 'A2 Listing'],
+    ['Procurement/e_po_print/', 'Purchase Order_'],
 ];
 
 foreach ($array as $list) {

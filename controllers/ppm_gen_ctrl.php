@@ -1,5 +1,19 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class ppm_gen_ctrl extends CI_Controller {
+
+	function __construct(){
+     	parent::__construct();
+		$this->is_logged_in();
+	}
+
+	function is_logged_in()
+	{
+		
+		$is_logged_in = $this->session->userdata('v_UserName');
+		
+		if(!isset($is_logged_in) || $is_logged_in !=TRUE)
+		redirect('logincontroller/index');
+	}
 	
   function index()
   { //echo "ini first";

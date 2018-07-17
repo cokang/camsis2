@@ -21,7 +21,7 @@
 	<td class="ui-left_mobile">
 <?php
 if (!is_null($this->input->get('vo'))){
-	if ($this->input->get('vo') == 0){ 
+	/*if ($this->input->get('vo') == 0){ 
 		echo "<table class='ui-mobile-content-header' border='0' align='center'>";
 		echo "<tr>";
 		echo "<td style='width:20px;'>";
@@ -80,6 +80,50 @@ if (!is_null($this->input->get('vo'))){
 		echo "</td>"; 
 		echo "</tr>";
 		echo "</table>";
+	}*/
+	if ($this->input->get('vo') == 0){ 
+		echo "<div class='divmenu'>";
+		echo "<div class='divmenuleft'>";
+		//echo anchor ('contentcontroller/qap3','<span class="icon-arrow-left"></span>');
+		echo "</div>";
+		echo "General";
+		echo "<div class='divmenuright'>";
+ 		echo anchor ('contentcontroller/vo3_Signatories?rpt_no='.$this->input->get('rpt_no'). '&vo=1','<span class="icon-arrow-right"></span>');
+		echo "</div>"; 
+		echo "</div>";
+	}
+	elseif($this->input->get('vo') == 1){
+		echo "<div class='divmenu'>";
+		echo "<div class='divmenuleft'>";
+		echo anchor ('contentcontroller/vo3_vvf?rpt_no='.$this->input->get('rpt_no'). '&vo=0','<span class="icon-arrow-left"></span>');
+		echo "</div>";
+		echo "Signatories";
+		echo "<div class='divmenuright'>";
+		echo anchor ('contentcontroller/vo3_Assets?rpt_no='.$this->input->get('rpt_no'). '&vo=2','<span class="icon-arrow-right"></span>');
+		echo "</div>"; 
+		echo "</div>";
+	}
+	elseif($this->input->get('vo') == 2){
+		echo "<div class='divmenu'>";
+		echo "<div class='divmenuleft'>";
+		echo anchor ('contentcontroller/vo3_Signatories?rpt_no='.$this->input->get('rpt_no'). '&vo=1','<span class="icon-arrow-left"></span>');
+		echo "</div>";
+		echo "Service Contract";
+		echo "<div class='divmenuright'>";
+		echo anchor ('contentcontroller/vo3_Rates?rpt_no='.$this->input->get('rpt_no'). '&vo=3','<span class="icon-arrow-right"></span>');
+		echo "</div>"; 
+		echo "</div>";
+	}
+	elseif($this->input->get('vo') == 3){
+		echo "<div class='divmenu'>";
+		echo "<div class='divmenuleft'>";
+		echo anchor ('contentcontroller/vo3_Assets?rpt_no='.$this->input->get('rpt_no'). '&vo=2','<span class="icon-arrow-left"></span>');
+		echo "</div>";
+		echo "Work Orders";
+		echo "<div class='divmenuright'>";
+		//echo anchor ('contentcontroller/assetaccessories?asstno='.$this->input->get('asstno').'&tab=4','<span class="icon-arrow-right"></span>');
+		echo "</div>"; 
+		echo "</div>";
 	}
 }
 ?>

@@ -16,10 +16,10 @@ function barchart(a,b,c,d,e){
 <?php include 'content_btp.php';?>
 <div id="Instruction" class="pr-printer">
     <div class="header-pr">Work Order Report Summary</div>
-    <button onclick="javascript:myFunction('report_reqwos?m=<?=$month?>&y=<?=$year?>&none=closed&grp=<?=$this->input->get('grp');?>&req=<?=$this->input->get('req');?>');" class="btn-button btn-primary-button">PRINT</button>
+    <button onclick="javascript:myFunction('report_reqwos?m=<?=$month?>&y=<?=$year?>&none=closed&grp=<?=$this->input->get('grp');?>&req=<?=$this->input->get('req');?>&fon=<?=$this->input->get('fon');?>');" class="btn-button btn-primary-button">PRINT</button>
     <button type="cancel" class="btn-button btn-primary-button" onclick="location.href = '<?php echo $btp ;?>';">CANCEL</button>
 	<?php if (($this->input->get('ex') == '') or ($this->input->get('none') == '')){?>
-	<a href="<?php echo base_url();?>index.php/contentcontroller/report_reqwos?req=<?=$this->input->get('req');?>&m=<?=$this->input->get('m');?>&y=<?=$this->input->get('y');?>&ex=excel&none=close&grp=<?=$this->input->get('grp');?>" style="float:right; margin-right:40px;"><img src="<?php echo base_url();?>images/excel.png" style="width:40px; height:38px; position:absolute;" title="export to excel"></a>
+	<a href="<?php echo base_url();?>index.php/contentcontroller/report_reqwos?req=<?=$this->input->get('req');?>&m=<?=$this->input->get('m');?>&y=<?=$this->input->get('y');?>&ex=excel&none=close&grp=<?=$this->input->get('grp');?>&fon=<?=$this->input->get('fon');?>" style="float:right; margin-right:40px;"><img src="<?php echo base_url();?>images/excel.png" style="width:40px; height:38px; position:absolute;" title="export to excel"></a>
 	<?php //if($this->session->userdata('v_UserName') == 'nezam') {?>
 	<span style="float:right; margin-right:90px;" onclick="barchart(<?php if ($rqsum[0]->total == 0){ echo '0';}else{echo $rqsum[0]->total;}?>,<?php if ($rqsum[0]->comp == 0){ echo '0';}else{echo $rqsum[0]->comp;}?>,<?php if ($rqsum[0]->notcomp == 0){ echo '0';}else{echo $rqsum[0]->notcomp;}?>,'<?= substr(date('M',mktime(0, 0, 0, $month, 10)),0,3)?>',<?=$year?>)"><img src="<?php echo base_url();?>images/Bar-Chart-icon.png" style="width:40px; height:38px; position:absolute;" title="Bar Chart"></span>
 	<?php //} ?>
@@ -102,6 +102,7 @@ function barchart(a,b,c,d,e){
 		?>
 		<?php echo form_dropdown('y', $year_list, set_value('y', $year) , 'style="width: 65px;" id="cs_year"'); ?>
 <input type="hidden" value="<?php echo set_value('grp', ($this->input->get('grp')) ? $this->input->get('grp') : ''); ?>" name="grp">
+<input type="hidden" value="<?php echo set_value('fon', ($this->input->get('fon')) ? $this->input->get('fon') : ''); ?>" name="fon"> 
 <input type="submit" value="Apply" onchange="javascript: submit()"/></center>
 </form>
 </div>
@@ -164,7 +165,7 @@ function barchart(a,b,c,d,e){
 				break;
 			} ?>
 			<?php if ($this->input->get('req') == $req) {?>
-			<td colspan="5">Work Order Report Summary <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?> - <?php echo $this->session->userdata('usersessn');?> ( <?php if (($this->input->get('req')) and (($this->input->get('grp') == '2') or ($this->input->get('grp') == '3'))){ echo 'Group'.$this->input->get('grp').','.$tulis; } elseif ($this->input->get('req')){echo $tulis; }elseif ($this->input->get('grp') == ''){ echo 'All';}else{ echo 'Group '.$this->input->get('grp');} ?> )</td>
+			<td colspan="5">Work Order Report Summary <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?> - <?php echo $this->session->userdata('usersessn');?> ( <?php if (($this->input->get('req')) and (($this->input->get('grp') == '2') or ($this->input->get('grp') == '3'))){ echo 'Group'.$this->input->get('grp').','.$tulis; } elseif ($this->input->get('req')){echo $tulis; }elseif ($this->input->get('grp') == ''){ echo 'All';}else{ echo 'Group '.$this->input->get('grp');} ?> ) <?php if ($this->input->get('fon') == ''){echo ''; }else{ echo '(Freeze)';} ?></td>
 			<?php } ?>
 		</tr>
 	</table>
@@ -181,36 +182,36 @@ function barchart(a,b,c,d,e){
 			</tr>
 			<tr style="text-align:center;">
 				<td><?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?></td>
-			  <td><?php if ($rqsum[0]->total == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=fbfb&limab=0&grp='.$this->input->get('grp').'&btp=1',$rqsum[0]->total);} ?></td>
-			  <td><?php if ($rqsum[0]->comp == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=A&limab=0&grp='.$this->input->get('grp').'&btp=1',$rqsum[0]->comp);} ?></td>
-			  <td><?php if ($rqsum[0]->compin15d == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=A&limab=1&grp='.$this->input->get('grp').'&btp=1',$rqsum[0]->compin15d);} ?></td>
-			  <td><?php if ($rqsum[0]->compm15d == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=A&limab=2&grp='.$this->input->get('grp').'&btp=1',$rqsum[0]->compm15d);} ?></td>
-			  <td><?php if ($rqsum[0]->notcomp == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=C&limab=0&grp='.$this->input->get('grp').'&btp=1',$rqsum[0]->notcomp);} ?></td>
+			  <td><?php if ($rqsum[0]->total == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=fbfb&limab=0&grp='.$this->input->get('grp').'&btp=1'.'&fon='.$this->input->get('fon'),$rqsum[0]->total);} ?></td>
+			  <td><?php if ($rqsum[0]->comp == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=A&limab=0&grp='.$this->input->get('grp').'&btp=1'.'&fon='.$this->input->get('fon'),$rqsum[0]->comp);} ?></td>
+			  <td><?php if ($rqsum[0]->compin15d == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=A&limab=1&grp='.$this->input->get('grp').'&btp=1'.'&fon='.$this->input->get('fon'),$rqsum[0]->compin15d);} ?></td>
+			  <td><?php if ($rqsum[0]->compm15d == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=A&limab=2&grp='.$this->input->get('grp').'&btp=1'.'&fon='.$this->input->get('fon'),$rqsum[0]->compm15d);} ?></td>
+			  <td><?php if ($rqsum[0]->notcomp == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=C&limab=0&grp='.$this->input->get('grp').'&btp=1'.'&fon='.$this->input->get('fon'),$rqsum[0]->notcomp);} ?></td>
 			</tr>
 			<?php if ($this->session->userdata('usersess') == 'FES'){ ?>
 				<tr style="text-align:center;">
 					<td>Electrical</td>
-					<td><?php if ($rqelec[0]->total == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=fbfb&limab=0&grp='.$this->input->get('grp').'&btp=1&serv=ele',$rqelec[0]->total);} ?></td>
-			  <td><?php if ($rqelec[0]->comp == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=A&limab=0&grp='.$this->input->get('grp').'&btp=1&serv=ele',$rqelec[0]->comp);} ?></td>
-			  <td><?php if ($rqelec[0]->compin15d == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=A&limab=1&grp='.$this->input->get('grp').'&btp=1&serv=ele',$rqelec[0]->compin15d);} ?></td>
-			  <td><?php if ($rqelec[0]->compm15d == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=A&limab=2&grp='.$this->input->get('grp').'&btp=1&serv=ele',$rqelec[0]->compm15d);} ?></td>
-			  <td><?php if ($rqelec[0]->notcomp == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=C&limab=0&grp='.$this->input->get('grp').'&btp=1&serv=ele',$rqelec[0]->notcomp);} ?></td>
+					<td><?php if ($rqelec[0]->total == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=fbfb&limab=0&grp='.$this->input->get('grp').'&btp=1&serv=ele'.'&fon='.$this->input->get('fon'),$rqelec[0]->total);} ?></td>
+			  <td><?php if ($rqelec[0]->comp == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=A&limab=0&grp='.$this->input->get('grp').'&btp=1&serv=ele'.'&fon='.$this->input->get('fon'),$rqelec[0]->comp);} ?></td>
+			  <td><?php if ($rqelec[0]->compin15d == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=A&limab=1&grp='.$this->input->get('grp').'&btp=1&serv=ele'.'&fon='.$this->input->get('fon'),$rqelec[0]->compin15d);} ?></td>
+			  <td><?php if ($rqelec[0]->compm15d == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=A&limab=2&grp='.$this->input->get('grp').'&btp=1&serv=ele'.'&fon='.$this->input->get('fon'),$rqelec[0]->compm15d);} ?></td>
+			  <td><?php if ($rqelec[0]->notcomp == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=C&limab=0&grp='.$this->input->get('grp').'&btp=1&serv=ele'.'&fon='.$this->input->get('fon'),$rqelec[0]->notcomp);} ?></td>
 			</tr>
 				<tr style="text-align:center;">
 					<td>Mechanical</td>
-					<td><?php if ($rqmech[0]->total == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=fbfb&limab=0&grp='.$this->input->get('grp').'&btp=1&serv=mec',$rqmech[0]->total);} ?></td>
-			  <td><?php if ($rqmech[0]->comp == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=A&limab=0&grp='.$this->input->get('grp').'&btp=1&serv=mec',$rqmech[0]->comp);} ?></td>
-			  <td><?php if ($rqmech[0]->compin15d == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=A&limab=1&grp='.$this->input->get('grp').'&btp=1&serv=mec',$rqmech[0]->compin15d);} ?></td>
-			  <td><?php if ($rqmech[0]->compm15d == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=A&limab=2&grp='.$this->input->get('grp').'&btp=1&serv=mec',$rqmech[0]->compm15d);} ?></td>
-			  <td><?php if ($rqmech[0]->notcomp == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=C&limab=0&grp='.$this->input->get('grp').'&btp=1&serv=mec',$rqmech[0]->notcomp);} ?></td>
+					<td><?php if ($rqmech[0]->total == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=fbfb&limab=0&grp='.$this->input->get('grp').'&btp=1&serv=mec'.'&fon='.$this->input->get('fon'),$rqmech[0]->total);} ?></td>
+			  <td><?php if ($rqmech[0]->comp == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=A&limab=0&grp='.$this->input->get('grp').'&btp=1&serv=mec'.'&fon='.$this->input->get('fon'),$rqmech[0]->comp);} ?></td>
+			  <td><?php if ($rqmech[0]->compin15d == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=A&limab=1&grp='.$this->input->get('grp').'&btp=1&serv=mec'.'&fon='.$this->input->get('fon'),$rqmech[0]->compin15d);} ?></td>
+			  <td><?php if ($rqmech[0]->compm15d == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=A&limab=2&grp='.$this->input->get('grp').'&btp=1&serv=mec'.'&fon='.$this->input->get('fon'),$rqmech[0]->compm15d);} ?></td>
+			  <td><?php if ($rqmech[0]->notcomp == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=C&limab=0&grp='.$this->input->get('grp').'&btp=1&serv=mec'.'&fon='.$this->input->get('fon'),$rqmech[0]->notcomp);} ?></td>
 			</tr>
 				<tr style="text-align:center;">
 					<td>Civil</td>
-					<td><?php if ($rqcivil[0]->total == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=fbfb&limab=0&grp='.$this->input->get('grp').'&btp=1&serv=civ',$rqcivil[0]->total);} ?></td>
-			  <td><?php if ($rqcivil[0]->comp == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=A&limab=0&grp='.$this->input->get('grp').'&btp=1&serv=civ',$rqcivil[0]->comp);} ?></td>
-			  <td><?php if ($rqcivil[0]->compin15d == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=A&limab=1&grp='.$this->input->get('grp').'&btp=1&serv=civ',$rqcivil[0]->compin15d);} ?></td>
-			  <td><?php if ($rqcivil[0]->compm15d == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=A&limab=2&grp='.$this->input->get('grp').'&btp=1&serv=civ',$rqcivil[0]->compm15d);} ?></td>
-			  <td><?php if ($rqcivil[0]->notcomp == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=C&limab=0&grp='.$this->input->get('grp').'&btp=1&serv=civ',$rqcivil[0]->notcomp);} ?></td>
+					<td><?php if ($rqcivil[0]->total == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=fbfb&limab=0&grp='.$this->input->get('grp').'&btp=1&serv=civ'.'&fon='.$this->input->get('fon'),$rqcivil[0]->total);} ?></td>
+			  <td><?php if ($rqcivil[0]->comp == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=A&limab=0&grp='.$this->input->get('grp').'&btp=1&serv=civ'.'&fon='.$this->input->get('fon'),$rqcivil[0]->comp);} ?></td>
+			  <td><?php if ($rqcivil[0]->compin15d == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=A&limab=1&grp='.$this->input->get('grp').'&btp=1&serv=civ'.'&fon='.$this->input->get('fon'),$rqcivil[0]->compin15d);} ?></td>
+			  <td><?php if ($rqcivil[0]->compm15d == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=A&limab=2&grp='.$this->input->get('grp').'&btp=1&serv=civ'.'&fon='.$this->input->get('fon'),$rqcivil[0]->compm15d);} ?></td>
+			  <td><?php if ($rqcivil[0]->notcomp == 0) { echo "0"; } else {echo anchor('contentcontroller/report_volu?m='.$month.'&y='.$year.'&req='.$reqtype.'&stat=C&limab=0&grp='.$this->input->get('grp').'&btp=1&serv=civ'.'&fon='.$this->input->get('fon'),$rqcivil[0]->notcomp);} ?></td>
 			</tr>
 			<?php } ?>
 	</table>

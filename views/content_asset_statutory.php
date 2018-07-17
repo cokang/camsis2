@@ -16,7 +16,7 @@
 						</tr>
 						<tr >
 							<td class="ui-desk-style-table">
-							<table class="ui-content-form" id="no-more-tables" width="100%" border="0">
+							<table class="ui-content-form" id="no-more-tables" data-table="assetstatutory" width="100%" border="0">
 								<tr>	
 									<th>No</td>
 									<th>Certificate<br/>Number</th>
@@ -51,7 +51,7 @@
 								<?php endforeach;?>  
 									<?php }else { ?>
 									<tr align="center" style="background:white; height:200px;">
-									<td colspan="10"><span style="color:red;">NO STATUTORY DETAILS FOUND FOR THIS ASSET.</span></td>
+									<td colspan="7"><span style="color:red;">NO STATUTORY DETAILS FOUND FOR THIS ASSET.</span></td>
 								</tr>
 								<?php } ?>
 							</table>
