@@ -1,5 +1,5 @@
 <?php
-   class test_ler extends CI_Model{
+   class Test_ler extends CI_Model{
 function __construct() {
 parent::__construct();
 }

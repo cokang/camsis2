@@ -1,5 +1,5 @@
 <?php
-class ud_codesetup_ctrl extends CI_Controller{
+class Ud_codesetup_ctrl extends CI_Controller{
 	
 	public function index(){
 	// load libraries for URL and form processing

@@ -1,5 +1,5 @@
 <?php  
-class bems_desk_ctrl extends CI_Controller {
+class Bems_desk_ctrl extends CI_Controller {
 	
  		 function __construct(){
      	parent::__construct();

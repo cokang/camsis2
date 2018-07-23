@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class ajax extends CI_Controller {
+class Ajax extends CI_Controller {
 	public function index(){
 		$wrk_ord = $this->input->get('wrk_ord');
       	$this->load->model("display_model");

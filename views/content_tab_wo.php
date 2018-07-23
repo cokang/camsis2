@@ -1,3 +1,14 @@
+<style type="text/css">
+	@media screen and (max-device-width: 1024px){
+		div.box6.ui-left_web{
+			display: none;
+		}
+		div.box6{
+			width: 20%;
+		}
+	}
+</style>
+
 <div class="main-box">
 	<div class="box6">
 	<?php $autocolor = array('bg-purple', 'bg-red', 'bg-yellow', 'bg-aqua', 'bg-light-blue','bg-teal'); shuffle($autocolor); ?>
@@ -36,7 +47,7 @@
 			<?php echo anchor ('contentcontroller/catalogppm/'.$this->session->userdata('usersess'). '?&tab=1&parent='.$this->input->get('parent'),'<span class="ui-left_web">More Info <i class="icon-arrow-right"></i></span>','class="small-box-footer"'); ?>
 		</div>
 	</div>
-	<div class="box6 ui-left_web">
+	<div class="box6 ui-mobile-table-desk ui-left_web">
 		<div class="small-box <?php echo $autocolor[3];?>">
 			<div class="inner2" >
 				<p>PPM Generator</p>

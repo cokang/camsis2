@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class ajaxasset extends CI_Controller {
+class Ajaxasset extends CI_Controller {
 	public function index(){
 		$this->load->model("get_model");
 		$data['asset_det'] = $this->get_model->get_assetdetx(trim($this->input->get('ast')));

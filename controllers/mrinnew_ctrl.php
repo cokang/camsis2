@@ -1,5 +1,5 @@
 <?php
-class mrinnew_ctrl extends CI_Controller{
+class Mrinnew_ctrl extends CI_Controller{
 
 	public function index(){
 		// load libraries for URL and form processing

@@ -1,6 +1,6 @@
 <?php
 
- class loginModel extends CI_Model{
+ class LoginModel extends CI_Model{
 		
 	function validate()
 	{
@@ -12,7 +12,7 @@
 	
 		//echo $this->input->post('username') . $this->input->post('password');
 		//exit;
-		if( $query->num_rows ==1)
+		if( $query->num_rows() ==1)
 		{
 			return TRUE;
 		}
@@ -61,7 +61,7 @@
 		
 		//exit();
 	
-		if( $query->num_rows ==3 || $query->num_rows ==2)
+		if( $query->num_rows() ==3 || $query->num_rows() ==2)
 		{
 			return TRUE;
 		}

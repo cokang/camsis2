@@ -32,28 +32,28 @@ function myFunction() {
 </tr>
 <tr class="ui-color-contents-style-1">
 	<td colspan="5">
-	<?php $tabber = $this->input->get('wo');?>
+	<?php $tabber = 0;if($this->input->get('wo')){$tabber=$this->input->get('wo');}?>
 <?php switch ($tabber) {
-case "0":
-        $tulis = "Request";
+	case "0":
+		$tulis = "Request";
 		$left = '';
 		$right = base_url().'index.php/contentcontroller/visitplus?wrk_ord='.$this->input->get('wrk_ord').'&wo=1';
-        break;
-    case "1":
-        $tulis = "Visit +";
+		break;
+    case in_array($tabber, array("1","5"))://"1":
+		$tulis = "Visit +";
 		$left = base_url().'index.php/contentcontroller/workorderlist?wrk_ord='.$this->input->get('wrk_ord').'&wo=0';
 		$right = base_url().'index.php/contentcontroller/personnelinvolved?wrk_ord='.$this->input->get('wrk_ord').'&wo=2';
-        break;
+		break;
 	case "2":
-        $tulis = "Personnel Involved";
+		$tulis = "Personnel Involved";
 		$left = base_url().'index.php/contentcontroller/visitplus?wrk_ord='.$this->input->get('wrk_ord').'&wo=1';
 		$right = base_url().'index.php/contentcontroller/technicalsummary?wrk_ord='.$this->input->get('wrk_ord').'&wo=3';
-        break;
+		break;
 	case "3":
-        $tulis = "Technical Summary";
+		$tulis = "Technical Summary";
 		$left = base_url().'index.php/contentcontroller/personnelinvolved?wrk_ord='.$this->input->get('wrk_ord').'&wo=2';
 		$right = '';
-        break;
+		break;
 } ?>
 	<?php if ($this->input->get('wo') == $tabber) {?>
 		<div class="divmenu"> 
@@ -72,6 +72,6 @@ case "0":
 			<a href="<?php echo $right; ?>"><span class="icon-arrow-right"></span></a>
 			<?php } ?>
 		</div>
-		<?php } ?>
+	<?php } ?>
 	</td>
 </tr>

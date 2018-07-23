@@ -1,5 +1,5 @@
 <?php
-class desk_complaint_update_ctrl extends CI_Controller{
+class Desk_complaint_update_ctrl extends CI_Controller{
 	
 
 	function index(){

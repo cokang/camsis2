@@ -1,6 +1,6 @@
 <?php
 
-class workorderlist_update_ctrl extends CI_Controller{
+class Workorderlist_update_ctrl extends CI_Controller{
 	
 	function index(){
 	

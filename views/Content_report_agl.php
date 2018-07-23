@@ -112,7 +112,7 @@ header('Content-Disposition: attachment; filename='.$filename);
 							<?php } ?>
 			<tr>
 				<td colspan="3" style="text-align:right;font-weight:bold;">Grand Total</td>
-				<td style="text-align:center;font-weight:bold;"><?=$totalcount?></td>
+				<td style="text-align:center;font-weight:bold;"><?=isset($totalcount) ? $totalcount :0?></td>
 			</tr>
 		  </tbody>
 		</table>

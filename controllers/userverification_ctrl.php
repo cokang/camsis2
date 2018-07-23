@@ -1,5 +1,5 @@
 <?php
-class userverification_ctrl extends CI_Controller{
+class Userverification_ctrl extends CI_Controller{
 
 function woresponse_verification(){
 	$this->load->model('loginModel');

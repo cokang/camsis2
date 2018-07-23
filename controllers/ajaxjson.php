@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class ajaxjson extends CI_Controller {
+class Ajaxjson extends CI_Controller {
 	public function index(){
 	
 	$itemape = $_GET['itemape'];

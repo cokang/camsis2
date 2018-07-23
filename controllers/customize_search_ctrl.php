@@ -1,6 +1,6 @@
 <?php
 
-class customize_search_ctrl extends CI_Controller{
+class Customize_search_ctrl extends CI_Controller{
 	
 	function index(){
     // load libraries for URL and form processing

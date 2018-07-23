@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class ajaxproc extends CI_Controller {
+class Ajaxproc extends CI_Controller {
 	public function index(){
 	
 	

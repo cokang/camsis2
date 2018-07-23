@@ -1,5 +1,5 @@
 <?php
-class wo_jobclose_update_ctrl extends CI_Controller{
+class Wo_jobclose_update_ctrl extends CI_Controller{
 	
 	public function index(){
 		$RN = $this->input->post('wrk_ord');

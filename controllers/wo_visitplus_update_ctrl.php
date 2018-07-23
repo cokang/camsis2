@@ -1,5 +1,5 @@
 <?php
-class wo_visitplus_update_ctrl extends CI_Controller{
+class Wo_visitplus_update_ctrl extends CI_Controller{
 
 	function __construct(){
      	parent::__construct();

@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class ajaxprocument extends CI_Controller {
+class Ajaxprocument extends CI_Controller {
 	public function index(){
 	if ($this->uri->slash_segment(1) == 'Procurement/') {
 	 $jvtable = "update_delete";

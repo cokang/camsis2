@@ -1,6 +1,6 @@
 <?php
 
-class service_contract_ctrl extends CI_Controller{
+class Service_contract_ctrl extends CI_Controller{
 
 	function index(){
 

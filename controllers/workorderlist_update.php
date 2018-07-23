@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class workorderlist_update extends CI_Controller {
+class Workorderlist_update extends CI_Controller {
 
 	public function index() 
 	{

@@ -1,5 +1,5 @@
 <?php
-class get_seqno extends CI_Model{
+class Get_seqno extends CI_Model{
 function __construct() {
 parent::__construct();
 }

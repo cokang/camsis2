@@ -1,6 +1,6 @@
 <?php  
 //echo 'panggil ctrl';
-class workorder_ctrl extends CI_Controller {
+class Workorder_ctrl extends CI_Controller {
 	
   function index()
   {

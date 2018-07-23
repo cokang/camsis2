@@ -1,4 +1,88 @@
 <?php echo form_open('contentcontroller/new_item?p=confirm');?>
+
+<style>
+.ui-content-form-baru {
+    /* border-bottom-right-radius: 0px; */
+    border-bottom-left-radius: 0px;
+    color: black;
+    border-collapse: collapse;
+    font-size: 15px
+	}
+@media only screen and (max-width: 425px) and (min-width: 0px) {
+
+	
+	table.ui-content-form-baru, table.ui-content-form-baru thead, table.ui-content-form-baru tbody, table.ui-content-form-baru th, table.ui-content-form-baru td, table.ui-content-form-baru tr { 
+		display: block; 
+	}
+	table.ui-content-form-baru td { 
+		/* Behave  like a "row" */
+		border: none;
+		width: 80%;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+	}
+	
+ .paginatediv{
+					 
+					  display: none;}
+					  
+					  /** page structure **/
+					 .paginatedivm{
+					  text-align:center;
+					  width: 100%;
+					  display: block;}
+					.paginate {
+					  display: block;
+					  width: 80%;
+					  font-size: 12px;
+					  margin: 0 auto;
+					}
+					/** clearfix **/
+					.clearfix:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
+					.clearfix { display: inline-block; }
+					.paginate.pag2 { /* second page styles */ }
+					 
+					.paginate.pag2 li { font-weight: bold; list-style-type:none;  }
+					 
+					.paginate.pag2 li a {
+					  font-size:12px;
+					  display: block;
+					  float: left;
+					  color: #585858;
+					  text-decoration: none;
+					  padding: 6px 11px;
+					  margin-right: 6px;
+					  border-radius: 3px;
+					  border: 1px solid #ddd;
+					  background-color: #eee;
+					  background-image: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#eee));
+					  background-image: -webkit-linear-gradient(top, #f7f7f7, #eee);
+					  background-image: -moz-linear-gradient(top, #f7f7f7, #eee);
+					  background-image: -ms-linear-gradient(top, #f7f7f7, #eee);
+					  background-image: -o-linear-gradient(top, #f7f7f7, #eee);
+					  background-image: linear-gradient(top, #f7f7f7, #eee);
+					  -webkit-box-shadow: 2px 2px 4px -1px rgba(0,0,0, .55);
+					  -moz-box-shadow: 2px 2px 4px -1px rgba(0,0,0, .55);
+					  box-shadow: 2px 2px 4px -1px rgba(0,0,0, .55);
+					}
+					.paginate.pag2 li a:hover {
+					  color: #3280dc;
+					}
+					 
+					.paginate.pag2 li.single, .paginate.pag2 li.current {
+					  display: block;
+					  float: center;
+					  padding: 10px 11px;
+					  padding-top: 8px;
+					  margin-right: 6px;
+					  border-radius: 3px;
+					  color: #676767;
+					}
+				
+
+}
+</style>
 <div class="ui-middle-screen">
 	<div class="content-workorder">
 		<div class="div-p">&nbsp;</div>
@@ -18,7 +102,7 @@
 							</tr>
 							<tr >
 								<td class="ui-desk-style-table">
-									<table class="ui-content-form" width="100%" border="0">
+									<table class="ui-content-form-baru" width="100%" border="0">
 										<tr>
 											<td style="padding-left:10px; padding-top:5px;" valign="top" >Item Code:</td>
 											<td style="padding-left:10px; padding-top:5px;" valign="top"> <input type="text" name="n_code" value="<?= isset($edititem[0]->ItemCode) == TRUE ? $edititem[0]->ItemCode : ''?>" class="form-control-button2 n_wi-date2" required></td>
@@ -338,6 +422,10 @@
 			<?php echo form_hidden('y',$this->input->get('y')) ?>
 			
 			<style>
+@media screen and (min-device-width: 1200px){
+ .paginatedivm{
+					 
+					  display: none;}
 				.ui-content-middle-menu-workorder2 tr td {padding:8px;font-size:14px;		
 			 /*width:100%;*/
 			
@@ -361,6 +449,7 @@
     }
 	
 	/** page structure **/
+
 					 .paginatediv{
 					  text-align:center;
 					  width: 100%;
@@ -412,6 +501,7 @@
 					  border-radius: 3px;
 					  color: #676767;
 					}
+	}			
 				</style>
 				
 	
@@ -480,17 +570,108 @@
 	    				</tr>
 						<?php } ?>	 
 					</table></div>
-					<div class="paginatediv">
+					<div class="ui-left_mobile">
+					<table class="ui-mobile-table-desk" style="color:black; width:100%;">
+						<?php  if (!empty($records)) {?>
+							<?php $numrow=1;  foreach($records as $row):?>   			
+		    			<tr <?=($numrow % 2) == 1 ? 'class="ui-color-color-color"' : 'class="bg-grey2"'?>>
+							<td >No</td>
+							<td class="td-desk">: <?=$numrow?></td>
+						</tr>
+						<tr <?=($numrow % 2) == 1 ? 'class="ui-color-color-color"' : 'class="bg-grey2"'?>>	
+							<td>Item Code</td>
+							<td class="td-desk">: <a href="?edit=<?=$row->ItemCode?>" style="font-size:14px;"><?=$row->ItemCode?></a> </td>
+						</tr>
+						<tr <?=($numrow % 2) == 1 ? 'class="ui-color-color-color"' : 'class="bg-grey2"'?>>
+							<td>Item Name</td>
+							<td class="td-desk">: <?=isset($row->ItemName) == TRUE ? $row->ItemName : 'N/A'?></td>
+						</tr>
+						<tr <?=($numrow % 2) == 1 ? 'class="ui-color-color-color"' : 'class="bg-grey2"'?>>
+							<td>Item Location</td>
+							<td class="td-desk">: <?=isset($row->ItemLoc) == TRUE ? $row->ItemLoc : 'N/A'?></td>
+						</tr>
+						<tr <?=($numrow % 2) == 1 ? 'class="ui-color-color-color"' : 'class="bg-grey2"'?>>
+							<td >Part No</td>
+							<td class="td-desk">: <?=isset($row->PartNumber) == TRUE ? $row->PartNumber : 'N/A'?></td>
+						</tr>
+						<tr <?=($numrow % 2) == 1 ? 'class="ui-color-color-color"' : 'class="bg-grey2"'?>>
+							<td >Part Description</td>
+							<td class="td-desk">: <?=isset($row->PartDescription) == TRUE ? $row->PartDescription : 'N/A'?></td>
+						</tr>
+						<tr <?=($numrow % 2) == 1 ? 'class="ui-color-color-color"' : 'class="bg-grey2"'?>>
+							<td >Unit Price</td>
+							<td class="td-desk">: <?=isset($row->UnitPrice) == TRUE ? $row->UnitPrice : 'N/A'?></td>
+						</tr>
+						<tr <?=($numrow % 2) == 1 ? 'class="ui-color-color-color"' : 'class="bg-grey2"'?>>
+							<td >Currency</td>
+							<td class="td-desk">: <?php if(!empty($row->CurrencyID)){echo $Payment2[$row->CurrencyID];}?></td>
+						</tr>
+						<tr <?=($numrow % 2) == 1 ? 'class="ui-color-color-color"' : 'class="bg-grey2"'?>>
+							<td >Measurement</td>
+							<td class="td-desk">: <?php if(!empty($row->MeasurementID)){echo $Unit_of_measurement[$row->MeasurementID];}?></td>
+						</tr>
+						<tr <?=($numrow % 2) == 1 ? 'class="ui-color-color-color"' : 'class="bg-grey2"'?>>
+							<td >Vendor</td>
+							<td class="td-desk">: <?=isset($row->v_vendorname) == TRUE ? $row->v_vendorname : 'N/A'?></td>
+						</tr>
+						<tr <?=($numrow % 2) == 1 ? 'class="ui-color-color-color"' : 'class="bg-grey2"'?>>
+							<td >Code Category</td>
+							<td class="td-desk">: <?=isset($row->CodeCat) == TRUE ? $row->CodeCat : 'N/A'?></td>
+						</tr>
+						<tr <?=($numrow % 2) == 1 ? 'class="ui-color-color-color"' : 'class="bg-grey2"'?>>
+							<td >Equip Category</td>
+							<td class="td-desk">: <?=isset($row->EquipCat) == TRUE ? $row->EquipCat : 'N/A'?></td>
+						</tr>
+						<tr <?=($numrow % 2) == 1 ? 'class="ui-color-color-color"' : 'class="bg-grey2"'?>>
+							<td >Brand</td>
+							<td class="td-desk">: <?=isset($row->Brand) == TRUE ? $row->Brand : 'N/A'?></td>
+						</tr>
+						<tr <?=($numrow % 2) == 1 ? 'class="ui-color-color-color"' : 'class="bg-grey2"'?>>
+							<td >Model</td>
+							<td class="td-desk">: <?=isset($row->Model) == TRUE ? $row->Model : 'N/A'?></td>
+						</tr></tr><tr <?=($numrow % 2) == 1 ? 'class="ui-color-color-color"' : 'class="bg-grey2"'?>>
+							<td >Comments</td>
+							<td class="td-desk">: <?=isset($row->Comments) == TRUE ? $row->Comments : 'N/A'?></td>
+						</tr>
+		        		<?php $numrow++?> 			 
+							<?php endforeach;?>
+							<?php }else { ?>
+								<tr align="center" style="height:400px;">
+								<td colspan="2" class="ui-color-color-color default-NO">NO Record Found</td>
+							</tr>
+							<?php } ?>
+					</table>
+				</div>
+		
+						<div class="paginatediv ui-left_web">
 					  <ul class="paginate pag2 clearfix">
 					  	<?php if ($rec[0]->jumlah > $limit){ ?>
 					  	<li class="single">Page <?=($this->input->get('pa') ? $this->input->get('pa') : 1)?> of <?php echo $page?></li>
-					  	<li><a href="?tabIndex=1&pa=<?php echo $page-1?>">Prev</a></li>
-		              	<?php for ($i=1;$i<=$page;$i++){ ?>
-		              	<li><a href="?tabIndex=1&pa=<?php echo $i?>"><?=$i?></a></li>
-		              	<?php } ?>
+						<li><a href="?tabIndex=1&pa=1"> << First Page </a></li>
+						<?php if ($this->input->get('pa') != ''){ ?>
+					  	<li><a href="?tabIndex=1&pa=<?=($this->input->get('pa') < 1 ? $this->input->get('pa')-1 : 1 )?>">Prev</a></li> 
+						<?php } ?>
+						<li><a href=""><?=($this->input->get('pa') ? $this->input->get('pa') : 1)?></a></li>
 		              	<li><a href="?tabIndex=1&pa=<?php echo $page?>">Next</a></li>
+						<li><a href="?tabIndex=1&pa=<?php echo ceil($rec[0]->jumlah/$limit);?>">Last Page >></a></li>
 		              	<?php } ?>
+				
+					  </ul>
+					</div>
+					<div class="paginatedivm">
 					
+					  <ul class="paginate pag2 clearfix">
+					  	<?php if ($rec[0]->jumlah > $limit){ ?>
+					  	<li class="single">Page <?=($this->input->get('pa') ? $this->input->get('pa') : 1)?> of <?php echo $page?></li>
+						<li><a href="?tabIndex=1&pa=1"> << </a></li>
+						<?php if ($this->input->get('pa') != ''){ ?>
+					  	<li><a href="?tabIndex=1&pa=<?=($this->input->get('pa') < 1 ? $this->input->get('pa')-1 : 1 )?>"><</a></li> 
+						<?php } ?>
+						<li><a href=""><?=($this->input->get('pa') ? $this->input->get('pa') : 1)?></a></li>
+		              	<li><a href="?tabIndex=1&pa=<?php echo $page?>">></a></li>
+						<li><a href="?tabIndex=1&pa=<?php echo ceil($rec[0]->jumlah/$limit);?>"> >></a></li>
+		              	<?php } ?>
+				
 					  </ul>
 					</div>
 		</div>

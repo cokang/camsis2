@@ -1,5 +1,5 @@
 <?php
-class prapproval_ctrl extends CI_Controller{
+class Prapproval_ctrl extends CI_Controller{
 
 	public function index(){
 		// load libraries for URL and form processing

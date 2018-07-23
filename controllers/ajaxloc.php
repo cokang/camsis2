@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class ajaxloc extends CI_Controller {
+class Ajaxloc extends CI_Controller {
 	public function index(){
 		$this->load->model("get_model");
 		$data['loc'] = $this->get_model->get_poploclistax($this->input->get('dpt'));

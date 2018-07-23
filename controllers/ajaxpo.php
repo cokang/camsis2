@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class ajaxpo extends CI_Controller {
+class Ajaxpo extends CI_Controller {
 	public function index(){
 	
 	//$pono =  $_POST['poape'];

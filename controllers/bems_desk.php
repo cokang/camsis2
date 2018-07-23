@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class bems_desk extends CI_Controller {
+class Bems_desk extends CI_Controller {
 	 function __construct(){
 	     	parent::__construct();
 	//echo 'ade1';

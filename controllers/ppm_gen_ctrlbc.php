@@ -1,5 +1,5 @@
 <?php  
-class ppm_gen_ctrl extends CI_Controller {
+class Ppm_gen_ctrl extends CI_Controller {
 	
   function index()
   { //echo "ini first";

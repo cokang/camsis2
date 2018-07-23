@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class ppm_gen extends CI_Controller {
+class Ppm_gen extends CI_Controller {
 
 	public function index() 
 	{ 

@@ -1,5 +1,5 @@
 <?php
-class barcode_ctrl extends CI_Controller{
+class Barcode_ctrl extends CI_Controller{
 
 	public function index(){
 		// load libraries for URL and form processing

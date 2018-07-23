@@ -1,5 +1,5 @@
 <?php  
-class asset_ctrl extends CI_Controller {
+class Asset_ctrl extends CI_Controller {
 	
 	// Validates different money formats
 // 

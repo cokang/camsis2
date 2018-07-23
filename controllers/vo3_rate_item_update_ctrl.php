@@ -1,5 +1,5 @@
 <?php
-class vo3_rate_item_update_ctrl extends CI_Controller{
+class Vo3_rate_item_update_ctrl extends CI_Controller{
 	
 	public function index(){
 		

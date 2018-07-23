@@ -1,5 +1,5 @@
 <?php
-class vendor_update_ctrl extends CI_Controller{
+class Vendor_update_ctrl extends CI_Controller{
 
 	public function index(){
 		// load libraries for URL and form processing

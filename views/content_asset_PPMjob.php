@@ -42,7 +42,7 @@
 										<td data-title="Procedure :"><?= isset($row->v_procedurecode) == TRUE ? $row->v_procedurecode : 'N/A'?></td>
 										<td data-title="Sparelist :"><?= isset($row->v_sparelist) == TRUE ? $row->v_sparelist : 'N/A'?></td>
 										<td data-title="Details :"><?= isset($row->v_details) == TRUE ? $row->v_details : 'N/A'?></td>
-										<td data-title="Weeks :"><?= isset($row->v_weeksch) == TRUE ? anchor ('ppm_set?assetno='.$this->input->get('asstno').'&jobyear='.$row->v_year, $row->v_weeksch) : anchor ('ppm_set?assetno='.$this->input->get('asstno').'&jobyear='.$row->v_year, 'N/A')?></td>
+										<td data-title="Weeks :"><?= isset($row->v_weeksch) == TRUE ? anchor ('ppm_set?assetno='.$this->input->get('asstno').'&y='.$row->v_year.'&assetjt='.$row->id, $row->v_weeksch) : anchor ('ppm_set?assetno='.$this->input->get('asstno').'&jobyear='.$row->v_year, 'N/A')?></td>
 									</tr> 
 									<?php $numrow++; ?> 			 
 									<?php endforeach;?>  

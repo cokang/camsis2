@@ -1,5 +1,5 @@
 <?php
-class vo3_general_update_ctrl extends CI_Controller{
+class Vo3_general_update_ctrl extends CI_Controller{
 	
 	public function index(){
 		

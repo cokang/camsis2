@@ -1784,7 +1784,7 @@ class Contentcontroller extends CI_Controller {
 	public function get_all_users(){
  
 		$query = $this->db->get('pmis2_egm_assetregistration');
-		if($query->num_rows > 0){
+		if($query->num_rows() > 0){
 			$header = false;
 			$output_string = '';
 			$output_string .=  "<table border='1'>\n";
@@ -1805,7 +1805,7 @@ class Contentcontroller extends CI_Controller {
 	public function get_all_usersx(){
  
 		$query = $this->db->get('pmis2_egm_assetregistration');
-		if($query->num_rows > 0){
+		if($query->num_rows() > 0){
 			$header = false;
 			$output_string = '';
 			//$output_string .=  "<table border='1'>\n";
@@ -2496,7 +2496,7 @@ class Contentcontroller extends CI_Controller {
 	}
 	
 	public function vo3(){
-		if (is_null($this->input->get('p')) == FALSE) {
+		if (is_null($this->input->get('p'))) {
 			if (date('m') > 6){
 				$data['Period'] = "P2".date('y');
 			}

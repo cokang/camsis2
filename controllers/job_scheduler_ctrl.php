@@ -1,6 +1,6 @@
 <?php
 
-class job_scheduler_ctrl extends CI_Controller{
+class Job_scheduler_ctrl extends CI_Controller{
 	
 	function index(){
     // load libraries for URL and form processing

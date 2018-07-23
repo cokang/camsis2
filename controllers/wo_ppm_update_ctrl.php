@@ -1,5 +1,5 @@
 <?php
-class wo_ppm_update_ctrl extends CI_Controller{
+class Wo_ppm_update_ctrl extends CI_Controller{
 	
 	public function index(){
 		// load libraries for URL and form processing

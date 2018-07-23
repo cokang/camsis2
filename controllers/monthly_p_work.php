@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class monthly_p_work extends CI_Controller {
+class Monthly_p_work extends CI_Controller {
 	function __construct(){
 	     	parent::__construct();
 	//echo 'ade1';

@@ -10,7 +10,7 @@
 
 <tr class="ui-color-contents-style-1">
 	<td colspan="5">
-<?php $tabber = $this->input->get('ppm');?>
+<?php $tabber = 0;	if( $this->input->get('ppm') ){	$tabber=$this->input->get('ppm');	}?>
 <?php switch ($tabber) {
 	case "0":
         $tulis = "All";

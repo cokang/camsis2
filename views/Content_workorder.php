@@ -7,13 +7,13 @@
 
 	<div class="content-workorder" align="center">
 	<?php if ($this->input->get('wonos')) { ?>
-			<table id="myElem" class="onloadworkorder">
-				<tr>
-					<th style="text-align:left;"><span class="blinking">The New WO Number is</span> <?=$this->input->get('wonos')?></th>
-				</tr>
-			</table>
+		<table id="myElem" class="onloadworkorder">
+			<tr>
+				<th style="text-align:left;"><span class="blinking">The New WO Number is</span> <?=$this->input->get('wonos')?></th>
+			</tr>
+		</table>
 	<?php }?>
-			<table class="ui-content-middle-menu-workorder" border="0" height="" width="95%" align="center">
+		<table class="ui-content-middle-menu-workorder" border="0" height="" width="95%" align="center">
 				<?php switch ($tabber) {
     case "1":
         $tulis = "A1";
@@ -51,7 +51,7 @@
     default:
         $tulis = "All";
 } ?>
-				<?php include 'content_workorder_tab.php';?>
+			<?php include 'content_workorder_tab.php';?>
 			<tr class="ui-color-contents-style-1 nonetr">
 				<td colspan="12" height="40px" style="padding-left:10px; color:black;"><?=$tulis?> Requests <span style="color:red;"><?= $totalrec > 0 ? ': Total WO '.$totalrec : ''?> <?=$status?></span></td>
 			</tr>
@@ -60,19 +60,19 @@
 					<table width="100%" class="ui-content-middle-menu-desk">
 						<tr style="background:#B3130A;">
 							<td width="3%" height="30px">
-							<a href="?y=<?= $year-1?>&m=<?= $month?>&work-a=<?= $tabber?>&parent=<?=$this->input->get('parent')?>"><img src="<?php echo base_url(); ?>images/arrow-left2.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
+								<a href="?y=<?= $year-1?>&m=<?= $month?>&work-a=<?= $tabber?>&parent=<?=$this->input->get('parent')?>"><img src="<?php echo base_url(); ?>images/arrow-left2.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
 							</td>
 							<td width="3%">
-							<a href="?y=<?= ($month-1 == 0) ? $year-1 :$year?>&m=<?= ($month-1 == 0) ? 12 :$month-1?>&work-a=<?= $tabber?>&parent=<?=$this->input->get('parent')?>"><img src="<?php echo base_url(); ?>images/arrow-left.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
+								<a href="?y=<?= ($month-1 == 0) ? $year-1 :$year?>&m=<?= ($month-1 == 0) ? 12 :$month-1?>&work-a=<?= $tabber?>&parent=<?=$this->input->get('parent')?>"><img src="<?php echo base_url(); ?>images/arrow-left.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
 							</td>
 							<td width="88%" align="center">
-							<?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?>
+								<?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?>
 							</td>
 							<td width="3%">
-							<a href="?y=<?= ($month+1 == 13) ? $year+1 :$year?>&m=<?= ($month+1 == 13) ? 1 :$month+1?>&work-a=<?= $tabber?>&parent=<?=$this->input->get('parent')?>"><img src="<?php echo base_url(); ?>images/arrow-right.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
+								<a href="?y=<?= ($month+1 == 13) ? $year+1 :$year?>&m=<?= ($month+1 == 13) ? 1 :$month+1?>&work-a=<?= $tabber?>&parent=<?=$this->input->get('parent')?>"><img src="<?php echo base_url(); ?>images/arrow-right.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
 							</td>
 							<td width="3%">
-							<a href="?y=<?= $year+1?>&m=<?= $month?>&work-a=<?= $tabber?>&parent=<?=$this->input->get('parent')?>"><img src="<?php echo base_url(); ?>images/arrow-right2.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
+								<a href="?y=<?= $year+1?>&m=<?= $month?>&work-a=<?= $tabber?>&parent=<?=$this->input->get('parent')?>"><img src="<?php echo base_url(); ?>images/arrow-right2.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
 							</td>
 						</tr>
 					</table>

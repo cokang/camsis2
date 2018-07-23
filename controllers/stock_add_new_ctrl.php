@@ -1,6 +1,6 @@
 <?php
 
-class stock_add_new_ctrl extends CI_Controller{
+class Stock_add_new_ctrl extends CI_Controller{
 
 	function index(){
 

@@ -1,6 +1,6 @@
 <?php
 
- class loginModel extends CI_Model{
+ class LoginModel extends CI_Model{
 		
 	function validate()
 	{
@@ -20,12 +20,12 @@
 		//$this->db->where('i.file_name', $this-);
 		//$query = $this->db->get();
 		
-//echo $this->db->last_query();
-//exit();
+// echo $this->db->last_query();
+// exit();
 
 		//echo $this->input->post('username') . $this->input->post('password');
 		//exit;
-		if( $query->num_rows ==1)
+		if( $query->num_rows() ==1)
 		{
 
 			return TRUE;
@@ -67,18 +67,18 @@
 	
 	function validate2()
 	{
-		
+		// echo "<pre>";var_export($this->input->post());echo "<br>this->input->post('v_UserName')=".$this->input->post('v_UserName')."<br><br>";
 		$this->db->select('v_servicecode');
 		$this->db->where('v_userid', $this->input->post('v_UserName'));
 		
 		$query = $this->db->get('pmis2_sa_userservice');
 		
-		//echo $this->db->last_query();
+		// echo $this->db->last_query();
 		
-		//exit();
+		// exit();
 	
 		//if( $query->num_rows ==3 || $query->num_rows ==2)
-		if( $query->num_rows > 1 )
+		if( $query->num_rows() > 1 )
 		{
 			return TRUE;
 		}
@@ -105,7 +105,7 @@
 		$this->db->where('v_userid', $this->input->post('username'));
 		$this->db->where('v_password',md5($this->input->post('opassword')));
 		$query = $this->db->get('pmis2_sa_user');
-		if( $query->num_rows ==1)
+		if( $query->num_rows() ==1)
 		{
 			return TRUE;
 		}

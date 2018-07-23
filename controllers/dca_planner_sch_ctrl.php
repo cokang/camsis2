@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class dca_planner_sch_ctrl extends CI_Controller{
+class Dca_planner_sch_ctrl extends CI_Controller{
 
 function __construct(){
 	     	parent::__construct();

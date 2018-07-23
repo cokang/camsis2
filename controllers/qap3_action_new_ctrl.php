@@ -1,5 +1,5 @@
 <?php
-class qap3_action_new_ctrl extends CI_Controller{
+class Qap3_action_new_ctrl extends CI_Controller{
 	
 	function index(){
 	

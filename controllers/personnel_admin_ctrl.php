@@ -1,5 +1,5 @@
 <?php
-class personnel_admin_ctrl extends CI_Controller{
+class Personnel_admin_ctrl extends CI_Controller{
 	
 	public function index(){
 	// load libraries for URL and form processing

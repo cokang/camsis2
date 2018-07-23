@@ -1,5 +1,5 @@
 <?php
-class dcap_planner_sch_ctrl extends CI_Controller{
+class Dcap_planner_sch_ctrl extends CI_Controller{
 
 function index(){
 	$colorcode = $this->input->get('c');

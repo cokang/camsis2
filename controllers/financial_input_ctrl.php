@@ -1,6 +1,6 @@
 <?php
 
-class financial_input_ctrl extends CI_Controller{
+class Financial_input_ctrl extends CI_Controller{
 	
 	function index(){
     // load libraries for URL and form processing

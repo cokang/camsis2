@@ -1,6 +1,6 @@
 <?php
 
-class acg_modulesf_ctrl extends CI_Controller{
+class Acg_modulesf_ctrl extends CI_Controller{
 	
 	function index(){
 		$service_code = $this->input->post('n_base');

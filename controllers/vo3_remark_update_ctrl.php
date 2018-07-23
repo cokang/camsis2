@@ -1,5 +1,5 @@
 <?php
-class vo3_remark_update_ctrl extends CI_Controller{
+class Vo3_remark_update_ctrl extends CI_Controller{
 	
 	function index(){
 		

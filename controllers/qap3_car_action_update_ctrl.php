@@ -1,5 +1,5 @@
 <?php
-class qap3_car_action_update_ctrl extends CI_Controller{
+class Qap3_car_action_update_ctrl extends CI_Controller{
 	
 	function index(){
 		

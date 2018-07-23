@@ -1,5 +1,5 @@
 <?php
-class wo_visit_update_ctrl extends CI_Controller{
+class Wo_visit_update_ctrl extends CI_Controller{
 
 	public function index(){
 	$starttime = strtotime($this->input->post('n_Shour').':'.$this->input->post('n_Smin'));

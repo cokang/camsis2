@@ -1,5 +1,5 @@
 <?php
-    class display_model extends CI_Model
+    class Display_model extends CI_Model
     {
 		
 		 		function dater($which=1, $mon, $yr)

@@ -1,5 +1,5 @@
 <?php
-class wo_response_update_ctrl extends CI_Controller{
+class Wo_response_update_ctrl extends CI_Controller{
 	
 	public function index(){
 

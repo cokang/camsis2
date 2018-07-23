@@ -1,5 +1,5 @@
 <?php
-class vo3_assets_update_ctrl extends CI_Controller{
+class Vo3_assets_update_ctrl extends CI_Controller{
 	
 	public function index(){
 	error_reporting(E_ALL);

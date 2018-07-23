@@ -1,5 +1,5 @@
 <?php
-class monthlyplanner_sch_ctrl extends CI_Controller{
+class Monthlyplanner_sch_ctrl extends CI_Controller{
 
 function index(){
 	$task = $this->input->get('task');

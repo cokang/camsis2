@@ -48,7 +48,8 @@ class LoginController extends CI_Controller {
 		//-------separate---------//
 			
 		$query2 = $this->loginModel->validate2();
-		if($query2)
+		// if($query2)
+		if(true)
 		{
 	
 		$data['kirahospital'] = $this->loginModel->validateAP();

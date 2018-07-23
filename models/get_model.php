@@ -1,5 +1,5 @@
 <?php
-class get_model extends CI_Model{
+class Get_model extends CI_Model{
 function __construct() {
 parent::__construct();
 }
@@ -575,11 +575,11 @@ $this->db->join('pmis2_egm_assetmaintenance b','a.v_asset_no = b.v_assetno AND a
 $this->db->join('pmis2_egm_assetreg_general c','a.v_asset_no = c.v_asset_no AND a.v_hospitalcode = c.v_hospital_code');
 $this->db->join('pmis2_egm_assetjobtype j','j.v_asset_no = c.v_asset_no AND j.v_hospitalcode = c.v_hospital_code AND j.v_year=year(now())', 'left');
 $val = array('C1', 'C4', 'C5', 'C7');
-$this->db->where_in('left(b.v_assetcondition,2)', $val,FALSE);
+$this->db->where_in('left(b.v_assetcondition,2)', $val);
 $val = array('S1', 'S2','S4','S5');
-$this->db->where_in('left(b.v_assetstatus,2)', $val,FALSE);
+$this->db->where_in('left(b.v_assetstatus,2)', $val);
 $val = array('V3', 'V4L','V4','V5');
-$this->db->where_in('left(b.v_AssetVStatus,2)', $val,FALSE);
+$this->db->where_in('left(b.v_AssetVStatus,2)', $val);
 $val = array('BESTH01');
 //$this->db->where_not_in("a.v_asset_no", "SELECT v_asset_no FROM fmis.pmis2_egm_assetjobtype where v_hospitalcode = 'IIUM'");
 $this->db->where('a.v_hospitalcode = ', $this->session->userdata('hosp_code'));
@@ -794,7 +794,7 @@ $this->db->group_by('A.v_CertificateNo,A.v_RegistrationNo,A.v_Identification');
 
 $query = $this->db->get();
 //echo "laalla".$query->DWRate;
- echo $this->db->last_query();
+ //echo $this->db->last_query();
 /*exit(); */
 return $query->result();
 
