@@ -618,14 +618,14 @@ ORDER BY r.D_date, r.D_time
 			}
 
 			if ($broughtfwd == ''){
-			$this->db->select("g.V_Asset_name, e.v_location_name, r.v_location_code, r.V_hospitalcode, r.closedby, r.D_date, r.D_time, r.V_Request_no, r.V_Asset_no, r.V_summary AS ReqSummary, r.V_User_dept_code, r.V_requestor, r.V_request_status, r.v_closeddate, r.v_closedtime, w.V_Wrn_end_code, a.v_summary, g.v_tag_no, d.v_UserDeptDesc, DATEDIFF(IFNULL(r.v_closeddate,'".$this->dater(3,$month,$year)."'),r.D_date) + 1 AS DiffDate,r.V_request_type,g.v_asset_grp,jr.d_Date,jr.v_Time,jr.v_Personal1,jr.v_ActionTaken,g.V_Asset_WG_code, IFNULL(dt.ori_wo,'none') AS linker", false);
+			$this->db->select("g.V_Asset_name, e.v_location_name, r.v_location_code, r.V_hospitalcode, r.closedby, r.D_date, r.D_time, r.V_Request_no, r.V_Asset_no, r.V_summary AS ReqSummary, r.V_User_dept_code, r.V_requestor, r.V_request_status, r.v_closeddate, r.v_closedtime, w.V_Wrn_end_code, a.v_summary, g.v_tag_no, d.v_UserDeptDesc, DATEDIFF(IFNULL(r.v_closeddate,'".$this->dater(3,$month,$year)."'),r.D_date) + 1 AS DiffDate,r.V_request_type,g.v_asset_grp,jr.d_Date,jr.v_Time,jr.v_Personal1,jr.v_ActionTaken,g.V_Asset_WG_code, IFNULL(dt.ori_wo,'none') AS linker,jv.d_Date AS schedule_d", false);
 			}else{
       //$this->db->select("e.v_location_name, r.v_location_code, r.V_hospitalcode, r.closedby, r.D_date, r.D_time, r.V_Request_no, r.V_Asset_no, r.V_summary AS ReqSummary, r.V_User_dept_code, r.V_requestor, r.V_request_status, r.v_closeddate, r.v_closedtime, w.V_Wrn_end_code, a.v_summary, g.v_tag_no, d.v_UserDeptDesc, CASE WHEN r.V_request_status = 'C' AND MONTH(r.v_closeddate) = MONTH(DATE_SUB('".$year."-".$month."-08 23:59:59', INTERVAL 1 MONTH)) AND YEAR(r.v_closeddate) = YEAR(DATE_SUB('".$year."-".$month."-08 23:59:59', INTERVAL 1 MONTH)) THEN DATEDIFF(r.v_closeddate, r.D_date)+1 WHEN r.V_request_status <> 'C' AND DAY(LAST_DAY(".$this->db->escape($year."-".$month."-01").")) > DATEDIFF(now(), r.D_date) THEN DATEDIFF( now(),r.D_date)+1 ELSE DAY(LAST_DAY(".$this->db->escape($year."-".$month."-01").")) END AS DiffDate,r.V_request_type,g.v_asset_grp,jr.d_Date,jr.v_Time,jr.v_Personal1,jr.v_ActionTaken,g.V_Asset_WG_code, IFNULL(dt.ori_wo,'none') AS linker", false);
 			//$this->db->select("e.v_location_name, r.v_location_code, r.V_hospitalcode, r.closedby, r.D_date, r.D_time, r.V_Request_no, r.V_Asset_no, r.V_summary AS ReqSummary, r.V_User_dept_code, r.V_requestor, r.V_request_status, r.v_closeddate, r.v_closedtime, w.V_Wrn_end_code, a.v_summary, g.v_tag_no, d.v_UserDeptDesc, CASE WHEN r.V_request_status = 'C' AND r.v_closeddate < MONTH(DATE_ADD('".$year."-".$month."-08 23:59:59', INTERVAL 1 MONTH)) THEN DATEDIFF(r.v_closeddate, r.D_date)+1 WHEN r.V_request_status <> 'C' AND DAY(LAST_DAY(".$this->db->escape($year."-".$month."-01").")) > DATEDIFF(now(), r.D_date) THEN DATEDIFF( now(),r.D_date)+1 ELSE DAY(LAST_DAY(".$this->db->escape($year."-".$month."-01").")) END AS DiffDate,r.V_request_type,g.v_asset_grp,jr.d_Date,jr.v_Time,jr.v_Personal1,jr.v_ActionTaken,g.V_Asset_WG_code, IFNULL(dt.ori_wo,'none') AS linker", false);
 			//$this->db->select("e.v_location_name, r.v_location_code, r.V_hospitalcode, r.closedby, r.D_date, r.D_time, r.V_Request_no, r.V_Asset_no, r.V_summary AS ReqSummary, r.V_User_dept_code, r.V_requestor, r.V_request_status, r.v_closeddate, r.v_closedtime, w.V_Wrn_end_code, a.v_summary, g.v_tag_no, d.v_UserDeptDesc, CASE WHEN r.V_request_status = 'C' AND MONTH(r.v_closeddate) = MONTH(DATE_SUB('".$year."-".$month."-08 23:59:59', INTERVAL 1 MONTH)) AND YEAR(r.v_closeddate) = YEAR(DATE_SUB('".$year."-".$month."-08 23:59:59', INTERVAL 1 MONTH)) THEN DATEDIFF(r.v_closeddate, r.D_date)+1 WHEN r.V_request_status <> 'C' AND DAY(LAST_DAY(".$this->db->escape($year."-".$month."-01").")) > DATEDIFF(now(), r.D_date) THEN DATEDIFF( now(),r.D_date)+1 ELSE DAY(LAST_DAY(".$this->db->escape($year."-".$month."-01").")) END AS DiffDate,r.V_request_type,g.v_asset_grp,jr.d_Date,jr.v_Time,jr.v_Personal1,jr.v_ActionTaken,g.V_Asset_WG_code, IFNULL(dt.ori_wo,'none') AS linker", false);
 			//$this->db->select("e.v_location_name, r.v_location_code, r.V_hospitalcode, r.closedby, r.D_date, r.D_time, r.V_Request_no, r.V_Asset_no, r.V_summary AS ReqSummary, r.V_User_dept_code, r.V_requestor, r.V_request_status, r.v_closeddate, r.v_closedtime, w.V_Wrn_end_code, a.v_summary, g.v_tag_no, d.v_UserDeptDesc, CASE WHEN r.V_request_status = 'C' AND MONTH(r.v_closeddate) = ".$month." AND YEAR(r.v_closeddate) = ".$year." THEN DATEDIFF(r.v_closeddate,".$this->db->escape($year."-".$month."-01").") ELSE DAY(LAST_DAY(".$this->db->escape($year."-".$month."-01").")) END AS DiffDate,r.V_request_type,g.v_asset_grp,jr.d_Date,jr.v_Time,jr.v_Personal1,jr.v_ActionTaken,g.V_Asset_WG_code, IFNULL(dt.ori_wo,'none') AS linker", false);
 			//$this->db->select("g.V_Asset_name, e.v_location_name, r.v_location_code, r.V_hospitalcode, r.closedby, r.D_date, r.D_time, r.V_Request_no, r.V_Asset_no, r.V_summary AS ReqSummary, r.V_User_dept_code, r.V_requestor, r.V_request_status, r.v_closeddate, r.v_closedtime, w.V_Wrn_end_code, a.v_summary, g.v_tag_no, d.v_UserDeptDesc, CASE WHEN r.V_request_status = 'C' AND r.v_closeddate >= '".$year."-".$month."-08 23:59:59' AND month(r.v_closeddate) = month('".$year."-".$month."-08 23:59:59') THEN DATEDIFF(r.v_closeddate, '".$year."-".$month."-09 23:59:59')+1 WHEN r.V_request_status = 'C' AND r.v_closeddate < DATE_ADD('".$year."-".$month."-08 23:59:59', INTERVAL 1 MONTH) THEN DATEDIFF(r.v_closeddate, r.D_date)+1 WHEN r.V_request_status <> 'C' AND DAY(LAST_DAY(".$this->db->escape($year."-".$month."-01").")) > DATEDIFF(now(), r.D_date) THEN DATEDIFF( now(),r.D_date)+1 ELSE DAY(LAST_DAY(".$this->db->escape($year."-".$month."-01").")) END AS DiffDate,r.V_request_type,g.v_asset_grp,jr.d_Date,jr.v_Time,jr.v_Personal1,jr.v_ActionTaken,g.V_Asset_WG_code, IFNULL(dt.ori_wo,'none') AS linker", false);
-			$this->db->select("g.V_Asset_name, e.v_location_name, r.v_location_code, r.V_hospitalcode, r.closedby, r.D_date, r.D_time, r.V_Request_no, r.V_Asset_no, r.V_summary AS ReqSummary, r.V_User_dept_code, r.V_requestor, r.V_request_status, r.v_closeddate, r.v_closedtime, w.V_Wrn_end_code, a.v_summary, g.v_tag_no, d.v_UserDeptDesc, CASE WHEN r.V_request_status = 'C' AND r.v_closeddate >= '".$year."-".$month."-08 23:59:59' AND r.v_closeddate < '".$this->dater(2,$month,$year)." 23:59:59' THEN DATEDIFF(r.v_closeddate, '".$year."-".$month."-09 23:59:59')+1 WHEN r.V_request_status = 'C' AND r.v_closeddate < DATE_ADD('".$year."-".$month."-08 23:59:59', INTERVAL 1 MONTH) THEN DATEDIFF(r.v_closeddate, r.D_date)+1 WHEN r.V_request_status <> 'C' AND DAY(LAST_DAY(".$this->db->escape($year."-".$month."-01").")) > DATEDIFF(now(), r.D_date) THEN DATEDIFF( now(),r.D_date)+1 ELSE DAY(LAST_DAY(".$this->db->escape($year."-".$month."-01").")) END AS DiffDate,r.V_request_type,g.v_asset_grp,jr.d_Date,jr.v_Time,jr.v_Personal1,jr.v_ActionTaken,g.V_Asset_WG_code, IFNULL(dt.ori_wo,'none') AS linker", false);
+			$this->db->select("g.V_Asset_name, e.v_location_name, r.v_location_code, r.V_hospitalcode, r.closedby, r.D_date, r.D_time, r.V_Request_no, r.V_Asset_no, r.V_summary AS ReqSummary, r.V_User_dept_code, r.V_requestor, r.V_request_status, r.v_closeddate, r.v_closedtime, w.V_Wrn_end_code, a.v_summary, g.v_tag_no, d.v_UserDeptDesc, CASE WHEN r.V_request_status = 'C' AND r.v_closeddate >= '".$year."-".$month."-08 23:59:59' AND r.v_closeddate < '".$this->dater(2,$month,$year)." 23:59:59' THEN DATEDIFF(r.v_closeddate, '".$year."-".$month."-09 23:59:59')+1 WHEN r.V_request_status = 'C' AND r.v_closeddate < DATE_ADD('".$year."-".$month."-08 23:59:59', INTERVAL 1 MONTH) THEN DATEDIFF(r.v_closeddate, r.D_date)+1 WHEN r.V_request_status <> 'C' AND DAY(LAST_DAY(".$this->db->escape($year."-".$month."-01").")) > DATEDIFF(now(), r.D_date) THEN DATEDIFF( now(),r.D_date)+1 ELSE DAY(LAST_DAY(".$this->db->escape($year."-".$month."-01").")) END AS DiffDate,r.V_request_type,g.v_asset_grp,jr.d_Date,jr.v_Time,jr.v_Personal1,jr.v_ActionTaken,g.V_Asset_WG_code, IFNULL(dt.ori_wo,'none') AS linker,jv.d_Date AS schedule_d", false);
 			}
 			$this->db->from('pmis2_egm_service_request r');
 			$this->db->join('pmis2_egm_assetregistration g','r.v_Asset_no = g.V_Asset_no AND r.v_HospitalCode = g.V_Hospitalcode AND g.V_Actionflag <> "D"', 'left outer');
@@ -635,6 +635,7 @@ ORDER BY r.D_date, r.D_time
 			$this->db->join('pmis2_egm_assetlocation e','r.v_location_code = e.v_location_code','left outer');
 			$this->db->join('pmis2_emg_jobresponse jr',"r.V_Request_no = jr.v_WrkOrdNo",'left outer');
 			$this->db->join('pmis2_egm_sharedowntime dt',"r.V_Request_no = dt.ori_wo",'left outer');
+			$this->db->join('pmis2_emg_jobvisit1 jv',"r.V_Request_no = jv.v_WrkOrdNo AND r.v_HospitalCode = jv.v_HospitalCode AND jv.n_Visit = 1",'left outer');
 			$this->db->where('r.V_servicecode', $this->session->userdata('usersess'));
 			$this->db->where('r.V_actionflag <> ', 'D');
 			if ($pilih <> "A") {
@@ -2137,7 +2138,7 @@ return $query->result();
 			$this->db->where('a.Action_Flag !=','D');
 			$this->db->limit(1000); 
 			if ($searchitem != "") {
-			$this->db->where("b.ItemCode",$searchitem)->or_where("b.ItemName",$searchitem);}
+			$this->db->where("b.ItemCode",$searchitem)->or_like("b.ItemName",$searchitem);}
 			$this->db->order_by("itemname");
 				//$this->db->where('a.Hosp_code','MKA');//test
 			$query = $this->db->get();
@@ -2239,21 +2240,256 @@ return $query->result();
 			//exit();
 			return $query->result();
 		}
-		function storeasset_report($ItemCode,$m,$y){
-			$this->db->select('a.Time_Stamp,a.Qty_Before,a.Qty_Taken,a.Qty_Add,a.Last_User_Update,a.Related_WO,a.Remark,a.ItemCode');
+		function storeasset_report($ItemCode,$m,$y,$site=""){
+			$this->db->select('a.Time_Stamp,a.Qty_Before,a.Qty_Taken,a.Qty_Add,a.Price_Taken,a.Last_User_Update,a.Related_WO,a.Remark,a.ItemCode,b.ItemName,c.v_head_of_lls');
 			$this->db->from('tbl_item_movement a');
 			$this->db->join('tbl_invitem b','a.ItemCode = b.ItemCode','inner');
-			$this->db->where('a.Store_Id',$this->session->userdata('usersess'));
-			$this->db->where('MONTH(a.Time_Stamp)',$m);
-			$this->db->where('YEAR(a.Time_Stamp)',$y);
-			$this->db->where('a.ItemCode',$ItemCode);
+			$this->db->join('pmis2_sa_hospital c','a.site_id = c.v_HospitalCode','left');
+			$this->db->where('a.Store_Id', $this->session->userdata('hosp_code'));//$this->session->userdata('usersess'));
+			if($m!=""){
+				$this->db->where('MONTH(a.Time_Stamp)',$m);
+			}
+			if($y!=""){
+				$this->db->where('YEAR(a.Time_Stamp)',$y);
+			}
+			if($ItemCode!=""){
+				$this->db->where('a.ItemCode',$ItemCode);
+			}
+			if( $site!="" ){
+				$this->db->where('a.site_id', $site);
+			}
 			$this->db->order_by('a.Time_Stamp','ASC');
-			
+
 			$query = $this->db->get();
-			//echo $this->db->last_query();
-			//exit();
+			// echo $this->db->last_query();
+			// exit();
 			return $query->result();
 		}
+
+		function releaseNote_get_itemspecification($site="", $datefrom="", $dateto=""){
+
+			$year	= date("Y");
+			$month	= date("m");
+			if($datefrom!=""){
+				$year = "";//date("Y", strtotime($datefrom));
+				$month= "";//date("m", strtotime($datefrom));
+			}
+			$dataTable = array();
+			$res	= $this->storeasset_report("",$month, $year, $site);
+			if( !empty($res) ){
+				$i=0;
+				foreach ($res as $row) {
+					$Time_Stamp = date("m-d-Y", strtotime($row->Time_Stamp));
+					is_numeric($row->Qty_Before) ? $Qty_Before = $row->Qty_Before : $Qty_Before = 0;
+					is_numeric($row->Qty_Taken) ? $Qty_Taken = $row->Qty_Taken : $Qty_Taken = 0;
+					is_numeric($row->Qty_Add) ? $Qty_Add = $row->Qty_Add : $Qty_Add = 0;
+					is_numeric($row->Price_Taken) ? $Price_Taken = $row->Price_Taken : $Price_Taken = 0;
+					$Qty_Bal = $Qty_Before + $Qty_Add - $Qty_Taken;
+
+					if( $datefrom!="" && $dateto=="" ){
+						if( $Time_Stamp >= $datefrom ){
+							$dataTable[$i]["Time_Stamp"]		= $row->Time_Stamp;
+							$dataTable[$i]["ItemCode"] 			= $row->ItemCode;
+							$dataTable[$i]["ItemName"]			= $row->ItemName;
+							$dataTable[$i]["Qty_Taken"] 		= $Qty_Taken;
+							$dataTable[$i]["Qty_Before"]		= $Qty_Before;
+							$dataTable[$i]["Qty_Add"]			= $Qty_Add;
+							$dataTable[$i]["Price_Taken"]		= $Price_Taken;
+							$dataTable[$i]["Last_User_Update"]	= $row->Last_User_Update;
+							$dataTable[$i]["Related_WO"]		= $row->Related_WO;
+							$dataTable[$i]["Remark"]			= $row->Remark;
+							$dataTable[$i]["v_head_of_lls"]		= $row->v_head_of_lls;
+						}
+					}elseif( $datefrom=="" && $dateto!="" ){
+						if( $Time_Stamp <= $dateto ){
+							$dataTable[$i]["Time_Stamp"]		= $row->Time_Stamp;
+							$dataTable[$i]["ItemCode"] 			= $row->ItemCode;
+							$dataTable[$i]["ItemName"]			= $row->ItemName;
+							$dataTable[$i]["Qty_Taken"] 		= $Qty_Taken;
+							$dataTable[$i]["Qty_Before"]		= $Qty_Before;
+							$dataTable[$i]["Qty_Add"]			= $Qty_Add;
+							$dataTable[$i]["Price_Taken"]		= $Price_Taken;
+							$dataTable[$i]["Last_User_Update"]	= $row->Last_User_Update;
+							$dataTable[$i]["Related_WO"]		= $row->Related_WO;
+							$dataTable[$i]["Remark"]			= $row->Remark;
+							$dataTable[$i]["v_head_of_lls"]		= $row->v_head_of_lls;
+						}
+					}elseif( $datefrom!="" && $dateto!="" ){
+						if( $Time_Stamp >= $datefrom && $Time_Stamp <= $dateto  ){
+							$dataTable[$i]["Time_Stamp"]		= $row->Time_Stamp;
+							$dataTable[$i]["ItemCode"] 			= $row->ItemCode;
+							$dataTable[$i]["ItemName"]			= $row->ItemName;
+							$dataTable[$i]["Qty_Taken"] 		= $Qty_Taken;
+							$dataTable[$i]["Qty_Before"]		= $Qty_Before;
+							$dataTable[$i]["Qty_Add"]			= $Qty_Add;
+							$dataTable[$i]["Price_Taken"]		= $Price_Taken;
+							$dataTable[$i]["Last_User_Update"]	= $row->Last_User_Update;
+							$dataTable[$i]["Related_WO"]		= $row->Related_WO;
+							$dataTable[$i]["Remark"]			= $row->Remark;
+							$dataTable[$i]["v_head_of_lls"]		= $row->v_head_of_lls;
+						}
+					}else{
+						if( $Time_Stamp==date("m-d-Y") ){
+							$dataTable[$i]["Time_Stamp"]		= $row->Time_Stamp;
+							$dataTable[$i]["ItemCode"] 			= $row->ItemCode;
+							$dataTable[$i]["ItemName"]			= $row->ItemName;
+							$dataTable[$i]["Qty_Taken"] 		= $Qty_Taken;
+							$dataTable[$i]["Qty_Before"]		= $Qty_Before;
+							$dataTable[$i]["Qty_Add"]			= $Qty_Add;
+							$dataTable[$i]["Price_Taken"]		= $Price_Taken;
+							$dataTable[$i]["Last_User_Update"]	= $row->Last_User_Update;
+							$dataTable[$i]["Related_WO"]		= $row->Related_WO;
+							$dataTable[$i]["Remark"]			= $row->Remark;
+							$dataTable[$i]["v_head_of_lls"]		= $row->v_head_of_lls;
+						}
+					}
+					$i++;
+				}
+			}
+
+			$v_head_of_lls = "";
+			if(!empty($dataTable) && $dataTable[0]['v_head_of_lls']){
+				$v_head_of_lls = $dataTable[0]['v_head_of_lls'];
+			}
+
+			$table = $this->generateItemSpecificationTable($dataTable);
+			return array("table"=>$table,"v_head_of_lls"=>$v_head_of_lls,"data"=>$dataTable);
+		}
+
+		public function generateItemSpecificationTable($dataTable){
+
+			$html = "";
+			if( !empty($dataTable) ){
+				$dataTable = json_decode(json_encode($dataTable));
+				$numrow=1;//echo "<pre>";var_export($dataTable);die;
+				foreach ($dataTable as $trow) {
+
+					$trClass = ($numrow%2==0) ?  'class="ui-color-color-color"' :  '';
+					$html .= "	<tr align='center' $trClass>";
+					$html .= "		<td data-title='No :'>$numrow</td>";
+					$html .= "		<td data-title='Item Code :'><input type='text' name='itemCode[]' class='readonly' value='$trow->ItemCode' readonly /></td>";
+					$html .= "		<td data-title='Item Code :'><input type='text' name='itemName[]' class='readonly' value='$trow->ItemName' readonly /></td>";
+					$html .= "		<td data-title='Out :'><input type='text' name='Qty_Taken[]' class='readonly' value='$trow->Qty_Taken' readonly /></td>";
+					$html .= "		<td data-title='Out :'><input type='text' name='Price_Taken[]' class='readonly' value='$trow->Price_Taken' readonly /></td>";
+					$html .= "	</tr>";
+					$numrow++;
+				}
+			}else{
+				$html .= "<tr align='center'><td colspan='8' align='center'>No Data</td></tr>";
+			}
+
+			return $html;
+		}
+
+		public function save_release_note(){
+			$rn_no = $this->get_RNNO();
+			$val_tbl_rn_release = array(
+						"RN_No" => $rn_no,
+						"rn_status" => $this->input->post("rn_status"),
+						"shipment_type" => $this->input->post("shipment_type"),
+						"courier" => $this->input->post("courier"),
+						"consignment_note" => $this->input->post("consignment_note"),
+						"consignment_date" => date('Y-m-d H:s:i', strtotime($this->input->post("consignment_date"))),
+						"accessories" => $this->input->post("accessories")
+			);
+			$val_tbl_rn_item = array(
+						"RN_No" => $rn_no,
+						"Item_Code" => $this->input->post("itemCode"),
+						"Qty" => $this->input->post("Qty_Taken"),
+						"Price" => $this->input->post("Price_Taken")
+			);
+			$this->db->set("Date_Stamp", "NOW()", FALSE);
+
+			$this->db->trans_begin();
+
+			$this->db->insert("tbl_rn_release", $val_tbl_rn_release);
+			$this->db->insert("tbl_rn_item", $val_tbl_rn_item);
+			// $rn_next_no = explode("/",$rn_no)[3]+1;
+			// $val_tbl_rn_autono = array(
+			// 		"rn_next_no" => $rn_next_no,
+			// 		"userid" => $this->session->userdata("v_UserName"),
+			// 		"yearno" => date("Y")
+			// );
+			// $this->db->set("DT", "NOW()", false);
+			// $this->db->insert("tbl_rn_autono", $val_tbl_rn_autono);
+
+			$this->db->trans_complete();
+
+			if ($this->db->trans_status() === FALSE) {
+				$this->db->trans_rollback();
+				return FALSE;
+			} 
+			else {
+				$this->db->trans_commit();
+				return TRUE;
+			}
+		}
+
+		public function get_RNNO(){
+			$from = "HQ";
+			$to = $this->input->post("area");
+			$next_number = 1;
+			$year = str_split(date("Y"))[2].str_split(date("Y"))[3];
+			$query = $this->db->select("*")->from("tbl_rn_autono")->order_by("rn_next_no", "desc")->limit(1)->get()->result();
+			if( !empty($query) ){
+				foreach ($query as $row) {
+					$next_number = $row->rn_next_no;
+				}
+			}
+			$number = str_pad($next_number, 5, '0', STR_PAD_LEFT);
+			$res = "RN/$from/$to/$number/$year";
+
+			$val_tbl_rn_autono = array(
+					"rn_next_no" => $next_number+1,
+					"userid" => $this->session->userdata("v_UserName"),
+					"yearno" => date("Y")
+			);
+			$this->db->set("DT", "NOW()", false);
+			$this->db->insert("tbl_rn_autono", $val_tbl_rn_autono);
+
+			return $res;
+		}
+
+		function get_release_note($maklumat){
+			$this->db->select("*,a.RN_No as rn_no");
+			$this->db->from("tbl_rn_release a");
+			$this->db->join("tbl_rn_item b", "a.RN_No=b.RN_No","left");
+			$this->db->join("tbl_invitem c", "b.Item_code=c.ItemCode","left");
+			if( isset($maklumat['month']) && $maklumat['month']!="" ){
+				$this->db->where("DATE_FORMAT(a.Date_Stamp,'%m') = ",$maklumat['month']);
+			}
+			if( isset($maklumat['year']) && $maklumat['year']!="" ){
+				$this->db->where("DATE_FORMAT(a.Date_Stamp,'%Y') = ",$maklumat['year']);
+			}
+			if(isset($maklumat['RN_No'])){
+				$this->db->where("a.RN_No", $maklumat["RN_No"]);
+			}
+			$this->db->group_by("a.RN_No");
+			$result = $this->db->get()->result();
+			// echo $this->db->last_query();exit();
+			// echo "<pre>";var_export($result);die;
+			if(count($result)>0){
+				foreach ($result as $row) {
+					$to = explode("/",$row->rn_no)[2];
+					$row->v_HospitalAdd1 = "";
+					$row->v_HospitalAdd2 = "";
+					$row->v_HospitalAdd3 = "";
+					$row->v_head_of_lls = "";
+					$row->Related_WO = "";
+					if( !empty($this->get_hospital($to)[0]) ){
+						$row->v_HospitalAdd1 = $this->get_hospital($to)[0]->v_HospitalAdd1;
+						$row->v_HospitalAdd2 = $this->get_hospital($to)[0]->v_HospitalAdd2;
+						$row->v_HospitalAdd3 = $this->get_hospital($to)[0]->v_HospitalAdd3;
+						$row->v_head_of_lls = $this->get_hospital($to)[0]->v_head_of_lls;
+						$row->Related_WO = $this->get_hospital($to)[0]->Related_WO;
+					}
+					$row->item_specification = $this->get_rn_item($row->rn_no);
+				}
+			}
+			// echo "<pre>";var_export($result);die;
+			return $result;
+		}
+
 		function job_schedule($loct){
 			$this->db->select('*');
 			$this->db->from('set_scheduler');
@@ -5088,6 +5324,30 @@ return $obj['path'];
 			exit(); */
 			return $query_result;
 		}
+		
+
+	function area_list(){
+		$query = $this->db->select("*")->from("pmis2_sa_hospital")->get()->result_array();
+		return $query;
+	}
+
+	public function get_hospital($fromArea){
+		$this->db->select("v_HospitalAdd1,v_HospitalAdd2,v_HospitalAdd3,v_head_of_lls,b.Related_WO");
+		$this->db->from("pmis2_sa_hospital a");
+		$this->db->join("tbl_item_movement b", "a.v_HospitalCode=b.site_id","left");
+		$this->db->where("v_HospitalCode",$fromArea);
+		$query = $this->db->get()->result();
+		return $query;
+	}
+
+	public function get_rn_item($rn_no){
+		$this->db->select("a.*, b.ItemName");
+		$this->db->from("tbl_rn_item a");
+		$this->db->join("tbl_invitem b", "a.Item_code=b.ItemCode","inner");
+		$query = $this->db->where("a.RN_No",$rn_no)->get();
+		// echo $this->db->last_query();exit();
+		return $query->result();
+	}
 
 }
 ?>

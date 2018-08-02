@@ -1,4 +1,4 @@
-<?php include 'pdf_head.php'?>	<html>
+<?php include 'pdf_head.php';?>	<html>
 	<head>
 	<style>
 	.rport-header{padding-bottom:10px;}

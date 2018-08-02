@@ -13,55 +13,55 @@ $array = [
 	// End Menu //
 
 	//Asset Menu//
-	['Asset', 'assets' , 'contentcontroller/assetupdate/','',''],
-	['Asset', 'assets' , 'contentcontroller/assetupdatepic/','',''],
-	['Asset', 'assets' , 'contentcontroller/assetstatutory/','',''],
-	['Asset', 'assets' , 'contentcontroller/assetcontract/','',''],
-	['Asset', 'assets' , 'contentcontroller/assetworkorder/','',''],
-	['Asset', 'assets' , 'contentcontroller/assetaccessories/','',''],
-	['Asset', 'assets' , 'contentcontroller/assetlicenses/','',''],
-	['Asset', 'assets' , 'contentcontroller/assetPPMjob/','',''],
-	['Asset', 'assets' , 'assetPPMplanner/','',''],
-	['Asset', 'assets' , 'contentcontroller/assetlogcards/','',''],
-	['Asset', 'assets' , 'contentcontroller/assetlogcards_M/','',''],
-	['Asset', 'assets' , 'contentcontroller/assetlogcards_U/','',''],
-	['Asset', 'assets' , 'contentcontroller/assetlogcards_C/','',''],
-	['Asset', 'assets' , 'contentcontroller/assetlogcards_Re/','',''],
-	['Asset', 'assets' , 'contentcontroller/fail_bank/','',''],
-	['Asset', 'assets' , 'contentcontroller/assetmaintenancespecification/','',''],
-	['Asset', 'assets' , 'contentcontroller/assetvariationhistory/','',''],
-	['Asset', 'assets' , 'contentcontroller/assetcostcummulative/','',''],
-	['Asset', 'assets' , 'contentcontroller/assetwn/','',''],
-	['Asset', 'assets' , 'contentcontroller/assetet/','',''],
-	['Asset', 'assets' , 'contentcontroller/assetwe/','',''],
-	['Asset', 'assets' , 'contentcontroller/assetwf/','',''],
-	['Asset', 'assets' , 'contentcontroller/assetsearch/','',''],
+	['Asset', 'contentcontroller/assets' , 'contentcontroller/assetupdate/','',''],
+	['Asset', 'contentcontroller/assets' , 'contentcontroller/assetupdatepic/','',''],
+	['Asset', 'contentcontroller/assets' , 'contentcontroller/assetstatutory/','',''],
+	['Asset', 'contentcontroller/assets' , 'contentcontroller/assetcontract/','',''],
+	['Asset', 'contentcontroller/assets' , 'contentcontroller/assetworkorder/','',''],
+	['Asset', 'contentcontroller/assets' , 'contentcontroller/assetaccessories/','',''],
+	['Asset', 'contentcontroller/assets' , 'contentcontroller/assetlicenses/','',''],
+	['Asset', 'contentcontroller/assets' , 'contentcontroller/assetPPMjob/','',''],
+	['Asset', 'contentcontroller/assets' , 'assetPPMplanner/','',''],
+	['Asset', 'contentcontroller/assets' , 'contentcontroller/assetlogcards/','',''],
+	['Asset', 'contentcontroller/assets' , 'contentcontroller/assetlogcards_M/','',''],
+	['Asset', 'contentcontroller/assets' , 'contentcontroller/assetlogcards_U/','',''],
+	['Asset', 'contentcontroller/assets' , 'contentcontroller/assetlogcards_C/','',''],
+	['Asset', 'contentcontroller/assets' , 'contentcontroller/assetlogcards_Re/','',''],
+	['Asset', 'contentcontroller/assets' , 'contentcontroller/fail_bank/','',''],
+	['Asset', 'contentcontroller/assets' , 'contentcontroller/assetmaintenancespecification/','',''],
+	['Asset', 'contentcontroller/assets' , 'contentcontroller/assetvariationhistory/','',''],
+	['Asset', 'contentcontroller/assets' , 'contentcontroller/assetcostcummulative/','',''],
+	['Asset', 'contentcontroller/assets' , 'contentcontroller/assetwn/','',''],
+	['Asset', 'contentcontroller/assets' , 'contentcontroller/assetet/','',''],
+	['Asset', 'contentcontroller/assets' , 'contentcontroller/assetwe/','',''],
+	['Asset', 'contentcontroller/assets' , 'contentcontroller/assetwf/','',''],
+	['Asset', 'contentcontroller/assets' , 'contentcontroller/assetsearch/','',''],
 	['Asset', 'contentcontroller/assets/' , 'asset//','',''],
 	// Second Asset Menu //
-	['Asset', 'assets' , 'General Info' , 'assetupdate?asstno='.$this->input->get('assetno').'&tab=0&parent=assets', 'contentcontroller/updateReg/'],
+	['Asset', 'contentcontroller/assets' , 'General Info' , 'assetupdate?asstno='.$this->input->get('assetno').'&tab=0&parent=assets', 'contentcontroller/updateReg/'],
 	//['Asset', 'assets/' , 'General Info' , 'assetupdate?asstno='.$this->input->get('assetno').'' , 'contentcontroller/confirmReg/'],
-	['Asset', 'assets' , 'General Info' , 'assetupdate?asstno='.$this->input->get('assetno').'&tab=0&parent=assets' , 'contentcontroller/updatecom/'],
+	['Asset', 'contentcontroller/assets' , 'General Info' , 'assetupdate?asstno='.$this->input->get('assetno').'&tab=0&parent=assets' , 'contentcontroller/updatecom/'],
 	//['Asset', 'assets/' , 'General Info' , 'assetupdate?asstno='.$this->input->get('assetno').'' , 'contentcontroller/confirmcom/'],
-	['Asset', 'assets' , 'General Info' , 'assetupdate?asstno='.$this->input->get('assetno').'&tab=0&parent=assets' , 'contentcontroller/updatespec/'],
+	['Asset', 'contentcontroller/assets' , 'General Info' , 'assetupdate?asstno='.$this->input->get('assetno').'&tab=0&parent=assets' , 'contentcontroller/updatespec/'],
 	//['Asset', 'assets/' , 'General Info' , 'assetupdate?asstno='.$this->input->get('assetno').'' , 'contentcontroller/confirmspec/'],
-	['Asset', 'assets' , 'General Info' , 'assetupdate?asstno='.$this->input->get('assetno').'&tab=0&parent=assets' , 'contentcontroller/updateacqu/'],
+	['Asset', 'contentcontroller/assets' , 'General Info' , 'assetupdate?asstno='.$this->input->get('assetno').'&tab=0&parent=assets' , 'contentcontroller/updateacqu/'],
 	//['Asset', 'assets/' , 'General Info' , 'assetupdate?asstno='.$this->input->get('assetno').'' , 'contentcontroller/confirmacqu/'],
 	['Asset', 'assets' , 'General Info' , 'assetupdate?asstno='.$this->input->get('assetno').'&tab=0&parent=assets' , 'contentcontroller/updatecommissioning/'],
 	//['Asset', 'assets/' , 'General Info' , 'assetupdate?asstno='.$this->input->get('assetno').'' , 'contentcontroller/confirmcommissioning/'],
-	['Asset', 'assets' , 'General Info' , 'assetupdate?asstno='.$this->input->get('assetno').'&tab=0&parent=assets' , 'contentcontroller/updatemaintenance/'],
+	['Asset', 'contentcontroller/assets' , 'General Info' , 'assetupdate?asstno='.$this->input->get('assetno').'&tab=0&parent=assets' , 'contentcontroller/updatemaintenance/'],
 	//['Asset', 'assets/' , 'General Info' , 'assetupdate?asstno='.$this->input->get('assetno').'' , 'contentcontroller/confirmmaintenance/'],
-	['Asset', 'assets' , 'Asset Statutory' , 'assetstatutory?asstno='.$this->input->get('assetno').'&tab=1', 'contentcontroller/assetstatutory_update/'],
+	['Asset', 'contentcontroller/assets' , 'Asset Statutory' , 'assetstatutory?asstno='.$this->input->get('assetno').'&tab=1', 'contentcontroller/assetstatutory_update/'],
 	//['Asset', 'assets/' , 'Asset Statutory' , 'assetstatutory?asstno='.$this->input->get('assetno').'&tab=1' , 'contentcontroller/assetstatutory_update_confrim/'],
-	['Asset', 'assets' , 'Accessories' , 'assetaccessories?asstno='.$this->input->get('assetno').'&tab=4', 'contentcontroller/Accessories_update/'],
-	['Asset', 'assets' , 'Licenses' , 'assetlicenses?asstno='.$this->input->get('assetno').'&tab=5', 'contentcontroller/assetlicenses_update/'],
-	['Asset', 'assets' , 'PPM Job Register' , 'assetPPMjob?asstno='.$this->input->get('asstno').'&tab=6', 'contentcontroller/assetPPMjob_update/'],
+	['Asset', 'contentcontroller/assets' , 'Accessories' , 'assetaccessories?asstno='.$this->input->get('assetno').'&tab=4', 'contentcontroller/Accessories_update/'],
+	['Asset', 'contentcontroller/assets' , 'Licenses' , 'assetlicenses?asstno='.$this->input->get('assetno').'&tab=5', 'contentcontroller/assetlicenses_update/'],
+	['Asset', 'contentcontroller/assets' , 'PPM Job Register' , 'assetPPMjob?asstno='.$this->input->get('asstno').'&tab=6', 'contentcontroller/assetPPMjob_update/'],
 	['Asset', 'assets' , 'Warranty Notification' , 'assetwn?asstno='.$this->input->get('asstno').'&tab=9&parent=assets', 'contentcontroller/assetwned_update/'],
-	['Asset', 'assets' , 'Warranty Notification' , 'assetwn?asstno='.$this->input->get('asstno').'&tab=9&parent=assets', 'contentcontroller/assetwnmt_update/'],
-	['Asset', 'assets' , 'Warranty Notification' , 'assetwn?asstno='.$this->input->get('asstno').'&tab=9&parent=assets', 'contentcontroller/assetwnwpa_update/'],
+	['Asset', 'contentcontroller/assets' , 'Warranty Notification' , 'assetwn?asstno='.$this->input->get('asstno').'&tab=9&parent=assets', 'contentcontroller/assetwnmt_update/'],
+	['Asset', 'contentcontroller/assets' , 'Warranty Notification' , 'assetwn?asstno='.$this->input->get('asstno').'&tab=9&parent=assets', 'contentcontroller/assetwnwpa_update/'],
 	['Asset', 'assets' , 'Warranty Notification' , 'assetwn?asstno='.$this->input->get('asstno').'&tab=9&parent=assets', 'contentcontroller/assetwnwc_update/'],
-	['Asset', 'assets' , 'Equipment Transfer' , 'assetet?asstno='.$this->input->get('asstno').'&tab=10&parent=assets', 'contentcontroller/assetet_update/'],
-	['Asset', 'assets' , 'Equipment Transfer' , 'assetet?asstno='.$this->input->get('asstno').'&tab=10&parent=assets', 'contentcontroller/assetetrttp_update/'],
-	['Asset', 'assets' , 'Equipment Transfer' , 'assetet?asstno='.$this->input->get('asstno').'&tab=10&parent=assets', 'contentcontroller/assetetrttpnos_update/'],
+	['Asset', 'contentcontroller/assets' , 'Equipment Transfer' , 'assetet?asstno='.$this->input->get('asstno').'&tab=10&parent=assets', 'contentcontroller/assetet_update/'],
+	['Asset', 'contentcontroller/assets' , 'Equipment Transfer' , 'assetet?asstno='.$this->input->get('asstno').'&tab=10&parent=assets', 'contentcontroller/assetetrttp_update/'],
+	['Asset', 'contentcontroller/assets' , 'Equipment Transfer' , 'assetet?asstno='.$this->input->get('asstno').'&tab=10&parent=assets', 'contentcontroller/assetetrttpnos_update/'],
 	// End Asset Menu //
 	// Work Order Menu //
 	['Work Order', 'workorder?parent=wrkodr' , 'contentcontroller/worksearch/','',''],
@@ -103,10 +103,10 @@ $array = [
 	['Back To Main Page', 'Central', 'contentcontroller/vo3_Analysis/','',''],
 	['Back To Main Page', 'Central', 'contentcontroller/vo3_report/','',''],
 	['Back To Main Page', 'Central', 'contentcontroller/vo3_vvf/','',''],
-	['Back To Main Page', 'Central', 'contentcontroller/vo3/','',''],
+	['Back To Main Page', 'contentcontroller/Central', 'contentcontroller/vo3/','',''],
 	['Back To Main Page', 'Central', 'contentcontroller/vo3_C_main/','',''],
-	['Back To Main Page', 'Central', 'contentcontroller/vo3_assets_main/','',''],
-	['Back To Main Page', 'Central', 'contentcontroller/vo3_rates_main/','',''],
+	['Back To Main Page', 'contentcontroller/Central', 'contentcontroller/vo3_assets_main/','',''],
+	['Back To Main Page', 'contentcontroller/Central', 'contentcontroller/vo3_rates_main/','',''],
 	['General', 'vo3_vvf?&rpt_no='.$this->input->get('rpt_no').'&vo=0' , 'contentcontroller/vo3_vvf_update/','',''],
 	['Signatories', 'vo3_Signatories?&rpt_no='.$this->input->get('rpt_no').'&vo=1' , 'contentcontroller/vo3_Signatories_update/','',''],
 	['Back To Main Page', 'content/'.$this->session->userdata('usersess'), 'contentcontroller/vo3_type_code/','',''],
@@ -124,11 +124,14 @@ $array = [
 	['Back To Report', 'report_vols?m='.$this->input->get('m').'&y='.$this->input->get('y').'&stat='.$this->input->get('stat').'&resch='.$this->input->get('resch'), 'contentcontroller/assethistory/','',''],
 
 	//Procurement//
-	['Procurement', '../contentcontroller/Procurement/'.$this->session->userdata('usersess').'?&tab=4', 'Procurement/pro_catalog/','',''],
-	['Procurement', '../contentcontroller/Procurement/'.$this->session->userdata('usersess').'?&tab=4', 'Procurement/e_pr/','',''],
-	['Procurement', '../contentcontroller/Procurement/'.$this->session->userdata('usersess').'?&tab=4', 'Procurement/Release_note/','',''],
-	['Procurement', '../contentcontroller/Procurement/'.$this->session->userdata('usersess').'?&tab=4', 'Procurement/e_request/','',''],
-	['Procurement', '../contentcontroller/Procurement/'.$this->session->userdata('usersess').'?&tab=4', 'Procurement/report/','',''],
+	['Procurement', 'contentcontroller/Procurement/'.$this->session->userdata('usersess').'?&tab=4', 'Procurement/pro_catalog/','',''],
+	['Procurement', 'contentcontroller/Procurement/'.$this->session->userdata('usersess').'?&tab=4', 'Procurement/e_pr/','',''],
+	['Procurement', 'contentcontroller/Procurement/'.$this->session->userdata('usersess').'?&tab=4', 'Procurement/Release_note/','',''],
+	['Procurement', 'contentcontroller/Procurement/'.$this->session->userdata('usersess').'?&tab=4', 'Procurement/e_request/','',''],
+	['Procurement', 'contentcontroller/Procurement/'.$this->session->userdata('usersess').'?&tab=4', 'Procurement/report/','',''],
+
+	//stock
+	['Stock', '/contentcontroller/Store/'.$this->session->userdata('usersess').'?&tab=4', 'Procurement/Stock_release_note/','',''],
 ];
 if ($this->input->get('rs')== 1){
 	$array = [
@@ -140,6 +143,7 @@ if ($this->input->get('rs')== 1){
 	];
 }
 //echo $this->uri->slash_segment(1) .":".$this->uri->slash_segment(2).'<br>';
+$r=0;
 foreach ($array as $list) {
 	//print_r($list);
 	//echo 'nilai c '.$list[2];
@@ -202,7 +206,7 @@ foreach ($array as $list) {
 		elseif ($this->input->get('parent') == '' ){
 			echo "
 				<div class='menu-class'>
-					<a href='$list[1]'><span class='icon-play2' valign='middle'></span> $list[0]";
+					<a href='".site_url()."/$list[1]'><span class='icon-play2' valign='middle'></span> $list[0]";
 			if ($this->input->get('wrk_ord') != ''){ 
 				echo " > ".$this->input->get('wrk_ord') ;
 			}elseif ($this->input->get('asstno') != ''){
@@ -211,13 +215,13 @@ foreach ($array as $list) {
 			echo "</a></div>";
 		}
 		elseif ($this->input->get('parent') == 'complaint' ){
-			echo "<div class='menu-class'><a href='$list[1]'><span class='icon-play2' valign='middle'></span> $list[0]";
+			echo "<div class='menu-class'><a href='".site_url()."/$list[1]'><span class='icon-play2' valign='middle'></span> $list[0]";
 			echo "</a></div>";
 		}
 		else {
 			echo "
 				<div class='menu-class'>
-					<a href='$list[1]'><span class='icon-play2' valign='middle'></span> $list[0] > ".$asset_det[0]->V_Tag_no." (".$this->input->get('asstno').")</a>
+					<a href='".site_url()."/$list[1]'><span class='icon-play2' valign='middle'></span> $list[0] > ".$asset_det[0]->V_Tag_no." (".$this->input->get('asstno').")</a>
 				</div>";
 		}
 	}
@@ -228,7 +232,7 @@ foreach ($array as $list) {
 		//}
 		echo "
 			<div class='menu-class'>
-				<a href='$list[1]'><span class='icon-play2' valign='middle'></span>  $list[0]</a><a href='$list[3]'> <span class='icon-play2' valign='middle'></span> $list[2]</a>
+				<a href='".site_url()."/$list[1]'><span class='icon-play2' valign='middle'></span>  $list[0]</a><a href='$list[3]'> <span class='icon-play2' valign='middle'></span> $list[2]</a>
 			</div>";
 	}
 
@@ -246,8 +250,19 @@ foreach ($array as $list) {
 		}
 		echo "</a></div>";
 	}*/
+	$list = $array[$r];
+	$r++;
 }
 
+for ($i=0;$i< count($array);$i++){
+	if( $array[$i][2] == $this->uri->slash_segment(1).$this->uri->slash_segment(2) ){
+		$list = $array[$i];
+	}else{
+		if( $array[$i][0] == str_replace("/", "", $this->uri->slash_segment(1)) ){
+			$list = $array[$i];
+		}
+	}
+}
 /*-- pindah 1.0 --*/
 if (($this->input->get('asstno') != '') and ($this->input->get('tab') == '7')){
 	echo "
@@ -278,15 +293,37 @@ if ($this->uri->slash_segment(1) .$this->uri->slash_segment(2) == 'contentcontro
 if ('Procurement/' == $this->uri->slash_segment(1)){
 	//echo "dier mashuuuk";
 	if($this->input->get('pro') == 'mrin'){
+		// if( $this->uri->slash_segment(2)=="Release_note/" ){
+		// 	echo "
+		// 	<div class='menu-class'>
+		// 		<a href='".site_url().$list[1].$this->session->userdata('usersess')."?&tab=4'><span class='icon-play2' valign='middle'></span>  Procurement</a>
+		// 	</div>";
+		// }else{
+		// 	echo "
+		// 	<div class='menu-class'>
+		// 		<a href='".site_url().$list[1].$this->session->userdata('usersess')."?&tab=4'><span class='icon-play2' valign='middle'></span>  $list[0]</a>
+		// 	</div>";
+		// }
 		echo "
 		<div class='menu-class'>
-			<a href='contentcontroller/Procurement/".$this->session->userdata('usersess')."?&tab=4'><span class='icon-play2' valign='middle'></span>  $list[0]</a>
+			<a href='".site_url()."/".$list[1].$this->session->userdata('usersess')."?&tab=4'><span class='icon-play2' valign='middle'></span>  $list[0]</a>
 		</div>";
 	}elseif(($this->input->get('pro') == 'new') or (($this->input->get('pro') == 'pending')) ){
-		echo "
-		<div class='menu-class'>
-			<a href='contentcontroller/Procurement/".$this->session->userdata('usersess')."?&tab=4'><span class='icon-play2' valign='middle'></span>  $list[0]</a><a href='Procurement?pro=mrin'> <span class='icon-play2' valign='middle'></span> MRIN</a>
-		</div>";
+		if( $this->uri->slash_segment(2)=="Release_note/" ){
+			echo "
+			<div class='menu-class'>
+				<a href='".site_url()."/".$this->uri->slash_segment(1).$this->uri->slash_segment(2).$this->session->userdata('usersess')."?&tab=4'><span class='icon-play2' valign='middle'></span>  Procurement</a><a href='".site_url()."/".$this->uri->slash_segment(1).rtrim($this->uri->slash_segment(2), '/')."?pro=mrin'> <span class='icon-play2' valign='middle'></span> MRIN</a>
+			</div>";
+		}else{
+			echo "
+			<div class='menu-class'>
+				<a href='".site_url()."/".$list[1].$this->session->userdata('usersess')."?&tab=4'><span class='icon-play2' valign='middle'></span>  $list[0]</a><a href='".site_url()."/".rtrim($list[2], "/")."?pro=mrin'> <span class='icon-play2' valign='middle'></span> MRIN</a>
+			</div>";
+		}
+		// echo "
+		// <div class='menu-class'>
+		// 	<a href='".site_url()."/contentcontroller/Procurement".$this->session->userdata('usersess')."?&tab=4'><span class='icon-play2' valign='middle'></span>  $list[0]</a><a href='".site_url()."/Procurement?pro=mrin'> <span class='icon-play2' valign='middle'></span> MRIN</a>
+		// </div>";
 	}elseif(($this->input->get('po') != '')){
 		echo "
 		<div class='menu-class'>

@@ -18,23 +18,37 @@
 			<tr>
 				<td class="td-assest">Documentation Details :</td>
 				<?php if($act == 'take') { ?>
-				<td> <input type="text" id="n_doc_det" name="n_doc_det" value="<?php echo set_value('n_doc_det'); ?>" class="form-control-button2 n_user_d" > <span class="icon-windows" onclick="pop_requests(this)" value=""></span></td>
+				<td> <input type="text" id="n_doc_det" name="n_doc_det" value="<?php echo set_value('n_doc_det'); ?>" class="form-control-button2 n_user_d" autocomplete="off" > <span class="icon-windows" onclick="pop_requests(this)" value=""></span></td>
 				<?php } else { ?>
-				<td> <input type="text" id="n_doc_det" name="n_doc_det" value="<?php echo set_value('n_doc_det'); ?>" class="form-control-button2 n_user_d" ></td>
+				<td> <input type="text" id="n_doc_det" name="n_doc_det" value="<?php echo set_value('n_doc_det'); ?>" class="form-control-button2 n_user_d" autocomplete="off" ></td>
 				<?php } ?>
 			</tr>
 			<tr>
 				<td class="td-assest">Quantity : </td>
-				<td><input type="text" name="n_quantity" value="<?php echo set_value('n_quantity'); ?>" class="form-control-button2 n_wi-date"></td>
+				<td><input type="text" name="n_quantity" value="<?php echo set_value('n_quantity'); ?>" class="form-control-button2 n_wi-date" autocomplete="off"></td>
+			</tr>
+			<tr>
+				<td class="td-assest">Site : </td>
+				<td>
+					<?php 
+					$Area_list = array(""=>"Select");
+					if( !empty($arealist) ){
+						foreach ($arealist as $row) {
+							$Area_list[$row['v_HospitalCode']] = $row["v_HospitalName"];
+						}
+					}
+					?>
+					<?php echo form_dropdown('n_Site_list', $Area_list ,$n_Site_list, 'class="dropdown n_wi-date" style="display:inline-block; height:30px;"'); ?>
+				</td>
 			</tr>
 			<tr>
 				<td class="td-assest">Remark : </td>
-				<td > <textarea class="input n_com" name="n_remark"><?php echo set_value('n_remark'); ?></textarea></td>
+				<td > <textarea class="input n_wi-date" name="n_remark"><?php echo set_value('n_remark'); ?></textarea></td>
 			</tr>
 			<tr>
 				<?php if($act == 'add') { ?>
 				<td class="td-assest">Price Per Unit : </td>
-				<td><input type="text" name="n_unitprice" value="<?php echo set_value('n_unitprice'); ?>" class="form-control-button2 n_wi-date"></td>
+				<td><input type="text" name="n_unitprice" value="<?php echo set_value('n_unitprice'); ?>" class="form-control-button2 n_wi-date" autocomplete="off"></td>
 				<?php } ?>
 			</tr>
 			<tr class="ui-header-new">

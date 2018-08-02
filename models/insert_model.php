@@ -2665,5 +2665,56 @@ $this->db->insert('tbl_invitem', $insert_data);
 
 }
 
+		public function save_release_note(){
+			$this->load->model("get_model");
+			$rn_no = $this->get_model->get_RNNO();
+			$val_tbl_rn_release = array(
+						"RN_No" => $rn_no,
+						"rn_status" => $this->input->post("rn_status"),
+						"shipment_type" => $this->input->post("shipment_type"),
+						"courier" => $this->input->post("courier"),
+						"consignment_note" => $this->input->post("consignment_note"),
+						"consignment_date" => date('Y-m-d H:s:i', strtotime($this->input->post("consignment_date"))),
+						"accessories" => $this->input->post("accessories")
+			);
+			$this->db->set("Date_Stamp", "NOW()", FALSE);
+
+			$this->db->trans_begin();
+
+			$this->db->insert("tbl_rn_release", $val_tbl_rn_release);
+		
+			if(isset($_POST["itemCode"])){
+				$itemCodeVal = count($_POST["itemCode"]);
+				for( $i=0; $i<$itemCodeVal;$i++ ){
+					$val_tbl_rn_item[$i] = array(
+							"RN_No" => $rn_no,
+							"Item_Code" => $this->input->post("itemCode")[$i],
+							"Qty" => $this->input->post("Qty_Taken")[$i],
+							"Price" => $this->input->post("Price_Taken")[$i]
+					);
+				}
+				$this->db->insert_batch("tbl_rn_item", $val_tbl_rn_item);
+			}
+			// $rn_next_no = explode("/",$rn_no)[3]+1;
+			// $val_tbl_rn_autono = array(
+			// 		"rn_next_no" => $rn_next_no,
+			// 		"userid" => $this->session->userdata("v_UserName"),
+			// 		"yearno" => date("Y")
+			// );
+			// $this->db->set("DT", "NOW()", false);
+			// $this->db->insert("tbl_rn_autono", $val_tbl_rn_autono);
+
+			$this->db->trans_complete();
+
+			if ($this->db->trans_status() === FALSE) {
+				$this->db->trans_rollback();
+				return FALSE;
+			} 
+			else {
+				$this->db->trans_commit();
+				return TRUE;
+			}
+		}
+
 }
 ?>

@@ -5489,12 +5489,15 @@ class Contentcontroller extends CI_Controller {
 	}
 	public function ustore(){
 		
+		$this->load->model('display_model');
 		$data['id'] = $this->input->get('id');
 		$data['qty'] = $this->input->get('qty');
 		$data['n'] = $this->input->get('n');
 		$data['p'] = $this->input->get('p');
 		$data['act'] = $this->input->get('act');
 		$data['store'] = $this->input->get('store');
+		$data['n_Site_list'] = $this->input->get('n_Site_list');
+		$data['arealist'] = $this->display_model->area_list();
 		
 		$this ->load->view("head");
 		$this ->load->view("left");
@@ -5591,7 +5594,7 @@ class Contentcontroller extends CI_Controller {
 		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
 		
 		$this->load->model('display_model');
-		$data['record'] = $this->display_model->stock_asset();
+		$data['record'] = $this->display_model->stock_asset($data['item']);
 		
 			foreach($data['record'] as $row){
 				if($data['item'] == $row->ItemName){
@@ -5628,6 +5631,10 @@ class Contentcontroller extends CI_Controller {
 		if ((substr($data['wrk_ord'],0,2) == 'PP') || (substr($data['wrk_ord'],0,2) == 'RI')) {
 		$data['records'] = $this->display_model->visit1ppm_tab($data['wrk_ord']);
 		$data['recordjob'] = $this->display_model->jobclose_ppm($data['wrk_ord']);
+		}elseif(strstr($data['wrk_ord'], '/A2/')){
+		$this ->load->view("head");
+		$this ->load->view("left");
+		$this ->load->view("content_ppmvisitplus",$data);
 		}
 		else{
 		//$data['recordcheck'] = $this->display_model->response_tab($data['wrk_ord']);

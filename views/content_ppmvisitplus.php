@@ -1,7 +1,7 @@
 <?php echo form_open('contentcontroller/visitplusupdate?wrk_ord='.$this->input->get('wrk_ord'));?>
 <script>
 function fToggle(elementId,te) {
-  $.get("<?php echo base_url ('index.php/ajax') ?>?wrk_ord="+te ,"",function(data){
+  $.get("<?php echo base_url ('index.php/ajax')?>?wrk_ord="+te ,"",function(data){
 
     
     //var today = format.Date("2009-12-18", "Test: dd/MM/yyyy");
@@ -41,7 +41,7 @@ console.log(json);
       trHTML +='</tr>';
       trHTML +='<tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">Reschedule</td></tr>';
       trHTML +='<td valign="top" class="td-assest">Reschedule Date :</td>';
-      trHTML +='<td>'+json[post][test].d_Reschdt+'</td>';
+      trHTML +='<td>'+json['d_Resc'][elementId]+'</td>';
       trHTML +='</tr>';
       trHTML +='<td valign="top" class="td-assest">Reschedule Reason :</td>';
       trHTML +='<td>'+json[post][test].v_ReschReason+'</td>';
@@ -210,7 +210,11 @@ console.log(json);
 <div class="ui-middle-screen">
   <div class="content-workorder" align="center">
       <table class="ui-content-middle-menu-workorder" border="0" height="" width="95%" align="center">
-      <?php include 'content_tab_woppm.php';?>
+	   <?php if (strstr($wrk_ord, '/A2/')) {	?>
+	   <?php include 'content_wrk_ord.php';?>
+	   <?php } else { ?>
+	     <?php include 'content_tab_woppm.php';?>
+		 <?php } ?>
       <tr class="ui-color-contents-style-1 ui-left_web">
         <td colspan="10" height="40px" style="padding-left:10px;">&nbsp;</td>
       </tr>

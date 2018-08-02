@@ -14,6 +14,7 @@
 	['contentcontroller/report_rsls/', 'Statutory & License Summary'],
 	['contentcontroller/report_a2/', 'A2 Listing'],
     ['Procurement/e_po_print/', 'Purchase Order_'],
+    ['procurement/print_release_note/', 'Release Note'],
 ];
 
 foreach ($array as $list) {

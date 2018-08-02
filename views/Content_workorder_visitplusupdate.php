@@ -1,4 +1,5 @@
 <?php echo form_open('wo_visitplus_update_ctrl');?>
+<?php $numberdate = 0; ?>
 <div class="ui-middle-screen">
   <div class="content-workorder" align="center">
             <div class="div-p"></div>
@@ -9,7 +10,7 @@
       </tr>
       <tr>
         <td valign="top" class="td-assest">Visit Date : </td>
-        <td ><input type="text" id="date0" name="n_Visit_Date" value="<?php echo set_value('n_Visit_Date', isset($record[0]->d_Date) == TRUE ? date_format(new DateTime($record[0]->d_Date), 'd-m-Y') : '')?>" class="form-control-button2 n_wi-date"></td> <!--date_format(new DateTime($recordresp[0]->d_Date), 'Y-m-d')-->
+        <td ><input type="text" autocomplete="off" id="date<?php echo $numberdate++; ?>" name="n_Visit_Date" value="<?php echo set_value('n_Visit_Date', isset($record[0]->d_Date) == TRUE ? date_format(new DateTime($record[0]->d_Date), 'd-m-Y') : '')?>" class="form-control-button2 n_wi-date"></td> <!--date_format(new DateTime($recordresp[0]->d_Date), 'Y-m-d')-->
       </tr>
       <tr>
         <td valign="top" class="td-assest">Start Time :</td>
@@ -229,6 +230,40 @@
         <td><textarea class="input n_com" name="n_Action_Taken"><?php echo set_value('n_Action_Taken', isset($record[0]->v_ActionTaken) == TRUE ? $record[0]->v_ActionTaken : 'N/A')?></textarea></td>
       </tr>
       <tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">MAINTENANCE COST SECTION </td></tr>
+	  <?php if (strstr($wrk_ord, '/A2/')) {	?>
+	  <tr><td colspan="3" ><b>Reschedule</b></td></tr>
+                  <tr>
+                        <td class="td-assest">Reschedule Date :</td>
+                        <td><input type="text" autocomplete="off" id="date<?php echo $numberdate++; ?>" name="n_rschDate" value="<?php echo set_value('n_rschDate', isset($record[0]->d_Reschdt) == TRUE ? date_format(new DateTime($record[0]->d_Reschdt), 'd-m-Y') : '')?>" class="form-control-button2"></td>
+                  </tr>
+                  <tr>
+                        <td valign="top" class="td-assest"> Reason : </td>
+                        <td>
+                              
+                              <input type="radio" id="radio-1-1" name="n_rschReason" class="regular-radio" value="1 - Not found" <?php echo set_radio('n_rschReason', '1 - Not found'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '1 - Not found' ? 'checked' : ''?>/> 
+                              <label for="radio-1-1"></label> 1 - Not found <br />
+                              <input type="radio" id="radio-1-2" name="n_rschReason" class="regular-radio" value="2 - In use" <?php echo set_radio('n_rschReason', '2 - In use'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '2 - In use' ? 'checked' : ''?>/>   
+                              <label for="radio-1-2"></label> 2 - In use<br />
+                              <input type="radio" id="radio-1-3" name="n_rschReason" class="regular-radio" value="3 - Lock in room/not accessible" <?php echo set_radio('n_rschReason', '3 - Lock in room/not accessible'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '3 - Lock in room/not accessible' ? 'checked' : ''?>/> 
+                              <label for="radio-1-3"></label> 3 - Lock in room/not accessible <br />
+                              <input type="radio" id="radio-1-4" name="n_rschReason" class="regular-radio" value="4 - Transferred" <?php echo set_radio('n_rschReason', '4 - Transferred'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '4 - Transferred' ? 'checked' : ''?>/> 
+                              <label for="radio-1-4"></label> 4 - Transferred <br />
+                              <input type="radio" id="radio-1-5" name="n_rschReason" class="regular-radio" value="5 - Equipment down" <?php echo set_radio('n_rschReason', '5 - Equipment down'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '5 - Equipment down' ? 'checked' : ''?>/>   
+                              <label for="radio-1-5"></label> 5 - Equipment down<br />
+                              <input type="radio" id="radio-1-6" name="n_rschReason" class="regular-radio" value="6 - Breakdown of related support system" <?php echo set_radio('n_rschReason', '6 - Breakdown of related support system'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '6 - Breakdown of related support system' ? 'checked' : ''?>/> 
+                              <label for="radio-1-6"></label> 6 - Breakdown of related support system <br />
+                              <input type="radio" id="radio-1-7" name="n_rschReason" class="regular-radio" value="7 - Vendor delay" <?php echo set_radio('n_rschReason', '7 - Vendor delay'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '7 - Vendor delay' ? 'checked' : ''?>/>   
+                              <label for="radio-1-7"></label> 7 - Vendor delay<br />
+                              <input type="radio" id="radio-1-8" name="n_rschReason" class="regular-radio" value="8 - Others" <?php echo set_radio('n_rschReason', '8 - Others'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '8 - Others' ? 'checked' : ''?>/>   
+                              <label for="radio-1-8"></label> 8 - Others<br /><br />
+                              <textarea class="input  n_com" name="n_rschReason1"><?php echo set_value('n_rschReason1', isset($rschReason[1]) == TRUE ? trim($rschReason[1]) : 'N/A')?></textarea>
+                              
+                        </td>
+                  </tr>
+                  <tr>
+                        <td valign="top" class="td-assest">Reschedule Authorised By :</td>
+                        <td><input type="text" id="n_rschAuth" name="n_rschAuth" value="<?php echo set_value('n_rschAuth', isset($record[0]->v_ReschAuthBy) == TRUE ? $record[0]->v_ReschAuthBy : 'N/A')?>" size="10" class="form-control-button2 n_wi-date"></td>
+                  </tr><?php } ?>
       <tr>
                         <td colspan="3">
                               <div class="p-vo-normal">

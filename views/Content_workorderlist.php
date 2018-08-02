@@ -4,7 +4,7 @@
 			<table class="ui-content-middle-menu-workorder" border="0" height="" width="95%" align="center">
 			<?php include 'content_wrk_ord.php';?>
 			<tr class="ui-color-contents-style-1 ui-left_web">
-				<td colspan="11" height="40px" style="padding-left:10px; color:black;">Unscheduled</td>
+				<td colspan="11" height="40px" style="padding-left:10px; color:black;"> <?=(strstr($wrk_ord, '/A2/')) ? '' : 'Unscheduled'?></td>
 			</tr>
 			<tr class="ui-color-contents-style-1">
 				<td colspan="11" valign="top" class="pd-bttm">
@@ -18,7 +18,7 @@
 								<table class="ui-content-form" width="100%" border="0">	
 									<tr>
 										<td class="td-assest">Registration&nbsp;Type&nbsp;:&nbsp;</td>
-										<td><b><?= isset($record[0]->V_request_type) == TRUE ? $record[0]->V_request_type : 'N/A'?></b> Unscheduled</a></td>
+										<td><b><?= isset($record[0]->V_request_type) == TRUE ? $record[0]->V_request_type : 'N/A'?></b> <?=(strstr($wrk_ord, '/A2/')) ? '' : 'Unscheduled'?></a></td>
 									</tr>
 									<tr>
 										<td class="td-assest">Job Status&nbsp;:&nbsp;</td>

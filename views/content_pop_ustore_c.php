@@ -16,11 +16,25 @@
 			
 			<tr>
 				<td class="td-assest">Documentation Details :</td>
-				<td> <input type="text" id="n_doc_det" name="n_doc_det" value="<?php echo set_value('n_doc_det'); ?>" class="form-control-button2 n_wi-date" readonly></td>
+				<td> <input type="text" id="n_doc_det" name="n_doc_det" value="<?php echo set_value('n_doc_det'); ?>" class="form-control-button2 n_wi-date" readonly autocomplete="off"></td>
 			</tr>
 			<tr>
 				<td class="td-assest">Quantity : </td>
-				<td><input type="text" name="n_quantity" value="<?php echo set_value('n_quantity'); ?>" class="form-control-button2 n_wi-date" readonly></td>
+				<td><input type="text" name="n_quantity" value="<?php echo set_value('n_quantity'); ?>" class="form-control-button2 n_wi-date" autocomplete="off" readonly></td>
+			</tr>
+			<tr>
+				<td class="td-assest">Site : </td>
+				<td>
+					<?php 
+					$Area_list = array(""=>"Select");
+					if( !empty($arealist) ){
+						foreach ($arealist as $row) {
+							$Area_list[$row['v_HospitalCode']] = $row["v_HospitalName"];
+						}
+					}
+					?>
+					<?php echo form_dropdown('n_Site_list', $Area_list, $n_Site_list, 'class="dropdown n_wi-date" style="display:inline-block; height:30px;"'); ?>
+				</td>
 			</tr>
 			<tr>
 				<td class="td-assest">Remark : </td>

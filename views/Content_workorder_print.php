@@ -1,4 +1,3 @@
-
 <meta content="utf-8" http-equiv="encoding">
 <body>
 	<div id="Instruction" class="pr-printer">

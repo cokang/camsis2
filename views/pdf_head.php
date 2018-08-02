@@ -18,6 +18,13 @@ $obj_pdf = new TCPDF("P", PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 $obj_pdf->SetCreator(PDF_CREATOR);
 $obj_pdf->SetHeaderData(PDF_HEADER_LOGO3, PDF_HEADER_LOGO_WIDTH2);
 }
+elseif ( $this->uri->slash_segment(1) .$this->uri->slash_segment(2) == 'procurement/print_release_note/') {//echo 123;die();
+$obj_pdf = new TCPDF("P", PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+$obj_pdf->SetCreator(PDF_CREATOR);
+// $obj_pdf->SetHeaderData(PDF_HEADER_LOGO3, PDF_HEADER_LOGO_WIDTH2);
+$obj_pdf->setHeaderData('',0,'','',array(0,0,0), array(255,255,255) );
+$obj_pdf->SetPrintHeader(false);
+}
 
 else{
 $obj_pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);

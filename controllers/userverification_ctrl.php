@@ -139,7 +139,9 @@ function wojobclose_verification(){
 }
 function stocktake_verification(){
 	$this->load->model('loginModel');
+	$this->load->model('display_model');
 	$query = $this->loginModel->validate();
+	$data['arealist']	= $this->display_model->area_list();
 	if($query)
 	{
 		$data['id'] = $this->input->post('id');
@@ -149,6 +151,7 @@ function stocktake_verification(){
 		$data['act'] = $this->input->post('act');
 		$data['store'] = $this->input->post('store');
 		$data['name'] = $this->input->post('name');
+		$data['n_Site_list'] = $this->input->post('n_Site_list');
 		//echo $data['name'];
 		//exit();
 		$this ->load->view("head");
@@ -162,6 +165,7 @@ function stocktake_verification(){
 		$data['p'] = $this->input->post('p');
 		$data['act'] = $this->input->post('act');
 		$data['store'] = $this->input->post('store');
+		$data['n_Site_list'] = $this->input->post('n_Site_list');
 		$this ->load->view("head");
 		$this ->load->view("left");
 		$this ->load->view("content_pop_ustore_c",$data);

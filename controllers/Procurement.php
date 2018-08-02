@@ -757,18 +757,125 @@ class Procurement extends CI_Controller {
 		//}
 	}
 	public function Release_note(){
-		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");	
-		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+		$this->load->helper(array('form', 'url'));
+		$this->load->library('form_validation');
+
+		//validation rule
+		$data["data_item_specification"] = "";
+		$this->form_validation->set_rules('rn_status','<b>*Status</b>','trim|required');
+		$this->form_validation->set_rules('shipment_type','*Shipment Type','trim|required');
+		$this->form_validation->set_rules('courier','*Courier','trim|required');
+		$this->form_validation->set_rules('area','<b>*Area</b>','trim|required');
+		$this->form_validation->set_rules('itemCode[]','<b>*Item</b>','callback_ItemIsExist');
+		// $this->form_validation->set_rules('consignment_note','Consignment Note','trim|required');
+		// $this->form_validation->set_rules('consignment_date','Consignment Date','trim|required');
+		// $this->form_validation->set_rules('accessories','Accessories','trim');
+		// echo "<pre>";var_export($this->input->post());die;
+		$this->load->model("display_model");
+		$data['year']		= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");	
+		$data['month']		= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+		$data['records']	= $this->display_model->get_release_note($data);
+		$data['arealist']	= $this->display_model->area_list();
 		$this ->load->view("head");
 		$this ->load->view("left");
+		$data["save_link"] = "/Release_note?pro=new";
+
 		if  ($this->input->get('pro') == 'new') {
-		$this ->load->view("Content_Release_note_newedit",$data);
-		}elseif ($this->input->get('pro') == 'edit'){ 
-		$this ->load->view("Content_Release_note_newedit",$data);
+			$area = "";
+			$datefrom = "";
+			$dateto = "";
+			if( isset($_POST["area"]) && $_POST["area"]!="" ){
+				$area = $this->input->post("area");
+			}
+			if( isset($_POST["datefrom"]) && $_POST["datefrom"]!="" ){
+				$datefrom = $this->input->post("datefrom");
+			}
+			if( isset($_POST["dateto"]) && $_POST["dateto"]!="" ){
+				$dateto = $this->input->post("dateto");
+			}
+			$data["data_item_specification"] = $this->display_model->releaseNote_get_itemspecification($area,$datefrom, $dateto)['table'];
+
+			if($_SERVER['REQUEST_METHOD'] === 'POST' && $this->form_validation->run() == false){
+
+				$data["save_link"] = "/Release_note?pro=new";
+				$data["formType"] = "new";
+				$this ->load->view("Content_Release_note_newedit",$data);
+			}else if($_SERVER['REQUEST_METHOD'] === 'POST' && $this->form_validation->run() == true){
+
+				$data["formType"] = "edit";
+				$data["save_link"] = "/save_release_note";
+				$data["data_item_specification"] = "";
+				$area = "";
+				$datefrom = "";
+				$dateto = "";
+				if( isset($_POST["area"]) && $_POST["area"]!="" ){
+					$area = $this->input->post("area");
+				}
+				if( isset($_POST["datefrom"]) && $_POST["datefrom"]!="" ){
+					$datefrom = $this->input->post("datefrom");
+				}
+				if( isset($_POST["dateto"]) && $_POST["dateto"]!="" ){
+					$dateto = $this->input->post("dateto");
+				}
+				$data["data_item_specification"] = $this->display_model->releaseNote_get_itemspecification($area,$datefrom, $dateto)['table'];
+				$this ->load->view("Content_Release_note_newedit",$data);
+			}else{
+				$data["save_link"] = "/Release_note?pro=new";
+				$data["formType"] = "new";
+				$this ->load->view("Content_Release_note_newedit",$data);
+			}
+		// }
+		// elseif ($this->input->get('pro') == 'edit'){
+		// 	$data["formType"] = "edit";
+		// 	$data["save_link"] = "/save_release_note";
+		// 	$data["data_item_specification"] = "";
+		// 	$area = "";
+		// 	$datefrom = "";
+		// 	$dateto = "";
+		// 	if( isset($_POST["area"]) && $_POST["area"]!="" ){
+		// 		$area = $this->input->post("area");
+		// 	}
+		// 	if( isset($_POST["datefrom"]) && $_POST["datefrom"]!="" ){
+		// 		$datefrom = $this->input->post("datefrom");
+		// 	}
+		// 	if( isset($_POST["dateto"]) && $_POST["dateto"]!="" ){
+		// 		$dateto = $this->input->post("dateto");
+		// 	}
+		// 	$data["data_item_specification"] = $this->display_model->releaseNote_get_itemspecification($area,$datefrom, $dateto)['table'];
+		// 	$this ->load->view("Content_Release_note_newedit",$data);
 		}else{
-		$this ->load->view("Content_Release_note",$data);
+			$this ->load->view("Content_Release_note",$data);
 		}
 	}
+
+	public function releaseNote_get_itemspecification(){
+		$this->load->model("display_model");
+			$site		= "";
+			$datefrom	= "";
+			$dateto 	= "";
+			if( isset($_POST['site']) && $this->input->post("site")!="" ){
+				$site = $this->input->post("site");
+			}
+			if( isset($_POST['datefrom']) && $this->input->post("datefrom")!="" ){
+				$datefrom = date("m-d-Y", strtotime($this->input->post("datefrom")));
+			}
+			if( isset($_POST['dateto']) && $this->input->post("dateto")!="" ){
+				$dateto = date("m-d-Y", strtotime($this->input->post("dateto")));
+			}
+		$res	= json_encode($this->display_model->releaseNote_get_itemspecification($site,$datefrom,$dateto));
+		echo $res;
+	}
+
+	public function save_release_note(){
+		$this->load->model("insert_model");
+		$res = $this->insert_model->save_release_note();
+		if( $res ){
+			redirect("/procurement/Release_note");
+		}else{
+			redirect("/procurement/Release_note?pro=edit");
+		}
+	}
+
 	public function report_progress(){
 		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");	
 		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
@@ -867,6 +974,20 @@ class Procurement extends CI_Controller {
 		//exit();
 		$this ->load->view("headprinter");
 		$this ->load->view("Content_e_pr_print",$data);
+	}
+
+	public function print_release_note(){
+		$data["RN_No"] = $this->input->get("RN_No");
+		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : "";//date("Y");	
+		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : "";//date("m");
+		$this->load->model("display_model");
+		$data["record"] = $this->display_model->get_release_note($data);
+		if($this->input->get('pdf') == 1){
+			$this ->load->view("print_release_note_pdf", $data);
+		}else{
+			$this ->load->view("headprinter", $data);
+			$this->load->view("print_release_note");
+		}
 	}
 	
 	

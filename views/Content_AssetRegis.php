@@ -191,37 +191,29 @@
 					<td><?=isset($list->V_Asset_name) ? $list->V_Asset_name : ''?></td>
 				  </tr>
 
-				  <?php if (substr($this->input->get('wrk_ord'),0,2) != 'PP'){?>
+				  <?php if (substr($this->input->get('wrk_ord'),0,2) != 'PP'){//pulaupinang?>
+				  <tr>
+				    <td>Scheduled Date</td>
+					<td><?=isset($list->schedule_d) ? date("d-m-Y",strtotime($list->schedule_d)) : ''?></td>
+					<td>Verified By</td>
+					<td><?=isset($list->v_AcceptedBy) ? $list->v_AcceptedBy : ''?></td>
+				  </tr>
 				  	<tr>
 				    <td>Completed Date & Time</td>
 					<td><?=isset($list->v_closeddate) ? date("d-m-Y H:i:s",strtotime($list->v_closeddate)) : ''?></td>
-					<td>Verified By</td>
-					<td><?=isset($list->v_AcceptedBy) ? $list->v_AcceptedBy : ''?></td>
+					<td>Action Taken</td>
+					<td><?=isset($list->v_ActionTaken) ? $list->v_ActionTaken : ''?></td>
 				  </tr>
 				  <tr>
 				    <td>Verifier Designation</td>
 					<td><?=isset($list->V_ACCEPTED_Designation) ? $list->V_ACCEPTED_Designation : ''?></td>
-					<td>Action Taken</td>
-					<td><?=isset($list->v_ActionTaken) ? $list->v_ActionTaken : ''?></td>
+					<td>Safety & Performance Test</td>
+					<td><?=isset($list->v_stest) && isset($list->v_ptest) ? $list->v_stest.' & '.$list->v_ptest : (isset($list->v_stest) && !isset($list->v_ptest) ? $list->v_stest : (!isset($list->v_stest) && isset($list->v_ptest) ? $list->v_ptest : '') ) ?></td>
 				  </tr>
 				   <tr>
 				    <td>Major Parts Replaced</td>
 					<td><?=isset($partlist) ? $partlist : ''?></td>
-					<td>Safety & Performance Test</td>
-					<td><?=isset($list->v_stest) && isset($list->v_ptest) ? $list->v_stest.' & '.$list->v_ptest : (isset($list->v_stest) && !isset($list->v_ptest) ? $list->v_stest : (!isset($list->v_stest) && isset($list->v_ptest) ? $list->v_ptest : '') ) ?></td>
-				  </tr>
-				  <tr>
-				  	<?php //if (isset($list->downtime) AND $list->downtime != 0){
-									if ((isset($list->downtime)) && ($list->downtime > 0)){
-						$timediff = explode(':',$list->downtime);
-						$downtimehr = $timediff[0];
-					}
-					else{
-						$downtimehr = '0';
-					}
-					?>
-				    <td>Downtime(hrs)</td>
-					<td><?=$downtimehr != '' ? $downtimehr.' hours' : ''?></td>
+					<td>QC Uptime</td>
 					<?php
 					isset($list->v_QCuptime) ? $v_QCuptime = $list->v_QCuptime : $v_QCuptime = '';
     				switch ($v_QCuptime) {
@@ -286,8 +278,23 @@
     				$QCUptime = '';
     				}
 					?>
-					<td>QC Uptime</td>
 					<td><?=$QCUptime?></td>
+				  </tr>
+				  <tr>
+				  	<?php //if (isset($list->downtime) AND $list->downtime != 0){
+									if ((isset($list->downtime)) && ($list->downtime > 0)){
+						$timediff = explode(':',$list->downtime);
+						$downtimehr = $timediff[0];
+					}
+					else{
+						$downtimehr = '0';
+					}
+					?>
+				    <td>Downtime(hrs)</td>
+					<td><?=$downtimehr != '' ? $downtimehr.' hours' : ''?></td>
+					
+					<td></td>
+					<td></td>
 				  </tr>
 				  <?php } elseif (substr($this->input->get('wrk_ord'),0,2) == 'PP') { ?>
 				  	<tr>
