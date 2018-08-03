@@ -990,6 +990,15 @@ class Procurement extends CI_Controller {
 		}
 	}
 	
+	public function ItemIsExist($item){
+		if(is_null($item)) {
+			$this->form_validation->set_message('ItemIsExist', 'No <b>*Item</b> Selected');
+			return false;
+		}
+		return true;
+	}
+
+	
 	
 	
 }
