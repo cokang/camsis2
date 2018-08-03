@@ -8295,6 +8295,82 @@ public function print_kewpa(){
 
 		}
 	}
+	public function rcm_newconse(){
+	    $this->load->model("display_model");
+		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");	
+		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+		$this ->load->view("headprinter");
+		$this ->load->view("report-rcm-newconse",$data);
+        }
+		
+    public function ppm_newconse(){
+	    $this->load->model("display_model");
+		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");	
+		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+		$this ->load->view("headprinter");
+		$this ->load->view("report-ppm-newconse",$data);
+		
+        }
+	public function report_newconseb4(){
+	     $this->load->model("display_model");
+		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");	
+		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+		$this ->load->view("headprinter");
+		$this ->load->view("report-newconseb4",$data);
+		
+        }	
+		
+	public function report_newconseb4ii(){
+	     $this->load->model("display_model");
+		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");	
+		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+		$this ->load->view("headprinter");
+		$this ->load->view("report-newconseb4ii",$data);
+		
+        }
+	public function report_tnc_listing(){
+	     $this->load->model("display_model");
+		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");	
+		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+		$this ->load->view("headprinter");
+		$this ->load->view("report-tnc-listing",$data);
+		
+        }
+	public function report_tnc_no_av12(){
+	     $this->load->model("display_model");
+		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");	
+		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+		$this ->load->view("headprinter");
+		$this ->load->view("report-tnc-no-av12-listing",$data);
+        }
+	public function report_tnc_no_smry(){
+	     $this->load->model("display_model");
+		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");	
+		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+		$this ->load->view("headprinter");
+		$this ->load->view("report-tnc-av12-smry-listing",$data);
+        }
+	public function report_clause_listing(){
+	     $this->load->model("display_model");
+		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");	
+		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+		$this ->load->view("headprinter");
+		$this ->load->view("report-clause-listing.php",$data);
+        }
+	public function report_yrplanwrty_listing(){
+	     $this->load->model("display_model");
+		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");	
+		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+		$this ->load->view("headprinter");
+		$this ->load->view("report-yrplanwrty-listing.php",$data);
+        }
+	public function report_a12newconse(){
+	     $this->load->model("display_model");
+		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");	
+		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+		$this ->load->view("headprinter");
+		$this ->load->view("report-a12newconse.php",$data);
+        }
 	
 }
 ?>

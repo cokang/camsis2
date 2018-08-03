@@ -59,7 +59,7 @@
 					<?php echo anchor ('contentcontroller/Attendance?en=Report','<img src="'. base_url() .'images/user.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;Attendance Report'); ?>
 				</td>
 			</tr>
-			<?php  } ?>
+			<?php  } ?>			
 			<?php if (!in_array("contentcontroller/Attendance", $chkers)) { ?>
 			<tr class="<?php  $number++; echo evenodd($number); ?>">
 				<td colspan="4">
@@ -599,7 +599,76 @@
 				</td>
 			</tr>
 			<?php  } ?>
-			
+				<?php if (!in_array("contentcontroller/rcm_newconse", $chkers)) { ?>
+			<tr class="<?php  $number++; echo evenodd($number); ?>">
+				<td colspan="4">
+					<?php echo anchor ('contentcontroller/rcm_newconse?en=Report','<img src="'. base_url() .'images/user.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;RCM New Concession'); ?>
+				</td>
+			</tr>
+			<?php  } ?>
+			<?php if (!in_array("contentcontroller/ppm_newconse", $chkers)) { ?>
+			<tr class="<?php  $number++; echo evenodd($number); ?>">
+				<td colspan="4">
+					<?php echo anchor ('contentcontroller/ppm_newconse?en=Report','<img src="'. base_url() .'images/user.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;PPM New Concession'); ?>
+				</td>
+			</tr>
+			<?php  } ?>
+			<?php if (!in_array("contentcontroller/report_newconseb4", $chkers)) { ?>
+			<tr class="<?php  $number++; echo evenodd($number); ?>">
+				<td colspan="4">
+					<?php echo anchor ('contentcontroller/report_newconseb4?en=Report','<img src="'. base_url() .'images/user.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;B4 New Concession'); ?>
+				</td>
+			</tr>
+			<?php  } ?>
+			<?php if (!in_array("contentcontroller/report_newconseb4ii", $chkers)) { ?>
+			<tr class="<?php  $number++; echo evenodd($number); ?>">
+				<td colspan="4">
+					<?php echo anchor ('contentcontroller/report_newconseb4ii?en=Report','<img src="'. base_url() .'images/user.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;B4 summary'); ?>
+				</td>
+			</tr>
+			<?php  } ?>
+			<?php if (!in_array("contentcontroller/report_tnc_listing", $chkers)) { ?>
+			<tr class="<?php  $number++; echo evenodd($number); ?>">
+				<td colspan="4">
+					<?php echo anchor ('contentcontroller/report_tnc_listing?en=Report','<img src="'. base_url() .'images/user.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;T&C Count'); ?>
+				</td>
+			</tr>
+			<?php  } ?>
+			<?php if (!in_array("contentcontroller/report_tnc_no_av12", $chkers)) { ?>
+			<tr class="<?php  $number++; echo evenodd($number); ?>">
+				<td colspan="4">
+					<?php echo anchor ('contentcontroller/report_tnc_no_av12?en=Report','<img src="'. base_url() .'images/user.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;T&C Without AV12'); ?>
+				</td>
+			</tr>
+			<?php  } ?>
+			<?php if (!in_array("contentcontroller/report_tnc_no_smry", $chkers)) { ?>
+			<tr class="<?php  $number++; echo evenodd($number); ?>">
+				<td colspan="4">
+					<?php echo anchor ('contentcontroller/report_tnc_no_smry?en=Report','<img src="'. base_url() .'images/user.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;T&C AV12 summary'); ?>
+				</td>
+			</tr>
+			<?php  } ?>
+			<?php if (!in_array("contentcontroller/report_clause_listing", $chkers)) { ?>
+			<tr class="<?php  $number++; echo evenodd($number); ?>">
+				<td colspan="4">
+					<?php echo anchor ('contentcontroller/report_clause_listing?en=Report','<img src="'. base_url() .'images/user.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;Clause Report'); ?>
+				</td>
+			</tr>
+			<?php  } ?>
+			<?php if (!in_array("contentcontroller/report_yrplanwrty_listing", $chkers)) { ?>
+			<tr class="<?php  $number++; echo evenodd($number); ?>">
+				<td colspan="4">
+					<?php echo anchor ('contentcontroller/report_yrplanwrty_listing?en=Report','<img src="'. base_url() .'images/user.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;Yearly Planner Assets Schedule under warranty'); ?>
+				</td>
+			</tr>
+			<?php  } ?>
+			<?php if (!in_array("contentcontroller/report_a12newconse", $chkers)) { ?>
+			<tr class="<?php  $number++; echo evenodd($number); ?>">
+				<td colspan="4">
+					<?php echo anchor ('contentcontroller/report_a12newconse?en=Report','<img src="'. base_url() .'images/user.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;A12'); ?>
+				</td>
+			</tr>
+			<?php  } ?>
 			<tr class="ui-header-new" style="height:2px;">
 				<td align="center" colspan="7">
 				</td>
