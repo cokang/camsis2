@@ -52,7 +52,7 @@ if ($this->input->get('ex') == ''){
 						'BO' => 'Outstanding',			
 					);
 					?>
-					<?php echo form_dropdown('rcmlist', $rcm_list,set_value('rcmlist', !is_null($this->input->get('rcmlist')) ? $this->input->get('rcmlist') : $rcm_list),'style="width: 90px;" id="rcmlist"'); ?>
+					<?php echo form_dropdown('rcmlist', $rcm_list,set_value('rcmlist', isset($rcmlist) ? $rcmlist : $rcm_list),'style="width: 90px;" id="rcmlist"'); ?>
 					<?php echo form_dropdown('m', $month_list, set_value('m', isset($record[0]->Month) ? $record[0]->Month : $month) , 'style="width: 90px;" id="cs_month"'); ?>
 		
 					<?php 
@@ -187,7 +187,7 @@ if ($this->input->get('ex') == ''){
 				<td valign="top" colspan="2"><hr color="black" size="1Px"></td>
 			</tr>
 			<tr>
-				<td width="50%"> RCM New Concession - Unscheduled - <?= date("F-Y")?><br><!--<i>Computer Generated - APBESys</i>--></td>
+				<td width="50%"> RCM New Concession - Unscheduled - <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?> <br><!--<i>Computer Generated - APBESys</i>--></td>
 				<td width="50%" align="right"></td>
 			</tr>
 

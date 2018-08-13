@@ -125,7 +125,8 @@ $test2="";
 $test="";
 $mon2="N";
 $mon1="N";
-
+$nilai1="";
+$nilai2="";
 for ($q = 1; $q <= intval($month); $q++) {
    $nures  = "m_".$q;
   
@@ -201,8 +202,8 @@ echo $dah1;
 		        <td><?=$dah2?></td>
 		        <td><?=(isset($mon1)) ? $mon1 : "N"?></td>
 		        <td><?=(isset($mon2)) ? $mon2 : "N"?></td>
-		        <td><?= ($row->cost) ? $nilai1 : 'N/A' ?></td>
-		        <td><?= ($row->cost) ? $nilai2 : 'N/A' ?></td>
+		        <td><?=$nilai1?></td>
+		        <td><?=$nilai2?></td>
 		        <td><?='0'?></td>
 							</tr>
 			<?php $numrow++; ?>
@@ -220,7 +221,7 @@ echo $dah1;
 				<td valign="top" colspan="2"><hr color="black" size="1Px"></td>
 			</tr>
 			<tr>
-				<td width="50%"> B4 New Concession - <?= date("F-Y")?><br><!--<i>Computer Generated - APBESys</i>--></td>
+				<td width="50%"> B4 New Concession - <?=date('F', mktime(0, 0, 0, $month, 10))?>-<?=$year?><br><!--<i>Computer Generated - APBESys</i>--></td>
 				<td width="50%" align="right"></td>
 			</tr>
 

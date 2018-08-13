@@ -148,7 +148,7 @@ if ($this->input->get('ex') == ''){
 				<td valign="top" colspan="2"><hr color="black" size="1Px"></td>
 			</tr>
 			<tr>
-				<td width="50%"> B4 New Concession - <?= date("F-Y")?><br><!--<i>Computer Generated - APBESys</i>--></td>
+				<td width="50%"> B4 New Concession - <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?><br><!--<i>Computer Generated - APBESys</i>--></td>
 				<td width="50%" align="right"></td>
 			</tr>
 

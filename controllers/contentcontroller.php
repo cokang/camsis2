@@ -8299,7 +8299,8 @@ public function print_kewpa(){
 	    $this->load->model("display_model");
 		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");	
 		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
-		$data['rcmnewconse'] = $this->display_model->rcm_newconse($data['year'],$data['month'],$this->input->get('rcmlist'));
+		$data['rcmlist'] = ($this->input->get('rcmlist') ? $this->input->get('rcmlist') :'');
+		$data['rcmnewconse'] = $this->display_model->rcm_newconse($data['year'],$data['month'],$data['rcmlist']);
 		$this ->load->view("headprinter");
 		$this ->load->view("report-rcm-newconse",$data);
         }
