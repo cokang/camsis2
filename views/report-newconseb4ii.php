@@ -57,9 +57,9 @@ if ($this->input->get('ex') == ''){
 						}
 					?>
 					<?php echo form_dropdown('y', $year_list, set_value('y', isset($record[0]->Year) ? $record[0]->Year : $year) , 'style="width: 65px;" id="cs_year"'); ?>
-					<input type="hidden" value="<?php echo set_value('stat', ($this->input->get('stat')) ? $this->input->get('stat') : ''); ?>" name="stat">
+					<!--<input type="hidden" value="<?php echo set_value('stat', ($this->input->get('stat')) ? $this->input->get('stat') : ''); ?>" name="stat">
 					<input type="hidden" value="<?php echo set_value('resch', ($this->input->get('resch')) ? $this->input->get('resch') : ''); ?>" name="resch">
-					<input type="hidden" value="<?php echo set_value('grp', ($this->input->get('grp')) ? $this->input->get('grp') : ''); ?>" name="grp">		
+					<input type="hidden" value="<?php echo set_value('grp', ($this->input->get('grp')) ? $this->input->get('grp') : ''); ?>" name="grp">-->		
 					<input type="submit" value="Generate" onchange="javascript: submit()"/></center>
 				</form>
 			</center>
@@ -111,12 +111,109 @@ if ($this->input->get('ex') == ''){
 					<th>1st</th>
                     <th>2nd</th>
 				</tr>
+				<?php  if (empty($b4summary)) {?>
 				<tr>
 					<td colspan="27" ><span style="color:red;">NO RECORDS FOUND.</span></td>
 				</tr>
+				<?php } else { ?>		
+			    <?php $numrow = 1; foreach($b4summary as $row):?>
+				<?php echo ($numrow%2==0) ? '<tr class="ui-color-color-color">' : '<tr>'; ?>	  
+		<?php 
+ $dah1="";
+ $dah2="";
+$test2="";
+$test="";
+$mon2="N";
+$mon1="N";
+
+for ($q = 1; $q <= intval($month); $q++) {
+   $nures  = "m_".$q;
+  
+
+ //$array[] = $row->$nures;
+
+if ($row->trpi > round($row->$nures,2) && ($dah1=="")){
+     $test[$q] = round($row->$nures,2);
+	 $dah1 = $q;
+	 $nilai1 =(floor($row->cost / 5000) + 1) * 10;
+	 //echo "jhgasjcaskjfhaskjhas1".$q ;
+/* 	 echo "<br>";
+	 echo "jhgasjcaskjfhaskjhas2".key($test);
+	 echo "<br>"; */	 
+	
+	if ($q == intval($month))
+	{
+	//echo intval($month);
+	$mon1 = "Y";
+	
+	}
+}
+
+if (80 > round($row->$nures,2)){
+if ($dah2==""){
+$test2[$q] = round($row->$nures,2);
+     $dah2 = $q;
+	 $nilai2 =(floor($row->cost / 5000) + 1) * 20;
+	 //echo $q;
+  if ($q == intval($month))
+	{
+	$mon2 = "Y";
+	}
+  }
+}
+}	
+
+// Output the filtered array
+//print_r($test);
+//echo "<pre>";
+//print_r($test2);
+//print_r($array);
+/* $dah1="";
+
+
+print_r($array);
+echo  "<br>";
+echo $dah1;
+//print_r($array2);
+ */
+?>				
+    			<td><?= $numrow ?></td>
+				<td><?= ($row->asset_no) ?  $row->asset_no : 'N/A' ?></td>
+				<td><?= ($row->type_code) ?  $row->type_code : 'N/A' ?></td>
+				<td><?= ($row->type_desc) ?  $row->type_desc : 'N/A' ?></td>
+				<td><?= ($row->cost) ?  $row->cost : 'N/A' ?></td>
+				<td><?= ($row->asset_age) ?  $row->asset_age : 'N/A' ?></td>
+				<td><?= ($row->trpi) ?  $row->trpi : 'N/A' ?></td>
+				<td><?= ($row->m_1) ?  round($row->m_1,2) : 'N/A' ?></td>
+				<td><?= ($row->m_2) ?  round($row->m_2,2) : 'N/A' ?></td>
+				<td><?= ($row->m_3) ?  round($row->m_3,2) : 'N/A' ?></td>
+				<td><?= ($row->m_4) ?  round($row->m_4,2) : 'N/A' ?></td>
+				<td><?= ($row->m_5) ?  round($row->m_5,2) : 'N/A' ?></td>
+				<td><?= ($row->m_6) ?  round($row->m_6,2) : 'N/A' ?></td>
+				<td><?= ($row->m_7) ?  round($row->m_7,2) : 'N/A' ?></td>
+				<td><?= ($row->m_8) ?  round($row->m_8,2) : 'N/A' ?></td>
+				<td><?= ($row->m_9) ?  round($row->m_9,2) : 'N/A' ?></td>
+				<td><?= ($row->m_10) ? round($row->m_10,2) : 'N/A' ?></td>
+				<td><?= ($row->m_11) ? round($row->m_11,2) : 'N/A' ?></td>
+				<td><?= ($row->m_12) ? round($row->m_12,2) : 'N/A' ?></td>
+				<td><?= ($row->ppm_total) ?  $row->ppm_total : 'N/A' ?></td>
+		        <td><?=$dah1?></td>
+		        <td><?=$dah2?></td>
+		        <td><?=(isset($mon1)) ? $mon1 : "N"?></td>
+		        <td><?=(isset($mon2)) ? $mon2 : "N"?></td>
+		        <td><?= ($row->cost) ? $nilai1 : 'N/A' ?></td>
+		        <td><?= ($row->cost) ? $nilai2 : 'N/A' ?></td>
+		        <td><?='0'?></td>
+							</tr>
+			<?php $numrow++; ?>
+			<?php endforeach;?>
+
+				<?php }?>
 			</table>
 </div>
 		</div>
+
+		
 	<?php if (($this->input->get('ex') == '') or (1==0)){?>
 		<table width="99%" border="0">
 			<tr>

@@ -5349,5 +5349,293 @@ return $obj['path'];
 		return $query->result();
 	}
 
+	public function ppm_newconse($maklumat){
+		$this->db->select("b.V_Tag_no, 
+							LEFT(e.v_AssetCondition, 
+							LOCATE(':', e.v_AssetCondition) - 1) AS kondisi, 
+							RIGHT(e.v_AssetCondition, CHAR_LENGTH(e.v_AssetCondition) - LOCATE(':', e.v_AssetCondition)) AS condition_desc, 
+							LEFT(e.v_AssetVStatus, LOCATE(':', e.v_AssetVStatus) - 1) AS variation, 
+							RIGHT(e.v_AssetVStatus, CHAR_LENGTH(e.v_AssetVStatus) - LOCATE(':', e.v_AssetVStatus)) AS variation_status, 
+							LEFT(e.v_AssetStatus, LOCATE(':', e.v_AssetStatus) - 1) AS status, 
+							RIGHT(e.v_AssetStatus, CHAR_LENGTH(e.v_AssetStatus) - LOCATE(':', e.v_AssetStatus)) AS status_desc, 
+							a.v_WrkOrdNo, a.v_Asset_no, c.N_Cost, b.V_Asset_name, b.V_User_Dept_code, b.V_Location_code, b.V_Manufacturer, b.V_Model_no, b.V_Serial_no, b.V_Brandname, b.V_Make, a.v_Month, a.v_HospitalCode, a.d_DueDt, a.v_Wrkordstatus, a.v_jobtype, a.v_year, 
+							timestampdiff( DAY, a.d_DueDt, NOW() ) AS Aging,  
+							FLOOR( timestampdiff(DAY, c.D_commission, NOW() ) / 365) AS Year, 
+							IFNULL(d3.d_Reschdt, IFNULL(d2.d_Reschdt, d.d_Reschdt)) AS reschdate, 
+							CASE IFNULL(d3.v_Reschreason, IFNULL(d2.v_Reschreason, d.v_ReschReason)) 
+							WHEN '1' THEN 'not found' 
+							WHEN '2' THEN 'In use' 
+							WHEN '3' THEN 'Lock in room/not accessible' 
+							WHEN '4' THEN 'Transferred' 
+							WHEN '5' THEN 'Equipment down' 
+							WHEN '6' THEN 'Breakdown of related support system' 
+							WHEN '7' THEN 'Vendor delay' 
+							ELSE d.v_ReschReason END AS reschsummary, k.v_summary, k.d_DateDone, k.v_time, 
+							CASE WHEN c.V_Wrn_end_code > NOW() THEN 'Under Warranty' 
+							ELSE 'NO Warranty' 
+							END AS warranty_status, 
+							k.v_ptest, k.v_stest, 
+							IFNULL(z.vvfAuthorizedStatus, '0') AS vvfAuthorizedStatus");
+		$this->db->from("pmis2_egm_assetmaintenance e");
+		$this->db->join("pmis2_egm_schconfirmmon a", "e.v_AssetNo = a.v_Asset_no AND a.v_HospitalCode = e.v_Hospitalcode", "inner");
+		$this->db->join("pmis2_egm_assetregistration b", "a.v_Asset_no = b.V_Asset_no AND a.v_HospitalCode = b.V_Hospitalcode", "inner");
+		$this->db->join("pmis2_egm_assetreg_general c", "a.v_Asset_no = c.V_Asset_no AND a.v_HospitalCode = c.V_Hospital_code", "inner");
+		$this->db->join("pmis2_emg_jobvisit1 d", "a.v_WrkOrdNo = d.v_WrkOrdNo AND e.v_AssetNo = a.v_Asset_no AND d.v_HospitalCode = a.v_HospitalCode", "left outer");
+		$this->db->join("pmis2_emg_jobvisit2 d2", "a.v_WrkOrdNo = d2.v_WrkOrdNo AND d2.v_HospitalCode = a.v_HospitalCode", "left outer");
+		$this->db->join("pmis2_emg_jobvisit3 d3", "a.v_WrkOrdNo = d3.v_WrkOrdNo AND d3.v_HospitalCode = a.v_HospitalCode", "left outer");
+		$this->db->join("pmis2_egm_jobdonedet k", "a.v_WrkOrdNo = k.v_Wrkordno AND a.v_HospitalCode = k.v_HospitalCode", "left outer");
+		$this->db->join("ap_vo_vvfdetails z", "CONCAT(a.v_HospitalCode, '-', a.v_Asset_no) = z.vvfAssetNo AND z.vvfActionflag <> 'D'", "left outer");
+		$this->db->where(array("a.v_Actionflag <>"=>"D", "a.d_DueDt <="=>"NOW()", "e.v_Actionflag <>"=>"D", "YEAR(a.d_DueDt)"=> $maklumat['year'], "MONTH(a.d_DueDt)"=>$maklumat['month']));
+		if( $maklumat['status']!="" ){
+			$this->db->where("a.v_Wrkordstatus", $maklumat['status']);
+		}
+		$query = $this->db->get();
+		// echo "<pre>".$this->db->last_query();die;
+		return $query->result();
+
+	}
+
+	public function report_newconseb4($maklumat){
+		$year = $maklumat["year"];
+		$month = $maklumat["month"];
+		$ym = $year.$month;
+		$candidate = '$candidate';
+		$default_day = '-01';
+		$dash = '-';
+		$formatDate = '%Y-%m-%d';
+
+		$this->db->select("hospital_name, asset_no, asset_tag, type_code, type_desc, purchase_date, commission_date, asset_age, cost,asset_status, mis_qap_inc_assets$candidate.condition, down_time, ppm_total, ppm_on_time, trpi, trpi_lt_5, trpi_5_10, trpi_gt_10, qap_period, warranty_date, downtime_cum, uptime_cum, downtime_pct, uptime_pct");
+		$this->db->from("mis_qap_inc_assets$candidate");
+		$this->db->where("qap_period", "$ym");
+		$this->db->where("uptime_pct <", "trpi");
+		$this->db->where_not_in("hospital_code ", array('AGH', 'TPN', 'TAM', 'JAS', 'KLG'));
+		$this->db->where("warranty_date <", "DATE_ADD( DATE_ADD(DATE_FORMAT(concat($year, '$dash', right($month,2), $default_day), '$formatDate'), INTERVAL 1 MONTH), INTERVAL -1 SECOND)", FALSE);
+		$query = $this->db->get();
+		//ini_set('memory_limit', '-1');
+		// echo "<pre>";var_export($query->result());die;
+		// echo "<pre>".$this->db->last_query();die;
+		return $query->result();
+	}
+
+	public function report_tnc_listing($maklumat){
+		$Year = $maklumat['year'];
+		$Month = $maklumat['month'];
+
+		$this->db->select("d.v_AssetVStatus, 
+				c.v_tcdate, c.v_moh_designation, 
+				a.V_Timestamp, a.V_Asset_no, a.V_Asset_name, a.V_Tag_no, a.D_Register_date, a.V_Equip_code, a.V_User_Dept_code, a.V_Location_code, 
+				a.V_Contract_code, a.V_Criticality, a.V_Condition, a.V_GEN_status, a.V_AssetStatus, a.V_Manufacturer, a.V_Model_no, a.V_Serial_no, 
+				a.V_Brandname, a.V_Asset_WG_code, a.V_service_code, a.V_Hospitalcode, a.V_Actionflag, a.V_Timestamp, a.V_facilitycode, a.V_accsories, 
+				a.v_chasisno, a.v_engineno, a.v_registrationno, a.v_tc_request_no, a.V_Make, 
+				b.V_Job_Type_code, b.V_Asset_no AS Expr1, 
+				b.V_Vendor_code, b.N_Cost, b.V_File_Ref_no, b.V_PO_no, b.V_PO_date, b.V_Wrn_end_code, b.V_TC_form_no, b.V_Mnl_Draw_no, 
+				b.V_Depreciation, b.V_Lifespan, b.V_Oper_Hr_code, b.V_Job_Type_code, b.V_Asset_Status, b.V_Procedure_code, b.V_Check_list_code, 
+				b.v_asset_typecode, b.v_asset_categorycode, b.v_SparesListCode, b.v_ppmDetails, b.V_capacityunit, b.v_Capacity, b.V_Misc_details, 
+				b.V_Hospital_code, b.V_ActionFlag AS Expr2, b.D_Timestamp, b.V_Agent, b.D_commission, b.V_username, b.v_ContractCode, e.V_summary, e.V_request_status");
+		$this->db->from("pmis2_egm_testingcommisioning c");
+		$this->db->join("pmis2_egm_assetregistration a", "c.v_hospitalcode = a.V_Hospitalcode AND c.v_reqno = a.v_tc_request_no", "inner");
+		$this->db->join("pmis2_egm_assetmaintenance d", "d.v_AssetNo = a.V_Asset_no", "inner");
+		$this->db->join("pmis2_egm_assetreg_general b", "a.V_Asset_no = b.V_Asset_no AND a.V_Hospitalcode = b.V_Hospital_code", "inner");
+		$this->db->join("pmis2_egm_service_request e", "c.v_reqno = e.V_Request_no AND c.v_assetno = e.V_Asset_no AND c.v_hospitalcode = e.V_hospitalcode", "left outer");
+		$this->db->where("year(c.v_tcdate)", $Year);
+		$this->db->where("month(c.v_tcdate)", $Month);
+		$query = $this->db->get();
+		// echo "<pre>".$this->db->last_query();die();
+				# loop
+		if( $query->num_rows() > 0 ){
+
+			foreach ($query->result() as $row) {
+				$row->vvfID = "";
+				$row->vvfReportNo = "";
+				$row->vvfRefNo = "";
+				$row->vvfHospitalCode = "";
+				$row->vvfDept = "";
+				$row->vvfAssetNo = "";
+				$row->vvfAssetTagNo = "";
+				$row->vvfAssetType = "";
+				$row->vvfAssetDesc = "";
+				$row->vvfMfg = "";
+				$row->vvfModel = "";
+				$row->vvfPurchaseCost = "";
+				$row->vvfVStatus = "";
+				$row->vvfDateComm = "";
+				$row->vvfDateStart = "";
+				$row->vvfDateStop = "";
+				$row->vvfDateWarrantyEnd = "";
+				$row->vvfAssetLockedDate = "";
+				$row->vvfAssetLockedStatus = "";
+				$row->vvfAssetLockedBy = "";
+				$row->vvfAuthorizedDate = "";
+				$row->vvfAuthorizedStatus = "";
+				$row->vvfAuthorizedBy = "";
+				$row->vvfActionflag = "";
+				$row->vvfTimestamp = "";
+				$row->vvfSubmissionDate = "";
+				$row->vvfRateDW = "";
+				$row->vvfRatePW = "";
+				$row->vvfFeeDW = "";
+				$row->vvfFeePW = "";
+				$row->vvfHQRemarksDate = "";
+				$row->vvfHQRemarks = "";
+				$ap_vo_vvfdetails = $this->get_ap_vo_vvfdetails($row->V_Hospitalcode, $row->V_Asset_no);
+				if( !empty($ap_vo_vvfdetails) ){
+					foreach ($ap_vo_vvfdetails as $key=>$val) {
+						foreach ($val as $k => $v) {
+							$row->$k = $ap_vo_vvfdetails[$key]->$k;
+						}
+					}
+				}
+			}
+		}
+		// echo "<pre>";var_export($query->result());die;
+		return $query->result();
+	}
+
+	public function get_ap_vo_vvfdetails($V_Hospital_code, $V_Asset_no){
+		$this->db->select("*");
+		$this->db->from("ap_vo_vvfdetails");
+		$this->db->where("vvfAssetNo", $V_Hospital_code.'-'.$V_Asset_no);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+
+	public function report_tnc_no_smry($maklumat){
+		$Year = $maklumat['year'];
+		$Month = $maklumat['month'];
+
+		$this->db->select("v_HospitalName, v_HospitalCode");
+		$this->db->from("pmis2_sa_hospital");
+		$this->db->where("v_HospitalCode <>", "JSN");
+		$this->db->order_by("v_HospitalCode");
+		$query = $this->db->get();
+		// echo $this->db->last_query();die;
+		//loop
+		if($query->num_rows() > 0){
+			foreach ($query->result() as $row) {
+
+				//~~~~~WO Closed~~~~~~~
+				$this->db->select("count(*) as closed");
+				$this->db->from("pmis2_egm_service_request");
+				$this->db->where("V_request_type", "a12");
+				$this->db->where("year(D_date)", $Year);
+				$this->db->where("month(D_date)", $Month);
+				$this->db->where("V_hospitalcode", $row->v_HospitalCode);
+				$this->db->where("v_closeddate", "DATE(NOW())");
+				$closedSQL = $this->db->get();
+				// echo $this->db->last_query();die;
+				//set closedRes = uConn.Execute(closedSQL)
+				$row->closed = $closedSQL->row()->closed;
+
+				//'~~~~~WO Open~~~~~~~
+				$this->db->select("count(*) as opened");
+				$this->db->from("pmis2_egm_service_request");
+				$this->db->where("V_request_type", "a12");
+				$this->db->where("year(D_date)", $Year);
+				$this->db->where("month(D_date)", $Month);
+				$this->db->where("V_hospitalcode", $row->v_HospitalCode);
+				$this->db->where("v_closeddate <", "DATE(NOW())");
+				$openSQL = $this->db->get();
+				//set openRes = uConn.Execute(openSQL)
+				$row->opened = $openSQL->row()->opened;
+
+				//'~~~~~Asset No Keyed-in~~~~~~~
+				$this->db->select("count(*) as keyin");
+				$this->db->from("pmis2_egm_service_request");
+				$this->db->where("V_request_type", "a12");
+				$this->db->where("year(D_date)", $Year);
+				$this->db->where("month(D_date)", $Month);
+				$this->db->where("V_hospitalcode", $row->v_HospitalCode);
+				$this->db->where("V_Asset_no !=", "NULL");
+				$keySQL = $this->db->get();
+				//set keyRes = uConn.Execute(keySQL)
+				$row->keyin = $keySQL->row()->keyin;
+
+				//'~~~~~Asset No Not Keyed-in~~~~~~~
+				$this->db->select("count(*) as nokeyin");
+				$this->db->from("pmis2_egm_service_request");
+				$this->db->where("V_request_type", "a12");
+				$this->db->where("year(D_date)", $Year);
+				$this->db->where("month(D_date)", $Month);
+				$this->db->where("V_hospitalcode", $row->v_HospitalCode);
+				$this->db->where("V_Asset_no");
+				$nokeySQL = $this->db->get();
+				//set nokeyRes = uConn.Execute(nokeySQL)
+				$row->nokeyin = $nokeySQL->row()->nokeyin;
+
+
+
+				//'~~~~~Total~~~~~~~$this->db->select("count(*) as nokeyin");
+				$this->db->select("count(*) as total");
+				$this->db->from("pmis2_egm_service_request");
+				$this->db->where("v_request_type", "a12");
+				$this->db->where("year(D_date)", $Year);
+				$this->db->where("month(D_date)", $Month);
+				$this->db->where("V_hospitalcode", $row->v_HospitalCode);
+				$this->db->where("V_Asset_no");
+				$totalSQL = $this->db->get();
+				//set totalRes = uConn.Execute(totalSQL)
+				$row->total = $totalSQL->row()->total;
+
+			}
+		}
+		// echo "<pre>";var_export($query->result());die;
+		return $query->result();
+	}
+	
+	function rcm_newconse($year,$month,$rcmlist){//sapik
+		$this->db->select("b.V_Tag_no,LEFT(e.v_AssetCondition, LOCATE(':',e.v_AssetCondition) - 1) AS cndition, RIGHT(e.v_AssetCondition, LENGTH(e.v_AssetCondition) - LOCATE(':',e.v_AssetCondition)) AS condition_desc, LEFT(e.v_AssetVStatus, LOCATE(':', e.v_AssetVStatus) - 1) AS variation,RIGHT(e.v_AssetVStatus, LENGTH(e.v_AssetVStatus) - LOCATE(':', e.v_AssetVStatus)) AS variation_status, LEFT(e.v_AssetStatus, LOCATE(':', e.v_AssetStatus) - 1) AS status,RIGHT(e.v_AssetStatus, LENGTH(e.v_AssetStatus) - LOCATE(':', e.v_AssetStatus)) AS status_desc,a.V_Request_no,a.V_Asset_no,b.V_Asset_name,c.N_Cost, b.V_Manufacturer, b.V_Model_no,b.V_Serial_no, b.V_Brandname, b.V_Make, a.D_date, a.D_time,a.V_requestor, a.V_User_dept_code,a.V_details, a.V_priority_code, a.V_request_type, a.V_request_status, a.V_hospitalcode,jr.d_Date AS respoddate, jr.v_Time, jr.v_Etime,a.v_closeddate, a.V_MohDesg,DATEDIFF( now() + INTERVAL 1 DAY,a.D_date) AS Aging,FLOOR(DATEDIFF( now(),c.D_commission) / 365) AS year,TIMESTAMPDIFF(MINUTE,IFNULL(concat(DATE_FORMAT(a.D_date,'%Y-%m-%d'),' ',a.D_Time), now()),IFNULL(concat(DATE_FORMAT(jr.d_Date,'%Y-%m-%d'),' ',jr.v_Time) , now())) AS responseMinute,CASE WHEN c.v_wrn_end_code > now() THEN 'Under Warranty' ELSE 'NO Warranty' END AS warranty_status,c.V_Wrn_end_code,k.v_summary AS closedsummary, c.D_commission, k.v_ptest, k.v_stest,IFNULL(z.vvfAuthorizedStatus, '0') AS vvfAuthorizedStatus");
+		$this->db->from('pmis2_egm_assetmaintenance e');
+		$this->db->join('pmis2_egm_service_request a','e.v_AssetNo = a.V_Asset_no AND e.v_Hospitalcode = a.V_hospitalcode','inner');
+		$this->db->join('pmis2_egm_assetregistration b','a.V_Asset_no = b.V_Asset_no AND a.V_hospitalcode = b.V_Hospitalcode','inner');
+		$this->db->join('pmis2_egm_assetreg_general c','a.V_Asset_no = c.V_Asset_no AND a.V_hospitalcode = c.V_Hospital_code','inner');
+		$this->db->join('pmis2_emg_jobresponse jr','a.V_Request_no = jr.v_WrkOrdNo AND a.V_hospitalcode = jr.v_HospitalCode','left outer');
+		$this->db->join('pmis2_egm_jobdonedet k','a.V_Request_no = k.v_Wrkordno AND a.V_hospitalcode = k.v_HospitalCode','left outer');
+		$this->db->join('ap_vo_vvfdetails z','concat(a.V_hospitalcode,"-",a.V_Asset_no) = z.vvfAssetNo AND z.vvfActionflag <> "D"','left outer');
+		//$this->db->limit(20);
+		$this->db->where('(a.D_date <= now()) AND (a.V_request_type = "R2" OR a.V_request_type = "A4" OR  a.V_request_type = "A5" OR a.V_request_type = "A8")
+		AND (a.V_actionflag <> "D") AND (YEAR(a.D_date) = '.$year.') AND (MONTH(a.D_date) = '.$month.') ');
+		if($rcmlist != ''){
+		$this->db->where('a.V_request_status',$rcmlist);
+		}
+		$query = $this->db->get();
+		//echo $this->db->last_query();
+		//exit();
+		$query_result = $query->result();
+		return $query_result;
+	}
+	
+		function B4_summary($year,$month){//sapik
+		$this->db->select("DISTINCT a.hospital_name,a.asset_no, a.type_code, a.type_desc, a.purchase_date, a.commission_date, a.asset_age, a.cost, a.asset_status,a.condition, a.down_time, a.ppm_total, a.ppm_on_time, a.trpi, a.trpi_lt_5, a.trpi_5_10, a.trpi_gt_10, a.qap_period, a.warranty_date, a.downtime_cum,a.uptime_cum, a.downtime_pct, a.uptime_pct,IFNULL(b.m_1,0) AS m_1, IFNULL(b.m_2,0) AS m_2, IFNULL(b.m_3,0) AS m_3, IFNULL(b.m_4,0) AS m_4, IFNULL(b.m_5,0) AS m_5, IFNULL(b.m_6,0) AS m_6, IFNULL(b.m_7,0) AS m_7, IFNULL(b.m_8,0) AS m_8, IFNULL(b.m_9,0) AS m_9, IFNULL(b.m_10,0) AS m_10, IFNULL(b.m_11,0) AS m_11, IFNULL(b.m_12,0) AS m_12",false);
+		$this->db->from('mis_qap_inc_assets$candidate a');
+		$this->db->join('mis_cum_trkpi b',' a.asset_no = b.asset_no','inner');
+		$this->db->where('a.qap_period',$year.$month);
+		$this->db->where('(a.uptime_pct < a.trpi) AND (a.hospital_code NOT IN ("AGH", "TPN", "TAM", "JAS", "KLG"))');
+		$this->db->where('a.warranty_date < date_format(str_to_date("'.$year.'-'.$month.'", "%Y-%m"),"%Y-%m-01 %H:%i:%s") + INTERVAL 1 MONTH - INTERVAL 1 SECOND');
+		$this->db->where('a.hospital_code',$this->session->userdata('hosp_code'));		
+		$this->db->where('b.w_year',$year);
+        $this->db->group_by('a.asset_no,');	
+	   //$this->db->limit(1);
+		$query = $this->db->get();
+		//echo $this->db->last_query();
+		//exit();
+		$query_result = $query->result();
+		return $query_result;
+	}
+
+	 	function tnc_wthAV12($year,$month){
+		$this->db->select("d.v_AssetVStatus, c.v_tcdate, c.v_moh_designation, a.v_timestamp, a.V_Asset_no, a.V_Asset_name, a.V_Tag_no, a.D_Register_date, a.V_Equip_code, a.V_User_Dept_code, a.V_Location_code, a.V_Contract_code, a.V_Criticality, a.V_Condition, a.V_GEN_status, a.V_AssetStatus, a.V_Manufacturer, a.V_Model_no, a.V_Serial_no, a.V_Brandname, a.V_Asset_WG_code, a.V_service_code, a.V_Hospitalcode, a.V_Actionflag, a.V_Timestamp, a.V_facilitycode, a.V_accsories, a.v_chasisno, a.v_engineno, a.v_registrationno, a.v_tc_request_no, a.V_Make, b.V_Job_Type_code, b.V_Asset_no AS Expr1, b.V_Vendor_code, b.N_Cost, b.V_File_Ref_no, b.V_PO_no, b.V_PO_date, b.V_Wrn_end_code, b.V_TC_form_no, b.V_Mnl_Draw_no, b.V_Depreciation, b.V_Lifespan, b.V_Oper_Hr_code, b.V_Job_Type_code, b.V_Asset_Status, b.V_Procedure_code, b.V_Check_list_code, b.v_asset_typecode, b.v_asset_categorycode, b.v_SparesListCode, b.v_ppmDetails, b.V_capacityunit, b.v_Capacity, b.V_Misc_details, b.V_Hospital_code, b.V_ActionFlag AS Expr2, b.D_Timestamp, b.V_Agent, b.D_commission, b.V_username, b.v_ContractCode",false);
+		$this->db->from('pmis2_egm_testingcommisioning c');
+		$this->db->join('pmis2_egm_assetregistration a','c.v_hospitalcode = a.V_Hospitalcode AND c.v_reqno = a.v_tc_request_no','inner');
+		$this->db->join('pmis2_egm_assetmaintenance d','d.v_AssetNo = a.V_Asset_no','inner');
+		$this->db->join('pmis2_egm_assetreg_general b','a.V_Asset_no = b.V_Asset_no AND a.V_Hospitalcode = b.V_Hospital_code','inner');
+		$this->db->where('year(c.v_tcdate)="'.$year.'" AND month(c.v_tcdate)="'.$month.'"');
+		$query = $this->db->get();
+		echo $this->db->last_query();
+		//exit();
+		$query_result = $query->result();
+		return $query_result;
+	}
+
 }
 ?>

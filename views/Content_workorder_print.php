@@ -1,5 +1,14 @@
+
 <meta content="utf-8" http-equiv="encoding">
 <body>
+	<style type="text/css">
+		.tbl-wo{
+			font-size: 12px;
+		}
+		.tbl-wo-1{
+			font-size: 10px;
+		}
+	</style>
 	<div id="Instruction" class="pr-printer">
 		<div class="header-pr">SERVICE REQUEST AND WORK ORDER</div>
 		<button onclick="javascript:myFunction('print_workorder?wrk_ord=<?=$this->input->get('wrk_ord')?>&none=closed');" class="btn-button btn-primary-button">PRINT</button>
@@ -36,40 +45,40 @@
 		</table>
 		<table class="tbl-wo" border="0" align="center" style="font-weight:bold;">
 			<tr>
-				<td style="padding:5px; width:15%">SERVICE TYPE : </td>
+				<td style="padding:1px; width:15%; font-size: 12px;">SERVICE TYPE : </td>
 				<?php if(($this->session->userdata('usersess') == 'SEC')){?>
-				<td style="padding:3px; width:80px;">
+				<td style="padding:1px; width:80px; font-size: 13px;">
 					<div class="box2"><img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/></div> SEC
 				</td>
-				<td style="padding:3px; width:80px;"> 
+				<td style="padding:1px; width:80px; font-size: 12px;"> 
 					<div class="box2"></div> HKS
 				</td>
 				<?php }elseif(($this->session->userdata('usersess') == 'HKS')){ ?>
-				<td style="padding:3px; width:80px;">
+				<td style="padding:1px; width:80px; font-size: 12px;">
 					<div class="box2"></div> SEC
 				</td>
-				<td style="padding:3px; width:80px;">
+				<td style="padding:1px; width:80px; font-size: 12px;">
 					<div class="box2"><img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/></div> HKS			
 				</td>
 				<?php }elseif(($this->session->userdata('usersess') == 'BES')){ ?>
-				<td style="padding:3px; width:80px;">
+				<td style="padding:1px; width:80px; font-size: 12px;">
 					<div class="box2"><img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/></div> BES
 				</td>
-				<td style="padding:3px; width:80px;"> 
+				<td style="padding:1px; width:80px; font-size: 12px;"> 
 					<div class="box2"></div> FES
 				</td>
 				<?php }elseif(($this->session->userdata('usersess') == 'FES')){ ?>
-				<td style="padding:3px; width:80px;">
+				<td style="padding:1px; width:80px; font-size: 12px;">
 					<div class="box2"></div> BES
 				</td>
-				<td style="padding:3px; width:80px;">
+				<td style="padding:1px; width:80px; font-size: 12px;">
 					<div class="box2"><img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/></div> FES			
 				</td>
 				<?php } ?>
-				<td style="padding-left:45%; width:300px;"> Date : <?= date("d/m/Y")?> </td>
+				<td style="padding-left:45%; width:400px; font-size: 12px;"> Date : <?= date("d/m/Y")?> </td>
 			</tr>
 			<tr>
-				<td style="padding:5px"; width:100px;"" colspan="6">WORK ORDER NO : <?= ($wrk_ord) ? $wrk_ord : 'NA' ?> </td>
+				<td style="padding:1px; width:100px; font-size: 12px;" colspan="6">WORK ORDER NO : <?= ($wrk_ord) ? $wrk_ord : 'NA' ?> </td>
 			</tr>
 		</table>
 		<!--<table class="tbl-wo" border="0" align="center">
@@ -81,7 +90,7 @@
 		</table>-->
 		<table class="tbl-wo" border="1" align="center" style="border: 1px solid black;">
 			<tr>
-			<td style="width:50%; padding:5px;"><table class="tbl-wo-1" border="0" align="left">
+			<td style="width:50%; padding:1px;"><table class="tbl-wo-1" border="0" align="left">
 						<tr>
 							<td class="tbl-wo-data" valign="top">Requestor</td>
 							<td style="width:35%;">: <span style="color:blue;"><?= ($woinfo[0]->V_requestor) ? $woinfo[0]->V_requestor : 'NA' ?></span></td>
@@ -122,7 +131,7 @@
 							</td>
 						</tr>
 					</table></td>
-			<td style="width:50%; padding:5px;" valign="top" colspan="0"> 
+			<td style="width:50%; padding:1px;" valign="top" colspan="0"> 
 					<table class="tbl-wo-1" border="0" align="left">
 						<tr>
 							<td class="tbl-wo-data">Taken By </td>
@@ -192,21 +201,21 @@
 				</td>
 				</tr>
 				<tr>
-				<td colspan="2" style="padding:5px;"> 
+				<td colspan="2" style="padding:1px;"> 
 					<table class="tbl-wo-1" border="0" align="bottom">
 						<tr>
 							<td> Request Description :</td>
 						</tr>
 						<?php if($woinfo[0]->V_summary == 'N/A'){?>
 						<tr>
-							<td> <hr class='dotted' style="margin:10px 10px 10px 5px;" /></td>
+							<td> <hr class='dotted' style="margin:10px 5px 5px 5px;" /></td>
 						</tr>
 						<tr>
-							<td> <hr class='dotted' style="margin:10px 10px 10px 5px;" /></td>
+							<td> <hr class='dotted' style="margin:10px 5px 5px 5px;" /></td>
 						</tr>
 						<?php }else{ ?>
 						<tr>
-							<td style="padding:5px 5px 5px 5px;"><span style="color:blue;"><?= ($woinfo[0]->V_summary) ? $woinfo[0]->V_summary : 'NA' ?></span></td>
+							<td style="padding:3px 3px 3px 0px;"><span style="color:blue;"><?= ($woinfo[0]->V_summary) ? $woinfo[0]->V_summary : 'NA' ?></span></td>
 						</tr>
 						<?php } ?>
 						
@@ -217,7 +226,7 @@
 		</table>
 		<table class="tbl-wo-1" border="0" align="center">
 			<tr>
-				<td align="center">&nbsp;</td>
+				<td align="center" height="5px"></td>
 			</tr>
 		</table>
 		<table class="tbl-wo" border="0" align="center" style="background-color:black; color:white;">
@@ -227,7 +236,7 @@
 		</table>
 		<table class="tbl-wo" border="1" align="center" style="border: 1px solid black;">
 			<tr>
-				<td style="width:50%; padding:5px;" rowspan="2" valign="top">
+				<td style="width:50%; padding:1px;" rowspan="2" valign="top">
 					<table class="tbl-wo-1" border="0" align="left">
 						<tr>
 							<td> Assigned To : <?=($personallist[0][0]) ? $personallist[0][0] : ''?><br /> <i>( Name )</i></td>
@@ -236,24 +245,24 @@
 							<td> Response findings :</td>
 						</tr>
 						<tr>
-							<td><?=isset($resprec[0]->v_ActionTaken) ? $resprec[0]->v_ActionTaken : ''?> <hr class='dotted' style="margin:10px 10px 10px 5px;" /></td>
+							<td><?=isset($resprec[0]->v_ActionTaken) ? $resprec[0]->v_ActionTaken : ''?> <hr class='dotted' style="margin:10px 5px 5px 5px;" /></td>
 						</tr>
 						<tr>
-							<td> <hr class='dotted' style="margin:10px 10px 10px 5px;" /></td>
+							<td> <hr class='dotted' style="margin:10px 5px 5px 5px;" /></td>
 						</tr>
 						<?php if(($this->session->userdata('usersess') == 'SEC') or ($this->session->userdata('usersess') == 'HKS')){?>
 
 						<?php }else{ ?>
 						<tr>
-							<td> <hr class='dotted' style="margin:10px 10px 10px 5px;" /></td>
+							<td> <hr class='dotted' style="margin:10px 5px 5px 5px;" /></td>
 						</tr>
 						<?php } ?>
 					</table> 
 				</td>
-				<td style="width:50%; padding:5px;" valign="top" style="" colspan="">
+				<td style="width:50%; padding:1px;" valign="top" style="" colspan="">
 					<table class="tbl-wo-1" border="0" align="left">
 						<tr>
-							<td colspan="3" height="40px" valign="top"> Requestor Verification : <br /> <i>(Name,Sign & Stamp)</i></td>
+							<td colspan="3" height="30px" valign="top"> Requestor Verification : <br /> <i>(Name,Sign & Stamp)</i></td>
 						</tr>
 						<?php if(($this->session->userdata('usersess') == 'SEC') or ($this->session->userdata('usersess') == 'HKS')){?>
 						<tr>
@@ -274,7 +283,7 @@
 
 			<?php }else{ ?>
 			<tr>
-				<td style="width:50%; padding:5px;" valign="top" style="" colspan="">
+				<td style="width:50%; padding:1px;" valign="top" style="" colspan="">
 					<table class="tbl-wo-1" border="0" align="left">
 						<tr>
 							<td style="width:30%;" valign="top"> Equipment :</td>
@@ -294,7 +303,7 @@
 		</table>
 		<table class="tbl-wo-1" border="0" align="center">
 			<tr>
-				<td align="center">&nbsp;</td>
+				<td align="center" height="5px"></td>
 			</tr>
 		</table>
 		<table class="tbl-wo" border="0" align="center" style="background-color:black; color:white;">
@@ -377,20 +386,20 @@
 				<td valign="top" height="60px" colspan="9" >
 					<table class="tbl-wo-1" border="0" align="left">
 						<tr>
-							<td style="padding:5px;">Actual Work Done / Recommendation :</td>
+							<td style="padding:1px;">Actual Work Done / Recommendation :</td>
 						</tr>
 						
 						<tr>
-							<td><?=($actiontaken[1][0]) ? $actiontaken[1][0] : ''?><hr class='dotted' style="margin:10px 10px 10px 5px;"/></td>
+							<td><?=($actiontaken[1][0]) ? $actiontaken[1][0] : ''?><hr class='dotted' style="margin:10px 5px 5px 5px;"/></td>
 						</tr>
 						<tr>
-							<td><?=($actiontaken[2][0]) ? $actiontaken[2][0] : ''?><hr class='dotted' style="margin:10px 10px 10px 5px;"/></td>
+							<td><?=($actiontaken[2][0]) ? $actiontaken[2][0] : ''?><hr class='dotted' style="margin:10px 5px 5px 5px;"/></td>
 						</tr>
 						<tr>
-							<td><?=($actiontaken[3][0]) ? $actiontaken[3][0] : ''?><hr class='dotted' style="margin:10px 10px 10px 5px;"/></td>
+							<td><?=($actiontaken[3][0]) ? $actiontaken[3][0] : ''?><hr class='dotted' style="margin:10px 5px 5px 5px;"/></td>
 						</tr>
 						<tr>
-							<td><hr class='dotted' style="margin:10px 10px 10px 5px;"/></td>
+							<td><hr class='dotted' style="margin:10px 5px 5px 5px;"/></td>
 						</tr>
 					</table>
 				</td>
@@ -401,11 +410,11 @@
 					<table class="tbl-wo-1" border="0" align="left">
 						<tr>
 							<td style="padding:5px 5px 5px 25px; width:55px;">Remarks :</td>
-							<td style="padding:5px;"><hr class='dotted' style="margin:10px 10px 10px 5px;"/></td>
+							<td style="padding:3px;"><hr class='dotted' style="margin:10px 5px 5px 5px;"/></td>
 						</tr>
 						<tr>
 							<td></td>
-							<td style="padding:5px;"><hr class='dotted' style="margin:10px 10px 10px 5px;"/></td>
+							<td style="padding:1px;"><hr class='dotted' style="margin:10px 5px 5px 5px;"/></td>
 						</tr>
 					</table>
 			    </td>
@@ -418,7 +427,7 @@
 			<?php if(($this->session->userdata('usersess') == 'SEC') or ($this->session->userdata('usersess') == 'HKS')){?>
 				<td style=" height:0px;border-bottom:1px solid white;border-right:1px solid black;border-left:1px solid black;margin:0px;padding:0px;" colspan="5" rowspan=""></td>
 			<?php }else{ ?>
-				<td style="width:50%; padding:0px 0px 0px 5px;" colspan="5" valign="top" heigth="10px" rowspan="">
+				<td style="width:50%; padding:0px 0px 0px 3px;" colspan="5" valign="top" heigth="10px" rowspan="">
 					<table class="tbl-wo" border="0" align="left">
 						<tr>
 							<td style="width:33.33%;"> Out-sourcing :</td>
@@ -432,7 +441,7 @@
 					</table>
 				</td>
 			<?php } ?>
-			    <td style="width:50%; padding:5px;" colspan="5" valign="top"  rowspan="4">
+			    <td style="width:50%; padding:1px;" colspan="5" valign="top"  rowspan="4">
 					<table class="tbl-wo-1" border="0" align="left">
 					<?php if(($this->session->userdata('usersess') == 'SEC') or ($this->session->userdata('usersess') == 'HKS')){?>
 						<tr>
@@ -521,7 +530,7 @@
 
 			<?php }else{ ?>
 			<tr>
-			    <td style="width:50%; padding:0px 0px 0px 5px;" colspan="5">
+			    <td style="width:50%; padding:0px 0px 0px 3px;" colspan="5">
 			    	<table class="tbl-wo" border="0" align="left">
 						<tr>
 							<td style="width:33.33%;">Claim Status :</td>
@@ -537,7 +546,7 @@
 			</tr>
 			<?php } ?>
 			<tr>
-			    <td style="width:50%; padding:0px 0px 0px 5px;" colspan="5" valign="top" heigth="10px" rowspan="2">
+			    <td style="width:50%; padding:0px 0px 0px 3px;" colspan="5" valign="top" heigth="10px" rowspan="2">
 			    	<table class="tbl-wo" border="0" align="left">
 						<tr>
 							<td style="" colspan="3" valign="top" height="25px"> Recommendation / Report :</td>
@@ -558,7 +567,7 @@
 		</table>
 		<table class="tbl-wo-1" border="0" align="center">
 			<tr>
-				<td align="center">&nbsp;</td>
+				<td align="center" height="5px"></td>
 			</tr>
 		</table>
 		<table class="tbl-wo" border="0" align="center" style="background-color:black; color:white;">
@@ -572,7 +581,7 @@
 				<td style="width:50%;" valign="top" colspan="2" align="center"> For Office use only</td>
 			</tr>
 			<tr>
-				<td style="padding:20px 0px 0px 5px;" class="tb-class" colspan="" rowspan="2" valign="top">
+				<td style="padding:10px 0px 0px 3px;" class="tb-class" colspan="" rowspan="2" valign="top">
 					<table class="tbl-wo" border="0" align="left" style="width:100%; height:100%;">
 						<tr>
 							<td valign="top">Signature :</td>
@@ -590,7 +599,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td style="padding:20px 0px 0px 5px;" class="tb-class" colspan="2">
+				<td style="padding:10px 0px 0px 3px;" class="tb-class" colspan="2">
 					<table class="tbl-wo" border="0" align="left" style="width:100%;">
 						<tr>
 							<td valign="top">Signature :</td>
@@ -608,11 +617,11 @@
 				</td>
 			</tr>
 			<tr>
-				<td style="padding-left:5px;" class="tb-class" colspan="2" valign="top">
+				<td style="padding-left:3px;" class="tb-class" colspan="2" valign="top">
 					<table class="tbl-wo-1" border="0" align="left" style="width:100%; height:100%;">
 						<tr>
-							<td style="width:16%" valign="top">Quality Cause Code : QC</td>
-							<td style="" valign="top"><hr class='dotted' style="margin:5px 5px 5px 0px; width:5%;"/></td>
+							<td style="width:20%" valign="top">Quality Cause Code : QC</td>
+							<td style="" valign="top"><hr class='dotted' style="margin:10px 5px 5px 0px; width:5%;"/></td>
 						</tr>
 					</table>
 				</td>
@@ -622,10 +631,30 @@
 			<tr>
 				<td style="" valign="top" colspan="2"><span style="font-size:7px; padding-left:30px;"><i>Note: Tick (<span align="center" class="icon-check" style="font-size:7px;"></span>) where applicable.</i></span></td>
 			</tr>
+			<?php $usersess = $this->session->userdata('usersess');?>
+			<?php if( in_array($usersess, array("HKS","SEC","FES","BES") ) ){?>
+			<tr>
+				<td style="" valign="top"><span style="font-size:7px; padding-left:30px;"><i>*Date and Time declared by APSB shall be deemed valid if NOT provided by the customer.</i></span></td>
+				<td style="" valign="top" align="right"><span style="font-size:7px; padding-left:30px;"><i></i></span></td>
+			</tr>
+			<tr>
+				<td style="" valign="top"><span style="font-size:7px; padding-left:30px;"><i></i></span></td>
+				<td style="" valign="top" align="right"><span style="font-size:7px; padding-left:30px;"><i>Copyright product of Advance Pact Sdn Bhd. All rights reserved.</i></span></td>
+			</tr>
+			<tr>
+				<td style="" valign="top"><span style="font-size:7px; padding-left:0px;">APSB-FORM</span></td>
+				<?php if( $this->session->userdata('usersess') == 'SEC' || $this->session->userdata('usersess') == 'HKS' ){?>
+				<td style="" valign="top" align="right"><span style="font-size:7px; padding-left:30px;">QP-001 : HF-012 : Revision 2.0 : 09 May 2018</span></td>
+				<?php }elseif( $this->session->userdata('usersess') == 'BES' || $this->session->userdata('usersess') == 'FES' ){?>
+				<td style="" valign="top" align="right"><span style="font-size:7px; padding-left:30px;">QP-001 : BFF-001 : Revision 2.0 : 09 May 2018</span></td>
+				<?php } ?>
+			</tr>
+			<?php }else{ ?>
 			<tr>
 				<td style="" valign="top"><span style="font-size:7px; padding-left:30px;"><i>*Date and Time declared by APSB shall be deemed valid if NOT provided by the customer.</i></span></td>
 				<td style="" valign="top" align="right"><span style="font-size:7px; padding-left:30px;"><i>Copyright product of Advance Pact Sdn Bhd. All rights reserved.</i></span></td>
 			</tr>
+			<?php } ?>
 		</table>
 	</div>
 	<div class="StartNewPage" id="breakpage"><span id="pagebreak">Page Break</span></div>

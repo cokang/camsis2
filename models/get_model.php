@@ -152,7 +152,8 @@ function get_assetnewnum($assetcd)
 {
 
 //$this->db->select('pmis2_sa_asset_mapping.new_asset_type, left(pmis2_sa_moh_asset_type.type_desc, 50)');
-$this->db->select(" ifnull(max(MID(V_asset_no,9,5)),0) + 1 AS thenum ", FALSE);
+//$this->db->select(" ifnull(max(MID(V_asset_no,9,5)),0) + 1 AS thenum ", FALSE);
+$this->db->select(" ifnull(max(MID(V_asset_no,CHAR_LENGTH(V_asset_no)-4,5)),0) + 1 AS thenum ", FALSE);
 $this->db->like('V_asset_no', $assetcd, 'after'); 
 //    return $this->db->get('pmis2_sa_asset_mapping'); 
 $query = $this->db->get('pmis2_egm_assetregistration');
@@ -506,7 +507,8 @@ function get_assetcat()
 
 //$this->db->select('pmis2_sa_asset_mapping.new_asset_type, left(pmis2_sa_moh_asset_type.type_desc, 50)');
 $this->db->select(" pmis2_egm_assetregistration.V_Equip_code, pmis2_sa_equip_code.v_Equip_Desc AS V_Asset_name, COUNT(pmis2_egm_assetregistration.V_Equip_code) AS aTotal ", FALSE);
-$this->db->join('pmis2_sa_equip_code','pmis2_egm_assetregistration.V_Equip_code = pmis2_sa_equip_code.v_Equip_Code AND pmis2_egm_assetregistration.v_hospitalcode = pmis2_sa_equip_code.v_hospitalcode');
+//$this->db->join('pmis2_sa_equip_code','pmis2_egm_assetregistration.V_Equip_code = pmis2_sa_equip_code.v_Equip_Code AND pmis2_egm_assetregistration.v_hospitalcode = pmis2_sa_equip_code.v_hospitalcode');
+$this->db->join('pmis2_sa_equip_code','pmis2_egm_assetregistration.V_Equip_code = pmis2_sa_equip_code.v_Equip_Code');
 $this->db->where('pmis2_egm_assetregistration.v_hospitalcode = ', $this->session->userdata('hosp_code'));
 $this->db->where('pmis2_egm_assetregistration.v_actionflag <> ', 'D');
 $this->db->where('pmis2_egm_assetregistration.v_service_code = ', $this->session->userdata('usersess'));
@@ -3417,7 +3419,8 @@ function get_wodatelate($wono,$nvisit)
 function get_assetcatxx($limit,$start)
 {
 $this->db->select(" pmis2_egm_assetregistration.V_Equip_code, pmis2_sa_equip_code.v_Equip_Desc AS V_Asset_name, COUNT(pmis2_egm_assetregistration.V_Equip_code) AS aTotal ", FALSE);
-$this->db->join('pmis2_sa_equip_code','pmis2_egm_assetregistration.V_Equip_code = pmis2_sa_equip_code.v_Equip_Code AND pmis2_egm_assetregistration.v_hospitalcode = pmis2_sa_equip_code.v_hospitalcode');
+//$this->db->join('pmis2_sa_equip_code','pmis2_egm_assetregistration.V_Equip_code = pmis2_sa_equip_code.v_Equip_Code AND pmis2_egm_assetregistration.v_hospitalcode = pmis2_sa_equip_code.v_hospitalcode');
+$this->db->join('pmis2_sa_equip_code','pmis2_egm_assetregistration.V_Equip_code = pmis2_sa_equip_code.v_Equip_Code');
 $this->db->where('pmis2_egm_assetregistration.v_hospitalcode = ', $this->session->userdata('hosp_code'));
 $this->db->where('pmis2_egm_assetregistration.v_actionflag <> ', 'D');
 $this->db->where('pmis2_egm_assetregistration.v_service_code = ', $this->session->userdata('usersess'));

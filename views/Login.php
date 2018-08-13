@@ -4,7 +4,7 @@
 <head>
 <?php 
 if (!isset($_GET["login"])) {  //redirect(base_url()."index.php?login=login", 'refresh'); 
-redirect(base_url()."index.php/LoginController/index?login=login", 'refresh');?>
+redirect(base_url()."index.php/Logincontroller/index?login=login", 'refresh');?>
 <!--<meta http-equiv="refresh" content="3;url=<?php echo base_url(); ?>index.php/LoginController/index?login=login" />-->
 <!--<meta http-equiv="refresh" content="3;url=<?php echo base_url(); ?>index.php?login=login" />-->
 <?php } ?>
@@ -73,7 +73,7 @@ redirect(base_url()."index.php/LoginController/index?login=login", 'refresh');?>
 				<?php echo form_close();?>
 				<a class="login-link" href='javascript:fg_popup_form("fg_formContainer","fg_form_InnerContainer","fg_backgroundpopup");'>Change your password</a>
 				<?php }else{ ?>
-				<button type="cancel" name="submit" class='btn btn-primary submitcamsis' onclick="window.location.href='<?php echo base_url(); ?>index.php/LoginController/index?login=login'">ENTER TO CAMSIS</button><br>
+				<button type="cancel" name="submit" class='btn btn-primary submitcamsis' onclick="window.location.href='<?php echo base_url(); ?>index.php/Logincontroller/index?login=login'">ENTER TO CAMSIS</button><br>
 				<!--<button type="cancel" name="submit" class='btn btn-primary' onclick="window.location.href='<?php echo base_url(); ?>index.php?login=login'" style="width:75%;margin-top:50px;margin-left:55px;">ENTER TO CAMSIS</button><br>-->
 				Redirecting to CAMSIS in <span id="countdown">3</span> seconds...
 				<?php } ?>

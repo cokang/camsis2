@@ -56,7 +56,7 @@
 					<?php };?>
 				<?php } else {?>
 					<?php foreach($service_apa as $apa){
-						if ($apa->v_servicecode=="BES"){?>
+						if (($apa->v_servicecode=="BES") OR ($apa->v_servicecode=="BEMS")){?>
 					<div class="kotak">
 						<?php echo anchor ($urla."/".$apa->v_servicecode,'<img src="'. base_url() .'images/biomedical icon.png" alt="" class="ui-icon-screen"/><span class="ui-text-style">'.$apa->service_name.'</span>'); ?>
 					</div><?php }  

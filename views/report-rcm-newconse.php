@@ -9,7 +9,7 @@ if ($this->input->get('ex') == ''){
 	include 'content_btp.php';?>
 	<div id="Instruction" class="pr-printer">
 		<div class="header-pr">RCM New Concession</div>
-		<button onclick="javascript:myFunction('report_a2?m=<?=$month?>&y=<?=$year?>&stat=<?php echo $this->input->get('stat');?>&resch=<?php echo$this->input->get('resch');?>&grp=<?=$this->input->get('grp');?>&none=closed');" class="btn-button btn-primary-button">PRINT</button>
+		<button onclick="javascript:myFunction('rcm_newconse?m=<?=$month?>&y=<?=$year?>&rcmlist=<?=$this->input->get('rcmlist')?>');" class="btn-button btn-primary-button">PRINT</button>
     	<!--<button onclick="javascript:myFunction('report_vols?m=<?=$month?>&y=<?=$year?>&stat=<?php echo $this->input->get('stat');?>&resch=<?php echo$this->input->get('resch');?>&grp=<?=$this->input->get('grp');?>');" class="btn-button btn-primary-button">PRINT</button>-->
     	<!--<button onclick="javascript:myFunction('report_vols?m=12&y=2016&stat=fbfb&resch=nt&grp=');" class="btn-button btn-primary-button">PRINT</button>-->
 		<button type="cancel" class="btn-button btn-primary-button" onclick="location.href = '<?php echo $btp ;?>';">CANCEL</button>
@@ -20,9 +20,6 @@ if ($this->input->get('ex') == ''){
 	</div>
 <?php } ?>
 
-
-		
-<?php  if (empty($recordrq)) {?>
 
 	<div class="menu" style="position:relative;">
 	<?php if (($this->input->get('ex') == '') or (1==0)){?>
@@ -50,12 +47,12 @@ if ($this->input->get('ex') == ''){
 					?>
 					<?php 
 					$rcm_list = array(
-						'01' => 'All',
-						'02' => 'Complete',
-						'03' => 'Outstanding',			
+						'' => 'All',
+						'C' => 'Complete',
+						'BO' => 'Outstanding',			
 					);
 					?>
-					<?php echo form_dropdown('rcmlist', $rcm_list, 'style="width: 90px;" id="rcmlist"'); ?>
+					<?php echo form_dropdown('rcmlist', $rcm_list,set_value('rcmlist', !is_null($this->input->get('rcmlist')) ? $this->input->get('rcmlist') : $rcm_list),'style="width: 90px;" id="rcmlist"'); ?>
 					<?php echo form_dropdown('m', $month_list, set_value('m', isset($record[0]->Month) ? $record[0]->Month : $month) , 'style="width: 90px;" id="cs_month"'); ?>
 		
 					<?php 
@@ -64,9 +61,9 @@ if ($this->input->get('ex') == ''){
 						}
 					?>
 					<?php echo form_dropdown('y', $year_list, set_value('y', isset($record[0]->Year) ? $record[0]->Year : $year) , 'style="width: 65px;" id="cs_year"'); ?>
-					<input type="hidden" value="<?php echo set_value('stat', ($this->input->get('stat')) ? $this->input->get('stat') : ''); ?>" name="stat">
+			<!--		<input type="hidden" value="<?php echo set_value('stat', ($this->input->get('stat')) ? $this->input->get('stat') : ''); ?>" name="stat">
 					<input type="hidden" value="<?php echo set_value('resch', ($this->input->get('resch')) ? $this->input->get('resch') : ''); ?>" name="resch">
-					<input type="hidden" value="<?php echo set_value('grp', ($this->input->get('grp')) ? $this->input->get('grp') : ''); ?>" name="grp">		
+					<input type="hidden" value="<?php echo set_value('grp', ($this->input->get('grp')) ? $this->input->get('grp') : ''); ?>" name="grp">-->		
 					<input type="submit" value="Generate" onchange="javascript: submit()"/></center>
 				</form>
 			</center>
@@ -127,10 +124,60 @@ if ($this->input->get('ex') == ''){
 				
 					
 				</tr>
-		
+		<?php  if (empty($rcmnewconse)) {?>
 				<tr>
 					<td colspan="40" ><span style="color:red;">NO RECORDS FOUND.</span></td>
 				</tr>
+				<?php } else { ?>
+				<?php $numrow = 1; foreach($rcmnewconse as $row):?>
+				<?php echo ($numrow%2==0) ? '<tr class="ui-color-color-color">' : '<tr>'; ?>
+	    					
+    			<td><?= $numrow ?></td>
+				<td><?= ($row->cndition) ?  $row->cndition : 'N/A' ?></td>
+					<td><?= ($row->condition_desc) ?  $row->condition_desc : 'N/A' ?></td>
+					<td><?= ($row->variation) ?  $row->variation : 'N/A' ?></td>						
+					<td><?= ($row->variation_status) ?  $row->variation_status : 'N/A' ?></td>
+					<td><?= ($row->status) ?  $row->status : 'N/A' ?></td>
+					<td><?= ($row->status_desc) ?  $row->status_desc : 'N/A' ?></td>
+					<td><?= ($row->V_Request_no) ?  $row->V_Request_no : 'N/A' ?></td>
+					<td><?= ($row->V_Asset_no) ?  $row->V_Asset_no : 'N/A' ?></td>
+					<td><?= ($row->V_Asset_name) ?  $row->V_Asset_name : 'N/A' ?></td>
+					<td><?= ($row->N_Cost) ?  $row->N_Cost : 'N/A' ?></td>
+					<td><?= ($row->V_Manufacturer) ?  $row->V_Manufacturer : 'N/A' ?></td>
+					<td><?= ($row->V_Model_no) ?  $row->V_Model_no : 'N/A' ?></td>
+					<td><?= ($row->V_Serial_no) ?  $row->V_Serial_no : 'N/A' ?></td>
+					<td><?= ($row->V_Brandname) ?  $row->V_Brandname : 'N/A' ?></td>
+					<td><?= ($row->V_Make) ?  $row->V_Make : 'N/A' ?></td>
+					<td><?= ($row->D_date) ? date("d/m/Y",strtotime($row->D_date))  : 'N/A' ?></td>
+					<td><?= ($row->D_time) ?  date("h:i",strtotime($row->D_time)) : 'N/A' ?></td>
+					<td><?= ($row->V_requestor) ?  $row->V_requestor : 'N/A' ?></td>
+					<td><?= ($row->V_User_dept_code) ?  $row->V_User_dept_code : 'N/A' ?></td>
+					<td><?= ($row->V_details) ?  $row->V_details : 'N/A' ?></td>
+					<td><?= ($row->V_priority_code) ?  $row->V_priority_code : 'N/A' ?></td>
+					<td><?= ($row->V_request_type) ?  $row->V_request_type : 'N/A' ?></td>
+					<td><?= ($row->V_request_status) ?  $row->V_request_status : 'N/A' ?></td>
+					<td><?= ($row->V_hospitalcode) ?  $row->V_hospitalcode : 'N/A' ?></td>
+					<td><?= ($row->respoddate) ?  date("d/m/Y",strtotime($row->respoddate)) : 'N/A' ?></td>
+					<td><?= ($row->v_Time) ?  $row->v_Time : 'N/A' ?></td>
+					<td><?= ($row->v_Etime) ?  $row->v_Etime : 'N/A' ?></td>
+					<td><?= ($row->v_closeddate) ?  date("d/m/Y",strtotime($row->v_closeddate)) : 'N/A' ?></td>
+					<td><?= ($row->V_MohDesg) ?  $row->V_MohDesg : 'N/A' ?></td>
+					<td><?= ($row->Aging) ?  $row->Aging : 'N/A' ?></td>
+					<td><?= ($row->year) ?  $row->year : 'N/A' ?></td>
+					<td><?= ($row->responseMinute) ?  $row->responseMinute : 'N/A' ?></td>
+					<td><?= ($row->warranty_status) ?  $row->warranty_status : 'N/A' ?></td>
+					<td><?= ($row->V_Wrn_end_code) ?  $row->V_Wrn_end_code : 'N/A' ?></td>
+					<td><?= ($row->closedsummary) ?  $row->closedsummary : 'N/A' ?></td>
+					<td><?= ($row->D_commission) ?  $row->D_commission : 'N/A' ?></td>
+					<td><?= ($row->v_ptest) ?  $row->v_ptest : 'N/A' ?></td>
+					<td><?= ($row->v_stest) ?  $row->v_stest : 'N/A' ?></td>
+					<td><?= ($row->vvfAuthorizedStatus == 1) ?  'Claimed' : 'UnClaimed' ?></td>
+
+			</tr>
+			<?php $numrow++; ?>
+			<?php endforeach;?>
+
+				<?php }?>
 			</table>
 </div>
 		</div>
@@ -149,311 +196,14 @@ if ($this->input->get('ex') == ''){
 	<?php if (($this->input->get('ex') == '') or (1==0)){?>
 		<?php include 'content_footerprint.php';?>
 	<?php } ?>
-<?php }else if ( $this->input->get('xxx') == 'export' ) { ?>
+<?php if ( $this->input->get('xxx') == 'export' ) { ?>
 
-		<table class="rport-header">
-			<tr>
-				<td colspan="5">Schedule Corrective Maintenance (SCM) LISTING - <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?> - <?php echo $this->session->userdata('usersessn');?> ( <?php if ($this->input->get('grp') == ''){echo 'ALL'; }else{ echo 'Group '.$this->input->get('grp');} ?> )</td>
-			</tr>
-		</table>
-		<table class="tftable" border="1" style="text-align:center;">
-			<tr>
-				<th>No</th>
-				<th>Work Order Date</th>
-				<th>A2 Work Order</th>
-				<th>Asset No</th>	
-				<th style="width:25%;">Equipment Name</th>
-				<th>UDP</th>
-				<th>Status</th>
-				<th colspan=2>Test</th>
-				<th>Remark</th>
-				<!--<th>Schedule Date</th>-->
-				<th>Reschedule Date</th>
-				<th>Complete Date</th>
-				<th>Deparment (Location Code)</th>
-				<th>Asset Group</th>
-			</tr>
-			<tr>
-				<th>S</th>
-				<th>P</th>
-			</tr>
-			<?php $numrow = 1; foreach($recordrq as $row):?>
-				<?php echo ($numrow%2==0) ? '<tr class="ui-color-color-color">' : '<tr>'; ?>
-	    					
-    			<td><?= $numrow ?></td>
-				<td><?= ($row->D_date) ?  date("d/m/Y",strtotime($row->D_date)) : 'N/A' ?></td>
-				<td><?=($row->V_Request_no) ? anchor ('contentcontroller/AssetRegis?wrk_ord='.$row->V_Request_no.'&assetno='.$row->V_Asset_no.'&m='.$this->input->get('m').'&y='.$this->input->get('y').'&stat='.$this->input->get('stat').'&resch=fbfb&state='.$this->input->get('state'),''.$row->V_Request_no.'' ) : 'N/A' ?></td>
-				
-				<td><?=(($row->V_Asset_no) && $row->V_Asset_no != 'N/A') ? anchor ('contentcontroller/AssetRegis?tab=Maintenance&assetno='.$row->V_Asset_no.'&state='.$this->input->get('state'),''.$row->v_tag_no.'' ) : 'N/A' ?></td>			
-				<td><?= ($row->V_Asset_name) ? $row->V_Asset_name : 'N/A' ?></td>
-				<td><?= ($row->V_User_dept_code) ? $row->V_User_dept_code : 'N/A' ?></td>
-				<td><?= ($row->V_request_status) ? $row->V_request_status : 'N/A' ?></td>
-				<td><?= 'N/A' ?></td>
-				<td><?= 'N/A' ?></td>
-				<td><?= ($row->v_ActionTaken) ? $row->v_ActionTaken : 'N/A' ?></td>
-				<!--<td><?= ($row->d_Date) ? date("d/m/Y",strtotime($row->d_Date)) : 'N/A' ?></td>-->
-				<td><?= 'N/A' ?></td>
-				<td><?= ($row->v_closeddate) ? date("d/m/Y",strtotime($row->v_closeddate)) : 'N/A' ?></td>
-				
-				<td><?= ($row->v_UserDeptDesc) ? $row->v_location_name.' ('.$row->v_location_code.')' : 'N/A' ?></td>
-				<?php if ($this->input->get('broughtfwd') != '') { ?>
-				<td><?= ($row->V_Asset_WG_code) ? $row->V_Asset_WG_code : 'N/A' ?></td>
-				<?php } else { ?>
-				<td><?= ($row->v_asset_grp) ? $row->v_asset_grp : 'N/A' ?></td>
-				<?php } ?>
-
-			</tr>
-			<?php $numrow++; ?>
-			<?php endforeach;?>
-
-
-			<!-- buzzle condition to check variable $record exist on 02/07/18 because $record not found -->
-			<?php $numrowx = $numrow;if(isset($record)):?>
-			<?php foreach($record as $row):?>
-			<?php echo ($numrow%2==0) ? '<tr class="ui-color-color-color">' : '<tr>'; ?>
-				<td><?= $numrowx ?></td>
-				<td><?= ($row->sd_duedt) ? date("d/m/Y",strtotime($row->sd_duedt)) : 'N/A' ?></td>
-				<?php if  ($this->input->get('ex') != 'excel'){ ?>
-				<td><?=($row->sv_wrkordno) ? anchor ('contentcontroller/AssetRegis?wrk_ord='.$row->sv_wrkordno.'&assetno='.$row->sv_asset_no.'&m='.$this->input->get('m').'&y='.$this->input->get('y').'&stat='.$this->input->get('stat').'&resch='.$this->input->get('resch'),''.$row->sv_wrkordno.'' ) : 'N/A' ?></td>
-				<td><?=($row->sv_asset_no) && $row->sv_asset_no != 'N/A' ? anchor ('contentcontroller/AssetRegis?tab=Maintenance&assetno='.$row->sv_asset_no.'&m='.$this->input->get('m').'&y='.$this->input->get('y').'&stat='.$this->input->get('stat').'&resch='.$this->input->get('resch'),''.$row->av_tag_no.'' ) : 'N/A' ?></td>				
-				<?php }else{ ?>
-				<td> <?=isset($row->sv_wrkordno) ? $row->sv_wrkordno : ''?></td>
-				<td> <?=isset($row->av_tag_no) ? $row->av_tag_no : ''?></td>
-				<?php } ?>
-				<td><?= ($row->av_asset_name) ? $row->av_asset_name : 'N/A' ?></td>
-				<td ><?= ($row->av_user_dept_code) ? $row->av_user_dept_code : 'N/A' ?></td>
-				<td><?= ($row->sv_jobtype) ? $row->sv_jobtype : 'N/A' ?></td>
-				<td><?= ($row->v_Wrkordstatus) ? $row->v_Wrkordstatus : 'N/A' ?></td>
-				<td><?= ($row->v_stest) ? $row->v_stest : 'N/A' ?></td>
-				<td><?= ($row->v_ptest) ? $row->v_ptest : 'N/A' ?></td>
-				<!--<td><?= ($row->d_Date) ? date("d-m-Y",strtotime($row->d_Date)) : 'N/A' ?></td>-->
-				<!--<td></td>-->
-				<td style="height: 52px;">
-				<?php if (($row->v_summary) ? $row->v_summary : 'N/A' != "N/A"){ ?>
-					<div style="overflow: hidden; text-overflow: ellipsis; height: 42px; overflow: hidden; text-overflow: ellipsis;">
-				<?php }?>
-					<?= ($row->v_summary) ? $row->v_summary : 'N/A' ?>
-				<?php if (($row->v_summary) ? $row->v_summary : 'N/A' != "N/A"){ ?>
-					</div>
-				<?php }?>
-				</td>
-				<td><?= ($row->d_DateDone) ? date("d-m-Y",strtotime($row->d_DateDone)) : 'N/A' ?></td>
-				<td><?= ($row->d_Reschdt) ? date("d-m-Y",strtotime($row->d_Reschdt)) : 'N/A' ?></td>
-				<td><?= ($row->v_UserDeptDesc) ? $row->v_UserDeptDesc.' ('.$row->V_Location_code.')' : 'N/A' ?></td>
-				<td><?= ($row->v_asset_grp) ? $row->v_asset_grp : 'N/A' ?></td>
-			</tr>	
-			
-			<?php $numrowx++; ?>	
-			<?php endforeach;endif;?>
-		</table>
-
-
-<?php }else{ ?>
-	<?php $numrow = 1; ?>
-
-	<?php $numrowx = $numrow; if (!empty($recordrq)) {?>
-		<?php  foreach($recordrq as $row):?>
-		<?php //if ($numrow==1 OR $numrow%13==1) { 
-			if ($numrow==$numrowx OR $numrow%13==1) {?>
-				<?php if (true){?>
-		<?php include 'content_headprint.php';?>
-				<?php } ?>
-
-				<?php if (true){?>
-		<div id="Instruction" >
-			<center>View List : 
-				<form method="get" action="">
-
-					<?php $idArray = array_map('toArray', $this->session->userdata('accessr'));
-					if (!(in_array("contentcontroller/Schedule(main)", $idArray))) { 
-						if ($this->session->userdata('usersess')=="HKS") {
-							$req_type = array(
-								'' => 'All',
-								'A1' => 'A1 - Breakdown Maintenance (BM)',
-								'A2' => 'A2 - Schedule Corrective Maintenance (SCM)',
-								'A3' => 'A3 - Corrective Maintenance (CM)',
-								'A4' => 'A4 - User Requests',
-								'A5' => 'A5 - Investigation of Incidences',
-								'A6' => 'A6 - Technical Advice',
-								'A7' => 'A7 - User Training',
-								'A8' => 'A8 - Testing and Commissioning (T&C)',
-								'A9' => 'A9 - Internal Request',
-								'A10' => 'A10 - Reimbursable Work',
-								'F' => 'Floor - Related Report',
-								'WD' => 'Wall / Door - Related Report',
-								'C' => 'Ceiling - Related Report',
-								'W' => 'Window - Related Report',
-								'FIX' => 'Fixtures - Related Report',
-								'FUR' => 'Furniture / Fitting - Related Report'
-			 				);
-						} else {
-			 				$req_type = array(
-								'' => 'All',
-								'A1' => 'A1 - Breakdown Maintenance (BM)',
-								'A2' => 'A2 - Schedule Corrective Maintenance (SCM)',
-								'A3' => 'A3 - Corrective Maintenance (CM)',
-								'A4' => 'A4 - User Requests',
-								'A5' => 'A5 - Investigation of Incidences',
-								'A6' => 'A6 - Technical Advice',
-								'A7' => 'A7 - User Training',
-								'A8' => 'A8 - Testing and Commissioning (T&C)',
-								'A9' => 'A9 - Internal Request',
-								'A10' => 'A10 - Reimbursable Work'
-							);
-		 				}/*
-						$req_type = array(
-							'' => 'All',
-							'A1' => 'A1 - Breakdown Maintenance (BM)',
-							'A2' => 'A2 - Schedule Corrective Maintenance (SCM)',
-							'A3' => 'A3 - Corrective Maintenance (CM)',
-							'A4' => 'A4 - User Requests',
-							'A5' => 'A5 - Investigation of Incidences',
-							'A6' => 'A6 - Technical Advice',
-							'A7' => 'A7 - User Training',
-							'A8' => 'A8 - Testing and Commissioning (T&C)',
-							'A9' => 'A9 - Internal Request',
-							'A10' => 'A10 - Reimbursable Work'
-						);*/
-						?>
-						<?php //echo form_dropdown('req', $req_type, set_value('req', $reqtype) , 'style="width: 300px;" id="cs_month"'); ?><br>
-
-					<?php  } else {
-						$_POST['req'] = '';
-					}
-					$month_list = array(
-						'01' => 'January',
-						'02' => 'February',
-						'03' => 'March',
-						'04' => 'April',
-						'05' => 'May',
-						'06' => 'June',
-						'07' => 'July',
-						'08' => 'August',
-						'09' => 'September',
-						'10' => 'October',
-						'11' => 'November',
-						'12' => 'December'
-					 );
-					?>
-					<?php echo form_dropdown('m', $month_list, set_value('m', isset($record[0]->Month) ? $record[0]->Month : $month) , 'style="width: 90px;" id="cs_month"'); ?>
-		
-					<?php 
-					for ($dyear = '2015';$dyear <= date("Y");$dyear++){
-						$year_list[$dyear] = $dyear;
-					}
-					?>
-					<?php echo form_dropdown('y', $year_list, set_value('y', isset($record[0]->Year) ? $record[0]->Year : $year) , 'style="width: 65px;" id="cs_year"'); ?>
-					<input type="hidden" value="<?php echo set_value('stat', ($this->input->get('stat')) ? $this->input->get('stat') : ''); ?>" name="stat">
-					<input type="hidden" value="<?php echo set_value('grp', ($this->input->get('grp')) ? $this->input->get('grp') : ''); ?>" name="grp">				
-					<input type="submit" value="Apply" onchange="javascript: submit()"/>
-
-				</form>
-			</center>
-		</div>
-				<?php } ?>
-			<div class="m-div">
-				<table class="rport-header">
-					<tr>
-		  				<td colspan="4" valign="top">Schedule Corrective Maintenance (SCM) Report Listing- <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?> - FACILITY ENGINEERING SERVICES ( A2 - Schedule Corrective Maintenance (SCM) )</td>
-				<?php if (false) {?>
-						<td colspan="4" valign="top">
-							<?php if ($this->input->get('broughtfwd') != ''){?>
-								Unscheduled Brought Forward Work Order Details
-							<?php }else{ ?>
-								Work Order Report Listing
-							<?php }?>
-							- <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?> - <?php echo $this->session->userdata('usersessn');?>  ( 
-							<?php if (($this->input->get('req')) and (($this->input->get('grp') == '2') or ($this->input->get('grp') == '3'))){ 
-								echo 'Group'.$this->input->get('grp').','.$tulis; 
-							} elseif ($this->input->get('req')){
-								echo $tulis; 
-							}elseif ($this->input->get('grp') == ''){ 
-								echo 'All';
-							}else{ 
-								echo 'Group '.$this->input->get('grp');
-							} ?> )
-						</td>
-				<?php } ?>
-					</tr>
-				</table>
-				<table class="tftable tbl-go" border="1" style="text-align:center;">
-					<tr>
-						<th>No</th>
-						<th style="width:7%;">Work Order Date</th>
-						<th style="width:12%;">A2 Work Order</th>
-						<th style="width:5%;">Asset No</th>	
-						<th style="width:30%;">Equipment Name</th>
-						<th>UDP</th>
-						<th>Status</th>
-						<th colspan=2>Test</th>
-						<th style="width:17%;">Remark</th>
-						<!--<th style="width:7%;">Schedule Date</th>-->
-						<th style="width:7%;">Reschedule Date</th>
-						<th style="width:7%;">Complete Date</th>
-						<th style="width:12%;">Deparment (Location Code)</th>
-						<th>Asset Group</th>
-					</tr>
-					<tr>
-						<th>S</th>
-						<th>P</th>
-					</tr>	
-			<?php } ?>
-					      			
-					<?php echo ($numrow%2==0) ? '<tr class="ui-color-color-color">' : '<tr>'; ?>
-	    					
-		    			<td><?= $numrow ?></td>
-						<td><?= ($row->D_date) ?  date("d/m/Y",strtotime($row->D_date)) : 'N/A' ?></td>
-						<td><?=($row->V_Request_no) ? anchor ('contentcontroller/AssetRegis?wrk_ord='.$row->V_Request_no.'&assetno='.$row->V_Asset_no.'&m='.$this->input->get('m').'&y='.$this->input->get('y').'&stat='.$this->input->get('stat').'&resch=fbfb&state='.$this->input->get('state'),''.$row->V_Request_no.'' ) : 'N/A' ?></td>
-			<?php if  ($this->input->get('ex') != 'excel'){ ?>
-						<td><?=(($row->V_Asset_no) && $row->V_Asset_no != 'N/A') ? anchor ('contentcontroller/AssetRegis?tab=Maintenance&assetno='.$row->V_Asset_no.'&state='.$this->input->get('state'),''.$row->v_tag_no.'' ) : 'N/A' ?></td>			
-			<?php }else{ ?>
-						<td> <?=isset($row->V_Request_no) ? $row->V_Request_no : ''?></td>
-						<td> <?=isset($row->v_tag_no) ? $row->v_tag_no : ''?></td>
-			<?php } ?>
-						<td><?= ($row->V_Asset_name) ? $row->V_Asset_name : 'N/A' ?></td>
-						<td><?= ($row->V_User_dept_code) ? $row->V_User_dept_code : 'N/A' ?></td>
-						<td><?= ($row->V_request_status) ? $row->V_request_status : 'N/A' ?></td>
-						<td><?= 'N/A' ?></td>
-						<td><?= 'N/A' ?></td>
-						<td><?= ($row->v_ActionTaken) ? $row->v_ActionTaken : 'N/A' ?></td>
-						<!--<td><?= ($row->d_Date) ? date("d/m/Y",strtotime($row->d_Date)) : 'N/A' ?></td>-->
-						<td><?= 'N/A' ?></td>
-						<td><?= ($row->v_closeddate) ? date("d/m/Y",strtotime($row->v_closeddate)) : 'N/A' ?></td>
-					
-						<td><?= ($row->v_UserDeptDesc) ? $row->v_location_name.' ('.$row->v_location_code.')' : 'N/A' ?></td>
-			<?php if ($this->input->get('broughtfwd') != '') { ?>
-						<td><?= ($row->V_Asset_WG_code) ? $row->V_Asset_WG_code : 'N/A' ?></td>
-			<?php } else { ?>
-						<td><?= ($row->v_asset_grp) ? $row->v_asset_grp : 'N/A' ?></td>
-			<?php } ?>
-			
-			
-  
-					</tr>	
-						
-			<?php $numrow++; ?>
-			<?php //if (($numrow-1)%13==0) {
-			if ((($numrow-1)%13==0) || (($numrow-1)== count($recordrq))) {?>						
-				</table>
-			</div>
-				<?php if (($this->input->get('ex') == '') or ($this->input->get('none') == 'closed')){?>
-			<table width="99%" border="0">
-				<tr>
-					<td valign="top" colspan="2"><hr color="black" size="1Px"></td>
-				</tr>
-				<tr>
-					<td width="50%">Schedule Corrective Maintenance (SCM) Listing Work Order Status Report<br><i>Computer Generated - CAMSIS</i></td>
-					<td width="50%" align="right"></td>
-				</tr>
-			</table>
 	
-			<div class="StartNewPage" id="breakpage"><span id="pagebreak">Page Break</span></div>
-				<?php } ?>
+
+<?php }?>
+	
+
 			</div>
-			<?php } ?>
-		<?php endforeach;?>
-	<?php } ?>
 
 
-<?php } ?>
 
