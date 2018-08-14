@@ -8,7 +8,7 @@ if ($this->input->get('ex') == 'excel'){
 if ($this->input->get('ex') == ''){
 	include 'content_btp.php';?>
 	<div id="Instruction" class="pr-printer">
-		<div class="header-pr">Yearly Planner Assets Schedule Under Warranty</div>
+		<div class="header-pr">A12</div>
 		<button onclick="javascript:myFunction('report_a2?m=<?=$month?>&y=<?=$year?>&stat=<?php echo $this->input->get('stat');?>&resch=<?php echo$this->input->get('resch');?>&grp=<?=$this->input->get('grp');?>&none=closed');" class="btn-button btn-primary-button">PRINT</button>
     	<!--<button onclick="javascript:myFunction('report_vols?m=<?=$month?>&y=<?=$year?>&stat=<?php echo $this->input->get('stat');?>&resch=<?php echo$this->input->get('resch');?>&grp=<?=$this->input->get('grp');?>');" class="btn-button btn-primary-button">PRINT</button>-->
     	<!--<button onclick="javascript:myFunction('report_vols?m=12&y=2016&stat=fbfb&resch=nt&grp=');" class="btn-button btn-primary-button">PRINT</button>-->
@@ -20,91 +20,66 @@ if ($this->input->get('ex') == ''){
 	</div>
 <?php } ?>
 
-
 	<div class="menu" style="position:relative;">
 	<?php if (($this->input->get('ex') == '') or (1==0)){?>
 		<?php include 'content_headprint.php';?>
 	<?php } ?>
 	<?php if ($this->input->get('ex') == ''){?>
-	<!--<div id="Instruction" >
-			<center>Show list in : 
-				<form method="get" action="">
-					<?php 
-					$month_list = array(
-						'01' => 'January',
-						'02' => 'February',
-						'03' => 'March',
-						'04' => 'April',
-						'05' => 'May',
-						'06' => 'June',
-						'07' => 'July',
-						'08' => 'August',
-						'09' => 'September',
-						'10' => 'October',
-						'11' => 'November',
-						'12' => 'December'
-					);
-					?>
-				
-					<?php echo form_dropdown('m', $month_list, set_value('m', isset($record[0]->Month) ? $record[0]->Month : $month) , 'style="width: 90px;" id="cs_month"'); ?>
-		
-					<?php 
-						for ($dyear = '2015';$dyear <= date("Y");$dyear++){
-							$year_list[$dyear] = $dyear;
-						}
-					?>
-					<?php echo form_dropdown('y', $year_list, set_value('y', isset($record[0]->Year) ? $record[0]->Year : $year) , 'style="width: 65px;" id="cs_year"'); ?>
-					<input type="hidden" value="<?php echo set_value('stat', ($this->input->get('stat')) ? $this->input->get('stat') : ''); ?>" name="stat">
-					<input type="hidden" value="<?php echo set_value('resch', ($this->input->get('resch')) ? $this->input->get('resch') : ''); ?>" name="resch">
-					<input type="hidden" value="<?php echo set_value('grp', ($this->input->get('grp')) ? $this->input->get('grp') : ''); ?>" name="grp">		
-					<input type="submit" value="Generate" onchange="javascript: submit()"/></center>
-				</form>
-			</center>
-		</div>-->
+
 	<?php } ?>
 		<div class="m-div">
-
-			<table class="rport-header">
+			<table >
 				<tr>
 					<td colspan="5">
-						PPM UNDER WARRANTY    - <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?> - <?php echo $this->session->userdata('usersessn');?> ( <?php if ($this->input->get('grp') == ''){echo 'ALL'; }else{ echo 'Group '.$this->input->get('grp');} ?> )
+						 <?=anchor ('contentcontroller/report_a12newconse?m='.$this->input->get('m').'&y='.$this->input->get('y'),'Back')?>						 
+					</td>
+				</tr>
+				<tr>
+					<td colspan="5">
+						Site : <?= $this->input->get('hosp')?>
 					</td>
 				</tr>
 			</table>
-
 			<div style="overflow-x:auto;">
-
-			<table  class="tftable" border="1" style="table-layout:fixed;text-align:center;">
-				<tr>
-		     <th width="5%">No.</th>
-			<th>Hospital State</th>
-			<th>Hospital Code</th>
-			<th>Asset No.</th>
-			<th>Asset Desc.</th>
-			<th>Model</th>
-			<th>Dept.</th>
-			<th>Week Warranty End</th>
-			<th>Warranty End Date</th>
-			<th>Scheduled Week</th>
-				</tr>
-	<?php if(!empty($records)){?>
+		<table class="tftable" border="1" style="text-align:center;">
+			<tr style="background:#CCC;">
+<th>No.</th>
+<th>Request No.</th>
+<th>Asset No.</th>
+<th>Tag No.</th>
+<th>Date</th>
+<th>Requestor</th>
+<th>Dept Code</th>
+<th>Location Code</th>
+<th>Summary</th>
+<th>Details</th>
+<th>Responder</th>
+<th>Respond Date</th>
+<th>Closed Date</th>
+<th>MOH Desig</th>
+</tr>
+<?php if(!empty($records)){?>
 						<?php $no=1;foreach($records as $row):?>
 					<tr>
 					<td><?=$no;?></td>
-					<td><?=$row->v_statename;?></td>
-					<td><?=$row->V_Hospitalcode;?></td>
-					<td><?=$row->V_Tag_no;?></td>
-					<td><?=$row->V_Asset_name;?></td>
-					<td><?=$row->V_Model_no;?></td>
-					<td><?=$row->V_User_Dept_code;?></td>
-					<td><?=$row->wrrntyweek;?></td>
-					<td><?= ($row->V_Wrn_end_code) ?  date("d/m/Y",strtotime($row->V_Wrn_end_code)) : 'N/A' ?></td>
-					<td width="12%"><?=$row->v_Weeksch;?></td>
-						</tr>
-						<?php $no++;endforeach;?>
+					<td><?=$row->V_Request_no;?></td>
+					<td><?=$row->V_Asset_no;?></td>
+					<td>N/A</td>
+					<td><?=date("d/m/Y",strtotime($row->D_date));?></td>
+					<td><?=$row->V_requestor;?></td>
+					<td><?=$row->V_User_dept_code;?></td>
+					<td><?=$row->V_Location_code;?></td>
+					<td><?=$row->V_summary;?></td>
+					<td><?=$row->V_details;?></td>
+					<td><?=$row->V_respon;?></td>
+					<td><?=date("d/m/Y",strtotime($row->v_respondate));?></td>
+					<td><?=date("d/m/Y",strtotime($row->v_closeddate));?></td>
+					<td><?=$row->V_MohDesg;?></td>
+					</tr>
+					<?php $no++;endforeach;?>
 					<?php }else{ ?>
 				<tr>
-					<td colspan="10" ><span style="color:red;">NO RECORDS FOUND.</span></td>
+					<td colspan="14" ><span style="color:red;">NO RECORDS FOUND.</span></td>
 				</tr>
 					<?php } ?>
 			</table>
@@ -116,7 +91,7 @@ if ($this->input->get('ex') == ''){
 				<td valign="top" colspan="2"><hr color="black" size="1Px"></td>
 			</tr>
 			<tr>
-				<td width="50%"> Yearly Planner Assets Schedule Under Warranty  - <?= date("F-Y")?><br><!--<i>Computer Generated - APBESys</i>--></td>
+				<td width="50%"> A12  - <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?> <br><!--<i>Computer Generated - APBESys</i>--></td>
 				<td width="50%" align="right"></td>
 			</tr>
 
@@ -125,7 +100,4 @@ if ($this->input->get('ex') == ''){
 	<?php if (($this->input->get('ex') == '') or (1==0)){?>
 		<?php include 'content_footerprint.php';?>
 	<?php } ?>
-
-	
-
 

@@ -333,6 +333,9 @@ if ($this->input->get('ex') == ''){
 											$ct_bil82 = 0;
 											$ct_bil212 = 0;
 											$ct_bil213 = 0;
+											// $ct_totalbil82 = 0;
+											// $ct_totalbil212 = 0;
+											// $ct_totalbil213 = 0;
 											$ct_sumbiltotal = 0;
 											?>
 										<?php if($clause_by_category_or_team){?>
@@ -351,6 +354,9 @@ if ($this->input->get('ex') == ''){
 												$ct_tbul11 = $ct_tbul11 + $row_team->bul11;
 												$ct_tbul12 = $ct_tbul12 + $row_team->bul12;
 												$ct_biltotal = $row_team->bul1+$row_team->bul2+$row_team->bul3+$row_team->bul4+$row_team->bul5+$row_team->bul6+$row_team->bul7+$row_team->bul8+$row_team->bul9+$row_team->bul10+$row_team->bul11+$row_team->bul12;
+												// $ct_totalbil82 = $ct_totalbil82 + $ct_bil82;
+												// $ct_totalbil212 = $ct_totalbil212 + $ct_bil212;
+												// $ct_totalbil213 = $ct_totalbil213 + $ct_bil213;
 												$ct_sumbiltotal = $ct_sumbiltotal + $ct_biltotal;
 												?>
 										<tr>

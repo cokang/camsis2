@@ -5326,12 +5326,12 @@ return $obj['path'];
 		}
 		
 
-	function area_list(){//buzzlee
+	function area_list(){
 		$query = $this->db->select("*")->from("pmis2_sa_hospital")->get()->result_array();
 		return $query;
 	}
 
-	public function get_hospital($fromArea){//buzzlee
+	public function get_hospital($fromArea){
 		$this->db->select("v_HospitalAdd1,v_HospitalAdd2,v_HospitalAdd3,v_head_of_lls,b.Related_WO");
 		$this->db->from("pmis2_sa_hospital a");
 		$this->db->join("tbl_item_movement b", "a.v_HospitalCode=b.site_id","left");
@@ -5340,7 +5340,7 @@ return $obj['path'];
 		return $query;
 	}
 
-	public function get_rn_item($rn_no){//buzzlee
+	public function get_rn_item($rn_no){
 		$this->db->select("a.*, b.ItemName");
 		$this->db->from("tbl_rn_item a");
 		$this->db->join("tbl_invitem b", "a.Item_code=b.ItemCode","inner");
@@ -5349,7 +5349,7 @@ return $obj['path'];
 		return $query->result();
 	}
 
-	public function ppm_newconse($maklumat){//buzzlee
+	public function ppm_newconse($maklumat){
 		$this->db->select("b.V_Tag_no, 
 							LEFT(e.v_AssetCondition, 
 							LOCATE(':', e.v_AssetCondition) - 1) AS kondisi, 
@@ -5395,7 +5395,7 @@ return $obj['path'];
 
 	}
 
-	public function report_newconseb4($maklumat){//buzzlee
+	public function report_newconseb4($maklumat){
 		$year = $maklumat["year"];
 		$month = $maklumat["month"];
 		$ym = $year.$month;
@@ -5417,7 +5417,7 @@ return $obj['path'];
 		return $query->result();
 	}
 
-	public function report_tnc_listing($maklumat){//buzzlee
+	public function report_tnc_listing($maklumat){
 		$Year = $maklumat['year'];
 		$Month = $maklumat['month'];
 
@@ -5491,7 +5491,7 @@ return $obj['path'];
 		return $query->result();
 	}
 
-	public function get_ap_vo_vvfdetails($V_Hospital_code, $V_Asset_no){//buzzlee
+	public function get_ap_vo_vvfdetails($V_Hospital_code, $V_Asset_no){
 		$this->db->select("*");
 		$this->db->from("ap_vo_vvfdetails");
 		$this->db->where("vvfAssetNo", $V_Hospital_code.'-'.$V_Asset_no);
@@ -5500,7 +5500,7 @@ return $obj['path'];
 	}
 
 
-	public function report_tnc_no_smry($maklumat){//buzzlee
+	public function report_tnc_no_smry($maklumat){
 		$Year = $maklumat['year'];
 		$Month = $maklumat['month'];
 
@@ -5605,7 +5605,7 @@ return $obj['path'];
 		return $query_result;
 	}
 	
-	function B4_summary($year,$month){//sapik
+		function B4_summary($year,$month){//sapik
 		$this->db->select("DISTINCT a.hospital_name,a.asset_no, a.type_code, a.type_desc, a.purchase_date, a.commission_date, a.asset_age, a.cost, a.asset_status,a.condition, a.down_time, a.ppm_total, a.ppm_on_time, a.trpi, a.trpi_lt_5, a.trpi_5_10, a.trpi_gt_10, a.qap_period, a.warranty_date, a.downtime_cum,a.uptime_cum, a.downtime_pct, a.uptime_pct,IFNULL(b.m_1,0) AS m_1, IFNULL(b.m_2,0) AS m_2, IFNULL(b.m_3,0) AS m_3, IFNULL(b.m_4,0) AS m_4, IFNULL(b.m_5,0) AS m_5, IFNULL(b.m_6,0) AS m_6, IFNULL(b.m_7,0) AS m_7, IFNULL(b.m_8,0) AS m_8, IFNULL(b.m_9,0) AS m_9, IFNULL(b.m_10,0) AS m_10, IFNULL(b.m_11,0) AS m_11, IFNULL(b.m_12,0) AS m_12",false);
 		$this->db->from('mis_qap_inc_assets$candidate a');
 		$this->db->join('mis_cum_trkpi b',' a.asset_no = b.asset_no','inner');
@@ -5623,7 +5623,7 @@ return $obj['path'];
 		return $query_result;
 	}
 
-	function tnc_wthAV12($year,$month){
+	 	function tnc_wthAV12($year,$month){
 		$this->db->select("d.v_AssetVStatus, c.v_tcdate, c.v_moh_designation, a.v_timestamp, a.V_Asset_no, a.V_Asset_name, a.V_Tag_no, a.D_Register_date, a.V_Equip_code, a.V_User_Dept_code, a.V_Location_code, a.V_Contract_code, a.V_Criticality, a.V_Condition, a.V_GEN_status, a.V_AssetStatus, a.V_Manufacturer, a.V_Model_no, a.V_Serial_no, a.V_Brandname, a.V_Asset_WG_code, a.V_service_code, a.V_Hospitalcode, a.V_Actionflag, a.V_Timestamp, a.V_facilitycode, a.V_accsories, a.v_chasisno, a.v_engineno, a.v_registrationno, a.v_tc_request_no, a.V_Make, b.V_Job_Type_code, b.V_Asset_no AS Expr1, b.V_Vendor_code, b.N_Cost, b.V_File_Ref_no, b.V_PO_no, b.V_PO_date, b.V_Wrn_end_code, b.V_TC_form_no, b.V_Mnl_Draw_no, b.V_Depreciation, b.V_Lifespan, b.V_Oper_Hr_code, b.V_Job_Type_code, b.V_Asset_Status, b.V_Procedure_code, b.V_Check_list_code, b.v_asset_typecode, b.v_asset_categorycode, b.v_SparesListCode, b.v_ppmDetails, b.V_capacityunit, b.v_Capacity, b.V_Misc_details, b.V_Hospital_code, b.V_ActionFlag AS Expr2, b.D_Timestamp, b.V_Agent, b.D_commission, b.V_username, b.v_ContractCode",false);
 		$this->db->from('pmis2_egm_testingcommisioning c');
 		$this->db->join('pmis2_egm_assetregistration a','c.v_hospitalcode = a.V_Hospitalcode AND c.v_reqno = a.v_tc_request_no','inner');
@@ -5636,13 +5636,74 @@ return $obj['path'];
 		$query_result = $query->result();
 		return $query_result;
 	}
+	function yrplanwrty_listing($year,$month){//sapik
+		$this->db->select("d.V_Hospitalcode, d.V_Tag_no, b.V_Wrn_end_code AS V_Wrn_end_code, c.v_statename, d.V_Asset_name, d.V_User_Dept_code, d.V_Model_no,WEEK(b.V_Wrn_end_code) AS wrrntyweek, a.v_Asset_no, ifnull(a.v_Weeksch, 0) AS v_Weeksch",false);
+		$this->db->from('pmis2_egm_assetjobtype a');
+		$this->db->join('pmis2_egm_assetregistration d','a.v_HospitalCode = d.V_Hospitalcode AND a.v_Asset_no = d.V_Asset_no ','inner');
+		$this->db->join('pmis2_egm_assetreg_general b','d.V_Asset_no = b.V_Asset_no AND d.V_Hospitalcode = b.V_Hospital_code','left outer');
+		$this->db->join('pmis2_sa_hospital c','d.V_Hospitalcode = c.v_HospitalCode','inner');
+		$this->db->where('c.v_Actionflag <> "D" AND YEAR(b.V_Wrn_end_code) ="'.$year.'" ORDER BY d.V_Hospitalcode');
+		//$this->db->limit(2000);
+		$query = $this->db->get();
+		//echo $this->db->last_query();
+		//exit();
+		$query_result = $query->result();
+		return $query_result;
+	}
+	
+	function a12newconse($year,$month){//sapik
+	$this->db->select('V_servicecode, V_hospitalcode,SUM(CASE WHEN month(d_date) = "'.$month.'" AND (YEAR(D_date) = "'.$year.'") THEN 1 ELSE 0 END) AS totalwo, SUM(CASE WHEN v_request_status = "C" AND month(d_date) = "'.$month.'" AND (YEAR(D_date) = "'.$year.'") THEN 1 ELSE 0 END) AS closedm,SUM(CASE WHEN v_request_status = "C" AND TIMESTAMPDIFF(month, d_date,"'.$year.'-'.$month.'-01") > 0 THEN 1 ELSE 0 END) AS closedml, SUM(CASE WHEN v_request_status <> "C" AND month(d_date) = "'.$month.'" AND (YEAR(D_date) = "'.$year.'") THEN 1 ELSE 0 END) AS openedm, SUM(CASE WHEN v_request_status <> "C" AND TIMESTAMPDIFF(month, d_date,"'.$year.'-'.$month.'-01") > 0 THEN 1 ELSE 0 END) AS openedml,SUM(CASE WHEN v_asset_no <> "" AND month(d_date) = "'.$month.'" AND (YEAR(D_date) = "'.$year.'") THEN 1 ELSE 0 END) AS assetc,SUM(CASE WHEN v_asset_no <> "" AND TIMESTAMPDIFF(month, d_date,"'.$year.'-'.$month.'-01") > 0 THEN 1 ELSE 0 END) AS assetcl,SUM(CASE WHEN v_asset_no = "" AND month(d_date) =  "'.$month.'" AND (YEAR(D_date) = "'.$year.'")  THEN 1 ELSE 0 END) AS asseto,SUM(CASE WHEN v_asset_no = "" AND TIMESTAMPDIFF(month, d_date,"'.$year.'-'.$month.'-01") > 0 THEN 1 ELSE 0 END) AS assetol',false);
+	$this->db->where("V_servicecode = '".$this->session->userdata('usersess')."' AND V_actionflag <> 'D' AND V_request_type = 'A12' GROUP BY V_servicecode,V_hospitalcode");
+	$this->db->from('pmis2_egm_service_request');
+    $query = $this->db->get();
+	//echo $this->db->last_query();
+		//exit();
+	$query_result = $query->result();
+    return $query_result;	
+	}
+	
+	function a12newconsec($hosp,$h,$year,$month){//sapik
+	$this->db->select('V_Request_no,V_Asset_no,D_date,V_requestor,V_User_dept_code,V_Location_code,V_summary,V_details,V_respon,v_respondate,v_closeddate,V_MohDesg',false);
+	if ($h==1){
+	$this->db->where('V_servicecode = "BEMS" AND V_actionflag <> "D" AND YEAR(D_date) = '.$year.' AND V_request_type = "A12" AND MONTH(D_date) = '.$month.' AND V_hospitalcode =',$hosp);}
+	elseif($h==2){
+	$this->db->where('V_servicecode = "BEMS" AND V_actionflag <> "D" AND YEAR(D_date) = '.$year.' AND V_request_type = "A12" AND V_request_status = "C" AND MONTH(D_date) = '.$month.' AND V_hospitalcode =',$hosp);
+	}
+	elseif($h==3){
+	$this->db->where('V_servicecode = "BEMS" AND V_actionflag <> "D" AND V_request_type = "A12" AND V_request_status = "C" AND TIMESTAMPDIFF(month, d_date,"'.$year.'-'.$month.'-01") > 0  AND V_hospitalcode = ',$hosp);
+	}
+	elseif($h==4){
+	$this->db->where('V_servicecode = "BEMS" AND V_actionflag <> "D" AND YEAR(D_date) = '.$year.' AND V_request_type = "A12" AND V_request_status <> "C" AND  month(d_date) = '.$month.' AND V_hospitalcode = ',$hosp);
+	}
+	elseif($h==5){
+	$this->db->where('V_servicecode = "BEMS" AND V_actionflag <> "D" AND V_request_type = "A12" AND V_request_status <> "C" AND TIMESTAMPDIFF(month, d_date,"'.$year.'-'.$month.'-01") > 0  AND V_hospitalcode = ',$hosp);
+	}
+	elseif($h==6){
+	$this->db->where('V_servicecode = "BEMS" AND V_actionflag <> "D" AND YEAR(D_date) = '.$year.' AND V_request_type = "A12" AND v_asset_no <> "" AND month(d_date) = '.$month.' AND V_hospitalcode = ',$hosp);
+	}
+	elseif($h==7){
+	$this->db->where('V_servicecode = "BEMS" AND V_actionflag <> "D"  AND V_request_type = "A12" AND v_asset_no <> ""  AND TIMESTAMPDIFF(month, d_date,"'.$year.'-'.$month.'-01") > 0  AND V_hospitalcode = ',$hosp);
+	}
+	elseif($h==8){
+	$this->db->where('V_servicecode = "BEMS" AND V_actionflag <> "D" AND YEAR(D_date) = '.$year.' AND V_request_type = "A12" AND v_asset_no = "" AND month(d_date) ='.$month.' AND V_hospitalcode = ',$hosp);
+	}
+	else{
+	$this->db->where('V_servicecode = "BEMS" AND V_actionflag <> "D" AND V_request_type = "A12" AND v_asset_no = ""  AND TIMESTAMPDIFF(month, d_date,"'.$year.'-'.$month.'-01") > 0  AND V_hospitalcode = ',$hosp);
+	}
+	$this->db->from('pmis2_egm_service_request');
+    $query = $this->db->get();
+	//echo $this->db->last_query();
+		//exit();
+	$query_result = $query->result();
+    return $query_result;	
+	}
 
 	public function get_hospitalCode_clauseLing($maklumat){ //buzz 13/08/18
 		$hosp_code = $this->session->userdata('hosp_code');
 		$whaty = $maklumat['year'];
 		//query1
 		$this->db->select("v_HospitalCode");
-		$this->db->from("pmis2_SA_Hospital");
+		$this->db->from("pmis2_sa_hospital");
 		$this->db->where_not_in("v_HospitalCode", array("KLG"));
 		// $this->db->where_in("v_HospitalCode", array("AGH","BPH","$hosp_code"));
 		$query1 = $this->db->get();
