@@ -5326,12 +5326,12 @@ return $obj['path'];
 		}
 		
 
-	function area_list(){
+	function area_list(){//buzzlee
 		$query = $this->db->select("*")->from("pmis2_sa_hospital")->get()->result_array();
 		return $query;
 	}
 
-	public function get_hospital($fromArea){
+	public function get_hospital($fromArea){//buzzlee
 		$this->db->select("v_HospitalAdd1,v_HospitalAdd2,v_HospitalAdd3,v_head_of_lls,b.Related_WO");
 		$this->db->from("pmis2_sa_hospital a");
 		$this->db->join("tbl_item_movement b", "a.v_HospitalCode=b.site_id","left");
@@ -5340,7 +5340,7 @@ return $obj['path'];
 		return $query;
 	}
 
-	public function get_rn_item($rn_no){
+	public function get_rn_item($rn_no){//buzzlee
 		$this->db->select("a.*, b.ItemName");
 		$this->db->from("tbl_rn_item a");
 		$this->db->join("tbl_invitem b", "a.Item_code=b.ItemCode","inner");
@@ -5349,7 +5349,7 @@ return $obj['path'];
 		return $query->result();
 	}
 
-	public function ppm_newconse($maklumat){
+	public function ppm_newconse($maklumat){//buzzlee
 		$this->db->select("b.V_Tag_no, 
 							LEFT(e.v_AssetCondition, 
 							LOCATE(':', e.v_AssetCondition) - 1) AS kondisi, 
@@ -5395,7 +5395,7 @@ return $obj['path'];
 
 	}
 
-	public function report_newconseb4($maklumat){
+	public function report_newconseb4($maklumat){//buzzlee
 		$year = $maklumat["year"];
 		$month = $maklumat["month"];
 		$ym = $year.$month;
@@ -5417,7 +5417,7 @@ return $obj['path'];
 		return $query->result();
 	}
 
-	public function report_tnc_listing($maklumat){
+	public function report_tnc_listing($maklumat){//buzzlee
 		$Year = $maklumat['year'];
 		$Month = $maklumat['month'];
 
@@ -5491,7 +5491,7 @@ return $obj['path'];
 		return $query->result();
 	}
 
-	public function get_ap_vo_vvfdetails($V_Hospital_code, $V_Asset_no){
+	public function get_ap_vo_vvfdetails($V_Hospital_code, $V_Asset_no){//buzzlee
 		$this->db->select("*");
 		$this->db->from("ap_vo_vvfdetails");
 		$this->db->where("vvfAssetNo", $V_Hospital_code.'-'.$V_Asset_no);
@@ -5500,7 +5500,7 @@ return $obj['path'];
 	}
 
 
-	public function report_tnc_no_smry($maklumat){
+	public function report_tnc_no_smry($maklumat){//buzzlee
 		$Year = $maklumat['year'];
 		$Month = $maklumat['month'];
 
@@ -5605,7 +5605,7 @@ return $obj['path'];
 		return $query_result;
 	}
 	
-		function B4_summary($year,$month){//sapik
+	function B4_summary($year,$month){//sapik
 		$this->db->select("DISTINCT a.hospital_name,a.asset_no, a.type_code, a.type_desc, a.purchase_date, a.commission_date, a.asset_age, a.cost, a.asset_status,a.condition, a.down_time, a.ppm_total, a.ppm_on_time, a.trpi, a.trpi_lt_5, a.trpi_5_10, a.trpi_gt_10, a.qap_period, a.warranty_date, a.downtime_cum,a.uptime_cum, a.downtime_pct, a.uptime_pct,IFNULL(b.m_1,0) AS m_1, IFNULL(b.m_2,0) AS m_2, IFNULL(b.m_3,0) AS m_3, IFNULL(b.m_4,0) AS m_4, IFNULL(b.m_5,0) AS m_5, IFNULL(b.m_6,0) AS m_6, IFNULL(b.m_7,0) AS m_7, IFNULL(b.m_8,0) AS m_8, IFNULL(b.m_9,0) AS m_9, IFNULL(b.m_10,0) AS m_10, IFNULL(b.m_11,0) AS m_11, IFNULL(b.m_12,0) AS m_12",false);
 		$this->db->from('mis_qap_inc_assets$candidate a');
 		$this->db->join('mis_cum_trkpi b',' a.asset_no = b.asset_no','inner');
@@ -5623,7 +5623,7 @@ return $obj['path'];
 		return $query_result;
 	}
 
-	 	function tnc_wthAV12($year,$month){
+	function tnc_wthAV12($year,$month){
 		$this->db->select("d.v_AssetVStatus, c.v_tcdate, c.v_moh_designation, a.v_timestamp, a.V_Asset_no, a.V_Asset_name, a.V_Tag_no, a.D_Register_date, a.V_Equip_code, a.V_User_Dept_code, a.V_Location_code, a.V_Contract_code, a.V_Criticality, a.V_Condition, a.V_GEN_status, a.V_AssetStatus, a.V_Manufacturer, a.V_Model_no, a.V_Serial_no, a.V_Brandname, a.V_Asset_WG_code, a.V_service_code, a.V_Hospitalcode, a.V_Actionflag, a.V_Timestamp, a.V_facilitycode, a.V_accsories, a.v_chasisno, a.v_engineno, a.v_registrationno, a.v_tc_request_no, a.V_Make, b.V_Job_Type_code, b.V_Asset_no AS Expr1, b.V_Vendor_code, b.N_Cost, b.V_File_Ref_no, b.V_PO_no, b.V_PO_date, b.V_Wrn_end_code, b.V_TC_form_no, b.V_Mnl_Draw_no, b.V_Depreciation, b.V_Lifespan, b.V_Oper_Hr_code, b.V_Job_Type_code, b.V_Asset_Status, b.V_Procedure_code, b.V_Check_list_code, b.v_asset_typecode, b.v_asset_categorycode, b.v_SparesListCode, b.v_ppmDetails, b.V_capacityunit, b.v_Capacity, b.V_Misc_details, b.V_Hospital_code, b.V_ActionFlag AS Expr2, b.D_Timestamp, b.V_Agent, b.D_commission, b.V_username, b.v_ContractCode",false);
 		$this->db->from('pmis2_egm_testingcommisioning c');
 		$this->db->join('pmis2_egm_assetregistration a','c.v_hospitalcode = a.V_Hospitalcode AND c.v_reqno = a.v_tc_request_no','inner');
@@ -5635,6 +5635,232 @@ return $obj['path'];
 		//exit();
 		$query_result = $query->result();
 		return $query_result;
+	}
+
+	public function get_hospitalCode_clauseLing($maklumat){ //buzz 13/08/18
+		$hosp_code = $this->session->userdata('hosp_code');
+		$whaty = $maklumat['year'];
+		//query1
+		$this->db->select("v_HospitalCode");
+		$this->db->from("pmis2_SA_Hospital");
+		$this->db->where_not_in("v_HospitalCode", array("KLG"));
+		// $this->db->where_in("v_HospitalCode", array("AGH","BPH","$hosp_code"));
+		$query1 = $this->db->get();
+		return $query1->result();
+	}
+	public function clause_summary($maklumat){ //buzz 13&14/08/18
+		$hosp_code = $this->session->userdata('hosp_code');
+		$whaty = $maklumat['year'];
+
+		$query1 = $this->get_hospitalCode_clauseLing($maklumat);
+		//query2
+		if( !empty($query1) ){
+			foreach ($query1 as $row) {
+				$this->db->select("close_main_status,
+									SUM(CASE WHEN clause_no LIKE '%8.2%' OR clause_no LIKE '%12%' THEN 1 ELSE 0 END) + SUM(CASE WHEN clause_no LIKE '%21.2%' OR clause_no LIKE '%44.1%' THEN 1 ELSE 0 END) + SUM(CASE WHEN clause_no LIKE '%21.3%' OR clause_no LIKE '%44.2%' THEN 1 ELSE 0 END) AS bil");
+				$this->db->from("clause_tbl");
+				$this->db->where("v_hospitalcode", $row->v_HospitalCode);
+				$this->db->where("year(date_issued)", $whaty);
+				$this->db->group_by("close_main_status");
+				$query2 = $this->db->get();
+				$row->bil = 0;
+				$row->bilopen=0;
+				$row->bilclosed=0;
+				$row->bilclosed = 0;
+				$row->bilopen = 0;
+				$row->biltotal = 0;
+				if($query2->num_rows()>0){
+					foreach ($query2->result() as $row1) {
+						if($row1->close_main_status == "Closed"){
+							$row->bilclosed = ($row1->bil) ? $row1->bil : 0;
+						}else{
+							$row->bilopen = ($row1->bil) ? $row1->bil : 0;
+						}
+						$row->biltotal = $row->bilclosed + $row->bilopen;
+					}
+				}
+			}
+		}
+		return $query1;
+	}
+
+	public function clause_by_month($maklumat){//buzz 13&14/08/18
+		$hosp_code = $this->session->userdata('hosp_code');
+		$whaty = $maklumat['year'];
+
+		$query1 = $this->get_hospitalCode_clauseLing($maklumat);
+
+		if( !empty($query1) ){
+			foreach ($query1 as $row) {
+
+				//query3
+				$this->db->select("v_hospitalcode,MONTH(date_issued) AS bulan,
+							SUM(CASE WHEN clause_no LIKE '%8.2%' OR clause_no LIKE '%12%' THEN 1 ELSE 0 END) + SUM(CASE WHEN clause_no LIKE '%21.2%' OR clause_no LIKE '%44.1%' THEN 1 ELSE 0 END) + SUM(CASE WHEN clause_no LIKE '%21.3%' OR clause_no LIKE '%44.2%' THEN 1 ELSE 0 END) AS bila");
+				$this->db->from("clause_tbl");
+				$this->db->where("v_hospitalcode", $row->v_HospitalCode);
+				$this->db->where("year(date_issued)", $whaty);
+				$this->db->group_by("v_hospitalcode, MONTH(date_issued)");
+				$query3 = $this->db->get();
+				$row->bul1 = 0;
+				$row->bul2 = 0;
+				$row->bul3 = 0;
+				$row->bul4 = 0;
+				$row->bul5 = 0;
+				$row->bul6 = 0;
+				$row->bul7 = 0;
+				$row->bul8 = 0;
+				$row->bul9 = 0;
+				$row->bul10 = 0;
+				$row->bul11 = 0;
+				$row->bul12 = 0;
+				$row->totalbul = 0;
+				if($query3->num_rows()>0){
+					foreach ($query3->result() as $row_month) {
+						/*for($i=1; $i<13; $i++){
+							$bul = "bul$i";
+							if($row_month->bulan==$i) {
+								$row->$bul = ($row_month->bila !='' ) ? $row_month->bila : 0;
+							}
+						}*/
+						if($row_month->bulan==1) { 
+							$row->bul1		= ($row_month->bila) ? $row_month->bila : 0;
+							$row->totalbul	= $row->totalbul + $row->bul1;
+						}else if($row_month->bulan==2) { 
+							$row->bul2		= ($row_month->bila) ? $row_month->bila : 0;
+							$row->totalbul	= $row->totalbul + $row->bul2;
+						}else if($row_month->bulan==3) {
+							$row->bul3		= ($row_month->bila) ? $row_month->bila : 0;
+							$row->totalbul	= $row->totalbul + $row->bul3;
+						}else if($row_month->bulan==4) { 
+							$row->bul4		= ($row_month->bila) ? $row_month->bila : 0;
+							$row->totalbul	= $row->totalbul + $row->bul4;
+						}else if($row_month->bulan==5) { 
+							$row->bul5		= ($row_month->bila) ? $row_month->bila : 0;
+							$row->totalbul	= $row->totalbul + $row->bul5;
+						}else if($row_month->bulan==6) { 
+							$row->bul6		= ($row_month->bila) ? $row_month->bila : 0;
+							$row->totalbul	= $row->totalbul + $row->bul6;
+						}else if($row_month->bulan==7) { 
+							$row->bul7		= ($row_month->bila) ? $row_month->bila : 0;
+							$row->totalbul	= $row->totalbul + $row->bul7;
+						}else if($row_month->bulan==8) { 
+							$row->bul8		= ($row_month->bila) ? $row_month->bila : 0;
+							$row->totalbul	= $row->totalbul + $row->bul8;
+						}else if($row_month->bulan==9) { 
+							$row->bul9		= ($row_month->bila) ? $row_month->bila : 0;
+							$row->totalbul	= $row->totalbul + $row->bul9;
+						}else if($row_month->bulan==10) { 
+							$row->bul10		= ($row_month->bila) ? $row_month->bila : 0;
+							$row->totalbul	= $row->totalbul + $row->bul10;
+						}else if($row_month->bulan==11) { 
+							$row->bul11		= ($row_month->bila) ? $row_month->bila : 0;
+							$row->totalbul	= $row->totalbul + $row->bul11;
+						}else if($row_month->bulan==12) { 
+							$row->bul12		= ($row_month->bila) ? $row_month->bila : 0;
+							$row->totalbul	= $row->totalbul + $row->bul12;
+						}
+					}
+				}
+			}
+		}
+		// echo "<pre>";var_export($query1);die();
+		return $query1;
+	}
+
+	public function clause_by_type($maklumat){//buzz 13&14/08/18
+		$hosp_code = $this->session->userdata('hosp_code');
+		$whaty = $maklumat['year'];
+
+		$query1 = $this->get_hospitalCode_clauseLing($maklumat);
+
+		//query4
+		if( !empty($query1) ){
+			foreach ($query1 as $row) {
+				$this->db->select("count(*) AS total,
+									SUM(CASE WHEN clause_no LIKE '%8.2%' OR clause_no LIKE '%12%' THEN 1 ELSE 0 END) ab,
+									SUM(CASE WHEN clause_no LIKE '%21.2%' OR clause_no LIKE '%44.1%' THEN 1 ELSE 0 END) ac, 
+									SUM(CASE WHEN clause_no LIKE '%21.3%' OR clause_no LIKE '%44.2%' THEN 1 ELSE 0 END) ad");
+				$this->db->from("clause_tbl");
+				$this->db->where("v_hospitalcode", $row->v_HospitalCode);
+				$this->db->where("year(date_issued)", $whaty);
+				$query4 = $this->db->get();
+
+				$row->bil82 = 0;
+				$row->bil212 = 0;
+				$row->bil213 = 0;
+				$row->biltotal = 0;
+				if($query4->num_rows()>0){
+					foreach ($query4->result() as $row1) {
+						$row->biltotal = ($row1->total) ? $row1->total : 0;
+						$row->bil82 = ($row1->ab) ? $row1->ab : 0;
+						$row->bil212 = ($row1->ac) ? $row1->ac : 0;
+						$row->bil213 = ($row1->ad) ? $row1->ad : 0;
+					}
+				}
+			}
+		}
+		// echo "<pre>";var_export($query1);
+		return $query1;
+	}
+
+	public function clause_by_category_or_team($maklumat){//buzz 13&14/08/18
+		$hosp_code = $this->session->userdata('hosp_code');
+		$whaty = $maklumat['year'];
+
+		$query1 = $this->get_hospitalCode_clauseLing($maklumat);
+
+		//query4
+		if( !empty($query1) ){
+			foreach ($query1 as $row) {
+				$this->db->select("b.v_hospitalcode, c.division,
+									SUM(CASE WHEN b.clause_no LIKE '%8.2%' OR clause_no LIKE '%12%' THEN 1 ELSE 0 END) + SUM(CASE WHEN b.clause_no LIKE '%21.2%' OR clause_no LIKE '%44.1%' THEN 1 ELSE 0 END) + SUM(CASE WHEN b.clause_no LIKE '%21.3%' OR clause_no LIKE '%44.2%' THEN 1 ELSE 0 END) AS divcount");
+				$this->db->from("pmsb_imaging_asset c");
+				$this->db->join("pmis2_egm_service_request a", "c.asset_no = LEFT(a.V_Asset_no, 7)", "inner");
+				$this->db->join("clause_tbl b", "a.V_Request_no = b.wo_no AND a.V_hospitalcode = b.v_hospitalcode", "inner");
+				$this->db->where("b.v_hospitalcode", $row->v_HospitalCode);
+				$this->db->where("year(b.date_issued)", $whaty);
+				$query4 = $this->db->get();
+
+				$row->bul1 = 0;
+				$row->bul2 = 0;
+				$row->bul3 = 0;
+				$row->bul4 = 0;
+				$row->bul5 = 0;
+				$row->bul6 = 0;
+				$row->bul7 = 0;
+				$row->bul8 = 0;
+				$row->bul9 = 0;
+				$row->bul10 = 0;
+				$row->bul11 = 0;
+				$row->bul12 = 0;
+
+				if($query4->num_rows()>0){
+					foreach ($query4->result() as $row1) {
+
+						if ($row1->division == "AIS"){
+							$row->bul1 = ($row1->divcount) ? $row1->divcount : 0;
+						}
+						elseif ($row1->division == "ECC"){
+							$row->bul2 = ($row1->divcount) ? $row1->divcount : 0;
+						}
+						elseif ($row1->division  = "HDU"){
+							$row->bul3 = ($row1->divcount) ? $row1->divcount : 0;
+						}
+						elseif ($row1->division == "IMG"){
+							$row->bul4 = ($row1->divcount) ? $row1->divcount : 0;
+						}
+						elseif ($row1->division == "LAB"){
+							$row->bul5 = ($row1->divcount) ? $row1->divcount : 0;
+						}
+						elseif ($row1->division == "SIS"){
+							$row->bul6 = ($row1->divcount) ? $row1->divcount : 0;
+						}
+					}
+				}
+			}
+		}
+		// echo "<pre>";var_export($query1);die();
+		return $query1;
 	}
 
 }
