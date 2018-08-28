@@ -115,7 +115,7 @@
 						
 						//$query = $this->db->get("pmis2_egm_service_request");
 						$query = $this->db->get();
-						//echo $this->db->last_query();
+						echo $this->db->last_query();
 						//exit();
 						$query_result = $query->result();
 						return $query_result;
@@ -5923,6 +5923,673 @@ return $obj['path'];
 		// echo "<pre>";var_export($query1);die();
 		return $query1;
 	}
+	
+	function porpt_table1($year,$month){//sapik
+	$this->db->select('LEFT(RIGHT(b.MIRN_No, 14), 3) AS hosp, SUM(CASE WHEN (a.Status IS NULL) AND (a.Date_Completed IS NULL) THEN 1 ELSE 0 END) AS po_gen,SUM(CASE WHEN (a.Status IS NOT NULL) AND (a.Date_Completed IS NOT NULL) THEN 1 ELSE 0 END) AS po_com ',false);
+	$this->db->from('tbl_po a');
+	$this->db->join('tbl_po_mirn b','a.PO_No = b.PO_No','inner');
+	$this->db->where('MONTH(a.po_date) = "'.$month.'" AND YEAR(a.po_date) = "'.$year.'" GROUP BY LEFT(RIGHT(b.MIRN_No, 14), 3) ORDER BY LEFT(RIGHT(b.MIRN_No, 14), 3)');
+    $query = $this->db->get();
+	//echo $this->db->last_query();
+		//exit();
+	$query_result = $query->result();
+    return $query_result;	
+	}
+	
+	function porpt_table2($year,$month,$whatr,$whathosp){//sapik
+	$this->db->select('a.DocReferenceNo, a.DateCreated, e.ItemCode, f.ItemName, e.Qty, a.WorkOfOrder, d.V_Asset_name, b.v_Asset_no, d.V_Tag_no, d.V_Brandname, d.V_Model_no, b.d_StartDt, a.rone, a.rtwo, a.rthree, a.Comments, a.ApprStatusID, a.ApprComments, a.ApprStatusIDx, a.ApprCommentsx,a.ApprStatusIDxx, a.ApprCommentsxx',false);
+	$this->db->from('tbl_invitem f');
+	$this->db->join('tbl_mirn_comp e','f.ItemCode = e.ItemCode','inner');
+	$this->db->join('tbl_materialreq a','e.MIRNcode = a.DocReferenceNo','inner');
+	$this->db->join('pmis2_egm_schconfirmmon b','a.WorkOfOrder = b.v_WrkOrdNo','inner');
+	$this->db->join('pmis2_egm_assetregistration d','b.v_Asset_no = d.V_Asset_no AND b.v_HospitalCode = d.V_Hospitalcode','inner');
+	$this->db->where('MONTH(a.DateCreated) = "'.$month.'" AND YEAR(a.DateCreated) =  "'.$year.'" AND a.DocReferenceNo IN (SELECT b.MIRN_No FROM tbl_po a INNER JOIN tbl_po_mirn b ON a.PO_No = b.PO_No WHERE MONTH(a.po_date) = "'.$month.'" AND YEAR(a.po_date) = "'.$year.'" AND LEFT(RIGHT(b.MIRN_No, 14), 3) = "'.$whathosp.'")', NULL, FALSE);
+    $query = $this->db->get();
+	//echo $this->db->last_query();
+		//exit();
+	$query_result = $query->result();
+    return $query_result;	
+	}
+	
+	function porpt_table3($mrin){//sapik
+	$this->db->select('Specialist, IFNULL(Status, "6") AS Status, IFNULL(Remark, "") AS Remark',false);
+	$this->db->from('tbl_specialist_review');
+	$this->db->where('MIRN_No',$mrin);
+    $query = $this->db->get();
+	//echo $this->db->last_query();
+		//exit();
+	$query_result = $query->result();
+    return $query_result;	
+	}
+	
+	function porpt_totalwo($year,$month){//sapik
+		$this->db->select('COUNT(*) AS Total');
+		$this->db->from('tbl_materialreq');
+		$this->db->where('MONTH(datecreated)="'.$month.'" AND YEAR(datecreated)="'.$year.'"',NULL, FALSE);
+		$query = $this->db->get();
+		//echo $this->db->last_query();
+		$query_result = $query->result();
+		return $query_result;
+	}
+	
+    function porpt_totalcwo($year,$month){//sapik
+		$this->db->select('COUNT(*) AS Total');
+		$this->db->from('tbl_materialreq');
+		$this->db->where('MONTH(datecreated)="'.$month.'" AND YEAR(datecreated)="'.$year.'" AND ((ApprstatusID = "6" OR ApprstatusID = "107" OR ApprstatusID = "128") OR (ApprstatusIDx = "6" OR ApprstatusIDx = "107" OR ApprstatusIDx = "128") OR (ApprstatusIDxx = "6" OR ApprstatusIDxx = "107" OR ApprstatusIDxx = "128")) AND IFNULL(ApprstatusIDx,"0") <> "129" AND (IFNULL(ApprStatusID, "0") <> "5" AND IFNULL(ApprStatusIDx, "0") <> "5" AND IFNULL(ApprStatusIDxx, "0") <> "5")',NULL, FALSE);
+		$query = $this->db->get();
+		//echo $this->db->last_query();
+		$query_result = $query->result();
+		return $query_result;
+	}
+	
+	 function porpt_totalscwo($year,$month){//sapik
+		$this->db->select('COUNT(*) AS Total');
+		$this->db->from('tbl_materialreq');
+		$this->db->where('MONTH(datecreated)="'.$month.'" AND YEAR(datecreated)="'.$year.'" AND (ApprstatusID = "5" OR ApprstatusIDx = "5" OR ApprstatusIDxx = "5")',NULL, FALSE);
+		$query = $this->db->get();
+		//echo $this->db->last_query();
+		$query_result = $query->result();
+		return $query_result;
+	}
+	
+	 function porpt_totalnscwo($year,$month){//sapik
+		$this->db->select('COUNT(DISTINCT MIRN_No) AS Total');
+		$this->db->from('tbl_pr_mirn');
+		$this->db->where('MIRN_No IN (SELECT docreferenceno AS Total FROM tbl_materialreq WHERE MONTH(datecreated) = "'.$month.'" AND YEAR(datecreated) = "'.$year.'" AND (ApprstatusID <> "129" AND ApprstatusIDx <> "129" AND ApprstatusIDxx <> "129") AND (ApprstatusID <> "107" AND ApprstatusIDx <> "107" AND ApprstatusIDxx <> "107"))', NULL, FALSE);
+		$query = $this->db->get();
+		//echo $this->db->last_query();
+		$query_result = $query->result();
+		return $query_result;
+	}
+	 function porpt_totalncwo($year,$month){//sapik
+		$this->db->select('COUNT(*) AS Total');
+		$this->db->from('tbl_materialreq');
+		$this->db->where('MONTH(datecreated)="'.$month.'" AND YEAR(datecreated)= "'.$year.'" AND (ApprstatusID = "129" OR ApprstatusIDx = "129" OR ApprstatusIDxx = "129")', NULL, FALSE);
+		$query = $this->db->get();
+		//echo $this->db->last_query();
+		$query_result = $query->result();
+		return $query_result;
+	} 
+	
+	 function porpt_totalpam($year,$month){//sapik
+		$this->db->select('COUNT(*) AS Total');
+		$this->db->from('tbl_materialreq');
+		$this->db->where('MONTH(datecreated)="'.$month.'" AND YEAR(datecreated)= "'.$year.'" AND (ApprstatusID = "6") AND IFNULL(ApprstatusIDx,"0") <> "129" AND (IFNULL(ApprStatusID, "0") <> "5" AND IFNULL(ApprStatusIDx, "0") <> "5" AND IFNULL(ApprStatusIDxx, "0") <> "5")', NULL, FALSE);
+		$query = $this->db->get();
+		//echo $this->db->last_query();
+		$query_result = $query->result();
+		return $query_result;
+	}
+	
+	function porpt_totalppr($year,$month){//sapik
+		$this->db->select('COUNT(*) AS Total');
+		$this->db->from('tbl_materialreq');
+		$this->db->where('MONTH(datecreated)="'.$month.'" AND YEAR(datecreated)= "'.$year.'" AND (ApprstatusIDx = "6") AND IFNULL(ApprstatusIDx,"0") <> "129" AND (IFNULL(ApprStatusID, "0") <> "5" AND IFNULL(ApprStatusIDx, "0") <> "5" AND IFNULL(ApprStatusIDxx, "0") <> "5")', NULL, FALSE);
+		$query = $this->db->get();
+		//echo $this->db->last_query();
+		$query_result = $query->result();
+		return $query_result;
+	}
+	function porpt_totalplc($year,$month){//sapik
+		$this->db->select('COUNT(*) AS Total');
+		$this->db->from('tbl_materialreq');
+		$this->db->where('MONTH(datecreated)="'.$month.'" AND YEAR(datecreated)= "'.$year.'" AND (ApprstatusIDxx = "6") AND (IFNULL(ApprstatusIDx,"0") <> "129" OR IFNULL(ApprstatusIDx,"0") <> "6") AND (IFNULL(ApprStatusID, "0") <> "5" AND IFNULL(ApprStatusIDx, "0") <> "5" AND IFNULL(ApprStatusIDxx, "0") <> "5")', NULL, FALSE);
+		$query = $this->db->get();
+		//echo $this->db->last_query();
+		$query_result = $query->result();
+		return $query_result;
+	}
+
+	public function report_mrin_listing($maklumat){ //buzzlee
+		$Year = $maklumat['year'];
+		$Month = $maklumat['month'];
+
+		$this->db->select("SUBSTRING_INDEX(SUBSTRING_INDEX(`DocReferenceNo`, '/', -4), '/', 1) AS hosp,
+							COUNT(*) AS Total,
+							SUM(CASE WHEN 
+								(
+									(ApprStatusID = '6' OR ApprStatusID = '107' OR ApprStatusID = '128') OR 
+									(ApprStatusIDx = '6' OR ApprStatusIDx = '107' OR ApprStatusIDx = '128') OR 
+									(ApprStatusIDxx = '6' OR ApprStatusIDxx = '107' OR ApprStatusIDxx = '128')
+								)
+								AND IFNULL(ApprStatusIDx, '0') <> '129' 
+								AND (IFNULL(ApprStatusID, '0') <> '5' 
+								AND IFNULL(ApprStatusIDx, '0') <> '5' 
+								AND IFNULL(ApprStatusIDxx, '0') <> '5') 
+								THEN 1 ELSE 0 END) AS pending, 
+							SUM(CASE WHEN
+								ApprStatusID = '5' OR 
+								ApprStatusIDx = '5' OR 
+								ApprStatusIDxx = '5' 
+								THEN 1 ELSE 0 END) AS reject, 
+							SUM(CASE WHEN 
+								ApprStatusID <> '129'
+								AND ApprStatusIDx <> '129' 
+								AND ApprStatusIDxx <> '129' 
+								AND ApprStatusID <> '107' 
+								AND ApprStatusIDx <> '107' 
+								AND ApprStatusIDxx <> '107' 
+								THEN 1 ELSE 0 END) AS approve_mirn");
+		$this->db->from("tbl_materialreq");
+		$this->db->where("MONTH(DateCreated)", $Month); 
+		$this->db->where("YEAR(DateCreated)", $Year);
+		$this->db->group_by("SUBSTRING_INDEX(SUBSTRING_INDEX(`DocReferenceNo`, '/', -4), '/', 1)");
+		$query7 = $this->db->get();
+		// echo $this->db->last_query();die;
+		// echo "<pre>";var_export($query7->result());
+		return $query7->result();
+	}
+
+	public function report_mrin_listing_getby_hospcode($maklumat){//buzzlee
+		$Year = $maklumat['year'];
+		$Month = $maklumat['month'];
+
+		// echo "<pre>
+		// 	SELECT a.DocReferenceNo, a.DateCreated, e.ItemCode, f.ItemName, e.Qty, a.WorkOfOrder, d.V_Asset_name, b.v_Asset_no, d.V_Tag_no, d.V_Brandname, 
+		// 	d.V_Model_no, b.d_StartDt, a.rone, a.rtwo, a.rthree, a.Comments, a.ApprStatusID, a.ApprComments, a.ApprStatusIDx, a.ApprCommentsx,
+		// 	a.ApprStatusIDxx, a.ApprCommentsxx 
+		// 	FROM tbl_invitem f 
+		// 	INNER JOIN tbl_mirn_comp e ON f.ItemCode = e.ItemCode 
+		// 	INNER JOIN tbl_materialreq a ON e.MIRNcode = a.DocReferenceNo
+		// 	INNER JOIN pmis2_egm_schconfirmmon b ON a.WorkOfOrder = b.v_WrkOrdNo 
+		// 	INNER JOIN pmis2_egm_assetregistration d ON b.v_Asset_no = d.V_Asset_no AND b.v_HospitalCode = d.V_Hospitalcode 
+		// 	WHERE (MONTH(a.DateCreated) = '". $Month ."') 
+		// 	AND (YEAR(a.DateCreated) = '". $Year ."') 
+		// 	AND d.V_Hospitalcode = '". $this->input->get("whathosp") ."'";die();
+
+		$this->db->select("a.DocReferenceNo, a.DateCreated, e.ItemCode, f.ItemName, e.Qty, a.WorkOfOrder, d.V_Asset_name, b.v_Asset_no, d.V_Tag_no, d.V_Brandname, 
+			d.V_Model_no, b.d_StartDt, a.rone, a.rtwo, a.rthree, a.Comments, a.ApprStatusID, a.ApprComments, a.ApprStatusIDx, a.ApprCommentsx,
+			a.ApprStatusIDxx, a.ApprCommentsxx");
+		$this->db->from("tbl_invitem f");
+		$this->db->join("tbl_mirn_comp e", "f.ItemCode = e.ItemCode", "inner");
+		$this->db->join("tbl_materialreq a", "e.MIRNcode = a.DocReferenceNo", "inner");
+		$this->db->join("pmis2_egm_schconfirmmon b", "a.WorkOfOrder = b.v_WrkOrdNo", "inner");
+		$this->db->join("pmis2_egm_assetregistration d", "b.v_Asset_no = d.V_Asset_no AND b.v_HospitalCode = d.V_Hospitalcode", "inner");
+		$this->db->where("MONTH(a.DateCreated)", $Month);
+		$this->db->where("YEAR(a.DateCreated)", $Year);
+		$this->db->where("d.V_Hospitalcode", $this->input->get("whathosp"));
+
+		if ( isset($_GET["whatr"]) && $this->input->get("whatr")==3 ){
+			$this->db->where("(ApprstatusID=5 OR ApprstatusIDx=5 OR ApprstatusIDxx=5)");
+			// $this->db->where("ApprstatusID",5);
+			// $this->db->or_where("ApprstatusIDx",5);
+			// $this->db->or_where("ApprstatusIDxx",5);
+		}
+		// elseif request("whatr") = "4" then
+		// sSQLax = " AND (((ApprstatusID = '6' OR " &_
+		//                     "ApprstatusID = '107' OR " &_
+		//                     "ApprstatusID = '128') OR " &_
+		//                     "(ApprstatusIDx = '6' OR " &_
+		//                     "ApprstatusIDx = '107' OR " &_
+		//                     "ApprstatusIDx = '128') OR " &_
+		//                     "(ApprstatusIDxx = '6' OR " &_
+		//                     "ApprstatusIDxx = '107' OR " &_
+		//                     "ApprstatusIDxx = '128')) AND ISNULL(ApprstatusIDx, '0') <> '129' AND ISNULL(ApprStatusID, '0') <> '5' AND ISNULL(ApprStatusIDx, '0') <> '5' AND " &_ 
+		//                     "ISNULL(ApprStatusIDxx, '0') <> '5') "
+		// elseif request("whatr") = "5" then
+		// sSQLax = " AND (ApprstatusID <> '129' AND ApprstatusIDx <> '129' AND " &_ 
+		//                     "ApprstatusIDxx <> '129' AND ApprstatusID <> '107' AND ApprstatusIDx <> '107' AND ApprstatusIDxx <> '107') "
+
+		$SQLa = $this->db->get();
+		// echo $this->db->last_query();die;
+		return $SQLa->result();
+		// echo "<pre>".$this->db->last_query();die;var_export($SQLa->result());die();
+	}
+
+	public function totalwo($maklumat){//buzzlee 23/08/18
+		$Year	= $maklumat['year'];
+		$Month	= $maklumat['month'];
+		// SELECT COUNT(*) AS Total " & _
+		// 		"FROM tbl_MaterialReq  " & _
+		// 		"WHERE  MONTH(datecreated)='" & sMonth & "' " & _
+		// 			"AND YEAR(datecreated)='" & sYear & "
+		$totalwo = 0;
+
+		$this->db->select("count(*) as Total");
+		$this->db->from("tbl_materialreq");
+		$this->db->where("MONTH(DateCreated)", $Month);
+		$this->db->where("YEAR(DateCreated)", $Year);
+		$query = $this->db->get();
+		if( $query->num_rows() > 0 ){
+			$totalwo = $query->result()[0]->Total;
+		}
+
+		return $totalwo;
+	}
+
+	public function totalpcwo($maklumat){//buzzlee 23/08/18
+		$Month		= $maklumat['month'];
+		$Year		= $maklumat['year'];
+		$totalwo	= $maklumat['totalwo'];
+		$totalpcwo	= 0;
+		$totalcwo 	= 0;
+		//pending mrin
+		
+		$this->db->select("count(*) as Total");
+		$this->db->from("tbl_materialreq");
+		$this->db->where("MONTH(DateCreated", $Month);
+		$this->db->where("YEAR(DateCreated)", $Year);
+		$this->db->where("(ApprStatusID=6 OR ApprStatusID=107 OR ApprStatusID=128) OR 
+							(ApprStatusIDx=6 OR ApprStatusIDx=107 OR ApprStatusIDx=128) OR 
+							(ApprStatusIDxx=6 OR ApprStatusIDxx=107 OR ApprStatusIDxx=128)
+						)");
+		$this->db->where("IFNULL(ApprStatusIDx, 0) <>", 129);
+		$this->db->where("IFNULL(ApprStatusID, 0) <>", 5);
+		$this->db->where("IFNULL(ApprStatusIDx, 0) <>", 5);
+		$this->db->where("IFNULL(ApprStatusIDxx, 0) <>", 5);
+		$query = $this->db->get();
+
+		if( $query->num_rows() > 0 ){
+			$totalcwo = $query->result()[0]->Total;
+		}
+
+		if( (is_numeric($totalwo) && $totalwo!=0) && is_numeric($totalcwo) ){
+			$totalpcwo = number_format(($totalcwo / $totalwo) * 100, 4);
+		}
+
+		return array("totalcwo"=>$totalcwo, "totalpcwo"=>$totalpcwo);
+	}
+
+	public function totalpscwo($maklumat){ //buzzlee 23/08/18
+		$Month		= $maklumat['month'];
+		$Year		= $maklumat['year'];
+		$totalwo	= $maklumat['totalwo'];
+		$totalscwo	= 0;
+		$totalpscwo = 0;
+		//reject mrin
+
+		$this->db->select("count(*) as Total");
+		$this->db->from("tbl_materialreq");
+		$this->db->where("MONTH(DateCreated)", $Month);
+		$this->db->where("YEAR(DateCreated)", $Year);
+		$this->db->where("ApprStatusID", 5);
+		$this->db->where("ApprStatusIDx", 5);
+		$this->db->where("ApprStatusIDxx", 5);
+		$query = $this->db->get();
+
+		if( $query->num_rows() > 0 ){
+			$totalscwo = $query->result()[0]->Total;
+		}
+
+		if( (is_numeric($totalwo) && $totalwo!=0) && is_numeric($totalscwo) ){
+			$totalpscwo = number_format(($totalscwo / $totalwo) * 100, 4);
+		}
+		return array("totalscwo"=>$totalscwo, "totalpscwo"=>$totalpscwo);
+	}
+
+	public function totalpnscwo($maklumat){ //buzzlee 23/08/18
+		$Month		= $maklumat['month'];
+		$Year		= $maklumat['year'];
+		$totalwo	= $maklumat['totalwo'];
+		$totalscwo	= 0;
+		$totalnscwo	= 0;
+		$totalpnscwo = 0;
+		//pending pr
+
+		$this->db->select("COUNT(DISTINCT MIRN_No) AS Total");
+		$this->db->from("tbl_pr_mirn");
+		$this->db->where("MIRN_No IN 
+							(SELECT DocReferenceNo AS Total 
+								FROM tbl_materialreq 
+								WHERE MONTH(DateCreated) = '$Month' 
+								AND YEAR(DateCreated) = '$Year' 
+								AND (ApprStatusID <> 129 AND ApprStatusIDx <> 129 AND ApprStatusIDxx <> 129) 
+								AND (ApprStatusID <> 107 AND ApprStatusIDx <> 107 AND ApprStatusIDxx <> 107)
+							)");
+		$query = $this->db->get();
+
+		if( $query->num_rows() > 0 ){
+			$totalnscwo = $query->result()[0]->Total;
+		}
+
+		if( (is_numeric($totalwo) && $totalwo!=0) && is_numeric($totalnscwo) ){
+			$totalpnscwo = number_format(($totalscwo / $totalwo) * 100, 4);
+		}
+		return array("totalnscwo"=>$totalnscwo,"totalpnscwo"=>$totalpnscwo);
+	}
+
+	public function totalpncwo($maklumat){
+		$Month		= $maklumat['month'];
+		$Year		= $maklumat['year'];
+		$totalwo	= $maklumat['totalwo'];
+		$totalncwo	= 0;
+		$totalpncwo = 0;
+		// "SELECT COUNT(*) AS Total " & _
+		// 		"FROM tbl_MaterialReq  " & _
+		// 		"WHERE  MONTH(datecreated)='" & sMonth & "' " & _
+		// 			"AND YEAR(datecreated)='" & sYear & "' AND (ApprStatusID = 129 OR ApprStatusIDx = 129 OR ApprStatusIDxx = 129)  " 
+		$this->db->select("count(*) as Total");
+		$this->db->from("tbl_materialreq");
+		$this->db->where("MONTH(DateCreated)", $Month);
+		$this->db->where("YEAR(DateCreated)", $Year);
+		$this->db->where("(ApprStatusID = 129 OR ApprStatusIDx = 129 OR ApprStatusIDxx = 129)");
+		$query = $this->db->get();
+
+		if( $query->num_rows()>0 ){
+			$totalncwo = $query->result()[0]->Total;
+		}
+
+		if( (is_numeric($totalwo) && $totalwo!=0) && is_numeric($totalncwo) ){
+			$totalpncwo = number_format(($totalncwo / $totalwo) * 100, 4);
+		}
+
+		return array("totalncwo"=>$totalncwo,"totalpncwo"=>$totalpncwo);
+	}
+
+	public function totalpamp($maklumat){
+		$Month		= $maklumat['month'];
+		$Year		= $maklumat['year'];
+		$totalcwo	= $maklumat['totalcwo'];
+		$totalall	= 0;
+		$totalpam 	= 0;
+		$totalpamp	= 0;
+
+		$this->db->select("count(*) as Total");
+		$this->db->from("tbl_materialreq");
+		$this->db->where("MONTH(DateCreated)", $Month);
+		$this->db->where("YEAR(DateCreated)", $Year);
+		$this->db->where("ApprStatusID", 6);
+		$this->db->where("IFNULL(ApprStatusIDx, 0) <>", 129);
+		$this->db->where("IFNULL(ApprStatusID, 0) <>", 5);
+		$this->db->where("IFNULL(ApprStatusIDx, 0) <>", 5);
+		$this->db->where("IFNULL(ApprStatusIDxx, 0) <>", 5);
+		$query = $this->db->get();
+
+		if( $query->num_rows()>0 ){
+			$totalpam = $query->result()[0]->Total;
+		}
+
+		if( (is_numeric($totalcwo) && $totalcwo!=0) && is_numeric($totalpam) ){
+			$totalall	= $totalpam;
+			$totalpamp	= number_format(($totalpam / $totalcwo) * 100, 4);
+		}
+
+		return array("totalall"=>$totalall, "totalpam"=>$totalpam, "totalpamp"=>$totalpamp);
+	}
+
+	public function totalppr($maklumat){
+		$Month		= $maklumat['month'];
+		$Year		= $maklumat['year'];
+		$totalcwo	= $maklumat['totalcwo'];
+		$totalall	= $maklumat['totalall'];
+		$totalppr	= 0;
+		$totalpprp	= 0;
+
+		$this->db->select("count(*) as Total");
+		$this->db->from("tbl_materialreq");
+		$this->db->where("MONTH(DateCreated)", $Month);
+		$this->db->where("YEAR(DateCreated)", $Year);
+		$this->db->where("ApprStatusIDx", 6);
+		$this->db->where("IFNULL(ApprStatusIDx, 0) <>", 129);
+		$this->db->where("IFNULL(ApprStatusID, 0) <>", 5);
+		$this->db->where("IFNULL(ApprStatusIDx, 0) <>", 5);
+		$this->db->where("IFNULL(ApprStatusIDxx, 0) <>", 5);
+		$query = $this->db->get();
+
+		if( $query->num_rows()>0 ){
+			$totalppr = $query->result()[0]->Total;
+		}
+
+		if( (is_numeric($totalcwo) && $totalcwo!=0) && is_numeric($totalppr) ){
+			$totalall = $totalall + $totalppr;
+			$totalpprp = number_format(($totalppr / $totalcwo) * 100, 4);
+		}
+
+		return array("totalppr"=>$totalppr, "totalall"=>$totalall, "totalpprp"=>$totalpprp);
+	}
+
+	public function totalplc($maklumat){
+		$Month		= $maklumat['month'];
+		$Year		= $maklumat['year'];
+		$totalcwo	= $maklumat['totalcwo'];
+		$totalall	= $maklumat['totalall'];
+		$totalplc	= 0;
+		$totalplcp	= 0;
+		$totalpsp	= 0;
+		$totalpspp	= 0;
+
+		$this->db->select("count(*) as Total");
+		$this->db->from("tbl_materialreq");
+		$this->db->where("MONTH(DateCreated)", $Month);
+		$this->db->where("YEAR(DateCreated)", $Year);
+		$this->db->where("ApprStatusIDxx", 6);
+		$this->db->where("(IFNULL(ApprStatusIDx,0) <> 129 OR IFNULL(ApprStatusIDx, 0) <> 6)");
+		$this->db->where("IFNULL(ApprStatusID, 0) <> ",5);
+		$this->db->where("IFNULL(ApprStatusIDx, 0) <>", 5);
+		$this->db->where("IFNULL(ApprStatusIDxx, 0) <> ",5);
+		$query = $this->db->get();
+
+		if( $query->num_rows()>0 ){
+			$totalplc = $query->result()[0]->Total;
+		}
+
+		if( (is_numeric($totalcwo) && $totalcwo!=0) && is_numeric($totalppr) ){
+			$totalall = $totalall + $totalplc;
+			$totalplcp = number_format(($totalplcp / $totalcwo) * 100, 4);
+			$totalpspp = number_format(($totalpsp / $totalcwo) * 100, 4);
+		}
+		$totalpsp = $totalcwo - $totalall;
+		// $totalpspp = number_format(($totalpsp / $totalcwo) * 100, 4);
+
+		return array("totalplc"=>$totalplc, "totalplcp"=>$totalplcp, "totalpsp"=>$totalpsp, "totalpspp"=>$totalpspp);
+	}
+
+	public function whatr($maklumat){
+		$Month	= $maklumat['month'];
+		$Year	= $maklumat['year'];
+		
+		$this->db->select("a.DocReferenceNo, a.DateCreated, e.ItemCode, f.ItemName, e.Qty, a.WorkOfOrder, d.V_Asset_name, b.v_Asset_no, d.V_Tag_no, d.V_Brandname, 
+			d.V_Model_no, b.d_StartDt, a.rone, a.rtwo, a.rthree, a.Comments, a.ApprStatusID, a.ApprComments, a.ApprStatusIDx, a.ApprCommentsx, 
+			a.ApprStatusIDxx, a.ApprCommentsxx, g.Specialist, IFNULL(g.Status, '6') AS Status, IFNULL(g.Remark, '') AS Remark ");
+		$this->db->from("tbl_invitem f");
+		$this->db->join("tbl_mirn_comp e","f.ItemCode = e.ItemCode", "inner");
+		$this->db->join("tbl_materialreq a","e.MIRNcode = a.DocReferenceNo", "inner");
+		$this->db->join("pmis2_egm_schconfirmmon b","a.WorkOfOrder = b.v_WrkOrdNo", "inner");
+		$this->db->join("pmis2_egm_assetregistration d","b.v_Asset_no = d.V_Asset_no AND b.v_HospitalCode = d.V_Hospitalcode", "inner");
+		$this->db->join("tbl_specialist_review g", "g.MIRN_No=a.DocReferenceNo", "inner");
+		$this->db->where("MONTH(a.DateCreated)", $Month);
+		$this->db->where("YEAR(a.DateCreated)", $Year);
+		$this->db->where("d.v_hospitalcode", $this->input->get("whathosp"));
+
+		/*if ( $this->input->get("whatr") == 2 ){
+			$this->db->where("a.DocReferenceNo IN (SELECT DocReferenceNo 
+													FROM tbl_materialreq 
+													WHERE  MONTH(DateCreated)='$Month' 
+													AND YEAR(DateCreated)='$Year' 
+													AND (
+															(ApprStatusID=6 OR ApprStatusID=107) OR 
+															(ApprStatusIDx=6 OR ApprStatusIDx=107) OR 
+															(ApprStatusIDxx=6 OR ApprStatusIDxx=107)
+														) 
+													AND IFNULL(ApprStatusIDx, 0) <> 129 
+													AND (IFNULL(ApprStatusID, 0) <> 5 AND IFNULL(ApprStatusIDx, 0) <> 5 AND IFNULL(ApprStatusIDxx, 0) <> 5))");
+			$this->db->where("d.v_hospitalcode", $this->input->get("whathosp"));
+		
+			if ( $this->input->get("whatrx") == 1 ){
+				$this->db->where("a.DocReferenceNo IN (SELECT DocReferenceNo 
+														FROM tbl_materialreq 
+														WHERE  MONTH(DateCreated)='".$Month."'
+														AND YEAR(DateCreated)='".$Year."' 
+														AND ApprStatusID=6 
+														AND IFNULL(ApprStatusID, 0) <> 129 
+														AND (IFNULL(ApprStatusID, 0) <> 5 AND IFNULL(ApprStatusIDx, 0) <> 5 AND IFNULL(ApprStatusIDxx, 0) <> 5))");
+			}elseif ( $this->input->get("whatrx") == 2 ){
+				$this->db->where("a.DocReferenceNo IN (SELECT DocReferenceNo 
+														FROM tbl_materialreq 
+														WHERE  MONTH(DateCreated)='".$Month."' 
+														AND YEAR(DateCreated)='".$Year."' 
+														AND ApprStatusIDx=6 
+														AND IFNULL(ApprStatusIDx, 0) <> 129 
+														AND (
+																IFNULL(ApprStatusID, 0) <> 5 
+																AND IFNULL(ApprStatusIDx, 0) <> 5 
+																AND IFNULL(ApprStatusIDxx, 0) <> 5
+															)
+													)
+								");
+			}elseif ( $this->input->get("whatrx") == 3 ){
+				$this->db->where("a.DocReferenceNo IN (SELECT MIRN_No 
+														FROM tbl_specialist_review 
+														WHERE Status IS NULL)");
+			}elseif ( $this->input->get("whatrx") == 4 ){
+				$this->db->where("a.DocReferenceNo IN (SELECT DocReferenceNo 
+														FROM tbl_materialreq 
+														WHERE  MONTH(DateCreated)='".$Month."' 
+														AND YEAR(DateCreated)='".$Year."' 
+														AND ApprStatusIDxx=6 
+														AND (
+															IFNULL(ApprStatusIDx, 0) <> 129 OR 
+															IFNULL(ApprStatusIDx, 0) <> 6
+															) 
+														AND (
+															IFNULL(ApprStatusID, 0) <> 5 AND 
+															IFNULL(ApprStatusIDx, 0) <> 5 AND 
+															IFNULL(ApprStatusIDxx, 0) <> 5
+															)
+														)");
+			}
+		}elseif ( $this->input->get("whatr") == 3 ){
+			$this->db->where("a.DocReferenceNo IN (SELECT DocReferenceNo 
+													FROM tbl_materialreq 
+													WHERE  MONTH(DateCreated)='".$Month."' 
+													AND YEAR(DateCreated)='".$Year."' 
+													AND (ApprStatusID=5 OR ApprStatusIDx=5 OR ApprStatusIDxx=5)
+												)");
+		}elseif ( $this->input->get("whatr") == 4 ){
+			$this->db->where("a.DocReferenceNo IN (SELECT MIRN_No 
+													FROM tbl_pr_mirn 
+													WHERE (MIRN_No IN (SELECT DocReferenceNo AS Total 
+																		FROM tbl_materialreq 
+																		WHERE MONTH(DateCreated) = '".$Month."' 
+																		AND YEAR(DateCreated) = '".$Year."' 
+																		AND (ApprStatusID <> 129 AND ApprStatusIDx <> 129 AND ApprStatusIDxx <> 129)
+																	)
+															)
+												)");
+		}elseif ( $this->input->get("whatr") == 5 ){
+			$this->db->where("a.DocReferenceNo IN (SELECT DocReferenceNo 
+													FROM tbl_materialreq 
+													WHERE  MONTH(DateCreated)='".$Month."' 
+													AND YEAR(DateCreated)='".$Year."' 
+													AND (ApprStatusID = 129 OR ApprStatusIDx = 129 OR ApprStatusIDxx = 129)
+												)");
+		}*/
+
+		//====================
+
+		if ( $this->input->get("whatr") == 3 ){	
+			$this->db->where("(ApprStatusID = 5 OR ApprStatusIDx = 5 OR ApprStatusIDxx = 5)");
+		}elseif ( $this->input->get("whatr") == 4 ){
+			$this->db->where("(
+								(ApprStatusID = 6 OR ApprStatusID = 107 OR ApprStatusID = 128) OR 
+								(ApprStatusIDx = 6 OR ApprStatusIDx = 107 OR ApprStatusIDx = 128) OR 
+								(ApprStatusIDxx = 6 OR ApprStatusIDxx = 107 OR ApprStatusIDxx = 128)
+							)");
+			$this->db->where("IFNULL(ApprStatusIDx, 0) <>", 129);
+			$this->db->where("IFNULL(ApprStatusID, 0) <>", 5);
+			$this->db->where("IFNULL(ApprStatusIDx, 0) <>", 5);
+			$this->db->where("IFNULL(ApprStatusIDxx, 0) <>", 5);
+		}elseif ( $this->input->get("whatr") == 5 ){
+			$this->db->where("ApprStatusID <>", 129);
+			$this->db->where("ApprStatusIDx <>", 129);
+			$this->db->where("ApprStatusIDxx <>", 129);
+			$this->db->where("ApprStatusID <>", 107);
+			$this->db->where("ApprStatusIDx <>", 107);
+			$this->db->where("ApprStatusIDxx <>", 107);
+		}
+		$query = $this->db->get();
+		// echo "<pre>"; print_r($query);
+		// echo "<pre>".$this->db->last_query();
+		return $query->result();
+	}
+
+	public function whatr2($maklumat){
+		$Month	= $maklumat['month'];
+		$Year	= $maklumat['year'];
+
+		//============left outer join
+		$this->db->select("a.DocReferenceNo, a.DateCreated, e.ItemCode, f.ItemName, e.Qty, a.WorkOfOrder, d.V_Asset_name, b.V_Asset_no, d.V_Tag_no, d.V_Brandname, d.V_Model_no, b.D_date, a.rone, a.rtwo, a.rthree, a.Comments, a.ApprStatusID, a.ApprComments, a.ApprStatusIDx, a.ApprCommentsx, a.ApprStatusIDxx, a.ApprCommentsxx, g.Specialist, IFNULL(g.Status, '6') AS Status, IFNULL(g.Remark, '') AS Remark");
+		$this->db->from("tbl_invitem f");
+		// $this->db->join("tbl_mirn_comp e", "f.ItemCode = e.ItemCode", "FULL OUTER");
+		// $this->db->join("tbl_materialreq a", "e.MIRNcode = a.DocReferenceNo", "FULL OUTER");
+		$this->db->join("tbl_mirn_comp e", "f.ItemCode = e.ItemCode", "LEFT OUTER");
+		$this->db->join("tbl_materialreq a", "e.MIRNcode = a.DocReferenceNo", "LEFT OUTER");
+		$this->db->join("pmis2_egm_service_request b", "a.WorkOfOrder = b.V_Request_no AND b.V_hospitalcode = SUBSTRING_INDEX(SUBSTRING_INDEX(`DocReferenceNo`, '/', -4), '/', 1)", "INNER");
+		$this->db->join("pmis2_egm_assetregistration d", "b.V_Asset_no = d.V_Asset_no AND b.V_hospitalcode = d.V_Hospitalcode", "INNER");
+		$this->db->join("tbl_specialist_review g", "g.MIRN_No=a.DocReferenceNo", "left");
+		$this->db->where("MONTH(a.DateCreated)", $Month);
+		$this->db->where("YEAR(a.DateCreated)", $Year);
+		$this->db->where("d.V_Hospitalcode", $this->input->get("whathosp") );
+
+		if( $this->input->get("whatr")==3 ){
+			$this->db->where("(a.ApprStatusID=5 OR a.ApprStatusIDx=5 OR a.ApprStatusIDxx=5)");
+		}elseif( $this->input->get("whatr")==4 ){
+			$this->db->where("(a.ApprStatusID=6 OR a.ApprStatusID=107 OR a.ApprStatusID=128) OR 
+								(a.ApprStatusIDx=6 OR a.ApprStatusIDx=107 OR a.ApprStatusIDx=128) OR 
+								(a.ApprStatusIDxx=6 OR a.ApprStatusIDxx=107 OR a.ApprStatusIDxx=128)");
+			$this->db->where("IFNULL(a.ApprStatusIDx, '0') <>", 129);
+			$this->db->where("IFNULL(a.ApprStatusID, '0') <>", 5);
+			$this->db->where("IFNULL(a.ApprStatusIDx, '0') <>", 5);
+			$this->db->where("IFNULL(a.ApprStatusIDxx, '0') <>", 5);
+		}elseif( $this->input->get("whatr") == 5 ){
+			$this->db->where("a.ApprStatusID <>", 129);
+			$this->db->where("a.ApprStatusIDx <>", 129);
+			$this->db->where("a.ApprStatusIDxx <>", 129);
+			$this->db->where("a.ApprStatusID <>", 107);
+			$this->db->where("a.ApprStatusIDx <>", 107);
+			$this->db->where("a.ApprStatusIDxx <>", 107);
+		}
+		// $this->db->order_by("a.DocReferenceNo");
+		$this->db->get();
+		$query = $this->db->last_query();
+
+
+		//=========right outer join
+		$this->db->select("a.DocReferenceNo, a.DateCreated, e.ItemCode, f.ItemName, e.Qty, a.WorkOfOrder, d.V_Asset_name, b.V_Asset_no, d.V_Tag_no, d.V_Brandname, d.V_Model_no, b.D_date, a.rone, a.rtwo, a.rthree, a.Comments, a.ApprStatusID, a.ApprComments, a.ApprStatusIDx, a.ApprCommentsx, a.ApprStatusIDxx, a.ApprCommentsxx, g.Specialist, IFNULL(g.Status, '6') AS Status, IFNULL(g.Remark, '') AS Remark");
+		$this->db->from("tbl_invitem f");
+		// $this->db->join("tbl_mirn_comp e", "f.ItemCode = e.ItemCode", "FULL OUTER");
+		// $this->db->join("tbl_materialreq a", "e.MIRNcode = a.DocReferenceNo", "FULL OUTER");
+		$this->db->join("tbl_mirn_comp e", "f.ItemCode = e.ItemCode", "RIGHT OUTER");
+		$this->db->join("tbl_materialreq a", "e.MIRNcode = a.DocReferenceNo", "RIGHT OUTER");
+		$this->db->join("pmis2_egm_service_request b", "a.WorkOfOrder = b.V_Request_no AND b.V_hospitalcode = SUBSTRING_INDEX(SUBSTRING_INDEX(`DocReferenceNo`, '/', -4), '/', 1)", "INNER");
+		$this->db->join("pmis2_egm_assetregistration d", "b.V_Asset_no = d.V_Asset_no AND b.V_hospitalcode = d.V_Hospitalcode", "INNER");
+		$this->db->join("tbl_specialist_review g", "g.MIRN_No=a.DocReferenceNo", "left");
+		$this->db->where("MONTH(a.DateCreated)", $Month);
+		$this->db->where("YEAR(a.DateCreated)", $Year);
+		$this->db->where("d.V_Hospitalcode", $this->input->get("whathosp") );
+
+		if( $this->input->get("whatr")==3 ){
+			$this->db->where("(a.ApprStatusID=5 OR a.ApprStatusIDx=5 OR a.ApprStatusIDxx=5)");
+		}elseif( $this->input->get("whatr")==4 ){
+			$this->db->where("(a.ApprStatusID=6 OR a.ApprStatusID=107 OR a.ApprStatusID=128) OR 
+								(a.ApprStatusIDx=6 OR a.ApprStatusIDx=107 OR a.ApprStatusIDx=128) OR 
+								(a.ApprStatusIDxx=6 OR a.ApprStatusIDxx=107 OR a.ApprStatusIDxx=128)");
+			$this->db->where("IFNULL(a.ApprStatusIDx, '0') <>", 129);
+			$this->db->where("IFNULL(a.ApprStatusID, '0') <>", 5);
+			$this->db->where("IFNULL(a.ApprStatusIDx, '0') <>", 5);
+			$this->db->where("IFNULL(a.ApprStatusIDxx, '0') <>", 5);
+		}elseif( $this->input->get("whatr") == 5 ){
+			$this->db->where("a.ApprStatusID <>", 129);
+			$this->db->where("a.ApprStatusIDx <>", 129);
+			$this->db->where("a.ApprStatusIDxx <>", 129);
+			$this->db->where("a.ApprStatusID <>", 107);
+			$this->db->where("a.ApprStatusIDx <>", 107);
+			$this->db->where("a.ApprStatusIDxx <>", 107);
+		}
+		// $this->db->order_by("a.DocReferenceNo");
+		$this->db->get();
+		$query2 = $this->db->last_query();
+
+		//===========union
+		$unionquery = $this->db->query($query." UNION ".$query2 . " order by DocReferenceNo");
+
+		// echo "<pre>".$this->db->last_query();die;
+		// echo "<pre>";var_export($query->result());die;
+		return $unionquery->result();
+	}
+	
+	
+	
 
 }
 ?>

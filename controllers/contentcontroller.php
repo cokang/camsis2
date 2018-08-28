@@ -303,9 +303,11 @@ class Contentcontroller extends CI_Controller {
 			
 		public function workorder(){
 		$this->load->model("loginModel");
+		//echo "nilai ghghghgh : " . $this->session->userdata('usersess') . "<br>";
 		 if (($this->input->get('parent') == "desk") && ($this->input->get('utk') == "csr")) {
 		 		if ($this->session->userdata('usersess') == "BES"){
 				$this->session->set_userdata('usersess','FES');
+				//echo "masuk cni : " . $this->session->userdata('usersess') . "<br>";
 				$data['servnm'] = $this->loginModel->servicename('FES');
 				$this->session->set_userdata('usersessn',$data['servnm'][0]->service_name);}
 		 		elseif ($this->session->userdata('usersess') == "FES"){

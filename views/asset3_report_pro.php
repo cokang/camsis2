@@ -36,12 +36,14 @@
 					.main-report { text-align:center;  margin: 5px auto; width:60%;}
 					.main-report tr td a{ width:20%; }
 					.main-report tr td a{ font-weight:bold; font-size : 14px; }
-					.icon-file-text2,.icon-stats-bars,.icon-cart{font-size : 100px;}
+					.icon-file-text2,.icon-stats-bars,.icon-cart,.icon-document{font-size : 100px;}
 					</style>
 					<tr>
 					<td><?php echo anchor ('Procurement/pr_report?pr=rs&m='.$this->input->get('m').'&y='.$this->input->get('y'),'<span class="icon-file-text2" style="color:'.$autocolor[0].';"></span> <br />Report Status'); ?></td>
 					<td><?php echo anchor ('Procurement/pr_report?pr=vc','<span class="icon-cart" style="color:'.$autocolor[2].';"></span> <br />Vendor Cost'); ?></td>
 					<td><?php echo anchor ('Procurement/pr_report?pr=vr','<span class="icon-stats-bars" style="color:'.$autocolor[1].';"></span> <br />Monthly Report'); ?></td>
+					<td><?php echo anchor ('Procurement/rprt_po_list?btp=1&m='.$this->input->get('m').'&y='.$this->input->get('y'),'<span class="icon-document" style="color:'.$autocolor[4].';"></span> <br />PO Report'); ?></td>
+					<td><?php echo anchor ('Procurement/report_mrin_listing?m='.$month.'&y='.$year,'<span class="icon-file-text2" style="color:'.$autocolor[3].';"></span> <br />Mrin Report'); ?></td>
 					</tr>
 					</table>
 				</td>	

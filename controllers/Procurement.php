@@ -998,6 +998,112 @@ class Procurement extends CI_Controller {
 		return true;
 	}
 
+	public function rprt_po_list(){
+	    $this->load->model("display_model");
+		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");	
+		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+		$data['records'] = $this->display_model->porpt_table1($data['year'],$data['month']);
+		if ($this->input->get('whatr')){
+		$data['records2'] = $this->display_model->porpt_table2($data['year'],$data['month'],$this->input->get('whatr'),$this->input->get('whathosp'));
+			 
+		 foreach($data['records2'] as $key => $vendor)
+     {
+         $records3  = $this->display_model->porpt_table3($vendor->DocReferenceNo);
+         $data['records2'][$key]->Specialist =  ($records3[0]->Specialist) ? $records3[0]->Specialist : '' ;
+         $data['records2'][$key]->Status =  ($records3[0]->Status) ? $records3[0]->Status : '';
+         $data['records2'][$key]->Remark =  ($records3[0]->Remark) ? $records3[0]->Remark : '';
+     }
+	 //print "<pre>";
+	 //print_r($data['records2']);
+		} 
+		
+	    $totalwo = $this->display_model->porpt_totalwo($data['year'],$data['month'])[0]->Total; //1
+	    $data['totalwo'] =  ($totalwo) ? $totalwo : 0;
+	    $totalcwo =  $this->display_model->porpt_totalcwo($data['year'],$data['month'])[0]->Total;//2
+		$data['totalcwo'] =  ($totalcwo) ? $totalcwo : 0;
+		if (is_numeric($data['totalwo']) && is_numeric($data['totalcwo']) ){
+		$data['totalpcwo'] = (!empty($data['totalwo']) && !empty($data['totalcwo']) ) ? number_format(($data['totalcwo'] / $data['totalwo']) * 100, 4) : '0';
+		}
+		$totalscwo = $this->display_model->porpt_totalscwo($data['year'],$data['month'])[0]->Total;//3
+		$data['totalscwo'] = ($totalscwo) ? $totalscwo : 0;
+		if (is_numeric($data['totalwo']) && is_numeric($data['totalscwo']) ){
+		$data['totalpscwo'] = (!empty($data['totalwo']) && !empty($data['totalscwo']) ) ? number_format(($data['totalscwo'] / $data['totalwo']) * 100, 4) :'0';
+		}
+		$totalnscwo = $this->display_model->porpt_totalnscwo($data['year'],$data['month'])[0]->Total;//4
+		$data['totalnscwo'] = ($totalnscwo) ? $totalnscwo : 0;
+		if (is_numeric($data['totalwo']) && is_numeric($data['totalnscwo']) ){
+		$data['totalpnscwo'] = (!empty($data['totalwo']) && !empty($data['totalnscwo'])) ? number_format(($data['totalnscwo'] / $data['totalwo']) * 100, 4) : '0';
+		}
+		$totalncwo = $this->display_model->porpt_totalncwo($data['year'],$data['month'])[0]->Total;//5
+		$data['totalncwo'] = ($totalncwo) ? $totalncwo : 0;
+		if (is_numeric($data['totalwo']) && is_numeric($data['totalncwo'])){
+		$data['totalpncwo'] = (!empty($data['totalwo']) && !empty($data['totalncwo'])) ? number_format(($data['totalncwo'] / $data['totalwo']) * 100, 4) : '0' ;
+		}
+		
+		$totalpam = $this->display_model->porpt_totalpam($data['year'],$data['month'])[0]->Total;
+		$data['totalpam'] = ($totalpam) ? $totalpam :0;
+		$totalall = 0;
+		if (is_numeric($data['totalwo']) && is_numeric($data['totalpam'])){
+		$totalall = $data['totalpam'];
+		$data['totalpamp'] = (!empty($data['totalwo']) && !empty($data['totalpam'])) ? number_format(($data['totalpam'] / $data['totalcwo']) * 100, 4) : '0';
+		}		
+	    $totalppr = $this->display_model->porpt_totalppr($data['year'],$data['month'])[0]->Total;
+	    $data['totalppr'] = ($totalppr) ? $totalppr : 0;
+		if (is_numeric($data['totalwo']) && is_numeric($data['totalppr']) ){
+		$totalall = $totalall + $data['totalppr'];
+	    $data['totalpprp'] = (!empty($data['totalwo']) && !empty($data['totalppr']) ) ? number_format(($data['totalppr'] / $data['totalcwo']) * 100, 4) :'0';
+		}
+		$totalplc = $this->display_model->porpt_totalplc($data['year'],$data['month'])[0]->Total;
+		$data['totalplc'] = ($totalplc) ? $totalplc : 0;
+		if (is_numeric($data['totalwo']) && is_numeric($data['totalplc']) ){
+		$totalall = $totalall + $data['totalplc'];
+	    $data['totalplcp'] = (!empty($data['totalplc']) && !empty($data['totalcwo'])) ? number_format(($data['totalplc'] / $data['totalcwo']) * 100, 4) :'0';
+		}
+		$data['totalpsp'] = $data['totalcwo'] - $totalall;
+	    $data['totalpspp'] = (!empty($data['totalplc']) && !empty($data['totalcwo'])) ? number_format(($data['totalpsp'] / $data['totalcwo']) * 100, 4) :'0' ;
+	    $this ->load->view("headprinter");
+		$this ->load->view("report_po_listing.php", $data);
+        
+	}
+
+	public function report_mrin_listing(){
+		$this->load->model("display_model");
+		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");	
+		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+		
+		$this->load->view("headprinter");
+		$data['records_by_hospcode']= array();
+		$data['records']			= $this->display_model->report_mrin_listing($data);
+		$data['totalwo']			= $this->display_model->totalwo($data);
+		$data['totalpcwo']			= $this->display_model->totalpcwo($data)['totalpcwo'];//pending mrin
+		$data['totalcwo']			= $this->display_model->totalpcwo($data)['totalcwo'];//pending mrin
+		$data['totalscwo']			= $this->display_model->totalpscwo($data)['totalscwo'];//reject mrin
+		$data['totalpscwo']			= $this->display_model->totalpscwo($data)['totalpscwo'];//reject mrin
+		$data['totalnscwo']			= $this->display_model->totalpnscwo($data)['totalnscwo'];//pending PR
+		$data['totalpnscwo']		= $this->display_model->totalpnscwo($data)['totalpnscwo'];//pending PR
+		$data['totalncwo']			= $this->display_model->totalpncwo($data)['totalncwo'];//Release Note
+		$data['totalpncwo']			= $this->display_model->totalpncwo($data)['totalpncwo'];//Release Note
+		if( isset($_GET["whatr"]) && $_GET["whatr"]==21 ){
+			$data['totalall']			= $this->display_model->totalpamp($data)['totalall'];
+			$data['totalpam']			= $this->display_model->totalpamp($data)['totalpam'];
+			$data['totalpamp']			= $this->display_model->totalpamp($data)['totalpamp'];
+			$data['totalppr']			= $this->display_model->totalppr($data)['totalppr'];
+			$data['totalall']			= $this->display_model->totalppr($data)['totalall'];
+			$data['totalpprp']			= $this->display_model->totalppr($data)['totalpprp'];
+			$data['totalplc']			= $this->display_model->totalplc($data)['totalplc'];
+			$data['totalplcp']			= $this->display_model->totalplc($data)['totalplcp'];
+			$data['totalpsp']			= $this->display_model->totalplc($data)['totalpsp'];
+			$data['totalpspp']			= $this->display_model->totalplc($data)['totalpspp'];
+		}
+		$data['whatr']				= $this->display_model->whatr($data);
+		$data['whatr2']				= $this->display_model->whatr2($data);
+		if( isset($_GET["whathosp"]) && $this->input->get("whathosp")!="" ){
+			$data['records_by_hospcode'] = $this->display_model->report_mrin_listing_getby_hospcode($data);
+		}
+		$this->load->view("report_mrin_listing", $data);
+	}
+	 
+
 	
 	
 	
