@@ -32,13 +32,26 @@
 				}
 			</style>
 			<div align="center" class="ui-header-left-color" style="font-weight:bold; margin-top:; padding-top:5px; padding-bottom:5px; color:white;">
-				International Islamic<br />University Malaysia
+				<!-- International Islamic<br />University Malaysia -->
+				<?php if( $this->session->userdata("total_hosp")>1 ){?>
+					<?php echo anchor ('contentcontroller/select?hc=pilih',$this->session->userdata("hosp_name"),'style="font-size:20px;"'); ?>
+				<?php }else{?>
+					<p style="font-size: 20px; color: black;"><?=$this->session->userdata("hosp_name");?></p>
+				<?php } ?>
 			</div>
 			<div align="center" class="color_style_1" style="font-weight:bold; margin-top:; padding-top:5px; padding-bottom:5px; color:white;">
 				<?php if ($this->input->get('parent') == "desk") { ?>
+					<?php if( $this->session->userdata("total_service")>1 ){?>
 				<?php echo anchor ('contentcontroller/workorder?utk=csr&parent='.$this->input->get('parent'),$this->session->userdata('usersessn'),'style="font-size:20px;"'); ?>
+					<?php }else{ ?>
+				<p style="font-size: 20px; color: black;"><?=$this->session->userdata('usersessn');?><p>
+					<?php } ?>
 				<?php } else {?>
+					<?php if( $this->session->userdata("total_service")>1 ){?>
 				<?php echo anchor ('contentcontroller/select?continue=',$this->session->userdata('usersessn'),'style="font-size:20px;"'); ?>
+					<?php }else{ ?>
+				<p style="font-size: 20px; color: black;"><?=$this->session->userdata('usersessn');?><p>
+					<?php } ?>
 				<?php }?>
 			</div>
 			<div style="margin-top:10px; margin-left:3px; margin-bottom:10px;" >

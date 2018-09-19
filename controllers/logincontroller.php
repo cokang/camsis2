@@ -21,7 +21,7 @@ class LoginController extends CI_Controller {
   	$this->session->sess_destroy();
   	$this->index();
 	}
-	
+/*	
 	function validate_credentials()
 	{
 		$this->load->model('loginModel');
@@ -82,7 +82,7 @@ class LoginController extends CI_Controller {
 			redirect('contentcontroller/select_two');
 			
 		}*/
-		
+/*		
 		else
 		{
 		
@@ -103,6 +103,85 @@ class LoginController extends CI_Controller {
 		}
 	
 	}
+*/
+
+
+	
+	function validate_credentials()
+	{
+		$this->load->model('loginModel');
+		$query = $this->loginModel->validate();
+		if($query)
+		{
+			$data = array
+					('v_UserName'=>$this->input->post('name'),
+					//'username'=>$session_data['i.file_name'],
+					'hosp_code'=>'pilih',
+					'is_logged_in'=>TRUE,);
+			$this->session->set_userdata($data);
+			//print_r($data);
+			//exit();
+			$query4 = $this->loginModel->validate4();	
+			if ($query4[0]->dayer > $query4[0]->valid_period) {
+				$url =site_url('logincontroller/index?login=login&pass=exp');
+				redirect($url);
+
+			}
+			//echo "nilai :".$query4[0]->dayer.$query4[0]->valid_period;
+			//exit();
+
+			//-------separate---------//
+
+			$query2 = $this->loginModel->validate2();
+			// if($query2)
+			if(true)
+			{
+
+				$data['kirahospital'] = $this->loginModel->validateAP();
+				$data['service_apa'] = $this->loginModel->validate3();
+				$this->session->set_userdata("total_hosp", count($data["kirahospital"]));
+				$this->session->set_userdata("total_service", count($data["service_apa"]));
+				//$url = $this->input->post('continue') ? $this->input->post('continue') : site_url('contentcontroller/select');
+				if (count($data['kirahospital']) > 1){
+					$url =site_url('contentcontroller/select');
+				}elseif (count($data['kirahospital'])== 1){
+					$this->session->set_userdata('hosp_code', $data['kirahospital'][0]->v_hospitalcode);
+					$this->session->set_userdata("hosp_name", $data['kirahospital'][0]->v_HospitalName);
+					if (count($data['service_apa']) > 1){
+						$url =site_url('contentcontroller/select');     
+					}else {
+						$url =site_url('contentcontroller/content/'.$data['service_apa'][0]->v_servicecode);      
+					}
+
+				}else {
+					$url =site_url('contentcontroller/select?error=true');
+				}
+
+				redirect($url, 'refresh');	
+
+			}
+	
+	
+			/*$query3 = $this->loginModel->validate3();
+			if($query3)
+			{	 
+				redirect('contentcontroller/select_two');
+				
+			}*/
+			
+			else{
+				$url =site_url('contentcontroller/select?continue='.$this->input->post('continue'));//contentcontroller/content/
+				redirect($url, 'refresh');
+			}		
+		}else{
+		  $url =site_url('logincontroller/index?login=login&pass=no');
+			redirect($url);
+			//echo "return back".$url;
+			//exit();
+			//$this->index();
+		}
+	}
+	
 	
 	function signup()
 		{
