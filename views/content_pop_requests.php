@@ -1,7 +1,8 @@
 <body style="margin:0px;">
 <table class="tftable" border="0" style="text-align:center;">
 	<tr>
-		<th colspan="6"><a href="?hosp=<?=$this->session->userdata('hosp_code')?>&wwo=1<?php if ($this->input->get('p') == 'Norequest') {echo '&p=Norequest';}?>">Requests</a>&nbsp;|&nbsp;<a href="?hosp=<?=$this->session->userdata('hosp_code')?>&wwo=2<?php if ($this->input->get('p') == 'Norequest') {echo '&p=Norequest';}?>">PPM</a></th>
+		<th colspan="6"><a href="?hosp=<?=$this->session->userdata('hosp_code')?>&wwo=1<?php if ($this->input->get('p') == 'Norequest') {echo '&p=Norequest';}?>">Requests</a>&nbsp;|&nbsp;<a href="?hosp=<?=$this->session->userdata('hosp_code')?>&wwo=2<?php if ($this->input->get('p') == 'Norequest') {echo '&p=Norequest';}?>">PPM</a>
+		&nbsp;|&nbsp;<a href="?hosp=<?=$this->session->userdata('hosp_code')?>&wwo=3<?php if ($this->input->get('p') == 'Norequest') {echo '&p=Norequest';}?>">MRIN</a></th>
 	</tr>
 </table>
 <table class="tftable2" border="0" style="text-align:center;">
@@ -53,8 +54,7 @@
 			$Model = isset($row->V_Model_no) ? $row->V_Model_no : '';
 			$PCost = isset($row->N_Cost) ? $row->N_Cost : '';
 			$PDate = isset($row->V_PO_date) ? $row->V_PO_date : '';
-		}
-		else{
+		}elseif($wwo == 2){
 			$RequestNo = isset($row->v_WrkOrdNo) ? $row->v_WrkOrdNo : '';
 			$Date = isset($row->d_DueDt) ? date('d-m-Y',strtotime($row->d_DueDt)) : '';
 			$Status = isset($row->v_Wrkordstatus) ? $row->v_Wrkordstatus : '';
@@ -76,6 +76,32 @@
 			$Model = 'N/A';//isset($row->V_Model_no) ? $row->V_Model_no : '';
 			$PCost = 'N/A';//isset($row->N_Cost) ? $row->N_Cost : '';
 			$PDate = 'N/A';//isset($row->V_PO_date) ? $row->V_PO_date : '';
+			
+			
+		}else{
+
+			$RequestNo =  isset($row->MIRNcode) ? $row->MIRNcode : '';
+			$Date = isset($row->DateCreated) ? date('d-m-Y',strtotime($row->DateCreated)) : '';
+			$Status = isset($row->stocstatus) ? $row->stocstatus :'N/A';
+			$UserDept = isset($row->V_User_dept_code) ? $row->V_User_dept_code : 'N/A';
+			$AssetNo = 'N/A';
+			$Location = 'N/A';
+			$Summary = 'N/A';
+			$Priority = 'N/A';
+			$ClosedDate = 'N/A';
+			$ClosedTime = 'N/A';
+			$Requestor = 'N/A';
+			$TagNo = 'N/A';
+			$SerialNo = 'N/A';
+			$Phone = 'N/A';
+			$Time = 'N/A';
+			$Designation = 'N/A';
+			$Description = 'N/A';
+			$RBM = 'N/A';
+			$Model = 'N/A';
+			$PCost = 'N/A';
+			$PDate = 'N/A';
+			
 		}
 		?>
 	<tr align="center">

@@ -1983,8 +1983,8 @@ class Contentcontroller extends CI_Controller {
 		//print_r($data['asset_det']);
 		$data['asset_UMDNS'] = $this->get_model->get_UMDNSAsset($data['asset_det'][0]->V_Equip_code);
 		$data['asset_vo'] = $this->get_model->get_VOStatus($data['assetn']);
-		///$data['asset_chklist'] = $this->get_model->get_chklist($data['asset_det'][0]->v_ChecklistCode);
-		$data['asset_chklist'] = $this->get_model->get_chklist($data['asset_det'][0]->V_Equip_code);
+		$data['asset_chklist'] = $this->get_model->get_chklist($data['asset_det'][0]->v_ChecklistCode);
+		//$data['asset_chklist'] = $this->get_model->get_chklist($data['asset_det'][0]->V_Equip_code);
 		//print_r($data['asset_chklist']);
 		$data['asset_images'] = $this->get_model->assetimages($data['assetn'],$this->session->userdata('usersess'),$this->session->userdata('hosp_code'));
 		//print_r($data['asset_images']);
@@ -2735,7 +2735,8 @@ class Contentcontroller extends CI_Controller {
 	public function vo3_assets_main(){
 		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
 		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
-		if (is_null($this->input->get('p')) == FALSE) {
+		if (($this->input->get('p')) == FALSE) {
+			//echo "kerbau";
 			if (date('m') > 6){
 				$data['Period'] = "P2".date('y');
 			}
@@ -5530,9 +5531,10 @@ class Contentcontroller extends CI_Controller {
 		$this ->load->view("content_store_item_confirm");
 	}
 	public function pecodes(){
+    $data['scby'] = ($this->input->post('scby')) ? $this->input->post('scby') : '';
 		$data['hosp'] = $this->input->get('hosp');
 		$this->load->model('display_model');
-		$data['record'] = $this->display_model->pecodes($data['hosp']);
+		$data['record'] = $this->display_model->pecodes($data['hosp'],$data['scby']);
 		$this ->load->view("head");
 		$this ->load->view("content_pop_pecodes",$data);
 	}
@@ -5565,17 +5567,22 @@ class Contentcontroller extends CI_Controller {
 		$this ->load->view("content_pop_ustore_c");
 	}
 	public function pop_requests(){
-		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
+    $data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
 		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
-		$data['wwo']= (!($this->input->get('wwo'))) || $this->input->get('wwo') == 1 ? 1 : 2;
+		//$data['wwo']= (!($this->input->get('wwo'))) || $this->input->get('wwo') == 1 ? 1 : 2;
+		$data['wwo']= ($this->input->get('wwo') <> '') ?  $this->input->get('wwo') : 1;
 		$data['s']= $this->input->get('s');
 		$data['hosp'] = $this->session->userdata('hosp_code');
 		$this->load->model('display_model');
 		if($data['wwo'] == 1){
 		$data['record'] = $this->display_model->poprequest_rcm($data['hosp'],$data['year'],$data['month'],$data['s']);
 		}
-		else{
+		elseif($data['wwo'] == 2){
 		$data['record'] = $this->display_model->poprequest_ppm($data['hosp'],$data['year'],$data['month']);
+		}
+		else{
+			//exit();
+		$data['record'] = $this->display_model->poprequest_mrin($data['hosp'],$data['year'],$data['month']);
 		}
 		$this ->load->view("head");
 		$this ->load->view("content_pop_requests",$data);

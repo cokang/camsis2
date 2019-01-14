@@ -25,10 +25,10 @@ class Ajax extends CI_Controller {
     		}
     		else{
     		$tc_time = $tc_min. ' minutes';
-    		$data['time_comp'][$row->n_Visit] = $tc_time;	
+    		$data['time_comp'][$row->n_Visit] = $tc_time;
     		}
     		}
-    		else{	
+    		else{
     		$bal_min = ($tc_min%60);
     		$h_min = $tc_min - $bal_min;
     		$hour = $h_min/60;
@@ -65,5 +65,34 @@ class Ajax extends CI_Controller {
 			}
 		}
 		echo json_encode($data);
+	}
+
+	public function itemrnt(){
+
+    $this->load->model("get_model");
+	$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
+	$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+	$data['itemrn'] = $this->get_model->rl_mrin($this->input->get('hosp_code'),$data['year'],$data['month']);
+	$i=1;
+
+	//print_r($data['itemrn']);
+	foreach($data['itemrn'] as $row){
+	echo "<tr>";
+	echo "<td>".$i++."</td>";
+	echo "<td><input type='hidden' name='itemcode[]' value=".$row->ItemCode.">".$row->ItemCode."</td>";
+	echo "<td>".$row->ItemName."</td>";
+	echo "<td><input type='hidden' name='mrincode[]' value=".$row->MIRNcode.">".$row->MIRNcode."</td>";
+	echo "<td>".$row->QtyReq."</td>";
+	echo "<td>".$row->Qtys."</td>";
+	echo "<td><input type='text' name='qty[]'></td>";
+    echo "</tr>";
+	}
+	//exit();
+	}
+
+	public function get_rep(){
+	  $this->load->model("display_model");
+	$rep = $this->display_model->rephos($this->input->get('hosp_code'));
+     echo $rep[0]->Rep;
 	}
 }

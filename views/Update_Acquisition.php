@@ -13,7 +13,7 @@
 						<input type="text" class="form-control-button2 n_wi-s" name="n_supplier2" value="<?= isset($asset_det[0]->v_vendorname) == TRUE ? $asset_det[0]->v_vendorname : 'N/A'?>" id="n_agent2" readonly></td>
 				</tr>
 				<tr>
-					<td class="td-assest">Agent :</td>			
+					<td class="td-assest">Service Agent :</td>			
 					<td><input type="text" name="n_agent" value="<?= isset($asset_det[0]->V_Agent) == TRUE ? $asset_det[0]->V_Agent : 'N/A'?>" class="form-control-button2 n_wi-date"></td>
 				</tr>
 				<tr>

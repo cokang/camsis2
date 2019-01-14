@@ -5,6 +5,9 @@ if ($formType == 'new' ){
 }elseif ($formType == 'edit' ){
 	$disabledselect = "pointer-events: none;";
 	$readonly		= "readonly";
+}elseif ($formType == 'view' ){
+	$disabledselect = "pointer-events: none;";
+	$readonly		= "readonly";
 }
 $save = $save_link;
 ?>
@@ -51,7 +54,11 @@ $save = $save_link;
 																				"set_value" => "rn_status"
 																);
 															?>   
+																<?php if ($formType == 'new' ||$formType == 'edit'){ ?>
 															<?php echo form_dropdown($Status_list, $list_option); ?>
+															<?php } else { ?>
+															<?=($rndet[0]->rn_status==0) ? 'Send' :''?>
+															<?php } ?>
 															</td>
 														</tr>
 														<!-- <tr>
@@ -63,7 +70,11 @@ $save = $save_link;
 														</tr>
 														<tr>
 															<td style="padding:10px;" valign="top">Contact Person :  </td>
+															<?php if ($formType == 'new' ||$formType == 'edit' ){ ?>
 															<td style="padding:10px;" valign="top"> <?=$this->session->userdata("fullname")?> </td>
+														    <?php }else{ ?>
+															<td style="padding:10px;" valign="top"> <?=$rndet[0]->relname?> </td>
+															<?php } ?>
 														</tr>
 														<tr>
 															<td style="padding:10px;" valign="top">Area  :  </td>
@@ -74,10 +85,15 @@ $save = $save_link;
 														</tr>
 														<tr>
 															<td style="padding:10px;" valign="top">Contact Person :  </td>
+															<?php if ($formType == 'new'||$formType == 'edit'){ ?>
 															<td style="padding:10px;" valign="top"> <input style="border:0px; width: 90%;" type="text" name="to_contact_person" id="to_contact_person" value="<?=set_value('to_contact_person'); ?>" readonly /> </td>
+															<?php }else { ?>
+															<td style="padding:10px;" valign="top"> <?=$rndet[0]->repname;?> </td>
+														    <?php } ?>
 														</tr>
 														<tr>
 															<td style="padding:10px;" valign="top">*Area  :  </td>
+																<?php if ($formType == 'new' || $formType == 'edit'){ ?>
 															<td style="padding:10px;" valign="top">
 															
 																<?php 
@@ -97,14 +113,17 @@ $save = $save_link;
 																// if ($this->input->get('pro') == 'new' ){
 																if ($formType == 'new' ){
 																	$Area_list["onchange"] = "get_dataItem(this)";
-																}/*elseif ($this->input->get('pro') == 'edit' ){
+																}/*elseif ($formType == 'edit' )if ($this->input->get('pro') == 'edit' ){
 																	$Area_list["onload"] = "get_dataItem(this,'edit-')";
 																}*/
 
 																echo form_dropdown($Area_list, $area_option); ?> 
 															</td>
+															<?php }else{ ?>
+															<td style="padding:10px;" valign="top"><?=$rndet[0]->hosp;?></td>
+															<?php } ?>
 														</tr>
-														<tr>
+														<!--<tr>
 															<td style="padding:10px;" valign="top">Date From :    </td>
 															<td style="padding:10px;" valign="top"> 
 																<input type="text" name="datefrom" value="<?=set_value('datefrom');?>" id="date1" class="form-control-button2 n_wi-date2" style="<?=$disabledselect;?>" autocomplete="off" <?=$readonly;?> onchange="get_dataItem(this)" >
@@ -115,7 +134,7 @@ $save = $save_link;
 															<td style="padding:10px;" valign="top"> 
 																<input type="text" name="dateto" value="<?=set_value('dateto');?>" id="date2" class="form-control-button2 n_wi-date2" style="<?=$disabledselect;?>" autocomplete="off" <?=$readonly;?> onchange="get_dataItem(this)" >
 															</td>
-														</tr>
+														</tr>-->
 													</table>
 												</td>
 											</tr>
@@ -133,6 +152,7 @@ $save = $save_link;
 														</tr>
 														<tr>
 															<td style="padding:10px;" valign="top" class="ui-w">Shipment Type  :  </td>
+														    <?php if ($formType == 'new'||$formType == 'edit'){ ?>
 															<td style="padding-left:10px;" valign="top"> 
 																<?php 
 																$Shipment_option = array(
@@ -147,10 +167,14 @@ $save = $save_link;
 																);
 																echo form_dropdown($Shipment_list , $Shipment_option); ?> 
 															</td>
+															<?php }else{?>
+															<td style="padding-left:10px;" valign="top"> <?=$rndet[0]->sh_type;?></td>
+															<?php } ?>
 															
 														</tr>
 														<tr>
 															<td style="padding:10px;" valign="top">Courier Company  :  </td>
+															<?php if ($formType == 'new' || $formType == 'edit'){ ?>
 															<td style="padding-left:10px;" valign="top"> 
 																<?php 
 																$Courier_option = array(
@@ -167,24 +191,39 @@ $save = $save_link;
 																);
 																echo form_dropdown($Courier_list, $Courier_option); ?>
 															</td>
+															<?php }else{ ?>
+																<td style="padding-left:10px;" valign="top"><?=$rndet[0]->courier;?></td>
+															<?php } ?>
 															
 														</tr>
 														<tr>
 															<td style="padding:10px;" valign="top">Consignment Note :    </td>
 															<td style="padding:10px;" valign="top"> 
+															<?php if ($formType == 'new' || $formType == 'edit' ){ ?>
 																<input type="text" name="consignment_note" value="<?=set_value('consignment_note'); ?>" class="form-control-button2 n_wi-date2" autocomplete="off" <?=$readonly;?> >
+	                                                           <?php } else { ?>
+                                                                <?=$rndet[0]->consignment_note;?>
+															   <?php } ?>	
 															</td>
 														</tr>
 														<tr>
 															<td style="padding:10px;" valign="top">Consignment Date :    </td>
 															<td style="padding:10px;" valign="top"> 
+																<?php if ($formType == 'new'||$formType == 'edit' ){ ?>
 																<input type="text" name="consignment_date" value="<?=set_value('consignment_date');?>" id="date0" class="form-control-button2 n_wi-date2" style="<?=$disabledselect;?>" autocomplete="off" <?=$readonly;?> >
+															  <?php } else{ ?>
+                                                               <?=date('d/m/Y',strtotime($rndet[0]->consignment_date));?>
+															   <?php } ?>	
 															</td>
 														</tr>
 														<tr>
 															<td style="padding-left:10px;" class="ui-w" valign="top">Accessories  :   </td>
 															<td style="padding-left:10px;" >
+																<?php if ($formType == 'new' || $formType == 'edit' ){ ?>
 																<textarea class="Input n_com2" name="accessories" <?=$readonly;?> ><?=set_value('accessories')?></textarea>
+															   <?php } else { ?>
+                                                              <textarea class="Input n_com2" name="accessories"><?=$rndet[0]->accessories;?></textarea>
+															   <?php } ?>
 															</td>
 														</tr>
 													</table>
@@ -222,8 +261,10 @@ $save = $save_link;
 														<th>No</th>
 														<th>Item Code</th>
 														<th>Item Name</th>
-														<th>Quantity</th>
-														<th>RM/Unit</th>
+														<th>MRIN Ref No.</th>
+														<th>Qty Req</th>
+														<th>Qty In-Store</th>
+														<th>Qty Release</th>
 													</tr>
 												</thead>
 												<tbody id="item-table-value"><?=$data_item_specification;?></tbody>
@@ -240,8 +281,26 @@ $save = $save_link;
 											<th>No</th>
 											<th>Item Code</th>
 											<th>Item Name</th>
-											<th>Quantity</th>
-											<th>RM/Unit</th>
+											<th>MRIN Ref No.</th>
+											<th>Qty Req</th>
+											<th>Qty In-Store</th>
+											<th>Qty Release</th>
+										</tr>
+									</thead>
+									<tbody>
+										<?=$data_item_specification;?>
+									</tbody>
+								</table>
+								<?php }elseif($formType == 'view' ){?>
+									<style>table.wnctable th {background:#66b2b2 ;}</style>
+								<table class="wnctable" border="1" style="text-align:center; margin:5px auto;" align="center">
+									<thead>
+										<tr>
+											<th>No</th>
+											<th>Item Code</th>
+											<th>Item Name</th>
+											<th>MRIN Ref No.</th>
+											<th>Qty Release</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -257,8 +316,10 @@ $save = $save_link;
 			<table align="center" height="40px" border="0" style="width:100%;" class="ui-main-form-footer">
 				<tr>
 					<td align="center">
+					<?php if($formType <> 'view' ){?>
 						<input type="submit" class="btn-button btn-primary-button" name="mysubmit" value="Save" style="width:150px;"/>
 						<input type="button" class="btn-button btn-primary-button" name="Cancel" value="Cancel" onclick="window.history.back()" style="width:150px;"/>
+					<?php } ?>
 					</td>
 				</tr>
 			</table>
@@ -268,16 +329,21 @@ $save = $save_link;
 
 <script type="text/javascript">
 	function get_dataItem(d){
+	
 		// var code = $(d).val();
 		var area 	= $("select[name=area]").val();
-		var datefrom= $("input[name=datefrom]").val();
-		var dateto	= $("input[name=dateto]").val();
+			//alert(area);
+		//var datefrom= $("input[name=datefrom]").val();
+		//var dateto	= $("input[name=dateto]").val();
 
-		$.post("<?=site_url()?>/procurement/releaseNote_get_itemspecification", { site:area,datefrom:datefrom,dateto:dateto } ,function(data){
+		$.post("<?=site_url()?>/procurement/releaseNote_get_itemspecification", { site:area } ,function(data){
+		//$.post("<?=site_url()?>/procurement/releaseNote_get_itemspecification", { site:area,datefrom:datefrom,dateto:dateto } ,function(data){
 			var obj = JSON.parse(data);
+				//alert(area);
 			$("tbody#item-table-value").html(obj.table);
 			$("#to_contact_person").val(obj.v_head_of_lls);
 		});
+	
 	}
 
 	// $("input[name=mysubmit]").closest("form").submit( function(){

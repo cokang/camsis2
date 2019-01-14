@@ -65,7 +65,8 @@
 						<?php foreach($records as $row):$status="";if($row->rn_status==0){$status="Send";}?>  			
 						<tr align="center" <?= ($numrow%2==0) ?  'class="ui-color-color-color"' :  '' ?> >
 							<td class="td-desk"><?=$numrow++?></td>
-							<td class="td-desk" style="text-align:left;"><a href="<?php echo base_url();?>index.php/Procurement/print_release_note?RN_No=<?=$row->rn_no?>">	<?=$row->rn_no?> </a></td>
+							<!--<td class="td-desk" style="text-align:left;"><a href="<?php echo base_url();?>index.php/Procurement/print_release_note?RN_No=<?=$row->rn_no?>">	<?=$row->rn_no?> </a></td>-->
+						    <td class="td-desk" style="text-align:left;"><a href="<?php echo base_url();?>index.php/Procurement/Release_note?pro=view&rn=<?=$row->RN_No;?>">	<?=$row->RN_No;?> </a></td>
 							<td class="td-desk"><?= ($row->shipment_type) == 1 ? 'By hand' : 'Courier' ?> </td>
 							<td class="td-desk">
 								<?= ($row->courier == 1 ? 'ABX' : ($row->courier == 2 ? 'CityLink' : ($row->courier == 3 ? 'DHL' : 'Other'))) ?>

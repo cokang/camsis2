@@ -112,13 +112,13 @@
 							<td class="ui-desk-style-table">
 								<table class="ui-content-form" width="100%" border="0">	
 									<tr>
-										<td class="td-assest">Agent&nbsp;: </td>
-										<td><?=$asset_det[0]->V_Agent?></td>
+										<td class="td-assest">Supplier&nbsp;: </td>
+										<td class="FieldValue"><?=$asset_det[0]->V_Vendor_code?>&nbsp;<?=$asset_det[0]->v_vendorname?></td>
 									</tr>
 									<tr>
-										<td class="td-assest">Vendor&nbsp;: </td>
-										<td class="FieldValue"><?=$asset_det[0]->v_vendorname?></td>
-									</tr>
+										<td class="td-assest">Service Agent&nbsp;: </td>
+										<td><?=$asset_det[0]->V_Agent?></td>
+									</tr>									
 									<tr>
 										<td class="td-assest">File Reference&nbsp;: </td>
 										<td><?=$asset_det[0]->V_File_Ref_no?></td>

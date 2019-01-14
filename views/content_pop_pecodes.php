@@ -1,6 +1,17 @@
 
 <body style="margin:0px;">
-<table class="tftable" border="1" style="text-align:center;">
+<table id="alertData" class="tftable" border="1" style="text-align:center;">
+	<tr>
+		<th colspan="6" class="headerpop">SEARCH BY NAME / CODE / VENDOR PART </th>
+	</tr>
+	<tr align="center">
+	<td id="scby" colspan="6" >
+	<?php $attributes = array('id' => 'myform');
+	echo form_open('contentcontroller/pecodes',$attributes);?>
+	<input type="text" id="sctext" name="scby" value="<?=$scby?>" class="form-control">
+	<?php echo form_close(); ?>
+	</td>
+	</tr>
 	<tr>
 		<th colspan="6" class="headerpop">EQUIPMENT CODES</th>
 	</tr>
@@ -33,4 +44,11 @@
         }
         window.close();
     }
+	
+ $("#alertData").on("click", "td", function() {
+    if ($(this).attr('id')=='scby' &&  $('#sctext').val() != ''){
+	  $("#myform").submit() 
+	}
+   });
+
 </script>

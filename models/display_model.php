@@ -2224,10 +2224,13 @@ return $query->result();
 			//exit();
 			return $query->result();
 		}
-		function pecodes($hosp){
+		function pecodes($hosp,$cari=""){
 			$this->db->select('ItemCode,ItemName');
 			$this->db->from('tbl_invitem');
 			$this->db->where('ItemCode NOT IN (SELECT ItemCode FROM tbl_item_store_qty WHERE Hosp_code = "'.$hosp.'")', NULL, FALSE);
+			if ($cari <> ''){
+			$this->db->like('CONCAT_WS(" ",ItemName,ItemCode,PartNumber)', $cari, 'both');
+			}
 			$query = $this->db->get();
 			//echo $this->db->last_query();
 			//exit();
@@ -2268,113 +2271,127 @@ return $query->result();
 			return $query->result();
 		}
 
-		function releaseNote_get_itemspecification($site="", $datefrom="", $dateto=""){
+    function releaseNote_get_itemspecification($site="", $datefrom="", $dateto=""){
 
-			$year	= date("Y");
-			$month	= date("m");
-			if($datefrom!=""){
-				$year = "";//date("Y", strtotime($datefrom));
-				$month= "";//date("m", strtotime($datefrom));
-			}
-			$dataTable = array();
-			$res	= $this->storeasset_report("",$month, $year, $site);
-			if( !empty($res) ){
-				$i=0;
-				foreach ($res as $row) {
-					$Time_Stamp = date("m-d-Y", strtotime($row->Time_Stamp));
-					is_numeric($row->Qty_Before) ? $Qty_Before = $row->Qty_Before : $Qty_Before = 0;
-					is_numeric($row->Qty_Taken) ? $Qty_Taken = $row->Qty_Taken : $Qty_Taken = 0;
-					is_numeric($row->Qty_Add) ? $Qty_Add = $row->Qty_Add : $Qty_Add = 0;
-					is_numeric($row->Price_Taken) ? $Price_Taken = $row->Price_Taken : $Price_Taken = 0;
-					$Qty_Bal = $Qty_Before + $Qty_Add - $Qty_Taken;
+      $year	= date("Y");
+      $month	= date("m");
+    /* 	if($datefrom!=""){
+        $year = "";//date("Y", strtotime($datefrom));
+        $month= "";//date("m", strtotime($datefrom));
+      } */
+      $dataTable = array();
+        if(isset($site['rn'])){
+    $resbaru = $this->getrnitem($site['rn']);
+        if( !empty($resbaru) ){
+        $i=0;
+        foreach ($resbaru as $row) {
+        //exit();
+          //$Time_Stamp = date("m-d-Y", strtotime($row->Time_Stamp));
+          //is_numeric($row->Qty_Before) ? $Qty_Before = $row->Qty_Before : $Qty_Before = 0;
+          //is_numeric($row->Qty_Taken) ? $Qty_Taken = $row->Qty_Taken : $Qty_Taken = 0;
+          //is_numeric($row->Qty_Add) ? $Qty_Add = $row->Qty_Add : $Qty_Add = 0;
+          //is_numeric($row->Price_Taken) ? $Price_Taken = $row->Price_Taken : $Price_Taken = 0;
+          //$Qty_Bal = $Qty_Before + $Qty_Add - $Qty_Taken;
+                    $dataTable[$i]["rn"]		= true;
+                    $dataTable[$i]["Time_Stamp"]		= 0;
+            $dataTable[$i]["ItemCode"] 			= $row->Item_code;
+          $dataTable[$i]["ItemName"]			= $row->ItemName;
+          $dataTable[$i]["MIRNcode"]			= $row->MRIN_No;
+          $dataTable[$i]["QtyReq"]			= 0;
+          $dataTable[$i]["QtyS"]			    = $row->Qty;
+          $dataTable[$i]["Qty_Taken"] 		= 0;
+          $dataTable[$i]["Qty_Before"]		= 0;
+          $dataTable[$i]["Qty_Add"]			= 0;
+          $dataTable[$i]["Price_Taken"]		= 0;
+          $dataTable[$i]["Last_User_Update"]	= 0;
+          $dataTable[$i]["Related_WO"]		= 0;
+          $dataTable[$i]["Remark"]			= 0;
+          $dataTable[$i]["v_head_of_lls"]		= 0;
 
-					if( $datefrom!="" && $dateto=="" ){
-						if( $Time_Stamp >= $datefrom ){
-							$dataTable[$i]["Time_Stamp"]		= $row->Time_Stamp;
-							$dataTable[$i]["ItemCode"] 			= $row->ItemCode;
-							$dataTable[$i]["ItemName"]			= $row->ItemName;
-							$dataTable[$i]["Qty_Taken"] 		= $Qty_Taken;
-							$dataTable[$i]["Qty_Before"]		= $Qty_Before;
-							$dataTable[$i]["Qty_Add"]			= $Qty_Add;
-							$dataTable[$i]["Price_Taken"]		= $Price_Taken;
-							$dataTable[$i]["Last_User_Update"]	= $row->Last_User_Update;
-							$dataTable[$i]["Related_WO"]		= $row->Related_WO;
-							$dataTable[$i]["Remark"]			= $row->Remark;
-							$dataTable[$i]["v_head_of_lls"]		= $row->v_head_of_lls;
-						}
-					}elseif( $datefrom=="" && $dateto!="" ){
-						if( $Time_Stamp <= $dateto ){
-							$dataTable[$i]["Time_Stamp"]		= $row->Time_Stamp;
-							$dataTable[$i]["ItemCode"] 			= $row->ItemCode;
-							$dataTable[$i]["ItemName"]			= $row->ItemName;
-							$dataTable[$i]["Qty_Taken"] 		= $Qty_Taken;
-							$dataTable[$i]["Qty_Before"]		= $Qty_Before;
-							$dataTable[$i]["Qty_Add"]			= $Qty_Add;
-							$dataTable[$i]["Price_Taken"]		= $Price_Taken;
-							$dataTable[$i]["Last_User_Update"]	= $row->Last_User_Update;
-							$dataTable[$i]["Related_WO"]		= $row->Related_WO;
-							$dataTable[$i]["Remark"]			= $row->Remark;
-							$dataTable[$i]["v_head_of_lls"]		= $row->v_head_of_lls;
-						}
-					}elseif( $datefrom!="" && $dateto!="" ){
-						if( $Time_Stamp >= $datefrom && $Time_Stamp <= $dateto  ){
-							$dataTable[$i]["Time_Stamp"]		= $row->Time_Stamp;
-							$dataTable[$i]["ItemCode"] 			= $row->ItemCode;
-							$dataTable[$i]["ItemName"]			= $row->ItemName;
-							$dataTable[$i]["Qty_Taken"] 		= $Qty_Taken;
-							$dataTable[$i]["Qty_Before"]		= $Qty_Before;
-							$dataTable[$i]["Qty_Add"]			= $Qty_Add;
-							$dataTable[$i]["Price_Taken"]		= $Price_Taken;
-							$dataTable[$i]["Last_User_Update"]	= $row->Last_User_Update;
-							$dataTable[$i]["Related_WO"]		= $row->Related_WO;
-							$dataTable[$i]["Remark"]			= $row->Remark;
-							$dataTable[$i]["v_head_of_lls"]		= $row->v_head_of_lls;
-						}
-					}else{
-						if( $Time_Stamp==date("m-d-Y") ){
-							$dataTable[$i]["Time_Stamp"]		= $row->Time_Stamp;
-							$dataTable[$i]["ItemCode"] 			= $row->ItemCode;
-							$dataTable[$i]["ItemName"]			= $row->ItemName;
-							$dataTable[$i]["Qty_Taken"] 		= $Qty_Taken;
-							$dataTable[$i]["Qty_Before"]		= $Qty_Before;
-							$dataTable[$i]["Qty_Add"]			= $Qty_Add;
-							$dataTable[$i]["Price_Taken"]		= $Price_Taken;
-							$dataTable[$i]["Last_User_Update"]	= $row->Last_User_Update;
-							$dataTable[$i]["Related_WO"]		= $row->Related_WO;
-							$dataTable[$i]["Remark"]			= $row->Remark;
-							$dataTable[$i]["v_head_of_lls"]		= $row->v_head_of_lls;
-						}
-					}
-					$i++;
-				}
-			}
+          $i++;
+        }
+      }
+    }else{
+    $resbaru = $this->rl_mrin($site,$year);
+        if( !empty($resbaru) ){
+        $i=0;
+        foreach ($resbaru as $row) {
+        //exit();
+        if ($row->QtyReq <> 0){
+          //$Time_Stamp = date("m-d-Y", strtotime($row->Time_Stamp));
+          //is_numeric($row->Qty_Before) ? $Qty_Before = $row->Qty_Before : $Qty_Before = 0;
+          //is_numeric($row->Qty_Taken) ? $Qty_Taken = $row->Qty_Taken : $Qty_Taken = 0;
+          //is_numeric($row->Qty_Add) ? $Qty_Add = $row->Qty_Add : $Qty_Add = 0;
+          //is_numeric($row->Price_Taken) ? $Price_Taken = $row->Price_Taken : $Price_Taken = 0;
+          //$Qty_Bal = $Qty_Before + $Qty_Add - $Qty_Taken;
+          $dataTable[$i]["rn"]		= false;
+                    $dataTable[$i]["Time_Stamp"]		= 0;
+            $dataTable[$i]["ItemCode"] 			= $row->ItemCode;
+          $dataTable[$i]["ItemName"]			= $row->ItemName;
+          $dataTable[$i]["MIRNcode"]			= $row->MIRNcode;
+          $dataTable[$i]["QtyReq"]			= $row->QtyReq;
+          $dataTable[$i]["QtyS"]			    = $row->qstore;
+          $dataTable[$i]["Qty_Taken"] 		= 0;
+          $dataTable[$i]["Qty_Before"]		= 0;
+          $dataTable[$i]["Qty_Add"]			= 0;
+          $dataTable[$i]["Price_Taken"]		= 0;
+          $dataTable[$i]["Last_User_Update"]	= 0;
+          $dataTable[$i]["Related_WO"]		= 0;
+          $dataTable[$i]["Remark"]			= 0;
+          $dataTable[$i]["v_head_of_lls"]		= 0;
 
-			$v_head_of_lls = "";
-			if(!empty($dataTable) && $dataTable[0]['v_head_of_lls']){
-				$v_head_of_lls = $dataTable[0]['v_head_of_lls'];
-			}
+          $i++;
+        }
+        }
+      }
+    }
+      //$res	= $this->storeasset_report("",$month, $year, $site);
+       //print_r($resbaru);
 
-			$table = $this->generateItemSpecificationTable($dataTable);
-			return array("table"=>$table,"v_head_of_lls"=>$v_head_of_lls,"data"=>$dataTable);
-		}
 
-		public function generateItemSpecificationTable($dataTable){
+      $v_head_of_lls = "";
+      if(!empty($dataTable) && $dataTable[0]['v_head_of_lls']){
+        //exit();
+        $v_head_of_lls = $dataTable[0]['v_head_of_lls'];
+      }
 
+      $table = $this->generateItemSpecificationTable($dataTable);
+
+      return array("table"=>$table,"v_head_of_lls"=>$v_head_of_lls,"data"=>$dataTable);
+    }
+
+    public function generateItemSpecificationTable($dataTable){
+
+	   //exit();
 			$html = "";
 			if( !empty($dataTable) ){
 				$dataTable = json_decode(json_encode($dataTable));
 				$numrow=1;//echo "<pre>";var_export($dataTable);die;
+				$key=0;
 				foreach ($dataTable as $trow) {
-
+                if($trow->rn==true){
+				$trClass = ($numrow%2==0) ?  'class="ui-color-color-color"' :  '';
+					$html .= "	<tr align='center' $trClass>";
+					$html .= "		<td data-title='No :'>$numrow</td>";
+					$html .= "		<td data-title='Item Code :'><input type='text' name='itemCode[]' class='readonly' value='$trow->ItemCode' readonly /></td>";
+					$html .= "		<td data-title='Item Name :'>$trow->ItemName</td>";
+					$html .= "		<td data-title='MRIN Ref No. :'><input type='hidden' name='MIRNcode[]' value='$trow->MIRNcode'>$trow->MIRNcode</td>";
+					$html .= "		<td data-title='Qty Release :'>$trow->QtyS</td>";
+					$html .= "	</tr>";
+					$numrow++;
+			    }else{
 					$trClass = ($numrow%2==0) ?  'class="ui-color-color-color"' :  '';
 					$html .= "	<tr align='center' $trClass>";
 					$html .= "		<td data-title='No :'>$numrow</td>";
 					$html .= "		<td data-title='Item Code :'><input type='text' name='itemCode[]' class='readonly' value='$trow->ItemCode' readonly /></td>";
-					$html .= "		<td data-title='Item Code :'><input type='text' name='itemName[]' class='readonly' value='$trow->ItemName' readonly /></td>";
-					$html .= "		<td data-title='Out :'><input type='text' name='Qty_Taken[]' class='readonly' value='$trow->Qty_Taken' readonly /></td>";
-					$html .= "		<td data-title='Out :'><input type='text' name='Price_Taken[]' class='readonly' value='$trow->Price_Taken' readonly /></td>";
+					$html .= "		<td data-title='Item Name :'>$trow->ItemName</td>";
+					$html .= "		<td data-title='MRIN Ref No. :'><input type='hidden' name='MIRNcode[]' value='$trow->MIRNcode'>$trow->MIRNcode</td>";
+					$html .= "		<td data-title='Qty Req :'>$trow->QtyReq</td>";
+					$html .= "		<td data-title='Qty Store :'>$trow->QtyS</td>";
+					$html .= "		<td data-title='Qty Release :'><input type='text' name='qty_rls[]' value='".set_value('qty_rls['.$key++.']')."'/></td>";
 					$html .= "	</tr>";
 					$numrow++;
+				}
 				}
 			}else{
 				$html .= "<tr align='center'><td colspan='8' align='center'>No Data</td></tr>";
@@ -4451,7 +4468,7 @@ ORDER BY r.D_date, r.D_time
 		return $query_result;
 	}
 
-	function mrinlist($month,$year,$type,$kelas){
+	function mrinlist($month,$year,$type,$kelas,$search=""){
 	//echo "nilai kelas : " . $kelas . " type : " . $type;
 	  $inter = (int)$month;
 		$this->db->select('m.*,IFNULL(s.V_Asset_no,p.v_Asset_no) AS V_Asset_no,st.Status, IFNULL(IFNULL(IFNULL(ApprCommentsxx,ApprCommentsx),ApprComments),Comments) AS Commentsx',FALSE);
@@ -4462,6 +4479,9 @@ ORDER BY r.D_date, r.D_time
 		//$this->db->where('MONTH(DATE(m.DateCreated))',$inter);
 		//$this->db->where('YEAR(DATE(m.DateCreated))',$year);
 		$this->db->where('service_code',$this->session->userdata('usersess'));
+    if( $search!="" ){
+      $this->db->like('m.DocReferenceNo', trim(strtoupper($search)));
+    }else{
 		if ($type <> 0){
 			if ($type == 1){
 			$this->db->where('MONTH(DATE(m.DateCreated))',$inter);
@@ -4496,8 +4516,11 @@ ORDER BY r.D_date, r.D_time
 			 	$this->db->where('m.ApprStatusID','6');
 			 } else if ($kelas == 3) {
 
-				$this->db->where('m.ApprStatusIDx','6');
-				$this->db->or_where('m.ApprStatusIDxx','6');
+				//$this->db->where('m.ApprStatusIDx','6');
+				//$this->db->or_where('m.ApprStatusIDxx','6');
+        $this->db->where('MONTH(DATE(m.DateCreated))',$inter);
+        $this->db->where('YEAR(DATE(m.DateCreated))',$year);
+        $this->db->where('(m.ApprStatusIDx = 6 OR m.ApprStatusIDxx = 6)');
 			 } else {
 
 				$this->db->where('m.ApprStatusID','6');
@@ -4516,6 +4539,7 @@ ORDER BY r.D_date, r.D_time
 				$this->db->where('MONTH(DATE(m.DateCreated))',$inter);
 				$this->db->where('YEAR(DATE(m.DateCreated))',$year);
 		}
+  }
 		$this->db->order_by('DocReferenceNo','ASC');
 		$query = $this->db->get();
 		//echo $this->db->last_query();
@@ -6589,6 +6613,124 @@ return $obj['path'];
 		// echo "<pre>";var_export($query->result());die;
 		return $unionquery->result();
 	}
+
+  	function poprequest_mrin($hosp,$y,$m){
+  	$this->db->select("r.service_code,r.WorkOfOrder,IFNULL(s.D_date,p.d_StartDt) as WorkOrderDate,r.DateCreated,m.MIRNcode,m.ItemCode,r.Comments,m.QtyReq,m.QtyReqfx, (CASE WHEN Who_Del = 'store' THEN 'STOCK' ELSE NULL END) as stocstatus,i.PartNumber");
+  	$this->db->from("tbl_mirn_comp m");
+      $this->db->join("tbl_materialreq r", "m.MIRNcode=r.DocReferenceNo", "inner join");
+      $this->db->join("tbl_invitem i", "m.ItemCode=i.ItemCode", "inner join");
+      $this->db->join('pmis2_egm_service_request s','r.WorkOfOrder = s.V_Request_no AND s.V_actionflag <> "D"','left outer');
+      $this->db->join('pmis2_egm_schconfirmmon p','r.WorkOfOrder = p.v_WrkOrdNo AND p.v_Actionflag <> "D"','left outer');
+  	//$this->db->join('pmis2_egm_assetregistration l','p.v_HospitalCode = l.V_Hospitalcode AND p.v_Asset_no = l.V_Asset_no','inner');
+  	//$this->db->where('s.v_Actionflag <>','D');
+  	$this->db->where('r.service_code',$this->session->userdata('usersess'));
+  	//$this->db->where('s.v_HospitalCode',$hosp);
+  	$this->db->where('YEAR(r.DateCreated)',$y);
+  	$this->db->where('MONTH(r.DateCreated)',$m);
+  	$this->db->where('r.ApprStatusIDxx',4);
+  	$this->db->group_by('m.MIRNcode');
+  	$query = $this->db->get();
+  	//echo $this->db->last_query();
+  	//exit();
+  	return $query->result();
+  		}
+
+
+  	function rn_release(){
+          $this->db->select("*,(CASE WHEN shipment_type = 0 THEN 'Courier'
+                 WHEN shipment_type = 1 THEN 'By hand' ELSE 0 END) as sh_type,(CASE WHEN courier = 0 THEN 'Other'
+                 WHEN courier = 1 THEN 'ABX' WHEN courier = 2 THEN 'CityLink' WHEN courier = 3 THEN 'DHL' ELSE 0 END) as courier");
+  	    $this->db->from("tbl_rn_release");
+          //$this->db->where('');
+          $query = $this->db->get();
+
+
+  		//echo $this->db->last_query();exit;
+          return $query->result();
+        }
+
+  function rephos($hosp){
+  	$this->db->select('Rep');
+  	$this->db->from('tbl_hosp_rep');;
+  	$this->db->where('Hosp_code',$hosp);
+  	$query = $this->db->get();
+  	//echo $this->db->last_query();
+  	//exit();
+  	$query_result = $query->result();
+  	return $query_result;
+  }
+
+public function getrnitem($rn){
+
+$this->db->select('a.*,b.ItemName');
+$this->db->from('tbl_rn_item a');
+$this->db->join('tbl_invitem b','a.Item_code=b.ItemCode');
+$this->db->where('RN_No',$rn);
+$query = $this->db->get();
+//echo $this->db->last_query();
+//exit();
+return $query->result();
+}
+
+  public function getrndetail($rn){
+
+  //$this->db->select("a.*,(CASE WHEN a.shipment_type = 0 THEN 'Courier' WHEN a.shipment_type = 1 THEN 'By hand' ELSE 0 END) as sh_type,(CASE WHEN a.courier = 0 THEN 'Other' WHEN a.courier = 1 THEN 'ABX' WHEN a.courier = 2 THEN 'CityLink' WHEN a.courier = 3 THEN 'DHL' ELSE 0 END) as courier,b.Rep");
+  //$this->db->from('tbl_rn_release a');
+  //$this->db->join('tbl_hosp_rep b','b.Hosp_code=substring_index(substring_index(a.RN_No, '/', -3), '/', 1)');
+  //$this->db->where('RN_No',$rn);
+  $query = $this->db->query("SELECT
+  `a`.*,
+  (CASE
+  		WHEN a.shipment_type = 0 THEN 'Courier'
+  		WHEN a.shipment_type = 1 THEN 'By hand'
+  		ELSE 0
+  END) AS sh_type,
+  (CASE
+  		WHEN a.courier = 0 THEN 'Other'
+  		WHEN a.courier = 1 THEN 'ABX'
+  		WHEN a.courier = 2 THEN 'CityLink'
+  		WHEN a.courier = 3 THEN 'DHL'
+  		ELSE 0
+  END) AS courier,
+  substring_index(substring_index(a.RN_No, '/', -3), '/', 1) as hosp, (SELECT v_UserName FROM pmis2_sa_user WHERE v_UserID=b.rep LIMIT 1) as repname,
+      (SELECT v_UserName FROM pmis2_sa_user WHERE v_UserID=a.User_Release LIMIT 1) as relname
+  FROM
+  `tbl_rn_release` `a`
+  JOIN
+  `tbl_hosp_rep` `b` on b.Hosp_code=substring_index(substring_index(a.RN_No, '/', -3), '/', 1)
+  WHERE
+  `RN_No` = '".$rn."'");
+  //$query = $this->db->get();
+  //echo $this->db->last_query();
+  //exit();
+  return $query->result();
+  }
+
+
+
+	function rl_mrin($hosp,$y){
+    $this->db->select('a.ItemCode,a.ItemName,b.MIRNcode, ifnull(CASE WHEN `e`.`bal` >  `b`.`QtyReq` THEN 0 ELSE `b`.`QtyReq` - `e`.`bal`
+     END,`b`.`QtyReq`) as QtyReq,d.qty as qstore');
+	$this->db->from('tbl_materialreq c');
+	$this->db->join('tbl_mirn_comp b','c.DocReferenceNo = b.MIRNcode','inner');
+	$this->db->join('tbl_invitem a','a.ItemCode = b.ItemCode','inner');
+	$this->db->join('tbl_item_store_qty d','d.ItemCode = b.ItemCode AND d.hosp_code="'.$hosp.'" ','inner');
+	$this->db->join('(SELECT SUM(Qty) as bal,Item_code,MRIN_No FROM tbl_rn_item group by Item_code,MRIN_No) e','e.MRIN_No=b.MIRNcode AND e.Item_code=a.ItemCode','left outer');
+    #$this->db->where('YEAR(c.datecreated) >',$y-1);
+	if($hosp=='COE'){
+	$this->db->where('c.ApprStatusID = 4 AND d.qty > 0');
+	$this->db->order_by('b.ItemCode');
+	}else{
+	$this->db->where("c.ApprStatusID = 4 AND (b.MIRNcode LIKE '%".$hosp."%') AND d.qty > 0");
+	$this->db->group_by('b.ItemCode');
+	$this->db->order_by('b.ItemCode');
+	}
+
+	$query = $this->db->get();
+	//echo $this->db->last_query();
+	//exit();
+	return $query->result();
+		}
 
 
 

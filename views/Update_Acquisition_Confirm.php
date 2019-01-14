@@ -16,7 +16,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="td-assest">Agent :</td>			
+				<td class="td-assest">Service Agent :</td>			
 				<td><input type="text" name="n_agent" value="<?=$this->input->post('n_agent')?>" class="form-control-button2 n_wi-date" readonly></td>
 			</tr>
 			<tr>

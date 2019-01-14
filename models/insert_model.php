@@ -9,7 +9,7 @@ function create_form($insert_data){
 $this->db->insert('pmis2_egm_service_request', $insert_data);
 
 //echo $this->db->last_query();
-		
+
 		//exit();
 }
 
@@ -19,7 +19,7 @@ function ins_complaint($insert_data){
 $this->db->insert('pmis2_com_complaint', $insert_data);
 
 //echo $this->db->last_query();
-		
+
 		//exit();
 }
 
@@ -29,7 +29,7 @@ function ins_assetreg($insert_data){
 $this->db->insert('pmis2_egm_assetregistration', $insert_data);
 
 //echo $this->db->last_query();
-		
+
 		//exit();
 }
 
@@ -38,7 +38,7 @@ function ins_assetreggen($insert_data){
 $this->db->insert('pmis2_egm_assetreg_general', $insert_data);
 
 //echo $this->db->last_query();
-		
+
 		//exit();
 }
 
@@ -47,7 +47,7 @@ function ins_assetmaintainance($insert_data){
 $this->db->insert('pmis2_egm_assetmaintenance', $insert_data);
 
 //echo $this->db->last_query();
-		
+
 		//exit();
 }
 
@@ -56,7 +56,7 @@ function ins_vo($insert_data){
 $this->db->insert('ap_vo_vvfdetails', $insert_data);
 
 //echo $this->db->last_query();
-		
+
 		//exit();
 }
 
@@ -65,7 +65,7 @@ function ins_schcon($insert_data){
 $this->db->insert('pmis2_egm_schconfirmmon', $insert_data);
 
 //echo $this->db->last_query();
-		
+
 		//exit();
 }
 
@@ -74,7 +74,7 @@ function ins_assetaccesories($insert_data){
 $this->db->insert('pmis2_egm_accesories', $insert_data);
 
 //echo $this->db->last_query();
-		
+
 		//exit();
 }
 
@@ -84,7 +84,7 @@ $this->db->insert('pmis2_egm_lnc_lincense_details', $insert_data);
 $id = $this->db->insert_id();
 return $id;
 //echo $this->db->last_query();
-		
+
 		//exit();
 }
 
@@ -101,7 +101,7 @@ function pmis2_egm_assetjobtype($insert_data){
 $this->db->insert('pmis2_egm_assetjobtype', $insert_data);
 
 //echo $this->db->last_query();
-		
+
 		//exit();
 }
 function response_form($insert_data){
@@ -109,19 +109,19 @@ function response_form($insert_data){
 $this->db->insert('pmis2_emg_jobresponse', $insert_data);
 
 //echo $this->db->last_query();
-		
+
 		//exit();
 }
 
 function response_woexist($value,$variable){
 			$this->db->select($value);
 			$this->db->where($value,$variable);
-			
+
 			$query = $this->db->get('pmis2_emg_jobresponse');
-			
+
 			if($query->num_rows()>0){
 				$this->load->model('update_model');
-				
+
 				$insert_data = array(
 						 'd_Date' => ($this->input->post('n_Response_Date')) ? date('Y-m-d ', strtotime($this->input->post('n_Response_Date'))).$this->input->post('n_Shour').':'.str_pad($this->input->post('n_Smin'), 2, 0, STR_PAD_LEFT) : NULL,
 						 'v_Time'=>$this->input->post('n_Shour').':'.str_pad($this->input->post('n_Smin'), 2, 0, STR_PAD_LEFT),
@@ -147,7 +147,7 @@ function response_woexist($value,$variable){
 						 'v_ReschAuthBy' => ($this->input->post('name')) ? $this->input->post('name') : NULL
 						);
 				$this->update_model->response_form($insert_data);
-				
+
 				$this->load->model('update_model');
 				$RN = $this->input->post('wrk_ord');
 				$insert_data = array(
@@ -186,7 +186,7 @@ function response_woexist($value,$variable){
 						 'v_ReschAuthBy' => ($this->input->post('name')) ? $this->input->post('name') : NULL
 						);
 				$this->insert_model->response_form($insert_data);
-				
+
 				$this->load->model('update_model');
 				$RN = $this->input->post('wrk_ord');
 				$insert_data = array(
@@ -219,11 +219,11 @@ function visit1_woexist($value,$variable){
 			$query1 = $this->db->get('pmis2_emg_jobvisit1');
 			$query2 = $this->db->get('pmis2_emg_jobvisit1tow');
 
-			
+
 			if($query1->num_rows()>0 && $query2->num_rows()>0){
-				
+
 				$this->load->model('update_model');
-				
+
 				$insert_data = array(
 						 'd_Date' => ($this->input->post('n_Visit_Date')) ? date('Y-m-d ', strtotime($this->input->post('n_Visit_Date'))).$this->input->post('n_Shour').':'.str_pad($this->input->post('n_Smin'), 2, 0, STR_PAD_LEFT) : NULL,
 						 'v_Time'=>$this->input->post('n_Shour').':'.str_pad($this->input->post('n_Smin'), 2, 0, STR_PAD_LEFT),
@@ -255,9 +255,9 @@ function visit1_woexist($value,$variable){
 
 				$TOWdata = array(
 						'type_of_work' => $this->input->post('n_Type_of_Work')
-				); 
+				);
 				$this->update_model->visitTOW_form($TOWdata);
-				
+
 				$RN = $this->input->post('wrk_ord');
 				if (substr($RN,0,2) == 'PP'){
 				$this->load->model('display_model');
@@ -267,7 +267,7 @@ function visit1_woexist($value,$variable){
 				//$insert_data = array(
 				//		'd_StartDt' => date('Y-m-d ', strtotime($this->input->post('n_Visit_Date'))).$this->input->post('n_Shour').':'.str_pad($this->input->post('n_Smin'), 2, 0, STR_PAD_LEFT),
 				//	);
-				//$this->update_model->pmis2_egm_schconfirmmon($insert_data);	
+				//$this->update_model->pmis2_egm_schconfirmmon($insert_data);
 				//}
 				if (isset($data['v1rsch'][0]->d_Reschdt)) {
 				$insert_data = array(
@@ -281,12 +281,12 @@ function visit1_woexist($value,$variable){
 						'v_Wrkordstatus' => "A",
 						'd_Reschdt' => NULL,
 					);
-				$this->update_model->pmis2_egm_schconfirmmon($insert_data);	
+				$this->update_model->pmis2_egm_schconfirmmon($insert_data);
 				}
 			}
 			}
 			else{
-				
+
 				//$this->load->model('insert_model');
 				$RN = $this->input->post('wrk_ord');
 				$insert_data = array(
@@ -321,13 +321,13 @@ function visit1_woexist($value,$variable){
 				$TOWdata = array(
 						'v_WrkOrdNo'=> $RN,
 						'type_of_work' => $this->input->post('n_Type_of_Work')
-				); 
+				);
 				$this->insert_model->visitTOW_form($TOWdata);
 
 				$RN = $this->input->post('wrk_ord');
 				$this->load->model('display_model');
 				$data['v1rsch'] = $this->display_model->visit1ppm_tab($RN);
-				
+
 				$this->load->model('update_model');
 				if (isset($data['v1rsch'][0]->d_Reschdt)) {
 				$insert_data = array(
@@ -341,7 +341,7 @@ function visit1_woexist($value,$variable){
 						'v_Wrkordstatus' => "A",
 						'd_Reschdt' => NULL,
 					);
-				$this->update_model->pmis2_egm_schconfirmmon($insert_data);	
+				$this->update_model->pmis2_egm_schconfirmmon($insert_data);
 				}
 			}
 
@@ -359,12 +359,12 @@ $this->db->insert('pmis2_emg_jobvisit2', $insert_data);
 function visit2_woexist($value,$variable){
 			$this->db->select($value);
 			$this->db->where($value,$variable);
-			
+
 			$query = $this->db->get('pmis2_emg_jobvisit2');
-			
+
 			if($query->num_rows()>0){
 				$this->load->model('update_model');
-				
+
 				$insert_data = array(
 						 'd_Date' => ($this->input->post('n_Visit_Date')) ? date('Y-m-d ', strtotime($this->input->post('n_Visit_Date'))).$this->input->post('n_Shour').':'.str_pad($this->input->post('n_Smin'), 2, 0, STR_PAD_LEFT) : NULL,
 						 'v_Time'=>$this->input->post('n_Shour').':'.str_pad($this->input->post('n_Smin'), 2, 0, STR_PAD_LEFT),
@@ -393,12 +393,12 @@ function visit2_woexist($value,$variable){
 						 'v_ReschAuthBy' => $this->input->post('n_rschAuth'),
 						);
 				$this->update_model->visit2_form($insert_data);
-				
+
 				$RN = $this->input->post('wrk_ord');
 				$this->load->model('display_model');
 				$data['v1rsch'] = $this->display_model->visit1ppm_tab($RN);
 				$data['v2rsch'] = $this->display_model->visit2ppm_tab($RN);
-				
+
 				$this->load->model('update_model');
 				if (isset($data['v2rsch'][0]->d_Reschdt)) {
 				$insert_data = array(
@@ -423,7 +423,7 @@ function visit2_woexist($value,$variable){
 				}
 			}
 			else{
-				
+
 				//$this->load->model('insert_model');
 				$RN = $this->input->post('wrk_ord');
 				$insert_data = array(
@@ -459,7 +459,7 @@ function visit2_woexist($value,$variable){
 				$RN = $this->input->post('wrk_ord');
 				$this->load->model('display_model');
 				$data['v2rsch'] = $this->display_model->visit2ppm_tab($RN);
-				
+
 				$this->load->model('update_model');
 				if (isset($data['v2rsch'][0]->d_Reschdt)) {
 				$insert_data = array(
@@ -484,12 +484,12 @@ $this->db->insert('pmis2_emg_jobvisit3', $insert_data);
 function visit3_woexist($value,$variable){
 			$this->db->select($value);
 			$this->db->where($value,$variable);
-			
+
 			$query = $this->db->get('pmis2_emg_jobvisit3');
-			
+
 			if($query->num_rows()>0){
 				$this->load->model('update_model');
-				
+
 				$insert_data = array(
 						 'd_Date' => ($this->input->post('n_Visit_Date')) ? date('Y-m-d ', strtotime($this->input->post('n_Visit_Date'))).$this->input->post('n_Shour').':'.str_pad($this->input->post('n_Smin'), 2, 0, STR_PAD_LEFT) : NULL,
 						 'v_Time'=>$this->input->post('n_Shour').':'.str_pad($this->input->post('n_Smin'), 2, 0, STR_PAD_LEFT),
@@ -518,13 +518,13 @@ function visit3_woexist($value,$variable){
 						 'v_ReschAuthBy' => $this->input->post('n_rschAuth'),
 						);
 				$this->update_model->visit3_form($insert_data);
-				
+
 				$RN = $this->input->post('wrk_ord');
 				$this->load->model('display_model');
 				$data['v1rsch'] = $this->display_model->visit1ppm_tab($RN);
 				$data['v2rsch'] = $this->display_model->visit2ppm_tab($RN);
 				$data['v3rsch'] = $this->display_model->visit3ppm_tab($RN);
-				
+
 				$this->load->model('update_model');
 				if (isset($data['v3rsch'][0]->d_Reschdt)) {
 				$insert_data = array(
@@ -549,7 +549,7 @@ function visit3_woexist($value,$variable){
 				}
 			}
 			else{
-				
+
 				//$this->load->model('insert_model');
 				$RN = $this->input->post('wrk_ord');
 				$insert_data = array(
@@ -585,7 +585,7 @@ function visit3_woexist($value,$variable){
 				$RN = $this->input->post('wrk_ord');
 				$this->load->model('display_model');
 				$data['v3rsch'] = $this->display_model->visit3ppm_tab($RN);
-				
+
 				$this->load->model('update_model');
 				if (isset($data['v3rsch'][0]->d_Reschdt)) {
 				$insert_data = array(
@@ -609,12 +609,12 @@ $this->db->insert('pmis2_egm_jobdonedet', $insert_data);
 function job_woexist($value,$variable){
 			$this->db->select($value);
 			$this->db->where($value,$variable);
-			
+
 			$query = $this->db->get('pmis2_egm_jobdonedet');
-		
+
 			if($query->num_rows()>0){
 				$this->load->model('update_model');
-				
+
 				$insert_data = array(
 						'd_rDate' => $this->input->post('d_date'),
 						'v_jtime' => $this->input->post('d_time'),
@@ -645,7 +645,7 @@ function job_woexist($value,$variable){
 
 						);
 				$this->update_model->job_form($insert_data);
-				
+
 				$this->load->model('update_model');
 				$RN = $this->input->post('wrk_ord');
 				//if (substr($RN,0,2) == 'PP'){
@@ -685,9 +685,9 @@ function job_woexist($value,$variable){
 				$this->update_model->create_form($insert_data);
 				}
 			}
-			
+
 			else{
-				
+
 				//$this->load->model('insert_model');
 				$RN = $this->input->post('wrk_ord');
 				$insert_data = array(
@@ -720,10 +720,10 @@ function job_woexist($value,$variable){
 						'v_AcceptedBy' => $this->input->post('n_Accepted_By'),
 						'd_AcceptedDt' => ($this->input->post('n_Acceptance_Date')) ? date('Y-m-d', strtotime($this->input->post('n_Acceptance_Date'))) : NULL,
 						'V_ACCEPTED_Designation' => $this->input->post('n_Designation'),
-						
+
 						);
 				$this->insert_model->job_form($insert_data);
-				
+
 				$this->load->model('update_model');
 				$RN = $this->input->post('wrk_ord');
 				//if (substr($RN,0,2) == 'PP'){
@@ -764,7 +764,7 @@ function job_woexist($value,$variable){
 				$this->update_model->create_form($insert_data);
 				}
 			}
-			
+
 }
 function woppm_form($insert_data){
 
@@ -777,12 +777,12 @@ $this->db->insert('pmis2_egm_jobdonedet', $insert_data);
 function woppm_exist($value,$variable){
 			$this->db->select($value);
 			$this->db->where($value,$variable);
-			
+
 			$query = $this->db->get('pmis2_egm_jobdonedet');
-			
+
 			if($query->num_rows()>0){
 				$this->load->model('update_model');
-				
+
 				$insert_data = array(
 						'v_QCPPM' => $this->input->post('QC_PPM'),
 						'v_QCuptime' => $this->input->post('QC_Uptime'),
@@ -792,7 +792,7 @@ function woppm_exist($value,$variable){
 				//exit();
 			}
 			else{
-				
+
 				//$this->load->model('insert_model');
 				$RN = $this->input->post('wrk_ord');
 				$insert_data = array(
@@ -817,12 +817,12 @@ $this->db->insert('pmis2_com_complaintdet', $insert_data);
 function complaint_exist($value,$variable){
 			$this->db->select($value);
 			$this->db->where($value,$variable);
-			
+
 			$query = $this->db->get('pmis2_com_complaintdet');
-			
+
 			if($query->num_rows()>0){
 				$this->load->model('update_model');
-				
+
 				$insert_data = array(
 						'v_Monyr' => (($this->input->post('vcm_month')) OR ($this->input->post('vcm_year'))) ?  sprintf("%02d", $this->input->post('vcm_month')).'/'.$this->input->post('vcm_year') : NULL,
 						'd_follow_startdate' => ($this->input->post('n_startdate')) ? date('Y-m-d ', strtotime($this->input->post('n_startdate'))).$this->input->post('n_starttime') : NULL,
@@ -845,7 +845,7 @@ function complaint_exist($value,$variable){
 				//exit();
 			}
 			else{
-				
+
 				//$this->load->model('insert_model');
 				$RN = $this->input->post('wrk_ord');
 				$insert_data = array(
@@ -880,9 +880,9 @@ function insert_image($image){
 function upload($image,$value,$variable){
 			$this->db->select($value);
 			$this->db->where($value,$variable);
-			
+
 			$query = $this->db->get('pmis2_sa_user_image');
-			
+
 			if($query->num_rows()>0){
 
 				$this->load->model('update_model');
@@ -891,7 +891,7 @@ function upload($image,$value,$variable){
 				//exit();
 			}
 			else{
-				
+
 				//$this->load->model('insert_model');
 				$image['v_UserID'] = $this->session->userdata('v_UserName');
 				$this->insert_model->insert_image($image);
@@ -909,16 +909,16 @@ $this->db->insert('pmis2_egm_assetmaintenance', $insert_data);
 }
 
 function assetmaintenance_exist($value,$variable,$VOClaimPeriod,$CRefNo,$CRefDate,$VLoc,$VRefDate,$SNFVNFRefNo,$SubmissionDate){
-	
+
 			$this->db->select($value);
 			$this->db->where($value,$variable);
-			
+
 			$query = $this->db->get('pmis2_egm_assetmaintenance');
-			
+
 			if($query->num_rows()>0){
-		
+
 				$this->load->model('update_model');
-				
+
 				$insert_data = array(
 						'v_Criticality' => $this->input->post('n_criticality'),
 						'v_SparelistCode' => $this->input->post('n_sparelist'),
@@ -939,7 +939,7 @@ function assetmaintenance_exist($value,$variable,$VOClaimPeriod,$CRefNo,$CRefDat
 						$insert_data["d_LocDate"] = $VRefDate;
 						$insert_data["voclaim_period"] = $VOClaimPeriod;
 						}
-						
+
 				$this->update_model->assetmaintenance_form($insert_data);
 				//echo $this->db->last_query();
 				//exit();
@@ -953,11 +953,11 @@ function assetmaintenance_exist($value,$variable,$VOClaimPeriod,$CRefNo,$CRefDat
 				$insert_data = array(
 						'vvfSubmissionDate' => ($SubmissionDate) ? date('Y-m-d', strtotime($SubmissionDate)) : NULL
 						);
-				$this->update_model->vo3_asset_update($insert_data);	
+				$this->update_model->vo3_asset_update($insert_data);
 				}
 			}
 			else{
-				
+
 				//$this->load->model('insert_model');
 				$RN = $this->input->post('wrk_ord');
 				$insert_data = array(
@@ -1020,9 +1020,9 @@ function stock_itemexist($value1,$variable1,$value2,$variable2){
 			$this->db->where($value2,$variable2);
 
 			$query = $this->db->get('tbl_item_store_qty');
-			
+
 			if($query->num_rows()==0){
-	
+
 				$insert_data = array(
 						'ItemCode' => $this->input->post('n_itemcode'),
 						'Action_Flag' => 'I',
@@ -1033,7 +1033,7 @@ function stock_itemexist($value1,$variable1,$value2,$variable2){
 						);
 
 				$this->insert_model->stock_itemnew($insert_data);
-				
+
 				$price_data = array(
 									'ItemCode' => $this->input->post('n_itemcode'),
 									'User_Update' => $this->session->userdata('v_UserName'),
@@ -1052,14 +1052,14 @@ $this->db->insert('set_scheduler', $insert_data);
 function jc_exist($value,$variable,$monthly_sel,$monthly_num,$monthly_months,$monthly_day,$dailyfreqtime,$dailytime){
 			$this->db->select($value);
 			$this->db->where($value,$variable);
-			
+
 			$query = $this->db->get('set_scheduler');
-			
+
 			if($query->num_rows()>0){
 				$this->load->model('update_model');
-				
+
 				$insert_data = array(
-						  'Occurs' => $this->input->post('n_occur'), 
+						  'Occurs' => $this->input->post('n_occur'),
 						  'Monthly_sel' => $monthly_sel,
 						  'Monthly_num' => $monthly_num,
 						  'Monthly_months' => $monthly_months,
@@ -1122,10 +1122,10 @@ function dcap_exist($value1,$job,$value2,$time,$value3,$dept,$value4,$loc,$color
 			//$this->db->where($value7,$jobdate); //jobdate
 			//$this->db->where('Action_flag <>','D');
 			$query = $this->db->get('set_planner_scheduler');
-			
+
 			if($query->num_rows()>0){
 				$this->load->model('update_model');
-				    
+
 				if ($colorcode <> ''){
 					$insert_data = array(
 							  'Color_Code' => $colorcode,
@@ -1148,7 +1148,7 @@ function dcap_exist($value1,$job,$value2,$time,$value3,$dept,$value4,$loc,$color
 							);
 					$this->update_model->planner_scheduler_u($insert_data,$job,$time,$dept,$loc,$monthyear,$hosp,$jobdate);
 				}
-					
+
 			}
 			else{
 				$this->db->select($value5);
@@ -1158,7 +1158,7 @@ function dcap_exist($value1,$job,$value2,$time,$value3,$dept,$value4,$loc,$color
 				$this->db->where($value6,$hosp); //hospcode
 				//$this->db->where($value7,$jobdate); //jobdate
 				$query = $this->db->get('set_planner_scheduler');
-				
+
 				if ($query->num_rows()<=0){ //if no data in set_planner_scheduler so copy data from last month
 				$this->load->model('get_model');
 				$data['cherec'] = $this->get_model->checkdcap($dept,$loc,$monthyear,$jobdate,$hosp);
@@ -1166,7 +1166,7 @@ function dcap_exist($value1,$job,$value2,$time,$value3,$dept,$value4,$loc,$color
 					$copydata = $this->get_model->copydcap($row->Dept_Code,$row->Loc_Code,$row->Month_Year,$row->Job_Date,$row->hospital_code);
 				}
 				foreach ($copydata as $cd){
-					if (!($cd->Job_Items == $job AND $cd->Time == $time)){	
+					if (!($cd->Job_Items == $job AND $cd->Time == $time)){
 						//if ($cd->Color_Code != ''){
 						$insert_data[] = array(
 								  'Job_Items' => $cd->Job_Items,
@@ -1224,7 +1224,7 @@ function dcap_exist($value1,$job,$value2,$time,$value3,$dept,$value4,$loc,$color
 									);
 				}
 				$this->insert_model->planner_scheduler($insert_data);
-				
+
 			}
 }
 
@@ -1251,7 +1251,7 @@ function udca_exist($value1,$job,$value2,$shift,$value3,$dept,$value4,$loc,$colo
 			//exit();
 			if($query->num_rows()>0){
 				$this->load->model('update_model');
-				
+
 				$insert_data = array(
 						  'Color_Code' => $colorcode,
 						  //'Month_Year' => $monthyear,
@@ -1264,7 +1264,7 @@ function udca_exist($value1,$job,$value2,$shift,$value3,$dept,$value4,$loc,$colo
 				//exit();
 			}
 			else{
-				
+
 				$insert_data = array(
 								  'Job_Items' => $job,
 								  'Job_Date' => $jobdate,
@@ -1293,11 +1293,11 @@ function udca_exist($value1,$job,$value2,$shift,$value3,$dept,$value4,$loc,$colo
 			$this->db->where($value3,$dept);
 			$this->db->where($value4,$loc);
 			$this->db->where($value5,$monthyear);
-			
+
 			$query = $this->db->get('set_hks_scheduler');
 			if($query->num_rows()>0){
 				$this->load->model('update_model');
-				
+
 				$insert_data = array(
 						  'Color_Code' => $colorcode,
 						  //'Month_Year' => $monthyear,
@@ -1322,7 +1322,7 @@ function udca_exist($value1,$job,$value2,$shift,$value3,$dept,$value4,$loc,$colo
 				}
 				foreach ($copydata as $cd){
 					//if (($cd->Job_Items != $job AND $cd->Shift != $shift) OR ($cd->Job_Items == $job AND $cd->Shift != $shift) OR ($cd->Job_Items != $job AND $cd->Shift == $shift)){
-					if (!($cd->Job_Items == $job AND $cd->Shift == $shift)){	
+					if (!($cd->Job_Items == $job AND $cd->Shift == $shift)){
 						if ($cd->Color_Code != ''){
 						$insert_data[] = array(
 								  'Job_Items' => $cd->Job_Items,
@@ -1373,11 +1373,11 @@ $this->db->insert_batch('update_hks_scheduler', $insert_data);
 			$this->db->where($value3,$dept);
 			$this->db->where($value4,$loc);
 			$this->db->where($value5,$monthyear);
-			
+
 			$query = $this->db->get('update_hks_scheduler');
 			if($query->num_rows()>0){
 				$this->load->model('update_model');
-				
+
 				$insert_data = array(
 						  'Color_Code' => $colorcode,
 						  //'Month_Year' => $monthyear,
@@ -1401,7 +1401,7 @@ $this->db->insert_batch('update_hks_scheduler', $insert_data);
 				}
 				foreach ($copydata as $cd){
 					//if (($cd->Job_Items != $job AND $cd->Shift != $shift) OR ($cd->Job_Items == $job AND $cd->Shift != $shift) OR ($cd->Job_Items != $job AND $cd->Shift == $shift)){
-					if (!($cd->Job_Items == $job AND $cd->Shift == $shift)){	
+					if (!($cd->Job_Items == $job AND $cd->Shift == $shift)){
 						if ($cd->Color_Code != ''){
 						$insert_data[] = array(
 								  'Job_Items' => $cd->Job_Items,
@@ -1464,11 +1464,11 @@ function visitplus_woexist($value,$variable,$value1,$variable1){
 			$query1 = $this->db->get('pmis2_emg_jobvisit1');
 			//$query2 = $this->db->get('pmis2_emg_jobvisit1tow');
 
-			
+
 			if($query1->num_rows()>0){
-				
+
 				$this->load->model('update_model');
-				
+
 				$insert_data = array(
 						 'd_Date' => ($this->input->post('n_Visit_Date')) ? date('Y-m-d ', strtotime($this->input->post('n_Visit_Date'))).$this->input->post('n_Shour').':'.str_pad($this->input->post('n_Smin'), 2, 0, STR_PAD_LEFT) : NULL,
 						 'v_Time'=>$this->input->post('n_Shour').':'.str_pad($this->input->post('n_Smin'), 2, 0, STR_PAD_LEFT),
@@ -1507,9 +1507,9 @@ function visitplus_woexist($value,$variable,$value1,$variable1){
 
 				$TOWdata = array(
 						'type_of_work' => $this->input->post('n_Type_of_Work')
-				); 
+				);
 				$this->update_model->visitTOW_form($TOWdata);
-				
+
 				$RN = $this->input->post('wrk_ord');
 				//if (substr($RN,0,2) == 'PP'){
 				if ((substr($RN,0,2) == 'PP') || (substr($RN,0,2) == 'RI')) {
@@ -1537,7 +1537,7 @@ function visitplus_woexist($value,$variable,$value1,$variable1){
 							'v_Wrkordstatus' => "A",
 							'd_Reschdt' => $d_Reschdt,
 						);
-					$this->update_model->pmis2_egm_schconfirmmon($insert_data);	
+					$this->update_model->pmis2_egm_schconfirmmon($insert_data);
 					}
 					/*$this->load->model('display_model');
 					$data['v1rsch'] = $this->display_model->visit1ppm_tab($RN);
@@ -1546,7 +1546,7 @@ function visitplus_woexist($value,$variable,$value1,$variable1){
 						//$insert_data = array(
 						//		'd_StartDt' => date('Y-m-d ', strtotime($this->input->post('n_Visit_Date'))).$this->input->post('n_Shour').':'.str_pad($this->input->post('n_Smin'), 2, 0, STR_PAD_LEFT),
 						//	);
-						//$this->update_model->pmis2_egm_schconfirmmon($insert_data);	
+						//$this->update_model->pmis2_egm_schconfirmmon($insert_data);
 						//}
 					if (isset($data['v1rsch'][0]->d_Reschdt)) {
 					$insert_data = array(
@@ -1560,7 +1560,7 @@ function visitplus_woexist($value,$variable,$value1,$variable1){
 							'v_Wrkordstatus' => "A",
 							'd_Reschdt' => NULL,
 						);
-					$this->update_model->pmis2_egm_schconfirmmon($insert_data);	
+					$this->update_model->pmis2_egm_schconfirmmon($insert_data);
 					}*/
 				}
 				else{
@@ -1593,7 +1593,7 @@ function visitplus_woexist($value,$variable,$value1,$variable1){
 						//print_r($insert_data);
 						//echo '<br><br>';
 						$this->update_model->response_form($insert_data);
-						
+
 						$this->load->model('update_model');
 						$RN = $this->input->post('wrk_ord');
 						$insert_data = array(
@@ -1650,14 +1650,14 @@ function visitplus_woexist($value,$variable,$value1,$variable1){
 						//print_r($insert_data);
 						//echo '<br><br>';
 				$this->insert_model->visitplus_form($insert_data);
-			
+
 				$this->db->select($value);
 				$this->db->where($value,$variable);
 				$queryTOW = $this->db->get('pmis2_emg_jobvisit1tow');
 				if ($queryTOW->num_rows()>0){
 					$TOWdata = array(
 						'type_of_work' => $this->input->post('n_Type_of_Work')
-					); 
+					);
 				$this->load->model('update_model');
 				$this->update_model->visitTOW_form($TOWdata);
 				}
@@ -1665,7 +1665,7 @@ function visitplus_woexist($value,$variable,$value1,$variable1){
 				$TOWdata = array(
 						'v_WrkOrdNo'=> $RN,
 						'type_of_work' => $this->input->post('n_Type_of_Work')
-				); 
+				);
 				$this->insert_model->visitTOW_form($TOWdata);
 				}
 				//$RN = $this->input->post('wrk_ord');
@@ -1695,12 +1695,12 @@ function visitplus_woexist($value,$variable,$value1,$variable1){
 							'v_Wrkordstatus' => "A",
 							'd_Reschdt' => $d_Reschdt,
 						);
-					$this->update_model->pmis2_egm_schconfirmmon($insert_data);	
+					$this->update_model->pmis2_egm_schconfirmmon($insert_data);
 					}
 
 					/*$this->load->model('display_model');
 					$data['v1rsch'] = $this->display_model->visit1ppm_tab($RN);
-					
+
 					$this->load->model('update_model');
 					if (isset($data['v1rsch'][0]->d_Reschdt)) {
 					$insert_data = array(
@@ -1714,7 +1714,7 @@ function visitplus_woexist($value,$variable,$value1,$variable1){
 							'v_Wrkordstatus' => "A",
 							'd_Reschdt' => NULL,
 						);
-					$this->update_model->pmis2_egm_schconfirmmon($insert_data);	
+					$this->update_model->pmis2_egm_schconfirmmon($insert_data);
 					}*/
 				}
 				else{
@@ -1745,9 +1745,9 @@ function visitplus_woexist($value,$variable,$value1,$variable1){
 						 'v_ReschAuthBy' => ($this->input->post('name')) ? $this->input->post('name') : NULL
 						);
 						//print_r($insert_data);
-						//echo '<br><br>';						
+						//echo '<br><br>';
 						$this->insert_model->response_form($insert_data);
-						
+
 						$this->load->model('update_model');
 						$RN = $this->input->post('wrk_ord');
 						$insert_data = array(
@@ -1777,9 +1777,9 @@ function cs_exist($value1,$variable1,$value2,$variable2,$value3,$variable3,$v_In
 			$this->db->where($value1,$variable1);
 			$this->db->where($value2,$variable2);
 			$this->db->where($value3,$variable3);
-			
+
 			$query = $this->db->get('pmis2_com_indicatorparam');
-			
+
 			//echo "masuk Update : ".$query->num_rows();
 			//exit();
 			if($query->num_rows()>0){
@@ -1844,9 +1844,9 @@ function fi_exist($value1,$variable1,$value2,$variable2,$value3,$variable3){
 			$this->db->where($value1,$variable1);
 			$this->db->where($value2,$variable2);
 			$this->db->where($value3,$variable3);
-			
+
 			$query = $this->db->get('financial_report');
-			
+
 			if($query->num_rows()>0){
 
 				$this->load->model('update_model');
@@ -1899,11 +1899,11 @@ function monp_exist($value1,$dept,$value2,$date,$task,$value3,$monthyear,$user,$
 			$this->db->where($value1,$dept);
 			$this->db->where($value2,$date);
 			$this->db->where($value3,$monthyear);
-			
+
 			$query = $this->db->get('set_monthly_planner');
 			if($query->num_rows()>0){
 				$this->load->model('update_model');
-				
+
 				$insert_data = array(
 						  'Work_Code' => $task,
 						  'Color_Code' => $color,
@@ -1941,11 +1941,11 @@ function weekp_exist($value1,$dept,$value2,$date,$task,$value3,$monthyear,$user,
 			$this->db->where($value1,$dept);
 			$this->db->where($value2,$date);
 			$this->db->where($value3,$monthyear);
-			
+
 			$query = $this->db->get('set_weekly_planner');
 			if($query->num_rows()>0){
 				$this->load->model('update_model');
-				
+
 				$insert_data = array(
 						  'Work_Code' => $task,
 						  'Color_Code' => $color,
@@ -1981,11 +1981,11 @@ $this->db->insert('asset_service_contract', $insert_data);
 function service_contractexist($value1,$assetno){
 			$this->db->select($value1);
 			$this->db->where($value1,$assetno);
-			
+
 			$query = $this->db->get('asset_service_contract');
 			if($query->num_rows()>0){
 				$this->load->model('update_model');
-				
+
 				$insert_data = array(
 						  'contract' => $this->input->post('n_Contract'),
 						  'vendor' => $this->input->post('n_Vendor'),
@@ -2022,7 +2022,7 @@ function service_contractexist($value1,$assetno){
 			$this->db->where($value1,$variable1);
 			$this->db->where($value2,$variable2);
 			$this->db->where($value3,$variable3);
-			
+
 			$query = $this->db->get('asset_images');
 
 			if($query->num_rows()<=6){
@@ -2046,7 +2046,7 @@ function jic_exist($value1,$job,$value2,$dept,$value3,$loc,$numcode,$value4,$mon
 			$this->db->where($value4,$monthyear);
 			//$this->db->where($value5,$jobdate);
 			$this->db->where($value6,$jino);
-			
+
 			$query = $this->db->get('set_jic_scheduler');
 			if($query->num_rows()>0){
 				$this->load->model('update_model');
@@ -2090,7 +2090,7 @@ function statutory_exist($value1,$assetno,$value2,$id,$delete_chk){
 	$this->db->select($value1,$value2);
 	$this->db->where($value1,$assetno);
 	$this->db->where($value2,$id);
-	
+
 	$query = $this->db->get('pmis2_egm_statutory');
 	//echo $this->db->last_query();
 	//exit();
@@ -2124,7 +2124,7 @@ function statutory_exist($value1,$assetno,$value2,$id,$delete_chk){
 	}
 	else{
 		$insert_data = array(
-					
+
 					'v_asset_no'=>$this->input->post('assetno'),
 			 		'v_authority'=>$this->input->post('n_Authorit'),
 			 		'v_regno'=>$this->input->post('n_Registration_Number'),
@@ -2139,8 +2139,8 @@ function statutory_exist($value1,$assetno,$value2,$id,$delete_chk){
 			 		'v_GradeID'=>$this->input->post('n_Class_Grade'),
 			 		'v_Remarks'=>$this->input->post('n_Remarks'),
 			 		'user_add'=>$this->session->userdata('v_UserName')
-					
-		);	
+
+		);
 		$this->insert_model->pmis2_egm_statutory($insert_data);
 	}
 }
@@ -2153,12 +2153,12 @@ $this->db->insert('clause_tbl', $insert_data);
 function clause_woexist($value,$variable){
 			$this->db->select($value);
 			$this->db->where($value,$variable);
-			
+
 			$query = $this->db->get('clause_tbl');
-			
+
 			if($query->num_rows()>0){
 				$this->load->model('update_model');
-				
+
 				$insert_data = array(
 						 'date_issued' => $this->input->post('n_clause_date'),
 						 'clause_no' => $this->input->post('n_clause_no'),
@@ -2238,7 +2238,7 @@ function acgm_exist($value1,$variable1,$value2,$variable2,$value3,$variable3,$in
 			$this->db->where($value1,$variable1[$i]);
 			$this->db->where($value2,$variable2);
 			$this->db->where($value3,$variable3[$i]);
-			
+
 			$query = $this->db->get('acg_apb_prevcmv2');
 
 			if($query->num_rows()>0){
@@ -2412,7 +2412,7 @@ $insert_data = array(
 $this->db->insert('whatrudoin', $insert_data);
 
 //echo $this->db->last_query();
-		
+
 		//exit();
 }
 
@@ -2434,12 +2434,12 @@ $this->db->insert('pmis2_egm_sharedowntime', $insert_data);
 function link_woexist($value,$variable){
 			$this->db->select($value);
 			$this->db->where($value,$variable);
-			
+
 			$query = $this->db->get('pmis2_egm_sharedowntime');
-			
+
 			if($query->num_rows()>0){
 				$this->load->model('update_model');
-				
+
 				$insert_data = array(
 						'd_timestamp'=> date("Y-m-d H:i:s"),
 						'link_wo' => $this->input->post('n_link'),
@@ -2470,9 +2470,9 @@ function license_image_i($insert_data){
 function license_image($insert_data){
 	$this->db->select('licenses_no');
 	$this->db->where('licenses_no',$insert_data['licenses_no']);
-	
+
 	$query = $this->db->get('license_images');
-	
+
 	if($query->num_rows()>0){
 		$this->load->model('update_model');
 		$this->update_model->license_image_u($insert_data);
@@ -2489,12 +2489,12 @@ function fdr_exist($value1,$variable1,$value2,$variable2,$mi_description,$mi_roo
 	$this->db->select($value1,$value2);
 	$this->db->where($value1,$variable1);
 	$this->db->where($value2,$variable2);
-	
+
 	$query = $this->db->get('fes_dailyreport');
-	
+
 	if($query->num_rows()>0){
 		$this->load->model('update_model');
-		
+
 		$insert_data = array(
 				'mi_description' => $mi_description,
 				'mi_rootcause' => $mi_rootcause,
@@ -2531,7 +2531,7 @@ function ud_setup($value1,$variable1,$value2,$variable2){
 	$this->db->or_where($value2,$variable2);
 	//$this->db->where($where);
 	$this->db->where('v_HospitalCode',$this->session->userdata('hosp_code'));
-	
+
 	$query = $this->db->get('pmis2_sa_userdept');
 
 	if($query->num_rows()<=0){
@@ -2560,7 +2560,7 @@ function ud_setup($value1,$variable1,$value2,$variable2){
 function personnel_admin($value1,$variable1){
 	$this->db->select($value1);
 	$this->db->where($value1,$variable1);
-	
+
 	$query = $this->db->get('pmis2_sa_personal');
 
 	if($query->num_rows()<=0){
@@ -2665,11 +2665,27 @@ $this->db->insert('tbl_invitem', $insert_data);
 
 }
 
+
+		function tbl_rn_item($insert_data){
+
+		$this->db->insert('tbl_rn_item', $insert_data);
+
+
+		}
+
+		function tbl_rn_release($insert_data){
+		$this->db->set("Date_Stamp", "NOW()", FALSE);
+		$this->db->insert('tbl_rn_release', $insert_data);
+
+
+		}
+
 		public function save_release_note(){
 			$this->load->model("get_model");
-			$rn_no = $this->get_model->get_RNNO();
+			$rn_no = $this->get_model->get_RNNO($this->input->post("area"));
 			$val_tbl_rn_release = array(
 						"RN_No" => $rn_no,
+						"User_Release" => $this->session->userdata("v_UserName"),
 						"rn_status" => $this->input->post("rn_status"),
 						"shipment_type" => $this->input->post("shipment_type"),
 						"courier" => $this->input->post("courier"),
@@ -2682,17 +2698,19 @@ $this->db->insert('tbl_invitem', $insert_data);
 			$this->db->trans_begin();
 
 			$this->db->insert("tbl_rn_release", $val_tbl_rn_release);
-		
+
 			if(isset($_POST["itemCode"])){
 				$itemCodeVal = count($_POST["itemCode"]);
 				for( $i=0; $i<$itemCodeVal;$i++ ){
+					if($this->input->post("qty_rls")[$i] <> ''){
 					$val_tbl_rn_item[$i] = array(
 							"RN_No" => $rn_no,
+							"MRIN_No" => $this->input->post("MIRNcode")[$i],
 							"Item_Code" => $this->input->post("itemCode")[$i],
-							"Qty" => $this->input->post("Qty_Taken")[$i],
-							"Price" => $this->input->post("Price_Taken")[$i]
+							"Qty" => $this->input->post("qty_rls")[$i],
+							//"Price" => $this->input->post("Price_Taken")[$i]
 					);
-				}
+				}}
 				$this->db->insert_batch("tbl_rn_item", $val_tbl_rn_item);
 			}
 			// $rn_next_no = explode("/",$rn_no)[3]+1;
@@ -2709,7 +2727,7 @@ $this->db->insert('tbl_invitem', $insert_data);
 			if ($this->db->trans_status() === FALSE) {
 				$this->db->trans_rollback();
 				return FALSE;
-			} 
+			}
 			else {
 				$this->db->trans_commit();
 				return TRUE;
