@@ -56,6 +56,10 @@
 												<label for="radio-1-9"></label> A9 - Internal Request<br>
 												<input type="radio" id="radio-1-10" name="n_request_type" class="regular-radio" value="A10" <?php echo set_radio('n_request_type', 'A10'); ?>/>   
 												<label for="radio-1-10"></label> A10 - Reimbursable Work<br>
+												<input type="radio" id="radio-1-11" name="n_request_type" class="regular-radio" value="AP" <?php echo set_radio('n_request_type', 'AP'); ?>/>   
+												<label for="radio-1-11"></label> AP - Internal Request (AP)<br>
+												<input type="radio" id="radio-1-12" name="n_request_type" class="regular-radio" value="AP1" <?php echo set_radio('n_request_type', 'AP1'); ?>/>   
+												<label for="radio-1-12"></label> AP1 - Equipment Audit<br>
 												<?php } ?>
 												<!--<input type="radio" id="radio-1-8" name="n_request_type" class="regular-radio" value="A10" <?php echo set_radio('n_request_type', 'A10'); ?>/>   
 												<label for="radio-1-8"></label> A10 - Technical Advice<br>
@@ -71,7 +75,7 @@
 										</tr>
 										<tr>
 											<td style="padding-left:10px;" valign="top">Request Date :   </td>
-											<td style="padding-left:10px;" valign="top"><input type="text"  id="date<?php echo $numberdate++; ?>" name="n_request_date" max="<?=date('Y-m-d')?>" value="<?php echo set_value('n_request_date'); ?>" class="form-control-button2 n_wi-date2"></td>
+											<td style="padding-left:10px;" valign="top"><input type="text"  id="date<?php echo $numberdate++; ?>" name="n_request_date" max="<?=date('Y-m-d')?>" autocomplete="off" value="<?php echo set_value('n_request_date'); ?>" class="form-control-button2 n_wi-date2"></td>
 										</tr>
 										<tr>
 										<td style="padding-left:10px;" valign="top">Request&nbsp;Time&nbsp;:&nbsp;</td>

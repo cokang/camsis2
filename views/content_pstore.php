@@ -8,6 +8,7 @@
 		<?php $tab[4] = array("url"=>"contentcontroller/new_item", "label"=>"New Item", "device"=>"web", "in"=>0);?>
 		<?php $tab[5] = array("url"=>"contentcontroller/bar_code", "label"=>"Bar Code", "device"=>"web", "in"=>0);?>
 		<?php $tab[6] = array("url"=>"Procurement/release_note", "label"=>"Release Note", "device"=>"web", "in"=>0);?>
+		<?php $tab[7] = array("url"=>"contentcontroller/site_store_status?id=".$this->input->get('id'), "label"=>"Site Store Status", "device"=>"web", "in"=>0);?>
 
 		<?php $autocolor = array('bg-purple', 'bg-red', 'bg-yellow', 'bg-aqua', 'bg-light-blue', 'bg-orange','bg-blue'); shuffle($autocolor); ?>
 
@@ -46,97 +47,7 @@
 		$r++;
 		}
 		?>
-		<!-- <?php if (!in_array("contentcontroller/store_item_new", $chkers)) { ?>
-
-		<div class="box6">
-			<div class="small-box <?php echo $autocolor[0];?>">
-				<div class="inner2" >
-					<p>New Part</p>
-				</div>
-				<div class="icon"><i class="icon-file-text2"></i></div>
-				<?php echo anchor ('contentcontroller/store_item_new','<span class="ui-left_web">More Info <i class="icon-arrow-right"></i></span>','class="small-box-footer"'); ?>
-			</div>
-		</div>
-
-		<?php  }else{ $i = $i-1; } ?>
-		<?php if (!in_array("contentcontroller/Report_Part", $chkers)) { ?>
-
-		<div class="box6">
-			<div class="small-box <?php echo $autocolor[1];?>">
-				<div class="inner2" >
-					<p>Report Part</p>
-				</div>
-				<div class="icon"><i class="icon-file-text2"></i></div>
-				<?php echo anchor ('contentcontroller/Report_Part','<span class="ui-left_web">More Info <i class="icon-arrow-right"></i></span>','class="small-box-footer"'); ?>
-			</div>
-		</div>
-
-		<?php  }else{ $i = $i-1; } ?>
-		<?php if (!in_array("contentcontroller/vendor_reg", $chkers)) { ?>
-
-		<div class="box6">
-			<div class="small-box <?php echo $autocolor[2];?>">
-				<div class="inner2" >
-					<p>Vendor Reg</p>
-				</div>
-				<div class="icon"><i class="icon-file-text2"></i></div>
-				<?php echo anchor ('contentcontroller/vendor_reg','<span class="ui-left_web">More Info <i class="icon-arrow-right"></i></span>','class="small-box-footer"'); ?>
-			</div>
-		</div>
-
-		<?php  }else{ $i = $i-1; } ?>
-		<?php if (in_array("contentcontroller/vendor_reg_update", $chkers)) { ?>
-
-		<div class="box6">
-			<div class="small-box <?php echo $autocolor[3];?>">
-				<div class="inner2" >
-					<p>Vendor Reg Update</p>
-				</div>
-				<div class="icon"><i class="icon-file-text2"></i></div>
-				<?php echo anchor ('contentcontroller/vendor_reg_update','<span class="ui-left_web">More Info <i class="icon-arrow-right"></i></span>','class="small-box-footer"'); ?>
-			</div>
-		</div>
-
-		<?php  }else{ $i = $i-1; } ?>
-		<?php if (!in_array("contentcontroller/new_item", $chkers)) { ?>
-
-		<div class="box6">
-			<div class="small-box <?php echo $autocolor[4];?>">
-				<div class="inner2" >
-					<p>New Item</p>
-				</div>
-				<div class="icon"><i class="icon-file-text2"></i></div>
-				<?php echo anchor ('contentcontroller/new_item','<span class="ui-left_web">More Info <i class="icon-arrow-right"></i></span>','class="small-box-footer"'); ?>
-			</div>
-		</div>
-
-		<?php  }else{ $i = $i-1; } ?>
-		<?php if (!in_array("contentcontroller/bar_code", $chkers)) { ?>
-
-		<div class="box6">
-			<div class="small-box <?php echo $autocolor[5];?>">
-				<div class="inner2" >
-					<p>Bar Code</p>
-				</div>
-				<div class="icon"><i class="icon-file-text2"></i></div>
-				<?php echo anchor ('contentcontroller/bar_code','<span class="ui-left_web">More Info <i class="icon-arrow-right"></i></span>','class="small-box-footer"'); ?>
-			</div>
-		</div>
-
-		<?php  }else{ $i = $i-1; } ?>
-		<?php if (!in_array("procurement/release_note", $chkers)) { ?>
-
-		<div class="box6">
-			<div class="small-box <?php echo $autocolor[6];?>">
-				<div class="inner2" >
-					<p>Release Note</p>
-				</div>
-				<div class="icon"><i class="icon-file-text2"></i></div>
-				<?php echo anchor ('procurement/release_note','<span class="ui-left_web">More Info <i class="icon-arrow-right"></i></span>','class="small-box-footer"'); ?>
-			</div>
-		</div>
-
-		<?php  }else{ $i = $i-1; } ?> -->
+		
 		
 	</div>
 	<div class="content-workorder">

@@ -4,22 +4,349 @@
 	<style type="text/css">
 		.tbl-wo{
 			font-size: 10px;
+
+		}
+
+		.tbl-wo-2{
+			font-size: 14px;
+			margin-left: 5%;
+
+		}
+		.tbl-wo-2 tr td{
+			font-size: 14px;
+			height: 30;
+			/*border: 1px solid black;*/
+			
 		}
 		.tbl-wo-1{
 			font-size: 10px;
 		}
+		.tbl-wd{
+			margin-left: 5%;
+			border-collapse: collapse;
+			font-size: 14px;
+			width: 90%;
+			border: 1px solid black;
+			
+		}
+
+		.tbl-wd .test1 td{
+			border-top: 1px solid black;
+
+		}
+		.tbl-wd tr td{
+
+			height: 30;
+			margin-left: 5%;
+			border-collapse: collapse;
+			/*border: 1px solid black;*/
+
+		}
+
+		.square {
+		  height: 25px;
+		  width: 25px;
+		  border: 1px solid black;
+		}
+
+		.tbl-we{
+			margin-left: 5%;
+			border-collapse: collapse;
+			font-size: 14px;
+			width: 90%;
+		}
+		.tbl-we tr td{
+			font-size: 14px;
+		}
+
+
 	</style>
 	<div id="Instruction" class="pr-printer">
 		<div class="header-pr">SERVICE REQUEST AND WORK ORDER</div>
 		<button onclick="javascript:myFunction('print_workorder?wrk_ord=<?=$this->input->get('wrk_ord')?>&none=closed');" class="btn-button btn-primary-button">PRINT</button>
 		<button type="cancel" class="btn-button btn-primary-button" onclick="location.href = '<?php base_url();?>workorderlist?&wrk_ord=<?=$this->input->get('wrk_ord')?>';">CANCEL</button>
 	</div>
+
+	<!-- <div style="border: 1px solid black; width: 95%; height: 95%; margin: 2%;"> -->
+	<div class="">
+	<table class="tbl-wo-2" style="margin-top: 2%; width: 90%;">
+		<tr>
+		<td style="color:black; width: 25%;"><h2>SERVICE REPORT</h2></td>
+		<td style="width: 1%;"></td>
+		<td style="width: 13%;"></td>
+		<td style="width: 13%;"></td>
+		<td style="width: 13%;"></td>
+		<td style="width: 7%;"></td>
+		<td style="width: 1%;"></td>
+		<td rowspan=2 style="padding-left:5px; width:100px;" align="center">
+				<img src="<?php echo base_url(); ?>images/logo.png" style="width:145px; height:60px;"/></td>
+		</tr>
+
+		<tr>
+		<td style="padding:1px; width:100px; font-size: 15px; color: blue;" colspan="6"><?= ($wrk_ord) ? $wrk_ord : 'NA' ?> </td>
+		</tr>
+
+		<tr>
+			<td>Nature of Visit:</td>
+			<td></td>
+			
+		    <!-- <?php if($woAP19[0]->V_priority_code == 'Normal'){?>
+			<img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/>
+			<?php }else{ ?>
+			<?php } ?> -->
+
+			<td></td>
+			<!-- <?php if($woAP19[0]->V_priority_code == 'Emergency'){?>
+			<img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/>
+			<?php }else{ ?>
+			<?php } ?> -->
+
+			<td></td>
+			<!-- <?php if($woAP19[0]->V_priority_code == 'Emergency'){?>
+			<img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/>
+			<?php }else{ ?>
+			<?php } ?> -->
+	
+		<td></td>
+		<td></td>
+		
+		</tr>
+		<tr>
+		<td>Breakdown</td>
+		<td></td>
+			<td><div class="box2">
+			<?php if($woAP19[0]->V_priority_code == 'RQ'){?>
+			<img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/>
+			<?php }else{ ?>
+			<?php } ?>
+			</div></td>
+			<td></td>
+			<td></td>
+			<td>LOC NO	</td>
+			<td>:</td>
+			<td style="border-bottom: 1px solid black;"><?=$woAP19[0]->V_requestor;?></td>	
+		</tr>
+
+		<td>PPM</td>
+		<td></td>
+			<td><div class="box2">
+				<?php if($woAP19[0]->V_priority_code == 'PPM'){?>
+			<img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/>
+			<?php }else{ ?>
+			<?php } ?>
+			</div></td>
+			<td></td>
+			<td></td>
+			<td>PO NO	</td>
+			<td>:</td>
+			<td style="border-bottom: 1px solid black;"><?=$woAP19[0]->V_User_dept_code;?></td>
+		</tr>
+
+		<td>Others</td>
+		<td></td>
+			<td><div class="box2">
+				<?php if($woAP19[0]->V_priority_code == 'Others'){?>
+			<img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/>
+			<?php }else{ ?>
+			<?php } ?>
+			</div></td>
+			<td></td>
+			<td></td>
+			<td>Letter</td>
+			<td>:</td>
+			<td style="border-bottom: 1px solid black;"><?=$woAP19[0]->V_Location_code;?></td>
+		</tr>
+		<tr>
+			<td>Work Order No	</td>
+			<td>:</td>
+			<td><?=$woAP19[0]->V_phone_no;?></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Equipment	</td>
+			<td>:</td>
+			<td><?=$woAP19[0]->V_Asset_name;?></td>
+			<td></td>
+			<td></td>
+			<td>Asset No	</td>
+			<td>:</td>
+			<td><?=$woAP19[0]->V_Asset_no;?></td>
+		</tr>
+		<tr>
+			<td>Manufacturer	</td>
+			<td>:</td>
+			<td><?=$woAP19[0]->V_Manufacturer;?></td>
+			<td></td>
+			<td></td>
+			<td>Serial No	</td>
+			<td>:</td>
+			<td><?=$woAP19[0]->V_Serial_no;?></td>
+		</tr>
+
+		<tr>
+			<td>Brand/Model	 </td>
+			<td>:</td>
+			<td><?=$woAP19[0]->V_Model_no;?></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Failure Report   </td>
+			<td>:</td>
+		</tr>
+		</table>
+        <div style="width: 90%; border: 1px solid black; height:10%; margin-left: 5%;font-size: 14px;padding-left:5px;">
+		<?=$woAP19[0]->V_summary;?>
+		</div>
+        <table class="tbl-wo-2">
+           <tr>
+           	<td>Troubleshoot/Corrective Action</td>
+           </tr>
+        </table>
+        <div style="width: 90%; border: 1px solid black; height:10%; margin-left: 5%;font-size: 14px;padding-left:5px;"><?=$woinfo[0]->V_details;?></div>
+        <div style="height: 2%;"></div>
+        <table class="tbl-we">
+        
+        <tr>
+        	<td style="width:20%;">Job Completed</td>
+        	<td style="width:30%;"><div class="square">
+			</div></td>
+			<td style="width:20%;">To be continued</td>
+			<td style="width:30%;"><div class="square">
+			</div></td>
+        </tr>
+       
+        </table>
+        <div style="height: 2%;"></div>
+        	<table class="tbl-wd">
+        		<tr>
+        			<td style="border: 1px solid black;">Parts Replaced/Recommended Parts To Change</td>
+        			<td style="border: 1px solid black;">Part No.</td>
+        			<td style="border: 1px solid black;">Qty</td>
+        		</tr>
+        		<tr>
+        			<td style="border: 1px solid black;"></td>
+        			<td style="border: 1px solid black;"></td>
+        			<td style="border: 1px solid black;"></td>
+        		</tr>
+        		<tr>
+        			<td style="border: 1px solid black;"></td>
+        			<td style="border: 1px solid black;"></td>
+        			<td style="border: 1px solid black;"></td>
+        		</tr>
+        		<tr>
+        			<td style="border: 1px solid black;"></td>
+        			<td style="border: 1px solid black;"></td>
+        			<td style="border: 1px solid black;"></td>
+        		</tr>
+        		<tr>
+        			<td style="border: 1px solid black;"></td>
+        			<td style="border: 1px solid black;"></td>
+        			<td style="border: 1px solid black;"></td>
+        		</tr>
+        	</table>	
+        	<div style="height: 1%;"></div -->
+        	<table class="tbl-wd" style="height: 15%;">
+        	<tr>
+        			<td></td>
+        			<td style="text-align: right; width: 10%;"></td>
+        			<td></td>
+        			<td></td>
+        			<td></td>
+        			<td></td>
+        			<td style="text-align: right; width: 10%;"></td>
+        			<td  width: 30%;"></td>
+        			<td></td>
+        			<td></td>
+        		</tr>
+        		<tr>
+        			<td></td>
+        			<td style="text-align: right; width: 10%;"></td>
+        			<td></td>
+        			<td></td>
+        			<td></td>
+        			<td></td>
+        			<td style="text-align: right; width: 10%;"></td>
+        			<td  width: 30%;"></td>
+        			<td></td>
+        			<td></td>
+        		</tr>
+        	<tr>
+        			<td></td>
+        			<td style="text-align: right; width: 10%;"></td>
+        			<td></td>
+        			<td></td>
+        			<td></td>
+        			<td></td>
+        			<td style="text-align: right; width: 10%;"></td>
+        			<td style="width: 30%;"></td>
+        			<td></td>
+        			<td></td>
+        		</tr>
+        		<tr>
+        			<td></td>
+        			<td style="text-align: right; width: 10%;"></td>
+        			<td style="border-bottom: 1px solid black; width: 30%;"></td>
+        			<td></td>
+        			<td></td>
+        			<td></td>
+        			<td style="text-align: right; width: 10%;"></td>
+        			<td style="border-bottom: 1px solid black; width: 30%;"></td>
+        			<td></td>
+        			<td></td>
+        		</tr>
+        		<tr>
+        		<td></td>
+        			<td>Done by:</td>
+        			<td style="text-align: center;">(Sign & Cop)</td>
+        			<td></td>
+        			<td></td>
+        			<td></td>
+        			<td>Customer:</td>
+        			<td style="text-align: center;">(Sign & Cop)</td>
+        			<td></td>
+        			<td></td>
+        		</tr>
+        		<tr>
+        			<td></td>
+        			<td>Date:</td>
+        			<td></td>
+        			<td></td>
+        			<td></td>
+        			<td></td>
+        			<td>Date:</td>
+        			<td></td>
+        			<td></td>
+        			<td></td>
+        		</tr>
+        	</table>
+        	<table class="tbl-wo">
+        	<tr>
+        	<td>
+        	<div style="margin-left: 5%; margin-right: 5%; text-align: center;">
+        		<b>ADVANCE PACT SDN BHD</b>(412169-V)<br>
+				2-3A Perdana The Place, Jalan PJU 8/5G, Bandar Damansara Perdana 47820 Petaling Jaya, Selangor, Malaysia.<br>
+				Tel : +6(03)-7726 8632/7727 9859/7728 4752 Fax:+6(03)7728 3075         Website : www.advancepact.com<br>
+				<b>HOTLINE</b>:+6(017)272 7226
+				</div>
+				<div style="text-align: right; height: 2%;">Customer Copy</div>
+			</td>
+        	</tr>
+        	</table>
+	</table>
+	</div>
+	<div class="StartNewPage" id="breakpage"><span id="pagebreak">Page Break</span></div>
+	
 	<div class="">
 		<table class="tbl-wo" align="center" style="margin-top:15px;">
 			<tr>
 				<td style="padding-left:0px; width:120px;" align="center"><img src="<?php echo base_url(); ?>images/msblogo.png" style="width:100px; height:40px;"/></td>
 				<td style="text-align: center; font-size: 16px;font-weight: bold;">
-					MSB ALOR GAJAH
+					MSB <?= ($hosp[0]->v_HospitalName) ? $hosp[0]->v_HospitalName : 'NA' ?>
 				</td>
 				<td style="padding-left:5px; width:150px;font-size: 13px;" align="center">Date : <?= date("d/m/Y")?> </td>
 				<!-- <img src="<?php echo base_url(); ?>images/logo.png" style="width:145px; height:60px;"/></td> -->
@@ -542,27 +869,24 @@
 
 			<?php }else{ ?>
 			<tr>
-			    <td style="width:50%; padding:0px 0px 0px 0px;" colspan="5">
-			    	<table class="tbl-wo" border="0" style="width: 100%;">
+			    <td style="width:50%; padding:0px 0px 0px 3px;" colspan="5">
+			    	<table class="tbl-wo" border="0" align="left">
 						<tr>
 							<td style="width:25%;">Claim Status :</td>
 							<td style="width:25%;"><div class="box2"></div> Not Reimbursable</td>
 							<td style="width:25%;"><div class="box2"></div> Reimbursable</td>
 							<td style="width:25%;"><div></div></td>
-							<td style="width:25%;"></td>
 						</tr>
 						<tr>
 							<td>Reference No :</td>
 							<td><hr class='dotted' style="margin:margin:10px 10px 10px 0px;height:10px;"/></td>
 						</tr>
-						<tr>
 
 						<!-- tr style="border-top: 1px solid bl"> -->
 							<td style="width:25%;"> Out-sourcing:</td>
 							<td style="width:25%;"><div class="box2"></div> Not Required</td>
 							<td style="width:25%;"><div class="box2"></div> 3rd Party</td>
 							<td style="width:25%;"><div class="box2"></div> Contract Service</td>
-							<td style="width:25%;"></td>
 						</tr>
 					</table>
 			    </td>

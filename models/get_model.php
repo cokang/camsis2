@@ -16,6 +16,28 @@ function dater($which=1, $mon, $yr)
 				return date("Y-m-d", strtotime("-1 day",strtotime("+1 month", $time)));
 				}
 				}
+
+				function ins_testdup($insert_data){
+
+				$this->db->insert('inila', $insert_data);
+
+				//echo $this->db->last_query();
+
+						//exit();
+				}
+				function updateOnDuplicate($table, $data ) {
+    if (empty($table) || empty($data)) return false;
+    $duplicate_data = array();
+    foreach($data AS $key => $value) {
+        $duplicate_data[] = sprintf("%s='%s'", $key, $value);
+    }
+
+    $sql = sprintf("%s ON DUPLICATE KEY UPDATE %s", $this->db->insert_string($table, $data), implode(',', $duplicate_data));
+    $this->db->query($sql);
+		//echo $this->db->last_query();
+    return $this->db->insert_id();
+}
+
 function get_dropdown_list_wgcode()
 {
 $this->db->select("v_WorkGroup,trim(concat(v_WorkGroup , ' ' , v_WorkGroupname)) as workgroupname", FALSE);
@@ -4025,5 +4047,44 @@ foreach($query->result() as $row ){
 return $array;
 }
 
+function getSiteHospital($select=""){
+//$this->session->userdata('v_UserName')
+$this->db->select('b.*');
+ $this->db->from('pmis2_sa_userhospital a');
+ $this->db->join('pmis2_sa_hospital b','a.v_hospitalcode=b.v_HospitalCode');
+ $this->db->where('a.v_userid',$this->session->userdata('v_UserName'));
+$query = $this->db->get();
+//echo $this->db->last_query();
+if ($select <> ''){
+foreach($query->result() as $row ){
+		//this sets the key to equal the value so that
+		//the pulldown array lists the same for each
+		if ($row->v_HospitalCode=='HQ'){
+		$array[$row->v_HospitalCode] = $row->v_HospitalCode;
+		}else {
+		$array[$row->v_HospitalCode] = "Hospital ".$row->v_HospitalName;
+        }
+		                          }
+return $array;
+} else {
+return $query->result();
+}
+}
+
+function request_updateAP19($wrk_ord){
+
+$this->db->select('s.*,r.V_Tag_no,r.V_Serial_no,r.V_Asset_name,r.V_Manufacturer,r.V_Model_no',FALSE);
+$this->db->from('pmis2_egm_service_request s');
+$this->db->join('pmis2_egm_assetregistration r',"s.V_Asset_no = r.V_Asset_no AND s.V_hospitalcode = r.V_Hospitalcode AND r.V_Actionflag <> 'D'", 'left outer');
+$this->db->where('s.V_Request_no',$wrk_ord);
+$this->db->where('s.v_ActionFlag <> ', 'D');
+
+$query = $this->db->get();
+//echo $this->db->last_query();
+//exit();
+
+$query_result = $query->result();
+return $query_result;
+}
 }
 ?>

@@ -11,27 +11,27 @@ function create_form($insert_data){
 	$this->db->update('pmis2_egm_service_request', $insert_data);
 	}
 	}
-	
+
 function update_pmis2_egm_assetregistration($insert_data){
 	$this->db->where('V_Hospitalcode',$this->session->userdata('hosp_code'));
 	$this->db->where('V_Asset_no',$insert_data['V_Asset_no']);
 	$this->db->where('V_service_code',$this->session->userdata('usersess'));
 	$this->db->update('pmis2_egm_assetregistration', $insert_data);
 	}
-	
+
 function update_pmis2_egm_assetreg_general($insert_data){
 	$this->db->where('V_Hospital_code',$this->session->userdata('hosp_code'));
 	$this->db->where('V_Asset_no',$insert_data['V_Asset_no']);
 	$this->db->update('pmis2_egm_assetreg_general', $insert_data);
 	}
-	
+
 function update_ap_VO_VVFDetails($insert_data){
 	$this->db->where('vvfActionflag <> ','D');
 	$this->db->where('vvfassetno',$insert_data['V_Asset_no']);
 	$this->db->where('vvfHospitalcode',$this->session->userdata('hosp_code'));
 	$this->db->update('ap_vo_vvfdetails', $insert_data);
-	}	
-	
+	}
+
 function pmis2_egm_accesories($insert_data){
   $this->db->where('v_hospitalcode',$this->session->userdata('hosp_code'));
 	$this->db->where('v_accesoriescode',$insert_data['v_accesoriescode']);
@@ -39,24 +39,24 @@ function pmis2_egm_accesories($insert_data){
 	$this->db->update('pmis2_egm_accesories', $insert_data);
 	//echo $this->db->last_query();
 	//exit();
-	
-	}	
-	
+
+	}
+
 function pmis2_egm_lnc_lincense_details($insert_data,$liccd){
   $this->db->where('id',$liccd);
 	$this->db->where('v_ServiceCode',$this->session->userdata('usersess'));
 	$this->db->where('v_HospitalCode',$this->session->userdata('hosp_code'));
 	$this->db->update('pmis2_egm_lnc_lincense_details', $insert_data);
-	
-	
+
+
 	}
-	
+
 function response_form($insert_data){
 	$RN = $this->input->post('wrk_ord');
 	$this->db->where('v_WrkOrdNo',$RN);
 	$this->db->update('pmis2_emg_jobresponse', $insert_data);
-	}	
-	
+	}
+
 function pmis2_egm_assetjobtype($insert_data){
   $this->db->where('v_Asset_no',$insert_data['v_Asset_no']);
 	$this->db->where('v_Year',$insert_data['v_Year']);
@@ -64,7 +64,7 @@ function pmis2_egm_assetjobtype($insert_data){
 	$this->db->update('pmis2_egm_assetjobtype', $insert_data);
 	//echo $this->db->last_query();
 	//exit();
-	
+
 }
 function visit1_form($insert_data){
 	$RN = $this->input->post('wrk_ord');
@@ -185,7 +185,7 @@ function vo3_asset_update($insert_data){
 function vo3_ratefee_update($vvfID,$insert_data){
 	$this->db->where ('vvfID',$vvfID);
 	$this->db->update('ap_vo_vvfdetails',$insert_data);
-	
+
 	//echo $this->db->last_query();
 	//exit();
 }
@@ -203,6 +203,7 @@ function qap3_caraction_update($id,$insert_data){
 function store_take_update($id,$hosp,$takeadd_data){
 	$this->db->where('ItemCode',$id);
 	$this->db->where('Hosp_code',$hosp);
+	$this->db->where('Action_Flag <>','D');
 	$this->db->update('tbl_item_store_qty',$takeadd_data);
 }
 function store_takevisit_update($docdetails,$hosp,$update_job){
@@ -363,16 +364,16 @@ function acg_modulesf_u($insert_data,$reqno,$servcode){
 
 function ap_vo_vvfdetails($insert_data,$assetno,$voperiod){
 	$this->db->where('vvfAssetTagNo',$assetno);
-	$this->db->where('vvfRefNo',$voperiod); 
+	$this->db->where('vvfRefNo',$voperiod);
   $query = $this->db->get('ap_vo_vvfdetails');
     if ($query->num_rows() > 0){
         $this->db->where('vvfAssetTagNo',$assetno);
-				$this->db->where('vvfRefNo',$voperiod); 
+				$this->db->where('vvfRefNo',$voperiod);
 				$this->db->update('ap_vo_vvfdetails', $insert_data);
     }
     else{
         $this->db->where('vvfAssetTagNo',$assetno);
-				$this->db->where('vvfRefNo',$voperiod); 
+				$this->db->where('vvfRefNo',$voperiod);
 				$this->db->insert('ap_vo_vvfdetails', $insert_data);
     }
 }
@@ -419,7 +420,7 @@ function pmis2_egm_assetjobtypeid($insert_data,$id){
 	$this->db->update('pmis2_egm_assetjobtype', $insert_data);
 	//echo $this->db->last_query();
 	//exit();
-	
+
 }
 
 function del_assetppmjobreg($insert_data,$assetno,$year,$id){
@@ -430,7 +431,7 @@ function del_assetppmjobreg($insert_data,$assetno,$year,$id){
 	$this->db->update('pmis2_egm_assetjobtype', $insert_data);
 	//echo $this->db->last_query();
 	//exit();
-	
+
 }
 
 function linkwo_form_u($insert_data,$wo){
@@ -611,7 +612,40 @@ function store_take_updatematerialreq($mirncd,$takeadd_data){
 	//echo $this->db->last_query();
 	//exit();
 }
+function updateOnDuplicate($table, $data ) {
+if (empty($table) || empty($data)) return false;
+$duplicate_data = array();
+foreach($data AS $key => $value) {
+$duplicate_data[] = sprintf("%s='%s'", $key, $value);
+}
+//echo sprintf("%s='%s'", $key, $value);
+$sql = sprintf("%s ON DUPLICATE KEY UPDATE %s", $this->db->insert_string($table, $data), implode(',', $duplicate_data));
+$this->db->query($sql);
+//echo $this->db->last_query()."<br>";
+return $this->db->insert_id();
+}
 
+function updateOnDuplicatex($table, $data ) {
+if (empty($table) || empty($data)) return false;
+//echo("masuk cni");
+//$duplicate_data = array();
+//foreach($data AS $key => $value) {
+//$duplicate_data[] = sprintf("%s='%s'", $key, $value);
+//}
+//echo sprintf("%s='%s'", $key, $value);
+//$sql = sprintf("%s ON DUPLICATE KEY UPDATE %s", $this->db->insert_string($table, $data), implode(',', $duplicate_data));
+$sql = $data;
+$this->db->query($sql);
+//echo $this->db->last_query();
+//return $this->db->insert_id();
+}
+
+function chronology_update($visit,$wo,$insert_data){
+	$this->db->where('n_Visit',$visit);
+  $this->db->where('v_WrkOrdNo',$wo);
+  $this->db->where('v_HospitalCode',$this->session->userdata('hosp_code'));
+	$this->db->update('pmis2_emg_chronology',$insert_data);
+}
 
 }
 ?>

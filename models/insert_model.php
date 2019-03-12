@@ -2681,7 +2681,12 @@ $this->db->insert('tbl_invitem', $insert_data);
 		}
 
 		public function save_release_note(){
+			//echo $this->input->post("area");
+			//exit();
+
+
 			$this->load->model("get_model");
+			$this->load->model('update_model');
 			$rn_no = $this->get_model->get_RNNO($this->input->post("area"));
 			$val_tbl_rn_release = array(
 						"RN_No" => $rn_no,
@@ -2710,17 +2715,24 @@ $this->db->insert('tbl_invitem', $insert_data);
 							"Qty" => $this->input->post("qty_rls")[$i],
 							//"Price" => $this->input->post("Price_Taken")[$i]
 					);
+
+			$this->db->where('ItemCode', $this->input->post("itemCode")[$i]);
+			$this->db->where('Hosp_code', $this->input->post("area"));
+			$this->db->limit(1);
+			$this->db->where('Action_Flag <>', 'D');
+				$query = $this->db->get('tbl_item_store_qty')->result();
+			$quantiti = ($query[0]->Qty) - ($this->input->post("qty_rls")[$i]);
+			$tblmovement = array('ItemCode'=>$this->input->post("itemCode")[$i],'Store_Id'=>$this->input->post("area"),'Time_Stamp'=>date('Y-m-d H:i:s'),'Qty_Before'=>$query[0]->Qty,'Qty_Taken'=>$this->input->post("qty_rls")[$i],'Action_Flag'=>'I','Last_User_Update'=>$this->session->userdata('v_UserName'),'Related_WO'=>$this->input->post("MIRNcode")[$i],'Remark'=>'Take from RN');
+			$data=array('Last_User_Update'=>$this->session->userdata('v_UserName'),'Action_Flag'=>'U','Time_Stamp'=>date('Y-m-d H:i:s'),'Qty'=>$quantiti);
+						$this->update_model->store_take_update($this->input->post("itemCode")[$i],$this->input->post("area"),$data);
+				$this->db->insert('tbl_item_movement', $tblmovement);
 				}}
-				$this->db->insert_batch("tbl_rn_item", $val_tbl_rn_item);
+			$this->db->insert_batch("tbl_rn_item", $val_tbl_rn_item);
+
+
+
 			}
-			// $rn_next_no = explode("/",$rn_no)[3]+1;
-			// $val_tbl_rn_autono = array(
-			// 		"rn_next_no" => $rn_next_no,
-			// 		"userid" => $this->session->userdata("v_UserName"),
-			// 		"yearno" => date("Y")
-			// );
-			// $this->db->set("DT", "NOW()", false);
-			// $this->db->insert("tbl_rn_autono", $val_tbl_rn_autono);
+
 
 			$this->db->trans_complete();
 
@@ -2732,6 +2744,97 @@ $this->db->insert('tbl_invitem', $insert_data);
 				$this->db->trans_commit();
 				return TRUE;
 			}
+		}
+
+		function insert_data($table, $primary_col, $data){
+		ini_set('max_execution_time', 0);
+		ini_set('memory_limit', '1024M');
+		//memory_limit=512M (set this size on php.ini)
+
+		$old_data = $this->db->query("select `".$primary_col."` from ".$table);
+		$old_data_arr = array_column($old_data->result_array(), $primary_col);
+
+		if( !empty($data) ){
+			for($i=0; $i < count($data); $i++ ){
+				$operation = "insert";
+				$primary = "";
+				foreach ($data[$i] as $k => $v) {
+					if($k==$primary_col){
+						if( in_array($v, $old_data_arr) ){
+							$operation = "update";
+							$primary= $v;
+						}
+					}
+					if( preg_match('/\s/',$k) ){
+						$this->db->set("`".stripcslashes(stripcslashes($k))."`", "'".stripcslashes(stripcslashes($v))."'", false);
+						unset($data[$i][$k]);
+					}
+				}
+
+				if( $operation=="update" ){
+					$col = explode(" ", $primary_col);
+
+					$this->db->where_in("`".$primary_col."`", "select `".$primary_col."` from `".$table."` `b` where `b`.`id`=`a`.`id` and `b`.`".$primary_col."`='".$primary."'");
+					if( !$this->db->update($table." a", $data[$i]) ){
+						return array("status"=>false, "msg"=>"update failed", "row"=>$i, "query"=>$this->db->last_query());
+					}else{
+						if( $i==(count($data)-1) ){
+							return array("status"=>true, "msg"=>"Update success. ".$i." row updated", "row"=>$i);
+						}else{
+							continue;
+						}
+					}
+				}else{
+					if( !$this->db->insert($table, $data[$i]) ){
+						return array("status"=>false, "msg"=>"insert failed", "row"=>$i, "query"=>$this->db->last_query());
+					}else{
+						if( $i==(count($data)-1) ){
+							return array("status"=>true, "msg"=>"insert success. ".$i." row inserted", "row"=>$i);
+						}
+					}
+				}
+			}
+		}
+
+		}
+
+		function chronology_woexist($value,$variable,$value1,$variable1){
+					$this->db->select($value);
+					$this->db->where($value,$variable);
+					$this->db->where($value1,$variable1);
+					$this->db->where('v_HospitalCode',$this->session->userdata('hosp_code'));
+
+					$query1 = $this->db->get('pmis2_emg_chronology');
+					//$query2 = $this->db->get('pmis2_emg_jobvisit1tow');
+					$RN = $this->input->post('wrk_ord');
+
+					if($query1->num_rows()>0){
+
+						$this->load->model('update_model');
+
+						$insert_data = array(
+								 'v_ActionTaken' => $this->input->post('n_Action_Taken'),
+								 'v_ReschAuthBy' => $this->input->post('n_Type_of_Work'),
+								 'v_Actionflag' => 'U',
+								 'd_Timestamp' => date("Y-m-d H:i:s")
+								);
+								$this->update_model->chronology_update($variable1,$RN,$insert_data);
+						//print_r($insert_data);
+						//echo '<br><br>';
+						//add if to prevent data coruption
+					} else {
+					$insert_data = array(
+							 'v_WrkOrdNo'=> $RN,
+							 'v_ActionTaken' => $this->input->post('n_Action_Taken'),
+							 'v_ReschAuthBy' => $this->input->post('n_Type_of_Work'),
+							 'v_Actionflag' => 'I',
+							 'd_Timestamp' => date("Y-m-d H:i:s"),
+							 'v_HospitalCode' => $this->session->userdata('hosp_code'),
+						 	 'n_Visit' => $variable1);
+					$this->db->insert('pmis2_emg_chronology', $insert_data);
+					}
+
+
 		}
 
 }

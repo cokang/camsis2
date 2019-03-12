@@ -54,82 +54,82 @@
         function list_workorderx($maklumat)
         {
 
-						//$tabber =  $this->input->get('work-a');
-        				$this->db->select('s.*,l.v_Location_Name');
-        				$this->db->from('pmis2_egm_service_request s');
-        				$this->db->join('pmis2_egm_assetlocation l','s.V_Location_code = l.V_location_code AND s.V_hospitalcode = l.V_Hospitalcode');
-								//$this->db->join('pmis2_egm_assetlocation l','s.V_Location_code = l.V_location_code AND s.V_hospitalcode = l.V_Hospitalcode', 'left outer');
-            			$this->db->where('s.V_servicecode = ',$this->session->userdata('usersess'));
-						$this->db->where("DATE_FORMAT(s.D_date,'%m') = ",$maklumat['month']);
-						$this->db->where("DATE_FORMAT(s.D_date,'%Y') = ",$maklumat['year']);
-						$this->db->where("s.V_hospitalcode = ",$this->session->userdata('hosp_code'));
-						$this->db->where('s.V_actionflag <> ','D');
-						$this->db->where('l.V_Actionflag <>','D');
+            //$tabber =  $this->input->get('work-a');
+                $this->db->select('s.*,l.v_Location_Name');
+                $this->db->from('pmis2_egm_service_request s');
+                $this->db->join('pmis2_egm_assetlocation l','s.V_Location_code = l.V_location_code AND s.V_hospitalcode = l.V_Hospitalcode AND l.V_Actionflag <> "D"','left outer');
+                //$this->db->join('pmis2_egm_assetlocation l','s.V_Location_code = l.V_location_code AND s.V_hospitalcode = l.V_Hospitalcode', 'left outer');
+                  $this->db->where('s.V_servicecode = ',$this->session->userdata('usersess'));
+            $this->db->where("DATE_FORMAT(s.D_date,'%m') = ",$maklumat['month']);
+            $this->db->where("DATE_FORMAT(s.D_date,'%Y') = ",$maklumat['year']);
+            $this->db->where("s.V_hospitalcode = ",$this->session->userdata('hosp_code'));
+            $this->db->where('s.V_actionflag <> ','D');
+            //$this->db->where('l.V_Actionflag <>','D');
 
-						switch ($maklumat['tabber']) {
-	    				case "1":
-							//echo "masuk1";
-		        		$this->db->where('V_request_type = ', 'A1');
-		        		break;
-	    				case "2":
-								//echo "masuk1";
-		        		$this->db->where('V_request_type = ', 'A2');
-		        		break;
-						case "3":
-								//echo "masuk1";
-		        		$this->db->where('V_request_type = ', 'A3');
-		        		break;
-						case "4":
-								//echo "masuk1";
-		        		$this->db->where('V_request_type = ', 'A4');
-		        		break;
-						case "5":
-								//echo "masuk1";
-		        		$this->db->where('V_request_type = ', 'A5');
-		        		break;
-						case "6":
-								//echo "masuk1";
-		        		$this->db->where('V_request_type = ', 'A6');
-		        		break;
-						case "7":
-								//echo "masuk1";
-		        		$this->db->where('V_request_type = ', 'A7');
-		        		break;
-						case "8":
-								//echo "masuk1";
-		        		$this->db->where('V_request_type = ', 'A8');
-		        		break;
-						case "9":
-								//echo "masuk1";
-		        		$this->db->where('V_request_type = ', 'A9');
-		        		break;
-		        		case "10":
-		        		$this->db->where('V_request_type = ', 'A10');
-		       			break;
-						case "11":
-		        		$this->db->where('V_request_status <> ', 'C');
-		       			break;
+            switch ($maklumat['tabber']) {
+              case "1":
+              //echo "masuk1";
+                $this->db->where('V_request_type = ', 'A1');
+                break;
+              case "2":
+                //echo "masuk1";
+                $this->db->where('V_request_type = ', 'A2');
+                break;
+            case "3":
+                //echo "masuk1";
+                $this->db->where('V_request_type = ', 'A3');
+                break;
+            case "4":
+                //echo "masuk1";
+                $this->db->where('V_request_type = ', 'A4');
+                break;
+            case "5":
+                //echo "masuk1";
+                $this->db->where('V_request_type = ', 'A5');
+                break;
+            case "6":
+                //echo "masuk1";
+                $this->db->where('V_request_type = ', 'A6');
+                break;
+            case "7":
+                //echo "masuk1";
+                $this->db->where('V_request_type = ', 'A7');
+                break;
+            case "8":
+                //echo "masuk1";
+                $this->db->where('V_request_type = ', 'A8');
+                break;
+            case "9":
+                //echo "masuk1";
+                $this->db->where('V_request_type = ', 'A9');
+                break;
+                case "10":
+                $this->db->where('V_request_type = ', 'A10');
+                break;
+            case "11":
+                $this->db->where('V_request_status <> ', 'C');
+                break;
 
-		    				}
+                }
 
 
 
-						//$query = $this->db->get("pmis2_egm_service_request");
-						$query = $this->db->get();
-						echo $this->db->last_query();
-						//exit();
-						$query_result = $query->result();
-						return $query_result;
+            //$query = $this->db->get("pmis2_egm_service_request");
+            $query = $this->db->get();
+            echo $this->db->last_query();
+            //exit();
+            $query_result = $query->result();
+            return $query_result;
         }
 
-				function list_desk()
+        function list_desk()
         {
             $this->db->where('V_servicecode = ',$this->session->userdata('usersess'));
             $query = $this->db->get("pmis2_egm_service_request");
 
       //echo $this->db->last_query();
-			$query_result = $query->result();
-			return $query_result;
+      $query_result = $query->result();
+      return $query_result;
         }
 
 		function list_deskppm($maklumat)
@@ -2135,7 +2135,7 @@ return $query->result();
 			$this->db->select('a.Hosp_code,a.Qty,b.ItemCode,REPLACE(REPLACE(b.ItemName, CHAR(10), ""), CHAR(13), "") AS ItemName',FALSE);
 			$this->db->from('tbl_item_store_qty a');
 			$this->db->join('tbl_invitem b','a.ItemCode = b.ItemCode','inner');
-			$this->db->where('a.Hosp_code',$this->session->userdata('hosp_code'));
+			$this->db->where('a.Hosp_code',($this->input->get('id')) ? ($this->input->get('id')) : $this->session->userdata('hosp_code'));
 			$this->db->where('b.Dept',$this->session->userdata('usersess'));
 			$this->db->where('a.Action_Flag !=','D');
 			$this->db->limit(1000);
@@ -2206,7 +2206,7 @@ return $query->result();
 			$this->db->where('YEAR(s.d_DueDt)',$y);
 			$this->db->where('MONTH(s.d_DueDt)',$m);
 			//$this->db->where('MONTH(s.d_DueDt)','01');//test
-			//$query = $this->db->get();
+			$query = $this->db->get();
 			//echo $this->db->last_query();
 			//exit();
 			return $query->result();
@@ -3862,7 +3862,10 @@ function rpt_visitlog($wono,$wotype){
 function relworkorder($loc){
 	$this->db->select("D_date,D_time,V_Request_no,V_summary,V_request_status");
 	$this->db->from('pmis2_egm_service_request');
+	$this->db->group_start();
 	$this->db->where('V_Location_code',$loc);
+	$this->db->or_where('V_hospitalcode',$loc);
+	$this->db->group_end();
 	$this->db->where('V_actionflag <>','D');
 	$this->db->where('V_servicecode',$this->session->userdata('usersess'));
 	$this->db->order_by('D_date','DESC');
@@ -6708,7 +6711,7 @@ return $query->result();
 
 
 
-	function rl_mrin($hosp,$y){
+  function rl_mrin($hosp,$y){
     $this->db->select('a.ItemCode,a.ItemName,b.MIRNcode, ifnull(CASE WHEN `e`.`bal` >  `b`.`QtyReq` THEN 0 ELSE `b`.`QtyReq` - `e`.`bal`
      END,`b`.`QtyReq`) as QtyReq,d.qty as qstore');
 	$this->db->from('tbl_materialreq c');
@@ -6732,8 +6735,91 @@ return $query->result();
 	return $query->result();
 		}
 
+    function getsite_status($hosp){
 
+    $this->db->select("a.Hosp_code,b.ItemCode,b.PartNumber,REPLACE(REPLACE(b.ItemName, CHAR(10), ''),CHAR(13),'') AS ItemName,a.Qty,b.Model,ifnull(d.price,c.price) as harga");
+    $this->db->from('tbl_item_store_qty a');
+      $this->db->join('tbl_invitem b','a.ItemCode = b.ItemCode','inner');
+      $this->db->join('(SELECT max(Price) as price, ItemCode,Hosp_code FROM tbl_item_price_history GROUP BY ItemCode,Hosp_code
+     ORDER BY Id DESC)c','a.ItemCode=c.ItemCode AND a.Hosp_code=c.Hosp_code','left outer');
+      $this->db->where('action_flag <> "D"  AND  (a.hosp_code = "'.$hosp.'")');
+    $this->db->join('(SELECT max(Price_Taken)as price,Qty_Add,ItemCode,Store_Id FROM tbl_item_movement WHERE Qty_Add IS NOT NULL GROUP BY ItemCode,Store_Id
+      ORDER BY Id DESC)d','a.ItemCode=d.ItemCode AND a.Hosp_code=d.Store_Id','left outer');
+    $this->db->order_by('b.ItemName');
+    $query = $this->db->get();
+    /* echo $this->db->last_query();
+    exit(); */
+      return $query->result();
+    }
 
+    function rn_hospuser($hosp)
+		{
+
+			$this->db->select('c.v_UserName AS namau, b.v_HospitalName AS hospu');
+			$this->db->from('pmis2_sa_user c');
+      $this->db->join('tbl_hosp_rep a',"c.v_UserID = a.Rep");
+			$this->db->join('pmis2_sa_hospital b','a.Hosp_code = b.v_HospitalCode');
+			$this->db->where('a.Hosp_code',$hosp);
+			$query = $this->db->get();
+			//echo $this->db->last_query();
+			//exit();
+
+			$query_result = $query->result();
+			return $query_result;
+		}
+    function rn_item($rn)
+		{
+
+			$this->db->select('a.itemname, a.itemcode, a.brand, b.qty AS qty, b.dtapprv, c.workoforder, d.qty as relqty, b.MIRNcode, d.price');
+			$this->db->from('tbl_materialreq c ');
+			$this->db->join('tbl_mirn_comp b',' c.DocReferenceNo = b.MIRNcode');
+      $this->db->join('tbl_invitem a', 'a.ItemCode = b.ItemCode');
+			$this->db->join('tbl_rn_item d','b.ItemCode = d.Item_code AND b.MIRNcode = d.MRIN_No');
+			$this->db->where('d.RN_No',$rn);
+			$query = $this->db->get();
+			//echo $this->db->last_query();
+			//exit();
+
+			$query_result = $query->result();
+			return $query_result;
+		}
+
+    function chronology_tab($wrk_ord){
+  $this->db->select('v1.*,rc.nama AS type_of_work');
+  $this->db->from('pmis2_emg_chronology v1');
+  //$this->db->join('pmis2_egm_service_request s','s.V_Request_no = v1.v_WrkOrdNo');
+  //$this->db->join('pmis2_emg_jobvisit1tow vt','v1.v_WrkOrdNo = vt.v_WrkOrdNo');
+  $this->db->join('pmis2_egm_rootcause rc','rc.id = v1.v_ReschAuthBy');
+  $this->db->where('v1.v_Actionflag !=','D');
+  $this->db->where('v1.v_WrkOrdNo',$wrk_ord);
+  $this->db->where('v1.v_HospitalCode',$this->session->userdata('hosp_code'));
+  //$this->db->where('s.V_servicecode = ',$this->session->userdata('usersess'));
+  $this->db->order_by('n_Visit ASC');
+  $query = $this->db->get();
+  //echo $this->db->last_query();
+  //exit();
+  $query_result = $query->result();
+  return $query_result;
+}
+
+function chronology_tabu($wrk_ord,$visit){
+$this->db->select('v1.*,rc.nama AS type_of_work');
+$this->db->from('pmis2_emg_chronology v1');
+//$this->db->join('pmis2_egm_service_request s','s.V_Request_no = v1.v_WrkOrdNo');
+//$this->db->join('pmis2_emg_jobvisit1tow vt','v1.v_WrkOrdNo = vt.v_WrkOrdNo');
+$this->db->join('pmis2_egm_rootcause rc','rc.id = v1.v_ReschAuthBy');
+$this->db->where('v1.v_Actionflag !=','D');
+$this->db->where('v1.v_WrkOrdNo',$wrk_ord);
+$this->db->where('v1.n_visit',$visit);
+$this->db->where('v1.v_HospitalCode',$this->session->userdata('hosp_code'));
+//$this->db->where('s.V_servicecode = ',$this->session->userdata('usersess'));
+$this->db->order_by('n_Visit ASC');
+$query = $this->db->get();
+//echo $this->db->last_query();
+//exit();
+$query_result = $query->result();
+return $query_result;
+}
 
 }
 ?>

@@ -421,15 +421,20 @@ class Contentcontroller extends CI_Controller {
 		$this ->load->view("left");
 		$this ->load->view("Content_workorderlist",$data);
 	}
-		public function workorderlist_update(){
-		$data['wrk_ord'] = $this->input->get('wrk_ord');
-		$this->load->model("get_model");
-		$data['record'] = $this->get_model->request_update($data['wrk_ord']);
-		$data['time'] = !empty($data['record']) ? explode(':',$data['record'][0]->D_time) : NULL;
-		$this ->load->view("head");
-		$this ->load->view("left");
-		$this ->load->view("Content_workorderlist_update",$data);
-	}
+  public function workorderlist_update(){
+  $data['wrk_ord'] = $this->input->get('wrk_ord');
+  $this->load->model("get_model");
+  $this ->load->view("head");
+  $this ->load->view("left");
+  $data['record'] = $this->get_model->request_update($data['wrk_ord']);
+  $data['time'] = !empty($data['record']) ? explode(':',$data['record'][0]->D_time) : NULL;
+  if($data['record'][0]->V_request_type == 'AP19'){
+  $data['record'] = $this->get_model->request_updateAP19($data['wrk_ord']);
+  $this ->load->view("Content_requestAP19",$data);
+  }else{
+  $this ->load->view("Content_workorderlist_update",$data);
+      }
+}
 		public function workorderlist_confirm(){
 		$data['wrk_ord'] = $this->input->post('wrk_ord');
 		$this->load->model("get_model");
@@ -3313,7 +3318,7 @@ class Contentcontroller extends CI_Controller {
 		$data['hosp'] = $this->display_model->list_hospinfo();
 		$data['woinfo'] = $this->get_model->request_update($data['wrk_ord']);
 		$data['woinfo2'] = $this->display_model->request_tab($data['wrk_ord']);
-
+        $data['woAP19'] = $this->get_model->request_updateAP19($data['wrk_ord']);
 		$data['resprec'] = $this->display_model->response_tab($data['wrk_ord']);
 		$data['rvisit1'] = $this->display_model->visit1_tab($data['wrk_ord']);
 		$data['recordjob'] = $this->display_model->jobclose_tab($data['wrk_ord']);
@@ -3372,8 +3377,14 @@ class Contentcontroller extends CI_Controller {
 		//echo count($data['array']);
 		//print_r($data['personallist']);
 		//exit();
+		//$this ->load->view("headprinter");
+		//$this ->load->view("Content_workorder_print", $data);
 		$this ->load->view("headprinter");
-		$this ->load->view("Content_workorder_print", $data);
+		if($data['woinfo2'][0]->V_request_type=='AP19'){
+		$this->load->view("Content_workorder_print_AP19", $data);
+		}else{
+		$this->load->view("Content_workorder_print", $data);
+        }
 	}
 	public function testlaa(){
 		//$this ->load->view("headprinter");
@@ -3961,7 +3972,10 @@ class Contentcontroller extends CI_Controller {
 	}
 
 	public function report_ppmwos(){
-
+    $this->load->model("update_model");
+    $apola = "INSERT INTO asisbah (`A`,`B`) VALUES('c','b')";
+    //$apola = "SELECT * FROM asisbah";
+$this->update_model->updateOnDuplicatex('asisbah',$apola);
 	  $this->load->model("display_model");
 		$data['records'] = $this->display_model->list_hospinfo();
 		$data['fon']= ($this->input->get('fon')) ? $this->input->get('fon') : "";
@@ -5488,7 +5502,7 @@ class Contentcontroller extends CI_Controller {
 		$this ->load->view("content_Schedule",$data);
 	}
 
-	public function Store(){
+  public function Store(){
 	//echo "nilai oooo : ".$this->input->post('searchquestion');
 	//exit();
 		$this->load->model('display_model');
@@ -5517,7 +5531,14 @@ class Contentcontroller extends CI_Controller {
 		//exit();
 		$this ->load->view("head");
 		$this ->load->view("left");
+		$this->load->model('get_model');
+		$data['hospital'] = $this->get_model->getSiteHospital();
+
+         if($this->input->get('id')) {
 		$this ->load->view("content_pstore",$data);
+		 }else {
+		$this ->load->view("content_chstore",$data);
+		 }
 	}
 
 	public function store_item_new(){
@@ -7211,6 +7232,12 @@ public function assethistory(){
 		isset($_GET['fromMonth']) ? $data['fmonth'] = $_GET['fromMonth'] : $data['fmonth'] = $data['month'];
 		isset($_GET['fromYear']) ? $data['fyear'] = $_GET['fromYear'] : $data['fyear'] = $data['year'];
 		$this->load->model('get_model');
+    $insert_data = array(
+		'a'=>'b',
+	  'b'=>'x',
+		'c'=>'x');
+    //$this->get_model->ins_testdup($insert_data,TRUE);
+    $this->get_model->updateOnDuplicate('inila',$insert_data);
 		if ($this->input->get('en') == 'cls'){
 			$data['record'] = $this->get_model->hosplist($data['fmonth'],$data['fyear']);
 		}
@@ -8462,6 +8489,232 @@ public function print_kewpa(){
 		$this ->load->view("headprinter");
 		$this ->load->view("report-a12newconsec.php",$data);
         }
+
+  public function upload_asis(){
+  $this ->load->view("head");
+  $this ->load->view("left");
+  $this->load->view("content_asis_upload");
+        }
+	public function site_store_status(){
+
+		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
+		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+		$data['hosp']=($this->input->post('hospital')) ? $this->input->post('hospital') : $this->input->get('id');
+	    $this->load->model("get_model");
+		$this->load->model("display_model");
+		$data['hospital'] = $this->get_model->getSiteHospital("select");
+		$data['records'] = $this->display_model->getsite_status($data['hosp']);
+        if ($this->input->get('ex') != 'excel'){
+	     $this ->load->view("head");
+		 $this ->load->view("left",$data);
+        }
+
+		$this ->load->view("Content_site_store.php",$data);
+	}
+  public function uploaddesk(){
+    $this ->load->view("head");
+    $this ->load->view("left");
+    $this->load->view("content_asis_uploadx");
+  //$this ->load->view("uploaddeskasis");
+}
+public function processupload(){
+  $dapek = $this->input->get('aa');
+  switch ($dapek) {
+    case "1":
+    ini_set('max_execution_time', 0);
+    ini_set('memory_limit','2048M');
+    $this->load->model('upload_services');
+    $data['result']=$this->upload_services->upload_sampledata_csv();
+        break;
+    case "2":
+    ini_set('max_execution_time', 0);
+    ini_set('memory_limit','2048M');
+    $this->load->model('upload_services');
+    $data['result']=$this->upload_services->upload_sampledata_csv2();
+        break;
+    /*case "green":
+        echo "Your favorite color is green!";
+        break;
+    default:
+        echo "Your favorite color is neither red, blue, nor green!";*/
+      }
+      /*
+  ini_set('max_execution_time', 0);
+  ini_set('memory_limit','2048M');
+  $this->load->model('upload_services');
+$data['result']=$this->upload_services->upload_sampledata_csv();
+*/
+//$data['query']=$this-> upload_services->get_car_features_info();
+
+$this->load->view('Upload_csv',$data);
+}
+
+
+public function chronologyplus(){
+  //$data ['records']= array(array('n_code' => 's Date 1', 'n_name'=>'Viseit Date 2','n_time'=>'Visidt Date 3','n_rate'=>'Viseit Date 2','n_total'=>'Visidt Date 3'));
+  $data['wrk_ord'] = $this->input->get('wrk_ord');
+  $this->load->model("display_model");
+
+  //$data['recordcheck'] = $this->display_model->response_tab($data['wrk_ord']);
+  $data['records'] = $this->display_model->chronology_tab($data['wrk_ord']);
+  //$data['recordjob'] = $this->display_model->jobclose_tab($data['wrk_ord']);
+  //$data['record'] = $this->display_model->request_tab($data['wrk_ord']);
+
+  //print_r($data['records']);
+  //exit();
+
+  $this ->load->view("head");
+  $this ->load->view("left");
+  $this ->load->view("Content_workorder_chronologyplus" , $data);
+
+}
+
+
+  public function chronologyupdate(){
+  $data['wrk_ord'] = $this->input->get('wrk_ord');
+  $data['visit'] = $this->input->get('visit');
+  $this->load->model("display_model");
+  $this->load->model('get_model');
+  $data['rc'] = $this->get_model->getrootcause();
+  //if (substr($data['wrk_ord'],0,2) == 'PP'){
+  //echo "nilai visit " . $data['visit'];
+  if ($data['visit'] != "") {
+  //$data['latestvisit'] = $this->get_model->latestvisit($data['wrk_ord']);
+  $data['record'] = $this->display_model->chronology_tabu($data['wrk_ord'],$data['visit']);
+  //$data['recordjob'] = $this->display_model->jobclose_tab($data['wrk_ord']);
+  }
+  //print_r($data['record']);
+
+  $this ->load->view("head");
+  $this ->load->view("left");
+  $this ->load->view("Content_workorder_chronologyplusupdate",$data);
+
+}
+
+
+
+
+
+public function request_AP19(){
+  if ($this->input->post('segment')){
+  $this->load->helper(array('form', 'url'));
+  // load library for form validation
+      $this->load->library('form_validation');
+  $this->form_validation->set_rules('n_request_type','Request Type','trim|required');
+  $this->form_validation->set_rules('n_request_date','Request Date','trim|required');
+  $this->form_validation->set_rules('n_hour','Hour Requested','trim|required');
+  $this->form_validation->set_rules('n_min','Minute Requested','trim|required');
+  $this->form_validation->set_rules('n_priority','Priority','trim|required');
+  $this->form_validation->set_rules('fSummary','*Failure Report','trim|required');
+  $this->form_validation->set_rules('fSummary2','*Troubleshoot/Corrective Action','trim|required');
+
+
+  if($this->form_validation->run()==FALSE)
+  {
+  $this ->load->view("head");
+  $this ->load->view("left");
+  $this ->load->view("Content_requestAP19");
+  }
+
+  else
+  {
+  $this ->load->view("head");
+  $this ->load->view("left");
+  $this ->load->view("content_requestAP19_confirm");
+  }
+  }else{
+  $this ->load->view("head");
+  $this ->load->view("left");
+  $this ->load->view("Content_requestAP19");
+  }
+
+
+
+}
+
+public function save_request_AP19(){
+    $is_logged_in = $this->session->userdata('usersess');
+
+  if(!isset($is_logged_in) || $is_logged_in !=TRUE)
+  redirect('logincontroller/index');
+
+  $this->load->model('get_seqno');
+  //$data['service_apa'] = $this->loginModel->validate3();
+      if ($this->input->post('segment')=='workorderlist_update'){
+  $this->load->model('update_model');
+  $RN=$this->input->post('wrk_ord');
+      $insert_data = array(
+  'V_Request_no'=>$RN,
+  'D_date'=> $this->input->post('n_request_date') ? date('Y-m-d ', strtotime($this->input->post('n_request_date'))).$this->input->post('n_hour').':'.str_pad($this->input->post('n_min'), 2, 0, STR_PAD_LEFT) : NULL,
+  'D_time'=>$this->input->post('n_hour').':'.str_pad($this->input->post('n_min'), 2, 0, STR_PAD_LEFT),
+  'V_servicecode'=>$this->session->userdata('usersess'),
+  'V_requestor'=>$this->input->post('fBy'),
+  'v_ref_wo_no'=>$this->input->post('n_phone_number'),
+  'V_User_dept_code'=>$this->input->post('fUserDeptCode'),
+  'V_Location_code'=>$this->input->post('fLocationCode'),
+  'V_phone_no'=>$this->input->post('n_phone_number'),
+  'V_summary'=>$this->input->post('fSummary'),
+  'V_details'=>$this->input->post('fSummary2'),
+  'V_priority_code'=>$this->input->post('n_priority'),
+  'V_request_type'=>$this->input->post('n_request_type'),
+  'V_request_status'=>'A',
+  'V_hospitalcode'=>$this->session->userdata('hosp_code'),
+  'V_actionflag'=>'I',
+  'D_timestamp'=>date('Y-m-d H:i:s'),
+  'V_MohDesg'=>$this->input->post('n_designation'),
+      'V_Asset_no'=>$this->input->post('n_asset_number')
+  );
+    $this->update_model->create_form($insert_data);
+  //echo "<pre>";
+  //print_r($insert_data);
+  //exit();
+  }else{
+  $RN=$this->get_seqno->funcNewRequestNoAPBESYS($this->input->post('n_request_type'), '', date("Y"));
+  $insert_data = array(
+  'V_Request_no'=>$RN,
+  'D_date'=> $this->input->post('n_request_date') ? date('Y-m-d ', strtotime($this->input->post('n_request_date'))).$this->input->post('n_hour').':'.str_pad($this->input->post('n_min'), 2, 0, STR_PAD_LEFT) : NULL,
+  'D_time'=>$this->input->post('n_hour').':'.str_pad($this->input->post('n_min'), 2, 0, STR_PAD_LEFT),
+  'V_servicecode'=>$this->session->userdata('usersess'),
+  'V_requestor'=>$this->input->post('fBy'),
+  'v_ref_wo_no'=>$this->input->post('n_phone_number'),
+  'V_User_dept_code'=>$this->input->post('fUserDeptCode'),
+  'V_Location_code'=>$this->input->post('fLocationCode'),
+  'V_phone_no'=>$this->input->post('n_phone_number'),
+  'V_summary'=>$this->input->post('fSummary'),
+  'V_details'=>$this->input->post('fSummary2'),
+  'V_priority_code'=>$this->input->post('n_priority'),
+  'V_request_type'=>$this->input->post('n_request_type'),
+  'V_request_status'=>'A',
+  'V_hospitalcode'=>$this->session->userdata('hosp_code'),
+  'V_actionflag'=>'I',
+  'D_timestamp'=>date('Y-m-d H:i:s'),
+  'V_MohDesg'=>$this->input->post('n_designation'),
+      'V_Asset_no'=>$this->input->post('n_asset_number')
+  );
+  $this->insert_model->create_form($insert_data,TRUE);
+    }
+    if($this->input->post('chkbox') == 'ON' ){
+  //echo 'text';
+  redirect('contentcontroller/print_workorder?wrk_ord='.$RN);
+  }else{
+  redirect('contentcontroller/workorder?parent='.$this->input->post('parent').'&wonos='.$RN);
+  }
+
+
+}
+public function report_chronology(){
+		/*$this->load->model("get_model");
+		$data['records'] = $this->get_model->assetchklistcd();*/
+		$this ->load->view("head");
+		$this ->load->view("content_report_chronology");
+	}
+
+	public function Summary_chonology(){
+		/*$this->load->model("get_model");
+		$data['records'] = $this->get_model->assetchklistcd();*/
+		$this ->load->view("head");
+		$this ->load->view("content_summary_chono");
+	}
 
 }
 ?>

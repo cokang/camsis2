@@ -10,9 +10,19 @@
 </style>
 
 <div class="main-box">
-	<div class="box6">
-	<?php $autocolor = array('bg-purple', 'bg-red', 'bg-yellow', 'bg-aqua', 'bg-light-blue','bg-teal'); shuffle($autocolor); ?>
+     <div class="box6">
+	<?php $autocolor = array('bg-green','bg-purple', 'bg-red', 'bg-yellow', 'bg-aqua', 'bg-light-blue','bg-teal'); shuffle($autocolor); ?>
 		<div class="small-box <?php echo $autocolor[0];?>">
+			<div class="inner2" >
+				<p>New Request AP19</p>
+			</div>
+			<div class="icon"><i class="icon-file-text2"></i></div>
+			<?php echo anchor ('contentcontroller/request_AP19','<span class="ui-left_web">More Info <i class="icon-arrow-right"></i></span>','class="small-box-footer"'); ?>
+		</div>
+	</div>
+
+	<div class="box6">
+		<div class="small-box <?php echo $autocolor[6];?>">
 			<div class="inner2" >
 				<p>New Request</p>
 			</div>

@@ -61,12 +61,11 @@
 					<?php echo anchor ('contentcontroller/ttrtimeframe?&parent=UnscheduledReport&tab=0', '<img src="'. base_url() .'images/user2.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Unscheduled Report'); ?>
 				</td>					
 			</tr>
-			<!--<tr class="ui-content-color-style">
+			<tr class="ui-content-color-style">
 				<td>
-					<?php echo anchor ('contentcontroller/report_cr', '<img src="'. base_url() .'images/user2.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Clause'); ?>
-				</td>	
-				<td >&nbsp;</td>					
-			</tr>-->
+					<?php echo anchor ('contentcontroller/report_chronology', '<img src="'. base_url() .'images/user2.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Chronology Report'); ?>
+				</td>					
+			</tr>
 			<tr class="ui-header-new" style="height:8px;">
 				<td align="center" colspan="4" class="footer-class">
 				</td>

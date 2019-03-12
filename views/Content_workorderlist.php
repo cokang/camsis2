@@ -28,6 +28,32 @@
 										<td class="td-assest">Request Date&nbsp;:&nbsp;</td>
 										<td><?= isset($record[0]->D_date) == TRUE ? date_format(new DateTime($record[0]->D_date), 'd-m-Y H:i') : 'N/A'?></a></td>
 									</tr>
+									<?php if($record[0]->V_request_type=='AP19'){ ?>
+									<tr>
+										<td class="td-assest">Nature of Visit&nbsp;:&nbsp;</td>
+										<td><?= isset($record[0]->V_priority_code) == 'RQ' ? 'Request' : 'N/A'?></td>
+									</tr>
+									<tr>
+										<td class="td-assest">Failure Report&nbsp;:&nbsp;</td>
+										<td><?= isset($record[0]->V_summary) == TRUE ? $record[0]->V_summary : 'N/A'?></td>
+									</tr>
+									<tr>
+										<td class="td-assest">Troubleshoot/Corrective Action &nbsp;:&nbsp;</td>
+										<td><?= isset($record[0]->V_details) == TRUE ? $record[0]->V_details : 'N/A'?></td>
+									</tr>
+									<tr>
+										<td class="td-assest">Loc No &nbsp;:&nbsp;</td>
+										<td><?= isset($record[0]->V_requestor) == TRUE ? $record[0]->V_requestor : 'N/A'?></td>
+									</tr>
+									<tr>
+										<td class="td-assest">PO No &nbsp;:&nbsp;</td>
+										<td><?= isset($record[0]->V_User_dept_code) == TRUE ? $record[0]->V_User_dept_code : 'N/A'?></td>
+									</tr>
+									<tr>
+										<td class="td-assest">Letter Ref. &nbsp;:&nbsp;</td>
+										<td><?= isset($record[0]->V_Location_code) == TRUE ? $record[0]->V_Location_code : 'N/A'?></td>
+									</tr>
+									<?php } else { ?>
 									<tr>
 										<td class="td-assest">Request Summary&nbsp;:&nbsp;</td>
 										<td><?= isset($record[0]->V_summary) == TRUE ? $record[0]->V_summary : 'N/A'?></td>
@@ -44,6 +70,7 @@
 										<td class="td-assest">Designation : </td>
 										<td><?= isset($record[0]->V_MohDesg) == TRUE ? $record[0]->V_MohDesg : 'N/A'?></td>
 									</tr>
+									<?php } ?>
 									<tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">Location</td></tr>
 									<tr>
 										<td class="td-assest">User Department:</td>

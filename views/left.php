@@ -2,7 +2,7 @@
 	<body class="body-screen">
 		<?php include 'content_menu.php';?>
 		<div class="ui-left-screen">
-			<?php echo anchor ('contentcontroller/content/'.$this->session->userdata('usersess'), '<div align="center" class ="header-page"><img src="'.base_url().'images/camsis2.png" style="width:150px; height:60px;"/><br /><span style="font-size:7px; color:black;">CAMSIS is a copyright product of Advance Pact Sdn Bhd. All rights reserved.</span></div>'); ?>
+			<?php echo anchor ('contentcontroller/content/'.$this->session->userdata('usersess'), '<div align="center" class ="header-page"><img src="'.base_url().'images/Myapbesys2.png" style="width:150px; height:60px;"/><br /><span style="font-size:7px; color:black;">CAMSIS is a copyright product of Advance Pact Sdn Bhd. All rights reserved.</span></div>'); ?>
 			<div class="color_style_1 menuprofile">
 				<span style="font-size:18px;  text-transform: uppercase; display:inline-block; height: 100%; width:70%; padding:5px;"><?php echo $this->session->userdata('fullname');?></span>
 				<span id="loginButton"><img src="<?php echo base_url().'uploadfile/'?><?php echo $this->session->userdata('p_picture');?>" style="display:block; float:left; width:20%;"  /></span>

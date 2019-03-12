@@ -6,12 +6,12 @@
 			<tr class="ui-header-middle-color" >
 				<td align="center" colspan="2" class="ui-header-homepage"><h4 class="h4-margin">WORK MODULES</h4></td>
 			</tr>
-			<?php 
+			<?php
 			/*$mn = array("Help Desk Center" => "contentcontroller/desk?parent=desk", "Assets" => "contentcontroller/assets?parent=asset", "Work Order" => "contentcontroller/workorder?parent=wrkodr", "Statutory & Licenses" => "contentcontroller/Licenses", "Reports" => "contentcontroller/Schedule");
-			
+
 			foreach ($mn as $value => $apa) {
 			foreach($b as $c)
-			{ 
+			{
 			if ($c->path == $apa)
 	    {
 			echo '<tr class="ui-content-color-style">';
@@ -64,7 +64,7 @@
 			<tr class="ui-content-color-style">
 				<td>
 					<?php echo anchor ('contentcontroller/Schedule', '<img src="'. base_url() .'images/Schedule.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports'); ?>
-				</td>	
+				</td>
 			</tr>
 			<?php  } ?>
 			<?php if (!in_array("contentcontroller/Store", $chkers)) { ?>
@@ -75,23 +75,30 @@
 				<?php } else { ?>
 					<?php echo anchor ('contentcontroller/Store', '<img src="'. base_url() .'images/stock.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stock'); ?>
 				<?php  }?>
-					
-				</td>	
+
+				</td>
 			</tr>
 			<?php  } ?>
 			<?php if (!in_array("contentcontroller/acgreport", $chkers)) { ?>
 			<tr class="ui-content-color-style">
 				<td>
 					<?php echo anchor ('contentcontroller/acg_report?tabIndex=1', '<img src="'. base_url() .'images/Statutory.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deduction Mapping Report'); ?>
-				</td>	
+				</td>
 			</tr>
-			<?php  } ?>
+			<?php  } ?><tr class="ui-content-color-style">
+				<td>
+					<?php //echo anchor ('Upload_asis?tabIndex=1', '<img src="'. base_url() .'images/upload.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Upload ASIS');Ajaxasisa
+								//ori echo anchor ('contentcontroller/upload_asis', '<img src="'. base_url() .'images/upload.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Upload ASIS');
+								echo anchor ('contentcontroller/uploaddesk', '<img src="'. base_url() .'images/upload.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Upload ASIS');
+					?>
+				</td>
+			</tr>
 			<tr class="ui-header-new" style="height:8px;">
 				<td align="center" colspan="4" class="footer-class">
 				</td>
 			</tr>
-			
-		</table>	
+
+		</table>
 	</div>
 </div>
 </body>

@@ -1,26 +1,37 @@
 <body style="margin:0px;">
 <table class="tftable" border="0" style="text-align:center;">
+<?php 
+$var='';
+if($this->input->get('p')){
+if ($this->input->get('p') == 'Norequest'){
+$var='&p=Norequest';	 
+}
+if ($this->input->get('p') == 'rwo'){
+$var='&p=rwo';	 
+}
+}
+?>
 	<tr>
-		<th colspan="6"><a href="?hosp=<?=$this->session->userdata('hosp_code')?>&wwo=1<?php if ($this->input->get('p') == 'Norequest') {echo '&p=Norequest';}?>">Requests</a>&nbsp;|&nbsp;<a href="?hosp=<?=$this->session->userdata('hosp_code')?>&wwo=2<?php if ($this->input->get('p') == 'Norequest') {echo '&p=Norequest';}?>">PPM</a>
-		&nbsp;|&nbsp;<a href="?hosp=<?=$this->session->userdata('hosp_code')?>&wwo=3<?php if ($this->input->get('p') == 'Norequest') {echo '&p=Norequest';}?>">MRIN</a></th>
+		<th colspan="6"><a href="?hosp=<?=$this->session->userdata('hosp_code')?>&wwo=1<?=$var;?>">Requests</a>&nbsp;|&nbsp;<a href="?hosp=<?=$this->session->userdata('hosp_code')?>&wwo=2<?=$var;?>">PPM</a>
+		&nbsp;|&nbsp;<a href="?hosp=<?=$this->session->userdata('hosp_code')?>&wwo=3<?=$var;?>">MRIN</a></th>
 	</tr>
 </table>
 <table class="tftable2" border="0" style="text-align:center;">
 	<tr>
 		<th width="3%" height="40px" valign="top">
-			<a href="?y=<?= $year-1?>&m=<?= $month?>&hosp=<?= $this->session->userdata('hosp_code')?>&wwo=<?= $wwo ?><?php if ($this->input->get('p') == 'Norequest') {echo '&p=Norequest';}?>"><img src="<?php echo base_url(); ?>images/arrow-left2.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
+			<a href="?y=<?= $year-1?>&m=<?= $month?>&hosp=<?= $this->session->userdata('hosp_code')?>&wwo=<?= $wwo ?><?=$var;?>"><img src="<?php echo base_url(); ?>images/arrow-left2.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
 		</th>
 		<th width="3%" valign="top">
-			<a href="?y=<?= ($month-1 == 0) ? $year-1 :$year?>&m=<?= ($month-1 == 0) ? 12 :$month-1?>&hosp=<?= $this->session->userdata('hosp_code')?>&wwo=<?= $wwo ?><?php if ($this->input->get('p') == 'Norequest') {echo '&p=Norequest';}?>"><img src="<?php echo base_url(); ?>images/arrow-left.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
+			<a href="?y=<?= ($month-1 == 0) ? $year-1 :$year?>&m=<?= ($month-1 == 0) ? 12 :$month-1?>&hosp=<?= $this->session->userdata('hosp_code')?>&wwo=<?= $wwo ?><?=$var;?>"><img src="<?php echo base_url(); ?>images/arrow-left.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
 		</th>
 		<th width="88%" align="center">
 			<?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?>
 		</th>
 		<th width="3%" valign="top">
-			<a href="?y=<?= ($month+1 == 13) ? $year+1 :$year?>&m=<?= ($month+1 == 13) ? 1 :$month+1?>&hosp=<?= $this->session->userdata('hosp_code')?>&wwo=<?= $wwo ?><?php if ($this->input->get('p') == 'Norequest') {echo '&p=Norequest';}?>"><img src="<?php echo base_url(); ?>images/arrow-right.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
+			<a href="?y=<?= ($month+1 == 13) ? $year+1 :$year?>&m=<?= ($month+1 == 13) ? 1 :$month+1?>&hosp=<?= $this->session->userdata('hosp_code')?>&wwo=<?= $wwo ?><?=$var;?>"><img src="<?php echo base_url(); ?>images/arrow-right.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
 		</th>
 		<th width="3%" valign="top">
-			<a href="?y=<?= $year+1?>&m=<?= $month?>&hosp=<?= $this->session->userdata('hosp_code')?>&wwo=<?= $wwo ?><?php if ($this->input->get('p') == 'Norequest') {echo '&p=Norequest';}?>"><img src="<?php echo base_url(); ?>images/arrow-right2.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
+			<a href="?y=<?= $year+1?>&m=<?= $month?>&hosp=<?= $this->session->userdata('hosp_code')?>&wwo=<?= $wwo ?><?=$var;?>"><img src="<?php echo base_url(); ?>images/arrow-right2.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
 		</th>
 	</tr>
 </table>
@@ -151,7 +162,17 @@
         window.close();
     }
 </script>
-<?php }else{?>		   		
+<?php }else if($this->input->get('p') == 'rwo'){?>	
+<script type="text/javascript">
+    function Setasset(a_request) {
+        if (window.opener != null && !window.opener.closed) {
+            var a_r_s = window.opener.document.getElementById("n_phone_number");
+            a_r_s.value = a_request;
+        }
+        window.close();
+    }
+</script>
+<?php }else{?>	   		
 <script type="text/javascript">
     function Setasset(a_request) {
         if (window.opener != null && !window.opener.closed) {

@@ -45,6 +45,20 @@ elseif ('contentcontroller/Store/' == $this->uri->slash_segment(1) .$this->uri->
 	echo "</div>";
 	echo "</div></form>";
 }
+elseif ('contentcontroller/site_store_status/' == $this->uri->slash_segment(1) .$this->uri->slash_segment(2)){
+	echo '<div align="center" class="ui-header-left-color" style="font-weight:bold; margin-top:; padding-top:5px; padding-bottom:5px; color:black;">
+		All stock for '.$hosp.'</div>';
+   echo '<div align="left" class="ui-header" style="background-color: #a1d5ff;font-weight:bold; margin-top:; padding-top:5px; padding-bottom:5px; color:black;">
+		Hospital Store</div>';
+	echo "<form action=".$url = site_url('contentcontroller/site_store_status')." method='post' id='myform'>";
+	echo "<div class='search-form'>";
+	echo "<div class='form-group'>";
+	echo form_dropdown('hospital', $hospital,$hosp, 'class="form-control" style="width:85%;" onchange="this.form.submit()"'); 
+	//echo "<input type='text' class='form-control login-field' autofocus='autofocus' id='searchquestion' placeholder='Search Item Catalog' name='searchquestion' size='22' style='height:50px;'/>"; 
+	echo "<label class='login-field-icon' for='login-pass' style='margin-top:10px;'><span align='center' class='icon-search' style='color:; margin-left:-35px;' id='mylink'></span></label>";
+	echo "</div>";
+	echo "</div></form>";
+}
 ?>
 <?php $array = [['contentcontroller/assets/'],
 				['contentcontroller/assetsearch/'],
@@ -54,6 +68,7 @@ elseif ('contentcontroller/Store/' == $this->uri->slash_segment(1) .$this->uri->
 				['contentcontroller/ppmsearch/'],
 				['contentcontroller/catalogppm/'],
 				['contentcontroller/Store/'],
+				['contentcontroller/site_store_status/'],
 ]?>
 <?php foreach ($array as $list) {?>
 <?php if($list[0] == $this->uri->slash_segment(1) .$this->uri->slash_segment(2)){?>

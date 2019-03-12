@@ -795,14 +795,14 @@ class Procurement extends CI_Controller {
 		$data['month']		= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
 		$data['records']	= $this->display_model->get_release_note($data);
 		$data['arealist']	= $this->display_model->area_list();
-		$this ->load->view("head");
-		$this ->load->view("left");
 		$data["save_link"] = "/Release_note?pro=new";
 
 		if  ($this->input->get('pro') == 'new') {
 			$area = "";
 			$datefrom = "";
 			$dateto = "";
+			$this ->load->view("head");
+			$this ->load->view("left");
 			if( isset($_POST["area"]) && $_POST["area"]!="" ){
 				$area = $this->input->post("area");
 			}
@@ -846,7 +846,7 @@ class Procurement extends CI_Controller {
 				$this ->load->view("Content_Release_note_newedit",$data);
 			}
 
-		} elseif ($this->input->get('pro') == 'view'){
+		}/* elseif ($this->input->get('pro') == 'view'){
 		//$this->load->model('get_model');
 		$data["formType"] = "view";
 		$tmp["rn"]= ($this->input->get("rn")) ? $this->input->get("rn") : "";
@@ -859,6 +859,32 @@ class Procurement extends CI_Controller {
 
 		else{
 			$this ->load->view("Content_Release_note",$data);
+		}*/elseif ($this->input->get('pro') == 'view'){
+		//$this->load->model('get_model');
+		$data["formType"] = "view";
+		$tmp["rn"]= ($this->input->get("rn")) ? $this->input->get("rn") : "";
+		$data['rndet'] = $this->display_model->getrndetail($this->input->get("rn"));
+		$data['hospd'] = $this->display_model->rn_hospuser($data['rndet'][0]->hosp);
+		$data['rn_item'] = $this->display_model->rn_item($data['rndet'][0]->RN_No);
+
+		//echo "<pre>";
+		//print_r($data['rndet']);
+		//print_r($data['hospd']);
+		//print_r($data['rn_item']);
+    //    $data["data_item_specification"] = $this->display_model->releaseNote_get_itemspecification($tmp,"","")['table'];
+
+		/*$this ->load->view("Content_Release_note_newedit",$data);
+		$this ->load->view("head");
+	    $this ->load->view("left");*/
+
+		$this ->load->view("headprinter");
+		$this ->load->view("release_note_print",$data);
+		}
+
+		else{
+			$this ->load->view("Content_Release_note",$data);
+			$this ->load->view("head");
+			$this ->load->view("left");
 		}
 	}
 

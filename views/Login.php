@@ -26,12 +26,13 @@ redirect(base_url()."index.php/Logincontroller/index?login=login", 'refresh');?>
 </head>  
 <body onload="" class="body_login">
 	<div class="login">
-		<div class="login-screen">
+		<div class="login-screen" style="padding-top: 5%;">
 			<div class="login-menu">
 				<div class="menum"> 
 					<?php if ($this->input->get('login') == "login"){ ?>
 					
-					<img src="<?php echo base_url(); ?>images/logo.png" class="camsis2-main-logo"/> 
+					<!-- <img src="<?php echo base_url(); ?>images/logo.png" class="camsis2-main-logo"/>  -->
+					<img src="<?php echo base_url(); ?>images/logo.png" /> 
 
 					<?php }else{ ?>
 
@@ -88,9 +89,9 @@ redirect(base_url()."index.php/Logincontroller/index?login=login", 'refresh');?>
 			
 			<!--<span style="font-size:11px;">Concession Company</span><br />
 			<img src="<?php echo base_url(); ?>images/penmedic.png" style=" width: 120px; height: 40px;"/>-->
-			<img src="<?php echo base_url(); ?>images/camsis2.png" style="width: 150px; display:inline-block; margin-top:0px; position:absolute ;"/>
+			<img src="<?php echo base_url(); ?>images/Myapbesys2.png" style=" height: 65px; width: 150px; display:inline-block; margin-top:0px; position:absolute ;"/>
 			<!--<span style="font-size:10px; display:inline-block; margin-top:50px;">Copyright &copy; <?php echo date("Y"); ?> Advance Pact Sdn Bhd [412168-v]. All rights reserved.</span>-->
-			<span style="font-size:10px; display:inline-block; margin-top:50px;">CAMSIS is a copyright product of Advance Pact Sdn Bhd. All rights reserved.</span>
+			<span style="font-size:9.5px; display:inline-block; margin-top:50px;">MYAPBESYS is a copyright product of Advance Pact Sdn Bhd. All rights reserved.</span>
 			</div>
 			<!--<span style="font-weight:bold;">PenMedic Sdn. Bhd.</span><br />-->
 			
