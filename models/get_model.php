@@ -3660,7 +3660,8 @@ function licenseimage($liccd){
 
 function nextmrinnumber(){
 	//$this->db->select("CONCAT('MRIN/',c.ZoneCode,'/',b.HospitalCode,'/',RIGHT(CONCAT('0000',CAST(a.Counter AS char)), 5),'/',DATE_FORMAT(now(),'%y')) AS mrinno,b.ZoneID,b.HospitalID,a.DocTypeID",FALSE);
-	$this->db->select("CONCAT('MRIN/',c.ZoneCode,'/".$this->session->userdata('usersess')."/',CONCAT(DATE_FORMAT(now(),'%m'),DATE_FORMAT(now(),'%y')),'/',RIGHT(CONCAT('0000',CAST(a.Counter AS char)), 5)) AS mrinno,b.ZoneID,b.HospitalID,a.DocTypeID",FALSE);
+	//$this->db->select("CONCAT('MRIN/',c.ZoneCode,'/".$this->session->userdata('usersess')."/',CONCAT(DATE_FORMAT(now(),'%m'),DATE_FORMAT(now(),'%y')),'/',RIGHT(CONCAT('0000',CAST(a.Counter AS char)), 5)) AS mrinno,b.ZoneID,b.HospitalID,a.DocTypeID",FALSE);
+	$this->db->select("CONCAT('MRIN/', c.ZoneCode, '/',b.hospitalcode,'/', RIGHT(CONCAT('0000', CAST(a.Counter AS char)), 5),'/', DATE_FORMAT(now(), '%Y')) AS mrinno, b.ZoneID, b.HospitalID, a.DocTypeID",FALSE);
 	$this->db->from('tbl_autono a');
 	$this->db->join('tbl_hospital b','a.ZoneID = b.ZoneID');
 	$this->db->join('tbl_zone c','b.ZoneID = c.ZoneID');
@@ -4086,5 +4087,136 @@ $query = $this->db->get();
 $query_result = $query->result();
 return $query_result;
 }
+
+
+function getroot_cause()
+{
+
+$this->db->select("*");
+$this->db->from('pmis2_egm_rootcause');
+$query = $this->db->get();
+//echo "laalla".$query->DWRate;
+//echo $this->db->last_query();
+//exit();
+return $query->result();
+}
+
+function getkira_cause($negeri,$type)
+{
+
+$this->db->select("*");
+$this->db->from('(SELECT * FROM pmis2_emg_chronology
+ORDER BY n_Visit DESC) a');
+$this->db->group_by('a.v_WrkOrdNo,a.v_ReschAuthBy');
+$this->db->where('a.v_ReschAuthBy',$type);
+$this->db->where_in('a.v_HospitalCode',$negeri);
+$query = $this->db->get();
+//echo "laalla".$query->DWRate;
+//echo $this->db->last_query();
+//exit();
+return $query->num_rows();
+}
+
+
+function get_stock_asset($searchitem=""){
+		  $this->db->distinct();
+			$this->db->select('a.Hosp_code,a.Qty,b.ItemCode,REPLACE(REPLACE(b.ItemName, CHAR(10), ""), CHAR(13), "") AS ItemName',FALSE);
+			$this->db->from('tbl_item_store_qty a');
+			$this->db->join('tbl_invitem b','a.ItemCode = b.ItemCode','inner');
+			$this->db->where('a.Hosp_code',($this->input->get('id')) ? ($this->input->get('id')) : $this->session->userdata('hosp_code'));
+			$this->db->where('b.Dept',$this->session->userdata('usersess'));
+			$this->db->where('a.Action_Flag !=','D');
+		   $this->db->limit(10000);
+			if ($searchitem != "") {
+			$this->db->where("b.ItemCode",$searchitem)->or_like("b.ItemName",$searchitem);}
+			$this->db->order_by("itemname");
+				//$this->db->where('a.Hosp_code','MKA');//test
+			$query = $this->db->get();
+			//echo $this->db->last_query();
+			//exit();
+			return $query->result();
+		}
+
+		function nextmrinnumberimg(){
+			//$this->db->select("CONCAT('MRIN/',c.ZoneCode,'/',b.HospitalCode,'/',RIGHT(CONCAT('0000',CAST(a.Counter AS char)), 5),'/',DATE_FORMAT(now(),'%y')) AS mrinno,b.ZoneID,b.HospitalID,a.DocTypeID",FALSE);
+			//$this->db->select("CONCAT('MRIN/',c.ZoneCode,'/".$this->session->userdata('usersess')."/',CONCAT(DATE_FORMAT(now(),'%m'),DATE_FORMAT(now(),'%y')),'/',RIGHT(CONCAT('0000',CAST(a.Counter AS char)), 5)) AS mrinno,b.ZoneID,b.HospitalID,a.DocTypeID",FALSE);
+			$this->db->select("CONCAT('MRIN/', c.ZoneCode, '/IMG/',b.hospitalcode,'/', RIGHT(CONCAT('0000', CAST(a.Counter AS char)), 5),'/', DATE_FORMAT(now(), '%Y')) AS mrinno, b.ZoneID, b.HospitalID, a.DocTypeID",FALSE);
+			$this->db->from('tbl_autono a');
+			$this->db->join('tbl_hospital b','a.ZoneID = b.ZoneID');
+			$this->db->join('tbl_zone c','b.ZoneID = c.ZoneID');
+			$this->db->where('b.HospitalCode',$this->session->userdata('hosp_code'));
+			$this->db->where('a.Year',date('Y'));
+			$query = $this->db->get();
+			//echo $this->db->last_query();
+			//exit();
+			return $query->result();
+		}
+
+		function get_assetnowoppm($woppm, $which)
+		{
+			$apa = false;
+		if ($which == "1") {
+			$this->db->select("b.*",FALSE);
+			$this->db->from('pmis2_egm_schconfirmmon a');
+			$this->db->join('pmsb_imaging_asset b','LEFT(a.V_Asset_no, 7) = b.asset_no');
+			$this->db->where('b.division' , 'IMG');
+			$this->db->where('a.v_wrkordno',$woppm);
+			$this->db->where('a.v_hospitalcode ',$this->session->userdata('hosp_code'));
+			$query = $this->db->get();
+			$data = $query->row();
+			//$data = $query->result();
+			//if ($data->num_rows() > 0) {$apa = true;}
+		} else {
+			$this->db->select("b.*",FALSE);
+			$this->db->from('pmis2_egm_service_request a');
+			$this->db->join('pmsb_imaging_asset b','LEFT(a.V_Asset_no, 7) = b.asset_no');
+			$this->db->where('b.division' , 'IMG');
+			$this->db->where('a.V_Request_no',$woppm);
+			$this->db->where('a.v_hospitalcode ',$this->session->userdata('hosp_code'));
+			$query = $this->db->get();
+			$data = $query->row();
+			//$data = $query->result();
+			//if ($data->num_rows() > 0) {$apa = true;}
+		}
+		//echo "laalla".$query->DWRate;
+		//echo $this->db->last_query();
+		//exit();
+		//return $apa;
+		//if($data->num_rows() > 0) {
+		if(count($data) > 0) {
+				return true;
+		} else {
+				return false;
+		}
+
+		}
+
+		public function check_userimg() {
+		     $this->db->select('userid');
+		     //$this->db->where('userid ',$this->session->userdata('v_UserName'));
+				 $this->db->where('LOWER(userid)', strtolower($this->session->userdata('v_UserName')));
+		     $this->db->where('division',"IMG");
+		     $query = $this->db->get('pmis2_sa_userimg ');
+		     $data = $query->row();
+		     if($query->num_rows() > 0) {
+		         return true;
+		     } else {
+		         return false;
+		     }
+		}
+
+		function mrin_authority()
+		{
+		$this->db->select('Access');
+		$this->db->from('tbl_user_access_screen');
+		//$this->db->where('UserId','APSB039');
+		$this->db->where('UserId',$this->session->userdata('v_UserName'));
+		$this->db->group_by('Access');
+		$query=$this->db->get();
+		// echo $this->db->last_query();
+		// exit();
+		return $query->result();
+
+		}	
 }
 ?>

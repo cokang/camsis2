@@ -1,5 +1,12 @@
 <?php $i=6;$r=0;?>
-<div class="ui-middle-screen">
+<style>
+<?php if($result > $limit) { ?>
+.tinggi{
+height:100%;	
+}
+<?php } ?>
+</style>
+<div class="ui-middle-screen tinggi">
 	<div class="main-box">
 		<?php $tab[0] = array("url"=>"contentcontroller/store_item_new", "label"=>"New Part", "device"=>"web", "in"=>0);?>
 		<?php $tab[1] = array("url"=>"contentcontroller/Report_Part", "label"=>"Report Part", "device"=>"web", "in"=>0);?>
@@ -51,6 +58,7 @@
 		
 	</div>
 	<div class="content-workorder">
+	<div class="wrap">
 		<table class="ui-content-middle-menu-workorder" border="0"  width="90%" align="center" >
 			<tr class="ui-color-contents-style-1" height="40px">
 				<td class="ui-header-new" colspan="11"><b>Parts Catalog</b></td>
@@ -59,7 +67,7 @@
 				<td colspan="3" class="assets-headear">Stock Part Catalog</td>
 			</tr>
 			<?php foreach($record as $row): ?>			  			
-	    	<tr class="asset-ajax">
+	    	<tr class="asset-ajax item">
 				<td colspan="3">
 				<div class="asset1"> 
 					<span class="icon-play"></span>
@@ -130,13 +138,25 @@
 					</table>
 				</td>
 			</tr>
-			<?php endforeach; ?>
+				<?php endforeach; ?>
+			<tr class="ui-header-new" style="height:5px;">
+			<td align="center" colspan="4">
+			<?php if (isset($next)): ?>
+			<div class="nav">
+			<a href='?id=<?=$this->input->get('id')?>&p=<?php echo $next?>&numrow=<?php echo $numrow?>'>Next</a>
+			</div>
+			<?php endif?>
+			
+			</td>
+			</tr>	
+		
 			<tr class="ui-header-new" style="height:5px;">
 				<td align="center" colspan="4">
 				</td>
 			</tr>					
 		</table>
-	</div>		
+	</div>
+</div>	
 </div>
 <?php include 'content_jv_popup.php';?>
 
@@ -157,4 +177,25 @@
 		}
 	}
 
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+	//alert('test');
+    	// Infinite Ajax Scroll configuration
+        jQuery.ias({
+            container : '.wrap', // main container where data goes to append
+            item: '.item', // single items
+            pagination: '.nav', // page navigation
+            next: '.nav a', // next page selector
+            loader: '<img src="<?php echo base_url(); ?>images/ajax-loader.gif"/>', // loading gif
+            triggerPageThreshold: <?php echo ($result / $limit) ?>  // show load more if scroll more than this
+			//alert('sdasd');
+        });
+	
+    });
+<?php if($result > $limit) { ?>	
+	$(window).scroll(function() {
+  $("div").removeClass("tinggi");
+});
+<?php } ?>
 </script>

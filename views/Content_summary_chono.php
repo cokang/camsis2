@@ -6,7 +6,7 @@
 </style>
 <body><div style="position:relative;min-width:960px">
 	<button type="cancel" class="btn-button btn-primary-button" onclick="window.history.back()" style="width:10%;">Back</button>
-	<img src="<?php echo base_url();?>images/excel.png" style="width:40px; height:38px; position:absolute; margin-left: 85%; position: absolute;right:0;top:0" title="export to excel" onclick="tableToExcel('tblData')">
+	<img src="<?php echo base_url();?>images/excel.png" style="width:40px; height:38px; position:fixed; margin-left: 85%; position: fixed;right:0;top:0" title="export to excel" onclick="tableToExcel('tblData')">
 	<!-- <button style="width: 10%;margin-left:600px;background-color: teal;" type="export" class="btn-button btn-primary-button" onclick="tableToExcel('tblData')">EXPORT</button> -->
 	<!-- <div class="header_report_main"> MONTHLY RCM PERFORMANCE MORE THEN 15 DAYS REPORT</div> -->
 	</div>
@@ -77,8 +77,73 @@
 				<th>AVAILABILITY PARTS( Y IF AVAILABLE , N IF NOT AVAILABLE)</th>
  				<th>EXEMPTION DEDUCTION LETTER( Y IF AVAILABLE , N IF NOT AVAILABLE)</th>
 			</tr>
-
-			<tr>
+			<?php $no=1; ?>
+		<?php foreach($records as $row):?>
+	
+              <tr>
+				<td><?=$no++;?></td>
+				<td><?=$row->negeri;?></td>
+				<td><?=$row->v_HospitalCode;?></td>
+				<td><?=$row->v_ref_wo_no;?></td>
+				<td><?=$row->v_WrkOrdNo;?></td>
+				<td>-</td>
+				<td>-</td>
+				<td><?=date("d/m/Y",strtotime($row->D_date));?></td>
+				<td><?=date("M-y",strtotime($row->D_date));?></td>
+				<td>-</td>
+				<td><?=$row->v_ActionTaken;?></td>
+				<td><?=$row->V_Asset_no;?></td>
+				<td><?=$row->V_Tag_no;?></td>
+				<td><?=$row->V_Asset_name;?></td>
+				<td>-</td>
+				<td><?=$row->V_Manufacturer;?></td>
+				<td><?=$row->V_Model_no;?></td>
+				<td>-</td>
+				<td>-</td>
+				<td>-</td>
+				<td>-</td>
+				<td>-</td>
+				<td>-</td>
+				<td></td>
+				<td></td>
+				<td>-</td>
+				<td><?=$row->nama;?></td>
+				<td>-</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>-</td>
+				<td></td>
+				<td></td>
+				<td>-</td>
+				<td></td>
+				<td>-</td>
+				<td>-</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<?php endforeach; ?>
+			<!--<tr>
 				<td>813</td>
 				<td>JOH</td>
 				<td>MUR</td>
@@ -139,7 +204,7 @@
 				<td></td>
 				<td></td>
 				<td></td>
-			</tr>
+			</tr>-->
 		
 		</table>
 		</div>

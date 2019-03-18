@@ -100,13 +100,13 @@ $record[0]->item_specification[1] =
 							<tr style="height: auto; min-height: 360px;">
 								<td class="detail" valign="top"><?=$no;?></td>
 								<td class="detail" style="text-align:left; padding-left: 5px;">
-									<?=$rn_item[0]->itemname;?> (<?=$rn_item[0]->itemcode;?>)<br><?=$rn_item[0]->MIRNcode;?><br><?=$rn_item[0]->workoforder;?>
+									<?=$row->itemname;?> (<?=$row->itemcode;?>)<br><?=$row->MIRNcode;?><br><?=$row->workoforder;?>
 								</td>
 								<td class="detail">
-									<?=$rn_item[0]->relqty;?>
+									<?=$row->relqty;?>
 								</td>
 								<td class="detail">
-									<?=$rn_item[0]->price;?>
+									<?=($row->harga <> NULL) ? $row->harga : 'RM 0';?>
 								</td>
 							</tr>
 							<?php $no++;} ?>

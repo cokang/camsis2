@@ -179,7 +179,13 @@ class Contentcontroller extends CI_Controller {
 
 		public function content ($servicecode){
 
-	  $this->insert_model->audit_log('login service '.$servicecode);
+      $this->load->model('get_model');
+    $this->insert_model->audit_log('login service '.$servicecode);
+       $access['autho'] = array();
+   foreach ($this->get_model->mrin_authority() as $row)
+   {
+    $access['autho'][]=$row->Access;
+   }
  //echo $servicecode;
  //exit();
 
@@ -1725,6 +1731,13 @@ class Contentcontroller extends CI_Controller {
 	}
 
 		public function Procurement(){
+	    $this->load->model('get_model');
+        $data['access'] = array();
+		foreach ($this->get_model->mrin_authority() as $row)
+		{
+		 $data['access'][]=$row->Access;
+		}
+
 				function toArray($obj)
 {
     $obj = (array) $obj;//cast to array, optional
@@ -5503,12 +5516,22 @@ $this->update_model->updateOnDuplicatex('asisbah',$apola);
 	}
 
   public function Store(){
-	//echo "nilai oooo : ".$this->input->post('searchquestion');
-	//exit();
+	  $this->load->model("get_model");
+		$data['limit'] = 15;
+
+		isset($_GET['numrow']) ? $data['numrow'] = $_GET['numrow'] : $data['numrow'] = 1;
+		isset($_GET['p']) ? $data['page'] = $_GET['p'] : $data['page'] = 1;
+		$data['start'] = ($data['page'] * $data['limit']) - $data['limit'];
+		//$data['rec'] = $this->get_model->get_assetcat();
+    $data['rec'] = $this->get_model->get_stock_asset();
+		$data['result'] = count($data['rec']);
+	    if($data['result'] > ($data['page'] * $data['limit']) ){
+		$data['next'] = ++$data['page'];
+		}
+
 		$this->load->model('display_model');
-		$data['record'] = $this->display_model->stock_asset($this->input->post('searchquestion'));
-		//$data['count'] = count($data['record']);
-//print_r($data['record']);
+		$data['record'] = $this->display_model->stock_asset($this->input->post('searchquestion'),$data['limit'],$data['start']);
+
 		foreach($data['record'] as $row){
 		$data['pricel'] = $this->display_model->stock_passet($row->ItemCode,$row->Hosp_code);
 		$data['pricerec'][] = $data['pricel'];
@@ -8703,17 +8726,51 @@ public function save_request_AP19(){
 
 }
 public function report_chronology(){
-		/*$this->load->model("get_model");
-		$data['records'] = $this->get_model->assetchklistcd();*/
+	    $this->load->model("get_model");
+		$data['det'] = $this->get_model->getroot_cause();
+		$negeri=array('JOH'=>0,'MKA'=>0,'NS'=>0);
+		$data['negeri']=array('JOH'=>array('HSA','HSI','KTG','KUL','PER','SGT','KLN','MER','PON','BPH','MUR','MKJ','TGK'),'MKA'=>array('AGJ','JAS','MKA','TMP'),'NS'=>array('JLB','JMP','KPL','PDX','SBN'));
+		//echo "<pre>";
+		//print_r($data['negeri']);
+		foreach($data['det'] as $key=>$row){
+			$data['det'][$key]->negeri=$negeri;
+		}
+		foreach($data['det'] as $key1=>$row1){
+		$jumlah=0;
+			foreach ($negeri as $n=>$k){
+			$data['det'][$key1]->negeri[$n]=$this->get_model->getkira_cause($data['negeri'][$n],$row1->id);
+			//$jumlah = $this->get_model->getkira_cause($data['negeri'][$n],$key1)++;
+			}
+		//$data['det'][$key1]->jumlah=array_sum($key1->negeri);
+		}
+		//foreach
+		//echo "<pre>";
+        //print_r($data['det']);
+		//exit();
+
 		$this ->load->view("head");
-		$this ->load->view("content_report_chronology");
+		$this ->load->view("content_report_chronology",$data);
 	}
 
-	public function Summary_chonology(){
-		/*$this->load->model("get_model");
-		$data['records'] = $this->get_model->assetchklistcd();*/
+	public function summary_chonology(){
+		$this->load->model("display_model");
+		$data['negeri']=array('JOH'=>array('HSA','HSI','KTG','KUL','PER','SGT','KLN','MER','PON','BPH','MUR','MKJ','TGK'),'MKA'=>array('AGJ','JAS','MKA','TMP'),'NS'=>array('JLB','JMP','KPL','PDX','SBN'));
+		$findloc = ($this->input->get('loc') <> 'NULL') ? $data['negeri'][$this->input->get('loc')] : NULL;
+        $data['records'] = $this->display_model->chrology_sum_report($this->input->get('id'),$findloc);
+		foreach($data['records'] as $key=>$rec){
+		$loc='-';
+			foreach($data['negeri'] as $kunci =>$row){
+
+			if(in_array($rec->v_HospitalCode,$row)){
+				$loc=$kunci;
+				break;
+			}
+			}
+			$data['records'][$key]->negeri = $loc;
+		}
+
 		$this ->load->view("head");
-		$this ->load->view("content_summary_chono");
+		$this ->load->view("content_summary_chono",$data);
 	}
 
 }

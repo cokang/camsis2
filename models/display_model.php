@@ -2130,7 +2130,7 @@ return $query->result();
 			//exit();
 			return $query->result();
 		}
-		function stock_asset($searchitem=""){
+    function stock_asset($searchitem="",$limit,$start){
 		  $this->db->distinct();
 			$this->db->select('a.Hosp_code,a.Qty,b.ItemCode,REPLACE(REPLACE(b.ItemName, CHAR(10), ""), CHAR(13), "") AS ItemName',FALSE);
 			$this->db->from('tbl_item_store_qty a');
@@ -2138,7 +2138,7 @@ return $query->result();
 			$this->db->where('a.Hosp_code',($this->input->get('id')) ? ($this->input->get('id')) : $this->session->userdata('hosp_code'));
 			$this->db->where('b.Dept',$this->session->userdata('usersess'));
 			$this->db->where('a.Action_Flag !=','D');
-			$this->db->limit(1000);
+		$this->db->limit($limit,$start);
 			if ($searchitem != "") {
 			$this->db->where("b.ItemCode",$searchitem)->or_like("b.ItemName",$searchitem);}
 			$this->db->order_by("itemname");
@@ -2190,7 +2190,7 @@ return $query->result();
 				$this->db->order_by('s.V_User_dept_code','desc');
 			}
 			$query = $this->db->get();
-			echo $this->db->last_query();
+			//echo $this->db->last_query();
 			//exit();
 			return $query->result();
 		}
@@ -6769,17 +6769,22 @@ return $query->result();
 		}
     function rn_item($rn)
 		{
-
-			$this->db->select('a.itemname, a.itemcode, a.brand, b.qty AS qty, b.dtapprv, c.workoforder, d.qty as relqty, b.MIRNcode, d.price');
+            // $this->db->distinct();
+			$this->db->select('a.itemname, a.itemcode, a.brand, b.qty AS qty, b.dtapprv, c.workoforder, d.qty as relqty, b.MIRNcode, d.price, CASE WHEN hg1.harga1 <> 0 THEN CONCAT("RM ",FORMAT(hg1.harga1, 2)) ELSE CONCAT("RM ",FORMAT(hg2.harga2, 2))  END as harga');
 			$this->db->from('tbl_materialreq c ');
 			$this->db->join('tbl_mirn_comp b',' c.DocReferenceNo = b.MIRNcode');
-      $this->db->join('tbl_invitem a', 'a.ItemCode = b.ItemCode');
+            $this->db->join('tbl_invitem a', 'a.ItemCode = b.ItemCode');
 			$this->db->join('tbl_rn_item d','b.ItemCode = d.Item_code AND b.MIRNcode = d.MRIN_No');
+			$this->db->join('(SELECT MAX(Price_Taken) as harga1,ItemCode,Store_Id FROM tbl_item_movement
+            WHERE  (Qty_Add IS NOT NULL)GROUP BY ItemCode,Store_Id ORDER BY Id DESC) hg1','hg1.Store_Id="'.$this->session->userdata('hosp_code').'" AND hg1.ItemCode=b.ItemCode','left');
+			$this->db->join('(SELECT MAX(Price) as harga2,ItemCode,Hosp_code FROM tbl_item_price_history
+            GROUP BY ItemCode,Hosp_code ORDER BY Id DESC) hg2','hg2.Hosp_code="'.$this->session->userdata('hosp_code').'" AND hg2.ItemCode=b.ItemCode','left');
 			$this->db->where('d.RN_No',$rn);
+			$this->db->group_by('b.itemcode,b.MIRNcode');
+			$this->db->order_by('a.brand,b.MIRNcode','ASC');
 			$query = $this->db->get();
 			//echo $this->db->last_query();
 			//exit();
-
 			$query_result = $query->result();
 			return $query_result;
 		}
@@ -6814,6 +6819,28 @@ $this->db->where('v1.n_visit',$visit);
 $this->db->where('v1.v_HospitalCode',$this->session->userdata('hosp_code'));
 //$this->db->where('s.V_servicecode = ',$this->session->userdata('usersess'));
 $this->db->order_by('n_Visit ASC');
+$query = $this->db->get();
+//echo $this->db->last_query();
+//exit();
+$query_result = $query->result();
+return $query_result;
+}
+
+
+function chrology_sum_report($id,$negeri){
+$this->db->select('a.v_WrkOrdNo,b.v_ref_wo_no,a.v_HospitalCode,b.D_date,a.v_ActionTaken,c.V_Asset_no,c.V_Tag_no,c.V_Asset_name,c.V_Manufacturer,c.V_Model_no,rt.nama');
+$this->db->from('(SELECT * FROM pmis2_emg_chronology
+ORDER BY n_Visit DESC) a');
+$this->db->join('pmis2_egm_service_request b ','a.v_WrkOrdNo = b.V_Request_no');
+$this->db->join('pmis2_egm_assetregistration c ','b.V_Asset_no = c.V_Asset_no AND a.v_HospitalCode=c.V_Hospitalcode');
+$this->db->join('pmis2_egm_rootcause rt','a.v_ReschAuthBy=rt.id');
+if($id <> 'ALL'){
+$this->db->where('a.v_ReschAuthBy',$id);
+}
+if($negeri){
+$this->db->where_in('a.v_HospitalCode',$negeri);
+}
+$this->db->group_by('a.v_WrkOrdNo,a.v_ReschAuthBy');
 $query = $this->db->get();
 //echo $this->db->last_query();
 //exit();
