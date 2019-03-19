@@ -76,13 +76,14 @@ height:100%;
 					
 					<a href="javascript:void(0);" onclick="javascript:fToggle('<?=$row->ItemCode?>');"><b><?= isset($row->ItemName) ? $row->ItemName : '' ?></b></a>
 					&nbsp;&nbsp;&nbsp;<?= isset($row->ItemCode) ? $row->ItemCode : '' ?>&nbsp;&nbsp;&nbsp;
-					<span class="FieldLabel">( <?= isset($row->Qty) ? $row->Qty : '' ?> )</span>
+					<span class="FieldLabel">(Vendor Part No. <?=$row->PartNumber;?> , Model No. <?=$row->Model;?> ) </span>
+					<span class="FieldLabel">( <?= isset($row->baki) ? abs($row->baki) : '' ?> )</span>
 					<?php foreach ($pricerec as $key): ?>
 					<?php foreach ($key as $val): ?>
 					<?php if($val->ItemCode == $row->ItemCode) { ?><!--&store=<?=$this->session->userdata('hosp_code')?>--> <!--originalcode-->
 					<a href="ustore?id=<?= $row->ItemCode ?>&qty=<?= $row->Qty ?>&n=<?= $row->ItemName ?>&p=<?= $val->Price ?>&act=take&store=<?=$this->session->userdata('hosp_code')?>" name="pstake" class="plus"><span class="icon-plus c-plus"></span>Take</a> 
 					<a href="ustore?id=<?= $row->ItemCode ?>&qty=<?= $row->Qty ?>&n=<?= $row->ItemName ?>&p=<?= $val->Price ?>&act=add&store=<?=$this->session->userdata('hosp_code')?>" name="psadd" class="plus"><span class="icon-plus c-plus"></span>Add</a>
-					&nbsp;<a href="<?php echo base_url();?>index.php/contentcontroller/stockDtail?id=<?= $row->ItemCode ?>"   style="float:right; margin-right:80px;"><img src="<?php echo base_url();?>images/information.png" style="width:21px; height:21px; position:absolute;" title="information"></a>
+					&nbsp;<a href="<?php echo base_url();?>index.php/contentcontroller/stockDtail?id=<?= $row->ItemCode ?>"   style="float:right; margin-right:80px;"><img src="<?php echo base_url();?>images/information.png" style="width:21px; height:21px; position:absolute;" title="information"></a> 
 					
 					<!--<span class="FieldLabel plusprice">Price RM<?= number_format($val->Price,2) ?></span> -->
 					<?php } ?>

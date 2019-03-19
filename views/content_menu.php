@@ -1,4 +1,5 @@
 <?php
+        
 $array = [
 	//desk Menu//
 	['Help Desk', 'contentcontroller/workorder?parent='.$this->input->get('parent') , 'bems_desk//','',''],
@@ -131,7 +132,9 @@ $array = [
 	['Procurement', 'contentcontroller/Procurement/'.$this->session->userdata('usersess').'?&tab=4', 'Procurement/report/','',''],
 
 	//stock
-	['Stock', '/contentcontroller/Store/'.$this->session->userdata('usersess').'?&tab=4', 'Procurement/Stock_release_note/','',''],
+	['Stock', 'contentcontroller/Store?id='.$this->session->userdata('hosp_code').'', 'Procurement/release_note/','',''],
+	/*['Release Note', 'contentcontroller/Store?id='.$this->session->userdata('hosp_code').'', 'Procurement/release_note/','',''],*/
+
 ];
 if ($this->input->get('rs')== 1){
 	$array = [
@@ -291,6 +294,10 @@ if ($this->uri->slash_segment(1) .$this->uri->slash_segment(2) == 'contentcontro
 		</div>";
 }
 if ('Procurement/' == $this->uri->slash_segment(1)){
+	/*echo "
+		<div class='menu-class'>
+			<a href='contentcontroller/Store?id=".$this->session->userdata('hosp_code')."'><span class='icon-play2' valign='middle'></span> Store</a>
+		</div>";*/
 	//echo "dier mashuuuk";
 	if($this->input->get('pro') == 'mrin'){
 		// if( $this->uri->slash_segment(2)=="Release_note/" ){
@@ -312,19 +319,16 @@ if ('Procurement/' == $this->uri->slash_segment(1)){
 		if( $this->uri->slash_segment(2)=="Release_note/" ){
 			echo "
 			<div class='menu-class'>
-				<a href='".site_url()."/".$this->uri->slash_segment(1).$this->uri->slash_segment(2).$this->session->userdata('usersess')."?&tab=4'><span class='icon-play2' valign='middle'></span>  Procurement</a><a href='".site_url()."/".$this->uri->slash_segment(1).rtrim($this->uri->slash_segment(2), '/')."?pro=mrin'> <span class='icon-play2' valign='middle'></span> MRIN</a>
+				<a href='../contentcontroller/procurement/BEMS?&tab=4'><span class='icon-play2' valign='middle'></span>  Procurement</a><a href='".site_url()."/".$this->uri->slash_segment(1).rtrim($this->uri->slash_segment(2), '/')."?pro=mrin'> <span class='icon-play2' valign='middle'></span> MRIN</a>
 			</div>";
 		}else{
 			echo "
 			<div class='menu-class'>
-				<a href='".site_url()."/".$list[1].$this->session->userdata('usersess')."?&tab=4'><span class='icon-play2' valign='middle'></span>  $list[0]</a><a href='".site_url()."/".rtrim($list[2], "/")."?pro=mrin'> <span class='icon-play2' valign='middle'></span> MRIN</a>
+				<a href='../contentcontroller/Store?id=".$this->session->userdata('hosp_code')."'><span class='icon-play2' valign='middle'></span>  Stock</a><a href='".site_url()."/".$this->uri->slash_segment(1).rtrim($this->uri->slash_segment(2), '/')."'> <span class='icon-play2' valign='middle'></span> Release Note</a>
 			</div>";
 		}
-		// echo "
-		// <div class='menu-class'>
-		// 	<a href='".site_url()."/contentcontroller/Procurement".$this->session->userdata('usersess')."?&tab=4'><span class='icon-play2' valign='middle'></span>  $list[0]</a><a href='".site_url()."/Procurement?pro=mrin'> <span class='icon-play2' valign='middle'></span> MRIN</a>
-		// </div>";
-	}elseif(($this->input->get('po') != '')){
+	}
+		elseif(($this->input->get('po') != '')){
 		echo "
 		<div class='menu-class'>
 			<a href='../contentcontroller/Procurement/".$this->session->userdata('usersess')."?&tab=4'>
@@ -335,13 +339,80 @@ if ('Procurement/' == $this->uri->slash_segment(1)){
 			</a>
 		</div>";
 	}
+	/*elseif ($this->uri->slash_segment(1)=="Release_note/" ) {
+		echo "
+		<div class='menu-class'>
+			<a href='Store?id=".$this->session->userdata('hosp_code')."'><span class='icon-play2' valign='middle'></span> Store</a>
+		</div>";
+	}*/
 
 }
-if ('stockDtail/' == $this->uri->slash_segment(2) || 'stockact/' == $this->uri->slash_segment(2) || 'bar_code/' == $this->uri->slash_segment(2) || 'new_item/' == $this->uri->slash_segment(2)){
+
+if ('stockDtail/' == $this->uri->slash_segment(2) || 'stockact/' == $this->uri->slash_segment(2)){
 	echo "
 		<div class='menu-class'>
-			<a href='Store'> <span class='icon-play2' valign='middle'></span> Parts Catalog</a>
+			<a href='Store?id=".$this->session->userdata('hosp_code')."'><span class='icon-play2' valign='middle'></span> Parts Catalog</a>
 		</div>";
 	//echo "dier mashuuuk";
 }
+else if ('bar_code/' == $this->uri->slash_segment(2) || 'store_item_new/' == $this->uri->slash_segment(2) || 'vendor_reg/' == $this->uri->slash_segment(2) || 'site_store_status/' == $this->uri->slash_segment(2) || 'new_item/' == $this->uri->slash_segment(2) ) 
+{	
+	echo "
+		<div class='menu-class'>
+			<a href='Store?id=".$this->session->userdata('hosp_code')."'><span class='icon-play2' valign='middle'></span> Stock</a>
+		</div>";
+}
+
+else if ('sys_admin/' == $this->uri->slash_segment(2) ) 
+{
+	if(($this->input->get('gbl') == '1'))
+	
+		{	
+			echo "
+				<div class='menu-class'>
+					<a href='sys_admin/BEMS?&tab=3'><span class='icon-play2' valign='middle'></span> Admin</a>
+				</div>";
+		}
+
+		elseif (($this->input->get('ec') == '1')) {
+			echo "
+				<div class='menu-class'>
+					<a href='sys_admin/BEMS?&tab=3'><span class='icon-play2' valign='middle'></span> Admin</a>
+				</div>";
+		}
+		elseif (($this->input->get('us') == '1')) {
+			echo "
+				<div class='menu-class'>
+					<a href='sys_admin/BEMS?&tab=3'><span class='icon-play2' valign='middle'></span> Admin</a>
+				</div>";
+		}
+		elseif (($this->input->get('jt') == '1')) {
+			echo "
+				<div class='menu-class'>
+					<a href='sys_admin/BEMS?&tab=3'><span class='icon-play2' valign='middle'></span> Admin</a>
+				</div>";
+		}
+		elseif (($this->input->get('ud') == '1')) {
+			echo "
+				<div class='menu-class'>
+					<a href='sys_admin/BEMS?&tab=3'><span class='icon-play2' valign='middle'></span> Admin</a>
+				</div>";
+		}
+
+	}
+	else if ('qap3/' == $this->uri->slash_segment(2) ) {
+		echo "
+				<div class='menu-class'>
+					<a href='Central/BEMS?&tab=1'><span class='icon-play2' valign='middle'></span> Back To Main Page</a>
+				</div>";
+
+	}
+/*else if ($this->uri->slash_segment(1) .$this->uri->slash_segment(2)  == 'Procurement/Release_note/') {
+	echo "
+		<div class='menu-class'>
+			<a href='Store?id=".$this->session->userdata('hosp_code')."'><span class='icon-play2' valign='middle'></span> Store</a>
+		</div>";
+}*/
+
+
 ?>

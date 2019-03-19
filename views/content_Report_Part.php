@@ -2,7 +2,7 @@
 	<div id="Instruction" class="pr-printer">
 		<div class="header-pr"> Stock Part </div>
 		<button onclick='myFunction()' class="btn-button btn-primary-button">PRINT</button>
-		<button type="cancel" class="btn-button btn-primary-button" onclick="window.location.href='Store'">CANCEL</button>
+		<button type="cancel" class="btn-button btn-primary-button" onclick="window.history.back()">CANCEL</button>
 	</div>
 	<div class="form">
 		<?php $numrow=1;foreach($assetrec as $rows): ?>

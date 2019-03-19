@@ -1,6 +1,6 @@
 <html>
 <head>
-<link rel="shortcut icon" href="<?php echo base_url(); ?>images/iconcam.png" type="image/x-icon" />
+<link rel="shortcut icon" href="<?php echo base_url(); ?>images/iconcam2.png" type="image/x-icon" />
 <script type="text/javascript" src="<?php echo base_url(); ?>js/jquery-ias.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>js/jquery-ui.custom.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>js/modernizr.js"></script>

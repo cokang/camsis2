@@ -22,7 +22,9 @@
 									<table class="ui-content-form" width="100%" border="0">
 										<tr>
 											<td style="padding:10px;" valign="top" class="ui-w">Hospital :</td>
-											<td style="padding:10px;" valign="top">IIUM Medical Hospital</td>
+											<td style="padding:10px;" valign="top"><?php 
+												$kecuali=array('HQ','COE');
+										//echo form_dropdown('hospital', $arealist,$this->input->post('hospital'), 'class="form-control-button2" Disabled'); ?><?=(!in_array($this->session->userdata('hosp_code'),$kecuali)) ? 'Hospital '.$this->session->userdata('hosp_name') : $this->session->userdata('hosp_name');?>	</td>
 										</tr>
 										<tr>
 											<td style="padding-left:10px;" valign="top">Date Issue :   </td>
@@ -230,6 +232,7 @@
 			<?php echo form_hidden('class_id',$this->input->post('class_id')) ?>
 			<?php echo form_hidden('pro',$this->input->get('pro')) ?>
 			<?php echo form_hidden('mrinno',$this->input->get('mrinno')) ?>
+			<?php //echo form_hidden('hospital',$this->input->post('hospital')) ?>
 
 			<?php 
 			$rowno = $this->input->post('rows');

@@ -23,15 +23,15 @@
 	<?php }else{?>
 	<tr align="center">
 		<td style="width:20px;"><?=$rownom++;?></a></td>
-		<td style="width:150px;"><a href="javascript:Setasset('<?=$row->v_vendorcode?>','<?=$row->v_vendorname?>')" ><?=$row->v_vendorcode?></a></td>
-		<td style="width:300px;"><a href="javascript:Setasset('<?=$row->v_vendorcode?>','<?=$row->v_vendorname?>')" ><?=$row->v_vendorname?></a></td>
-		<td style="width:80px;"><a href="javascript:Setasset('<?=$row->v_vendorcode?>','<?=$row->v_vendorname?>')" ><?=$row->v_region?></a></td>
-		<td style=""><a href="javascript:Setasset('<?=$row->v_vendorcode?>','<?=$row->v_vendorname?>')" ><?=$row->v_remark?></a></td>
+		<td style="width:150px;"><a href="javascript:Setasset('<?=$row->VENDOR_CODE?>','<?=$row->VENDOR_NAME?>')" ><?=$row->VENDOR_CODE?></a></td>
+		<td style="width:300px;"><a href="javascript:Setasset('<?=$row->VENDOR_CODE?>','<?=$row->VENDOR_NAME?>')" ><?=$row->VENDOR_NAME?></a></td>
+		<td style="width:80px;"><a href="javascript:Setasset('<?=$row->VENDOR_CODE?>','<?=$row->VENDOR_NAME?>')" ><?=$row->BUMI_STATUS?></a></td>
+		<td style=""><a href="javascript:Setasset('<?=$row->VENDOR_CODE?>','<?=$row->VENDOR_NAME?>')" ><?=$row->CONTRACTOR_SUPPLIER?></a></td>
 	</tr>
 	<?php } ?>
 	<?php endforeach;?>
 </table>
-<?php if ($this->input->get('parent') == 'Update' ){?>	   		
+<?php if ($this->input->get('parent') == 'Update' ){?>
 <script type="text/javascript">
     function Setasset(Vendor_code,Vendor_name,grading_D,region,gov_reg,grade,email,pager_no,url,currency,payment,term,term_mode,contact,company_type,vendor_type,reg_type,remarks,hphone_no,phone_no,fax_no,address1,address2,address3) {
         if (window.opener != null && !window.opener.closed) {
@@ -128,8 +128,8 @@
             a_ag.value = vendorname;
             var a_ag = window.opener.document.getElementById("n_vendor_code");
             a_ag.value = vendorcode;
-		
-    
+
+
 
             //opener.document.f1.n1.value = document.n_tag_number.value;
 			//opener.document.f1.n2.value = document.frm.c_name2.value;

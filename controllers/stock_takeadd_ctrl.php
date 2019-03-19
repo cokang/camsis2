@@ -1,7 +1,7 @@
 <?php
 
 class Stock_takeadd_ctrl extends CI_Controller{
-	
+
 	function index(){
 
 		// load libraries for URL and form processing
@@ -73,7 +73,6 @@ class Stock_takeadd_ctrl extends CI_Controller{
 			{
 				$insert_data = array(
 								'ItemCode' => $id,
-								//'Store_Id'=>$this->session->userdata('hosp_code'),
 								'Store_Id'=>$hosp,
 								'Time_Stamp' => date('Y-m-d H:i:s'),
 								'Qty_Before' => $qty,
@@ -119,23 +118,22 @@ class Stock_takeadd_ctrl extends CI_Controller{
 										'D_timestamp' => date('Y-m-d H:i:s')
 					);
 					$this->update_model->store_takercm_update($docdetails,$hosp,$update_rcm);
-		
+
 				}
 
-				redirect('contentcontroller/Store');
+				redirect('contentcontroller/Store?id='.$hosp);
 
 			}
 			else
 			{
 				$this->index();
 			}
-	
+
 		}
 		elseif($act == 'add'){
-	
+
 			$insert_data = array(
 								'ItemCode' => $id,
-								//'Store_Id'=>$this->session->userdata('hosp_code'),
 								'Store_Id'=>$hosp,
 								'Time_Stamp' => date('Y-m-d H:i:s'),
 								'Qty_Before' => $qty,
@@ -160,15 +158,13 @@ class Stock_takeadd_ctrl extends CI_Controller{
 			$addprice_data = array(
 								'ItemCode' => $id,
 								'User_Update' => $this->session->userdata('v_UserName'),
-								//'Hosp_code' => $this->session->userdata('hosp_code'),
 								'Hosp_code' => $hosp,
 								'Time_Stamp' => date('Y-m-d H:i:s'),
-								'Price' => $this->input->post('n_unitprice'),
-								//'Vendor_Code'
+								'Price' => $this->input->post('n_unitprice')
 			);
 			$this->insert_model->store_addprice($addprice_data);
 
-			redirect('contentcontroller/Store');	
+			redirect('contentcontroller/Store?id='.$hosp);
 		}
 
 	}//endconfirmation

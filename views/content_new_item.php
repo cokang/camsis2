@@ -10,23 +10,23 @@
 	}
 @media only screen and (max-width: 425px) and (min-width: 0px) {
 
-	
-	table.ui-content-form-baru, table.ui-content-form-baru thead, table.ui-content-form-baru tbody, table.ui-content-form-baru th, table.ui-content-form-baru td, table.ui-content-form-baru tr { 
-		display: block; 
+
+	table.ui-content-form-baru, table.ui-content-form-baru thead, table.ui-content-form-baru tbody, table.ui-content-form-baru th, table.ui-content-form-baru td, table.ui-content-form-baru tr {
+		display: block;
 	}
-	table.ui-content-form-baru td { 
+	table.ui-content-form-baru td {
 		/* Behave  like a "row" */
 		border: none;
 		width: 80%;
-		border-bottom: 1px solid #eee; 
+		border-bottom: 1px solid #eee;
 		position: relative;
-		padding-left: 50%; 
+		padding-left: 50%;
 	}
-	
+
  .paginatediv{
-					 
+
 					  display: none;}
-					  
+
 					  /** page structure **/
 					 .paginatedivm{
 					  text-align:center;
@@ -42,9 +42,9 @@
 					.clearfix:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
 					.clearfix { display: inline-block; }
 					.paginate.pag2 { /* second page styles */ }
-					 
+
 					.paginate.pag2 li { font-weight: bold; list-style-type:none;  }
-					 
+
 					.paginate.pag2 li a {
 					  font-size:12px;
 					  display: block;
@@ -69,7 +69,7 @@
 					.paginate.pag2 li a:hover {
 					  color: #3280dc;
 					}
-					 
+
 					.paginate.pag2 li.single, .paginate.pag2 li.current {
 					  display: block;
 					  float: center;
@@ -79,7 +79,7 @@
 					  border-radius: 3px;
 					  color: #676767;
 					}
-				
+
 
 }
 </style>
@@ -108,20 +108,20 @@
 											<td style="padding-left:10px; padding-top:5px;" valign="top"> <input type="text" name="n_code" value="<?= isset($edititem[0]->ItemCode) == TRUE ? $edititem[0]->ItemCode : ''?>" class="form-control-button2 n_wi-date2" required></td>
 											<td style="padding-left:10px; padding-top:5px;" valign="top">Item Name:</td>
 											<td style="padding-left:10px; padding-top:5px;" valign="top"> <input type="text" name="n_description" value="<?= isset($edititem[0]->ItemName) == TRUE ? $edititem[0]->ItemName : ''?>" class="form-control-button2 n_wi-date2"></td>
-										   
-										</tr>									
+
+										</tr>
 										<tr>
 											<td style="padding-left:10px; padding-top:5px;" valign="top" >Part No:</td>
 											<td style="padding-left:10px; padding-top:5px;" valign="top"> <input type="text" name="n_partno" value="<?= isset($edititem[0]->PartNumber) == TRUE ? $edititem[0]->PartNumber : ''?>" class="form-control-button2 n_wi-date2"></td>
 											<td style="padding-left:10px; padding-top:5px;" valign="top">Part Description:</td>
 											<td style="padding-left:10px; padding-top:5px;" valign="top"> <input type="text" name="n_pdescription" value="<?= isset($edititem[0]->PartDescription) == TRUE ? $edititem[0]->PartDescription : ''?>" class="form-control-button2 n_wi-date2"></td>
 										</tr>
-										
+
 										<tr>
 											<td style="padding-left:10px; padding-top:5px;" valign="top" >Unit Price:</td>
 											<td style="padding-left:10px; padding-top:5px;" valign="top"> <input type="text" name="n_unitprice" value="<?= isset($edititem[0]->UnitPrice) == TRUE ? $edititem[0]->UnitPrice : ''?>" class="form-control-button2 n_wi-date2"></td>
 											<td style="padding-left:10px; padding-top:5px;" valign="top">Currency:</td>
-											<td style="padding-left:10px; padding-top:5px;" valign="top"> <?php 
+											<td style="padding-left:10px; padding-top:5px;" valign="top"> <?php
 										$Payment = array(
 											'' => '',
 	        '1' => 'Albania Lek',
@@ -239,14 +239,14 @@
             '113' => 'Yemen Rial',
             '114' => 'Zimbabwe Dollar'
                 					 );
-			
+
 		     $Payment2 = array (
                '1' => 'ALL',
-               '2' => 'AFN', 
+               '2' => 'AFN',
                '3' => 'ARS',
                '4' => 'AWG',
                '5' => 'AUD',
-               '6' => 'AZN', 
+               '6' => 'AZN',
                '7' => 'BSD',
                '8' => 'BBD',
                '9' => 'BDT',
@@ -262,11 +262,11 @@
                '19' => 'KHR',
                '20' => 'CAD',
                '21' => 'KYD',
-               '22' => 'CLP', 
+               '22' => 'CLP',
                '23' => 'CNY',
-               '24' => 'COP', 
-               '25' => 'CRC', 
-               '26' => 'HRK', 
+               '24' => 'COP',
+               '25' => 'CRC',
+               '26' => 'HRK',
             '27' => 'CUP',
             '28' => 'CZK',
             '29' => 'DKK',
@@ -275,96 +275,96 @@
             '32' => 'EGP',
             '33' => 'SVC',
             '34' => 'EEK',
-            '35' => 'EUR', 
-            '36' => 'FKP', 
-            '37' => 'FJD', 
-            '38' => 'GHC', 
+            '35' => 'EUR',
+            '36' => 'FKP',
+            '37' => 'FJD',
+            '38' => 'GHC',
             '39' => 'GIP',
             '40' => 'GTQ',
-            '41' => 'GGP', 
+            '41' => 'GGP',
             '42' => 'GYD',
-            '43' => 'HNL', 
-            '44' => 'HKD', 
-            '45' => 'HUF', 
-            '46' => 'ISK', 
-            '47' => 'INR', 
+            '43' => 'HNL',
+            '44' => 'HKD',
+            '45' => 'HUF',
+            '46' => 'ISK',
+            '47' => 'INR',
             '48' => 'IDR',
-            '49' => 'IRR', 
-            '50' => 'IMP', 
-            '51' => 'ILS', 
-            '52' => 'JMD', 
+            '49' => 'IRR',
+            '50' => 'IMP',
+            '51' => 'ILS',
+            '52' => 'JMD',
             '53' => 'JPY',
-            '54' => 'JEP', 
-            '55' => 'KZT', 
+            '54' => 'JEP',
+            '55' => 'KZT',
             '56' => 'KPW',
-            '57' => 'KRW', 
+            '57' => 'KRW',
             '58' => 'KGS',
-            '59' => 'LAK', 
-            '60' => 'LVL', 
+            '59' => 'LAK',
+            '60' => 'LVL',
             '61' => 'LBP',
             '62' => 'LRD',
-            '63' => 'LTL', 
-            '64' => 'MKD', 
-            '65' => 'RM', 
-            '66' => 'MUR', 
+            '63' => 'LTL',
+            '64' => 'MKD',
+            '65' => 'RM',
+            '66' => 'MUR',
             '67' => 'MXN',
-            '68' => 'MNT', 
-            '69' => 'MZN', 
-            '70' => 'NAD', 
-            '71' => 'NPR', 
-            '72' => 'ANG', 
-            '73' => 'NZD', 
-            '74' => 'NIO', 
-            '75' => 'NGN', 
-            '76' => 'NOK', 
-            '77' => 'OMR', 
-            '78' => 'PKR', 
-            '79' => 'PAB', 
+            '68' => 'MNT',
+            '69' => 'MZN',
+            '70' => 'NAD',
+            '71' => 'NPR',
+            '72' => 'ANG',
+            '73' => 'NZD',
+            '74' => 'NIO',
+            '75' => 'NGN',
+            '76' => 'NOK',
+            '77' => 'OMR',
+            '78' => 'PKR',
+            '79' => 'PAB',
             '80' => 'PYG',
-            '81' => 'PEN', 
-            '82' => 'PHP', 
-            '83' => 'PLN', 
+            '81' => 'PEN',
+            '82' => 'PHP',
+            '83' => 'PLN',
             '84' => 'QAR',
-            '85' => 'RON', 
-            '86' => 'RUB', 
-            '87' => 'SHP', 
-            '88' => 'SAR', 
-            '89' => 'RSD', 
-            '90' => 'SCR', 
-            '91' => 'SGD', 
-            '92' => 'SBD', 
-            '93' => 'SOS', 
-            '94' => 'ZAR', 
-            '95' => 'LKR', 
-            '96' => 'SEK', 
+            '85' => 'RON',
+            '86' => 'RUB',
+            '87' => 'SHP',
+            '88' => 'SAR',
+            '89' => 'RSD',
+            '90' => 'SCR',
+            '91' => 'SGD',
+            '92' => 'SBD',
+            '93' => 'SOS',
+            '94' => 'ZAR',
+            '95' => 'LKR',
+            '96' => 'SEK',
             '97' => 'CHF',
-            '98' => 'SRD', 
+            '98' => 'SRD',
             '99' => 'SYP',
-            '100' => 'TWD', 
+            '100' => 'TWD',
             '101' => 'THB',
             '102' => 'TTD',
-            '103' => 'TRY', 
-            '104' => 'TRL', 
-            '105' => 'TVD', 
-            '106' => 'UAH', 
-            '107' => 'GBP', 
-            '108' => 'USD', 
-            '109' => 'UYU', 
+            '103' => 'TRY',
+            '104' => 'TRL',
+            '105' => 'TVD',
+            '106' => 'UAH',
+            '107' => 'GBP',
+            '108' => 'USD',
+            '109' => 'UYU',
             '110' => 'UZS',
-            '111' => 'VEF', 
+            '111' => 'VEF',
             '112' => 'VND',
-            '113' => 'YER', 
-            '114' => 'ZWD', 
+            '113' => 'YER',
+            '114' => 'ZWD',
         );
 										 ?>
 										  <?php echo form_dropdown('n_currency', $Payment, isset($edititem[0]->CurrencyID) == TRUE ? $edititem[0]->CurrencyID : '', 'id="n_currency" class="dropdown n_wi-date2"'); ?> </td>
 										</tr>
 										<tr>
 											<td style="padding-left:10px; padding-top:5px;" valign="top" >Measurement:</td>
-											<td style="padding-left:10px; padding-top:5px;" valign="top"> 	
-											<?php 
+											<td style="padding-left:10px; padding-top:5px;" valign="top">
+											<?php
 											$Unit_of_measurement = array(
-											'' => '',		
+											'' => '',
 										'1' => 'KG',
 										'2' => 'Litre',
 										'3' => 'M3',
@@ -397,12 +397,12 @@
 										  <td style="padding-left:10px; padding-top:5px;" valign="top"> <input type="text" name="n_comments" value="<?= isset($edititem[0]->Comments) == TRUE ? $edititem[0]->Comments : ''?>" class="form-control-button2 n_wi-date2"></td>
 										  <td style="padding-left:10px;" valign="top">Service :   </td>
 										  <td style="padding-left:10px; padding-top:5px;" valign="top"> <input type="text" name="n_service" value="<?php echo $this->session->userdata('usersess') ?>" class="form-control-button2 n_wi-date2" readonly></td>
-										
+
 										</tr>
-<tr>											
+<tr>
 										    <td style="padding-left:10px; padding-top:5px;" valign="top">Item Location:</td>
 											<td style="padding-left:10px; padding-top:5px;" valign="top"> <input type="text" name="n_location" value="<?= isset($edititem[0]->ItemLoc) == TRUE ? $edititem[0]->ItemLoc : ''?>" class="form-control-button2 n_wi-date2"></td>
-										</tr>										
+										</tr>
 									</table>
 								</td>
 							</tr>
@@ -413,22 +413,22 @@
 				<tr>
 					<td align="center"> <?php if (isset($_GET['edit'])){ ?> <input type="button" class="btn-button btn-primary-button" style="width: 200px;" name="back" value="Back"  onclick="location.href='<?php echo site_url();?>/contentcontroller/new_item'"> <?php }?>
 					<input type="submit" class="btn-button btn-primary-button" style="width: 200px;" name="mysubmit" value="Confirm"></td>
-				
+
 				</tr>
 			</table>
 			<?php echo form_hidden('editid',isset($edititem[0]->InvItemID) == TRUE ? $edititem[0]->InvItemID : '') ?>
 			<?php echo form_close(); ?>
 			<?php echo form_hidden('m',$this->input->get('m')) ?>
 			<?php echo form_hidden('y',$this->input->get('y')) ?>
-			
+
 			<style>
 @media screen and (min-device-width: 1200px){
  .paginatedivm{
-					 
+
 					  display: none;}
-				.ui-content-middle-menu-workorder2 tr td {padding:8px;font-size:14px;		
+				.ui-content-middle-menu-workorder2 tr td {padding:8px;font-size:14px;
 			 /*width:100%;*/
-			
+
 			  }
 				.ui-menu-color-header2, .ui-color-style-2 {
     background: #0d1b23;}
@@ -439,7 +439,7 @@
     width: 98%;
     margin-right: auto;
     margin-left: auto;
-    overflow: hidden;	
+    overflow: hidden;
 }
   .onloadworkorder{
     margin:5px auto;
@@ -447,7 +447,7 @@
 	background:#46eace;
 	width:98%;
     }
-	
+
 	/** page structure **/
 
 					 .paginatediv{
@@ -464,9 +464,9 @@
 					.clearfix:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
 					.clearfix { display: inline-block; }
 					.paginate.pag2 { /* second page styles */ }
-					 
+
 					.paginate.pag2 li { font-weight: bold; list-style-type:none;  }
-					 
+
 					.paginate.pag2 li a {
 					  font-size:12px;
 					  display: block;
@@ -491,7 +491,7 @@
 					.paginate.pag2 li a:hover {
 					  color: #3280dc;
 					}
-					 
+
 					.paginate.pag2 li.single, .paginate.pag2 li.current {
 					  display: block;
 					  float: left;
@@ -501,11 +501,11 @@
 					  border-radius: 3px;
 					  color: #676767;
 					}
-	}			
+	}
 				</style>
-				
-	
-				
+
+
+
 		</div>
 			<div class="ui-main-form2">
 			<div class="ui-main-form-header">
@@ -514,7 +514,7 @@
 						<td><span style="margin-left:10px;">Item List</span></td>
 					</tr>
 				</table>
-		
+
 			</div>
 			<?php if ($this->input->get('itemcode')) { ?>
 			<table id="myElem" class="onloadworkorder">
@@ -527,40 +527,38 @@
 						<tr class="ui-menu-color-header2" style="color:white; font-weight:bold;">
 							<td width="">Item Code</td>
 							<td width="">Item Name</td>
-							<td width="">Item Location</td>
 							<td width="">Part No</td>
 							<td width="">Part Description</td>
 							<td width="">Unit Price</td>
 							<td width="">Currency</td>
 							<td width="">Measurement</td>
-							<td width="">Vendor</td>
+							<!--<td width="">Vendor</td>-->
 							<td width="">Code Category</td>
 							<td>Equip Category</td>
 							<td>Brand</td>
 							<td>Model</td>
 							<td>Comments</td>
-							
+
 						</tr>
 						<?php  if (!empty($records)) {?>
 				<?php $numrow = 1; foreach($records as $row):?>
-					      			
+
 	    				<?php echo ($numrow%2==0) ? '<tr class="ui-color-color-color">' : '<tr>'; ?>
 	    					<td style="text-transform: capitalize;"><a href="?edit=<?=$row->ItemCode?>" style="font-size:14px;"><?=$row->ItemCode?></a></td>
 		        			<td><?=$row->ItemName?></td>
-		        			<td><?=$row->ItemLoc?></td>
 		        			<td><?=$row->PartNumber?></td>
 		        			<td><?=$row->PartDescription?></td>
 		        			<td><?=$row->UnitPrice?></td>
 		        			<td><?php if(!empty($row->CurrencyID)){echo $Payment2[$row->CurrencyID];}?></td>
 		        			<td><?php if(!empty($row->MeasurementID)){echo $Unit_of_measurement[$row->MeasurementID];}?></td>
-		        			<td><?=$row->v_vendorname?></td>
+		        			<!--<td><?=$row->v_vendorname?></td>-->
 		        			<td><?=$row->CodeCat?></td>
 		        			<td><?=$row->EquipCat?></td>
 		        			<td><?=$row->Brand?></td>
 		        			<td><?=$row->Model?></td>
 		        			<td><?=$row->Comments?></td>
 		        			<!---<td style="width:200px; text-align:left;"></td>-->
-	        			</tr>	
+	        			</tr>
 	        			<?php $numrow++; ?>
 			    		<?php endforeach;?>
 			    		<?php }else { ?>
@@ -568,17 +566,17 @@
 	    					<td colspan="13"><span style="color:red; text-transform: uppercase;">NO RECORD FOUND</span>
 							</td>
 	    				</tr>
-						<?php } ?>	 
+						<?php } ?>
 					</table></div>
 					<div class="ui-left_mobile">
 					<table class="ui-mobile-table-desk" style="color:black; width:100%;">
 						<?php  if (!empty($records)) {?>
-							<?php $numrow=1;  foreach($records as $row):?>   			
+							<?php $numrow=1;  foreach($records as $row):?>
 		    			<tr <?=($numrow % 2) == 1 ? 'class="ui-color-color-color"' : 'class="bg-grey2"'?>>
 							<td >No</td>
 							<td class="td-desk">: <?=$numrow?></td>
 						</tr>
-						<tr <?=($numrow % 2) == 1 ? 'class="ui-color-color-color"' : 'class="bg-grey2"'?>>	
+						<tr <?=($numrow % 2) == 1 ? 'class="ui-color-color-color"' : 'class="bg-grey2"'?>>
 							<td>Item Code</td>
 							<td class="td-desk">: <a href="?edit=<?=$row->ItemCode?>" style="font-size:14px;"><?=$row->ItemCode?></a> </td>
 						</tr>
@@ -633,7 +631,7 @@
 							<td >Comments</td>
 							<td class="td-desk">: <?=isset($row->Comments) == TRUE ? $row->Comments : 'N/A'?></td>
 						</tr>
-		        		<?php $numrow++?> 			 
+		        		<?php $numrow++?>
 							<?php endforeach;?>
 							<?php }else { ?>
 								<tr align="center" style="height:400px;">
@@ -642,36 +640,36 @@
 							<?php } ?>
 					</table>
 				</div>
-		
+
 						<div class="paginatediv ui-left_web">
 					  <ul class="paginate pag2 clearfix">
 					  	<?php if ($rec[0]->jumlah > $limit){ ?>
 					  	<li class="single">Page <?=($this->input->get('pa') ? $this->input->get('pa') : 1)?> of <?php echo $page?></li>
 						<li><a href="?tabIndex=1&pa=1"> << First Page </a></li>
 						<?php if ($this->input->get('pa') != ''){ ?>
-					  	<li><a href="?tabIndex=1&pa=<?=($this->input->get('pa') < 1 ? $this->input->get('pa')-1 : 1 )?>">Prev</a></li> 
+					  	<li><a href="?tabIndex=1&pa=<?=($this->input->get('pa') < 1 ? $this->input->get('pa')-1 : 1 )?>">Prev</a></li>
 						<?php } ?>
 						<li><a href=""><?=($this->input->get('pa') ? $this->input->get('pa') : 1)?></a></li>
 		              	<li><a href="?tabIndex=1&pa=<?php echo $page?>">Next</a></li>
 						<li><a href="?tabIndex=1&pa=<?php echo ceil($rec[0]->jumlah/$limit);?>">Last Page >></a></li>
 		              	<?php } ?>
-				
+
 					  </ul>
 					</div>
 					<div class="paginatedivm">
-					
+
 					  <ul class="paginate pag2 clearfix">
 					  	<?php if ($rec[0]->jumlah > $limit){ ?>
 					  	<li class="single">Page <?=($this->input->get('pa') ? $this->input->get('pa') : 1)?> of <?php echo $page?></li>
 						<li><a href="?tabIndex=1&pa=1"> << </a></li>
 						<?php if ($this->input->get('pa') != ''){ ?>
-					  	<li><a href="?tabIndex=1&pa=<?=($this->input->get('pa') < 1 ? $this->input->get('pa')-1 : 1 )?>"><</a></li> 
+					  	<li><a href="?tabIndex=1&pa=<?=($this->input->get('pa') < 1 ? $this->input->get('pa')-1 : 1 )?>"><</a></li>
 						<?php } ?>
 						<li><a href=""><?=($this->input->get('pa') ? $this->input->get('pa') : 1)?></a></li>
 		              	<li><a href="?tabIndex=1&pa=<?php echo $page?>">></a></li>
 						<li><a href="?tabIndex=1&pa=<?php echo ceil($rec[0]->jumlah/$limit);?>"> >></a></li>
 		              	<?php } ?>
-				
+
 					  </ul>
 					</div>
 		</div>

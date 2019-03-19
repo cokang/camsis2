@@ -28,8 +28,8 @@
 					<?php 
 					$Area_list = array(""=>"Select");
 					if( !empty($arealist) ){
-						foreach ($arealist as $row) {
-							$Area_list[$row['v_HospitalCode']] = $row["v_HospitalName"];
+					   foreach ($arealist as $row) {
+						$Area_list[$row['v_HospitalCode']] = $row["v_HospitalName"];
 						}
 					}
 					?>
@@ -49,7 +49,9 @@
 			<tr>
 				<?php if($act == 'take') { ?>
 				<td class="td-assest">Username : </td>
-				<td><input type="text" name="name" value="<?= isset($name) ? $this->input->post('name') : '' ?>" id="username" class="form-control-button2 n_wi-date" onclick='javascript:fg_popup_form("fg_formContainer","fg_form_InnerContainer","fg_backgroundpopup");' readonly></td>
+				<td>
+				<input type="text" name="name" value="<?= $this->session->userdata('v_UserName');?>" id="username" class="form-control-button2 n_wi-date"  readonly>
+				<!--<input type="text" name="name" value="<?= isset($name) ? $this->input->post('name') : '' ?>" id="username" class="form-control-button2 n_wi-date" onclick='javascript:fg_popup_form("fg_formContainer","fg_form_InnerContainer","fg_backgroundpopup");' readonly>--></td>
 				<?php } ?>
 			</tr>
 			<!--<tr>
@@ -66,8 +68,8 @@
            </tr>
 		</table>
 		<?php include 'content_jv_popup.php';?>
-		<?php require_once('contact-userverification.php');?>
-		<?php echo form_hidden('username',isset($name) ? $name : '');?>
+		<?php //require_once('contact-userverification.php');?>
+		<?php echo form_hidden('username',$this->session->userdata('v_UserName'));?>
 		<?php echo form_hidden('id',isset($id) ? $id : '');?>
 		<?php echo form_hidden('qty',isset($qty) ? $qty : '');?>
 		<?php echo form_hidden('n',isset($n) ? $n : '');?>

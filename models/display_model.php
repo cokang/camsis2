@@ -113,10 +113,10 @@
                 }
 
 
-
+            $this->db->order_by('V_Request_no ASC');
             //$query = $this->db->get("pmis2_egm_service_request");
             $query = $this->db->get();
-            echo $this->db->last_query();
+            //echo $this->db->last_query();
             //exit();
             $query_result = $query->result();
             return $query_result;
@@ -2131,22 +2131,29 @@ return $query->result();
 			return $query->result();
 		}
     function stock_asset($searchitem="",$limit,$start){
+      $sepital =($this->input->get('id')) ? ($this->input->get('id')) : $this->session->userdata('hosp_code');
 		  $this->db->distinct();
-			$this->db->select('a.Hosp_code,a.Qty,b.ItemCode,REPLACE(REPLACE(b.ItemName, CHAR(10), ""), CHAR(13), "") AS ItemName',FALSE);
+			$this->db->select('a.Hosp_code,a.Qty,b.ItemCode,REPLACE(REPLACE(b.ItemName, CHAR(10), ""), CHAR(13), "") AS ItemName,b.Model,b.PartNumber,bal.baki',FALSE);
 			$this->db->from('tbl_item_store_qty a');
 			$this->db->join('tbl_invitem b','a.ItemCode = b.ItemCode','inner');
+			$this->db->join('(SELECT * FROM(SELECT(Qty_Before-Qty_Taken-Qty_Add) as baki,Store_Id,ItemCode FROM `tbl_item_movement`
+         ORDER BY `Time_Stamp` DESC) b group by Store_Id,ItemCode) bal','bal.Store_Id="'.$sepital.'" AND bal.ItemCode=b.ItemCode','left');
 			$this->db->where('a.Hosp_code',($this->input->get('id')) ? ($this->input->get('id')) : $this->session->userdata('hosp_code'));
 			$this->db->where('b.Dept',$this->session->userdata('usersess'));
 			$this->db->where('a.Action_Flag !=','D');
-		$this->db->limit($limit,$start);
-			if ($searchitem != "") {
-			$this->db->where("b.ItemCode",$searchitem)->or_like("b.ItemName",$searchitem);}
-			$this->db->order_by("itemname");
-				//$this->db->where('a.Hosp_code','MKA');//test
-			$query = $this->db->get();
-			//echo $this->db->last_query();
-			//exit();
-			return $query->result();
+      $this->db->limit($limit,$start);
+  			if ($searchitem != "") {
+  			$this->db->group_start();
+  			$this->db->where("b.ItemCode",$searchitem)->or_like("b.ItemName",$searchitem);
+  			$this->db->group_end();
+  			}
+  			$this->db->order_by("itemname");
+
+  				//$this->db->where('a.Hosp_code','MKA');//test
+  			$query = $this->db->get();
+  			//echo $this->db->last_query();
+  			//exit();
+  			return $query->result();
 		}
 		function stock_passet($ItemCode,$Hosp_code){
 			$this->db->select('Price,ItemCode');
@@ -2225,7 +2232,7 @@ return $query->result();
 			return $query->result();
 		}
 		function pecodes($hosp,$cari=""){
-			$this->db->select('ItemCode,ItemName');
+			$this->db->select('ItemCode, ItemName, EquipCat, Brand, Model, PartNumber');
 			$this->db->from('tbl_invitem');
 			$this->db->where('ItemCode NOT IN (SELECT ItemCode FROM tbl_item_store_qty WHERE Hosp_code = "'.$hosp.'")', NULL, FALSE);
 			if ($cari <> ''){
@@ -5316,24 +5323,33 @@ return $obj['path'];
 
 		}
 
-		function s_item_detail($limit,$start){
+		function s_item_detail($limit,$start,$week=''){
 	     if($limit != 0){
-			$this->db->select('a.*, b.v_vendorname');
+			//$this->db->select('a.*, b.v_vendorname');
+      //$this->db->select('a.*, b.v_vendorname');
+      $this->db->select('a.*');
 			$this->db->from('tbl_invitem a');
-			$this->db->join('pmis2_sa_vendor b','a.VendorID = b.id','left');
+			//$this->db->join('pmis2_sa_vendor b','a.VendorID = b.id','left');
 	        $this->db->where('Dept =', $this->session->userdata('usersess'));
-			$this->db->order_by('DateCreated','DESC');
+          $this->db->where('a.itemcode LIKE ', '%'.$week.'%');
+          //$this->db->or_where('jt.v_weeksch LIKE ', '%,'.$week);
+      $this->db->order_by('a.itemcode','DESC');
+			//$this->db->order_by('DateCreated','DESC');
 			$this->db->limit($limit,$start);
 
           }else {
 	       $this->db->select('count(a.ItemCode) as jumlah');
 		   $this->db->from('tbl_invitem a');
-		   $this->db->join('pmis2_sa_vendor b','a.VendorID = b.id','left');
+		   //$this->db->join('pmis2_sa_vendor b','a.VendorID = b.id','left');
 	       $this->db->where('Dept =', $this->session->userdata('usersess'));
+         $this->db->where('a.itemcode LIKE ', '%'.$week.'%');
+         //$this->db->or_where('jt.v_weeksch LIKE ', '%,'.$week);
+     //$this->db->order_by('DateCreated','DESC');
+     //$this->db->limit($limit,$start);
          }
 		$query = $this->db->get();
-			/* echo $this->db->last_query();
-			exit(); */
+			//echo $this->db->last_query();
+			//exit();
 			//$this->getcurrency(query);
 			return $query->result();
 		}

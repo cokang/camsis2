@@ -2,8 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US" class="<?php if (!($this->input->get('login') == "login")){ ?>id<?php } ?>">
 <head>
-<?php 
-if (!isset($_GET["login"])) {  //redirect(base_url()."index.php?login=login", 'refresh'); 
+<?php
+if (!isset($_GET["login"])) {  //redirect(base_url()."index.php?login=login", 'refresh');
 redirect(base_url()."index.php/Logincontroller/index?login=login", 'refresh');?>
 <!--<meta http-equiv="refresh" content="3;url=<?php echo base_url(); ?>index.php/LoginController/index?login=login" />-->
 <!--<meta http-equiv="refresh" content="3;url=<?php echo base_url(); ?>index.php?login=login" />-->
@@ -11,10 +11,11 @@ redirect(base_url()."index.php/Logincontroller/index?login=login", 'refresh');?>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--<meta name='viewport' content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0 user-scalable=no" />-->
-<link rel="shortcut icon" href="<?php echo base_url(); ?>images/iconcam.png" type="image/x-icon" />
+<!--<link rel="shortcut icon" href="<?php echo base_url(); ?>images/iconcam.png" type="image/x-icon" />-->
+<link rel="shortcut icon" href="<?php echo base_url(); ?>images/iconcam2.png" type="image/x-icon" />
 <link rel="STYLESHEET" type="text/css" media='all' href="<?php echo base_url(); ?>css/popup-contact.css">
 <link rel="stylesheet" type='text/css' media='all' href="<?php echo base_url(); ?>icon/style.css">
-<link rel='stylesheet' type='text/css' media='all' href="<?php echo base_url(); ?>css/style.css"> 
+<link rel='stylesheet' type='text/css' media='all' href="<?php echo base_url(); ?>css/style.css">
 <link href="<?php echo base_url(); ?>css/Color-skin3.css" rel="stylesheet" type="text/css" media="all" />
 <link rel="stylesheet" type='text/css' media='screen' href="<?php echo base_url(); ?>icon/style.css">
 <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url(); ?>css/login.css">
@@ -23,16 +24,16 @@ redirect(base_url()."index.php/Logincontroller/index?login=login", 'refresh');?>
  <!--[if lt IE 9]>
 <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
 <![endif]-->
-</head>  
+</head>
 <body onload="" class="body_login">
 	<div class="login">
 		<div class="login-screen" style="padding-top: 5%;">
 			<div class="login-menu">
-				<div class="menum"> 
+				<div class="menum">
 					<?php if ($this->input->get('login') == "login"){ ?>
-					
+
 					<!-- <img src="<?php echo base_url(); ?>images/logo.png" class="camsis2-main-logo"/>  -->
-					<img src="<?php echo base_url(); ?>images/logo.png" /> 
+					<img src="<?php echo base_url(); ?>images/logo.png" />
 
 					<?php }else{ ?>
 
@@ -50,21 +51,21 @@ redirect(base_url()."index.php/Logincontroller/index?login=login", 'refresh');?>
 					<?php }else{ ?>
 					<img src="<?php echo base_url(); ?>images/penmedic2.png" class="img-penmedic"/><br>
 					<!--<span>Concession Contractor</span>-->
-					
+
 					<?php } ?>
 				</div>
 			</div>
 			<div class="login-form" <?php if ($this->input->get('login') == ""){ ?> style="text-align:center;"<?php } ?>>
-			<?php if ($this->input->get('login') == "login"){ $np = !($this->input->get('pass')) ? "0" : $this->input->get('pass');?> 
+			<?php if ($this->input->get('login') == "login"){ $np = !($this->input->get('pass')) ? "0" : $this->input->get('pass');?>
 				<?php echo form_open('logincontroller/validate_credentials');?>
 					<div class="form-group">
-					<input type="text" class="form-control login-field<?php if('logincontroller/validate_credentials/' == $this->uri->slash_segment(1) .$this->uri->slash_segment(2)){ echo '2'; }else{ echo ''; } ?>" value="" 
+					<input type="text" class="form-control login-field<?php if('logincontroller/validate_credentials/' == $this->uri->slash_segment(1) .$this->uri->slash_segment(2)){ echo '2'; }else{ echo ''; } ?>" value=""
 					placeholder="<?php if ($np == 'no'){ echo 'Invalid Validation : Enter your name'; } elseif ($np == 'exp') { echo 'Password expired : Change your password'; } else { echo 'Enter your name'; } ?>" name="name" id="input-login" style="height: 47px;"/>
 					<label class="login-field-icon fui-user" for="login-name"><span align="center" class="icon-user"></label>
 					</div>
-				
+
 					<div class="form-group">
-					<input type="password" class="form-control login-field<?php if('logincontroller/validate_credentials/' == $this->uri->slash_segment(1) .$this->uri->slash_segment(2)){ echo '2'; }else{ echo ''; } ?>" value="" placeholder="Password" name="password" id="input-login" 
+					<input type="password" class="form-control login-field<?php if('logincontroller/validate_credentials/' == $this->uri->slash_segment(1) .$this->uri->slash_segment(2)){ echo '2'; }else{ echo ''; } ?>" value="" placeholder="Password" name="password" id="input-login"
 					style="height: 47px;"/>
 					<label class="login-field-icon" for="login-pass" ><span align="center" class="icon-key"></span></label>
 					</div>
@@ -81,12 +82,12 @@ redirect(base_url()."index.php/Logincontroller/index?login=login", 'refresh');?>
 			</div>
 		</div>
 	</div>
-	<?php if ($this->input->get('login') == "login"){ ?> 
-	
+	<?php if ($this->input->get('login') == "login"){ ?>
+
 	<div id="footer" style="width:100%;">
 		<div class="footer-id">
 			<div class="bttm-pen" style=" width: 350px; display:inline-block; margin-top:20px;">
-			
+
 			<!--<span style="font-size:11px;">Concession Company</span><br />
 			<img src="<?php echo base_url(); ?>images/penmedic.png" style=" width: 120px; height: 40px;"/>-->
 			<img src="<?php echo base_url(); ?>images/Myapbesys2.png" style=" height: 65px; width: 150px; display:inline-block; margin-top:0px; position:absolute ;"/>
@@ -94,7 +95,7 @@ redirect(base_url()."index.php/Logincontroller/index?login=login", 'refresh');?>
 			<span style="font-size:9.5px; display:inline-block; margin-top:50px;">MYAPBESYS is a copyright product of Advance Pact Sdn Bhd. All rights reserved.</span>
 			</div>
 			<!--<span style="font-weight:bold;">PenMedic Sdn. Bhd.</span><br />-->
-			
+
 			<!-- <div class="bttm-ap" style=""> -->
 			<div class="bttm-ap" style="margin-top:20px;">
 			<!--<span style="font-size:11px; display:inline-block;">Facility Management Services Contractor</span><br />-->

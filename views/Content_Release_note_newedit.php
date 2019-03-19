@@ -1,4 +1,4 @@
-<?php 
+<?php
 if ($formType == 'new' ){
 	$disabledselect = "";
 	$readonly		= "";
@@ -45,7 +45,7 @@ $save = $save_link;
 														<tr>
 															<td style="padding:10px;" valign="top" class="ui-w">*Status  :</td>
 														<td style="padding:10px;" valign="top">
-															<?php 
+															<?php
 																$list_option = array(""=>"Select", "0"=>"Submitted");
 																$Status_list = array(
 																				"name" => "rn_status",
@@ -53,7 +53,7 @@ $save = $save_link;
 																				"style" => "display:inline-block; width:100px; height:30px; $disabledselect",
 																				"set_value" => "rn_status"
 																);
-															?>   
+															?>
 																<?php if ($formType == 'new' ||$formType == 'edit'){ ?>
 															<?php echo form_dropdown($Status_list, $list_option); ?>
 															<?php } else { ?>
@@ -79,7 +79,7 @@ $save = $save_link;
 														<tr>
 															<td style="padding:10px;" valign="top">Area  :  </td>
 															<td style="padding:10px;" valign="top"> <?=$this->session->userdata("hosp_code")?> </td>
-														</tr>														
+														</tr>
 														<tr>
 															<td style="padding-left:10px;" valign="top" colspan="2"><u>DELIVER TO</u>  </td>
 														</tr>
@@ -95,8 +95,8 @@ $save = $save_link;
 															<td style="padding:10px;" valign="top">*Area  :  </td>
 																<?php if ($formType == 'new' || $formType == 'edit'){ ?>
 															<td style="padding:10px;" valign="top">
-															
-																<?php 
+
+																<?php
 																$area_option = array(""=>"Please");
 																if( !empty($arealist) ){
 																	foreach ($arealist as $row) {
@@ -108,7 +108,7 @@ $save = $save_link;
 																				"class" => "dropdown n_wi-date2",
 																				"style" => "display:inline-block; width:100px; height:30px; $disabledselect",
 																				"set_value" => "area",
-																				// "onchange" => "get_dataItem(this)"										
+																				// "onchange" => "get_dataItem(this)"
 																);
 																// if ($this->input->get('pro') == 'new' ){
 																if ($formType == 'new' ){
@@ -117,7 +117,7 @@ $save = $save_link;
 																	$Area_list["onload"] = "get_dataItem(this,'edit-')";
 																}*/
 
-																echo form_dropdown($Area_list, $area_option); ?> 
+																echo form_dropdown($Area_list, $area_option); ?>
 															</td>
 															<?php }else{ ?>
 															<td style="padding:10px;" valign="top"><?=$rndet[0]->hosp;?></td>
@@ -125,13 +125,13 @@ $save = $save_link;
 														</tr>
 														<!--<tr>
 															<td style="padding:10px;" valign="top">Date From :    </td>
-															<td style="padding:10px;" valign="top"> 
+															<td style="padding:10px;" valign="top">
 																<input type="text" name="datefrom" value="<?=set_value('datefrom');?>" id="date1" class="form-control-button2 n_wi-date2" style="<?=$disabledselect;?>" autocomplete="off" <?=$readonly;?> onchange="get_dataItem(this)" >
 															</td>
 														</tr>
 														<tr>
 															<td style="padding:10px;" valign="top">Date To :    </td>
-															<td style="padding:10px;" valign="top"> 
+															<td style="padding:10px;" valign="top">
 																<input type="text" name="dateto" value="<?=set_value('dateto');?>" id="date2" class="form-control-button2 n_wi-date2" style="<?=$disabledselect;?>" autocomplete="off" <?=$readonly;?> onchange="get_dataItem(this)" >
 															</td>
 														</tr>-->
@@ -153,11 +153,11 @@ $save = $save_link;
 														<tr>
 															<td style="padding:10px;" valign="top" class="ui-w">Shipment Type  :  </td>
 														    <?php if ($formType == 'new'||$formType == 'edit'){ ?>
-															<td style="padding-left:10px;" valign="top"> 
-																<?php 
+															<td style="padding-left:10px;" valign="top">
+																<?php
 																$Shipment_option = array(
 																		  '0' => 'Courier',
-																		  '1' => 'By hand',															
+																		  '1' => 'By hand',
 																);
 																$Shipment_list = array(
 																		"name" => "shipment_type",
@@ -165,23 +165,23 @@ $save = $save_link;
 																		"style" => "display:inline-block; width:100px; height:30px; $disabledselect",
 																		"set_value" => "shipment_type"
 																);
-																echo form_dropdown($Shipment_list , $Shipment_option); ?> 
+																echo form_dropdown($Shipment_list , $Shipment_option); ?>
 															</td>
 															<?php }else{?>
 															<td style="padding-left:10px;" valign="top"> <?=$rndet[0]->sh_type;?></td>
 															<?php } ?>
-															
+
 														</tr>
 														<tr>
 															<td style="padding:10px;" valign="top">Courier Company  :  </td>
 															<?php if ($formType == 'new' || $formType == 'edit'){ ?>
-															<td style="padding-left:10px;" valign="top"> 
-																<?php 
+															<td style="padding-left:10px;" valign="top">
+																<?php
 																$Courier_option = array(
 																		  '0' => 'Other',
 																		  '1' => 'ABX',
 																		  '2' => 'CityLink',
-																		  '3' => 'DHL',															
+																		  '3' => 'DHL',
 																	   );
 																$Courier_list = array(
 																	"name" => "courier",
@@ -194,26 +194,26 @@ $save = $save_link;
 															<?php }else{ ?>
 																<td style="padding-left:10px;" valign="top"><?=$rndet[0]->courier;?></td>
 															<?php } ?>
-															
+
 														</tr>
 														<tr>
 															<td style="padding:10px;" valign="top">Consignment Note :    </td>
-															<td style="padding:10px;" valign="top"> 
+															<td style="padding:10px;" valign="top">
 															<?php if ($formType == 'new' || $formType == 'edit' ){ ?>
 																<input type="text" name="consignment_note" value="<?=set_value('consignment_note'); ?>" class="form-control-button2 n_wi-date2" autocomplete="off" <?=$readonly;?> >
 	                                                           <?php } else { ?>
                                                                 <?=$rndet[0]->consignment_note;?>
-															   <?php } ?>	
+															   <?php } ?>
 															</td>
 														</tr>
 														<tr>
 															<td style="padding:10px;" valign="top">Consignment Date :    </td>
-															<td style="padding:10px;" valign="top"> 
+															<td style="padding:10px;" valign="top">
 																<?php if ($formType == 'new'||$formType == 'edit' ){ ?>
 																<input type="text" name="consignment_date" value="<?=set_value('consignment_date');?>" id="date0" class="form-control-button2 n_wi-date2" style="<?=$disabledselect;?>" autocomplete="off" <?=$readonly;?> >
 															  <?php } else{ ?>
                                                                <?=date('d/m/Y',strtotime($rndet[0]->consignment_date));?>
-															   <?php } ?>	
+															   <?php } ?>
 															</td>
 														</tr>
 														<tr>
@@ -228,12 +228,12 @@ $save = $save_link;
 														</tr>
 													</table>
 												</td>
-											</tr>						
+											</tr>
 										</table>
 									</div>
 								</div>
 							</td>
-						</tr>						
+						</tr>
 					</table>
 				</div>
 				<div class="middle_d">
@@ -309,7 +309,7 @@ $save = $save_link;
 								</table>
 								<?php } ?>
 							</td>
-						</tr>						
+						</tr>
 					</table>
 				</div>
 			</div>
@@ -329,7 +329,7 @@ $save = $save_link;
 
 <script type="text/javascript">
 	function get_dataItem(d){
-	
+
 		// var code = $(d).val();
 		var area 	= $("select[name=area]").val();
 			//alert(area);
@@ -343,7 +343,7 @@ $save = $save_link;
 			$("tbody#item-table-value").html(obj.table);
 			$("#to_contact_person").val(obj.v_head_of_lls);
 		});
-	
+
 	}
 
 	// $("input[name=mysubmit]").closest("form").submit( function(){
@@ -384,31 +384,31 @@ $save = $save_link;
 
 	@media screen and (max-width: 960px) {
 		/* Force table to not be like tables anymore */
-		/*#item-tables table, 
-		#item-tables thead, 
-		#item-tables tbody, 
-		#item-tables th, 
-		#item-tables td, 
-		#item-tables tr { 
-			display: block; 
+		/*#item-tables table,
+		#item-tables thead,
+		#item-tables tbody,
+		#item-tables th,
+		#item-tables td,
+		#item-tables tr {
+			display: block;
 		}*/
 
 		/* Hide table headers (but not display: none;, for accessibility) */
-		/*#item-tables thead tr th{ 
+		/*#item-tables thead tr th{
 			position: absolute;
 			top: -9999px;
 			left: -9999px;
 		}*/
 
-		/*#item-tables td { 
+		/*#item-tables td {
 			border: none;
 			position: relative;
-			padding-left: 50%; 
+			padding-left: 50%;
 			white-space: normal;
 			text-align:left;
 		}*/
 
-		/*#item-tables td:before() { 
+		/*#item-tables td:before() {
 			border:1px solid yellow;
 		}*/
 
@@ -420,13 +420,13 @@ $save = $save_link;
 
 
 		#item-tables{width:98%;}
-		#item-tables,#item-tables thead,#item-tables tbody,#item-tables th,#item-tables td,#item-tables tr { 
-				display: block; 
+		#item-tables,#item-tables thead,#item-tables tbody,#item-tables th,#item-tables td,#item-tables tr {
+				display: block;
 				color:black;
 		}
 
 		/* Hide table headers (but not display: none;, for accessibility) */
-		#item-tables tr th{ 
+		#item-tables tr th{
 			position: absolute;
 			top: -9999px;
 			left: -9999px;
@@ -434,23 +434,23 @@ $save = $save_link;
 
 		#item-tables tr { border: 1px solid #ccc; }
 
-		#item-tables td { 
+		#item-tables td {
 			/* Behave  like a "row" */
 			border: none;
-			border-bottom: 1px solid #eee; 
+			border-bottom: 1px solid #eee;
 			position: relative;
 			padding-left: 50%;
 			min-height: 26px;
 		}
 
-		#item-tables td:before { 
+		#item-tables td:before {
 			/* Now like a table header */
 			position: absolute;
 			/* Top/left values mimic padding */
 			top: 3px;
 			left: 6px;
-			width: 45%; 
-			padding-right: 10px; 
+			width: 45%;
+			padding-right: 10px;
 			white-space: nowrap;
 		}
 

@@ -1,3 +1,6 @@
+<head>
+<link rel="shortcut icon" href="<?php echo base_url(); ?>images/iconcam2.png" type="image/x-icon"/>
+</head>
 <div class="ui-middle-screen">
 	<div class="div-p"></div>
 	<div class="main-box">
@@ -19,7 +22,7 @@
 			<tr class="ui-color-desk desk2">
 				<td colspan="4" class="ui-main-form-header" style="color:white; height:40px; padding-left:10px; text-align:left;"><b>RELEASE NOTE </b> <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?></td>
 			</tr>
-			<tr class="ui-color-desk bg-red-blood"> 
+			<tr class="ui-color-desk bg-red-blood">
 				<td colspan="4">
 					<table width="100%" class="ui-content-middle-menu-desk">
 						<tr style="background:#B3130A;">
@@ -60,9 +63,9 @@
 							.ui-content-middle-menu-workorder2 tr td.td-desk a{ font-weight:bold; font-size:14px;}
 						</style>
 						<?php $numrow = 1; ?>
-						
+
 						<?php if(!empty($records)){?>
-						<?php foreach($records as $row):$status="";if($row->rn_status==0){$status="Send";}?>  			
+						<?php foreach($records as $row):$status="";if($row->rn_status==0){$status="Send";}?>
 						<tr align="center" <?= ($numrow%2==0) ?  'class="ui-color-color-color"' :  '' ?> >
 							<td class="td-desk"><?=$numrow++?></td>
 							<!--<td class="td-desk" style="text-align:left;"><a href="<?php echo base_url();?>index.php/Procurement/print_release_note?RN_No=<?=$row->rn_no?>">	<?=$row->rn_no?> </a></td>-->
@@ -76,7 +79,7 @@
 							<td class="td-desk"><?= ($row->consignment_date) ? date("d-m-Y", strtotime($row->Date_Stamp)) : 'N/A' ;?> </td>
 						</tr>
 						<?php endforeach;?>
-						<?php }else{ ?>		
+						<?php }else{ ?>
 						<tr align="center" style="height:200px; background:white;">
 							<td colspan="7" class="default-NO">NO RELEASE NOTE FOUND FOR <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?></td>
 						</tr>
@@ -124,13 +127,13 @@
 							<?php } ?>
 						</tbody>
 					</table>
-				</td>	
+				</td>
 			</tr>
 			<tr class="ui-header-new" style="height:5px;">
 				<td align="center" colspan="4">
 				</td>
 			</tr>
-	</table>	
+	</table>
 	</div>
 </div>
 </body>

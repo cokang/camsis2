@@ -363,7 +363,7 @@ class Contentcontroller extends CI_Controller {
 
 		public function workorder(){
 		$this->load->model("loginModel");
-		echo "nilai ghghghgh : " . $this->session->userdata('usersess') . "<br>";
+		//echo "nilai ghghghgh : " . $this->session->userdata('usersess') . "<br>";
 		 if (($this->input->get('parent') == "desk") && ($this->input->get('utk') == "csr")) {
 		 		if ($this->session->userdata('usersess') == "BES"){
 				$this->session->set_userdata('usersess','FES');
@@ -8186,6 +8186,7 @@ public function new_item (){
 		$this->load->model("display_model");
     	$this->load->model("get_model");
 		$this->load->model('update_model');
+    //echo "lalalalalalla : ".$this->input->post('searchquestion');
          if (isset($_GET['edit'])){
 
 		$data['edititem'] = $this->get_model->get_asset_list($_GET['edit']);
@@ -8195,10 +8196,10 @@ public function new_item (){
         isset($_GET['pa']) ? $data['page'] = $_GET['pa'] : $data['page'] = 1;
 	    $data['start'] = ($data['page'] * $data['limit']) - $data['limit'];
 
-     	$data['records'] = $this->display_model->s_item_detail($data['limit'],$data['start']);
+     	$data['records'] = $this->display_model->s_item_detail($data['limit'],$data['start'],$this->input->post('searchquestion'));
 
 		$data['count'] = count($data['records']);
-        $data['rec'] =  $this->display_model->s_item_detail('0','0');
+        $data['rec'] =  $this->display_model->s_item_detail('0','0',$this->input->post('searchquestion'));
 		if($data['rec'][0]->jumlah > ($data['page'] * $data['limit']) ){
 	    $data['next'] = ++$data['page'];
 		}

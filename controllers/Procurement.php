@@ -66,6 +66,7 @@ class Procurement extends CI_Controller {
 			if (!($data['itemrec'])) {
 			//echo "ade data";
 			redirect('Procurement?pro=mrin');
+			//redirect('Procurement?mrinno='.$this->input->get('mrinno').'&pro=edit');
 			}
 			$data['attrec'] = $this->display_model->attrec($this->input->get('mrinno'));
 			$data['user'] = $this->display_model->user_class($this->session->userdata('v_UserName'));

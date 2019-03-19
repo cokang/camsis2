@@ -317,9 +317,12 @@ function get_vendortlist()
 //$this->db->select('pmis2_sa_asset_mapping.new_asset_type, left(pmis2_sa_moh_asset_type.type_desc, 50)');
 $this->db->select("*");
 //$this->db->where('pmis2_sa_asset_mapping.old_asset_type = ', $typecd);
-$this->db->where('pmis2_sa_vendor.v_actionflag <> ', 'D');//    return $this->db->get('pmis2_sa_asset_mapping');
-$this->db->order_by("v_vendorname","asc");
-$query = $this->db->get('pmis2_sa_vendor');
+//$this->db->where('pmis2_sa_vendor.v_actionflag <> ', 'D');//    return $this->db->get('pmis2_sa_asset_mapping');
+//$this->db->order_by("v_vendorname","asc");
+//$query = $this->db->get('pmis2_sa_vendor');
+//$this->db->where('pmis2_sa_vendor.v_actionflag <> ', 'D');//    return $this->db->get('pmis2_sa_asset_mapping');
+$this->db->order_by("vendor_name","asc");
+$query = $this->db->get('tbl_vendor_info');
 //echo "laalla".$query->DWRate;
 //echo $this->db->last_query();
 //exit();
@@ -4128,7 +4131,11 @@ function get_stock_asset($searchitem=""){
 			$this->db->where('a.Action_Flag !=','D');
 		   $this->db->limit(10000);
 			if ($searchitem != "") {
-			$this->db->where("b.ItemCode",$searchitem)->or_like("b.ItemName",$searchitem);}
+			//$this->db->where("b.ItemCode",$searchitem)->or_like("b.ItemName",$searchitem);
+			$this->db->group_start();
+			$this->db->where("b.ItemCode",$searchitem)->or_like("b.ItemName",$searchitem);
+			$this->db->group_end();
+			}
 			$this->db->order_by("itemname");
 				//$this->db->where('a.Hosp_code','MKA');//test
 			$query = $this->db->get();
@@ -4217,6 +4224,6 @@ function get_stock_asset($searchitem=""){
 		// exit();
 		return $query->result();
 
-		}	
+		}
 }
 ?>

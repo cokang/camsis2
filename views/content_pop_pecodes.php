@@ -2,10 +2,10 @@
 <body style="margin:0px;">
 <table id="alertData" class="tftable" border="1" style="text-align:center;">
 	<tr>
-		<th colspan="6" class="headerpop">SEARCH BY NAME / CODE / VENDOR PART </th>
+		<th colspan="7" class="headerpop">SEARCH BY NAME / CODE / VENDOR PART </th>
 	</tr>
 	<tr align="center">
-	<td id="scby" colspan="6" >
+	<td id="scby" colspan="7" >
 	<?php $attributes = array('id' => 'myform');
 	echo form_open('contentcontroller/pecodes',$attributes);?>
 	<input type="text" id="sctext" name="scby" value="<?=$scby?>" class="form-control">
@@ -13,23 +13,31 @@
 	</td>
 	</tr>
 	<tr>
-		<th colspan="6" class="headerpop">EQUIPMENT CODES</th>
+		<th colspan="7" class="headerpop">EQUIPMENT CODES</th>
 	</tr>
 	<tr align="center">
 		<th >No</th>
 		<th >Code</th>
 		<th >Name</th>
+		<th >Vendor Part No.</th>
+		<th >Category</th>
+		<th >Brand</th>
+		<th >Model</th>
 	</tr>
 	<?php $numrow=1; foreach($record as $row): ?>
 	<tr align="center">
 		<td><?=$numrow?></td>
 		<td><a href="javascript:Setasset('<?=$row->ItemCode?>','<?=$row->ItemName?>','<?=$this->input->get('hosp')?>')" ><?=$row->ItemCode?></a></td>
 		<td><a href="javascript:Setasset('<?=$row->ItemCode?>','<?=$row->ItemName?>','<?=$this->input->get('hosp')?>')" ><?=$row->ItemName?></a></td>
+		<td><a href="javascript:Setasset('<?=$row->ItemCode?>','<?=$row->ItemName?>','<?=$this->input->get('hosp')?>')" ><?=$row->PartNumber?></a></td>
+		<td><a href="javascript:Setasset('<?=$row->ItemCode?>','<?=$row->ItemName?>','<?=$this->input->get('hosp')?>')" ><?=$row->EquipCat?></a></td>
+		<td><a href="javascript:Setasset('<?=$row->ItemCode?>','<?=$row->ItemName?>','<?=$this->input->get('hosp')?>')" ><?=$row->Brand?></a></td>
+		<td><a href="javascript:Setasset('<?=$row->ItemCode?>','<?=$row->ItemName?>','<?=$this->input->get('hosp')?>')" ><?=$row->Model?></a></td>
 	</tr>
 	<?php $numrow++ ?>
 	<?php endforeach; ?>
 </table>
-   		
+
 <script type="text/javascript">
     function Setasset(a_agent,a_agent2,hosp) {
         if (window.opener != null && !window.opener.closed) {
@@ -44,10 +52,10 @@
         }
         window.close();
     }
-	
+
  $("#alertData").on("click", "td", function() {
     if ($(this).attr('id')=='scby' &&  $('#sctext').val() != ''){
-	  $("#myform").submit() 
+	  $("#myform").submit()
 	}
    });
 

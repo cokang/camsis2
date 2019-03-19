@@ -34,9 +34,9 @@
 					$Area_list = array(""=>"Select");
 					if( !empty($arealist) ){
 						foreach ($arealist as $row) {
-							$Area_list[$row['v_HospitalCode']] = $row["v_HospitalName"];
-						}
-					}
+						$Area_list[$row['v_HospitalCode']] = $row["v_HospitalName"];
+					    }
+					  }
 					?>
 					<?php echo form_dropdown('n_Site_list', $Area_list ,$n_Site_list, 'class="dropdown n_wi-date" style="display:inline-block; height:30px;"'); ?>
 				</td>

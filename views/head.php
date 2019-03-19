@@ -12,7 +12,7 @@
 <?php } }?>
 <html>
 <head>
-	<link rel="shortcut icon" href="<?php echo base_url(); ?>images/iconcam.png" type="image/x-icon" />
+	<link rel="shortcut icon" href="<?php echo base_url(); ?>images/iconcam2.png" type="image/x-icon"/>
 	<link rel="STYLESHEET" type="text/css" media='all' href="<?php echo base_url(); ?>css/popup-contact.css">
 	<link rel="stylesheet" type='text/css' media='all' href="<?php echo base_url(); ?>icon/style.css">
 	<link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url(); ?>css/style.css" />
