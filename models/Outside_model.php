@@ -95,7 +95,8 @@ parent::__construct();
 		$DBo = $this->load->database('ibu', TRUE);
 		$DBo->select('datediff(now(), IFNULL(a.v_sec_dt,now())) AS dayer, b.valid_period',false) ;
 		$DBo->where('v_userid', $userid);
-		$DBo->join('pmis2_sa_passvalidity b','a.v_hospitalcode = b.hosp');
+		//$DBo->join('pmis2_sa_passvalidity b','a.v_hospitalcode = b.hosp');
+		$DBo->join('pmis2_sa_passvalidity b',"b.hosp = 'iam'");
 		$query = $DBo->get('pmis2_sa_user a');
 
 		//echo $DBo->last_query();

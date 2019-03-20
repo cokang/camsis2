@@ -6,7 +6,7 @@
 img{
 	display: block;
     margin-left: auto;
-    margin-right: auto 
+    margin-right: auto
 }
 .h1-po{
 	display: block;
@@ -140,7 +140,7 @@ img{
 <div class="h1-po-qp">QP 018<br />QF-019</div>
 <div class="h1-po">purchase order</div>
 <div class="h1-po-no">Purchase Order No : <?=($this->input->get('po') <> '') ? $this->input->get('po') : ''?></div>
-	<div class="info-po"><?=(isset($veninfo[0]->VENDOR_NAME)) ? $veninfo[0]->VENDOR_NAME : ''?>
+	<div class="info-po">
 	<table class="tbl-info-po">
 		<tr>
 			<td valign="top">To :</td>
@@ -163,18 +163,18 @@ img{
 	<table class="tbl-info-pr">
 		<tr>
 			<td align="right" style="width:40px;"><b>Po Date</b> </td>
-			<?php 
+			<?php
 	     if (isset($podetail[0]->PO_Date)){
 			$da = new DateTime($podetail[0]->PO_Date);
 		 } else {
 			$da = new DateTime();
-		 } 
+		 }
 			$das = $da->format('j M Y');
 			$dayy = $da->format('j');
 			$mon = $da->format('m');
 			$yr = $da->format('Y');
-			
-			
+
+
 			function intPart($float)
 {
     if ($float < -0.0000001)
@@ -182,7 +182,7 @@ img{
     else
         return floor($float + 0.0000001);
 }
-			
+
 			function Greg2Hijri($day, $month, $year, $string = false)
 {
     $day   = (int) $day;
@@ -204,11 +204,11 @@ img{
     $l = $l-10631*$n+354;
     $j = (intPart((10985-$l)/5316))*(intPart((50*$l)/17719))+(intPart($l/5670))*(intPart((43*$l)/15238));
     $l = $l-(intPart((30-$j)/15))*(intPart((17719*$j)/50))-(intPart($j/16))*(intPart((15238*$j)/43))+29;
-    
+
     $month = intPart((24*$l)/709);
     $day   = $l-intPart((709*$month)/24);
     $year  = 30*$n+$j-30;
-    
+
     $date = array();
     $date['year']  = $year;
     $date['month'] = $month;
@@ -216,7 +216,7 @@ img{
 
 		$bulanda = array();
 		$bulanda = array("kosong", "Muharram", "Safar", "RabiulAwwal", "Rabiuthani", "JumadiulAwwal", "Jumadiuthani", "Rajab", "Shaban", "Ramadan", "Shawwal", "ZhulQada", "ZhulHijja");
-		
+
     if (!$string)
         return $date;
     else
@@ -294,14 +294,14 @@ img{
 		<td></td>
 		<td></td>
 	</tr>
-	
-					
+
+
 				<tr style="height:20px;vertical-align:top; border-top:hidden;">
 					<td>1</td>
 					<td style="text-align:left;"><?=$itemrec[0]->ItemName?><br /> P/N : </td>
 					<td>UNIT</td>
 					<td ><?=$itemrec[0]->QtyReqfx?></td>
-					<?php  
+					<?php
 					$howmanyunit = floatval($itemrec[0]->QtyReqfx);
 					$perunit = floatval($itemrec[0]->Unit_Costx);
 					$totalcost = $perunit*$howmanyunit;
@@ -311,17 +311,17 @@ img{
 					?>
 					<td align="right"><?=number_format($perunit,2)?></td>
 					<td align="right"><?=number_format($totalcost,2)?></td>
-					
-				
+
+
 					<td align="right">6%</td>
 					<td align="right"><?=number_format($gstcost,2)?></td>
 					<td align="right"><?=number_format($totalwgst,2)?></td>
-				
+
 				</tr>
 
 
 
-				
+
 	<tr style="height:80%; border-top-style:hidden;">
 		<td></td>
 		<td></td>
@@ -400,7 +400,7 @@ img{
 <br>
 
 
-				
+
 	<script language="javascript" type="text/javascript">
 		parent.frameHeader.document.getElementById("PreviewTitle").innerHTML = parent.frameHeader.document.title;
 		parent.frameHeader.document.getElementById("imgPrint").src="../images/btn1Print.gif";
@@ -408,15 +408,7 @@ img{
 		parent.frameHeader.document.getElementById("imgPrint").style.height="19px";
 	</script>
 
-		
+
 </body>
 
 </html>
-
-
-
-
-
-
-
-

@@ -173,6 +173,7 @@
 										'6' => 'Tonnes',
 										'7' => 'mmHG',
 										'8' => 'cc',
+										'9' => 'unit/pcs'
                 					 );
 										 ?>
 										  <?php echo form_dropdown('n_Unit_of_measurement', $Unit_of_measurement, set_value('n_Unit_of_measurement'), 'id="n_Unit_of_measurement" class="dropdown n_wi-date2"'); ?></td>

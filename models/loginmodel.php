@@ -178,6 +178,7 @@
 		$this->db->from("pmis2_sa_userhospital uh");
 		$this->db->join("pmis2_sa_hospital sh", "uh.v_hospitalcode=sh.v_HospitalCode","left");
 		$this->db->where('uh.v_userid', $this->session->userdata('v_UserName'));
+    $this->db->order_by('sh.v_HospitalCode');
 		$query = $this->db->get();
 		return $query->result();
 	}

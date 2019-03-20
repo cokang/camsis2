@@ -227,7 +227,7 @@ header('Content-Disposition: attachment; filename='.$filename);
 			<td valign="top" colspan="2"><hr color="black" size="1Px"></td>
 		</tr>
 		<tr>
-			<td width="50%">PROGRESS WORK ORDER - <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?><br><i>Computer Generated - CAMSIS</i></td>
+			<td width="50%">PROGRESS WORK ORDER - <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?><br><i>Computer Generated - MYAPBESYS</i></td>
 			<td width="50%" align="right"></td>
 		</tr>
 	</table>

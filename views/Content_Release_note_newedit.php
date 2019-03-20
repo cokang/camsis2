@@ -332,14 +332,16 @@ $save = $save_link;
 
 		// var code = $(d).val();
 		var area 	= $("select[name=area]").val();
-			//alert(area);
+			alert(area);
 		//var datefrom= $("input[name=datefrom]").val();
 		//var dateto	= $("input[name=dateto]").val();
 
-		$.post("<?=site_url()?>/procurement/releaseNote_get_itemspecification", { site:area } ,function(data){
+		$.post("<?=site_url()?>/procurement/releaseNote_get_itemspecification", { site:area } ,function(data,status){
+			alert("Data: " + data + "\nStatus: " + status);
 		//$.post("<?=site_url()?>/procurement/releaseNote_get_itemspecification", { site:area,datefrom:datefrom,dateto:dateto } ,function(data){
 			var obj = JSON.parse(data);
 				//alert(area);
+				alert(obj);
 			$("tbody#item-table-value").html(obj.table);
 			$("#to_contact_person").val(obj.v_head_of_lls);
 		});

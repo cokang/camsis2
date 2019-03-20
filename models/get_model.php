@@ -4122,11 +4122,12 @@ return $query->num_rows();
 
 
 function get_stock_asset($searchitem=""){
+	  $sepital =($this->input->get('id')) ? ($this->input->get('id')) : $this->session->userdata('hosp_code');
 		  $this->db->distinct();
 			$this->db->select('a.Hosp_code,a.Qty,b.ItemCode,REPLACE(REPLACE(b.ItemName, CHAR(10), ""), CHAR(13), "") AS ItemName',FALSE);
 			$this->db->from('tbl_item_store_qty a');
 			$this->db->join('tbl_invitem b','a.ItemCode = b.ItemCode','inner');
-			$this->db->where('a.Hosp_code',($this->input->get('id')) ? ($this->input->get('id')) : $this->session->userdata('hosp_code'));
+			$this->db->where('a.Hosp_code',$sepital);
 			$this->db->where('b.Dept',$this->session->userdata('usersess'));
 			$this->db->where('a.Action_Flag !=','D');
 		   $this->db->limit(10000);

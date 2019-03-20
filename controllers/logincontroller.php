@@ -154,6 +154,8 @@ class LoginController extends CI_Controller {
 
 				$data['kirahospital'] = $this->loginModel->validateAP();
 				$data['service_apa'] = $this->loginModel->validate3();
+				//echo "lalalalalla : ".print_r($data["kirahospital"]);
+				//exit();
 				$this->session->set_userdata("total_hosp", count($data["kirahospital"]));
 				$this->session->set_userdata("total_service", count($data["service_apa"]));
 				//$url = $this->input->post('continue') ? $this->input->post('continue') : site_url('contentcontroller/select');

@@ -8,7 +8,7 @@
 	<td id="scby" colspan="7" >
 	<?php $attributes = array('id' => 'myform');
 	echo form_open('contentcontroller/pecodes',$attributes);?>
-	<input type="text" id="sctext" name="scby" value="<?=$scby?>" class="form-control">
+	<input type="text" id="sctext" name="scby" value="" placeholder="<?=$scby?>" class="form-control">
 	<?php echo form_close(); ?>
 	</td>
 	</tr>

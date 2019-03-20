@@ -373,6 +373,7 @@
 										'6' => 'Tonnes',
 										'7' => 'mmHG',
 										'8' => 'cc',
+										'9' => 'unit/pcs'
                 					 );
 										 ?>
 										  <?php echo form_dropdown('n_Unit_of_measurement', $Unit_of_measurement, isset($edititem[0]->MeasurementID) == TRUE ? $edititem[0]->MeasurementID : '', 'id="n_Unit_of_measurement" class="dropdown n_wi-date2"'); ?></td>
@@ -541,6 +542,7 @@
 
 						</tr>
 						<?php  if (!empty($records)) {?>
+						
 				<?php $numrow = 1; foreach($records as $row):?>
 
 	    				<?php echo ($numrow%2==0) ? '<tr class="ui-color-color-color">' : '<tr>'; ?>
@@ -549,7 +551,7 @@
 		        			<td><?=$row->PartNumber?></td>
 		        			<td><?=$row->PartDescription?></td>
 		        			<td><?=$row->UnitPrice?></td>
-		        			<td><?php if(!empty($row->CurrencyID)){echo $Payment2[$row->CurrencyID];}?></td>
+		        			<td><?php if(!empty($row->CurrencyID)){echo $Payment2[1];}?></td>
 		        			<td><?php if(!empty($row->MeasurementID)){echo $Unit_of_measurement[$row->MeasurementID];}?></td>
 		        			<!--<td><?=$row->v_vendorname?></td>-->
 		        			<td><?=$row->CodeCat?></td>

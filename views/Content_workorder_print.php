@@ -19,7 +19,7 @@
 			<tr>
 				<td style="padding-left:0px; width:120px;" align="center"><img src="<?php echo base_url(); ?>images/msblogo.png" style="width:100px; height:40px;"/></td>
 				<td style="text-align: center; font-size: 16px;font-weight: bold;">
-					MSB ALOR GAJAH
+					MSB <?= ($hosp[0]->v_HospitalName) ? $hosp[0]->v_HospitalName : 'NA' ?>
 				</td>
 				<td style="padding-left:5px; width:150px;font-size: 13px;" align="center">Date : <?= date("d/m/Y")?> </td>
 				<!-- <img src="<?php echo base_url(); ?>images/logo.png" style="width:145px; height:60px;"/></td> -->

@@ -196,8 +196,7 @@
 				</div>
 				
 				<div class="middle_d">
-					<?php if ($this->session->userdata('usersess')=='BES' OR $this->session->userdata('usersess')=='FES') {?>
-					<table class="ui-content-form-reg">
+										<table class="ui-content-form-reg">
 						<tr style="color:white;" height="30px">
 							<td colspan="2" class="ui-header-new"><b>Related Asset (Compulsory For A4 Request)</b></td>
 						</tr>
@@ -224,7 +223,7 @@
 							</td>
 						</tr>						
 					</table>
-					<?php } ?>
+					
 				</div>
 
 			</div>

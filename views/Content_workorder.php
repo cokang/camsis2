@@ -45,6 +45,9 @@
 		case "10":
         $tulis = "A10";
         break;
+		case "12":
+        $tulis = "AP19";
+        break;
     case "11":
         $tulis = "Opened & BO";
         break;
@@ -53,10 +56,10 @@
 } ?>
 			<?php include 'content_workorder_tab.php';?>
 			<tr class="ui-color-contents-style-1 nonetr">
-				<td colspan="12" height="40px" style="padding-left:10px; color:black;"><?=$tulis?> Requests <span style="color:red;"><?= $totalrec > 0 ? ': Total WO '.$totalrec : ''?> <?=$status?></span></td>
+				<td colspan="13" height="40px" style="padding-left:10px; color:black;"><?=$tulis?> Requests <span style="color:red;"><?= $totalrec > 0 ? ': Total WO '.$totalrec : ''?> <?=$status?></span></td>
 			</tr>
 			<tr class="ui-color-contents-style-1">
-				<td colspan="12" height="40px">
+				<td colspan="13" height="40px">
 					<table width="100%" class="ui-content-middle-menu-desk">
 						<tr style="background:#B3130A;">
 							<td width="3%" height="30px">
@@ -77,12 +80,12 @@
 						</tr>
 					</table>
 				</td>
-			</tr>	
+			</tr>
 			<tr class="ui-color-contents-style-1 ui-left_web">
-				<td height="25px" colspan="12"></td>
-				</tr>		
+				<td height="25px" colspan="13"></td>
+				</tr>
 			<tr class="ui-color-contents-style-1">
-				<td colspan="12" style="">
+				<td colspan="13" style="">
 				<style>
 				.ui-content-middle-menu-workorder2 tr td {padding:8px;font-size:14px;}
 				</style>
@@ -101,7 +104,7 @@
 						</tr>
 						<?php  if (!empty($records)) {?>
 				<?php $numrow = 1; foreach($records as $row):?>
-					      			
+
 	    				<?php echo ($numrow%2==0) ? '<tr class="ui-color-color-color">' : '<tr>'; ?>
 	    					<td style="text-transform: capitalize;"><?=$row->V_requestor?></td>
 		        			<td><?=$row->V_servicecode?></td>
@@ -113,28 +116,28 @@
 		        			<td><?=date("d-m-Y",strtotime($row->D_date))?></td>
 		        			<td><?=$row->V_request_status?></td>
 		        			<td style="width:200px; text-align:left;"><?=$row->V_summary?></td>
-	        			</tr>	
+	        			</tr>
 	        			<?php $numrow++; ?>
 			    		<?php endforeach;?>
 			    		<?php }else { ?>
 						<tr align="center" style="background:white; height:200px;">
 	    					<td colspan="10"><span style="color:red; text-transform: uppercase;">NO <?=$tulis?> <?php if ($this->input->get('parent') == 'desk' ){?>
-								COMPLAINTS 
+								COMPLAINTS
 								<?php } elseif ($this->input->get('parent') == 'wrkodr'){?>
-								REQUEST 
+								REQUEST
 								<?php } ?> FOUND FOR <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?>.</span>
 							</td>
 	    				</tr>
-						<?php } ?>	 
+						<?php } ?>
 					</table>
 					<table class="ui-mobile-table-desk ui-left_mobile" style="color:black;width:100%;">
 						<?php  if (!empty($records)) {?>
-						<?php $rownum = 1; foreach($records as $row):?>  			
+						<?php $rownum = 1; foreach($records as $row):?>
 		    			<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
 							<td >Requestor</td>
 							<td class="td-desk">: <?=$row->V_requestor?></td>
 						</tr>
-						<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>	
+						<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
 							<td >Type</td>
 							<td class="td-desk">: <?=$row->V_servicecode?></td>
 						</tr>
@@ -170,14 +173,14 @@
 							<td >Summary</td>
 							<td class="td-desk">: <?=$row->V_summary?></td>
 						</tr>
-		        		<?php $rownum++?> 			 
+		        		<?php $rownum++?>
 							<?php endforeach;?>
 							<?php }else { ?>
 						<tr align="center" style="height:400px;">
 						<td colspan="12" class="ui-color-color-color default-NO">NO <?=$tulis?> <?php if ($this->input->get('parent') == 'desk' ){?>
-								COMPLAINTS 
+								COMPLAINTS
 								<?php } elseif ($this->input->get('parent') == 'wrkodr'){?>
-								REQUEST 
+								REQUEST
 								<?php } ?> FOUND FOR <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?>.</span></td>
 						</tr>
 							<?php } ?>

@@ -424,13 +424,14 @@ class Procurement extends CI_Controller {
 		$data['record'] = $this->display_model->prdet($this->input->get('mrin'));
 		$data['itemrec'] = $this->display_model->itemprdet($this->input->get('mrin'));
 		$data['vencd'] = $this->display_model->findvencd($this->input->get('mrin'));
-		$data['veninfo'] = $this->display_model->findvencd((isset($data['vencd'][0]->Vendor)) ? $data['vencd'][0]->Vendor : 'noval');
+		$data['veninfo'] = $this->display_model->findven((isset($data['vencd'][0]->Vendor)) ? $data['vencd'][0]->Vendor : 'noval');
 		$data['podetail'] = $this->display_model->podet($this->input->get('po'));
 		$favcolor = "red";
 		$hospapa = "";
 		$hoswakil = "";
 		//echo "bnbnn :".$this->input->get('mrin')."<br>";
-		$hospapa = substr(substr($this->input->get('mrin'),0,8),-3);
+		//$hospapa = substr(substr($this->input->get('mrin'),0,8),-3);
+		$hospapa = substr(substr($this->input->get('mrin'),-14),0,3);
 		//echo "lalalala :".$hospapa."bababab";
 		switch ($hospapa) {
 			case "HSA" :
@@ -792,6 +793,10 @@ class Procurement extends CI_Controller {
 		// $this->form_validation->set_rules('accessories','Accessories','trim');
 		// echo "<pre>";var_export($this->input->post());die;
 		$this->load->model("display_model");
+		//$data['test']	= $this->display_model->rl_mrin('HSA','2019');
+
+		//print_r($data['test']);
+		//exit();
 		$data['year']		= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
 		$data['month']		= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
 		$data['records']	= $this->display_model->get_release_note($data);
@@ -813,6 +818,7 @@ class Procurement extends CI_Controller {
 			if( isset($_POST["dateto"]) && $_POST["dateto"]!="" ){
 				$dateto = $this->input->post("dateto");
 			}
+			//$data["data_item_specification"] = $this->display_model->rl_mrin('HSA','2019');
 			$data["data_item_specification"] = $this->display_model->releaseNote_get_itemspecification($area,$datefrom, $dateto)['table'];
 
 			if($_SERVER['REQUEST_METHOD'] === 'POST' && $this->form_validation->run() == false){
