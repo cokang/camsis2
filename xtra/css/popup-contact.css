@@ -1,0 +1,227 @@
+/*
+You can customize all the aspects of the form in this style sheet
+All the style elements use form id selector(notice the #contactus). So, including this
+stylesheet does not affect the other elements at all!
+*/
+
+#contactus input[type="text"]
+{
+  height:18px;
+
+}
+
+#contactus #scaptcha
+{
+  width:60px;
+  height:18px;
+}
+
+#contactus input[type="submit"]
+{
+   width:100px;
+   height:30px;
+   padding-left:0px;
+}
+
+#contactus textarea
+{
+  height:120px;
+  width:310px;
+}
+
+#contactus input[type="text"]:focus,textarea:focus
+{
+  color : ;
+  background-color : #ffff99;
+}
+#contactus input[type="password"]:focus,textarea:focus
+{
+  color : ;
+  background-color : #ffff99;
+}
+
+#contactus .container
+{
+   margin-top:8px;
+   margin-bottom: 10px;
+}
+
+#contactus .error
+{
+   font-family:"Lato", Helvetica, Arial, sans-serif ; 
+   font-size: 0.7em;
+   color: #900;
+   background-color : #ffff00;
+}
+
+#contactus fieldset#antispam
+{
+   padding:2px;
+   border-top:1px solid #EEE;
+   border-left:0;
+   border-right:0;
+   border-bottom:0;
+   width:350px;
+}
+
+#contactus fieldset#antispam legend
+{
+   font-family : "Lato", Helvetica, Arial, sans-serif;
+   font-size: 0.8em;
+   font-weight:bold;
+   color:#333;   
+}
+
+#contactus .short_explanation
+{
+   font-family : ;
+   font-size: 0.6em;
+   color:#333;   
+}
+#fg_formContainer
+{
+   height:;
+   width:;
+   background:#edeff1;
+   border:1px solid #000;
+   padding:0;
+   position:absolute;
+   z-index:999;
+   cursor:default;   
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+-khtml-border-radius: 10px;
+border-radius: 10px;   
+display:none;
+}
+
+#fg_container_header
+{
+   height:40px;
+   background:#1f253d;
+   border-top-right-radius:10px;
+   -moz-border-radius-topright:10px;
+   -webkit-border-top-right-radius:10px;
+   -khtml-border-top-right-radius: 10px;
+   
+   border-top-left-radius:10px;
+   -moz-border-radius-topleft:10px;
+   -webkit-border-top-left-radius:10px;
+   -khtml-border-top-left-radius: 10px;   
+}
+
+#fg_container_header a
+{
+   color:#fff;
+   font-family:"Lato", Helvetica, Arial, sans-serif;
+   font-size:10pt;
+   font-weight:bold;
+}
+
+#fg_box_Title
+{
+   float:left;
+   width:180px;
+   margin:5px;
+   
+   color:#fff;
+   font-family:;
+   font-size:12pt;
+   font-weight:bold;   
+}
+
+#fg_box_Close
+{
+   float:right;
+   width:80px;
+   margin:5px;
+}
+
+#fg_form_InnerContainer
+{
+   margin:15px;
+}
+
+#fg_form_InnerContainer h2
+{
+   font-family : "Lato", Helvetica, Arial, sans-serif;
+   font-size: 14pt;
+   font-weight:bold;
+   color:#333;     
+}
+
+#fg_form_InnerContainer p
+{
+   font-family : "Lato", Helvetica, Arial, sans-serif;
+   font-size: 12pt;
+   color:#333;
+}
+
+#fg_backgroundpopup
+{
+   position: fixed; 
+   top:0; 
+   left:0; 
+   bottom:0; 
+   right:0;
+   
+   background:#000000;
+   opacity: .3;
+   -moz-opacity: .3;
+   filter: alpha(opacity=30);
+   border:1px solid #cecece;
+   z-index:1;
+   display:none;
+}
+
+#fg_submit_success_message
+{
+   display:none;
+   padding:15px;
+}
+
+
+.form-control:-moz-placeholder {
+  color: #b2bcc5;
+}
+.form-control::-moz-placeholder {
+  color: #b2bcc5;
+  opacity: 1;
+}
+.form-control:-ms-input-placeholder {
+  color: #b2bcc5;
+}
+.form-control::-webkit-input-placeholder {
+  color: #b2bcc5;
+}
+.form-control.placeholder {
+  color: #b2bcc5;
+}
+.form-control {
+  border: 2px solid #bdc3c7;
+  color: #34495e;
+  font-family: "Lato", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.467;
+  padding: 8px 12px;
+  height: 40px;
+  -webkit-appearance: none;
+  border-radius: 6px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: border .25s linear, color .25s linear, background-color .25s linear;
+  transition: border .25s linear, color .25s linear, background-color .25s linear;
+}
+.form-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+.icon-key2,
+.icon-user2{
+	position:absolute;
+	right: 15px;
+	top:15px;
+}
+.login-field-icon :hover{
+  color: #34495e;
+}

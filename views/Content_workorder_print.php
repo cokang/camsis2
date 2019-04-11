@@ -17,9 +17,9 @@
 	<div class="">
 		<table class="tbl-wo" align="center" style="margin-top:15px;">
 			<tr>
-				<td style="padding-left:0px; width:120px;" align="center"><img src="<?php echo base_url(); ?>images/msblogo.png" style="width:100px; height:40px;"/></td>
+				<td style="padding-left:0px; width:120px;" align="center"><img src="<?php echo base_url(); ?>images/logo.png" style="width:100px; height:40px;"/></td>
 				<td style="text-align: center; font-size: 16px;font-weight: bold;">
-					MSB <?= ($hosp[0]->v_HospitalName) ? $hosp[0]->v_HospitalName : 'NA' ?>
+					<?= ($hosp[0]->v_HospitalName) ? $hosp[0]->v_HospitalName : 'NA' ?>
 				</td>
 				<td style="padding-left:5px; width:150px;font-size: 13px;" align="center">Date : <?= date("d/m/Y")?> </td>
 				<!-- <img src="<?php echo base_url(); ?>images/logo.png" style="width:145px; height:60px;"/></td> -->
@@ -27,8 +27,8 @@
 		</table>
 		<table class="tbl-wo" border="0" align="center" style="font-weight:bold;">
 			<tr>
-				<td style="padding:1px; width:15%; font-size: 12px;">SERVICE REQUEST : </td>
-				<td width="55%;"></td>
+				<td style="padding:1px; width:15%; font-size: 12px;">SERVICE REQUEST</td>
+				<td width="65%;"></td>
 				<td style="padding:1px; width:100px; font-size: 12px;" colspan="6">WORK ORDER NO : <?= ($wrk_ord) ? $wrk_ord : 'NA' ?> </td>
 				<!-- <?php if(($this->session->userdata('usersess') == 'SEC')){?>
 				<td style="padding:1px; width:80px; font-size: 13px;">
@@ -74,7 +74,7 @@
 			<td style="width:50%; padding:1px;"><table class="tbl-wo-1" border="0" align="left">
 			            <tr>
 							<td class="tbl-wo-data">Service Type</td>
-							<!-- <td><span style="color:blue;">: <?= ($woinfo[0]->V_User_dept_code) ? $woinfo[0]->V_User_dept_code : 'NA' ?></span></td> -->
+							<td><span style="color:blue;">: <?= ($woinfo[0]->V_service_code) ? $woinfo[0]->V_service_code : 'NA' ?></span></td>
 						</tr>
 						<tr>
 							<td class="tbl-wo-data" valign="top">Requestor</td>
@@ -85,8 +85,8 @@
 						<tr>
 							<td class="tbl-wo-data">Location</td>
 							<td><span style="color:blue;">: <?= ($woinfo[0]->V_User_dept_code) ? $woinfo[0]->V_User_dept_code : 'NA' ?></span></td>
-							<td style="width:;" valign="top">Ext. No</td>
-							<td style="width:;" valign="top">: <span style="color:blue;"><?= ($woinfo[0]->V_phone_no) ? $woinfo[0]->V_phone_no : 'NA' ?></span></td>
+							<td style="width: 10%;" valign="top">Ext. No</td>
+							<td valign="top">: <span style="color:blue;"><?= ($woinfo[0]->V_phone_no) ? $woinfo[0]->V_phone_no : 'NA' ?></span></td>
 						</tr>
 						<!-- <tr>
 							<td class="tbl-wo-data" valign="top">Department</td>
@@ -123,7 +123,7 @@
 					</table></td>
 			<td style="width:50%; padding:1px;" valign="top" colspan="0"> 
 					<table class="tbl-wo-1" border="0" align="left">
-							<tr>
+							<tr colspan="2">
 							<td> Request Description :</td>
 						</tr>
 						<?php if($woinfo[0]->V_summary == 'N/A'){?>
@@ -135,24 +135,24 @@
 						</tr>
 						<?php }else{ ?>
 						<tr>
-							<td style="padding:3px 3px 3px 0px;"><span style="color:blue;"><?= ($woinfo[0]->V_summary) ? $woinfo[0]->V_summary : 'NA' ?></span></td>
+							<td colspan ="2" style="padding:3px 3px 3px 0px;"><span style="color:blue;"><?= ($woinfo[0]->V_summary) ? $woinfo[0]->V_summary : 'NA' ?></span></td>
 						</tr>
 						<?php } ?>
-						<tr>
+						<tr >
 							<td height="70"></td>
 						</tr>
-						<td>Warranty Status </td>
+						<td width="50%">Warranty Status </td>
 						<td> 
 							<table class="tbl-wo" border="0" align="left">
 								<tr height=3></tr>
-									<td style="width:33.33%;"> : <div class="box2">
+									<td style="width:50%;"> : <div class="box2">
 									<?php if((strtotime($woinfo2[0]->V_Wrn_end_code) > strtotime(date("d/m/Y")))) {?>
 									<img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/>
 									<?php }else{ ?>
 									
 									<?php } ?>
 									</div> Under Warranty</td>
-									<td style="width:33.33%;"><div class="box2">
+									<td style="width:50%;"><div class="box2">
 									<?php  if(strtotime($woinfo2[0]->V_Wrn_end_code) < strtotime(date("d/m/Y"))) {?>
 									<img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/>
 									<?php }else{ ?>
@@ -177,10 +177,26 @@
 							<td class="tbl-wo-data">Request Type</td>
 							<td>: <span style="color:blue;"><?= ($woinfo[0]->V_request_type) ? $woinfo[0]->V_request_type : 'NA' ?></span></td>
 						</tr>
-						<tr>
-							<td class="tbl-wo-data">Priority</td>
-							<td>: <span style="color:blue;"><?= date("d/m/Y", strtotime(isset($woinfo[0]->D_date) == TRUE ? $woinfo[0]->D_date : 'N/A'))?></span></td>
-						</tr>
+						<td class="tbl-wo-data">Priority </td>
+						<!-- <td>: <span style="color:blue;"><?= ($woinfo[0]->V_priority_code) ? $woinfo[0]->V_priority_code : 'NA' ?></span></td> -->
+						<td> 
+							<table class="tbl-wo font-12" border="0" align="left">
+								<tr>
+									<td style="width:33.33%;"> :
+									<div class="box2">
+									<?php if($woinfo2[0]->V_priority_code == 'Normal' || $woinfo2[0]->V_priority_code == 'N' ){?>
+									<img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/>
+									<?php }else{ ?>
+									<?php } ?></div> Normal </td>
+									<td style="width:33.33%;"><div class="box2">
+									<?php if($woinfo2[0]->V_priority_code == 'Emergency' || $woinfo2[0]->V_priority_code == 'E'){?>
+									<img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/>
+									<?php }else{ ?>
+									<?php } ?>
+									</div> Emergency </td>
+								</tr>
+							</table>
+						</td>
 						<tr>
 							<td class="tbl-wo-data">Date</td>
 							<td>: <span style="color:blue;"><?= date("d/m/Y", strtotime(isset($woinfo[0]->D_date) == TRUE ? $woinfo[0]->D_date : 'N/A'))?></span></td>
@@ -209,38 +225,48 @@
 					</table> 
 				</td>
 
-				<td style="padding:1px;"> 
+				<td style="padding:0px; margin: 0px;"> 
 				<table class="tbl-wo-1" border="0" align="bottom" width="50">
+						<?php if( $woinfo[0]->V_request_type == 'AP'){?>
 						<tr>
-							<td  style="border-bottom: 1px solid black;" class="tbl-wo-data">Assessment </td>
-							<td  style="border-bottom: 1px solid black;">: <span style="color:blue;"><?= ($woinfo[0]->takenby) ? $woinfo[0]->takenby : 'NA' ?></span></td>
+							<td style="border-bottom: 1px solid black;" class="tbl-wo-data">Assessment </td>
+							<td style="border-bottom: 1px solid black; width: 30%;">: <span style="color:blue;"></span></td>
 							<td style="border-bottom: 1px solid black;" class="tbl-wo-data">Status</td>
-							<td style="border-bottom: 1px solid black;">: <span style="color:blue;"><?= ($woinfo[0]->takenby) ? $woinfo[0]->takenby : 'NA' ?></span></td>
+							<td style="border-bottom: 1px solid black;">: <span style="color:blue;"></span></td>
 						</tr>
+						<?php } else {?>
+						<tr>
+							<td style="border-bottom: 1px solid black;" class="tbl-wo-data">Assessment </td>
+							<td style="border-bottom: 1px solid black; width: 30%;">: <span style="color:blue;">NA</span></td>
+							<td style="border-bottom: 1px solid black;" class="tbl-wo-data">Status</td>
+							<td style="border-bottom: 1px solid black;">: <span style="color:blue;">NA</span></td>
+						</tr>
+						<?php } ?>
 						<tr>
 							<td rowspan=2 style="border-width: :1px 0px 0px 1px;" class="tbl-wo-data">Nature of task</td>
-							<td style="border:1px solid black; width:33%;" valign="top"><div class="box2"></div> Listed Activity</td>
+							<td style="border:1px solid black; " valign="top"><div class="box2"></div> Listed Activity</td>
 							<td style="" valign="top"><div class="box2"></div> Proceed</td>
+							<td></td>
 						</tr>
 						<tr>
-							<td style=" border:1px solid black; width:33%;" valign="top"><div class="box2"></div> Unlisted Activity </td>
-							<td style=" width:33%;" valign="top"><div class="box2"></div> Other </td>
+							<td style=" border:1px solid black;" valign="top"><div class="box2"></div> Unlisted Activity </td>
+							<td style="" valign="top"><div class="box2"></div> Other </td>
+							<td></td>
+							
 						</tr>
 						<tr>
-							<td rowspan=2 style="border-top: 1px solid black;" class="tbl-wo-data">Nature of arrangement</td>
-							<td style=" border:1px solid black; width:33%;" valign="top"><div class="box2"></div> Scheduled</td>
+							<td rowspan=2 style="border-top: 1px solid black;" class="tbl-wo-data">Nature of arrangement </td>
+							<td style=" border:1px solid black;" valign="top"><div class="box2"></div> Scheduled </td>
+							<td></td>
+							<td></td>
 						</tr>
 						<tr>
-							<td style=" border-right: 1px solid black; width:33%;" valign="top"><div class="box2"></div>Non-scheduled</td>
+							<td style=" border:1px solid black;" valign="top"><div class="box2"></div> Non-scheduled</td>
+							<td></td>
 						</tr>
 		
 		</table>
 		</td>
-		<table class="tbl-wo-1" border="0" align="center">
-			<tr>
-				<td align="center" height="5px"></td>
-			</tr>
-		</table>
 		<table class="tbl-wo" border="0" align="center" style="background-color:black; color:white;">
 			<tr>
 				<td align="center"><span style="font-weight:bold; text-transform: uppercase;">Request Findings</span></td>
@@ -312,11 +338,6 @@
 				</td>
 			</tr>
 		<?php } ?>
-		</table>
-		<table class="tbl-wo-1" border="0" align="center">
-			<tr>
-				<td align="center" height="5px"></td>
-			</tr>
 		</table>
 		<table class="tbl-wo" border="0" align="center" style="background-color:black; color:white;">
 			<tr>
@@ -551,6 +572,7 @@
 							<td style="width:25%;"><div></div></td>
 							<td style="width:25%;"></td>
 						</tr>
+
 						<tr>
 							<td>Reference No :</td>
 							<td><hr class='dotted' style="margin:margin:10px 10px 10px 0px;height:10px;"/></td>
@@ -588,11 +610,6 @@
 			    </td>
 			</tr>
 		</table>
-		<table class="tbl-wo-1" border="0" align="center">
-			<tr>
-				<td align="center" height="5px"></td>
-			</tr>
-		</table>
 		<table class="tbl-wo" border="0" align="center" style="background-color:black; color:white;">
 			<tr>
 				<td align="center"><span style="font-weight:bold;">WORK ORDER COMPLETION VALIDATION</span></td>
@@ -604,7 +621,7 @@
 				<td style="width:50%;" valign="top" colspan="2" align="center"> For Office use only</td>
 			</tr>
 			<tr>
-				<td style="padding:10px 0px 0px 3px;" class="tb-class" colspan="" rowspan="2" valign="top">
+				<td style="padding:0px 0px 0px 3px;" class="tb-class" colspan="" rowspan="2" valign="top">
 					<table class="tbl-wo" border="0" align="left" style="width:100%; height:100%;">
 						<tr>
 							<td valign="top">Signature :</td>
@@ -622,7 +639,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td style="padding:10px 0px 0px 3px;" class="tb-class" colspan="2">
+				<td style="padding:0px 0px 0px 3px;" class="tb-class" colspan="2">
 					<table class="tbl-wo" border="0" align="left" style="width:100%;">
 						<tr>
 							<td valign="top">Signature :</td>
@@ -684,7 +701,7 @@
 		<div style="margin-top:px;">
 			<table class="tbl-wo-2" style="width:70%; margin-left: 15%;">
 				<tr>
-					<td valign="" rowspan="" style="width:5%;"><img src="<?php echo base_url(); ?>images/logomsb.png" style="width:100px; height:80px;"/></td>
+					<td valign="" rowspan="" style="width:20%;"><img src="<?php echo base_url(); ?>images/logo.png" style="width:180px; height:80px;"/></td>
 					<td valign=""><span style="font-weight:bold;">Advance Pact Sdn Bhd (412168-V) </span><br /><span style="font-weight:bold; color:blue;"><?= ($hosp[0]->v_HospitalName) ? $hosp[0]->v_HospitalName : 'NA' ?></span></td>
 				</tr>
 				<tr>
@@ -790,9 +807,9 @@
 							</tr>
 							<tr>
 								<td colspan="" style="height:100px;" valign="bottom">
-									<table class="tbl-wo-1" border="0" align="" style="border-top:1px solid black;">
+									<table class="tbl-wo-1" border="0" align="" style="border-top:1px solid black; width: 150%;">
 										<tr>
-											<td style="" valign="top"></td>
+											<td style="width: 30%;" valign="top"></td>
 										</tr>
 									</table>
 								</td>

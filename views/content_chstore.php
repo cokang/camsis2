@@ -12,7 +12,8 @@
 					<div class="kotak2">
 
 						<!-- bazli edit -->
-						<?php echo anchor ('contentcontroller/Store?id='.$apa->v_HospitalCode,'<center><img src="'. base_url() .'images/hospital.png" alt="" style="width: 50px; height: 50px; padding: 10px;"/><br><span class="caption">&nbsp;&nbsp;'.$apa->v_HospitalCode.'&nbsp;&nbsp;</span></center>'); ?>						
+			
+						<?php echo anchor ($this->uri->segment(1).'/'.$this->uri->segment(2).'?id='.$apa->v_HospitalCode,'<center><img src="'. base_url() .'images/hospital.png" alt="" style="width: 50px; height: 50px; padding: 10px;"/><br><span class="caption">&nbsp;&nbsp;'.$apa->v_HospitalCode.'&nbsp;&nbsp;</span></center>'); ?>						
 					</div>
 			<?php } ?>
 					</td>

@@ -1,10 +1,36 @@
+<style type="text/css">
+	table .tblala{
+	    width: 100%;
+	    table-layout: fixed;
+	    margin-left: 5px;
+	}
+
+	.tblala tr td{
+		text-align: center;
+		
+	}
+	.tblala .wb td{
+		text-align: center;
+		background: rgba(255,255,255,.8);
+		border: 3px solid #E8E8E8;
+	}
+	h4{
+		font-size: 25px;
+	    color: #165694;
+	}
+</style>
 <div class="ui-middle-screen">
+<table style="width: 100%; table-layout: auto;">
+<tr>
+    <td style="width: 10%;" valign="top">
 	<?php include 'content_tab_menu.php';?>
-	<div class="content-workorder">
-		<?php include 'content_mobile_menu.php';?>
-		<table class="ui-content-middle-menu-workorder" border="0"  align="center" style="background:#79B6D8; opacity: .7;">
-			<tr class="ui-header-middle-color" >
-				<td align="center" colspan="2" class="ui-header-homepage"><h4 class="h4-margin">WORK MODULES</h4></td>
+	<?php include 'content_mobile_menu.php';?>
+	</td>
+	<td style="width: 2%;"></td>
+	<td valign="top">
+		<table class="ui-content-middle-menu-workorder tblala" border="0"  align="center">
+			<tr >
+				<td align="center" colspan="4"><h4 class="h4-margin" style="text-align: left;">WORK MODULES</h4></td>
 			</tr>
 			<?php
 			/*$mn = array("Help Desk Center" => "contentcontroller/desk?parent=desk", "Assets" => "contentcontroller/assets?parent=asset", "Work Order" => "contentcontroller/workorder?parent=wrkodr", "Statutory & Licenses" => "contentcontroller/Licenses", "Reports" => "contentcontroller/Schedule");
@@ -25,81 +51,78 @@
 			}*/
 			?>
 			<?php if (!in_array("contentcontroller/workorder?parent=desk", $chkers)) { ?>
-			<tr class="ui-content-color-style">
+			<tr class="wb">
 				<td>
-					<?php echo anchor ('contentcontroller/workorder?parent=complaint', '<img src="'. base_url() .'images/helpdesk.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HelpDeskCenter'); ?>
+					<?php echo anchor ('contentcontroller/workorder?parent=complaint', '<img src="'. base_url() .'images/helpdesk.png" alt="" class="ui-icon"/><br></br>HelpDeskCenter'); ?>
 				</td>
-			</tr>
 			<?php  } ?>
 			<?php  if ($this->session->userdata('usersess') == 'HKS') { ?>
 			<?php  if (!in_array("contentcontroller/assets?parent=asset", $chkers)) { ?>
-			<tr class="ui-content-color-style">
 				<td>
-				<?php echo anchor ('contentcontroller/locationlist?parent=asset', '<img src="'. base_url() .'images/asset.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Location'); ?>
+				<?php echo anchor ('contentcontroller/locationlist?parent=asset', '<img src="'. base_url() .'images/asset.png" alt="" class="ui-icon"/><br></br>Location'); ?>
 				</td>
-			</tr>
 			<?php  } ?>
 			<?php  } else { if (!in_array("contentcontroller/assets", $chkers)) { ?>
-			<tr class="ui-content-color-style">
 				<td>
-				<?php echo anchor ('contentcontroller/assets?parent=asset', '<img src="'. base_url() .'images/asset.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Assets'); ?>
+				<?php echo anchor ('contentcontroller/assets?parent=asset', '<img src="'. base_url() .'images/asset.png" alt="" class="ui-icon"/><br></br>Assets'); ?>
 				</td>
-			</tr>
+				
 			<?php } } ?>
 			<?php  if (!in_array("contentcontroller/workorder?parent=wrkodr", $chkers)) { ?>
-			<tr class="ui-content-color-style">
 				<td>
-				<?php echo anchor ('contentcontroller/workorder?parent=wrkodr', '<img src="'. base_url() .'images/workorder.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Work Order'); ?>
+				<?php echo anchor ('contentcontroller/workorder?parent=wrkodr', '<img src="'. base_url() .'images/workorder.png" alt="" class="ui-icon"/><br></br>Work Order'); ?>
 				</td>
-			</tr>
+				
 			<?php  } ?>
 			<?php if (!in_array("contentcontroller/Licenses", $chkers)) { ?>
-			<tr class="ui-content-color-style">
+			   
 				<td>
-					<?php echo anchor ('contentcontroller/Licenses', '<img src="'. base_url() .'images/certificate.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Statutory & Licenses'); ?>
+					<?php echo anchor ('contentcontroller/Licenses', '<img src="'. base_url() .'images/certificate.png" alt="" class="ui-icon"/><br></br>Statutory & Licenses'); ?>
 				</td>
 			</tr>
 			<?php  } ?>
 			<?php if (!in_array("contentcontroller/Schedule", $chkers)) { ?>
-			<tr class="ui-content-color-style">
+			 <tr class="wb">
 				<td>
-					<?php echo anchor ('contentcontroller/Schedule', '<img src="'. base_url() .'images/Schedule.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports'); ?>
+					<?php echo anchor ('contentcontroller/Schedule', '<img src="'. base_url() .'images/Schedule.png" alt="" class="ui-icon"/><br></br>Reports'); ?>
 				</td>
-			</tr>
 			<?php  } ?>
 			<?php if (!in_array("contentcontroller/Store", $chkers)) { ?>
-			<tr class="ui-content-color-style">
 				<td>
 				<?php if ($this->session->userdata('usersess') == "SEC") { ?>
-				 <?php echo anchor ('contentcontroller/Store', '<img src="'. base_url() .'images/stock.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Equipment'); ?>
+				 <?php echo anchor ('contentcontroller/Store', '<img src="'. base_url() .'images/stock.png" alt="" class="ui-icon"/><br></br>Equipment'); ?>
 				<?php } else { ?>
-					<?php echo anchor ('contentcontroller/Store', '<img src="'. base_url() .'images/stock.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stock'); ?>
+					<?php echo anchor ('contentcontroller/Store', '<img src="'. base_url() .'images/stock.png" alt="" class="ui-icon"/><br></br>Stock'); ?>
 				<?php  }?>
 
 				</td>
-			</tr>
+			
+	
 			<?php  } ?>
 			<?php if (!in_array("contentcontroller/acgreport", $chkers)) { ?>
-			<tr class="ui-content-color-style">
+			    
 				<td>
-					<?php echo anchor ('contentcontroller/acg_report?tabIndex=1', '<img src="'. base_url() .'images/Statutory.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deduction Mapping Report'); ?>
+					<?php echo anchor ('contentcontroller/acg_report?tabIndex=1', '<img src="'. base_url() .'images/Statutory.png" alt="" class="ui-icon"/><br></br>Deduction Mapping Report'); ?>
 				</td>
-			</tr>
-			<?php  } ?><tr class="ui-content-color-style">
+			<?php  } ?>
+		
 				<td>
 					<?php //echo anchor ('Upload_asis?tabIndex=1', '<img src="'. base_url() .'images/upload.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Upload ASIS');Ajaxasisa
 								//ori echo anchor ('contentcontroller/upload_asis', '<img src="'. base_url() .'images/upload.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Upload ASIS');
-								echo anchor ('contentcontroller/uploaddesk', '<img src="'. base_url() .'images/upload.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Upload ASIS');
+								echo anchor ('contentcontroller/uploaddesk', '<img src="'. base_url() .'images/upload.png" alt="" class="ui-icon"/><br></br>Upload ASIS');
 					?>
 				</td>
 			</tr>
-			<tr class="ui-header-new" style="height:8px;">
+			<!-- <tr class="ui-header-new" style="height:8px;">
 				<td align="center" colspan="4" class="footer-class">
 				</td>
 			</tr>
-
-		</table>
-	</div>
+ -->
+</table>	
 </div>
+<td style="width: 2%;"></td>
+</td>
+</tr>
+</table>
 </body>
 </html>

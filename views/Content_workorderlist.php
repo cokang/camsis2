@@ -12,10 +12,10 @@
 						<tr class="ui-color-contents-style-1" height="30px">
 							<td colspan="2" class="ui-header-new" valign="top"><span style="float: left; margin-top:8px; font-weight: bold;">General Information</span><span class="ui-left_web" style="float: left; margin-top:8px; margin-left:8px; font-weight: bold; width: 20%;"><marquee valign="bottom" direction="right" loop="40" class="marquee-color"><b>QAP ASSET</b></marquee></span>&nbsp;<span style="float: right; padding-right:10px;"><a style="display:none;" href="delete_wo?wrk_ord=<?=$this->input->get('wrk_ord')?>" class="btn-button btn-primary-button" style="width: 80px; display:inline-block; text-align:center;">Delete</a>&nbsp;<input type="submit" class="btn-button btn-primary-button" style="width: 100px;" name="mysubmit" value="Update"></span></td>
 						</tr>
-						
+
 						<tr >
 							<td class="ui-desk-style-table">
-								<table class="ui-content-form" width="100%" border="0">	
+								<table class="ui-content-form" width="100%" border="0">
 									<tr>
 										<td class="td-assest">Registration&nbsp;Type&nbsp;:&nbsp;</td>
 										<td><b><?= isset($record[0]->V_request_type) == TRUE ? $record[0]->V_request_type : 'N/A'?></b> <?=(strstr($wrk_ord, '/A2/')) ? '' : 'Unscheduled'?></a></td>
@@ -73,12 +73,16 @@
 									<?php } ?>
 									<tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">Location</td></tr>
 									<tr>
+										<?php
+										if ($record[0]->V_User_dept_code == "") {$record[0]->V_User_dept_code = $record[0]->assdept;};
+										if ($record[0]->V_Location_code == "") {$record[0]->V_Location_code = $record[0]->assloc;};
+										?>
 										<td class="td-assest">User Department:</td>
-										<td><?= isset($record[0]->V_User_dept_code) == TRUE ? $record[0]->V_User_dept_code : 'N/A'?></td>
+										<td><?= isset($record[0]->V_User_dept_code) == TRUE ? $record[0]->V_User_dept_code : 'N/A' ?></td>
 									</tr>
 									<tr>
 										<td class="td-assest">Location Code: </td>
-										<td><?= isset($record[0]->V_Location_code) == TRUE ? $record[0]->V_Location_code : 'N/A'?></td>
+										<td><?= isset($record[0]->V_Location_code) == TRUE ? $record[0]->V_Location_code : 'N/A' ?></td>
 									</tr>
 									<tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">Asset</td></tr>
 									<tr>
@@ -108,11 +112,11 @@
 									<tr>
 										<td class="td-assest">Serial Number: </td>
 										<td><?= isset($record[0]->V_Serial_no) == TRUE ? $record[0]->V_Serial_no : 'N/A'?></td>
-									</tr>	
+									</tr>
 									<tr>
 										<td class="td-assest">Link Work Order: </td>
 										<td><?= isset($record[0]->link_wo) == TRUE ? $record[0]->link_wo : 'N/A'?></td>
-									</tr>									
+									</tr>
 								</table>
 							</td>
 						</tr>

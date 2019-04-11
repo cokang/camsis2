@@ -95,11 +95,11 @@ border-right: 1px solid black;
 <div class="h1-po-no">Purchase Order No : <?=($this->input->get('po') <> '') ? $this->input->get('po') : ''?></div></div>
 <table border="0" style="margin-top:10px;padding:10px;" width="80%">
 <tr>
-<td width="60%"><div class="info-po"><?=(isset($veninfo[0]->VENDOR_NAME)) ? $veninfo[0]->VENDOR_NAME : ''?>
-	<table style="padding:5x;" width="100%" border="0" class="tbl-info-po">
+<td width="60%"><div class="info-po"><!-- <?=(isset($veninfo[0]->VENDOR_NAME)) ? $veninfo[0]->VENDOR_NAME : ''?> -->
+	<table style="padding:5px;" width="150%" border="0" class="tbl-info-po">
 		<tr>
-			<td style="padding-bottom:10px;" valign="top">To :</td>
-			<td><b><?=(isset($veninfo[0]->VENDOR_NAME)) ? $veninfo[0]->VENDOR_NAME : ''?></b><br /><?=(isset($veninfo[0]->ADDRESS)) ? $veninfo[0]->ADDRESS : '' ?><br/><?=(isset($veninfo[0]->ADDRESS2))  ? $veninfo[0]->ADDRESS2 : '' ?><br/><?=(isset($veninfo[0]->ADDRESS3)) ? $veninfo[0]->ADDRESS3 : ''?><br/>&nbsp;</td>
+			<td style="padding-bottom:10px; width:10%;" valign="top">To :</td>
+			<td style="width: 63%"><b><?=(isset($veninfo[0]->VENDOR_NAME)) ? $veninfo[0]->VENDOR_NAME : ''?></b><br /><?=(isset($veninfo[0]->ADDRESS)) ? $veninfo[0]->ADDRESS : '' ?><br/><?=(isset($veninfo[0]->ADDRESS2))  ? $veninfo[0]->ADDRESS2 : '' ?><br/><?=(isset($veninfo[0]->ADDRESS3)) ? $veninfo[0]->ADDRESS3 : ''?><br/>&nbsp;</td>
 		</tr>
 		<tr>
 			<td>Tel : </td>
@@ -109,14 +109,10 @@ border-right: 1px solid black;
 			<td>Fax : </td>
 			<td><?=(isset($veninfo[0]->FAX_NO)) ? $veninfo[0]->FAX_NO : ''?></td>
 		</tr>
-		<tr>
-		<td></td>
-		</tr>
 	</table>
-
 		</div></td>
 		<td width="40%" ><div class="info-pr">
-		<br><br><br><br><br><br><br>
+		<br><br><br><br>
 	<table border="0" class="">
 		<tr>
 			<td align="right" width="40%" style="border-right:1px solid black;width:40px;"><b>Po Date	&nbsp;</b> </td>
@@ -205,8 +201,9 @@ border-right: 1px solid black;
 	</table>
 	</div></td>
 </tr>
-</table>	
-		<table class="tbl-info-detail">
+
+</table>
+		<table class="tbl-info-detail" style="margin-top: 0px">
 	<tr>
 		<td class="bold"></td>
 		<td><b>DELIVERY ADDRESS : ADVANCE PACT SDN BHD</b></td>
@@ -216,7 +213,7 @@ border-right: 1px solid black;
 		<td><?=$hospdet[0]->v_HospitalName?></td>
 	</tr>
 	<tr>
-		<td class="tbl-info-td">EQUIPMENT : <?=(isset($record[0]->V_Asset_name)) ? $record[0]->V_Asset_name :''?></td>
+		<td class="tbl-info-td">EQUIPMENT: <?=(isset($record[0]->V_Asset_name)) ? $record[0]->V_Asset_name :''?></td>
 		<td><?=$hospdet[0]->v_HospitalAdd1?> <?=$hospdet[0]->v_HospitalAdd2?></td>
 	</tr>
 	<tr>

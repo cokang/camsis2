@@ -1,5 +1,5 @@
 <?php
-
+//echo "klklklklklklk : ".$this->uri->slash_segment(1).$this->uri->slash_segment(2).'?tab='.$this->input->get('tab');
 if ($this->input->get('parent') == 'asset' or 'contentcontroller/assetsearch/' == $this->uri->slash_segment(1) .$this->uri->slash_segment(2) or 'contentcontroller/assets/' == $this->uri->slash_segment(1) .$this->uri->slash_segment(2)){
 	echo "<form action=".$url = site_url('contentcontroller/assetsearch')." method='post' id='myform'>";
 	echo "<div class='search-form'>";
@@ -54,6 +54,33 @@ elseif ('contentcontroller/new_item/' == $this->uri->slash_segment(1) .$this->ur
 	echo "</div>";
 	echo "</div></form>";
 }
+elseif ('Procurement?pro=mrin' == str_replace("/", "", $this->uri->slash_segment(1)).'?pro='.$this->input->get('pro')){
+	echo "<form action=".$url = site_url('Procurement?pro=mrin')." method='post' id='myform'>";
+	echo "<div class='search-form'>";
+	echo "<div class='form-group'>";
+	echo "<input type='text' class='form-control login-field' value='".$this->input->post('searchquestion')."' autofocus='autofocus' id='searchquestion' placeholder='Search MRIN' name='searchquestion' size='22' style='height:50px;'/>";
+	echo "<label class='login-field-icon' for='login-pass' style='margin-top:10px;'><span align='center' class='icon-search' style='color:; margin-left:-35px;' id='mylink'></span></label>";
+	echo "</div>";
+	echo "</div></form>";
+}
+elseif ('Procurement/pro_catalog/' ==  $this->uri->slash_segment(1).$this->uri->slash_segment(2)){
+	echo "<form action=".$url = site_url('Procurement/pro_catalog')." method='post' id='myform'>";
+	echo "<div class='search-form'>";
+	echo "<div class='form-group'>";
+	echo "<input type='text' class='form-control login-field' value='".$this->input->post('searchquestion')."' autofocus='autofocus' id='searchquestion' placeholder='Search Item' name='searchquestion' size='22' style='height:50px;'/>";
+	echo "<label class='login-field-icon' for='login-pass' style='margin-top:10px;'><span align='center' class='icon-search' style='color:; margin-left:-35px;' id='mylink'></span></label>";
+	echo "</div>";
+	echo "</div></form>";
+}
+elseif ('Procurement/e_pr/?tab=2' ==  $this->uri->slash_segment(1).$this->uri->slash_segment(2).'?tab='.$this->input->get('tab')){
+	echo "<form action=".$url = site_url("Procurement/e_pr?tab=".$this->input->get('tab')."&y=".$this->input->get('y')."&m=".$this->input->get('m'))." method='post' id='myform'>";
+	echo "<div class='search-form'>";
+	echo "<div class='form-group'>";
+	echo "<input type='text' class='form-control login-field' value='".$this->input->post('searchquestion')."' autofocus='autofocus' id='searchquestion' placeholder='Search PO' name='searchquestion' size='22' style='height:50px;'/>";
+	echo "<label class='login-field-icon' for='login-pass' style='margin-top:10px;'><span align='center' class='icon-search' style='color:; margin-left:-35px;' id='mylink'></span></label>";
+	echo "</div>";
+	echo "</div></form>";
+}
 elseif ('contentcontroller/site_store_status/' == $this->uri->slash_segment(1) .$this->uri->slash_segment(2)){
 	echo '<div align="center" class="ui-header-left-color" style="font-weight:bold; margin-top:; padding-top:5px; padding-bottom:5px; color:black;">
 		All stock for '.$hosp.'</div>';
@@ -79,8 +106,11 @@ elseif ('contentcontroller/site_store_status/' == $this->uri->slash_segment(1) .
 				['contentcontroller/Store/'],
 				['contentcontroller/new_item/'],
 				['contentcontroller/site_store_status/'],
+				['Procurement?pro=mrin'],
+				['Procurement/e_pr/'],
+				['Procurement/pro_catalog/'],
 ]?>
-<?php foreach ($array as $list) {?>
+<?php foreach ($array as $list) { ?>
 <?php if($list[0] == $this->uri->slash_segment(1) .$this->uri->slash_segment(2)){?>
 <script>
 window.onload = function() {

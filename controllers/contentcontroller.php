@@ -89,7 +89,8 @@ class Contentcontroller extends CI_Controller {
 		// 	$url = site_url('contentcontroller/content/'.$data['service_apa'][0]->v_servicecode);
 		// }
 		$this->load->view('head');
-		$this->load->view('content_choose', $data);
+		$this->load->view('content_choose3', $data);
+		//$this->load->view('content_choose2', $data);
 		if(!empty($_GET["hc"])){
 			$this->session->set_userdata('hosp_code', $_GET["hc"]);
 			for($i=0;$i<count($data['service_apa2']);$i++){
@@ -5701,7 +5702,7 @@ $this->update_model->updateOnDuplicatex('asisbah',$apola);
 		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
 
 		$this->load->model('display_model');
-		$data['record'] = $this->display_model->stock_asset($data['item']);
+		$data['record'] = $this->display_model->stock_asset();
 
 			foreach($data['record'] as $row){
 				if($data['item'] == $row->ItemName){
@@ -8773,6 +8774,30 @@ public function report_chronology(){
 		$this ->load->view("head");
 		$this ->load->view("content_summary_chono",$data);
 	}
+
+	public function report_Part_Menu(){
+		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
+		$mon = (date("j") > 8) ? date("m") : date("m")-1;
+		$data['grpsel'] = $this->input->get('grp') ? $this->input->get('grp') : '';
+		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) :  $mon;
+		$data['year'] = ($data['month'] == 0)  ? $data['year']-1 : $data['year'];
+		$data['month'] = ($data['month'] == 0)  ? 12 : $data['month'];
+
+
+		$this ->load->view("head");
+		$this ->load->view("left");
+		$this ->load->view("Content_Stock_ReportPart" , $data);
+	}
+
+	public function store_report(){
+
+
+		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
+		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+		$this ->load->view("headprinter");
+		$this ->load->view("content_store_rpt",$data);
+	}
+
 
 }
 ?>

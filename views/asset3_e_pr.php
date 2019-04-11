@@ -2,7 +2,7 @@
 	<div class="div-p"></div>
 	<div class="content-workorder">
 		<table class="ui-content-middle-menu-workorder" border="0" height="" align="center">
-			<?php 
+			<?php
 			$procument = $this->input->get('tab');
 			switch ($procument) {
 				case "1":
@@ -21,7 +21,7 @@
 			<tr class="ui-color-desk desk2">
 				<td colspan="4" class="t-header" style="color:black; height:40px; padding-left:10px;"><b><?= $tulis ?></b> <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?></td>
 			</tr>
-			<tr class="ui-color-desk bg-red-blood"> 
+			<tr class="ui-color-desk bg-red-blood">
 				<td colspan="4">
 					<table width="100%" class="ui-content-middle-menu-desk">
 						<tr style="background:#B3130A;">
@@ -73,7 +73,11 @@
 							</td>
 							<td class="td-desk"><?=isset($row->DateCreated) ? date("d-m-Y",strtotime($row->DateCreated)) : ''?></td>
 							<td class="td-desk"><?=isset($row->name) ? $row->name : ''?></td>
-							<td class="td-desk"><?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?><b></b></td>
+							<td class="td-desk">
+								<a href="<?php echo base_url();?>index.php/Procurement?mrinno=<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>&pro=approved">
+									<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>
+								</a>
+							</td>
 							<td class="td-desk">Pending</td>
 							<td class="td-desk"><?=isset($row->DateCreated) ? date("d-m-Y",strtotime($row->DateCreated)) : ''?></td>
 						</tr>
@@ -85,7 +89,9 @@
 							<td class="td-desk" style="text-align:left;"><a href="<?php echo base_url();?>index.php/Procurement/e_pr?pr=approved&mrinno=<?=$row->DocReferenceNo?>"><?=isset($row->PR_No) ? $row->PR_No : ''?></a></td>
 							<td class="td-desk"><?=isset($row->DateCreated) ? date("d-m-Y",strtotime($row->DateCreated)) : ''?></td>
 							<td class="td-desk"><?=isset($row->name) ? $row->name : ''?></td>
-							<td class="td-desk"><b><?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?></b></td>
+							<td class="td-desk"><b><a href="<?php echo base_url();?>index.php/Procurement?mrinno=<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>&pro=approved">
+								<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>
+							</a></b></td>
 							<td class="td-desk">Pending</td>
 							<td class="td-desk"><?=isset($row->DateCreated) ? date("d-m-Y",strtotime($row->DateCreated)) : ''?></td>
 						</tr>
@@ -101,7 +107,9 @@
 							</td>
 							<td class="td-desk"><?=isset($row->DateCreated) ? date("d-m-Y",strtotime($row->DateCreated)) : ''?></td>
 							<td class="td-desk"><?=isset($row->name) ? $row->name : ''?></td>
-							<td class="td-desk"><b><?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?></b></td>
+							<td class="td-desk"><b><a href="<?php echo base_url();?>index.php/Procurement?mrinno=<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>&pro=approved">
+								<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>
+							</a></b></td>
 							<td class="td-desk">Pending</td>
 							<td class="td-desk"><?=isset($row->DateCreated) ? date("d-m-Y",strtotime($row->DateCreated)) : ''?></td>
 						</tr>
@@ -127,7 +135,7 @@
 							</tr>
 							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
 								<td ><?=$tulis2?></td>
-								<td class="td-desk">: 
+								<td class="td-desk">:
 									<a href="<?php echo base_url();?>index.php/Procurement/e_pr?pr=pending&mrinno=<?=$row->DocReferenceNo?>">
 										<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>
 									</a>
@@ -170,7 +178,7 @@
 				<td align="center" colspan="4">
 				</td>
 			</tr>
-		</table>	
+		</table>
 	</div>
 </div>
 </body>

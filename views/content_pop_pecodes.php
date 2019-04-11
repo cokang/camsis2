@@ -7,8 +7,14 @@
 	<tr align="center">
 	<td id="scby" colspan="7" >
 	<?php $attributes = array('id' => 'myform');
-	echo form_open('contentcontroller/pecodes',$attributes);?>
-	<input type="text" id="sctext" name="scby" value="" placeholder="<?=$scby?>" class="form-control">
+	
+	if ($this->input->get('mrin')){
+	echo form_open('contentcontroller/pecodes?mrin='.$this->input->get('mrin').'&hosp='.$this->input->get('hosp').'&id='.$this->input->get('id'),$attributes);
+	}else {
+	echo form_open('contentcontroller/pecodes',$attributes);	
+	}
+	?>
+	<input type="text" id="sctext" name="scby" value="<?=$scby?>" class="form-control">
 	<?php echo form_close(); ?>
 	</td>
 	</tr>
@@ -39,7 +45,25 @@
 </table>
 
 <script type="text/javascript">
+<?php if($this->input->get('mrin')) {?>
     function Setasset(a_agent,a_agent2,hosp) {
+        if (window.opener != null && !window.opener.closed) {
+
+      var namexx = window.opener.document.getElementById('itemname<?=$this->input->get('id');?>');
+            namexx.innerHTML =  a_agent2;
+         var codexx = window.opener.document.getElementById('itemcode<?=$this->input->get('id');?>');
+            codexx.innerHTML = a_agent;
+         
+            var codexxx = window.opener.document.getElementById('itemcodei<?=$this->input->get('id');?>');
+            codexxx.value = a_agent;
+            var codexxx = window.opener.document.getElementById('itemc<?=$this->input->get('id');?>');
+            codexxx.value = a_agent;
+        }
+        window.close();
+    }
+<?php } else { ?>
+    function Setasset(a_agent,a_agent2,hosp) {
+
         if (window.opener != null && !window.opener.closed) {
             var a_ag = window.opener.document.getElementById("n_agent");
             a_ag.value = a_agent;
@@ -52,6 +76,7 @@
         }
         window.close();
     }
+<?php } ?>
 
  $("#alertData").on("click", "td", function() {
     if ($(this).attr('id')=='scby' &&  $('#sctext').val() != ''){

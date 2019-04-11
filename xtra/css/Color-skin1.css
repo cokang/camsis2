@@ -1,0 +1,49 @@
+/*************** Color Style ***********/
+a{
+text-decoration:none;
+color:white;
+}
+.body_login,
+.ui-left-choose-screen,
+.ui-left-screen{
+	background: #C98475;
+}
+.ui-cicrle-new,
+.ui-content-form,
+.login-form,
+.ui-middle-choose-screen,
+.ui-middle-screen{
+	background:#CE8886;
+}
+.ui-menu-color-header,
+.ui-color-style-2,
+.ui-header-left-color{
+	background:#8C3130;
+}
+.ui-color-desk,
+.ui-color-contents-style-1,
+.ui-content-middle-menu-workorder2,
+.btn-primary,
+.ui-content-color-style{
+	background:#CD766D;
+}
+.ui-header-new,
+.ui-content-menu-desk-color,
+.ui-middle-color,
+.ui-header-middle-color,
+.ui-header-color{
+	background:#b75554;
+}
+.ui-content-form-2{
+	border-left:2px solid #b75554;
+	border-right:2px solid #b75554;
+}
+.ui-bottom-border-color{
+	 border-bottom:2px solid #b75554;
+}
+.login{
+	color:white;
+}
+.ui-color-color{
+	color:white;
+}

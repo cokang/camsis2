@@ -263,6 +263,7 @@ $save = $save_link;
 														<th>Item Name</th>
 														<th>MRIN Ref No.</th>
 														<th>Qty Req</th>
+														<th>Qty Delivered</th>
 														<th>Qty In-Store</th>
 														<th>Qty Release</th>
 													</tr>
@@ -283,6 +284,7 @@ $save = $save_link;
 											<th>Item Name</th>
 											<th>MRIN Ref No.</th>
 											<th>Qty Req</th>
+											<th>Qty Delivered</th>
 											<th>Qty In-Store</th>
 											<th>Qty Release</th>
 										</tr>
@@ -329,19 +331,19 @@ $save = $save_link;
 
 <script type="text/javascript">
 	function get_dataItem(d){
-
+        var storeid = '<?=$this->input->get('id');?>';
 		// var code = $(d).val();
 		var area 	= $("select[name=area]").val();
-			alert(area);
+			//alert(area);
 		//var datefrom= $("input[name=datefrom]").val();
 		//var dateto	= $("input[name=dateto]").val();
 
-		$.post("<?=site_url()?>/procurement/releaseNote_get_itemspecification", { site:area } ,function(data,status){
-			alert("Data: " + data + "\nStatus: " + status);
+		$.post("<?=site_url()?>/procurement/releaseNote_get_itemspecification", { site:area,storeid:storeid } ,function(data,status){
+			//alert("Data: " + data + "\nStatus: " + status);
 		//$.post("<?=site_url()?>/procurement/releaseNote_get_itemspecification", { site:area,datefrom:datefrom,dateto:dateto } ,function(data){
 			var obj = JSON.parse(data);
 				//alert(area);
-				alert(obj);
+			//alert(obj.v_head_of_lls);
 			$("tbody#item-table-value").html(obj.table);
 			$("#to_contact_person").val(obj.v_head_of_lls);
 		});

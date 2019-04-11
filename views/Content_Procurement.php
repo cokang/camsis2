@@ -1,66 +1,88 @@
+<style type="text/css">
+	table .tblala{
+	    width: 100%;
+	    table-layout: fixed;
+	    margin-left: 5px;
+	}
+
+	.tblala tr td{
+		text-align: left;
+		
+	}
+	.tblala .wb td{
+		text-align: center;
+		background: rgba(255,255,255,.8);
+		border: 3px solid #E8E8E8;
+		
+	}
+	h4{
+		font-size: 25px;
+	    color: #165694;
+	}
+</style>
 <div class="ui-middle-screen">
+<table style="width: 100%; table-layout: auto;">
+<tr>
+<td style="width: 10%">
 	<?php include 'content_tab_menu.php';?>
-	<div class="content-workorder">
-		<?php include 'content_mobile_menu.php';?>
-		<table class="ui-content-middle-menu-workorder" border="0" align="center" style="background:#79B6D8; opacity: .7;">
-			<tr class="ui-header-middle-color">
-				<td align="center" colspan="2" class="ui-header-homepage"><h4 class="h4-margin">PROCUREMENT MODULES</h4></td>
+	<?php include 'content_mobile_menu.php';?>
+	</td>
+	<td style="width: 2%;"></td>
+<td valign="top">
+		<table class="ui-content-middle-menu-workorder tblala" border="0" align="center">
+			<tr>
+				<td align="center" colspan="4"><h4 class="h4-margin">PROCUREMENT MODULES</h4></td>
 			</tr>
 			<?php  if (!in_array("Procurement?pro=mrin", $chkers)) { ?>
-			<tr class="ui-content-color-style">
+			<tr class="wb">
 				<td width="80%">
-				<a href="<?php echo base_url();?>index.php/Procurement?pro=mrin"><img src="<?php echo base_url(); ?>images/report.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MRIN</a>
+				<a href="<?php echo base_url();?>index.php/Procurement?pro=mrin"><img src="<?php echo base_url(); ?>images/report.png" alt="" class="ui-icon"/><br></br> MRIN</a>
 				</td>
-			</tr>
 			<?php  } ?>
 			<?php  if (!in_array("Procurement/e_pr", $chkers)) { ?>
-			<tr class="ui-content-color-style">
 				<td>
-				<a href="<?php echo base_url();?>index.php/Procurement/e_pr"><img src="<?php echo base_url(); ?>images/Pr.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PR/PO</a>
+				<a href="<?php echo base_url();?>index.php/Procurement/e_pr"><img src="<?php echo base_url(); ?>images/Pr.png" alt="" class="ui-icon"/><br></br>PR/PO</a>
 				</td>
-			</tr>
+		
 			<?php  } ?>
 			<?php  if (!in_array("Procurement/pro_catalog", $chkers)) { ?>
-			<tr class="ui-content-color-style">
+
 				<td>
-				<a href="<?php echo base_url();?>index.php/Procurement/pro_catalog"><img src="<?php echo base_url(); ?>images/vendorupdate.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vendor Update</a>
+				<a href="<?php echo base_url();?>index.php/Procurement/pro_catalog"><img src="<?php echo base_url(); ?>images/vendorupdate.png" alt="" class="ui-icon"/><br></br>Vendor Update</a>
 				</td>
-			</tr>
 			<?php  } ?>
 			<?php  if (!in_array("Procurement/Release_note", $chkers)) { ?>
-			<tr class="ui-content-color-style">
 				<td>
-				<a href="<?php echo base_url();?>index.php/Procurement/Release_note"><img src="<?php echo base_url(); ?>images/notepad.png" alt="" class="ui-icon" />&nbsp;&nbsp;&nbsp;&nbsp;Release Note</a>
+				<a href="<?php echo base_url();?>index.php/Procurement/Release_note"><img src="<?php echo base_url(); ?>images/notepad.png" alt="" class="ui-icon"/><br></br>Release Note</a>
 				</td>
-			</tr>
+				</tr>
 			<?php  } ?>
 			<?php  if (!in_array("Procurement/e_request", $chkers)) { ?>
-			<tr class="ui-content-color-style">
+				<tr class="wb">
 				<td>
-				<a href="<?php echo base_url();?>index.php/Procurement/e_request"><img src="<?php echo base_url(); ?>images/followup.png" alt="" class="ui-icon" />&nbsp;&nbsp;&nbsp;&nbsp;PO Follow Up</a>
+				<a href="<?php echo base_url();?>index.php/Procurement/e_request"><img src="<?php echo base_url(); ?>images/followup.png" alt="" class="ui-icon"/><br></br>PO Follow Up</a>
 				</td>
-			</tr>
+	
 			<?php  } ?>
 			<?php  if (!in_array("Procurement/report", $chkers)) { ?>
-			<tr class="ui-content-color-style">
+			
 				<td>
-				<a href="<?php echo base_url();?>index.php/Procurement/report"><img src="<?php echo base_url(); ?>images/report.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;Report</a>
+				<a href="<?php echo base_url();?>index.php/Procurement/report"><img src="<?php echo base_url(); ?>images/report.png" alt="" class="ui-icon"/><br></br>Report</a>
 				</td>					
-			</tr>
 			<?php  } ?>
 			<?php  if (!in_array("Procurement/report_progress", $chkers)) { ?>
-			<tr class="ui-content-color-style">
 				<td>
-				<a href="<?php echo base_url();?>index.php/Procurement/report_progress"><img src="<?php echo base_url(); ?>images/report.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;Progress Work Order</a>
-				</td>					
-			</tr>
-			<?php  } ?>
-			<tr class="ui-header-new" style="height:8px;">
-				<td align="center" colspan="4" class="footer-class">
+				<a href="<?php echo base_url();?>index.php/Procurement/report_progress"><img src="<?php echo base_url(); ?>images/report.png" alt="" class="ui-icon"/><br></br>Progress Work Order</a>
 				</td>
-			</tr>
+				<td style="border: none"></td>
+			<?php  } ?>
+
 		</table>		
 	</div>
+	</td>
+	<td style="width: 2%;"></td>
+	</tr>
+	</table>
 </div>
 </body>
 </html>

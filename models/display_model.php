@@ -164,7 +164,7 @@
 		{
 			$RN = $this->input->get('wrk_ord');
 
-			$this->db->select('IFNULL(g.V_Wrn_end_code,NOW() + INTERVAL 1 DAY) AS V_Wrn_end_code,r.V_Equip_code,r.V_Tag_no,r.V_AssetStatus,r.V_Manufacturer,r.V_Serial_no,r.V_Asset_name,m.v_SafetyTest,s.*,lw.link_wo');
+			$this->db->select('IFNULL(g.V_Wrn_end_code,NOW() + INTERVAL 1 DAY) AS V_Wrn_end_code,r.V_Equip_code,r.V_Tag_no,r.V_AssetStatus,r.V_Manufacturer,r.V_Serial_no,r.V_Asset_name,m.v_SafetyTest,s.*,lw.link_wo, r.V_User_Dept_code AS assdept, r.V_Location_code AS assloc');
 			$this->db->from('pmis2_egm_service_request s');
 
 			//$this->db->join('pmis2_egm_assetregistration r','s.V_Asset_no = r.V_Asset_no AND s.V_hospitalcode = r.V_Hospitalcode','full');
@@ -2135,7 +2135,8 @@ return $query->result();
 			return $query->result();
 		}
 
-    function stock_asset($searchitem="",$limit,$start){
+    function stock_asset($searchitem="",$limit="",$start=""){
+
             $sepital =($this->input->get('id')) ? ($this->input->get('id')) : $this->session->userdata('hosp_code');
 			$this->db->distinct();
 			$this->db->select('a.Hosp_code,a.Qty,b.ItemCode,REPLACE(REPLACE(b.ItemName, CHAR(10), ""), CHAR(13), "") AS ItemName,b.Model,b.PartNumber,CASE WHEN hg1.harga1 <> 0 THEN CONCAT("RM ",FORMAT(hg1.harga1, 2)) ELSE CONCAT("RM ",FORMAT(hg2.harga2, 2))  END as harga',FALSE);
@@ -2148,8 +2149,10 @@ return $query->result();
 			$this->db->where('a.Hosp_code',$sepital);
 			$this->db->where('b.Dept',$this->session->userdata('usersess'));
 			$this->db->where('a.Action_Flag !=','D');
+			if ($limit <> ''){
             $this->db->limit($limit,$start);
-  			if ($searchitem != "") {
+  			}
+			if ($searchitem != "") {
   			$this->db->group_start();
   			$this->db->where("b.ItemCode",$searchitem)->or_like("b.ItemName",$searchitem);
   			$this->db->group_end();
@@ -2287,7 +2290,7 @@ return $query->result();
 			return $query->result();
 		}
 
-    function releaseNote_get_itemspecification($site="", $datefrom="", $dateto=""){
+    function releaseNote_get_itemspecification($site="",$storeid="", $datefrom="", $dateto=""){
 
       $year	= date("Y");
       $month	= date("m");
@@ -2328,12 +2331,18 @@ return $query->result();
         }
       }
     }else{
-    $resbaru = $this->rl_mrin($site,$year);
-        if( !empty($resbaru) ){
+        $resbaru = $this->rl_mrin($site,$storeid,$year);
+		if($site){
+	    //$v_head_of_lls= $this->db->query("SELECT v_head_of_lls FROM pmis2_sa_hospital WHERE v_HospitalCode = '$site' LIMIT 1")->row()->v_head_of_lls;
+	    $v_head_of_lls= $this->db->query("SELECT a.v_UserName FROM pmis2_sa_user a JOIN tbl_hosp_rep b ON b.Rep = a.v_UserID WHERE b.Hosp_code = '$site' LIMIT 1")->row()->v_UserName;
+        }
+		//echo "<pre>";
+		//print_r($v_head_of_lls);
+	   if( !empty($resbaru) ){
         $i=0;
         foreach ($resbaru as $row) {
         //exit();
-        if ($row->QtyReq <> 0){
+        if ($row->QtyReq > 0){
           //$Time_Stamp = date("m-d-Y", strtotime($row->Time_Stamp));
           //is_numeric($row->Qty_Before) ? $Qty_Before = $row->Qty_Before : $Qty_Before = 0;
           //is_numeric($row->Qty_Taken) ? $Qty_Taken = $row->Qty_Taken : $Qty_Taken = 0;
@@ -2346,6 +2355,7 @@ return $query->result();
           $dataTable[$i]["ItemName"]			= $row->ItemName;
           $dataTable[$i]["MIRNcode"]			= $row->MIRNcode;
           $dataTable[$i]["QtyReq"]			= $row->QtyReq;
+          $dataTable[$i]["theqty"]			= $row->theqty;
           $dataTable[$i]["QtyS"]			    = $row->qstore;
           $dataTable[$i]["Qty_Taken"] 		= 0;
           $dataTable[$i]["Qty_Before"]		= 0;
@@ -2354,7 +2364,7 @@ return $query->result();
           $dataTable[$i]["Last_User_Update"]	= 0;
           $dataTable[$i]["Related_WO"]		= 0;
           $dataTable[$i]["Remark"]			= 0;
-          $dataTable[$i]["v_head_of_lls"]		= 0;
+          $dataTable[$i]["v_head_of_lls"]		=  $v_head_of_lls;
 
           $i++;
         }
@@ -2403,6 +2413,7 @@ return $query->result();
 					$html .= "		<td data-title='Item Name :'>$trow->ItemName</td>";
 					$html .= "		<td data-title='MRIN Ref No. :'><input type='hidden' name='MIRNcode[]' value='$trow->MIRNcode'>$trow->MIRNcode</td>";
 					$html .= "		<td data-title='Qty Req :'>$trow->QtyReq</td>";
+					$html .= "		<td data-title='Qty Delivered :'>$trow->theqty</td>";
 					$html .= "		<td data-title='Qty Store :'>$trow->QtyS</td>";
 					$html .= "		<td data-title='Qty Release :'><input type='text' name='qty_rls[]' value='".set_value('qty_rls['.$key++.']')."'/></td>";
 					$html .= "	</tr>";
@@ -4899,13 +4910,13 @@ function printpr($prno){
 	$this->db->join('tbl_mirn_comp c','m.MIRN_No = c.MIRNcode');
 	$this->db->where('p.PRNo',$prno);
 	$query = $this->db->get();
-	echo $this->db->last_query();
-	exit();
+	//echo $this->db->last_query();
+	//exit();
 	$query_result = $query->result();
 	return $query_result;
 }
 
-function polist($month,$year){
+function polist($month,$year,$searchitem=""){
 	$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No');
 	$this->db->from('tbl_po_mirn e');
 	$this->db->join('tbl_materialreq a','e.MIRN_No = a.DocReferenceNo');
@@ -4914,6 +4925,11 @@ function polist($month,$year){
 	$this->db->join('tbl_status d','a.ApprStatusID = d.StatusID');
 	$this->db->where('MONTH(a.datecreated)',$month);
 	$this->db->where('YEAR(a.datecreated)',$year);
+  if ($searchitem != "") {
+    $this->db->group_start();
+    $this->db->like("e.PO_No",$searchitem)->or_like("e.MIRN_No",$searchitem);
+    $this->db->group_end();
+    }
 	$this->db->where('a.apprstatusidxx','4');
 	$query = $this->db->get();
 	//echo $this->db->last_query();
@@ -6737,7 +6753,8 @@ return $query->result();
 
 
 
-  function rl_mrin($hosp,$y){
+  function rl_mrin($hosp,$storeid,$y){
+
     switch ($hosp) {
         case "JLB":
         case "JMP":
@@ -6770,24 +6787,19 @@ return $query->result();
         default:
             $hospape = "'".$hosp."'";
     }
-    $this->db->select('a.ItemCode,a.ItemName,b.MIRNcode, ifnull(CASE WHEN `e`.`bal` >  `b`.`QtyReq` THEN 0 ELSE `b`.`QtyReq` - `e`.`bal`
-     END,`b`.`QtyReq`) as QtyReq,d.qty as qstore');
+	$this->db->distinct();
+    $this->db->select('a.ItemCode,a.ItemName,b.MIRNcode, ifnull(CASE WHEN `f`.`theqty` >  `b`.`Qty` THEN 0 ELSE `b`.`Qty` - `f`.`theqty` END,`b`.`QtyReq`) as QtyReq,ifnull(f.theqty,0)as theqty,d.qty as qstore');
 	$this->db->from('tbl_materialreq c');
 	$this->db->join('tbl_mirn_comp b','c.DocReferenceNo = b.MIRNcode','inner');
 	$this->db->join('tbl_invitem a','a.ItemCode = b.ItemCode','inner');
-	$this->db->join('tbl_item_store_qty d',"d.ItemCode = b.ItemCode",'inner');
-	$this->db->join('(SELECT SUM(Qty) as bal,Item_code,MRIN_No FROM tbl_rn_item group by Item_code,MRIN_No) e','e.MRIN_No=b.MIRNcode AND e.Item_code=a.ItemCode','left outer');
+	$this->db->join('tbl_item_store_qty d',"d.ItemCode = b.ItemCode AND d.Hosp_code='".$storeid."' AND d.Action_Flag <> 'D' ",'inner');
+/* 	$this->db->join('(SELECT SUM(Qty) as bal,Item_code,MRIN_No FROM tbl_rn_item group by Item_code,MRIN_No) e','e.MRIN_No=b.MIRNcode AND e.Item_code=a.ItemCode','left outer'); */
+	$this->db->join('(SELECT SUM(ifnull(Qty,0)) AS theqty,MRIN_No,Item_code,RN_No FROM tbl_rn_item  WHERE LEFT(RN_No, 2) = "RN" GROUP BY MRIN_No, Item_code) f','f.MRIN_No=b.MIRNcode AND f.Item_code=b.ItemCode','left');
+
     #$this->db->where('YEAR(c.datecreated) >',$y-1);
 	//if($hosp=='COE'){
   $this->db->where("YEAR(c.datecreated) > 2017 AND c.Apprstatusid = '4'AND d.qty > 0 AND left(right(`b`.`MIRNcode`,14),3) IN (".$hospape.")");
-  $this->db->order_by('c.DateCreated DESC');
-	//$this->db->where('c.ApprStatusID = 4 AND d.qty > 0');
-	//$this->db->order_by('b.ItemCode');
-	//}else{
-	//$this->db->where("c.ApprStatusID = 4 AND (b.MIRNcode LIKE '%".$hosp."%') AND d.qty > 0");
-	//$this->db->group_by('b.ItemCode');
-	//$this->db->order_by('b.ItemCode');
-	//}
+  $this->db->order_by('b.MIRNcode','DESC');
 
 	$query = $this->db->get();
 	//echo $this->db->last_query();
@@ -7034,6 +7046,32 @@ exit();
       return array("table"=>$table,"v_head_of_lls"=>$v_head_of_lls,"data"=>$dataTable);
     }
 
+    function stock_assetvenup($searchitem="",$limit="",$start=""){
+      $this->db->distinct();
+			//$this->db->select('a.Hosp_code,a.Qty,b.ItemCode,REPLACE(REPLACE(b.ItemName, CHAR(10), ""), CHAR(13), "") AS ItemName,b.Model,b.PartNumber',FALSE);
+      $this->db->select('b.ItemCode,REPLACE(REPLACE(b.ItemName, CHAR(10), ""), CHAR(13), "") AS ItemName,b.Model,b.PartNumber',FALSE);
+      //$this->db->from('tbl_item_store_qty a');
+      $this->db->from('tbl_invitem b');
+			//$this->db->join('tbl_invitem b','a.ItemCode = b.ItemCode','inner');
+			//$this->db->where('a.Hosp_code',$sepital);
+			$this->db->where('b.Dept',$this->session->userdata('usersess'));
+			//$this->db->where('a.Action_Flag !=','D');
+			if ($limit <> ''){
+            $this->db->limit($limit,$start);
+  			}
+			if ($searchitem != "") {
+  			$this->db->group_start();
+  			$this->db->like("b.ItemCode",$searchitem)->or_like("b.ItemName",$searchitem);
+  			$this->db->group_end();
+  			}
+  			$this->db->order_by("itemname");
+
+  				//$this->db->where('a.Hosp_code','MKA');//test
+  			$query = $this->db->get();
+  			//echo $this->db->last_query();
+  			//exit();
+  			return $query->result();
+		}
 
 }
 ?>

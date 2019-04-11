@@ -1,0 +1,247 @@
+/*div.main-cs{
+  background: white;
+  width: 95%;
+  margin-top: 0px;
+  margin-right: auto;
+  margin-left: auto;
+  padding:10px; 
+  border-radius: 10px;
+  opacity: 0.9;
+}*/
+div.form-cs{
+  width: 40%;
+  margin-top: 0px;
+  margin-right: auto;
+  margin-left: auto;
+}
+div.form-cs-1{
+  width: 90%;
+  margin-top: 0px;
+  margin-right: auto;
+  margin-left: auto;
+  font-size:10px;
+}
+fieldset { border:1px solid blue }
+legend {
+  padding: 0.2em 0.5em;
+  border:1px solid blue;
+  color:black;
+  font-size:14px;
+  font-weight: bold;
+  }
+  div.form-fp{
+    width: 98%;
+	display:block;
+    margin-top: 47px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .tbl-ind{
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+  }
+    .tbl-ind th{
+    border: 1px solid black;
+    padding: 5px;
+    font-size: 14px;
+  }
+   .tbl-ind tr{
+    border: 1px solid black;
+    padding: 5px;
+    font-size: 14px;
+  }
+.tbl-ind tr:nth-child(2),
+.tbl-ind tr:nth-child(4),
+.tbl-ind tr:nth-child(6),
+.tbl-ind tr:nth-child(8),
+.tbl-ind tr:nth-child(10),
+.tbl-ind tr:nth-child(12) {
+    background: #ccc;
+}
+  .tbl-mcg{
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+	margin-left:auto;
+	margin-right:auto;
+	color:black;
+  }
+  .form-mcg-top{
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	display:block;
+	background: #f2f2f2;
+	position:relative;
+	width: 99%;
+	padding:5px;
+  }
+    .tbl-mcg th{
+    border: 1px solid black;
+    padding: 5px;
+    font-size: 10px;
+  }
+   .tbl-mcg tr{
+    border: 1px solid black;
+    padding: 5px;
+  }
+  .tbl-mcg tr:nth-child(1),
+  .tbl-mcg tr:nth-child(3),
+  .tbl-mcg tr:nth-child(4){
+    background: #00c0ef;
+  }
+  .responsetime,
+  .responsem,
+  .deduction,
+.tbl-mcg tr td {
+font-size:10px;
+}
+.tbl-mcg tr td {
+padding:5px;}
+.tbl-mcg tr.even {
+	background: #e5e5e5;
+}
+.tbl-mcg tr.even:hover,
+.tbl-mcg tr.mark:hover {
+	background: #ccccff
+}
+.tbl-mcg tr.mark {
+	background: #ccc;
+}
+input[type=submit],.a-back {
+  padding:5px 15px; 
+  background:#ccc; 
+  border:0 none;
+    cursor:pointer;
+    margin: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; }
+input[type=text],select ,input[type=submit] {
+  font-size:10px;
+    cursor:pointer;}
+#nav {
+	width: 97.89%;
+	float: left;
+	margin-left:1%;
+	margin-top:2.5px;
+	margin-bottom:12.5px;
+	padding: 0;
+	z-index:3;
+	position:relative;
+	}
+#nav ul {
+	list-style: none;
+	width: 100%;
+	margin: 0 auto;
+	padding: 0; }
+#nav li {
+	float: left; }
+#nav li a {
+	display: block;
+	padding: 8px 15px;
+	text-decoration: none;
+	font-weight: bold;
+	color: #069;
+	background-color: #ccc;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-right: 1px solid #ccc; }
+#nav li:first-child a { }
+#nav li a:hover {
+	color: #c00;
+	background-color: #f2f2f2; }
+#nav  li a.heloo {
+	background-color: #f2f2f2;
+}
+div.text-mcg{
+margin-left:auto;
+margin-right:auto;
+color:black;
+display:block;
+text-align:center;
+font-weight:bold;
+}
+@media screen and (min-width: 961px) and (max-width: 1320px) {
+}
+
+@media screen and (max-width: 760px){
+  div.main-cs{
+    width:100%;
+    /*margin: 210px;*/
+    margin: 10px;
+    padding:10px 0;
+    margin-right: 0px;
+    margin-left: 0px;
+    position:absolute;
+  }
+}
+
+@media screen and (min-width: 761px) and (max-width: 1320px;){
+  div.main-cs{
+    background: white;
+    width: 95%;
+    margin-top: 95px;
+    margin-right: auto;
+    margin-left: auto;
+    padding:10px; 
+    border-radius: 10px;
+    opacity: 0.9;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  /*div.main-cs{
+    width:100%;
+    margin: 210px;
+    padding:10px 0;
+    margin-right: 0px;
+    margin-left: 0px;
+    position:absolute;
+  }*/
+	 div.form-fp{
+		width: 100%;
+		margin-top: 0px;
+  }
+	  div.form-cs{
+		  width: 90%;
+	}
+	/* Force table to not be like tables anymore */
+    #no-more-tables table, 
+    #no-more-tables thead, 
+    #no-more-tables tbody, 
+    #no-more-tables th, 
+    #no-more-tables td, 
+    #no-more-tables tr { 
+        display: block; 
+    }
+ 
+    /* Hide table headers (but not display: none;, for accessibility) */
+    #no-more-tables thead tr th{ 
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    
+    #no-more-tables td { 
+        /* Behave  like a "row" */
+        border: none;
+        position: relative;
+        padding-left: 50%; 
+        white-space: normal;
+        text-align:left;
+    }
+ 
+    #no-more-tables td:before() { 
+		border:1px solid yellow;
+    }
+ 
+    /*
+    Label the data
+    */
+    #no-more-tables td:before(2){ content: "aaa"; }
+}
+@media screen and (max-width: 736px) {
+
+}

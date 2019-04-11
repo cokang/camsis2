@@ -1,0 +1,742 @@
+@media screen and (min-device-width: 1200px){
+  a{
+    font-size: 16px;
+  }
+	/************************** LOGIN ********************************/
+	.body_login{
+	  font-size: 18px;
+	  line-height: 1.72222;
+	  color: #34495e;
+	}
+  .img-login{
+    margin-top:-50px;
+    margin-left:40px;
+    width: 70px;
+    height: 70px;
+    vertical-align: middle;
+  }
+  .img-login2{
+    width: 120px;
+    height: 60px;
+    vertical-align: middle;
+  }
+  .login-menu{
+    width:800px; 
+    text-align:center;
+  }
+  .bttm-pen{
+    margin-left:10px;
+  }
+  .btn-primary {
+    color: #ffffff;
+  }
+  .btn-lg {
+    padding: 10px 19px;
+    font-size: 17px;
+    line-height: 1.471;
+    border-radius: 6px;
+  }
+
+  .btn-licenses{
+    font-size: 12px;
+  }
+  label {
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 2.4;
+  }
+  .login {
+    padding: 0px 138px 0px;
+    position: relative;
+  }
+  .login-screen {
+    min-height: 317px;
+    padding: 100px 13px 33px 123px;
+  }
+  #input-login{
+    width:94.5%;
+  }
+  #input-submit{
+    width:100%;
+  }
+  .login-form {
+    padding: 24px 23px 20px;
+    position: relative;
+    border-radius: 6px;
+    width: 500px;
+   /* margin:0px 130px;*/
+  }
+  .login-link {
+    color: ;
+    display: block;
+    font-size: 13px;
+    margin-top: 15px;
+    text-align: left;
+  }
+  .icon-key,
+  .icon-user{
+    position:absolute;
+    right: 5px;
+    top:15px;
+    font-size: 20px;
+  }
+  .btn {
+    padding: 10px 15px;
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 1.4;
+    border: none;
+    border-radius: 0px;
+  }
+  .bttm-ap{
+    display:table-cell; 
+    text-align:left; 
+    padding-left:10px;
+    display:block; 
+  	float:right; 
+  	margin-right:410px; 
+  	margin-top:20px; 
+  	height:70px;
+  }
+  .footer-id{
+    display:table; 
+    width:100%; 
+    margin-top:30px;
+  }
+  div.menum span {
+    font-size:24px; 
+    font-weight:bold;
+  }
+  div.menum2{
+    line-height: 1;
+    font-size:24px; 
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .img-login2{
+    width: 150px;
+    height: 60px;
+  }
+
+  /************************** END LOGIN ********************************/
+  /************************** SELECT ********************************/
+
+  .ui-left-choose-screen ,.ui-middle-choose-screen{
+    float:left; 
+    position: relative;
+    overflow: hidden;
+    -ms-overflow-style: hidden;
+    height: 100%;
+  }
+  .ui-left-choose-screen{
+    width:25%;
+  }
+  .try2{
+    position: relative;
+    z-index: 5 !important;
+  }
+  .try{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 10px;
+    height: 100%;
+    background-image: url('../images/partition bar orange.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-position: center;
+    z-index: 1;
+    /* These three lines are for transparency in all browsers. */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: alpha(opacity=20);
+    opacity: .9;
+  }
+  .try4{
+    position: relative;
+    z-index: 5 !important;
+  }
+  .try3{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 10px;
+    height: 100%;
+    background-image: url('../images/partition bar cyan.png');
+    background-repeat: no-repeat;
+    background-size: 30% 100%;
+    background-attachment: fixed;
+    background-position: center;
+    z-index: 1;
+    /* These three lines are for transparency in all browsers. */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: alpha(opacity=20);
+    opacity: .9;
+  }
+  .ui-user-screen{
+    width:100%;
+  }
+  .ui-middle-choose-screen{
+    width:75%;
+  }
+  .ui-padding{
+    margin-top:15px;
+    padding-left:50px;
+  }
+  .ui-icon-screen{
+    width: 80px;
+    height: 80px;
+    padding:10px;
+  }
+  .ui-content-color-style,
+  .ui-content-color-style2{
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-position: center;
+    opacity: .7;
+    z-index: 99999999;
+    filter:alpha(opacity=140);
+    background-blend-mode: multiply; 
+    height: 75px;
+    display: block;
+    padding-top: 5px;
+  }
+  .ui-content-color-style td { width:10%; padding-left:10%;}
+  	.ui-content-color-style,
+  	.ui-rpt-color-style,
+  	.ui-rpt-color-style2{
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-position: center;
+    opacity: .7;
+    z-index: 99999999;
+    filter:alpha(opacity=140);
+    background-blend-mode: multiply; 
+    height: 75px;
+    display:-moz-inline-stack;
+    display:inline-block;
+    padding-top: 5px;
+    width:50%;
+    position:relative;
+  }
+  @-moz-document url-prefix() { 
+    .ui-rpt-color-style,
+    .ui-rpt-color-style2{
+      width:49.8%;
+    }
+    .ui-rpt-color-style2{
+      margin-left:-4.5px;
+      padding-right:4.5px;
+    }
+  }
+
+  .ui-text-style{
+    margin-left:30px; 
+    margin-top:40px; 
+    position:absolute;
+    padding: 5px;
+    border-radius:5px; 
+    width: 400px;
+    font-size:20px;
+    font-weight:bold;
+  }
+
+  .kotak{
+    width: 100px;
+    height: 100px;;
+  }
+
+
+
+  #ui-log{
+    display: none;
+  }
+  .mains{
+    position: relative;
+    color: black;
+    margin-top:150px;
+    line-height: 1;
+  }
+  span.b-mobile{
+    display: none;
+  }
+  /************************** END SELECT ********************************/
+  /************************** LEFT  ********************************/
+  #loginBox {
+    position:absolute;
+    top:130px;
+    right:5px;
+    display:none;
+    z-index:29;
+  }
+  .login-menu{
+    width:800px;
+    text-align:center;
+  }
+  .header-page{
+    background: #f3ece6;  
+    font-size:17px; 
+    font-weight:bold; 
+    padding-top:5px; 
+    padding-bottom:5px; 
+    margin-top:0px; 
+    color:white;
+  }
+  .color_style_1 span a {
+    font-size: 20px;
+  }
+  #page{
+    display: none;
+  }
+  /************************** END LEFT  ********************************/
+
+  /************************** MAIN ********************************/
+  .body-screen{
+    color:white;
+    opacity: 1;
+    filter:alpha(opacity=140);
+    margin-top: 0px;
+  }
+  .ui-left-screen ,.ui-middle-screen{
+    float:left;  
+    overflow: hidden;
+  }
+  .ui-left-screen{
+    left: 0px;
+    right:0px;
+    width: 20%;
+    position: fixed;
+    z-index: 2;
+    top: ;
+    border-radius: 0;
+    border: none;
+    overflow-y: auto;
+    overflow: hidden;  
+  }
+  .ui-middle-screen{
+    margin-left: 20%;
+    margin-top: 2%;
+    right:0px;
+    width:80%;
+    z-index: 2;
+  }
+  /************************** END MAIN ********************************/
+  .td-assest2{
+    padding-left: 10px;
+    width: 200px;
+    text-align: right;
+    vertical-align: top;
+  }
+  table.ui-content-middle-menu-workorder5 tr td a,
+  table.ui-content-middle-menu-workorder3 tr td a{
+    font-size:14px;
+  }
+  table.ui-content-middle-menu-workorder2 tr td a ,.td-desk a ,table.tftabledetail2 tr td a{
+    font-size: 18px;
+  }
+  td.default-NO{
+    color:red; 
+    text-transform: uppercase; 
+    font-size:18px;
+  }
+  .td-content2{
+    width: 50%;
+  }
+  table.ui-desk-style-table3{
+    width: 92%;
+  }
+  td.theadap{
+    padding-left: 80px;
+  }
+  table.ui-desk-style-table4{
+    width: 98%;
+  }
+  div.mobbprt{
+    display:table; 
+    margin-left:auto; 
+    margin-right:auto; 
+    width:; 
+    float: right;
+  }
+  div.mobbprt a button{
+    display:table-cell; 
+    margin-left:5px; 
+    margin-right:5px; 
+  }
+  td.t.left{
+    text-align: right;
+  }
+  div.vvf-graf{
+    height: 400px; 
+    margin-left:0px; 
+    display:table; 
+    color:grey;
+    text-align: center; 
+    width: 100%;
+  }
+  div.vvf-graf span {
+    display:table-cell;
+    vertical-align: middle;
+  }
+  div.qapgraf{
+    height: 400px;
+    width: 98%; 
+    margin-left:auto; 
+    margin-right:auto; 
+    margin-top:10px;
+  }
+
+  table.tblqap {font-size:14px;width:90%; border-collapse: collapse; margin: 20px;}
+  table.tblqap th {font-size:14px;padding: 8px;text-align:center;}
+  table.tblqap td {font-size:14px;padding: 8px; color:black; text-align:center;}
+  table.tblqap td a {font-size:14px;}
+
+  table.wnctable{
+    border-collapse: collapse;  
+    color:black;
+    width: 95%;
+  }
+  table.wnctable th {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;text-align:center;}
+  table.wnctable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;}
+  .table-ui-vo3_Assets{
+    border-collapse:collapse;
+    vertical-align:middle;
+    width: auto;
+    margin-right: 0px;
+    margin-left: auto;
+  }
+  .ui-vo3_Assets{
+    font-weight: bold;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .ui-vo3_Assets1{
+    font-weight: normal;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  div.asset-vo3{
+    float: right;
+  }
+  div.asset-vo3 span{
+    margin-right: 10px;
+  }
+    
+  .divmenu{
+  	width:100%;
+  	text-align:center;
+  	font-size:18px;
+  	padding:5px;
+  	font-weight:bold;
+  	background:#398074;
+  	display:none;
+  }
+  .divmenuleft{
+  	width:5%;
+  	float:left;
+  }
+  .divmenuleft a ,.divmenuright a{
+  	color:white;
+  }
+  .divmenuright{
+  	width:10%;
+  	float:right;
+  }
+  .sk_ttol{
+    display:inline-block;
+    font-size:14px;
+    color:red;
+    font-weight:bold;
+  }
+
+
+  @import url(http://fonts.googleapis.com/css?family=Raleway);
+  #cssmenu,
+  #cssmenu ul,
+  #cssmenu ul li,
+  #cssmenu ul li a {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    list-style: none;
+    line-height: 1;
+    display: block;
+    position: relative;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  #cssmenu:after,
+  #cssmenu > ul:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+  }
+  #cssmenu {
+    width: 100%;
+    border-bottom: 3px solid #47c9af;
+    line-height: 1;
+  }
+  #cssmenu ul {
+    background: #ffffff;
+  }
+  #cssmenu > ul > li {
+    float: left;
+  }
+  #cssmenu.align-center > ul {
+    font-size: 0;
+    text-align: center;
+  }
+  #cssmenu.align-center > ul > li {
+    display: inline-block;
+    float: none;
+  }
+  #cssmenu.align-right > ul > li {
+    float: right;
+  }
+  #cssmenu.align-right > ul > li > a {
+    margin-right: 0;
+    margin-left: -4px;
+  }
+  #cssmenu > ul > li > a {
+    z-index: 2;
+    font-weight:bold;
+    text-align:center;
+    padding: 10px 4.88px 10px 5px;
+    font-size: 14px;
+    text-decoration: none;
+    color: #444444;
+    -webkit-transition: all .2s ease;
+    -moz-transition: all .2s ease;
+    -ms-transition: all .2s ease;
+    -o-transition: all .2s ease;
+    transition: all .2s ease;
+  }
+  #cssmenu > ul > li.active > a,
+  #cssmenu > ul > li:hover > a,
+  #cssmenu > ul > li > a:hover {
+    color: #ffffff;
+  }
+  #cssmenu > ul > li > a:after {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    width: 100%;
+    content: "";
+    -webkit-transition: all .2s ease;
+    -o-transition: all .2s ease;
+    transition: all .2s ease;
+  }
+  #cssmenu > ul > li.active > a:after,
+  #cssmenu > ul > li:hover > a:after,
+  #cssmenu > ul > li > a:hover:after {
+    background: #47c9af;
+    height:70px;
+  }
+
+  /************************** UPDATE BARU ********************************/
+  .ui-icon-screen2{
+    width: 50px;
+    height: 50px;
+    padding:10px;
+  }
+
+  .kotak2 {
+    /* To correctly align image, regardless of content height: */
+    vertical-align: top;
+    display: inline-block;
+    /* To horizontally center images and caption */
+    text-align: center;
+    /* The width of the container also implies margin around the images. */ 
+	  margin-right: 30px;
+  }
+  .caption {
+    /* Make the caption a block so it occupies its own line. */
+  	display: block;
+    border-radius:5px; 
+    font-size:20px;
+    font-weight:bold;
+    width: 90px;	
+  }
+
+
+
+  .alert-info {
+    color: #000000;
+    background-color: #ff9180;
+    border-color: #bce8f1;
+  	width :600px;  	
+  }
+  .alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+  }
+
+  .pull-right {
+    /**float: right!important;**/
+  }
+  .btn-primary1 {
+    color: #fff;
+    background-color: #428bca;
+    border-color: #357ebd;
+  }
+  .btn-xs, .btn-group-xs>.btn {
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+  }
+
+  .box{
+    display: inline-block;
+    margin-bottom: -20px;
+    width:21%;
+    text-align:left;
+    position:relative;min-height:1px;padding-right:15px;padding-left:15px;
+    margin: auto;
+  }
+
+  .box2{
+    display: inline-block;
+    margin-bottom: -20px;
+    width:21%;
+    text-align:left;
+    position:relative;min-height:1px;padding-right:15px;padding-left:15px;
+    margin: auto;
+  }
+
+  .box3{
+    display: inline-block;
+    margin-bottom: -20px;
+    width:100%;
+    text-align:center;
+    position:relative;min-height:1px;padding-right:5px;padding-left:5px;
+    margin: auto;
+  }
+
+  .box4{
+    display: inline-block;
+    margin-bottom: -20px;
+    width:18%;
+    text-align:left;
+    position:relative;min-height:1px;padding-right:5px;padding-left:5px;
+    margin: auto;
+  }
+
+  .box5{
+    display: inline-block;
+    margin-bottom: -20px;
+    width:15%;
+    text-align:left;
+    position:relative;min-height:1px;padding-right:5px;padding-left:5px;
+    margin: auto;
+  }
+
+  .box6{
+    display: inline-block;
+    margin-bottom: -20px;
+    width:15%;
+    text-align:left;
+    position:relative;min-height:1px;padding-right:5px;padding-left:5px;
+    margin: auto;
+  }
+
+  .box7{
+    display: inline-block;
+    margin-bottom: -20px;
+    width:10%;
+    text-align:left;
+    position:relative;min-height:1px;padding-right:5px;padding-left:5px;
+    margin: auto;
+  }
+
+  table.ui-content-middle-menu-workorder3 {width:1030px;}
+
+  .small-box  .inner2 {
+    padding: 10px;
+    height: 75px;
+  }
+
+  .open-bookingform{
+    display: inline-block;
+    width: 100%;
+  }
+
+  .open-bookingform .col-bookingform{
+    float: left;
+    width: 40%;
+    padding: 10px 30px 10px 30px;
+    display:inline-block;
+  }
+
+  .open-bookingform .col-bookingform label{
+    width: 100%;
+    float:left;
+    line-height: 17px;
+  }
+
+  .open-bookingform .col-bookingform input{
+    width: 100%;
+    float:left;
+  }
+  .middle-report-1 ,.middle-report-2{
+    float: left;
+    width: 49.05%;
+    background:#C3E6D8;
+    color: black;
+    padding-left:10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .middle-report-3{
+    margin-left: 0px;
+    padding-left: 10px;
+    margin-top:20px;
+    color:black;
+  }
+
+  .middle-report-3 input[type=submit]{
+    padding-left: -10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 10px;
+  }
+
+  .ui-left_web , #web {
+    display: intial;
+  }
+
+  .ui-left_mobile , #mobile ,table.xxdisplayxx{
+    display: none;
+  }
+}
