@@ -18,9 +18,9 @@ function ins_complaint($insert_data){
 
 $this->db->insert('pmis2_com_complaint', $insert_data);
 
-//echo $this->db->last_query();
+echo $this->db->last_query();
 
-		//exit();
+		exit();
 }
 
 
@@ -320,7 +320,8 @@ function visit1_woexist($value,$variable){
 				$this->insert_model->visit1_form($insert_data);
 				$TOWdata = array(
 						'v_WrkOrdNo'=> $RN,
-						'type_of_work' => $this->input->post('n_Type_of_Work')
+						'type_of_work' => $this->input->post('n_Type_of_Work'),
+						'v_HospitalCode' => $this->session->userdata('hosp_code')
 				);
 				$this->insert_model->visitTOW_form($TOWdata);
 
@@ -1664,7 +1665,8 @@ function visitplus_woexist($value,$variable,$value1,$variable1){
 				else{
 				$TOWdata = array(
 						'v_WrkOrdNo'=> $RN,
-						'type_of_work' => $this->input->post('n_Type_of_Work')
+						'type_of_work' => $this->input->post('n_Type_of_Work'),
+						'v_HospitalCode' => $this->session->userdata('hosp_code')
 				);
 				$this->insert_model->visitTOW_form($TOWdata);
 				}

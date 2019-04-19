@@ -5,7 +5,7 @@
 		<form method="get" action="">
 			<tr class="ui-color-contents-style-1" height="40px">
 				<td class="ui-header-new" colspan="7"><span style="float: left; margin-top:5px; font-weight: bold; margin-right:7px;">Reports By Group </span>
-				<?php 
+				<?php
 						$assetgroup = array(
 							'' => 'All',
 							'1' => 'Group 1',
@@ -36,8 +36,8 @@
 							<a href="?y=<?= $year+1?>&m=<?= $month?>&grp=<?php echo $this->input->get('grp')?>"><img src="<?php echo base_url(); ?>images/arrow-right2.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
 							</td>
 			</tr>
-			<?php 
-			
+			<?php
+
 			function evenodd($numberx) {
 			//$number++;
 			if ($numberx % 2 == 0) {
@@ -46,9 +46,9 @@
 			else {
 			   return "ui-rpt-color-style";
 			}
-			
+
 			}
-			
+
 			 ?>
 			<!--<tr>
 				<td colspan="5">'Sample Function Start 090319' 'Sample Function End 090319'</td>
@@ -59,7 +59,7 @@
 					<?php echo anchor ('contentcontroller/Attendance?en=Report','<img src="'. base_url() .'images/user.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;Attendance Report'); ?>
 				</td>
 			</tr>
-			<?php  } ?>			
+			<?php  } ?>
 			<?php if (!in_array("contentcontroller/Attendance", $chkers)) { ?>
 			<tr class="<?php  $number++; echo evenodd($number); ?>">
 				<td colspan="4">
@@ -95,7 +95,7 @@
 				</td>
 			</tr>
 			<?php  } ?>
-			
+
 			<?php  if (!in_array("contentcontroller/joint_ins", $chkers)) { ?>
 			<tr class="<?php  $number++; echo evenodd($number); ?>">
 				<td colspan="4">
@@ -110,7 +110,7 @@
 				</td>
 			</tr>
 			<?php  } ?>
-			
+
 			<?php  if (!in_array("contentcontroller/report_ppmwos", $chkers)) { ?>
 			<tr class="<?php  $number++; echo evenodd($number); ?>">
 				<td colspan="4">
@@ -125,8 +125,8 @@
 				</td>
 			</tr>
 			<?php  } ?>
-			
-			
+
+
 			<?php  if (!in_array("contentcontroller/report_ppmwosf", $chkers)) { ?>
 			<tr class="<?php  $number++; echo evenodd($number); ?>">
 				<td colspan="4">
@@ -160,7 +160,7 @@
 				<td colspan="4">
 					<?php echo anchor ('contentcontroller/report_reqwos?m='.$month.'&y='.$year.'&grp='.$this->input->get('grp').'&fon=on', '<img src="'. base_url() .'images/user.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;Request Work Order Summary (Freeze)'); ?>
 				</td>
-			</tr>			
+			</tr>
 			<?php  } ?>
 			<?php  if (!in_array("contentcontroller/report_voluf", $chkers)) { ?>
 			<tr class="<?php  $number++; echo evenodd($number); ?>">
@@ -266,7 +266,7 @@
 				</td>
 			</tr>
 			<?php  } ?>
-			
+
 			<?php if (!in_array("contentcontroller/report_rmc", $chkers)) { ?>
 			<tr class="<?php  $number++; echo evenodd($number); ?>">
 				<td colspan="4">
@@ -279,10 +279,10 @@
 					<?php echo anchor ('contentcontroller/report_ppmwos?m='.$month.'&y='.$year, '<img src="'. base_url() .'images/user.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;Camsis Performance Report'); ?>
 				</td>
 			</tr>-->
-			
-			
-			
-			
+
+
+
+
 			<?php if (!in_array("contentcontroller/report_vossu", $chkers)) { ?>
 			<tr class="<?php  $number++; echo evenodd($number); ?>">
 				<td colspan="4">
@@ -290,7 +290,7 @@
 				</td>
 			</tr>
 			<?php  } ?>
-			
+
 			<?php if (!in_array("contentcontroller/report_ppmp", $chkers)) { ?>
 			<tr class="<?php  $number++; echo evenodd($number); ?>">
 				<td colspan="4">
@@ -333,7 +333,7 @@
 				</td>
 			</tr>
 			<?php  } ?>
-			
+
 			<!--<tr class="ui-rpt-color-style">
 				<td colspan="4">
 					<?php echo anchor ('contentcontroller/report_tcc?m='.$month.'&y='.$year, '<img src="'. base_url() .'images/user.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;T&C Count'); ?>
@@ -439,8 +439,8 @@
 				</td>
 			</tr>
 			<?php  } ?>
-			
-			
+
+
 			<!--<tr class="ui-rpt-color-style">
 				<td colspan="4">
 					<?php echo anchor ('contentcontroller/monthly_p_work', '<img src="'. base_url() .'images/user.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;Periodic Work ( Monthly Planner )'); ?>
@@ -490,8 +490,8 @@
 				</td>
 				<td>&nbsp;</td>
 			</tr>-->
-			
-			
+
+
 			<?php if (!in_array("contentcontroller/fnex", $chkers)) { ?>
 			<tr class="<?php  $number++; echo evenodd($number); ?>">
 				<td colspan="4">
@@ -549,7 +549,7 @@
 				</td>
 			</tr>
 			<?php  } ?>
-			
+
 			<?php  } ?><!--fes reports-->
 			<?php  if (($this->session->userdata('usersess') == 'FES') || ($this->session->userdata('usersess') == 'BES')) {?>
 			<?php if (!in_array("contentcontroller/report_fdreport", $chkers)) { ?>
@@ -563,9 +563,9 @@
 				</td>
 			</tr>
 			<?php  } ?>
-			
-	
-			
+
+
+
 			<?php  } ?>
 			<?php  if ($this->session->userdata('usersess') == 'HKS') {?>
 			<?php if (!in_array("contentcontroller/Unsatisfactory_by_Group", $chkers)) { ?>
@@ -583,7 +583,7 @@
 				</td>
 			</tr>
 			<?php  } ?>
-			
+
 			<?php  if (!in_array("contentcontroller/report_reqwosbya2", $chkers)) { ?>
 			<tr class="<?php  $number++; echo evenodd($number); ?>">
 				<td colspan="4">
@@ -591,7 +591,7 @@
 				</td>
 			</tr>
 			<?php  } ?>
-			
+
 			<?php if (!in_array("contentcontroller/report_a2", $chkers)) { ?>
 			<tr class="<?php  $number++; echo evenodd($number); ?>">
 				<td colspan="4">
@@ -666,6 +666,13 @@
 			<tr class="<?php  $number++; echo evenodd($number); ?>">
 				<td colspan="4">
 					<?php echo anchor ('contentcontroller/report_a12newconse?en=Report','<img src="'. base_url() .'images/user.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;A12'); ?>
+				</td>
+			</tr>
+			<?php  } ?>
+			<?php if (!in_array("contentcontroller/report_a10", $chkers)) { ?>
+			<tr class="<?php  $number++; echo evenodd($number); ?>">
+				<td colspan="4">
+					<?php echo anchor ('contentcontroller/report_a10?en=Report','<img src="'. base_url() .'images/user.png" alt="" class="ui-icon"/>&nbsp;&nbsp;&nbsp;&nbsp;A10'); ?>
 				</td>
 			</tr>
 			<?php  } ?>

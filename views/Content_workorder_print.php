@@ -34,7 +34,7 @@
 				<td style="padding:1px; width:80px; font-size: 13px;">
 					<div class="box2"><img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/></div> SEC
 				</td>
-				<td style="padding:1px; width:80px; font-size: 12px;"> 
+				<td style="padding:1px; width:80px; font-size: 12px;">
 					<div class="box2"></div> HKS
 				</td>
 				<?php }elseif(($this->session->userdata('usersess') == 'HKS')){ ?>
@@ -42,13 +42,13 @@
 					<div class="box2"></div> SEC
 				</td>
 				<td style="padding:1px; width:80px; font-size: 12px;">
-					<div class="box2"><img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/></div> HKS			
+					<div class="box2"><img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/></div> HKS
 				</td>
 				<?php }elseif(($this->session->userdata('usersess') == 'BES')){ ?>
 				<td style="padding:1px; width:80px; font-size: 12px;">
 					<div class="box2"><img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/></div> BES
 				</td> -->
-				<!-- <td style="padding:1px; width:80px; font-size: 12px;"> 
+				<!-- <td style="padding:1px; width:80px; font-size: 12px;">
 					<div class="box2"></div> FES
 				</td>
 				<?php }elseif(($this->session->userdata('usersess') == 'FES')){ ?>
@@ -56,7 +56,7 @@
 					<div class="box2"></div> BES
 				</td> -->
 				<!-- <td style="padding:1px; width:80px; font-size: 12px;">
-					<div class="box2"><img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/></div> FES			
+					<div class="box2"><img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/></div> FES
 				</td> -->
 				<?php } ?>
 				<!-- <td style="padding-left:45%; width:400px; font-size: 12px;"> Date : <?= date("d/m/Y")?> </td> -->
@@ -109,7 +109,7 @@
 						<tr>
 							<td class="tbl-wo-data">Asset No </td>
 							<td style="width:;">: <span style="color:blue;"><?= ($woinfo[0]->V_Tag_no) ? $woinfo[0]->V_Tag_no : 'NA' ?></span></td>
-			
+
 						</tr>
 						<tr>
 							<td class="tbl-wo-data">Model </td>
@@ -121,7 +121,7 @@
 							</td>
 						</tr>
 					</table></td>
-			<td style="width:50%; padding:1px;" valign="top" colspan="0"> 
+			<td style="width:50%; padding:1px;" valign="top" colspan="0">
 					<table class="tbl-wo-1" border="0" align="left">
 							<tr colspan="2">
 							<td> Request Description :</td>
@@ -142,21 +142,21 @@
 							<td height="70"></td>
 						</tr>
 						<td width="50%">Warranty Status </td>
-						<td> 
+						<td>
 							<table class="tbl-wo" border="0" align="left">
 								<tr height=3></tr>
 									<td style="width:50%;"> : <div class="box2">
 									<?php if((strtotime($woinfo2[0]->V_Wrn_end_code) > strtotime(date("d/m/Y")))) {?>
 									<img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/>
 									<?php }else{ ?>
-									
+
 									<?php } ?>
 									</div> Under Warranty</td>
 									<td style="width:50%;"><div class="box2">
 									<?php  if(strtotime($woinfo2[0]->V_Wrn_end_code) < strtotime(date("d/m/Y"))) {?>
 									<img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/>
 									<?php }else{ ?>
-									
+
 									<?php } ?>
 									</div> Post Warranty</td>
 								</tr>
@@ -167,7 +167,7 @@
 				</td>
 				</tr>
 				<tr>
-				<td style="padding:1px;"> 
+				<td style="padding:1px;">
 					<table class="tbl-wo-1" border="0" align="bottom" width="50">
 						<tr>
 							<td class="tbl-wo-data">Taken By </td>
@@ -177,9 +177,15 @@
 							<td class="tbl-wo-data">Request Type</td>
 							<td>: <span style="color:blue;"><?= ($woinfo[0]->V_request_type) ? $woinfo[0]->V_request_type : 'NA' ?></span></td>
 						</tr>
+						<?php if ($woinfo[0]->V_request_type == "A10") { ?>
+						<tr>
+							<td class="tbl-wo-data">Type</td>
+							<td>: <span style="color:blue;"><?= ($woinfo[0]->V_respon) ? $woinfo[0]->V_respon : 'NA' ?></span></td>
+						</tr>
+					<?php }?>
 						<td class="tbl-wo-data">Priority </td>
 						<!-- <td>: <span style="color:blue;"><?= ($woinfo[0]->V_priority_code) ? $woinfo[0]->V_priority_code : 'NA' ?></span></td> -->
-						<td> 
+						<td>
 							<table class="tbl-wo font-12" border="0" align="left">
 								<tr>
 									<td style="width:33.33%;"> :
@@ -221,11 +227,11 @@
 						</tr>
 						<?php } ?>
 						 -->
-						
-					</table> 
+
+					</table>
 				</td>
 
-				<td style="padding:0px; margin: 0px;"> 
+				<td style="padding:0px; margin: 0px;">
 				<table class="tbl-wo-1" border="0" align="bottom" width="50">
 						<?php if( $woinfo[0]->V_request_type == 'AP'){?>
 						<tr>
@@ -252,7 +258,7 @@
 							<td style=" border:1px solid black;" valign="top"><div class="box2"></div> Unlisted Activity </td>
 							<td style="" valign="top"><div class="box2"></div> Other </td>
 							<td></td>
-							
+
 						</tr>
 						<tr>
 							<td rowspan=2 style="border-top: 1px solid black;" class="tbl-wo-data">Nature of arrangement </td>
@@ -264,7 +270,10 @@
 							<td style=" border:1px solid black;" valign="top"><div class="box2"></div> Non-scheduled</td>
 							<td></td>
 						</tr>
-		
+						<tr>
+							<td style="border-top: 1px solid black"></td>
+						</tr>
+
 		</table>
 		</td>
 		<table class="tbl-wo" border="0" align="center" style="background-color:black; color:white;">
@@ -295,7 +304,7 @@
 							<td> <hr class='dotted' style="margin:10px 5px 5px 5px;" /></td>
 						</tr>
 						<?php } ?>
-					</table> 
+					</table>
 				</td>
 				<td style="width:50%; padding:1px;" valign="top" style="" colspan="">
 					<table class="tbl-wo-1" border="0" align="left">
@@ -314,7 +323,7 @@
 							<td> Date : </td>
 							<td>Time :</td>
 						</tr>
-					</table> 
+					</table>
 				</td>
 			</tr>
 			<?php if(($this->session->userdata('usersess') == 'SEC') or ($this->session->userdata('usersess') == 'HKS')){?>
@@ -326,7 +335,7 @@
 						<tr>
 							<td style="width:30%;" valign="top"> Equipment :</td>
 							<td style="width:33%;" valign="top"><div class="box2"></div> Remained on-side </td>
-							<td style="width:36%;"><div class="box2"></div> Released to Contractor <br/> 
+							<td style="width:36%;"><div class="box2"></div> Released to Contractor <br/>
 							<i style="padding-left:12px;">ETF Ref No : </i> </td>
 						</tr>
 						<tr>
@@ -414,14 +423,14 @@
 				<td align="center">&nbsp;<?=($partlist[4][0]) ? $partlist[4][0] : ''?></td>
 				<td align="center">&nbsp;<?=($partlist[4][1]) ? $partlist[4][1] : ''?></td>
 				<td align="center">&nbsp;<?=($partlist[4][2]) ? $partlist[4][2] : ''?></td>
-			</tr>			
+			</tr>
 			<tr>
 				<td valign="top" height="60px" colspan="9" >
 					<table class="tbl-wo-1" border="0" align="left">
 						<tr>
 							<td style="padding:1px;">Actual Work Done / Recommendation :</td>
 						</tr>
-						
+
 						<tr>
 							<td><?=($actiontaken[1][0]) ? $actiontaken[1][0] : ''?><hr class='dotted' style="margin:10px 5px 5px 5px;"/></td>
 						</tr>
@@ -665,7 +674,7 @@
 						</tr>
 					</table>
 				</td>
-			</tr>	
+			</tr>
 		</table>
 		<table class="tbl-wo" border="0" align="">
 			<tr>

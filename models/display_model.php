@@ -284,6 +284,7 @@
 			$this->db->from('pmis2_emg_jobvisit1 v1');
 			$this->db->join('pmis2_egm_service_request s','s.V_Request_no = v1.v_WrkOrdNo');
 			$this->db->join('pmis2_emg_jobvisit1tow vt','v1.v_WrkOrdNo = vt.v_WrkOrdNo');
+			$this->db->where("s.v_hospitalcode = ", $this->session->userdata('hosp_code'));
 			$this->db->where('v1.v_Actionflag !=','D');
 			$this->db->where('v1.v_WrkOrdNo',$wrk_ord);
 			$this->db->where('s.V_servicecode = ',$this->session->userdata('usersess'));
@@ -7072,6 +7073,19 @@ exit();
   			//exit();
   			return $query->result();
 		}
+
+    	function a10new($year,$month){//sapik
+    	$this->db->select('a.*, b.v_summary as closesummary, c.v_ActionTaken, c.d_Date AS respdate',false);
+    	$this->db->from('pmis2_egm_service_request a');
+      $this->db->join('pmis2_egm_jobdonedet b', 'a.V_Request_no = b.v_Wrkordno AND a.V_hospitalcode = b.v_HospitalCode', 'left outer');
+      $this->db->join('pmis2_emg_jobvisit1 c', 'b.v_Wrkordno = c.v_WrkOrdNo AND b.v_HospitalCode = c.v_HospitalCode AND n_Visit = 1', 'left outer');
+    	$this->db->where("a.v_request_type = 'A10' and a.v_hospitalcode = '".$this->session->userdata('hosp_code')."' AND MONTH(a.D_date) = ".$month." AND YEAR(a.D_date) = ".$year);
+        $query = $this->db->get();
+    	//echo $this->db->last_query();
+    		//exit();
+    	$query_result = $query->result();
+        return $query_result;
+    	}
 
 }
 ?>

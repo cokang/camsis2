@@ -8798,6 +8798,15 @@ public function report_chronology(){
 		$this ->load->view("content_store_rpt",$data);
 	}
 
+public function report_a10(){
+ $this->load->model("display_model");
+$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
+$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+$data['records'] = $this->display_model->a10new($data['year'],$data['month']);
+$this ->load->view("headprinter");
+$this ->load->view("report-a10.php",$data);
+  }
+
 
 }
 ?>

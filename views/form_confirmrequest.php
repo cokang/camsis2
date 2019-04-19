@@ -40,12 +40,31 @@
 										<tr>
 											<td style="padding-left:10px;" valign="top">Summary : </td>
 											<td style="padding-left:10px;"><textarea class="Input" name="n_summary n_com2" readonly><?php echo set_value('n_summary'); ?></textarea></td>
-										</tr>																																			
+										</tr>
 									</table>
 								</td>
 							</tr>
 					</table>
 				</div>
+				<?php if ($this->input->post('n_request_type') == "A10") {?>
+				<div class="middle_d">
+					<table width="100%" class="ui-content-form-reg" style="">
+						<tr class="ui-color-contents-style-1" height="30px">
+								<td colspan="2" class="ui-header-new"><b>Type</b></td>
+							</tr>
+							<tr >
+								<td class="ui-desk-style-table">
+									<table class="ui-content-form" width="100%" border="0">
+										<tr>
+											<td style="padding-left:10px;" valign="top" class="ui-w">Type:</td>
+											<td style="padding-left:10px;" valign="top" ><input type="text" name="n_type" value="<?php echo $this->input->post('n_type');?>" class="form-control-button2 n_wi-date2" readonly/></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+					</table>
+				</div>
+			<?php }?>
 				<div class="middle_d">
 					<?php if ($this->session->userdata('usersess')=='BES' OR $this->session->userdata('usersess')=='FES') {?>
 					<table class="ui-content-form-reg">
@@ -70,10 +89,10 @@
 									<tr>
 										<td style="padding-left:10px;">Name :	 </td>
 										<td style="padding-left:10px;"><input type="text" name="n_name" value="<?php echo $this->input->post('n_name');?>" class="form-control-button2 n_wi-date2" readonly/></td>
-									</tr>																																																																	
+									</tr>
 								</table>
 							</td>
-						</tr>						
+						</tr>
 					</table>
 					<?php } ?>
 				</div>
@@ -94,7 +113,7 @@
 									<tr>
 										<td style="padding-left:10px;" valign="top">Designation : </td>
 										<td style="padding-left:10px; padding-top:5px;" valign="top"><input type="text" name="n_designation" value="<?php echo $this->input->post('n_designation');?>" class="form-control-button n_wi-date2" readonly></td>
-									</tr>																																									
+									</tr>
 								</table>
 							</td>
 						</tr>
@@ -127,10 +146,10 @@
 									<tr>
 										<td style="padding-left:10px;">&nbsp; </td>
 										<td style="padding-left:10px;"><input type="text" name="n_location1" value="<?php echo $this->input->post('n_location1');?>" class="form-control-button n_wi-date2" readonly/></td>
-									</tr>																																					
+									</tr>
 								</table>
 							</td>
-						</tr>						
+						</tr>
 					</table>
 				</div>
 				<div class="middle_d">
@@ -146,10 +165,10 @@
 										<td style="padding-left:10px;">
 										<input type="checkbox" name="chkbox" id="checkbox" <?php echo set_checkbox('chkbox', 'ON', TRUE); ?> disabled>
 										</td>
-									</tr>																																																													
+									</tr>
 								</table>
 							</td>
-						</tr>						
+						</tr>
 					</table>
 				</div>
 			</div>

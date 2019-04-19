@@ -84,6 +84,7 @@ function visit3_form($insert_data){
 function visitTOW_form($TOWdata){
 	$RN = $this->input->post('wrk_ord');
 	$this->db->where('v_WrkOrdNo',$RN);
+	$this->db->where('v_HospitalCode',$this->session->userdata('hosp_code'));
 	$this->db->update('pmis2_emg_jobvisit1tow', $TOWdata);
 }
 function job_form($insert_data){

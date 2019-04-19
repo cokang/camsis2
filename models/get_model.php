@@ -3466,9 +3466,9 @@ function get_wodatelate($wono,$nvisit)
   $this->db->select(" ifnull(b.d_date, a.d_date) as latedt ", FALSE);
 	$this->db->join('pmis2_emg_jobvisit1 b','a.v_request_no = b.v_wrkordno '.$nkx , 'LEFT OUTER');
   $this->db->where('a.v_request_no = ', $wono);
-	$this->db->_protect_identifiers = FALSE;
+	$this->db->protect_identifiers = FALSE;
 	$this->db->order_by('ifnull(b.d_date, a.d_date)','DESC', false);
-	$this->db->_protect_identifiers = TRUE;
+	$this->db->protect_identifiers = TRUE;
   $query = $this->db->get('pmis2_egm_service_request a');
   //echo "laalla".$query->DWRate;
   //echo $this->db->last_query();
