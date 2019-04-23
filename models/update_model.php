@@ -90,6 +90,7 @@ function visitTOW_form($TOWdata){
 function job_form($insert_data){
 	$RN = $this->input->post('wrk_ord');
 	$this->db->where('v_WrkOrdNo',$RN);
+	$this->db->where("v_HospitalCode = ", $this->session->userdata('hosp_code'));
 	$this->db->update('pmis2_egm_jobdonedet', $insert_data);
 }
 function woppm_form($insert_data){
@@ -107,6 +108,7 @@ function pmis2_egm_schconfirmmon($status){
 function pmis2_egm_service_request($status){
 	$RN = $this->input->post('wrk_ord');
 	$this->db->where('V_Request_no',$RN);
+	$this->db->where("V_hospitalcode = ", $this->session->userdata('hosp_code'));
 	$this->db->update('pmis2_egm_service_request', $status);
 	//echo $this->db->last_query();
 	//exit();
@@ -264,6 +266,7 @@ function visitplus_form($insert_data,$wrk_ord,$visit){
 	//$RN = $this->input->post('wrk_ord');
 	$this->db->where('v_WrkOrdNo',$wrk_ord);
 	$this->db->where('n_Visit',$visit);
+	$this->db->where("v_HospitalCode = ", $this->session->userdata('hosp_code'));
 	$this->db->update('pmis2_emg_jobvisit1', $insert_data);
 	//echo $this->db->last_query();
 	//exit();
@@ -311,6 +314,7 @@ function weekp_scheduler_u($insert_data,$dept,$date,$monthyear){
 }
 function delete_wo($insert_data,$wrk_ord){
 	$this->db->where('V_Request_no',$wrk_ord);
+	$this->db->where("V_hospitalcode = ", $this->session->userdata('hosp_code'));
 	$this->db->update('pmis2_egm_service_request', $insert_data);
 }
 

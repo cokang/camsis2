@@ -1,5 +1,8 @@
 
 <div class="ui-middle-screen">
+<table class="table-middle-screen-2" border="0">
+<tr>
+    <td valign="top" style="width: 13%; border-style:none;";>
 	<?php if( $this->input->get('ag') == '1'){?>
 	<?php }else{ ?>
 	<?php include 'content_menu_acg.php';?>

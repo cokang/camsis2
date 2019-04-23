@@ -47,6 +47,7 @@ class Ajax extends CI_Controller {
     		}
 
 			$data['visitD'][$row->n_Visit] = date_format(new DateTime($row->d_Date), 'd-m-Y');
+			$data['d_Resc'][$row->n_Visit] = ($row->d_Reschdt) ? date_format(new DateTime($row->d_Reschdt), 'd-m-Y') : 'N/A';
 			$data['P1time'][$row->n_Visit] = explode(':',$row->n_Hours1);
 			$data['P2time'][$row->n_Visit] = explode(':',$row->n_Hours2);
 			$data['P3time'][$row->n_Visit] = explode(':',$row->n_Hours3);

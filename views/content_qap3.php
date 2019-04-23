@@ -1,4 +1,7 @@
 <div class="ui-middle-screen">
+<table class="table-middle-screen-2" border="0">
+<tr>
+    <td style="width: 13%; border-style:none;";>
 <?php include 'content_tab_qap3.php';?>
 	<div class="content-workorder">
 		<table class="ui-content-middle-menu-workorder" border="0" height="" width="80%" align="center">
@@ -115,6 +118,9 @@
 			</tr>
 		</table>
 	</div>
+	</td>
+	</tr>
+	</table>
 </div>
 <script src="<?php echo base_url(); ?>js/highcharts.js"></script>
 <script src="<?php echo base_url(); ?>js/highcharts-3d.js"></script>

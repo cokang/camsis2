@@ -3,7 +3,7 @@
 <div class="ui-middle-screen">
   <div class="content-workorder" align="center">
             <div class="div-p"></div>
-    <table class="ui-desk-style-table3" cellpadding="4" cellspacing="0" width="92%" border="0">  
+    <table class="ui-desk-style-table3" cellpadding="4" cellspacing="0" width="92%" border="0">
       <tr class="ui-color-contents-style-1" height="40px">
         <td class="ui-header-new" colspan="2"><b><?php if ($this->input->get('visit') != ''){echo 'Update';}else{echo 'Add';}?> Visit Plus</b></td>
                         <span style="color:red;"><?php echo validation_errors(); ?>
@@ -15,7 +15,7 @@
       <tr>
         <td valign="top" class="td-assest">Start Time :</td>
         <td>
-          <?php 
+          <?php
                     $hour_list = array(
                     '0' => '0',
                               '1' => '1',
@@ -44,7 +44,7 @@
                            );
                      ?>
                         <?php echo form_dropdown('n_Shour', $hour_list, set_value('n_Shour',isset($Stime[0]) == TRUE ? $Stime[0] : '') , 'class="dropdown" style="width: 52px;" id="Stime_h"'); ?> <!--$Stimeres[0]-->
-                    <?php 
+                    <?php
                     $min_list = array(
                     '0' => '0',
                               '1' => '1',
@@ -107,14 +107,14 @@
                               '58' => '58',
                               '59' => '59',
                            );
-                     ?>   
+                     ?>
                         <?php echo form_dropdown('n_Smin', $min_list, set_value('n_Smin',isset($Stime[1]) == TRUE ? $Stime[1] : '') , 'class="dropdown" style="width: 52px;" id="Stime_m"'); ?> <!--$Stimeres[1]-->
         </td></td>
       </tr>
       <tr>
         <td valign="top" class="td-assest">End Time :</td>
         <td>
-          <?php 
+          <?php
                     $hour_list = array(
                     '0' => '0',
                               '1' => '1',
@@ -142,8 +142,8 @@
                               '23' => '23',
                            );
                      ?>
-                        <?php echo form_dropdown('n_Ehour', $hour_list, set_value('n_Ehour',isset($Etime[0]) == TRUE ? $Etime[0] : 'N/A') , 'class="dropdown" style="width: 52px;" id="Etime_h"'); ?> 
-                    <?php 
+                        <?php echo form_dropdown('n_Ehour', $hour_list, set_value('n_Ehour',isset($Etime[0]) == TRUE ? $Etime[0] : 'N/A') , 'class="dropdown" style="width: 52px;" id="Etime_h"'); ?>
+                    <?php
                     $min_list = array(
                     '0' => '0',
                               '1' => '1',
@@ -206,21 +206,29 @@
                               '58' => '58',
                               '59' => '59',
                            );
-                     ?>   
+                     ?>
                         <?php echo form_dropdown('n_Emin', $min_list, set_value('n_Emin',isset($Etime[1]) == TRUE ? $Etime[1] : 'N/A') , 'class="dropdown" style="width: 52px;" id="Etime_m"'); ?>
         </td>
       </tr>
       <tr>
         <td class="td-assest" valign="top">Type of Work : </td>
         <td >
-                              <?php 
+                              <?php
+                              if (strstr($wrk_ord, '/A10/')) {
                               $TOW_list = array(
                               '' => '',
-                              'Normal' => 'Normal',
-                              'Reimbursable' => 'Reimbursable',
-                              'UnderWarranty' => 'UnderWarranty',
                               'BER' => 'BER',
-                              );
+                              'CA' => 'CA',
+                              'LCA' => 'LCA',
+                              'RW' => 'RW',
+                              'SNP' => 'Safety & Procedure',
+                            );} else {
+                            $TOW_list = array(
+                            '' => '',
+                            'Normal' => 'Normal',
+                            'Reimbursable' => 'Reimbursable',
+                            'UnderWarranty' => 'UnderWarranty',
+                            'BER' => 'BER',);}
                               ?>
                               <?php echo form_dropdown('n_Type_of_Work', $TOW_list, set_value('n_Type_of_Work',isset($record[0]->type_of_work) == TRUE ? $record[0]->type_of_work : 'N/A') , 'class="dropdown n_wi-date"'); ?>
         </td>
@@ -239,25 +247,25 @@
                   <tr>
                         <td valign="top" class="td-assest"> Reason : </td>
                         <td>
-                              
-                              <input type="radio" id="radio-1-1" name="n_rschReason" class="regular-radio" value="1 - Not found" <?php echo set_radio('n_rschReason', '1 - Not found'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '1 - Not found' ? 'checked' : ''?>/> 
+
+                              <input type="radio" id="radio-1-1" name="n_rschReason" class="regular-radio" value="1 - Not found" <?php echo set_radio('n_rschReason', '1 - Not found'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '1 - Not found' ? 'checked' : ''?>/>
                               <label for="radio-1-1"></label> 1 - Not found <br />
-                              <input type="radio" id="radio-1-2" name="n_rschReason" class="regular-radio" value="2 - In use" <?php echo set_radio('n_rschReason', '2 - In use'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '2 - In use' ? 'checked' : ''?>/>   
+                              <input type="radio" id="radio-1-2" name="n_rschReason" class="regular-radio" value="2 - In use" <?php echo set_radio('n_rschReason', '2 - In use'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '2 - In use' ? 'checked' : ''?>/>
                               <label for="radio-1-2"></label> 2 - In use<br />
-                              <input type="radio" id="radio-1-3" name="n_rschReason" class="regular-radio" value="3 - Lock in room/not accessible" <?php echo set_radio('n_rschReason', '3 - Lock in room/not accessible'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '3 - Lock in room/not accessible' ? 'checked' : ''?>/> 
+                              <input type="radio" id="radio-1-3" name="n_rschReason" class="regular-radio" value="3 - Lock in room/not accessible" <?php echo set_radio('n_rschReason', '3 - Lock in room/not accessible'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '3 - Lock in room/not accessible' ? 'checked' : ''?>/>
                               <label for="radio-1-3"></label> 3 - Lock in room/not accessible <br />
-                              <input type="radio" id="radio-1-4" name="n_rschReason" class="regular-radio" value="4 - Transferred" <?php echo set_radio('n_rschReason', '4 - Transferred'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '4 - Transferred' ? 'checked' : ''?>/> 
+                              <input type="radio" id="radio-1-4" name="n_rschReason" class="regular-radio" value="4 - Transferred" <?php echo set_radio('n_rschReason', '4 - Transferred'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '4 - Transferred' ? 'checked' : ''?>/>
                               <label for="radio-1-4"></label> 4 - Transferred <br />
-                              <input type="radio" id="radio-1-5" name="n_rschReason" class="regular-radio" value="5 - Equipment down" <?php echo set_radio('n_rschReason', '5 - Equipment down'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '5 - Equipment down' ? 'checked' : ''?>/>   
+                              <input type="radio" id="radio-1-5" name="n_rschReason" class="regular-radio" value="5 - Equipment down" <?php echo set_radio('n_rschReason', '5 - Equipment down'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '5 - Equipment down' ? 'checked' : ''?>/>
                               <label for="radio-1-5"></label> 5 - Equipment down<br />
-                              <input type="radio" id="radio-1-6" name="n_rschReason" class="regular-radio" value="6 - Breakdown of related support system" <?php echo set_radio('n_rschReason', '6 - Breakdown of related support system'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '6 - Breakdown of related support system' ? 'checked' : ''?>/> 
+                              <input type="radio" id="radio-1-6" name="n_rschReason" class="regular-radio" value="6 - Breakdown of related support system" <?php echo set_radio('n_rschReason', '6 - Breakdown of related support system'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '6 - Breakdown of related support system' ? 'checked' : ''?>/>
                               <label for="radio-1-6"></label> 6 - Breakdown of related support system <br />
-                              <input type="radio" id="radio-1-7" name="n_rschReason" class="regular-radio" value="7 - Vendor delay" <?php echo set_radio('n_rschReason', '7 - Vendor delay'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '7 - Vendor delay' ? 'checked' : ''?>/>   
+                              <input type="radio" id="radio-1-7" name="n_rschReason" class="regular-radio" value="7 - Vendor delay" <?php echo set_radio('n_rschReason', '7 - Vendor delay'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '7 - Vendor delay' ? 'checked' : ''?>/>
                               <label for="radio-1-7"></label> 7 - Vendor delay<br />
-                              <input type="radio" id="radio-1-8" name="n_rschReason" class="regular-radio" value="8 - Others" <?php echo set_radio('n_rschReason', '8 - Others'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '8 - Others' ? 'checked' : ''?>/>   
+                              <input type="radio" id="radio-1-8" name="n_rschReason" class="regular-radio" value="8 - Others" <?php echo set_radio('n_rschReason', '8 - Others'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '8 - Others' ? 'checked' : ''?>/>
                               <label for="radio-1-8"></label> 8 - Others<br /><br />
                               <textarea class="input  n_com" name="n_rschReason1"><?php echo set_value('n_rschReason1', isset($rschReason[1]) == TRUE ? trim($rschReason[1]) : 'N/A')?></textarea>
-                              
+
                         </td>
                   </tr>
                   <tr>
@@ -281,7 +289,7 @@
                                     <input type="text" id="n_personnel_code1" name="C_requestor1" value="<?php echo set_value('C_requestor1',isset($P1personal[0]) == TRUE ? $P1personal[0] : 'N/A')?>" size="10" class="form-control-button2" readonly>
                                     <span class="icon-windows" onclick="fCalldetailname(this,document.getElementById('n_End_Time_h1').value,document.getElementById('n_End_Time_m1').value)" value="woresponse&v=r&r=1"></span>
                                     <span style="font-size:14px;"><input type="text" id="n_personnel_name1" name="V_requestor1" value="<?php echo set_value('V_requestor1',isset($P1personal[1]) == TRUE ? $P1personal[1] : '')?>" size="10" class="input-none" readonly></span></div>
-                              <div class="p-vo-3"><span class="ui-left_mobile">Time Spent : </span><?php 
+                              <div class="p-vo-3"><span class="ui-left_mobile">Time Spent : </span><?php
                                                             $hour_list = array(
                                                             '0' => '0',
                                                       '1' => '1',
@@ -310,9 +318,9 @@
                                            );
                                                              ?>
 
-                                                        <?php echo form_dropdown('n_End_Time_h1', $hour_list, set_value('n_End_Time_h1',isset($P1time[0]) == TRUE ? $P1time[0] : 'N/A') , 'class="dropdown" style="width: 52px;" id="n_End_Time_h1"'); ?> 
-                                                            
-                                                            <?php 
+                                                        <?php echo form_dropdown('n_End_Time_h1', $hour_list, set_value('n_End_Time_h1',isset($P1time[0]) == TRUE ? $P1time[0] : 'N/A') , 'class="dropdown" style="width: 52px;" id="n_End_Time_h1"'); ?>
+
+                                                            <?php
                                                             $min_list = array(
                                                             '0' => '0',
                                                       '1' => '1',
@@ -375,7 +383,7 @@
                                                       '58' => '58',
                                                       '59' => '59',
                                            );
-                                                             ?>         
+                                                             ?>
                                           <?php echo form_dropdown('n_End_Time_m1', $min_list, set_value('n_End_Time_m1',isset($P1time[1]) == TRUE ? $P1time[1] : 'N/A') , 'class="dropdown" style="width: 52px;" id="n_End_Time_m1"'); ?></div>
                               <div class="p-vo-4"><span class="ui-left_mobile">Rate : </span>RM<input type="text" id="n_personnel_rate1" name="V_rate1" value="<?php echo set_value('V_rate1', isset($P1Rate) == TRUE ? $P1Rate : 'N/A')?>" size="10" class="input-none-rate" readonly></div>
                               <div class="p-vo-5"><span class="ui-left_mobile">Total : </span>RM<input type="text" id="T_rate1" name="T_rate1" value="<?php echo set_value('T_rate1', isset($P1Trate) == TRUE ? $P1Trate : 'N/A')?>" size="10" class="input-none-rate" readonly></div>
@@ -388,7 +396,7 @@
                                     <input type="text" id="n_personnel_code2" name="C_requestor2" value="<?php echo set_value('C_requestor2',isset($P2personal[0]) == TRUE ? $P2personal[0] : 'N/A')?>" size="10" class="form-control-button2" readonly>
                                     <span class="icon-windows" onclick="fCalldetailname(this,document.getElementById('n_End_Time_h2').value,document.getElementById('n_End_Time_m2').value)" value="woresponse&v=r&r=2"></span>
                                     <span style="font-size:14px;"><input type="text" id="n_personnel_name2" name="V_requestor2" value="<?php echo set_value('V_requestor2',isset($P2personal[1]) == TRUE ? $P2personal[1] : '')?>" size="10" class="input-none" readonly></span></div>
-                              <div class="p-vo-3"><span class="ui-left_mobile">Time Spent : </span><?php 
+                              <div class="p-vo-3"><span class="ui-left_mobile">Time Spent : </span><?php
                                                             $hour_list = array(
                                                             '0' => '0',
                                                       '1' => '1',
@@ -416,8 +424,8 @@
                                                       '23' => '23',
                                            );
                                                              ?>
-                                                        <?php echo form_dropdown('n_End_Time_h2', $hour_list, set_value('n_End_Time_h2',isset($P2time[0]) == TRUE ? $P2time[0] : 'N/A') , 'class="dropdown" style="width: 52px;" id="n_End_Time_h2"'); ?> 
-                                                            <?php 
+                                                        <?php echo form_dropdown('n_End_Time_h2', $hour_list, set_value('n_End_Time_h2',isset($P2time[0]) == TRUE ? $P2time[0] : 'N/A') , 'class="dropdown" style="width: 52px;" id="n_End_Time_h2"'); ?>
+                                                            <?php
                                                             $min_list = array(
                                                             '0' => '0',
                                                       '1' => '1',
@@ -480,7 +488,7 @@
                                                       '58' => '58',
                                                       '59' => '59',
                                            );
-                                                             ?>         
+                                                             ?>
                                           <?php echo form_dropdown('n_End_Time_m2', $min_list, set_value('n_End_Time_m2',isset($P2time[1]) == TRUE ? $P2time[1] : 'N/A') , 'class="dropdown" style="width: 52px;" id="n_End_Time_m2"'); ?></div>
                               <div class="p-vo-4"><span class="ui-left_mobile">Rate : </span>RM<input type="text" id="n_personnel_rate2" name="V_rate2" value="<?php echo set_value('V_rate2', isset($P2Rate) == TRUE ? $P2Rate : 'N/A')?>" size="10" class="input-none-rate" readonly></div>
                               <div class="p-vo-5"><span class="ui-left_mobile">Total : </span>RM<input type="text" id="T_rate2" name="T_rate2" value="<?php echo set_value('T_rate2', isset($P2Trate) == TRUE ? $P2Trate : 'N/A')?>" size="10" class="input-none-rate" readonly></div>
@@ -493,7 +501,7 @@
                                     <input type="text" id="n_personnel_code3" name="C_requestor3" value="<?php echo set_value('C_requestor3',isset($P3personal[0]) == TRUE ? $P3personal[0] : 'N/A')?>" size="10" class="form-control-button2" readonly>
                                     <span class="icon-windows" onclick="fCalldetailname(this,document.getElementById('n_End_Time_h3').value,document.getElementById('n_End_Time_m3').value)" value="woresponse&v=r&r=3"></span>
                                     <span style="font-size:14px;"><input type="text" id="n_personnel_name3" name="V_requestor3" value="<?php echo set_value('V_requestor3',isset($P3personal[1]) == TRUE ? $P3personal[1] : '')?>" size="10" class="input-none" readonly></span></div>
-                              <div class="p-vo-3"><span class="ui-left_mobile">Time Spent : </span><?php 
+                              <div class="p-vo-3"><span class="ui-left_mobile">Time Spent : </span><?php
                                                             $hour_list = array(
                                                       '0' => '0',
                                                       '1' => '1',
@@ -521,8 +529,8 @@
                                                       '23' => '23',
                                            );
                                                              ?>
-                                                        <?php echo form_dropdown('n_End_Time_h3', $hour_list, set_value('n_End_Time_h3',isset($P3time[0]) == TRUE ? $P3time[0] : 'N/A') , 'class="dropdown" style="width: 52px;" id="n_End_Time_h3"'); ?> 
-                                                            <?php 
+                                                        <?php echo form_dropdown('n_End_Time_h3', $hour_list, set_value('n_End_Time_h3',isset($P3time[0]) == TRUE ? $P3time[0] : 'N/A') , 'class="dropdown" style="width: 52px;" id="n_End_Time_h3"'); ?>
+                                                            <?php
                                                             $min_list = array(
                                                             '0' => '0',
                                                       '1' => '1',
@@ -585,7 +593,7 @@
                                                       '58' => '58',
                                                       '59' => '59',
                                            );
-                                                             ?>         
+                                                             ?>
                                           <?php echo form_dropdown('n_End_Time_m3', $min_list, set_value('n_End_Time_m3',isset($P3time[1]) == TRUE ? $P3time[1] : 'N/A') , 'class="dropdown" style="width: 52px;" id = "n_End_Time_m3"'); ?></div>
                               <div class="p-vo-4"><span class="ui-left_mobile">Rate : </span>RM<input type="text" id="n_personnel_rate3" name="V_rate3" value="<?php echo set_value('V_rate3', isset($P3Rate) == TRUE ? $P3Rate : 'N/A')?>" size="10" class="input-none-rate" readonly></div>
                               <div class="p-vo-5"><span class="ui-left_mobile">Total : </span>RM<input type="text" id="T_rate3" name="T_rate3" value="<?php echo set_value('T_rate3', isset($P3Trate) == TRUE ? $P3Trate : 'N/A')?>" size="10" class="input-none-rate" readonly></div>
@@ -618,7 +626,7 @@
                                     <input type="text" name="C_Vendor" id="n_agent" value="<?php echo set_value('C_Vendor', isset($Vendor[0]) == TRUE ? $Vendor[0] : 'N/A')?>" size="10" class="form-control-button2">
 									<span class="icon-windows" onclick="javascipt:fCallpop_vendor(this);" value="woresponse"></span>
 									<span style="font-size:14px;"><input type="text" id="n_agent2" name="V_Vendor" value="<?php echo set_value('V_Vendor', isset($Vendor[1]) == TRUE ? $Vendor[1] : '')?>"  class="input-none" style="" readonly></span></div>
-                              
+
                         </td>
                   </tr>
 			   <tr>
@@ -653,13 +661,13 @@ $(document).ready(function() {
       $(".closedwo").show();
             $(".closedwo").load('<?php  if ($this->uri->slash_segment(1) == "contentcontroller/") {
                                       echo "visitclosed";
-                                        
+
                                       }elseif (($this->uri->slash_segment(1) != "contentcontroller/") && ($this->uri->slash_segment(2) != "/")){
                                       echo "../contentcontroller/visitclosed";
                                       }
                                       else {
                                         echo "contentcontroller/visitclosed";
-                                        
+
                                       }
                                       ?>?wrk_ord=<?=$this->input->get("wrk_ord")?>'); //checked
         }
@@ -673,13 +681,13 @@ $(document).ready(function() {
   if ($ ('#closed:checked').val() !== undefined ){
          $(".closedwo").load('<?php  if ($this->uri->slash_segment(1) == "contentcontroller/") {
                                       echo "visitclosed";
-                                        
+
                                       }elseif (($this->uri->slash_segment(1) != "contentcontroller/") && ($this->uri->slash_segment(2) != "/")){
                                       echo "../contentcontroller/visitclosed";
                                       }
                                       else {
                                         echo "contentcontroller/visitclosed";
-                                        
+
                                       }
                                       ?>?wrk_ord=<?=$this->input->get("wrk_ord")?>');
         }

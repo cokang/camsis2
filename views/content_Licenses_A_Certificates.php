@@ -1,4 +1,7 @@
 <div class="ui-middle-screen">
+<table class="table-middle-screen-2" border="0">
+<tr>
+    <td valign="top" style="width: 13%; border-style:none;";>
 	<div class="content-workorder" align="center">
 		<table class="ui-desk-style-table3" cellpadding="4" cellspacing="0" width="90%">	
 			<tr class="ui-header-new" height="40px">
@@ -142,4 +145,7 @@
 			</tr>
 		</table>
 	</div>
+	</td>
+	</tr>
+	</table>
 </div>

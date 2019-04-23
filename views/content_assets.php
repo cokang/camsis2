@@ -20,7 +20,13 @@ function fToggle(elementId) {
 };           
 </script>
 <div class="ui-middle-screen">
+<table class="table-middle-screen-2" border="0">
+<tr>
+    <td valign="top" style="width: 13%; border-style:none;";>
 	<?php include 'content_tab_assets.php';?>
+	</td>
+	<td  style="width: 2%; border-style: none;"></td>
+	<td valign="top" style="width: 70%;">
 	<div class="content-workorder">
 		<div class="wrap">
 		<table class="ui-content-middle-menu-workorder" border="0"  width="90%" align="center" >
@@ -66,7 +72,10 @@ function fToggle(elementId) {
 			</tr>					
 		</table>
 		</div>
-	</div>		
+	</div>	
+	</td>
+	</tr>
+	</table>	
 </div>
 
 <script language="javascript" type="text/javascript">

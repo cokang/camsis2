@@ -1,11 +1,15 @@
 <div class="ui-middle-screen">
+
+<table class="table-middle-screen-2" border="0">
+<tr>
+<td width="13%" valign="top" style="margin-left: 2%">
 <?php if ($this->input->get('parent') == 'complaint' ){?>
 <?php include 'content_tab_desk.php';?>
 <?php } elseif ($this->input->get('parent') == 'wrkodr'){?>
 <?php include 'content_tab_wo.php';?>
 <?php } ?>
-
-	<div class="content-workorder" align="center">
+</td>
+<td width="85%" style="">
 	<?php if ($this->input->get('wonos')) { ?>
 		<table id="myElem" class="onloadworkorder">
 			<tr>
@@ -89,18 +93,18 @@
 				<style>
 				.ui-content-middle-menu-workorder2 tr td {padding:8px;font-size:14px;}
 				</style>
-					<table class="ui-content-middle-menu-workorder2 ui-left_web" width="100%" height="25px">
+					<table class="tftable tbl-go" width="100%" height="25px">
 						<tr class="ui-menu-color-header" style="color:white; font-weight:bold;">
-							<td width="">Requestor</td>
-							<td width="">Type</td>
-							<td width="">Hosp</td>
-							<td width="">Request Number</td>
-							<td width="">QAP</td>
-							<td width="">Priority</td>
-							<td width="">Location</td>
-							<td width="">Date</td>
-							<td width="">Status</td>
-							<td>Summary</td>
+							<th width="">Requestor</th>
+							<th width="">Type</th>
+							<th width="">Hosp</th>
+							<th width="">Request Number</th>
+							<th width="">QAP</th>
+							<th width="">Priority</th>
+							<th width="">Location</th>
+							<th width="">Date</th>
+							<th width="">Status</th>
+							<th>Summary</th>
 						</tr>
 						<?php  if (!empty($records)) {?>
 				<?php $numrow = 1; foreach($records as $row):?>
@@ -129,8 +133,7 @@
 							</td>
 	    				</tr>
 						<?php } ?>
-					</table>
-					<table class="ui-mobile-table-desk ui-left_mobile" style="color:black;width:100%;">
+					<table class="ui-mobile-table-desk ui-left_mobile " style="color:black;width:100%;">
 						<?php  if (!empty($records)) {?>
 						<?php $rownum = 1; foreach($records as $row):?>
 		    			<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
@@ -185,6 +188,7 @@
 						</tr>
 							<?php } ?>
 					</table>
+					</table>
 				</td>
 			</tr>
 			<tr class="ui-header-new" style="height:5px;">
@@ -192,5 +196,11 @@
 				</td>
 			</tr>
 		</table>
-	</div>
+
+		</td>
+
+
+
+</tr>
+</table>
 </div>

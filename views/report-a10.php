@@ -87,11 +87,11 @@ if ($this->input->get('ex') == ''){
 					<td><?=$no;?></td>
 					<td><?=$row->D_date;?></td>
 					<td><?=$row->V_Request_no;?></td>
-					<td><?=$row->V_respon;?></td>
+					<td><?=($row->thetypeofwork) ? $row->thetypeofwork : "NA"?></td>
 					<td><?=$row->V_User_dept_code;?></td>
 					<td><?=$row->V_Asset_no;?></td>
 					<td><?=$row->V_summary;?></td>
-					<td><?=$row->V_respon;?></td>
+					<td><?=$row->V_request_type;?></td>
 					<td><?=$row->respdate;?></td>
 					<td><?=$row->v_ActionTaken;?></td>
 					<td><?=$row->closesummary;?></td>

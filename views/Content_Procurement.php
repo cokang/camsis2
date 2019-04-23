@@ -1,37 +1,15 @@
-<style type="text/css">
-	table .tblala{
-	    width: 100%;
-	    table-layout: fixed;
-	    margin-left: 5px;
-	}
-
-	.tblala tr td{
-		text-align: left;
-		
-	}
-	.tblala .wb td{
-		text-align: center;
-		background: rgba(255,255,255,.8);
-		border: 3px solid #E8E8E8;
-		
-	}
-	h4{
-		font-size: 25px;
-	    color: #165694;
-	}
-</style>
 <div class="ui-middle-screen">
-<table style="width: 100%; table-layout: auto;">
+<table class="table-middle-screen-2" border="0">
 <tr>
-<td style="width: 10%">
+    <td style="width: 13%; border-style:none;";>
 	<?php include 'content_tab_menu.php';?>
 	<?php include 'content_mobile_menu.php';?>
 	</td>
-	<td style="width: 2%;"></td>
-<td valign="top">
+	<td  style="width: 2%; border-style: none;"></td>
+	<td valign="top" style="width: 70%;">
 		<table class="ui-content-middle-menu-workorder tblala" border="0" align="center">
 			<tr>
-				<td align="center" colspan="4"><h4 class="h4-margin">PROCUREMENT MODULES</h4></td>
+				<td colspan="4"><h4 class="h4-margin" style="text-align: left;">PROCUREMENT MODULES</h4></td>
 			</tr>
 			<?php  if (!in_array("Procurement?pro=mrin", $chkers)) { ?>
 			<tr class="wb">
@@ -78,9 +56,7 @@
 			<?php  } ?>
 
 		</table>		
-	</div>
-	</td>
-	<td style="width: 2%;"></td>
+	<td style="width: 10%;"></td>
 	</tr>
 	</table>
 </div>

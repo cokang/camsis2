@@ -1,36 +1,28 @@
-<style type="text/css">
-	table .tblala{
-	    width: 100%;
-	    table-layout: fixed;
-	    margin-left: 5px;
-	}
-
-	.tblala tr td{
-		text-align: center;
-		
-	}
-	.tblala .wb td{
-		text-align: center;
-		background: rgba(255,255,255,.8);
-		border: 3px solid #E8E8E8;
-	}
-	h4{
-		font-size: 25px;
-	    color: #165694;
-	}
-</style>
-<div class="ui-middle-screen">
-<table style="width: 100%; table-layout: auto;">
+<div class="ui-middle-screen6">
+<table class="table-middle-screen-1">
 <tr>
-    <td style="width: 10%;" valign="top">
+<td>
+	<?php if( $this->session->userdata("total_hosp")>1 ){?>
+					<?php echo anchor ('contentcontroller/select?hc=pilih',$this->session->userdata("hosp_name"),'style="font-size:20px;color:white; {
+						# code...
+					}"'); ?>
+				<?php }else{?>
+					<p style="font-size: 20px; color: black;"><?=$this->session->userdata("hosp_name");?></p>
+				<?php } ?>
+</td>
+</tr>
+</table>
+<table class="table-middle-screen-2" border="0">
+<tr>
+    <td style="width: 13%; border-style:none;";>
 	<?php include 'content_tab_menu.php';?>
 	<?php include 'content_mobile_menu.php';?>
 	</td>
-	<td style="width: 2%;"></td>
-	<td valign="top">
+	<td  style="width: 2%; border-style: none;"></td>
+	<td valign="top" style="width: 70%;">
 		<table class="ui-content-middle-menu-workorder tblala" border="0"  align="center">
 			<tr >
-				<td align="center" colspan="4"><h4 class="h4-margin" style="text-align: left;">WORK MODULES</h4></td>
+				<td colspan="4"><h4 class="h4-margin" style="text-align: left;">WORK MODULES</h4></td>
 			</tr>
 			<?php
 			/*$mn = array("Help Desk Center" => "contentcontroller/desk?parent=desk", "Assets" => "contentcontroller/assets?parent=asset", "Work Order" => "contentcontroller/workorder?parent=wrkodr", "Statutory & Licenses" => "contentcontroller/Licenses", "Reports" => "contentcontroller/Schedule");
@@ -51,7 +43,7 @@
 			}*/
 			?>
 			<?php if (!in_array("contentcontroller/workorder?parent=desk", $chkers)) { ?>
-			<tr class="wb">
+			<tr  class="wb">
 				<td>
 					<?php echo anchor ('contentcontroller/workorder?parent=complaint', '<img src="'. base_url() .'images/helpdesk.png" alt="" class="ui-icon"/><br></br>HelpDeskCenter'); ?>
 				</td>
@@ -118,11 +110,10 @@
 				</td>
 			</tr>
  -->
-</table>	
-</div>
-<td style="width: 2%;"></td>
-</td>
-</tr>
+			</table>	
+			</div>
+ 			<td style="width: 10%; border-style: none;"></td>	
+	</tr>
 </table>
 </body>
 </html>

@@ -1461,6 +1461,7 @@ function visitplus_woexist($value,$variable,$value1,$variable1){
 			$this->db->select($value);
 			$this->db->where($value,$variable);
 			$this->db->where($value1,$variable1);
+            $this->db->where("v_HospitalCode = ", $this->session->userdata('hosp_code'));
 
 			$query1 = $this->db->get('pmis2_emg_jobvisit1');
 			//$query2 = $this->db->get('pmis2_emg_jobvisit1tow');

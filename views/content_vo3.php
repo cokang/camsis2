@@ -1,4 +1,7 @@
 <div class="ui-middle-screen">
+<table class="table-middle-screen-2" border="0">
+<tr>
+    <td style="width: 13%; border-style:none;";>
 <?php include 'content_tab_vo.php';?>
 <div class="content-workorder" align="center">
 		<table class="ui-desk-style-table3" cellpadding="4" cellspacing="0" width="98%">	
@@ -97,5 +100,8 @@
 		</table>
 						
 	</div>
+	</td>
+	</tr>
+	</table>
 </div>
 

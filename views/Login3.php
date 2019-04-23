@@ -20,13 +20,14 @@ redirect(base_url()."index.php/Logincontroller/index?login=login", 'refresh');?>
 <link rel="stylesheet" type='text/css' media='screen' href="<?php echo base_url(); ?>icon/style.css">
 <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url(); ?>css/login.css">
 <title>Login</title>
+
 <!-- css3-mediaqueries.js for IE less than 9 -->
  <!--[if lt IE 9]>
 <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
 <![endif]-->
 </head>
 <!-- <div style="height: 65px; width: 100%;position: relative;margin:0 auto;line-height: 1.4em;"> -->
-
+			
 			<!--<span style="font-size:11px; display:inline-block;">Facility Management Services Contractor</span><br />-->
 			<!-- <img src="<?php echo base_url(); ?>images/logo.png" style="width: 180px; height: 70px;"/><br /> -->
 			<!-- <img src="<?php echo base_url(); ?>images/logo.png" style="height: 60px; margin-left: 5%; margin-top: 10px;"/><br /> -->
@@ -37,38 +38,50 @@ redirect(base_url()."index.php/Logincontroller/index?login=login", 'refresh');?>
 			<img src="<?php echo base_url(); ?>images/penmedic.png" style=" width: 120px; height: 40px;"/>-->
 			<!-- <img src="<?php echo base_url(); ?>images/Myapbesys2.png" style=" height: 65px; width: 150px; display:inline-block; margin-top:0px;"/> -->
 			<!--<span style="font-size:10px; display:inline-block; margin-top:50px;">Copyright &copy; <?php echo date("Y"); ?> Advance Pact Sdn Bhd [412168-v]. All rights reserved.</span>-->
-
+			
 
 <!-- </div> -->
+<div class="header-page" style="background-color: white; position: fixed;top: 0; width: 100%">
+
+<table style="width: 100%;">
+	<tr style="width: 2%;"><td></td>
+		<td style="width: 10%;"><img src="<?php echo base_url().'images/logo.png'?>" width=130; height=50;/></td>
+		<td style="width: 8%;"><!-- <img src="<?php echo base_url().'images/myapbesys3.png'?>" width=100; height=50;/> --></td>
+		<td style="width: 80%;text-align: right;"><img src="<?php echo base_url().'images/iso.png'?>" width=250; height=50;/></td></tr>
+</table>
+
+</div>
 <body onload="" class="body_login">
-	<div class="login">
+
+	
 	<!-- <div style="background-color: white;margin:150px;background-color: white;max-width:100%;height:auto;""> -->
-		<div class="" style="padding-top: 5%; padding-bottom: 5%;">
-			<div class="login-menu">
-			</div>
-			<div style="text-align:center;color: black;"><table align="center">
-			<tr><td valign="rights" style="width: 25%; font-size: 40px; text-align: right;">Welcome to </td>
-			<td valign="left" style="width: 25%; text-align: left;">
-			<img src="<?php echo base_url().'images/myapbesys3.png'?>" width=215; height=85;/>
-			</td></tr>
-			</table></div>
+		<div class="" style="padding-top: 10%; padding-bottom: 10%; ">
+			
+			<div style="text-align:center;color: black;">
+
 			<div style="margin: 0 auto;max-width: 400px;background-color: white; border-radius: 3px; text-align: center;padding-top: 10px;"<?php if ($this->input->get('login') == ""){ ?> <?php } ?>>
 			<?php if ($this->input->get('login') == "login"){ $np = !($this->input->get('pass')) ? "0" : $this->input->get('pass');?>
 				<?php echo form_open('logincontroller/validate_credentials');?>
-				<img src="<?php echo base_url(); ?>images/logo.png" style="height: 60px; margin-top: 10px;"/>
+				<!-- <img src="<?php echo base_url(); ?>images/logo.png" style="height: 60px; margin-top: 10px;"/> -->
+				<table align="center">
+			<tr><td valign="rights" style="font-size:30px; text-align: right;">WELCOME TO </td>
+			<td valign="left" style= text-align: left;">
+			<img src="<?php echo base_url().'images/myapbesys3.png'?>" width=180; height=60;/>
+			</td></tr>
+			</table>
 				<div>Please Login</div>
 					<div class="form-group">
 					<input type="text" class="form-control login-field<?php if('logincontroller/validate_credentials/' == $this->uri->slash_segment(1) .$this->uri->slash_segment(2)){ echo '2'; }else{ echo ''; } ?>" value=""
-					placeholder="<?php if ($np == 'no'){ echo 'Invalid Validation : Enter your name'; } elseif ($np == 'exp') { echo 'Password expired : Change your password'; } else { echo 'Enter your name'; } ?>" name="name" id="input-login" style="height: 47px; width:300px;"/>
+					placeholder="<?php if ($np == 'no'){ echo 'Invalid Validation : Enter your name'; } elseif ($np == 'exp') { echo 'Password expired : Change your password'; } else { echo 'Enter your name'; } ?>" name="name" id="input-login" style="height: 40px; width:300px;"/>
 					<label class="login-field-icon fui-user" for="login-name"><span align="center" class="icon-user"></label>
 					</div>
 
 					<div class="form-group">
 					<input type="password" class="form-control login-field<?php if('logincontroller/validate_credentials/' == $this->uri->slash_segment(1) .$this->uri->slash_segment(2)){ echo '2'; }else{ echo ''; } ?>" value="" placeholder="Password" name="password" id="input-login"
-					style="height: 47px; width: 300px;"/>
+					style="height: 40px; width: 300px;"/>
 					<label class="login-field-icon" for="login-pass" ><span align="center" class="icon-key"></span></label>
 					</div>
-				<button type="submit" name="submit" class='btn btn-primary' id="input-submit" style="width: 325px; background-color: #151B54;">Login</button>
+				<button type="submit" name="submit" class='btn btn-primary' id="input-submit" style="width: 100px; background-color: #bb0808;">LOGIN</button>
 				<?php //echo form_submit ('submit ','Login',"class='btn btn-primary' style='width:100%;'");?>
 				<?php echo form_hidden('continue', $this->input->get('continue'));?>
 				<?php echo form_close();?>
@@ -78,11 +91,13 @@ redirect(base_url()."index.php/Logincontroller/index?login=login", 'refresh');?>
 				<!--<button type="cancel" name="submit" class='btn btn-primary' onclick="window.location.href='<?php echo base_url(); ?>index.php?login=login'" style="width:75%;margin-top:50px;margin-left:55px;">ENTER TO CAMSIS</button><br>-->
 				Redirecting to CAMSIS in <span id="countdown">3</span> seconds...
 				<?php } ?>
+
 			</div>
-		</div>
+
+		
 
 		<!-- </div> -->
-	</div>
+	
 	<!-- <?php if ($this->input->get('login') == "login"){ ?> -->
 
 	<!-- <?php } ?> -->
@@ -96,18 +111,13 @@ function myFunction() {
     document.getElementById("demo").innerHTML = x;
 }
 </script>-->
-	<!-- <div id="footer">
-		<div class="footer-id" style="position: fixed;left: 0;bottom: 0;width: 100%;background-color:#EE4000; width: 100%;">
-			<div class="bttm-pen" style="width: 350px; display:inline-block; margin-top:1px;"> -->
-
-			<!--<span style="font-size:11px;">Concession Company</span><br />
-			<img src="<?php echo base_url(); ?>images/penmedic.png" style=" width: 120px; height: 40px;"/>-->
-			<!-- <img src="<?php echo base_url(); ?>images/Myapbesys2.png" style=" height: 50px; width: 100px; display:inline-block; margin-top:0px; position:absolute;"/> -->
-			<!--<span style="font-size:10px; display:inline-block; margin-top:50px;">Copyright &copy; <?php echo date("Y"); ?> Advance Pact Sdn Bhd [412168-v]. All rights reserved.</span>-->
-			<!-- <span style="font-size:9.5px; display:inline-block; margin-top:50px;">MYAPBESYS is a copyright product of Advance Pact Sdn Bhd. All rights reserved.</span>
-			</div> -->
-			<!--<span style="font-weight:bold;">PenMedic Sdn. Bhd.</span><br />-->
-		<!-- </div> -->
+	<div id="footer">
+		<div class="footer-id">
+			<div class="footer-login">
+			<span style=" color: black; font-size: 13px;">ADVANCE PACT SDN BHD (412168-v)<br>
+Copyright©-2019,  2-3A, Perdana The Place, 1, Jalan PJU 8/5g, Damansara Perdana, 47820 Petaling Jaya, Selangor Darul Ehsan, Malaysia.</span><br/>
+			</div>
+		</div>
 	</div>
 
 
@@ -129,6 +139,7 @@ echo "
 	}
 </script>";
 }?>
+
 </body>
 <?php require_once('contactform-code.php');?>
 </html>
