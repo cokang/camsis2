@@ -1,4 +1,7 @@
 <div class="ui-middle-screen">
+<table class="table-middle-screen-2" border="0">
+<tr>
+<td width="100%" valign="top" >
 <?php include 'content_tab_wo.php';?>
 	<div class="content-workorder" align="center">
 		<table class="ui-report-style-content" style="" cellpadding="4" cellspacing="0">	
@@ -40,4 +43,7 @@
 			</tr>
 		</table>				
 	</div>
+	</td>
+	</tr>
+	</table>
 </div>

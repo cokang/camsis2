@@ -10,7 +10,7 @@
 </style>
 
 <div class="main-box">
-     <div class="box3">
+     <div class="box7">
 	<?php $autocolor = array('bg-green','bg-purple', 'bg-red', 'bg-yellow', 'bg-aqua', 'bg-light-blue','bg-teal'); shuffle($autocolor); ?>
 		<div class="small-box <?php echo $autocolor[0];?>">
 			<div class="inner2" >
@@ -21,7 +21,7 @@
 		</div>
 	</div>
 
-	<div class="box3">
+	<div class="box7">
 		<div class="small-box <?php echo $autocolor[6];?>">
 			<div class="inner2" >
 				<p>New Request</p>
@@ -30,7 +30,7 @@
 			<?php echo anchor ('workorder?parent='.$this->input->get('parent'),'<span class="ui-left_web">More Info <i class="icon-arrow-right"></i></span>','class="small-box-footer"'); ?>
 		</div>
 	</div>
-	<div class="box3">
+	<div class="box7">
 		<div class="small-box <?php echo $autocolor[5];?>">
 			<div class="inner2" >
 				<p>Booking Wo No.</p>
@@ -39,7 +39,7 @@
 			<?php echo anchor ('contentcontroller/Booking_no/'.$this->session->userdata('usersess'). '?&tab=0&parent='.$this->input->get('parent'),'<span class="ui-left_web">More Info <i class="icon-arrow-right"></i></span>','class="small-box-footer"'); ?>
 		</div>
 	</div>
-	<div class="box3">
+	<div class="box7">
 		<div class="small-box <?php echo $autocolor[1];?>">
 			<div class="inner2" >
 				<p>Request Catalog</p>
@@ -48,7 +48,7 @@
 			<?php echo anchor ('contentcontroller/workorder/'.$this->session->userdata('usersess'). '?&tab=0&parent='.$this->input->get('parent'),'<span class="ui-left_web">More Info <i class="icon-arrow-right"></i></span>','class="small-box-footer"'); ?>
 		</div>
 	</div>
-	<div class="box3">
+	<div class="box7">
 		<div class="small-box <?php echo $autocolor[2];?>">
 			<div class="inner2" >
 				<p>PPM Catalog</p>
@@ -57,7 +57,7 @@
 			<?php echo anchor ('contentcontroller/catalogppm/'.$this->session->userdata('usersess'). '?&tab=1&parent='.$this->input->get('parent'),'<span class="ui-left_web">More Info <i class="icon-arrow-right"></i></span>','class="small-box-footer"'); ?>
 		</div>
 	</div>
-	<div class="box3 ui-mobile-table-desk ui-left_web">
+	<div class="box7 ui-mobile-table-desk ui-left_web">
 		<div class="small-box <?php echo $autocolor[3];?>">
 			<div class="inner2" >
 				<p>PPM Generator</p>
@@ -66,7 +66,7 @@
 			<?php echo anchor ('ppm_gen','<span class="ui-left_web">More Info <i class="icon-arrow-right"></i></span>','class="small-box-footer"'); ?>
 		</div>
 	</div>
-	<div class="box3">
+	<div class="box7">
 		<div class="small-box <?php echo $autocolor[4];?>">
 			<div class="inner2" >
 				<p>Report</p>

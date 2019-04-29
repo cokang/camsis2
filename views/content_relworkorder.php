@@ -13,11 +13,11 @@
 	<?php if ($record) { ?>
 	<?php foreach($record as $row): ?>
 	<tr align="center">
-		<td align="center"><a href="javascript:Setasset('<?= isset($row->V_Request_no) ? $row->V_Request_no : 'N/A' ?>')" ><?= isset($row->D_date) ? date("d-m-Y",strtotime($row->D_date)) : 'N/A' ?></a></td>
-		<td align="center"><a href="javascript:Setasset('<?= isset($row->V_Request_no) ? $row->V_Request_no : 'N/A' ?>')" ><?= isset($row->D_time) ? date("g:i a",strtotime($row->D_time)) : 'N/A' ?></a></td>
-		<td align="center"><a href="javascript:Setasset('<?= isset($row->V_Request_no) ? $row->V_Request_no : 'N/A' ?>')" ><?= isset($row->V_Request_no) ? $row->V_Request_no : 'N/A' ?></a></td>
-		<td align="center"><a href="javascript:Setasset('<?= isset($row->V_Request_no) ? $row->V_Request_no : 'N/A' ?>')" ><?= isset($row->V_request_status) ? $row->V_request_status : 'N/A' ?></a></td>
-		<td align="center"><a href="javascript:Setasset('<?= isset($row->V_Request_no) ? $row->V_Request_no : 'N/A' ?>')" ><?= isset($row->V_summary) ? $row->V_summary : 'N/A' ?></a></td>
+		<td align="center"><?= isset($row->D_date) ? date("d-m-Y",strtotime($row->D_date)) : 'N/A' ?></td>
+		<td align="center"><?= isset($row->D_time) ? date("g:i a",strtotime($row->D_time)) : 'N/A' ?></td>
+		<td align="center"><?= isset($row->V_Request_no) ? $row->V_Request_no : 'N/A' ?></td>
+		<td align="center"><?= isset($row->V_request_status) ? $row->V_request_status : 'N/A' ?></td>
+		<td align="center"><?= isset($row->V_summary) ? $row->V_summary : 'N/A' ?></td>
 	</tr>
 	<?php endforeach; ?>
 	<?php } else { ?>
@@ -36,14 +36,3 @@
     }
 </script>-->
 </body>
-<script type="text/javascript">
-function Setasset(work_ord) {
-        if (window.opener != null && !window.opener.closed) {
-            //alert(work_ord);
-			var workd = window.opener.document.getElementById("n_phone_number");
-            workd.value =  work_ord;
-     
-        }
-        window.close();
-    }
-</script>

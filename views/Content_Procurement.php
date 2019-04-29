@@ -4,7 +4,7 @@
     <td style="width: 13%; border-style:none;";>
 	<?php include 'content_tab_menu.php';?>
 	<?php include 'content_mobile_menu.php';?>
-	</td>
+	 </td>
 	<td  style="width: 2%; border-style: none;"></td>
 	<td valign="top" style="width: 70%;">
 		<table class="ui-content-middle-menu-workorder tblala" border="0" align="center">

@@ -2,7 +2,7 @@
 <?php $numberdate = 0; ?>
 <div class="ui-middle-screen">
       <div class="content-workorder" align="center">
-            <table class="ui-desk-style-table3" cellpadding="4" cellspacing="0" width="92%">
+            <table class="ui-desk-style-table3" cellpadding="4" cellspacing="0" width="92%">    
                   <tr class="ui-color-contents-style-1" height="40px">
                         <td class="ui-header-new" colspan="2"><b>Confirm Visit Plus</b></td>
                   </tr>
@@ -13,7 +13,7 @@
                   <tr>
                         <td valign="top" class="td-assest">Start Time :</td>
                         <td>
-                              <?php
+                              <?php 
                                                             $hour_list = array(
                                                             '0' => '0',
                                                       '1' => '1',
@@ -41,8 +41,8 @@
                                                       '23' => '23',
                                            );
                                                              ?>
-                                                        <?php echo form_dropdown('n_Shour', $hour_list, set_value('n_Shour',date('H')) , 'class="dropdown" style="width: 52px;" disabled'); ?>
-                                                            <?php
+                                                        <?php echo form_dropdown('n_Shour', $hour_list, set_value('n_Shour',date('H')) , 'class="dropdown" style="width: 52px;" disabled'); ?> 
+                                                            <?php 
                                                             $min_list = array(
                                                             '0' => '0',
                                                       '1' => '1',
@@ -105,14 +105,14 @@
                                                       '58' => '58',
                                                       '59' => '59',
                                            );
-                                                             ?>
+                                                             ?>         
                                           <?php echo form_dropdown('n_Smin', $min_list, set_value('n_Smin',date('i')) , 'class="dropdown" style="width: 52px;" disabled'); ?>
                         </td>
                   </tr>
                   <tr>
                         <td valign="top" class="td-assest">End Time :</td>
                         <td>
-                              <?php
+                              <?php 
                                                             $hour_list = array(
                                                             '0' => '0',
                                                       '1' => '1',
@@ -140,8 +140,8 @@
                                                       '23' => '23',
                                            );
                                                              ?>
-                                                        <?php echo form_dropdown('n_Ehour', $hour_list, set_value('n_Ehour',date('H')) , 'class="dropdown" style="width: 52px;" disabled'); ?>
-                                                            <?php
+                                                        <?php echo form_dropdown('n_Ehour', $hour_list, set_value('n_Ehour',date('H')) , 'class="dropdown" style="width: 52px;" disabled'); ?> 
+                                                            <?php 
                                                             $min_list = array(
                                                             '0' => '0',
                                                       '1' => '1',
@@ -204,29 +204,21 @@
                                                       '58' => '58',
                                                       '59' => '59',
                                            );
-                                                             ?>
+                                                             ?>         
                                           <?php echo form_dropdown('n_Emin', $min_list, set_value('n_Emin',date('i')) , 'class="dropdown" style="width: 52px;" disabled'); ?>
                         </td>
                   </tr>
                   <tr>
                         <td valign="top" class="td-assest">Type of Work : </td>
                         <td>
-                              <?php
-                              if (strstr($wrk_ord, '/A10/')) {
+                              <?php 
                               $TOW_list = array(
                               '' => '',
+                              'Normal' => 'Normal',
+                              'Reimbursable' => 'Reimbursable',
+                              'UnderWarranty' => 'UnderWarranty',
                               'BER' => 'BER',
-                              'CA' => 'CA',
-                              'LCA' => 'LCA',
-                              'RW' => 'RW',
-                              'SNP' => 'Safety & Procedure',
-                            );} else {
-                            $TOW_list = array(
-                            '' => '',
-                            'Normal' => 'Normal',
-                            'Reimbursable' => 'Reimbursable',
-                            'UnderWarranty' => 'UnderWarranty',
-                            'BER' => 'BER',);}
+                              );
                               ?>
                               <?php echo form_dropdown('n_Type_of_Work', $TOW_list, $this->input->post('n_Type_of_Work') , 'class="dropdown n_wi-date2" disabled'); ?>
                         </td>
@@ -245,25 +237,25 @@
                   <tr>
                         <td valign="top" class="td-assest"> Reason : </td>
                         <td>
-
-                              <input type="radio" id="radio-1-1" name="n_rschReason" class="regular-radio" value="1 - Not found" <?php echo set_radio('n_rschReason', '1 - Not found'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '1 - Not found' ? 'checked' : ''?>/>
+                              
+                              <input type="radio" id="radio-1-1" name="n_rschReason" class="regular-radio" value="1 - Not found" <?php echo set_radio('n_rschReason', '1 - Not found'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '1 - Not found' ? 'checked' : ''?>/> 
                               <label for="radio-1-1"></label> 1 - Not found <br />
-                              <input type="radio" id="radio-1-2" name="n_rschReason" class="regular-radio" value="2 - In use" <?php echo set_radio('n_rschReason', '2 - In use'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '2 - In use' ? 'checked' : ''?>/>
+                              <input type="radio" id="radio-1-2" name="n_rschReason" class="regular-radio" value="2 - In use" <?php echo set_radio('n_rschReason', '2 - In use'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '2 - In use' ? 'checked' : ''?>/>   
                               <label for="radio-1-2"></label> 2 - In use<br />
-                              <input type="radio" id="radio-1-3" name="n_rschReason" class="regular-radio" value="3 - Lock in room/not accessible" <?php echo set_radio('n_rschReason', '3 - Lock in room/not accessible'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '3 - Lock in room/not accessible' ? 'checked' : ''?>/>
+                              <input type="radio" id="radio-1-3" name="n_rschReason" class="regular-radio" value="3 - Lock in room/not accessible" <?php echo set_radio('n_rschReason', '3 - Lock in room/not accessible'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '3 - Lock in room/not accessible' ? 'checked' : ''?>/> 
                               <label for="radio-1-3"></label> 3 - Lock in room/not accessible <br />
-                              <input type="radio" id="radio-1-4" name="n_rschReason" class="regular-radio" value="4 - Transferred" <?php echo set_radio('n_rschReason', '4 - Transferred'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '4 - Transferred' ? 'checked' : ''?>/>
+                              <input type="radio" id="radio-1-4" name="n_rschReason" class="regular-radio" value="4 - Transferred" <?php echo set_radio('n_rschReason', '4 - Transferred'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '4 - Transferred' ? 'checked' : ''?>/> 
                               <label for="radio-1-4"></label> 4 - Transferred <br />
-                              <input type="radio" id="radio-1-5" name="n_rschReason" class="regular-radio" value="5 - Equipment down" <?php echo set_radio('n_rschReason', '5 - Equipment down'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '5 - Equipment down' ? 'checked' : ''?>/>
+                              <input type="radio" id="radio-1-5" name="n_rschReason" class="regular-radio" value="5 - Equipment down" <?php echo set_radio('n_rschReason', '5 - Equipment down'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '5 - Equipment down' ? 'checked' : ''?>/>   
                               <label for="radio-1-5"></label> 5 - Equipment down<br />
-                              <input type="radio" id="radio-1-6" name="n_rschReason" class="regular-radio" value="6 - Breakdown of related support system" <?php echo set_radio('n_rschReason', '6 - Breakdown of related support system'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '6 - Breakdown of related support system' ? 'checked' : ''?>/>
+                              <input type="radio" id="radio-1-6" name="n_rschReason" class="regular-radio" value="6 - Breakdown of related support system" <?php echo set_radio('n_rschReason', '6 - Breakdown of related support system'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '6 - Breakdown of related support system' ? 'checked' : ''?>/> 
                               <label for="radio-1-6"></label> 6 - Breakdown of related support system <br />
-                              <input type="radio" id="radio-1-7" name="n_rschReason" class="regular-radio" value="7 - Vendor delay" <?php echo set_radio('n_rschReason', '7 - Vendor delay'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '7 - Vendor delay' ? 'checked' : ''?>/>
+                              <input type="radio" id="radio-1-7" name="n_rschReason" class="regular-radio" value="7 - Vendor delay" <?php echo set_radio('n_rschReason', '7 - Vendor delay'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '7 - Vendor delay' ? 'checked' : ''?>/>   
                               <label for="radio-1-7"></label> 7 - Vendor delay<br />
-                              <input type="radio" id="radio-1-8" name="n_rschReason" class="regular-radio" value="8 - Others" <?php echo set_radio('n_rschReason', '8 - Others'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '8 - Others' ? 'checked' : ''?>/>
+                              <input type="radio" id="radio-1-8" name="n_rschReason" class="regular-radio" value="8 - Others" <?php echo set_radio('n_rschReason', '8 - Others'); ?><?= isset($rschReason[0]) && trim($rschReason[0]) == '8 - Others' ? 'checked' : ''?>/>   
                               <label for="radio-1-8"></label> 8 - Others<br /><br />
                               <textarea class="input  n_com" name="n_rschReason1"><?php echo set_value('n_rschReason1', isset($rschReason[1]) == TRUE ? trim($rschReason[1]) : 'N/A')?></textarea>
-
+                              
                         </td>
                   </tr>
                   <tr>
@@ -288,7 +280,7 @@
                                     <input type="text" name="V_requestor1" value="<?php echo $this->input->post('C_requestor1');?>" size="10" class="form-control-button2" readonly><br />
                                     <span style="font-size:16px;"><?php echo $this->input->post('V_requestor1');?></span>
                               </div>
-                              <div class="p-vo-3"><span class="ui-left_mobile">Time Spent : </span><?php
+                              <div class="p-vo-3"><span class="ui-left_mobile">Time Spent : </span><?php 
                                                             $hour_list = array(
                                                             '0' => '0',
                                                       '1' => '1',
@@ -317,9 +309,9 @@
                                            );
                                                              ?>
 
-                                                        <?php echo form_dropdown('n_End_Time_h1', $hour_list, set_value('n_End_Time_h1',date('H')) , 'class="dropdown" style="width: 52px;" disabled'); ?>
-
-                                                            <?php
+                                                        <?php echo form_dropdown('n_End_Time_h1', $hour_list, set_value('n_End_Time_h1',date('H')) , 'class="dropdown" style="width: 52px;" disabled'); ?> 
+                                                            
+                                                            <?php 
                                                             $min_list = array(
                                                             '0' => '0',
                                                       '1' => '1',
@@ -382,7 +374,7 @@
                                                       '58' => '58',
                                                       '59' => '59',
                                            );
-                                                             ?>
+                                                             ?>         
                                           <?php echo form_dropdown('n_End_Time_m1', $min_list, set_value('n_End_Time_m1',date('i')) , 'class="dropdown" style="width: 52px;" disabled'); ?></div>
                               <div class="p-vo-4"><span class="ui-left_mobile">Rate : </span>RM<input type="text" id="n_personnel_rate2" name="V_rate2" value="<?php echo set_value('V_rate1'); ?>" size="10" class="input-none-rate" readonly></div>
                               <div class="p-vo-5"><span class="ui-left_mobile">Total : </span>RM<input type="text" id="T_rate2" name="T_rate2" value="<?php echo set_value('T_rate1'); ?>" size="10" class="input-none-rate" readonly></div>
@@ -395,7 +387,7 @@
                                     <input type="text" name="V_requestor2" value="<?php echo $this->input->post('C_requestor2');?>" size="10" class="form-control-button2" readonly><br />
                                     <span style="font-size:16px;"><?php echo $this->input->post('V_requestor2');?></span>
                               </div>
-                              <div class="p-vo-3"><span class="ui-left_mobile">Time Spent : </span><?php
+                              <div class="p-vo-3"><span class="ui-left_mobile">Time Spent : </span><?php 
                                                             $hour_list = array(
                                                             '0' => '0',
                                                       '1' => '1',
@@ -423,8 +415,8 @@
                                                       '23' => '23',
                                            );
                                                              ?>
-                                                        <?php echo form_dropdown('n_End_Time_h2', $hour_list, set_value('n_End_Time_h2',date('H')) , 'class="dropdown" style="width: 52px;" disabled'); ?>
-                                                            <?php
+                                                        <?php echo form_dropdown('n_End_Time_h2', $hour_list, set_value('n_End_Time_h2',date('H')) , 'class="dropdown" style="width: 52px;" disabled'); ?> 
+                                                            <?php 
                                                             $min_list = array(
                                                             '0' => '0',
                                                       '1' => '1',
@@ -487,7 +479,7 @@
                                                       '58' => '58',
                                                       '59' => '59',
                                            );
-                                                             ?>
+                                                             ?>         
                                           <?php echo form_dropdown('n_End_Time_m2', $min_list, set_value('n_End_Time_m2',date('i')) , 'class="dropdown" style="width: 52px;" disabled'); ?></div>
                               <div class="p-vo-4"><span class="ui-left_mobile">Rate : </span>RM<input type="text" id="n_personnel_rate2" name="V_rate2" value="<?php echo set_value('V_rate2'); ?>" size="10" class="input-none-rate" readonly></div>
                               <div class="p-vo-5"><span class="ui-left_mobile">Total : </span>RM<input type="text" id="T_rate2" name="T_rate2" value="<?php echo set_value('T_rate2'); ?>" size="10" class="input-none-rate" readonly></div>
@@ -500,7 +492,7 @@
                                     <input type="text" name="V_requestor3" value="<?php echo $this->input->post('C_requestor3');?>" size="10" class="form-control-button2" readonly><br />
                                     <span style="font-size:16px;"><?php echo $this->input->post('V_requestor3');?></span>
                               </div>
-                              <div class="p-vo-3"><span class="ui-left_mobile">Time Spent : </span><?php
+                              <div class="p-vo-3"><span class="ui-left_mobile">Time Spent : </span><?php 
                                                             $hour_list = array(
                                                       '0' => '0',
                                                       '1' => '1',
@@ -528,8 +520,8 @@
                                                       '23' => '23',
                                            );
                                                              ?>
-                                                        <?php echo form_dropdown('n_End_Time_h3', $hour_list, set_value('n_End_Time_h3',date('H')) , 'class="dropdown" style="width: 52px;" disabled'); ?>
-                                                            <?php
+                                                        <?php echo form_dropdown('n_End_Time_h3', $hour_list, set_value('n_End_Time_h3',date('H')) , 'class="dropdown" style="width: 52px;" disabled'); ?> 
+                                                            <?php 
                                                             $min_list = array(
                                                             '0' => '0',
                                                       '1' => '1',
@@ -592,7 +584,7 @@
                                                       '58' => '58',
                                                       '59' => '59',
                                            );
-                                                             ?>
+                                                             ?>         
                                           <?php echo form_dropdown('n_End_Time_m3', $min_list, set_value('n_End_Time_m3',date('i')) , 'class="dropdown" style="width: 52px;" disabled'); ?></div>
                               <div class="p-vo-4"><span class="ui-left_mobile">Rate : </span>RM<input type="text" id="n_personnel_rate3" name="V_rate3" value="<?php echo set_value('V_rate3'); ?>" size="10" class="input-none-rate" readonly></div>
                               <div class="p-vo-5"><span class="ui-left_mobile">Total : </span>RM<input type="text" id="T_rate3" name="T_rate3" value="<?php echo set_value('T_rate3'); ?>" size="10" class="input-none-rate" readonly></div>
@@ -631,39 +623,39 @@
 			<tr>
 				<td class="td-assest" valign="top">Performance Test : </td>
 				<td valign="top">
-					<input type="radio" id="radio-1-1" name="n_performance_test" class="regular-radio" <?php echo set_radio('n_performance_test', 'Done',true); ?> disabled/>
+					<input type="radio" id="radio-1-1" name="n_performance_test" class="regular-radio" <?php echo set_radio('n_performance_test', 'Done',true); ?> disabled/>   
 					<label for="radio-1-1"></label> Done</option><br />
-					<input type="radio" id="radio-1-2" name="n_performance_test" class="regular-radio" DISABLED/>
+					<input type="radio" id="radio-1-2" name="n_performance_test" class="regular-radio" DISABLED/>   
 					<label for="radio-1-2"></label><font color="#cccccc"> Not Done</font><br />
-					<input type="radio" id="radio-1-3" name="n_performance_test" class="regular-radio" <?php echo set_radio('n_performance_test', 'Not Applicable',true); ?> disabled/>
+					<input type="radio" id="radio-1-3" name="n_performance_test" class="regular-radio" <?php echo set_radio('n_performance_test', 'Not Applicable',true); ?> disabled/>   
 					<label for="radio-1-3"></label> Not Applicable</option>
 				</td>
 			</tr>
 			<tr>
-				<td class="td-assest" valign="top">Safety Test Required :</td>
+				<td class="td-assest" valign="top">Safety Test Required :</td>			
 				<td>
-					<input type="radio" id="radio-1-4" onclick="javascript:fShowSTestResult('Y');" name="n_safety_test" class="regular-radio" value="Done" <?php echo set_radio('n_safety_test', 'Done',true); ?> disabled/>
+					<input type="radio" id="radio-1-4" onclick="javascript:fShowSTestResult('Y');" name="n_safety_test" class="regular-radio" value="Done" <?php echo set_radio('n_safety_test', 'Done',true); ?> disabled/>   
 					<label for="radio-1-4"></label> Done<br />
-					<input type="radio" id="radio-1-5" name="n_safety_test" class="regular-radio" disabled/>
+					<input type="radio" id="radio-1-5" name="n_safety_test" class="regular-radio" disabled/>   
 					<label for="radio-1-5"></label><font color="#cccccc"> Not Done</font><br />
 					<input type="radio" id="radio-1-6" onclick="javascript:fShowSTestResult('N');" name="n_safety_test" class="regular-radio" value="Not Applicable" <?php echo set_radio('n_safety_test', 'Not Applicable',true); ?> disabled>
 					<label for="radio-1-6"></label> Not Applicable<br />
 				</td>
 			</tr>
 			<tr>
-				<td class="td-assest" valign="top">Safety Test Result :</td>
+				<td class="td-assest" valign="top">Safety Test Result :</td>			
 				<td>
-					<?php if ($this->input->post('n_safety_test') == 'Done') { ?>
+					<?php if ($this->input->post('n_safety_test') == 'Done') { ?> 
 					<table border="0" width="150" id="divShowSTestResult" style="display:block; color:black; margin-left:-3px;">
 					<?php } ?>
-					<?php if ($this->input->post('n_safety_test') == 'Not Applicable') { ?>
+					<?php if ($this->input->post('n_safety_test') == 'Not Applicable') { ?> 
 					<table border="0" width="150" id="divShowSTestResult" style="display:none; color:black; margin-left:-3px;">
 					<?php } ?>
 						<tr>
 							<td>
-								<input type="radio" id="radio-1-29" name="n_safety_result" class="regular-radio" value="Y" <?php echo set_radio('n_safety_result', 'Y',true); ?>/>
+								<input type="radio" id="radio-1-29" name="n_safety_result" class="regular-radio" value="Y" <?php echo set_radio('n_safety_result', 'Y',true); ?>/>   
 								<label for="radio-1-29"></label> Passed<br />
-								<input type="radio" id="radio-1-29" name="n_safety_result" class="regular-radio" value="NA" <?php echo set_radio('n_safety_result', 'NA',true); ?>/>
+								<input type="radio" id="radio-1-29" name="n_safety_result" class="regular-radio" value="NA" <?php echo set_radio('n_safety_result', 'NA',true); ?>/>   
 								<label for="radio-1-29"></label> Failed
 							</td>
 						</tr>
@@ -698,7 +690,7 @@
 			<tr>
 				<td class="td-assest" valign="top">Facility Code : </td>
 				<td>
-					<?php
+					<?php 
 							$facility_list = array(
 							'EB-00 Biomedical, Other Equipment' => 'EB-00 Biomedical, Other Equipment',
                   			'EB-01 Biomedical, Therapeutic Equipment' => 'EB-01 Biomedical, Therapeutic Equipment',
@@ -714,14 +706,14 @@
                   			'IB-08 Surgical tools' => 'IB-08 Surgical tools',
                   			'IB-09 Cassette holder - x-ray film.' => 'IB-09 Cassette holder - x-ray film.',
                   			);
-						?>
+						?>		
 		              	<?php echo form_dropdown('n_facility_code', $facility_list, set_value('n_facility_code') , 'class="dropdown n_wi-date2" disabled'); ?>
 				</td>
 			</tr>
 			<tr>
 				<td class="td-assest" valign="top">Failure Code : </td>
 				<td>
-					<?php
+					<?php 
 							$failure_list = array(
 							'F-01 Failure due to normal wear & tear' => 'F-01 Failure due to normal wear & tear',
                   			'F-02 Failure due to design fault' => 'F-02 Failure due to design fault',
@@ -737,7 +729,7 @@
                   			'F-12 Failure due to other supporting services' => 'F-12 Failure due to other supporting services',
                   			'F-13 Failure due to evironmental factor(s)' => 'F-13 Failure due to evironmental factor(s)',
                   			);
-						?>
+						?>		
 		              	<?php echo form_dropdown('n_failure_code', $failure_list, set_value('n_failure_code') , 'class="dropdown n_wi-date2" disabled'); ?>
 				</td>
 			</tr>
@@ -754,7 +746,7 @@
                     	<input type="text" class="form-control-button2 n_wi-date2" name="n_PFStartDate" value="<?php echo set_value('n_PFStartDate'); ?>" readonly >
                     	<span class="space"></span>
 						<input type="text" class="form-control-button2" name="n_PFStartHH" value="<?php echo set_value('n_PFStartHH'); ?>" size="2" readonly>
-						<input type="text" class="form-control-button2" name="n_PFStartNN" value="<?php echo set_value('n_PFStartNN'); ?>" size="2" readonly>
+						<input type="text" class="form-control-button2" name="n_PFStartNN" value="<?php echo set_value('n_PFStartNN'); ?>" size="2" readonly>									
 					</div>
 					<?php } ?>
 					<?php if ($this->input->post('n_Stoppage') == "") { ?>
@@ -762,7 +754,7 @@
                     	<input type="text" class="form-control-button2 n_wi-date2" name="n_PFStartDate" value="" size="20" readonly >
                     	<span class="space"></span>
 						<input type="text" class="form-control-button2" name="n_PFStartHH" value="" size="2" readonly>
-						<input type="text" class="form-control-button2" name="n_PFStartNN" value="" size="2" readonly>
+						<input type="text" class="form-control-button2" name="n_PFStartNN" value="" size="2" readonly>									
 					</div>
 					<?php } ?>
 				</td>
@@ -805,7 +797,7 @@
 			<tr>
 				<td class="td-assest" valign="top">QC Uptime : </td>
 				<td>
-					<?php
+					<?php 
 							$QC_list = array(
 							'QC01' => 'QC01 Equipment not made available',
                   			'QC02' => 'QC02 Technical Personnel',
@@ -827,7 +819,7 @@
                   			'QC18' => 'QC18 Downtime due to SCM',
                   			'QC19' => 'QC19 Equipment not functional and waiting for BER approved',
                   			);
-						?>
+						?>		
 		              	<?php echo form_dropdown('n_QCUptime', $QC_list, set_value('n_QCUptime') , 'class="dropdown n_wi-date2"disabled'); ?>
 				</td>
 			</tr>
@@ -839,29 +831,29 @@
 			<tr>
 				<td class="td-assest" valign="top">Designation : </td>
 				<td>
-					<input type="radio" id="radio-1-7" name="n_Designation" class="regular-radio"<?php echo set_radio('n_Designation', 'Doctor',true); ?>disabled/>
+					<input type="radio" id="radio-1-7" name="n_Designation" class="regular-radio"<?php echo set_radio('n_Designation', 'Doctor',true); ?>disabled/>   
 					<label for="radio-1-7"></label> Doctor<br>
-					<input type="radio" id="radio-1-8" name="n_Designation" class="regular-radio"<?php echo set_radio('n_Designation', 'Matron',true); ?>disabled/>
+					<input type="radio" id="radio-1-8" name="n_Designation" class="regular-radio"<?php echo set_radio('n_Designation', 'Matron',true); ?>disabled/>   
 					<label for="radio-1-8"></label> Matron<br>
-					<input type="radio" id="radio-1-9" name="n_Designation" class="regular-radio"<?php echo set_radio('n_Designation', 'Medical Assistant',true); ?>disabled/>
+					<input type="radio" id="radio-1-9" name="n_Designation" class="regular-radio"<?php echo set_radio('n_Designation', 'Medical Assistant',true); ?>disabled/>   
 					<label for="radio-1-9"></label> Medical Assistant<br>
-					<input type="radio" id="radio-1-10" name="n_Designation" class="regular-radio"<?php echo set_radio('n_Designation', 'IIUM Officer',true); ?>disabled/>
+					<input type="radio" id="radio-1-10" name="n_Designation" class="regular-radio"<?php echo set_radio('n_Designation', 'IIUM Officer',true); ?>disabled/>   
 					<label for="radio-1-10"></label> IIUM Officer<br>
-					<input type="radio" id="radio-1-11" name="n_Designation" class="regular-radio"<?php echo set_radio('n_Designation', 'Sister In-Charge',true); ?>disabled/>
+					<input type="radio" id="radio-1-11" name="n_Designation" class="regular-radio"<?php echo set_radio('n_Designation', 'Sister In-Charge',true); ?>disabled/>   
 					<label for="radio-1-11"></label> Sister In-Charge<br>
-					<input type="radio" id="radio-1-12" name="n_Designation" class="regular-radio"<?php echo set_radio('n_Designation', 'Sister On Duty',true); ?>disabled/>
+					<input type="radio" id="radio-1-12" name="n_Designation" class="regular-radio"<?php echo set_radio('n_Designation', 'Sister On Duty',true); ?>disabled/>   
 					<label for="radio-1-12"></label> Sister On Duty<br>
-					<input type="radio" id="radio-1-13" name="n_Designation" class="regular-radio"<?php echo set_radio('n_Designation', 'Specialist',true); ?>disabled/>
+					<input type="radio" id="radio-1-13" name="n_Designation" class="regular-radio"<?php echo set_radio('n_Designation', 'Specialist',true); ?>disabled/>   
 					<label for="radio-1-13"></label> Specialist<br>
-					<input type="radio" id="radio-1-14" name="n_Designation" class="regular-radio"<?php echo set_radio('n_Designation', 'Staff Nurse',true); ?>disabled/>
+					<input type="radio" id="radio-1-14" name="n_Designation" class="regular-radio"<?php echo set_radio('n_Designation', 'Staff Nurse',true); ?>disabled/>   
 					<label for="radio-1-14"></label> Staff Nurse<br>
-					<input type="radio" id="radio-1-15" name="n_Designation" class="regular-radio"<?php echo set_radio('n_Designation', 'Supervisor',true); ?>disabled/>
+					<input type="radio" id="radio-1-15" name="n_Designation" class="regular-radio"<?php echo set_radio('n_Designation', 'Supervisor',true); ?>disabled/>   
 					<label for="radio-1-15"></label> Supervisor<br>
-					<input type="radio" id="radio-1-16" name="n_Designation" class="regular-radio"<?php echo set_radio('n_Designation', 'APSB',true); ?>disabled/>
+					<input type="radio" id="radio-1-16" name="n_Designation" class="regular-radio"<?php echo set_radio('n_Designation', 'APSB',true); ?>disabled/>   
 					<label for="radio-1-16"></label> APSB<br>
-					<input type="radio" id="radio-1-17" name="n_Designation" class="regular-radio"<?php echo set_radio('n_Designation', 'PMSB',true); ?>disabled/>
+					<input type="radio" id="radio-1-17" name="n_Designation" class="regular-radio"<?php echo set_radio('n_Designation', 'PMSB',true); ?>disabled/>   
 					<label for="radio-1-17"></label> PMSB<br>
-					<input type="radio" id="radio-1-18" name="n_Designation" class="regular-radio"<?php echo set_radio('n_Designation', 'APFMS',true); ?>disabled/>
+					<input type="radio" id="radio-1-18" name="n_Designation" class="regular-radio"<?php echo set_radio('n_Designation', 'APFMS',true); ?>disabled/>   
 					<label for="radio-1-18"></label> APFMS<br>
 				</td>
 			</tr>
@@ -892,8 +884,8 @@
             <?php echo form_hidden('n_Ehour',$this->input->post('n_Ehour'));?>
             <?php echo form_hidden('n_Emin',$this->input->post('n_Emin'));?>
             <?php echo form_hidden('n_Type_of_Work',$this->input->post('n_Type_of_Work'));?>
-            <?php echo form_hidden ('n_Action_Taken',$this->input->post('n_Action_Taken')); ?>
-            <?php echo form_hidden ('C_requestor1',$this->input->post('C_requestor1')); ?>
+            <?php echo form_hidden ('n_Action_Taken',$this->input->post('n_Action_Taken')); ?>  
+            <?php echo form_hidden ('C_requestor1',$this->input->post('C_requestor1')); ?>      
             <?php echo form_hidden ('V_requestor1',$this->input->post('V_requestor1')); ?>
             <?php echo form_hidden('n_End_Time_h1',$this->input->post('n_End_Time_h1'));?>
             <?php echo form_hidden('n_End_Time_m1',$this->input->post('n_End_Time_m1'));?>
@@ -925,9 +917,9 @@
             <?php  echo form_hidden('duedate',$this->input->post('duedate')); ?>
             <?php  echo form_hidden('n_job_Date',$this->input->post('n_Visit_Date')); ?>
             <?php  echo form_hidden('n_JChour',$this->input->post('n_Ehour')); ?>
-            <?php  echo form_hidden('n_JCmin',$this->input->post('n_Emin')); ?>
-            <?php  echo form_hidden('n_jobclose_summary',$this->input->post('n_Action_Taken')); ?>
-            <?php  echo form_hidden('n_performance_test',$this->input->post('n_performance_test')); ?>
+            <?php  echo form_hidden('n_JCmin',$this->input->post('n_Emin')); ?>    
+            <?php  echo form_hidden('n_jobclose_summary',$this->input->post('n_Action_Taken')); ?>      
+            <?php  echo form_hidden('n_performance_test',$this->input->post('n_performance_test')); ?>      
             <?php  echo form_hidden('n_safety_test',$this->input->post('n_safety_test')); ?>
             <?php  echo form_hidden('n_safety_result',$this->input->post('n_safety_result')); ?>
             <?php  echo form_hidden('n_facility_code',$this->input->post('n_facility_code')); ?>
@@ -946,7 +938,7 @@
             <?php  echo form_hidden('n_Accepted_By',$this->input->post('n_Accepted_By')); ?>
             <?php  echo form_hidden('n_Designation',$this->input->post('n_Designation')); ?>
             <?php  echo form_hidden('n_Acceptance_Date',$this->input->post('n_Acceptance_Date')); ?>
-            <?php echo form_hidden ('C_jrequestor1',$this->input->post('C_jrequestor1')); ?>
+            <?php echo form_hidden ('C_jrequestor1',$this->input->post('C_jrequestor1')); ?>      
             <?php echo form_hidden ('V_jrequestor1',$this->input->post('V_jrequestor1')); ?>
 
       </div>

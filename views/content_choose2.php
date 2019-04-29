@@ -4,16 +4,11 @@
     top: 180px; /*for example purposes only*/
     list-style-type: none;
     margin: 0;
-    left: 35%;
-
+    left: 30%;
 
 }
 li {
     position: absolute;
-}
-
-a {
-	font-size: 19px;
 }
 </style>
 <body class="body-screen">
@@ -24,7 +19,7 @@ a {
 					<div class="s-left">
 						<?php $hidden = array('name' => 'myForm');?>
 						<?php echo form_open_multipart('contentcontroller/do_upload',$hidden);?>
-							<?php  if (!empty($records_desk)) {?>
+							<?php  if (!empty($records_desk)) {?> 
 								<?php foreach($records_desk as $row):?>
 							<div id="yourBtn"><img src="<?php echo base_url().'uploadfile/'?><?= isset($row->file_name) == TRUE ? $row->file_name : 'N/A'?>" name="file_name" title="click to change profile picture" onclick="getFile()"/></div>
 								<?php endforeach;?>
@@ -45,9 +40,6 @@ a {
 			</div>
 			<div class="try"></div>
 		</div>
-		<?php $urla = $this->input->get('continue') ? $this->input->get('continue') : 'contentcontroller/content'?>
-		<?php $urla = str_replace("http://localhost/tutorial/FEMSHospital_v3/index.php/","",$urla)?>
-		<?php //echo "nilai url : ".$urla." nilai continue : ".$this->input->get('continue') ?>
 		<div class="ui-middle-choose-screen">
 		<div class="hospital">
         <ul>
@@ -57,53 +49,51 @@ a {
 		     </li>
 		     <li><div style="width: 50%; text-align: center;"><img src="<?php echo base_url(); ?>images/iconH.png" style=" height: 50px; width: 50px; display:inline-block; margin-top:0px; "/></div>
 		       <div style="background-color: #EE4000; width: 50%; text-align: center;">JOHOR BHARU</div>
-					 <?php $injb = array("HSA", "HSI", "KTG", "KUL", "PER", "SGT", "KLN", "MER", "PON", "BPH", "MUR", "MKJ", "TGK");?>
-					 <?php foreach($service_apa2 as $row):?>
-						 <?php if (in_array($row->v_HospitalCode, $injb)) {?>
-						 <div style="color: black;"><a href="<?php echo base_url();?>index.php/contentcontroller/select?hc=<?=$row->v_HospitalCode?>">
-		 					<?=$row->v_HospitalName?>
-		 				</a></div>
-					<?php }?>
-					 <?php endforeach;?>
+		    <div style="color: black;">Sultanah Aminah</div>
+		     <div style="color: black;">Sultan Ismail</div>
+		     <div style="color: black;">Nora Ismail</div>
+		     <div style="color: black;">Pakar Sultanah Fatimah</div>
+		     <div style="color: black;">Enche Besar Hajjah Khalsom</div>
+		     <div style="color: black;">Segamat</div>
+		     <div style="color: black;">Permai</div>
+		     <div style="color: black;">Makmal Kesihatan Awam</div>
+		     <div style="color: black;">Temenggung Seri Maharaja Tun Ibrahim</div>
+		     <div style="color: black;">Mersing</div>
+		     <div style="color: black;">Pontian</div>
+		     <div style="color: black;">Kota Tinggi</div>
+		     <div style="color: black;">Tangkak<div>
 		     </li>
-
+		   
 		     <li>
 		    <div style="width:100%; text-align: center;"></div>
-
+		   
 		     </li>
 		     <li>
 		    <div style="width:100%; text-align: center;"><img src="<?php echo base_url(); ?>images/iconH.png" style=" height: 50px; width: 50px; display:inline-block; margin-top:0px;"/></div>
 		    <div style="background-color: #EE4000; width: 100%; text-align: center;">MELAKA</div>
-				<?php $injb = array("AGJ", "JAS", "MKA", "TMP");?>
-				<?php foreach($service_apa2 as $row):?>
-					<?php if (in_array($row->v_HospitalCode, $injb)) {?>
-					<div style="color: black;"><a href="<?php echo base_url();?>index.php/contentcontroller/select?hc=<?=$row->v_HospitalCode?>">
-					 <?=$row->v_HospitalName?>
-				 </a></div>
-			 <?php }?>
-				<?php endforeach;?>
+		    <div style="color: black;">Melaka</div>
+		     <div style="color: black;">Jasin</div>
+		     <div style="color: black;">Tampin</div>
+		     <div style="color: black;">Alor Gajah</div>
 		     </li>
 		    <li>
 		    <div style="width:100%; text-align: center;"></div>
 		    </li>
 		     <li>
 		    <div style="width: 150%; text-align: center;" ><img src="<?php echo base_url(); ?>images/iconH.png" style=" height: 50px; width: 50px; display:inline-block; margin-top:0px;"/></div>
-		    <div style="background-color: #EE4000; width: 100%; text-align: center;">NEGERI SEMBILAN</div>
-				<?php $injb = array("JLB", "JMP", "KPL", "PDX", "SBN");?>
-				<?php foreach($service_apa2 as $row):?>
-					<?php if (in_array($row->v_HospitalCode, $injb)) {?>
-					<div style="color: black;"><a href="<?php echo base_url();?>index.php/contentcontroller/select?hc=<?=$row->v_HospitalCode?>">
-					 <?=$row->v_HospitalName?>
-				 </a></div>
-			 <?php }?>
-				<?php endforeach;?>
+		    <div style="background-color: #EE4000; width: 150%; text-align: center;">NEGERI SEMBILAN</div>
+            <div style="color: black;">Tuanku Jaafar</div>
+		     <div style="color: black;">Tuanku Najihah</div>
+		     <div style="color: black;">Port Dickson</div>
+		     <div style="color: black;">Jempol</div>
+		     <div style="color: black;">Jelebu</div>
 		    </li>
 		</ul>
 			<div class="try3"></div>
 		</div>
 		</div>
 	</div>
-
+	
 <script type="text/javascript">
  function getFile(){
  //alert('test');
@@ -128,12 +118,12 @@ a {
     var $self = $(this),
         rotate = slice * i + start,
         rotateReverse = rotate * -1;
-
+    
     $self.css({
         'transform': 'rotate(' + rotate + 'deg) translate(' + radius + ') rotate(' + rotateReverse + 'deg)'
     });
 });
-
+	
 </script>
 </body>
 </html>

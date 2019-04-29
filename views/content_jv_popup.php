@@ -181,21 +181,6 @@ if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 <?php }elseif(($this->uri->slash_segment(1) == 'Procurement/') or ( $this->uri->slash_segment(1) == 'mrinnew_ctrl/')){ ?>
 		<?php if(($this->input->get('pro') == 'new') or ($this->input->get('pr') == 'pending') or ($this->input->get('pro') == 'edit')){ ?>
 <script>
-function pecodes3(id)
-{
-	winProp = 'width=600,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-	Win = window.open('<?php 
-if ($this->uri->slash_segment(1) == 'contentcontroller/') {
-	echo "pecodes";
-		
-	}
-	else {
-		echo "contentcontroller/pecodes";
-		
-	}?>?mrin=yes&hosp=<?=$this->session->userdata('hosp_code');?>&id='+id, 'assetnumber', winProp);//change hosp to session
-	Win.window.focus();
-}
-
 function fCallRequestA(){
 	var assno = document.getElementById("n_assetnumber");
 	winProp = 'width=' + screen.width + ',height=' + screen.height + ',left=,top=,menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
@@ -233,7 +218,7 @@ function fCallitem(){
 	<?php } ?>
     cell1.innerHTML = rows+'<input type="hidden" name="rows" value="'+rows+'">';
     cell2.innerHTML = '<p id="itemcode'+rows+'"></p><input type="hidden" id="itemcodei'+rows+'" name="itemcode'+rows+'" value="">';
-    cell3.innerHTML = '<div id="itemname'+rows+'" style="display:inline-block; padding-right:5px;"></div><span class="icon-windows" style="display:inline-block;" onclick="pecodes3('+rows+')"></span>';
+    cell3.innerHTML = '<div id="itemname'+rows+'" style="display:inline-block; padding-right:5px;"></div><span class="icon-windows" style="display:inline-block;" onclick="fCallitemxx(\'itemname'+rows+'\',\'itemcode'+rows+'\')"></span>';
 	cell4.innerHTML = '<input type="text" name="n_qty'+rows+'" value="" class="form-control-button2" style=width:100px;">';
 	cell5.innerHTML = '<select name="a_rem'+rows+'" class="dropdown"><option value="" selected="selected">None</option><option value="1">Mishandling</option><option value="2">Supplementary</option><option value="3">Upgrading</option><option value="4">Re-Installation</option><option value="5">Other</option></select>'; 	
 	cell6.innerHTML = '<INPUT TYPE="text" name="startDate'+rows+'" class="form-control-button2" style=width:100px;" onChange="validDate(this)">';

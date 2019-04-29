@@ -1,5 +1,9 @@
 <?php echo form_open('contentcontroller/workorderlist_update?wrk_ord='.$this->input->get('wrk_ord'));?>
 <div class="ui-middle-screen">
+    <table class="table-middle-screen-2" border="0">
+<tr>
+	<td  style="width: 2%; border-style: none;"></td>
+	<td valign="top" style="width: 70%;">
 	<div class="content-workorder" align="center">
 			<table class="ui-content-middle-menu-workorder" border="0" height="" width="95%" align="center">
 			<?php include 'content_wrk_ord.php';?>
@@ -126,5 +130,8 @@
 		</table>
 		<?php  echo form_hidden('wrk_ord',$this->input->get('wrk_ord')); ?>
 	</div>
+	</td>
+	</tr>
+	</table>
 </div>
 <?php echo form_close(); ?>

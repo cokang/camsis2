@@ -41,12 +41,12 @@
 		 	$stock_part[$row->ItemName] = $row->ItemName;
 		 }
           	$stockpart = "stockpart";
-			$fy = $this->input->get($stockpart);
+			$fy = $this->input->post($stockpart);
         ?>
               <?php echo form_dropdown($stockpart, $stock_part, set_value($stockpart,(!empty($fy) ? $fy : 'Select Stock Part')) , 'class="dropdown" style="width: 300px;"'); ?>
 
 		<input type="submit" value="Apply" onclick="javascript: submit()">
-  <?=form_hidden('id',$this->input->get('id'));?>
+
 		</form>
 
 		<table class="tbl-wo" border="0" align="center">

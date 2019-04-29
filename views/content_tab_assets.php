@@ -1,7 +1,7 @@
 <?php $autocolor = array('bg-purple', 'bg-red', 'bg-yellow', 'bg-aqua', 'bg-light-blue'); shuffle($autocolor); ?>
 <?php if ($this->session->userdata('usersess') == 'HKS') { ?>
 <div class="main-box">
-	<div class="box3">
+	<div class="box8">
 		<div class="small-box <?php echo $autocolor[0];?>">
 			<div class="inner2" >
 				<p class=" <?php echo $autocolor[0];?>">PERIODIC WORK ( MONTHLY PLANNER )</p>
@@ -40,7 +40,7 @@
 </div>
 <?php  } else {  ?>
 <div class="main-box">
-	<div class="box3">
+	<div class="box7">
 		<div class="small-box <?php echo $autocolor[0];?>">
 			<div class="inner2" >
 				<p>New Asset</p>
@@ -49,7 +49,7 @@
 			<?php echo anchor ('asset','<span class="ui-left_web">More Info <i class="icon-arrow-right"></i></span>','class="small-box-footer"'); ?>
 		</div>
 	</div>
-	<div class="box3">
+	<div class="box7">
 		<div class="small-box <?php echo $autocolor[1];?>">
 			<div class="inner2" >
 				<p>Asset Catalog</p>
@@ -58,7 +58,7 @@
 			<?php echo anchor ('contentcontroller/assets','<span class="ui-left_web">More Info <i class="icon-arrow-right"></i></span>','class="small-box-footer"'); ?>
 		</div>
 	</div>
-	<div class="box3">
+	<div class="box7">
 		<div class="small-box <?php echo $autocolor[3];?>">
 			<div class="inner2" >
 				<p>Asset PPM Planner</p>

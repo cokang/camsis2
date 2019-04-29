@@ -1,15 +1,8 @@
 <body class="body-screen">
-		<div class="ui-middle-screen6">
-		<table class="table-middle-screen-1">
-<tr>
-<td>
-	SELECT YOUR SITE
-</td>
-</tr>
-</table>
+		<div class="ui-middle-screen-ch">
 			<table class="table-middle-screen-2" border="0">
 			<tr>
-			<td>
+			<td style="text-align: center;">
 			<div class="try4">
 				<?php $urla = $this->input->get('continue') ? $this->input->get('continue') : 'contentcontroller/content'?>
 				<?php $urla = str_replace("http://localhost/tutorial/FEMSHospital_v3/index.php/","",$urla)?>

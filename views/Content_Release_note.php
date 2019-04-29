@@ -4,7 +4,7 @@
 <div class="ui-middle-screen">
 	<div class="div-p"></div>
 	<div class="main-box">
-		<div class="box">
+		<div class="box7">
 			<?php $autocolor = array('bg-purple', 'bg-red', 'bg-yellow', 'bg-aqua', 'bg-light-blue'); shuffle($autocolor);?>
 			<div class="small-box <?php echo $autocolor[0];?>">
 				<div class="inner2" >

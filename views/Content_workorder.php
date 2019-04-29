@@ -1,5 +1,4 @@
 <div class="ui-middle-screen">
-
 <table class="table-middle-screen-2" border="0">
 <tr>
 <td width="13%" valign="top" style="margin-left: 2%">
@@ -9,7 +8,7 @@
 <?php include 'content_tab_wo.php';?>
 <?php } ?>
 </td>
-<td width="85%" style="">
+<td width="85%" valign="top" >
 	<?php if ($this->input->get('wonos')) { ?>
 		<table id="myElem" class="onloadworkorder">
 			<tr>

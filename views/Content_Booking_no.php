@@ -172,4 +172,3 @@
 			</tr>
 		</table>
 	</div>
-</div>

@@ -1,21 +1,6 @@
 <?php echo form_open('bems_desk_ctrl');?>
 <?php $numberdate = 0; ?>
-<div class="ui-middle-screen" style="margin-top: 5%;">
-<table class="table-middle-screen-1">
-<tr>
-<td>
-	<?php if( $this->session->userdata("total_hosp")>1 ){?>
-					<?php echo anchor ('contentcontroller/select?hc=pilih',$this->session->userdata("hosp_name"),'style="font-size:20px;color:white; {
-						# code...
-					}"'); ?>
-				<?php }else{?>
-					<p style="font-size: 20px; color: black;"><?=$this->session->userdata("hosp_name");?></p>
-				<?php } ?>
-				<a href='contentcontroller/Content/bems' style="font-size: 20px;color: white;"> <span class='icon-play2' style="font-size: 20px;color: white;"></span> Work Order</a>
-				<a href='contentcontroller/workorder?parent=complaint' style="font-size: 20px;color: white;"> <span class='icon-play2' style="font-size: 20px;color: white;"></span> Help Desk</a>
-</td>
-</tr>
-</table>
+<div class="ui-middle-screen">
 <table class="table-middle-screen-2" border="0">
 <tr><td>
 	<div class="content-workorder">

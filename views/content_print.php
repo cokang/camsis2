@@ -26,10 +26,11 @@ if ($this->input->get('parent') == 'assets' ){
 if ($this->input->get('wrk_ord') == $this->input->get('wrk_ord')){
 	if ($this->input->get('wo') or 'contentcontroller/workorderlist/' == $this->uri->slash_segment(1) .$this->uri->slash_segment(2)){
 	echo "<span style='float:; padding-left:3px;'>";
-	echo anchor ('contentcontroller/print_workorder?wrk_ord='.$this->input->get('wrk_ord'), '<button class="btn-button btn-primary-button" style="width:97%; height:33px;">Print This Work Order <span class="icon-printer" style="float:right; margin-top:-4px; margin-right:20px; font-size:30px;"></span></button>');
+	echo anchor ('contentcontroller/print_workorder?wrk_ord='.$this->input->get('wrk_ord'), '<button class="btn-button btn-primary-button" style="width:30%; height:33px;">Print This Work Order <span class="icon-printer" style="float:right; margin-top:-4px; margin-right:20px; font-size:30px;"></span></button>');
 	echo"</span>";
-	echo"<div style='height:2px;'></div><span style='float:; padding-left:3px;'>";
-	echo anchor ('contentcontroller/print_wos?wrk_ord='.$this->input->get('wrk_ord'), '<button class="btn-button btn-primary-button" style="width:97%; height:33px;">Print Work Order Status <span class="icon-printer" style="float:right; margin-top:-4px; margin-right:20px; font-size:30px;"></span></button>');
+	echo"&nbsp;";
+	echo"<span style='float:; padding-left:3px;'>";
+	echo anchor ('contentcontroller/print_wos?wrk_ord='.$this->input->get('wrk_ord'), '<button class="btn-button btn-primary-button" style="width:30%; height:33px;">Print Work Order Status <span class="icon-printer" style="float:right; margin-top:-4px; margin-right:20px; font-size:30px;"></span></button>');
 	echo"</span>";
 }
 }

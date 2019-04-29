@@ -90,19 +90,19 @@
 			<td>Nature of Visit:</td>
 			<td></td>
 			
-		    <!-- <?php if($woAP19[0]->V_priority_code == 'Normal'){?>
+		    <!-- <?php if($woinfo[0]->V_priority_code == 'Normal'){?>
 			<img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/>
 			<?php }else{ ?>
 			<?php } ?> -->
 
 			<td></td>
-			<!-- <?php if($woAP19[0]->V_priority_code == 'Emergency'){?>
+			<!-- <?php if($woinfo[0]->V_priority_code == 'Emergency'){?>
 			<img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/>
 			<?php }else{ ?>
 			<?php } ?> -->
 
 			<td></td>
-			<!-- <?php if($woAP19[0]->V_priority_code == 'Emergency'){?>
+			<!-- <?php if($woinfo[0]->V_priority_code == 'Emergency'){?>
 			<img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/>
 			<?php }else{ ?>
 			<?php } ?> -->
@@ -115,51 +115,39 @@
 		<td>Breakdown</td>
 		<td></td>
 			<td><div class="box2">
-			<?php if($woAP19[0]->V_priority_code == 'RQ'){?>
-			<img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/>
-			<?php }else{ ?>
-			<?php } ?>
 			</div></td>
 			<td></td>
 			<td></td>
 			<td>LOC NO	</td>
 			<td>:</td>
-			<td style="border-bottom: 1px solid black;"><?=$woAP19[0]->V_requestor;?></td>	
+			<td style="border-bottom: 1px solid black;"></td>	
 		</tr>
 
 		<td>PPM</td>
 		<td></td>
 			<td><div class="box2">
-				<?php if($woAP19[0]->V_priority_code == 'PPM'){?>
-			<img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/>
-			<?php }else{ ?>
-			<?php } ?>
 			</div></td>
 			<td></td>
 			<td></td>
 			<td>PO NO	</td>
 			<td>:</td>
-			<td style="border-bottom: 1px solid black;"><?=$woAP19[0]->V_User_dept_code;?></td>
+			<td style="border-bottom: 1px solid black;"></td>
 		</tr>
 
-		<td>Others</td>
+		<td>Other</td>
 		<td></td>
 			<td><div class="box2">
-				<?php if($woAP19[0]->V_priority_code == 'Others'){?>
-			<img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/>
-			<?php }else{ ?>
-			<?php } ?>
 			</div></td>
 			<td></td>
 			<td></td>
 			<td>Letter</td>
 			<td>:</td>
-			<td style="border-bottom: 1px solid black;"><?=$woAP19[0]->V_Location_code;?></td>
+			<td style="border-bottom: 1px solid black;"></td>
 		</tr>
 		<tr>
 			<td>Work Order No	</td>
 			<td>:</td>
-			<td><?=$woAP19[0]->V_phone_no;?></td>
+			<td></td>
 			<td></td>
 			<td></td>
 			<td></td>
@@ -168,28 +156,28 @@
 		<tr>
 			<td>Equipment	</td>
 			<td>:</td>
-			<td><?=$woAP19[0]->V_Asset_name;?></td>
+			<td></td>
 			<td></td>
 			<td></td>
 			<td>Asset No	</td>
 			<td>:</td>
-			<td><?=$woAP19[0]->V_Asset_no;?></td>
+			<td></td>
 		</tr>
 		<tr>
 			<td>Manufacturer	</td>
 			<td>:</td>
-			<td><?=$woAP19[0]->V_Manufacturer;?></td>
+			<td></td>
 			<td></td>
 			<td></td>
 			<td>Serial No	</td>
 			<td>:</td>
-			<td><?=$woAP19[0]->V_Serial_no;?></td>
+			<td></td>
 		</tr>
 
 		<tr>
 			<td>Brand/Model	 </td>
 			<td>:</td>
-			<td><?=$woAP19[0]->V_Model_no;?></td>
+			<td></td>
 			<td></td>
 			<td></td>
 			<td></td>
@@ -199,15 +187,13 @@
 			<td>:</td>
 		</tr>
 		</table>
-        <div style="width: 90%; border: 1px solid black; height:10%; margin-left: 5%;font-size: 14px;padding-left:5px;">
-		<?=$woAP19[0]->V_summary;?>
-		</div>
+        <div style="width: 90%; border: 1px solid black; height:10%; margin-left: 5%;"></div>
         <table class="tbl-wo-2">
            <tr>
            	<td>Troubleshoot/Corrective Action</td>
            </tr>
         </table>
-        <div style="width: 90%; border: 1px solid black; height:10%; margin-left: 5%;font-size: 14px;padding-left:5px;"><?=$woinfo[0]->V_details;?></div>
+        <div style="width: 90%; border: 1px solid black; height:10%; margin-left: 5%;"></div>
         <div style="height: 2%;"></div>
         <table class="tbl-we">
         
@@ -283,7 +269,7 @@
         			<td></td>
         			<td></td>
         			<td style="text-align: right; width: 10%;"></td>
-        			<td style="width: 30%;"></td>
+        			<td  width: 30%;"></td>
         			<td></td>
         			<td></td>
         		</tr>
@@ -346,7 +332,7 @@
 			<tr>
 				<td style="padding-left:0px; width:120px;" align="center"><img src="<?php echo base_url(); ?>images/msblogo.png" style="width:100px; height:40px;"/></td>
 				<td style="text-align: center; font-size: 16px;font-weight: bold;">
-					MSB <?= ($hosp[0]->v_HospitalName) ? $hosp[0]->v_HospitalName : 'NA' ?>
+					MSB ALOR GAJAH
 				</td>
 				<td style="padding-left:5px; width:150px;font-size: 13px;" align="center">Date : <?= date("d/m/Y")?> </td>
 				<!-- <img src="<?php echo base_url(); ?>images/logo.png" style="width:145px; height:60px;"/></td> -->

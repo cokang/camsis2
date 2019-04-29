@@ -1,3 +1,4 @@
+<div class="ui-middle-screen">
 <?php
 if ($formType == 'new' ){
 	$disabledselect = "";
@@ -13,7 +14,7 @@ $save = $save_link;
 ?>
 
 <?php echo form_open("procurement$save");?>
-<div class="ui-middle-screen">
+
 	<div class="content-workorder">
 		<div class="div-p"></div>
 		<div class="ui-main-form">

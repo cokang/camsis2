@@ -13,7 +13,7 @@
 	    	foreach($color as $d => $e ){
 				if ($d == 1 and $value == 'Work Modules'){
 					if ($this->uri->slash_segment(1) .$this->uri->slash_segment(2) != 'contentcontroller/content/'){
-					echo '<div class="box3">';
+					echo '<div class="box8">';
 					echo '<div class="small-box '.$e.' ">';
 					echo '<div class="inner" >';
 					echo '<span class="wodryRX">WO|Response|PPM</span>';
@@ -27,7 +27,7 @@
 	    		}
 			    elseif ($d == 2 and $value == 'Central Functions'){
 					if ($this->uri->slash_segment(1) .$this->uri->slash_segment(2) != 'contentcontroller/Central/'){
-					echo '<div class="box3">';
+					echo '<div class="box8">';
 			    	echo '<div class="small-box '.$e.' ">';
 			    	echo '<div class="inner">';
 					echo '<span class="wodryRX1">VO|T&C|WARRANTY</span>';
@@ -41,7 +41,7 @@
 	    		}
 	    		elseif ($d == 0 and $value == 'Procurement Modules' ){
 					if ($this->uri->slash_segment(1) .$this->uri->slash_segment(2) != 'contentcontroller/Procurement/'){
-					echo '<div class="box3">';
+					echo '<div class="box8">';
 			    	echo '<div class="small-box '.$e.' ">';
 			    	echo '<div class="inner">';
 					echo '<span class="wodryRX2">MRIN| PO|MRIN</span>';
@@ -55,7 +55,7 @@
 	    		}
 	    		elseif ($d == 4 and $value == 'Business Intelligent Reports'){
 					if ($this->uri->slash_segment(1) .$this->uri->slash_segment(2) != 'contentcontroller/Business/'){
-					echo '<div class="box3">';
+					echo '<div class="box8">';
 			    	echo '<div class="small-box '.$e.' ">';
 			    	echo '<div class="inner">';
 			    	echo '<span class="">&nbsp</span>';
@@ -69,7 +69,7 @@
 	    		}
 				elseif ($d == 3 and $value == 'System Administration' and 'nezam' == $this->session->userdata('v_UserName')){
 					if ($this->uri->slash_segment(1) .$this->uri->slash_segment(2) != 'contentcontroller/sys_admin/'){
-					echo '<div class="box3">';
+					echo '<div class="box8">';
 			    	echo '<div class="small-box '.$e.' ">';
 			    	echo '<div class="inner">';
 			    	echo '<span class="h5">&nbsp</span>';

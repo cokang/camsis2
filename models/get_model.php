@@ -2122,6 +2122,7 @@ function latestppmvisit($wrk_ord){
 	$this->db->from('pmis2_emg_jobvisit1 v1');
 	$this->db->join('pmis2_egm_schconfirmmon s','s.v_WrkOrdNo = v1.v_WrkOrdNo');
 	$this->db->join('pmis2_emg_jobvisit1tow vt','v1.v_WrkOrdNo = vt.v_WrkOrdNo');
+	$this->db->where("v1.v_HospitalCode = ", $this->session->userdata('hosp_code'));
 	$this->db->where('v1.v_WrkOrdNo',$wrk_ord);
 	$this->db->where('s.v_ServiceCode = ',$this->session->userdata('usersess'));
 	$this->db->order_by('n_Visit DESC');

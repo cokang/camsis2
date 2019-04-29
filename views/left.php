@@ -5,19 +5,35 @@
 				<?php echo anchor ('logincontroller/logout','<button type="submit" class="btn btn-primary logoutmobile"><span style="color:white;">Logout</span></button>');?>
 			</div>
 	</td>
-	<td>
-	WELCOME <span style="font-size:15px;  text-transform: uppercase;"><?php echo $this->session->userdata('fullname');?></span>
+	<td style="color:black;" width="20%">
+	WELCOME <span style="font-size:15px;  text-transform: uppercase; color: black;"><?php echo $this->session->userdata('fullname');?></span>
 	</td>
-	<td style="text-align: right;">
+	<td style="text-align:right;">
+		<div style="margin-top:10px; margin-left:3px; margin-bottom:10px;" >
+				<!--<p style=" color:black;" align="center">Kuantan<br  />Pahang <br  />Phone: 09-573 0844<br />Email: support@iiumth.com</p>-->
+				<?php include 'content_print.php';?>
+				<?php include 'content_menuacg.php';?>
+				<?php include 'content_search.php';?>
+				<?php include 'content_picture_assets.php';?>
+			</div>
+	</td>
+	<td style="text-align: right; width: 15%;">
 	<?php echo anchor ('contentcontroller/content/'.$this->session->userdata('usersess'), '<div><img src="'.base_url().'images/myapbesys3.png" style="width:120px; height:40px;"/></div>'); ?>	
 	</td>			
-	
 	</tr>
 </table>
 </div>
-
-<?php if( $this->uri->slash_segment(1) .$this->uri->slash_segment(2) == "contentcontroller/contents/" || $this->uri->slash_segment(1) .$this->uri->slash_segment(2) == "contentcontroller/qap4_/"|| $this->uri->slash_segment(1) .$this->uri->slash_segment(2) == "contentcontroller/Central/" || $this->uri->slash_segment(1) .$this->uri->slash_segment(2) == "contentcontroller/Business/"|| $this->uri->slash_segment(1) .$this->uri->slash_segment(2) == "contentcontroller/Procurement/"){ ?>
-<div class="ui-middle-screen5">
+<?php if( $this->uri->slash_segment(1) .$this->uri->slash_segment(2) == "contentcontroller/select/"){ ?>
+<div style="background-color:white; margin-top:7.5%; margin-left:15%; margin-right:15%;">
+<table class="table-middle-screen-1">
+<tr>
+<td>SELECT YOUR SITE
+</td>
+</tr>
+</table>
+</div>
+<?php } else { ?>
+<div style="margin-top:8%; margin-left:5%; margin-right:5%;">
 <table class="table-middle-screen-1">
 <tr>
 <td>
@@ -28,63 +44,6 @@
 				<?php }else{?>
 					<p style="font-size: 20px; color: black;"><?=$this->session->userdata("hosp_name");?></p>
 				<?php } ?>
-</td>
-</tr>
-</table>
-</div>
-<?php } ?>
-
-<?php if( $this->uri->slash_segment(1) .$this->uri->slash_segment(2) == "contentcontroller/workorder/" || $this->uri->slash_segment(1) .$this->uri->slash_segment(2) == "contentcontroller/assets/" || $this->uri->slash_segment(1) .$this->uri->slash_segment(2) == "contentcontroller/Licenses/" || $this->uri->slash_segment(1) .$this->uri->slash_segment(2) == "contentcontroller/Schedule/" || $this->uri->slash_segment(1) .$this->uri->slash_segment(2) == "contentcontroller/acg_report/" || $this->uri->slash_segment(1) .$this->uri->slash_segment(2) == "contentcontroller/uploaddesk/" ){ ?>
-<div class="ui-middle-screen5">
-<table class="table-middle-screen-1">
-<tr> 
-<td>
-	<?php if( $this->session->userdata("total_hosp")>1 ){?>
-					<?php echo anchor ('contentcontroller/select?hc=pilih',$this->session->userdata("hosp_name"),'style="font-size:20px;color:white; {
-						# code...
-					}"'); ?>
-				<?php }else{?>
-					<p style="font-size: 20px; color: black;"><?=$this->session->userdata("hosp_name");?></p>
-				<?php } ?>
-				<a href='../contentcontroller/Content/bems?&tab=0' style="font-size: 20px;color: white;"> <span class='icon-play2' style="font-size: 20px;color: white;"></span> Work Order</a>
-</td>
-</td>
-</tr>
-</table>
-</div>
-<?php } ?>
-
-<?php if( $this->uri->slash_segment(2) == "../workorder"){ ?>
-<div class="ui-middle-screen5">
-<table class="table-middle-screen-1">
-<tr>
-<td>
-	<?php if( $this->session->userdata("total_hosp")>1 ){?>
-					<?php echo anchor ('contentcontroller/select?hc=pilih',$this->session->userdata("hosp_name"),'style="font-size:20px;color:white; {
-						# code...
-					}"'); ?>
-				<?php }else{?>
-					<p style="font-size: 20px; color: black;"><?=$this->session->userdata("hosp_name");?></p>
-				<?php } ?>
-</td>
-</tr>
-</table>
-</div>
-<?php } ?>
-
-	<?php if( $this->uri->slash_segment(1) .$this->uri->slash_segment(2) == "contentcontroller/qap3/" || $this->uri->slash_segment(1) .$this->uri->slash_segment(2) == "contentcontroller/vo3/"){ ?>
-<div class="ui-middle-screen5">
-<table class="table-middle-screen-1">
-<tr>
-<td>
-	<?php if( $this->session->userdata("total_hosp")>1 ){?>
-					<?php echo anchor ('contentcontroller/select?hc=pilih',$this->session->userdata("hosp_name"),'style="font-size:20px;color:white; {
-						# code...
-					}"'); ?>
-				<?php }else{?>
-					<p style="font-size: 20px; color: black;"><?=$this->session->userdata("hosp_name");?></p>
-				<?php } ?>
-				<a href='../contentcontroller/Central/' style="font-size: 20px;color: white;"> <span class='icon-play2' style="font-size: 20px;color: white;"></span> Central</a>
 </td>
 </tr>
 </table>

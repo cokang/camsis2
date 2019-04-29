@@ -28,9 +28,7 @@ function myFunction() {
 	<?= ($this->input->get('wo') == '4') ? '<td class="ui-highlight" align="center" colspan="0"  width="">' : '<td class="ui-content-menu-desk-color" align="center" colspan="0" style="" width="">'?>
 	<?php //echo anchor ('contentcontroller/clause?wrk_ord='.$this->input->get('wrk_ord').'&wo=9', 'Clause'); ?>
 	<?php //echo anchor ('href="http://apbesys.advancepact.com/procurement/camsisredirect.asp?userid=ika&procno=1" onclick="javascript:void window.open("http://apbesys.advancepact.com/procurement/camsisredirect.asp?userid=nezam&procno=1","1453261608607","width=700,height=500,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0");return false;', 'Clause'); ?>
-	<?= ($this->input->get('wo') == '5') ? '<td class="ui-highlight" align="center" colspan="0"  width="">' : '<td class="ui-content-menu-desk-color" align="center" colspan="0" style="" width="">'?>
-	<?php echo anchor ('contentcontroller/chronologyplus?wrk_ord='.$this->input->get('wrk_ord').'&wo=5', 'Chronology +'); ?></td>
-	<!--<a href="" onclick="javascript:void window.open('http://apbesys.advancepact.com/procurement/camsisredirect.asp?userid=nezam&procno=1','1453261608607','width=700,height=500,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');return false;">MRIN</a>--></td>
+	<a href="" onclick="javascript:void window.open('http://apbesys.advancepact.com/procurement/camsisredirect.asp?userid=nezam&procno=1','1453261608607','width=700,height=500,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');return false;">MRIN</a></td>
 </tr>
 <tr class="ui-color-contents-style-1">
 	<td colspan="5">
@@ -58,7 +56,7 @@ function myFunction() {
 		break;
 } ?>
 	<?php if ($this->input->get('wo') == $tabber) {?>
-		<div class="divmenu">
+		<div class="divmenu"> 
 			<div class="divmenuleft">
 			<?php if ($left == ""){?>
 			 &nbsp;

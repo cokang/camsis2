@@ -45,9 +45,9 @@ redirect(base_url()."index.php/Logincontroller/index?login=login", 'refresh');?>
 
 <table style="width: 100%;">
 	<tr style="width: 2%;"><td></td>
-		<td style="width: 10%;"><img src="<?php echo base_url().'images/logo.png'?>" width=130; height=50;/></td>
+		<td style="width: 10%; padding: 0;"><img src="<?php echo base_url().'images/logo.png'?>" width=180; height=70;/></td>
 		<td style="width: 8%;"><!-- <img src="<?php echo base_url().'images/myapbesys3.png'?>" width=100; height=50;/> --></td>
-		<td style="width: 80%;text-align: right;"><img src="<?php echo base_url().'images/iso.png'?>" width=250; height=50;/></td></tr>
+		<td style="width: 80%;text-align: right;"><img src="<?php echo base_url().'images/iso.png'?>" width=300; height=70;/></td></tr>
 </table>
 
 </div>
@@ -69,7 +69,7 @@ redirect(base_url()."index.php/Logincontroller/index?login=login", 'refresh');?>
 			<img src="<?php echo base_url().'images/myapbesys3.png'?>" width=180; height=60;/>
 			</td></tr>
 			</table>
-				<div>Please Login</div>
+				<div>PLEASE LOGIN</div>
 					<div class="form-group">
 					<input type="text" class="form-control login-field<?php if('logincontroller/validate_credentials/' == $this->uri->slash_segment(1) .$this->uri->slash_segment(2)){ echo '2'; }else{ echo ''; } ?>" value=""
 					placeholder="<?php if ($np == 'no'){ echo 'Invalid Validation : Enter your name'; } elseif ($np == 'exp') { echo 'Password expired : Change your password'; } else { echo 'Enter your name'; } ?>" name="name" id="input-login" style="height: 40px; width:300px;"/>
@@ -85,7 +85,7 @@ redirect(base_url()."index.php/Logincontroller/index?login=login", 'refresh');?>
 				<?php //echo form_submit ('submit ','Login',"class='btn btn-primary' style='width:100%;'");?>
 				<?php echo form_hidden('continue', $this->input->get('continue'));?>
 				<?php echo form_close();?>
-				<a  style="text-align: center;" class="login-link" href='javascript:fg_popup_form("fg_formContainer","fg_form_InnerContainer","fg_backgroundpopup");'>Change your password</a>
+				<a style="text-align: center; color: blue; font-weight: bolder; font-size: 15px;" class="login-link" href='javascript:fg_popup_form("fg_formContainer","fg_form_InnerContainer","fg_backgroundpopup");'>Forgot password?</a>
 				<?php }else{ ?>
 				<button type="cancel" name="submit" class='btn btn-primary submitcamsis' onclick="window.location.href='<?php echo base_url(); ?>index.php/Logincontroller/index?login=login'">ENTER TO CAMSIS</button><br>
 				<!--<button type="cancel" name="submit" class='btn btn-primary' onclick="window.location.href='<?php echo base_url(); ?>index.php?login=login'" style="width:75%;margin-top:50px;margin-left:55px;">ENTER TO CAMSIS</button><br>-->

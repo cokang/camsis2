@@ -282,9 +282,9 @@
         function visit1_tab($wrk_ord){
 			$this->db->select('v1.*,vt.type_of_work');
 			$this->db->from('pmis2_emg_jobvisit1 v1');
-			$this->db->join('pmis2_egm_service_request s','s.V_Request_no = v1.v_WrkOrdNo');
-			$this->db->join('pmis2_emg_jobvisit1tow vt','v1.v_WrkOrdNo = vt.v_WrkOrdNo');
-			$this->db->where("s.v_hospitalcode = ", $this->session->userdata('hosp_code'));
+			$this->db->join('pmis2_egm_service_request s','s.V_Request_no = v1.v_WrkOrdNo AND v1.v_hospitalcode = s.v_hospitalcode');
+			$this->db->join('pmis2_emg_jobvisit1tow vt','v1.v_WrkOrdNo = vt.v_WrkOrdNo AND v1.v_hospitalcode = vt.v_hospitalcode');
+			$this->db->where("v1.v_hospitalcode = ", $this->session->userdata('hosp_code'));
 			$this->db->where('v1.v_Actionflag !=','D');
 			$this->db->where('v1.v_WrkOrdNo',$wrk_ord);
 			$this->db->where('s.V_servicecode = ',$this->session->userdata('usersess'));
@@ -300,7 +300,7 @@
 			$this->db->from('pmis2_emg_jobvisit1 v1');
 			$this->db->join('pmis2_egm_service_request s','s.V_Request_no = v1.v_WrkOrdNo');
 			$this->db->join('pmis2_emg_jobvisit1tow vt','v1.v_WrkOrdNo = vt.v_WrkOrdNo');
-			$this->db->where("s.v_hospitalcode = ", $this->session->userdata('hosp_code'));
+			$this->db->where("v1.v_hospitalcode = ", $this->session->userdata('hosp_code'));
 			$this->db->where('v1.v_WrkOrdNo',$wrk_ord);
 			$this->db->where('v1.n_Visit',$visit);
 			$this->db->where('s.V_servicecode = ',$this->session->userdata('usersess'));
@@ -314,8 +314,8 @@
 		function visit1ppm_tab($wrk_ord){
 			$this->db->select('v1.*,vt.type_of_work');
 			$this->db->from('pmis2_emg_jobvisit1 v1');
-			$this->db->join('pmis2_egm_schconfirmmon s','s.v_WrkOrdNo = v1.v_WrkOrdNo');
-			$this->db->join('pmis2_emg_jobvisit1tow vt','v1.v_WrkOrdNo = vt.v_WrkOrdNo');
+			$this->db->join('pmis2_egm_schconfirmmon s','s.v_WrkOrdNo = v1.v_WrkOrdNo AND v1.v_hospitalcode = s.v_hospitalcode');
+			$this->db->join('pmis2_emg_jobvisit1tow vt','v1.v_WrkOrdNo = vt.v_WrkOrdNo AND v1.v_hospitalcode = vt.v_hospitalcode');
 			$this->db->where("v1.v_HospitalCode = ", $this->session->userdata('hosp_code'));
 			$this->db->where('v1.v_WrkOrdNo',$wrk_ord);
 			$this->db->where('s.v_Actionflag <>','D');

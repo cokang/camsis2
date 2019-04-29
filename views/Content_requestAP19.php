@@ -1,7 +1,5 @@
 <?php echo form_open('contentcontroller/request_AP19');?>
 <?php $numberdate = 0; ?>
-<div class='menu-class'>
-<a href='workorder?parent=wrkodr'><span class='icon-play2' valign='middle'></span> Work Order</a></div>
 <div class="ui-middle-screen">
 	<div class="content-workorder">
 		<div class="div-p">&nbsp;</div>

@@ -1,5 +1,5 @@
 <div class="ui-middle-screen">
-	<?php include 'content_tab_assets.php';?>
+<?php include 'content_tab_assets.php';?>
 	<div class="content-workorder">
 		<table class="ui-content-middle-menu-workorder" border="0"  width="90%" align="center" >
 			<?php include 'content_tab_asset_menu.php';?>
@@ -99,8 +99,5 @@
 							</tr>
 							<?php } ?>
 					</table>
-				</td>
-			</tr>		
-		</table>
 	</div>		
 </div>
