@@ -1,7 +1,8 @@
 /*=========tablet============ */
 @media only screen and (min-width : 760px) and (max-width : 1024px) and (orientation : landscape) {
   div.menum img.camsis2-main-logo{
-    height: 77px;
+    width: 80px;
+    height: 80px;
     display: ;
     margin-left: 10px; 
   }
@@ -9,6 +10,7 @@
 
 @media only screen and (min-device-width: 601px) and (max-device-width: 1024px)  and (orientation : portrait)  {
   img.camsis2-main-logo{
+    width: 150px;
     height: 150px;
     display: block;
     margin: 10px auto 10px auto;
@@ -21,7 +23,8 @@
 /*==========phone============*/
 @media only screen and (min-width : 0px) and (max-width : 425px) {
   div.menum img.camsis2-main-logo{
-    height: 55px;
+    width: 100px;
+    height: 100px;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -30,12 +33,13 @@
 
 @media only screen and (min-width : 481px) and (max-width: 733px)  and (orientation : landscape) {
 	img.camsis2-main-logo{
+    width: 45px;
     height: 45px;
     margin-left: auto;
     margin-right: auto;
     float: left;
     display:table-cell;
-  	padding-top:12%;
+    padding-top:12%;
   }
 }
 
@@ -46,7 +50,9 @@
 @media screen and (min-device-width: 1200px){ 
   .camsis2-main-logo{
     margin-top:-50px;
-    height: 77px;
+    margin-left:40px;
+    width: 70px;
+    height: 70px;
     vertical-align: middle;
   }
 }

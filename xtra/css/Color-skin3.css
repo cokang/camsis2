@@ -141,6 +141,21 @@ color:black;
   	-o-transition: all 0.5s ease-in-out;
   	transition: all 0.5s ease-in-out; 
  }
+
+/*buzz*/
+.ui-rpt-mainlist-1:hover,
+.ui-rpt-mainlist-2:hover{
+position: relative;
+height: 48px;
+border-bottom:7px solid #3c5b6c;
+background:#C3E6D8;
+-webkit-transition: all 0.5s ease-in-out;
+-moz-transition: all 0.5s ease-in-out;
+-o-transition: all 0.5s ease-in-out;
+transition: all 0.5s ease-in-out; 
+}
+/*./buzz13/9/18*/
+
 #loginForm:after{
 	border-bottom: 6px solid #FFFF99;
 }
@@ -295,13 +310,16 @@ table.middle_report_tbl tr {background-color:#E6FFED;}*/
 }
 
 .btn-primary{
-	background-color:3c3975!important;
-	font-family: 'bahnschrift';
+	background-color: #EE4000 !important;
 }
 .ui-header-left-color{
-background-color: #f3ece6 !important;
+background-color: #EE8833 !important;
 } 
 
 .color_style_1{
-	background-color: #797c90 !important;
+	background-color: #FFE135 !important;
+}
+
+.ui-rpt-mainlist-1{
+	background:#79B6D8 ;
 }
