@@ -1,19 +1,89 @@
 /*=========tablet============ */
 @media only screen and (min-width : 760px) and (max-width : 1024px) and (orientation : landscape) {
   div.menum img.camsis2-main-logo{
-    width: 80px;
-    height: 80px;
+    height: 77px;
     display: ;
     margin-left: 10px; 
+  }
+   .logo img.ap{
+    width:180px; 
+    height:70px;
+  }
+
+  .logo img.iso{
+    width:400px; 
+    height:70px;
+  }
+  .div-main{
+   padding-top: 20%;
+   padding-bottom: 10%;
+  }
+  .div-putih{
+   margin: 0 auto;
+   max-width: 400px;
+   background-color: white; 
+   border-radius: 3px; 
+   text-align: center;
+   padding-top: 10px;  
+  }
+  
+  .div-putih table tr td{
+   font-size: 30px;
+  }
+  
+  .div-putih table tr td img.myapbesys3{
+   width: 180px;
+   height: 60px;
+  }
+  .header-page{
+   background-color: white;
+   position: fixed;
+   top: 0; 
+   width: 100%;
   }
 }
 
 @media only screen and (min-device-width: 601px) and (max-device-width: 1024px)  and (orientation : portrait)  {
   img.camsis2-main-logo{
-    width: 150px;
     height: 150px;
     display: block;
     margin: 10px auto 10px auto;
+  }
+   .logo img.ap{
+    width:180px; 
+    height:70px;
+  }
+
+  .logo img.iso{
+    width:400px; 
+    height:70px;
+  }
+  .div-main{
+   padding-top: 20%;
+   padding-bottom: 10%;
+  }
+  .div-putih{
+   margin: 0 auto;
+   max-width: 400px;
+   background-color: white; 
+   border-radius: 3px; 
+   text-align: center;
+   padding-top: 10px;  
+  }
+  
+  .div-putih table tr td{
+   font-size: 30px;
+  }
+  
+  .div-putih table tr td img.myapbesys3{
+   width: 180px;
+   height: 60px;
+  }
+  .header-page{
+   background-color: white;
+   position: fixed;
+   top: 0; 
+   width: 100%;
   }
 }
 
@@ -23,23 +93,89 @@
 /*==========phone============*/
 @media only screen and (min-width : 0px) and (max-width : 425px) {
   div.menum img.camsis2-main-logo{
-    width: 100px;
-    height: 100px;
+    height: 55px;
     display: block;
     margin-left: auto;
     margin-right: auto;
+  }
+  .logo img.ap{
+    width:115px; 
+    height:70px;
+  }
+  .logo img.iso{
+    width:320px; 
+    height:70px;
+  }
+  .div-main{
+   padding-top: 30%;
+   padding-bottom: 10%;
+  }
+  .div-putih{
+   margin: 0 auto;
+   max-width: 400px;
+   background-color: white; 
+   border-radius: 3px; 
+   text-align: center;
+  }
+  .div-putih table tr td{
+   font-size: 21px;
+}
+  .div-putih table tr td img.myapbesys3{
+    width: 120px;
+    height: 45px;
+    padding-top: 5%;
+}
+.header-page{
+   background-color: white;
+   position: fixed;
+   top: 0; 
+   width: 100%;
   }
 }
 
 @media only screen and (min-width : 481px) and (max-width: 733px)  and (orientation : landscape) {
 	img.camsis2-main-logo{
-    width: 45px;
-    height: 45px;
+    height: 20px;
     margin-left: auto;
     margin-right: auto;
     float: left;
     display:table-cell;
-    padding-top:12%;
+  	padding-top:12%;
+  }
+  .logo img.ap{
+    width:120px; 
+    height:50px;
+  }
+
+  .logo img.iso{
+    width:300px; 
+    height:50px;
+  }
+  .div-main{
+   padding-top: 20%;
+   padding-bottom: 10%;
+  }
+  .div-putih{
+   margin: 0 auto;
+   max-width: 400px;
+   background-color: white; 
+   border-radius: 3px; 
+   text-align: center;
+   padding-top: 10px;  
+  }
+  .div-putih table tr td{
+   font-size: 25px;
+
+  }
+  .div-putih table tr td img.myapbesys3{
+   width: 150px;
+   height: 50px;
+}
+.header-page{
+   background-color: white;
+   position: fixed;
+   top: 0; 
+   width: 100%;
   }
 }
 
@@ -48,11 +184,41 @@
 
 /*==========desktop===========*/
 @media screen and (min-device-width: 1200px){ 
-  .camsis2-main-logo{
-    margin-top:-50px;
-    margin-left:40px;
-    width: 70px;
-    height: 70px;
-    vertical-align: middle;
+  
+  
+  .div-main{
+   padding-top: 10%;
+   padding-bottom: 10%;
+  }
+  .div-putih{
+   margin: 0 auto;
+   max-width: 400px;
+   background-color: white; 
+   border-radius: 3px; 
+   text-align: center;
+   padding-top: 10px;  
+  }
+  
+  .div-putih table tr td{
+   font-size: 30px;
+  }
+  
+  .div-putih table tr td img.myapbesys3{
+   width: 180px;
+   height: 60px;
+  }
+  .header-page{
+   background-color: white;
+   position: fixed;
+   top: 0; 
+   width: 100%;
+  }
+  .logo img.ap{
+    width:180px; 
+    height:70px;
+  }
+  .logo img.iso{
+    width:350px; 
+    height:70px;
   }
 }
