@@ -214,11 +214,11 @@
 									}
 								?>
 								<?php $rownum = 1; foreach ($record as $row): ?>
-							<tr <?=($rownum % 1) == 0 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
+							<tr <?=($rownum % 2) == 0 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
 								<td class="td-desk">No</td>
 								<td class="td-desk">: <?=$rownum++;?></td>
 							</tr>
-							<tr <?=($rownum % 1) == 0 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
+							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
 								<td class="td-desk">MRIN Reference No</td>
 								<td class="td-desk">:
 									<a href="<?php echo base_url();?>index.php/Procurement?mrinno=<?=$row->DocReferenceNo?>&pro=<?=$pro?>">
@@ -226,11 +226,11 @@
 									</a><b></b>
 								</td>
 							</tr>
-							<tr <?=($rownum % 1) == 0 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
+							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
 								<td class="td-desk">Work Order</td>
 								<td class="td-desk">: <?=isset($row->WorkOfOrder) ? $row->WorkOfOrder : ''?></td>
 							</tr>
-							<tr <?=($rownum % 1) == 0 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
+							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
 								<td class="td-desk">Asset</td>
 								<td class="td-desk">: <?=isset($row->V_Asset_no) ? $row->V_Asset_no : ''?></td>
 							</tr>
@@ -254,7 +254,7 @@
 										}
 									?>
 									<?php if ($r_status == $stat->StatusID) { ?>
-							<tr <?=($rownum % 1) == 0 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
+							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
 								<td class="td-desk">Status</td>
 								<td class="td-desk">
 									<a rel="nofollow" title="Manager : <?=$s_AM?> <?php if ($s_AM != "Pending") { ?> ON <?=isset($row->DateApproval) ? date("d/m/Y H:i:s",strtotime($row->DateApproval)) : ''?>  <?php } ?> &#13;Procument : <?=$s_Proc?> <?php if ($s_Proc != "Pending") { ?> ON <?=isset($row->DateApprovalx) ? date("d/m/Y H:i:s",strtotime($row->DateApprovalx)) : ''?> &#13; <?=isset($row->DateApprovalxx) ? date("d/m/Y H:i:s",strtotime($row->DateApprovalxx)) : ''?>
@@ -267,11 +267,11 @@
 							</tr>
 									<?php } ?>
 								<?php } ?>
-							<tr <?=($rownum % 1) == 0 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
+							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
 								<td class="td-desk">Issue Date</td>
 								<td class="td-desk">: <?=isset($row->DateCreated) ? date("d M Y",strtotime($row->DateCreated)) : ''?></td>
 							</tr>
-							<tr <?=($rownum % 1) == 0 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
+							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
 								<td class="td-desk">Remark</td>
 								<td class="td-desk">: <?=isset($row->Commentsx) ? $row->Commentsx : ''?></td>
 							</tr>
