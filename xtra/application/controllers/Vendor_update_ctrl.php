@@ -86,8 +86,13 @@ class Vendor_update_ctrl extends CI_Controller{
 			//print_r($insert_data2);
 			//exit();
 			//$this->insert_model->tbl_vendor_info($insert_data2);
+			echo "<script>window.opener.location.reload();</script>";
+			// echo "<script>window.setTimeout(function(){window.opener.location.reload(true);},10);</script>";
+			echo "<script>window.close();</script>";
 		}
 		else if($this->input->post('tab') == 'Update'){
+			
+			
 			$insert_data = array('Item_Code' => $this->input->post('code'),
 								 'Vendor_Item_Code' => $this->input->post('n_vendor_itemid'),
 								 'vendor_item_name' => $this->input->post('n_vendor_itemname'),
@@ -117,6 +122,10 @@ class Vendor_update_ctrl extends CI_Controller{
 			//print_r($insert_data2);
 			//exit();
 			//$this->update_model->tbl_vendor_info_u($insert_data2,$this->input->post('viid'));
+
+			echo "<script>window.opener.location.reload();</script>";
+			// echo "<script>window.setTimeout(function(){window.opener.location.reload(true);},10);</script>";
+			echo "<script>window.close();</script>";
 		}
 		else if($this->input->post('tab') == 'Delete'){
 			$insert_data = array(
