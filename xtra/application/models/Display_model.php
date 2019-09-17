@@ -769,7 +769,7 @@ ORDER BY r.D_date, r.D_time
 	 		}
 
 			$query = $this->db->get();
-			echo $this->db->last_query();
+			//echo $this->db->last_query();
 			//exit();
 			$query_result = $query->result();
 			return $query_result;
@@ -2188,7 +2188,7 @@ return $query->result();
 
   				//$this->db->where('a.Hosp_code','MKA');//test
   			$query = $this->db->get();
-  			echo $this->db->last_query();
+  			// echo $this->db->last_query();
   			//exit();
   			return $query->result();
 		}
@@ -2264,7 +2264,7 @@ return $query->result();
 			$this->db->order_by('a.Time_Stamp','DESC');
 			$this->db->limit(5);
 			$query = $this->db->get();
-			echo $this->db->last_query();
+			// echo $this->db->last_query();
 			//exit();
 			return $query->result();
 		}
@@ -4209,7 +4209,7 @@ function vendor_update($code,$id=""){
   $this->db->group_end();
   }
 	$query = $this->db->get();
-	echo $this->db->last_query();
+	// echo $this->db->last_query();
 	//exit();
 	$query_result = $query->result();
 	return $query_result;
@@ -4697,7 +4697,7 @@ ORDER BY r.D_date, r.D_time
     //$this->db->order_by('DocReferenceNo','ASC');
 		$this->db->order_by('DateCreated','DESC');
 		$query = $this->db->get();
-		echo $this->db->last_query();
+		// echo $this->db->last_query();
 		//exit();
 		$query_result = $query->result();
 		return $query_result;
@@ -4718,15 +4718,16 @@ function mrindet($mrinno){
 	}
 
 function itemdet($mrinno){
-		$this->db->select('a.*,b.ItemName, IFNULL(c.Qty,0) AS Qtys', FALSE);
-		$this->db->from('tbl_mirn_comp a');
-		$this->db->join('tbl_invitem b','a.ItemCode = b.ItemCode');
-		$this->db->join('tbl_item_store_qty c',"c.ItemCode = a.ItemCode AND c.Action_Flag <> 'D' AND c.Hosp_code = '".$this->session->userdata('hosp_code')."'",'left outer');
-		$this->db->where('MIRNcode',$mrinno);
-		$this->db->where('Who_Del IS NULL', null, false);
-		$query = $this->db->get();
-		echo $this->db->last_query();
-		//exit();
+	$this->db->select('a.*,b.ItemName, rn.RN_No, rn.Qty as QtyRN, IFNULL(c.Qty,0) AS Qtys', FALSE);
+	$this->db->from('tbl_mirn_comp a');
+	$this->db->join('tbl_invitem b','a.ItemCode = b.ItemCode');
+	$this->db->join('tbl_item_store_qty c',"c.ItemCode = a.ItemCode AND c.Action_Flag <> 'D' AND c.Hosp_code = '".$this->session->userdata('hosp_code')."'",'left outer');
+	$this->db->join('tbl_rn_item rn', 'rn.Item_code = a.ItemCode AND rn.MRIN_No = a.MIRNcode', 'left');
+	$this->db->where('MIRNcode',$mrinno);
+	$this->db->where('Who_Del IS NULL', null, false);
+	$query = $this->db->get();
+	//  echo $this->db->last_query();
+	//exit();
 		$query_result = $query->result();
 		return $query_result;
 	}
@@ -4944,7 +4945,7 @@ ORDER BY a.V_Asset_no
 			$this->db->order_by("a.V_Tag_no, a.V_Asset_name");
 			$this->db->group_by('a.V_Tag_no');
 			$query = $this->db->get();
-			echo $this->db->last_query();
+			// echo $this->db->last_query();
 			//exit();
 			$query_result = $query->result();
 			return $query_result;
@@ -7283,7 +7284,7 @@ return $query->result();
       	$this->db->where('V_request_type <> ', 'A9');
       		}
       	$query = $this->db->get();
-      	echo $this->db->last_query();
+      	// echo $this->db->last_query();
       	//exit();
 
       	$query_result = $query->result();

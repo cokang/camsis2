@@ -262,7 +262,7 @@
 													<tr>
 														<td><?=$numrow++?></td>
 														<td><b><?=isset($row->ItemCode) ? $row->ItemCode : ''?></b></td>
-														<td><b><?=isset($row->ItemName) ? $row->ItemName : ''?></b></td>
+														<td><b><?=isset($row->ItemName) ? $row->ItemName : ''?></br><?php if($row->RN_No!=null)echo '(RN No: '. $row->RN_No .')'; if($row->QtyRN!=NULL) echo '</br>(Qty: '. $row->QtyRN .')';?></b></td>
 														<?php if($this->input->get('pro') == 'pending' && $classid == 1){?>
 														<td><b><?=isset($row->Unit_Cost) ? number_format($row->Unit_Cost,2) : ''?></b></td>
 														<?php } ?>
