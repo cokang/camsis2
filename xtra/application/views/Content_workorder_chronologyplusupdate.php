@@ -10,11 +10,38 @@
       </tr>
 
       <tr>
-        <td class="td-assest" valign="top">Root Cause : </td>
+        
+        <td class="td-assest" valign="top">Summary Root Cause : </td>
         <td >
-                              <?php echo form_dropdown('n_Type_of_Work', $rc, set_value('n_Type_of_Work',isset($record[0]->v_ReschAuthBy) == TRUE ? $record[0]->v_ReschAuthBy : 'N/A') , 'class="dropdown n_wi-date"'); ?>
+        <!-- <div class="form-group">
+                <select name="summaryrc" class="form-control" style="width:350px">
+                <option value="">--- Select Cause ---</option>
+                    <?php
+                        foreach ($rc as $key => $value) {
+                            echo "<option value='".$value->id."'>".$value->nama."</option>";
+                        }
+                    ?>
+                </select>
+            </div> -->
+           
+            <?php echo form_dropdown('parent_rc', $rc_parent, set_value('parent_rc',isset($record[0]->v_ReschAuthBy) == TRUE ? $record[0]->v_ReschAuthBy : 'N/A') , 'class="dropdown n_wi-date" id="parentText"'); ?>
+
+           
         </td>
       </tr>
+                      
+      <tr>
+      <td class="td-assest" valign="top">Root Cause : </td>
+        <td >
+        <!-- <?php echo form_dropdown('n_Type_of_Work', $rc, set_value('n_Type_of_Work',isset($record[0]->v_ReschAuthBy) == TRUE ? $record[0]->v_ReschAuthBy : 'N/A') , 'class="dropdown n_wi-date" id="sumcr"'); ?> -->
+ <div class="form-group" >
+                <select name="n_Type_of_Work" class="dropdown n_wi-date" >
+                </select>
+            </div>
+         
+                      </td>
+                      </tr>
+     
       <tr>
         <td class="td-assest" valign="top">Details Of Work Progress : </td>
         <td><textarea class="input n_com" name="n_Action_Taken"><?php echo set_value('n_Action_Taken', isset($record[0]->v_ActionTaken) == TRUE ? $record[0]->v_ActionTaken : 'N/A')?></textarea></td>
@@ -55,6 +82,34 @@ $(document).ready(function() {
 });
 </script>
 <script>
+
+
+
+$(document).ready(function() {
+        $('select[name="parent_rc"]').on('change', function() {
+            //var sumrcID = $(this).val();
+            var skillsSelect = document.getElementById("parentText");
+            var selectedText = skillsSelect.options[skillsSelect.selectedIndex].text;
+            //  alert(selectedText); //exit();
+            if(selectedText) {
+                $.ajax({
+                    url: 'rootChild/'+selectedText,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        $('select[name="n_Type_of_Work"]').empty();
+                        $.each(data, function(key, value) {
+                            $('select[name="n_Type_of_Work"]').append('<option value="'+ value.id +'">'+ value.nama +'</option>');
+                        });
+                    }
+                });
+            }else{
+                $('select[name="n_Type_of_Work"]').empty();
+                
+            }
+        });
+    });
+
   if ($ ('#closed:checked').val() !== undefined ){
          $(".closedwo").load('<?php  if ($this->uri->slash_segment(1) == "contentcontroller/") {
                                       echo "visitclosed";
@@ -75,5 +130,6 @@ $(document).ready(function() {
   </div>
       <?php include 'ajaxtime.php';?>
       <?php include 'content_jv_popup.php';?>
+      <!-- <?php include 'rootcause.php';?> -->
 </div>
 <?php echo form_close(); ?>

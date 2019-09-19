@@ -8626,6 +8626,7 @@ public function chronologyplus(){
   $this->load->model("display_model");
   $this->load->model('get_model');
   $data['rc'] = $this->get_model->getrootcause();
+  $data['rc_parent'] = $this->get_model->getrootcause_nodash();;
   //if (substr($data['wrk_ord'],0,2) == 'PP'){
   //echo "nilai visit " . $data['visit'];
   if ($data['visit'] != "") {
@@ -8641,7 +8642,13 @@ public function chronologyplus(){
 
 }
 
-
+public  function rootChild($nama) { 
+	//echo $nama; 
+	$namaNospace =  str_replace("%20"," ",$nama);
+	$result = $this->db->like('nama',$namaNospace)->get('pmis2_egm_rootcause')->result();
+	//echo $this->db->last_query();//exit();
+	echo json_encode($result);
+}
 
 
 
@@ -8779,7 +8786,8 @@ public function report_chronology(){
 		//echo "<pre>";
         //print_r($data['det']);
 		//exit();
-
+		// $startDate= $this->input->get('')
+		// $data['report'] = $this->display_model->report_ch();
 		$this ->load->view("head");
 		$this ->load->view("content_report_chronology",$data);
 	}

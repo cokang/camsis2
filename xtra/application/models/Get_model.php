@@ -4181,6 +4181,33 @@ $query = $this->db->get();
 return $query->result();
 }
 
+function getrootcause_nodash(){
+	$this->db->select("SUBSTRING_INDEX(nama, '-', 1)as nama");
+	$this->db->from('pmis2_egm_rootcause');
+	// $this->db->where('nama LIKE ');
+   $query = $this->db->get();
+   foreach($query->result() as $row ){
+		   $array[$row->nama] = $row->nama;
+   }
+   return $array;
+  
+   }
+function getrootcause(){
+
+	$this->db->from('pmis2_egm_rootcause');
+   $query = $this->db->get();
+   
+   foreach($query->result() as $row ){
+		   //this sets the key to equal the value so that
+		   //the pulldown array lists the same for each
+		   $array[$row->id] = $row->nama;
+   }
+   return $array;
+   
+   }
+
+
+
 function getkira_cause($negeri,$type)
 {
 
