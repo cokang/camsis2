@@ -4186,7 +4186,9 @@ function getrootcause_nodash(){
 	$this->db->from('pmis2_egm_rootcause');
 	// $this->db->where('nama LIKE ');
    $query = $this->db->get();
+   $array[] = "Please Select";
    foreach($query->result() as $row ){
+		   
 		   $array[$row->nama] = $row->nama;
    }
    return $array;
