@@ -4190,20 +4190,20 @@ function getrootcause_nodash(){
 		   $array[$row->nama] = $row->nama;
    }
    return $array;
-  
+
    }
 function getrootcause(){
 
 	$this->db->from('pmis2_egm_rootcause');
    $query = $this->db->get();
-   
+
    foreach($query->result() as $row ){
 		   //this sets the key to equal the value so that
 		   //the pulldown array lists the same for each
 		   $array[$row->id] = $row->nama;
    }
    return $array;
-   
+
    }
 
 
