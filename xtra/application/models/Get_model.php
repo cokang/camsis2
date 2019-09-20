@@ -4206,6 +4206,14 @@ function getrootcause(){
    
    }
 
+     function rootChild($nama) { 
+	//echo $nama; 
+	$namaNospace =  str_replace("%20"," ",$nama);
+	$result = $this->db->like('nama',$namaNospace)->get('pmis2_egm_rootcause')->result();
+	//echo $this->db->last_query();//exit();
+	echo json_encode($result);
+}
+
 
 
 function getkira_cause($negeri,$type)
