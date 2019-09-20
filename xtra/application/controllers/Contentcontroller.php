@@ -8642,7 +8642,7 @@ public function chronologyplus(){
 
 }
 
-public function rootcauseAjax($nama){
+public function rootChild($nama){
 	$this->load->model('get_model');
 	$this->get_model->rootChild($nama);
 }
