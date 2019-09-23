@@ -73,6 +73,7 @@ define ('PDF_HEADER_LOGO', 'logo2.png');
 define ('PDF_HEADER_LOGO2', 'test.png');
 define ('PDF_HEADER_TEST', 'test.png');
 define ('PDF_HEADER_LOGO3', 'logo3.png');
+define ('PDF_HEADER_LOGO4', 'logo4.png');
 /**
  * Header logo image width in user units.
  */
