@@ -2733,13 +2733,7 @@ return $query->result();
 			return $query_result;
 		}
 
-		function report_ch($startDate, $endDate){
-			$this->db->select('sc.*, sr.*');
-			$this->db->from('pmis2_egm_schconfirmon sc');
-			// $this->db->join('pmis2_egm_service_request sr', 'sc.d_StartDt = '' AND sr.D_date =''', 'left outer');
-			
-			
-		}
+		
 
 		function sumppm($month,$year,$grpsel,$bystak = "",$fon = "")
 		{//echo "nlailafonmodel : ".$fon;
