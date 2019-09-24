@@ -2188,7 +2188,7 @@ return $query->result();
 
   				//$this->db->where('a.Hosp_code','MKA');//test
   			$query = $this->db->get();
-  			// echo $this->db->last_query();
+  			//echo $this->db->last_query();
   			//exit();
   			return $query->result();
 		}
@@ -2264,7 +2264,7 @@ return $query->result();
 			$this->db->order_by('a.Time_Stamp','DESC');
 			$this->db->limit(5);
 			$query = $this->db->get();
-			// echo $this->db->last_query();
+			//echo $this->db->last_query();
 			//exit();
 			return $query->result();
 		}
@@ -2731,6 +2731,14 @@ return $query->result();
 
 			$query_result = $query->result();
 			return $query_result;
+		}
+
+		function report_ch($startDate, $endDate){
+			$this->db->select('sc.*, sr.*');
+			$this->db->from('pmis2_egm_schconfirmon sc');
+			// $this->db->join('pmis2_egm_service_request sr', 'sc.d_StartDt = '' AND sr.D_date =''', 'left outer');
+			
+			
 		}
 
 		function sumppm($month,$year,$grpsel,$bystak = "",$fon = "")
@@ -4209,7 +4217,7 @@ function vendor_update($code,$id=""){
   $this->db->group_end();
   }
 	$query = $this->db->get();
-	// echo $this->db->last_query();
+	//echo $this->db->last_query();
 	//exit();
 	$query_result = $query->result();
 	return $query_result;
@@ -4697,7 +4705,7 @@ ORDER BY r.D_date, r.D_time
     //$this->db->order_by('DocReferenceNo','ASC');
 		$this->db->order_by('DateCreated','DESC');
 		$query = $this->db->get();
-		// echo $this->db->last_query();
+		//echo $this->db->last_query();
 		//exit();
 		$query_result = $query->result();
 		return $query_result;
@@ -4718,16 +4726,15 @@ function mrindet($mrinno){
 	}
 
 function itemdet($mrinno){
-	$this->db->select('a.*,b.ItemName, rn.RN_No, rn.Qty as QtyRN, IFNULL(c.Qty,0) AS Qtys', FALSE);
-	$this->db->from('tbl_mirn_comp a');
-	$this->db->join('tbl_invitem b','a.ItemCode = b.ItemCode');
-	$this->db->join('tbl_item_store_qty c',"c.ItemCode = a.ItemCode AND c.Action_Flag <> 'D' AND c.Hosp_code = '".$this->session->userdata('hosp_code')."'",'left outer');
-	$this->db->join('tbl_rn_item rn', 'rn.Item_code = a.ItemCode AND rn.MRIN_No = a.MIRNcode', 'left');
-	$this->db->where('MIRNcode',$mrinno);
-	$this->db->where('Who_Del IS NULL', null, false);
-	$query = $this->db->get();
-	//  echo $this->db->last_query();
-	//exit();
+		$this->db->select('a.*,b.ItemName, IFNULL(c.Qty,0) AS Qtys', FALSE);
+		$this->db->from('tbl_mirn_comp a');
+		$this->db->join('tbl_invitem b','a.ItemCode = b.ItemCode');
+		$this->db->join('tbl_item_store_qty c',"c.ItemCode = a.ItemCode AND c.Action_Flag <> 'D' AND c.Hosp_code = '".$this->session->userdata('hosp_code')."'",'left outer');
+		$this->db->where('MIRNcode',$mrinno);
+		$this->db->where('Who_Del IS NULL', null, false);
+		$query = $this->db->get();
+		//echo $this->db->last_query();
+		//exit();
 		$query_result = $query->result();
 		return $query_result;
 	}
@@ -4945,7 +4952,7 @@ ORDER BY a.V_Asset_no
 			$this->db->order_by("a.V_Tag_no, a.V_Asset_name");
 			$this->db->group_by('a.V_Tag_no');
 			$query = $this->db->get();
-			// echo $this->db->last_query();
+			//echo $this->db->last_query();
 			//exit();
 			$query_result = $query->result();
 			return $query_result;
@@ -7062,22 +7069,29 @@ return $query_result;
 }
 
 
-function chrology_sum_report($id,$negeri){
-$this->db->select('a.v_WrkOrdNo,b.v_ref_wo_no,a.v_HospitalCode,b.D_date,a.v_ActionTaken,c.V_Asset_no,c.V_Tag_no,c.V_Asset_name,c.V_Manufacturer,c.V_Model_no,rt.nama');
-$this->db->from('(SELECT * FROM pmis2_emg_chronology
-ORDER BY n_Visit DESC) a');
-$this->db->join('pmis2_egm_service_request b ','a.v_WrkOrdNo = b.V_Request_no');
-$this->db->join('pmis2_egm_assetregistration c ','b.V_Asset_no = c.V_Asset_no AND a.v_HospitalCode=c.V_Hospitalcode');
-$this->db->join('pmis2_egm_rootcause rt','a.v_ReschAuthBy=rt.id');
-if($id <> 'ALL'){
-$this->db->where('a.v_ReschAuthBy',$id);
+function chrology_sum_report($datefrom,$dateto,$nama,$negeri){
+$this->db->select("d.D_date, a.v_WrkOrdNo,d.v_ref_wo_no,a.v_HospitalCode,a.v_ActionTaken,ar.V_Asset_no,ar.V_Tag_no,ar.V_Asset_name,ar.V_Manufacturer,ar.V_Model_no,b.nama,
+(CASE
+   WHEN a.v_HospitalCode in ('HSA','HSI','KTG','KUL','PER','SGT','KLN','MER','PON','BPH','MUR','MKJ','TGK') THEN  'JOH'
+			WHEN a.v_HospitalCode in ('AGJ','JAS','MKA','TMP') THEN  'MKA'
+			 WHEN a.v_HospitalCode in ('JLB','JMP','KPL','PDX','SBN') THEN 'NS'
+			ELSE 0
+END) as NEGERI");
+$this->db->from('pmis2_emg_chronology a');
+$this->db->join('pmis2_egm_rootcause b', 'a.v_ReschAuthBy = b.id', 'inner');
+$this->db->join('pmis2_egm_schconfirmmon c', 'a.v_WrkOrdNo = c.v_WrkOrdNo AND a.v_hospitalcode = c.v_hospitalcode', 'left');
+$this->db->join('pmis2_egm_service_request d', 'a.v_WrkOrdNo = d.V_Request_no AND a.v_hospitalcode = d.v_hospitalcode', 'left');
+$this->db->join('pmis2_egm_assetregistration ar', 'd.V_Asset_no = ar.V_Asset_no AND a.v_HospitalCode = ar.v_HospitalCode', 'left');
+
+if($datefrom!=null || $dateto!=null){
+$this->db->where('d.D_date BETWEEN"'.$datefrom.'"and"'.$dateto.'"');
+
 }
-if($negeri){
-$this->db->where_in('a.v_HospitalCode',$negeri);
-}
-$this->db->group_by('a.v_WrkOrdNo,a.v_ReschAuthBy');
+$this->db->where('b.nama', $nama);
+$this->db->having('NEGERI',$negeri);
+// $this->db->group_by('b.id');
 $query = $this->db->get();
-//echo $this->db->last_query();
+// echo $this->db->last_query();
 //exit();
 $query_result = $query->result();
 return $query_result;
@@ -7284,7 +7298,7 @@ return $query->result();
       	$this->db->where('V_request_type <> ', 'A9');
       		}
       	$query = $this->db->get();
-      	// echo $this->db->last_query();
+      	//echo $this->db->last_query();
       	//exit();
 
       	$query_result = $query->result();

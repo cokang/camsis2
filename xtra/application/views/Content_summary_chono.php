@@ -82,7 +82,7 @@
 	
               <tr>
 				<td><?=$no++;?></td>
-				<td><?=$row->negeri;?></td>
+				<td><?=$row->NEGERI;?></td>
 				<td><?=$row->v_HospitalCode;?></td>
 				<td><?=$row->v_ref_wo_no;?></td>
 				<td><?=$row->v_WrkOrdNo;?></td>

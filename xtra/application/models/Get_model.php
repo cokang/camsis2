@@ -4176,7 +4176,7 @@ $this->db->select("*");
 $this->db->from('pmis2_egm_rootcause');
 $query = $this->db->get();
 //echo "laalla".$query->DWRate;
-//echo $this->db->last_query();
+// echo $this->db->last_query();
 //exit();
 return $query->result();
 }
@@ -4192,20 +4192,20 @@ function getrootcause_nodash(){
 		   $array[$row->nama] = $row->nama;
    }
    return $array;
-
+  
    }
 function getrootcause(){
 
 	$this->db->from('pmis2_egm_rootcause');
    $query = $this->db->get();
-
+   
    foreach($query->result() as $row ){
 		   //this sets the key to equal the value so that
 		   //the pulldown array lists the same for each
 		   $array[$row->id] = $row->nama;
    }
    return $array;
-
+   
    }
 
      function rootChild($nama) { 
@@ -4216,7 +4216,38 @@ function getrootcause(){
 	echo json_encode($result);
 }
 
+function reportChronology($datefrom, $dateto){
+	$this->db->select("d.D_date, 
+	b.nama, count(b.id) as total,
+	SUM(CASE
+		WHEN a.v_HospitalCode in ('HSA','HSI','KTG','KUL','PER','SGT','KLN','MER','PON','BPH','MUR','MKJ','TGK') THEN  1
+				 ELSE 0
+	END) as JOH,
+	SUM(CASE
+		WHEN a.v_HospitalCode in ('AGJ','JAS','MKA','TMP') THEN  1
+				 ELSE 0
+	END) as MKA,
+	SUM(CASE
+		WHEN a.v_HospitalCode in ('JLB','JMP','KPL','PDX','SBN') THEN 1
+				 ELSE 0
+	END) as NS");
+$this->db->from('pmis2_emg_chronology a');
+$this->db->join('pmis2_egm_rootcause b', 'a.v_ReschAuthBy = b.id', 'inner');
+$this->db->join('pmis2_egm_schconfirmmon c', 'a.v_WrkOrdNo = c.v_WrkOrdNo AND a.v_hospitalcode = c.v_hospitalcode', 'left');
+$this->db->join('pmis2_egm_service_request d', 'a.v_WrkOrdNo = d.V_Request_no AND a.v_hospitalcode = d.v_hospitalcode', 'left');
+if($datefrom!=null || $dateto!=null){
+$this->db->where('d.D_date BETWEEN"'.$datefrom.'"and"'.$dateto.'"');
 
+}
+$this->db->group_by('b.id');
+// $this->db->where('NOW()', $Value);
+
+$query = $this->db->get();
+return $query->result();
+// echo $this->db->last_query();
+
+	
+}
 
 function getkira_cause($negeri,$type)
 {
@@ -4229,7 +4260,7 @@ $this->db->where('a.v_ReschAuthBy',$type);
 $this->db->where_in('a.v_HospitalCode',$negeri);
 $query = $this->db->get();
 //echo "laalla".$query->DWRate;
-//echo $this->db->last_query();
+// echo $this->db->last_query();
 //exit();
 return $query->num_rows();
 }
