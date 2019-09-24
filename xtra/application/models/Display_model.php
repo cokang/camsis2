@@ -7070,7 +7070,7 @@ $this->db->select("d.D_date, a.v_WrkOrdNo,d.v_ref_wo_no,a.v_HospitalCode,a.v_Act
 			WHEN a.v_HospitalCode in ('AGJ','JAS','MKA','TMP') THEN  'MKA'
 			 WHEN a.v_HospitalCode in ('JLB','JMP','KPL','PDX','SBN') THEN 'NS'
 			ELSE 0
-END) as NEGERI");
+END) as negeri");
 $this->db->from('pmis2_emg_chronology a');
 $this->db->join('pmis2_egm_rootcause b', 'a.v_ReschAuthBy = b.id', 'inner');
 $this->db->join('pmis2_egm_schconfirmmon c', 'a.v_WrkOrdNo = c.v_WrkOrdNo AND a.v_hospitalcode = c.v_hospitalcode', 'left');
@@ -7082,7 +7082,7 @@ $this->db->where('d.D_date BETWEEN"'.$datefrom.'"and"'.$dateto.'"');
 
 }
 $this->db->where('b.nama', $nama);
-$this->db->having('NEGERI',$negeri);
+$this->db->having('negeri',$negeri);
 // $this->db->group_by('b.id');
 $query = $this->db->get();
 // echo $this->db->last_query();
