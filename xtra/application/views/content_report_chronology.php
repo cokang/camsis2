@@ -15,7 +15,7 @@
 <label for="to">To</label>
 <input type="date" name="to" id="to" value="" class="form-control-button2 ">
  
-<input type="submit" value="Apply" onchange="javascript: submit()"/></center>
+<input class="btn-button btn-secondary-button" type="submit" value="Apply" onchange="javascript: submit()"/></center>
 </form>
 </div>
 	<!-- <div class="header_report_main"> MONTHLY RCM PERFORMANCE MORE THEN 15 DAYS REPORT</div> -->
@@ -43,7 +43,7 @@
 				<td><?php echo anchor ('contentcontroller/Summary_chonology?from='.$from.'&to='.$to.'&nama='.$row->nama.'&negeri=MKA',$row->MKA); ?></td>
 				<td><?php echo anchor ('contentcontroller/Summary_chonology?from='.$from.'&to='.$to.'&nama='.$row->nama.'&negeri=NS',$row->NS); 
 				?></td>
-				<td><?php echo $row->total; ?></td>
+				<td><?php echo anchor ('contentcontroller/Summary_chonology?from='.$from.'&to='.$to.'&nama='.$row->nama.'&negeri=ALL',$row->total); ?></td>
 				<?php $totalALL+=$row->total;
 					  $totalJOH+=$row->JOH;
 					  $totalMKA+=$row->MKA;
@@ -51,12 +51,12 @@
 				
 			</tr>
 			<?php endforeach; ?>
-<tr class="tbl">
+			<tr class="tbl">
 				<td>Grand Total</td>
-				<td><?php echo  $totalJOH; ?></td>
-				<td><?php echo $totalMKA; ?></td>
-				<td><?php echo $totalNS; ?></td>
-				<td><?php echo $totalALL; ?></td>
+				<td><?php echo anchor ('contentcontroller/Summary_chonology?from='.$from.'&to='.$to.'&nama=ALL&negeri=JOH',$totalJOH); ?></td>
+				<td><?php echo anchor ('contentcontroller/Summary_chonology?from='.$from.'&to='.$to.'&nama=ALL&negeri=MKA',$totalMKA); ?></td>
+				<td><?php echo anchor ('contentcontroller/Summary_chonology?from='.$from.'&to='.$to.'&nama=ALL&negeri=NS',$totalNS); ?></td>
+				<td><?php echo anchor ('contentcontroller/Summary_chonology?from='.$from.'&to='.$to.'&nama=ALL&negeri=ALL',$totalALL); ?></td>
 			</tr>
 
 

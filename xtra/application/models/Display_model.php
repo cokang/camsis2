@@ -7079,10 +7079,11 @@ $this->db->join('pmis2_egm_assetregistration ar', 'd.V_Asset_no = ar.V_Asset_no 
 
 if($datefrom!=null || $dateto!=null){
 $this->db->where('d.D_date BETWEEN"'.$datefrom.'"and"'.$dateto.'"');
-
 }
-$this->db->where('b.nama', $nama);
-$this->db->having('negeri',$negeri);
+if($nama!='ALL'){
+$this->db->where('b.nama', $nama);}
+if($negeri!='ALL'){
+$this->db->having('negeri',$negeri);}
 // $this->db->group_by('b.id');
 $query = $this->db->get();
 // echo $this->db->last_query();
