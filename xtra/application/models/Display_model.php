@@ -7064,7 +7064,9 @@ return $query_result;
 
 
 function chrology_sum_report($datefrom,$dateto,$nama,$negeri){
+	
 $this->db->select("d.D_date, a.v_WrkOrdNo,d.v_ref_wo_no,a.v_HospitalCode,a.v_ActionTaken,ar.V_Asset_no,ar.V_Tag_no,ar.V_Asset_name,ar.V_Manufacturer,ar.V_Model_no,b.nama,
+mr.DocReferenceNo,pom.MIRN_No, pom.PO_No, pom.Vendor_No, vi.VENDOR_NAME, vi.TELEPHONE_NO, po.PO_Date,
 (CASE
    WHEN a.v_HospitalCode in ('HSA','HSI','KTG','KUL','PER','SGT','KLN','MER','PON','BPH','MUR','MKJ','TGK') THEN  'JOH'
 			WHEN a.v_HospitalCode in ('AGJ','JAS','MKA','TMP') THEN  'MKA'
@@ -7076,14 +7078,24 @@ $this->db->join('pmis2_egm_rootcause b', 'a.v_ReschAuthBy = b.id', 'inner');
 $this->db->join('pmis2_egm_schconfirmmon c', 'a.v_WrkOrdNo = c.v_WrkOrdNo AND a.v_hospitalcode = c.v_hospitalcode', 'left');
 $this->db->join('pmis2_egm_service_request d', 'a.v_WrkOrdNo = d.V_Request_no AND a.v_hospitalcode = d.v_hospitalcode', 'left');
 $this->db->join('pmis2_egm_assetregistration ar', 'd.V_Asset_no = ar.V_Asset_no AND a.v_HospitalCode = ar.v_HospitalCode', 'left');
+$this->db->join('tbl_materialreq mr', 'a.v_WrkOrdNo = mr.WorkOfOrder', 'left');
+$this->db->join('tbl_po_mirn pom', 'mr.DocReferenceNo = pom.MIRN_No', 'left');
+$this->db->join('tbl_po po', 'pom.PO_No = po.PO_No', 'left');
+$this->db->join('tbl_vendor_info vi', 'pom.Vendor_No = vi.VENDOR_CODE', 'left');
+
+
 
 if($datefrom!=null || $dateto!=null){
 $this->db->where('d.D_date BETWEEN"'.$datefrom.'"and"'.$dateto.'"');
 }
 if($nama!='ALL'){
 $this->db->where('b.nama', $nama);}
+$this->db->where('a.n_Visit', 1);
+
 if($negeri!='ALL'){
 $this->db->having('negeri',$negeri);}
+$this->db->order_by('D_date', 'asc');
+
 // $this->db->group_by('b.id');
 $query = $this->db->get();
 // echo $this->db->last_query();

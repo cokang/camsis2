@@ -4237,14 +4237,15 @@ $this->db->join('pmis2_egm_schconfirmmon c', 'a.v_WrkOrdNo = c.v_WrkOrdNo AND a.
 $this->db->join('pmis2_egm_service_request d', 'a.v_WrkOrdNo = d.V_Request_no AND a.v_hospitalcode = d.v_hospitalcode', 'left');
 if($datefrom!=null || $dateto!=null){
 $this->db->where('d.D_date BETWEEN"'.$datefrom.'"and"'.$dateto.'"');
-
 }
+$this->db->where('a.n_Visit', 1);
+
 $this->db->group_by('b.id');
 // $this->db->where('NOW()', $Value);
-
+// echo $this->db->last_query();
 $query = $this->db->get();
 return $query->result();
-// echo $this->db->last_query();
+
 
 	
 }
