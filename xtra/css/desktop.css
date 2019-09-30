@@ -67,7 +67,7 @@
    /* margin:0px 130px;*/
   }
   .login-link {
-    color: ;
+    /* color: ; */
     display: block;
     font-size: 13px;
     margin-top: 15px;
@@ -307,7 +307,7 @@
     width: 20%;
     position: fixed;
     z-index: 2;
-    top: ;
+    /* top: ; */
     border-radius: 0;
     border: none;
     overflow-y: auto;
@@ -413,7 +413,7 @@
     display:table; 
     margin-left:auto; 
     margin-right:auto; 
-    width:; 
+    /* width:;  */
     float: right;
   }
   div.mobbprt a button{

@@ -387,8 +387,8 @@
     margin: 1px;
     border: 0px;
   }
-  table.ui-content-middle-menu-workorder tr td a{
-    font-size:30px;
+  table.ui-content-middle-menu-workorder tr td a ,td.td-desk{
+    font-size:25px;
   }
   img.ui-icon{
     padding: 8px;
@@ -803,7 +803,7 @@
   }
   select.n_wi-c2,
   input.n_wi-s,
-  input.n_wi-c2,{
+  input.n_wi-c2{
     width: 100%;
   }
   input.n_wi-s2{
@@ -951,7 +951,7 @@
   div.box7{
     float: left;
     display:block;
-    width: 14.28%;
+    width: 100%;
     text-align:center;
     position:relative;
     min-height:0px;
@@ -1102,7 +1102,7 @@ div.box9{
   div.menum img.img-login{
     width: 80px;
     height: 80px;
-    display: ;
+    /* display: ; */
     margin-left: 10px; 
   }
   div.menum{
@@ -1500,11 +1500,11 @@ div.box9{
     position: relative;
     -webkit-text-size-adjust: none;
     overflow-x: hidden;
-    overflow-y scroll;
+    overflow-y: scroll;
   }
   .ui-left-screen ,.ui-middle-screen{
-    float:none;
-    padding-top:0px;
+    float: none;
+    padding-top: 0px;
     padding-bottom: 0px;
     margin-bottom: 0px;
     overflow: none;
@@ -1636,7 +1636,7 @@ div.box9{
   div.box7{
     float: left;
     display:block;
-    width: 14.28%;
+    width: 100%;
     text-align:center;
     position:relative;
     min-height:0px;
@@ -1959,7 +1959,7 @@ div.box9{
   input.n_wi-s,
   input.n_wi-eq2,
   input.n_wi-c2,
-  input.n_wi-c,{
+  input.n_wi-c{
     width: 100%;
   }
   input.n_wi-dep{

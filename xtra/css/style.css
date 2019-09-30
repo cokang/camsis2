@@ -99,7 +99,7 @@ html.id{
   border-color: #16a085;
 }
 
-.form-control::-moz-placeholder,{
+.form-control::-moz-placeholder{
   color: #b2bcc5;
   opacity: 1;
 }
@@ -499,7 +499,7 @@ a:focus {
 
 /*************** Button ***********/
 
-.input::-moz-placeholder,{
+.input::-moz-placeholder{
   color: #b2bcc5;
   opacity: 1;
 }
@@ -543,7 +543,7 @@ input[type="checkbox"] {
   cursor:pointer;
 }
 
-.form-control-button::-moz-placeholder,{
+.form-control-button::-moz-placeholder{
   color: #b2bcc5;
   opacity: 1;
 }
@@ -588,7 +588,7 @@ textarea.form-control-button{
   box-shadow: none;
 }
 
-.form-control-button2::-moz-placeholder,{
+.form-control-button2::-moz-placeholder{
   color: #b2bcc5;
   opacity: 1;
 }
@@ -656,7 +656,7 @@ textarea.form-control-button{
   opacity: .2;
   z-index: 0;
   filter:alpha(opacity=140);
-  background-color:;
+  /* background-color:; */
   background-blend-mode: multiply; 
 }
 /*************** User Profile ***********/
@@ -942,7 +942,7 @@ td.ui-header-new span {
 }
 
 .ui-content-middle-menu-workorder2 .ui-menu-color-header , th { font-size:18px;border-width: 1px;padding: 8px; text-align:center; }
-.ui-content-middle-menu-workorder2 .ui-menu-color-header , .td-desk { font-size:18px;border-width: 1px;padding: 8px; text-align:center; }
+.ui-content-middle-menu-workorder2 .ui-menu-color-header , .td-desk { font-size:12px;border-width: 1px;padding: 8px; text-align:center; }
 .dropdown {
   /*background:blue url(images/select-arrow.png) no-repeat 90% center;*/
   height: 35px;
@@ -1794,7 +1794,7 @@ background-blend-mode: multiply;
 }
 
 .ui-sys_admin-mobile tr td input[type=button]{
-  background-color: #48c9b;
+  /* background-color: #48c9b; */
   /*color: white;*/
   font-size: 19px;
   border-radius: 3px;

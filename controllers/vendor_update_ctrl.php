@@ -86,6 +86,8 @@ class Vendor_update_ctrl extends CI_Controller{
 			//print_r($insert_data2);
 			//exit();
 			//$this->insert_model->tbl_vendor_info($insert_data2);
+			//echo "<script>window.opener.location.reload();</script>";
+			//echo "<script>window.close();</script>";
 		}
 		else if($this->input->post('tab') == 'Update'){
 			$insert_data = array('Item_Code' => $this->input->post('code'),
@@ -117,6 +119,9 @@ class Vendor_update_ctrl extends CI_Controller{
 			//print_r($insert_data2);
 			//exit();
 			//$this->update_model->tbl_vendor_info_u($insert_data2,$this->input->post('viid'));
+
+			//echo "<script>window.opener.location.reload();</script>";
+			//echo "<script>window.close();</script>";
 		}
 		else if($this->input->post('tab') == 'Delete'){
 			$insert_data = array(
@@ -129,7 +134,9 @@ class Vendor_update_ctrl extends CI_Controller{
 			$this->update_model->tbl_vendor_u($insert_data,$this->input->post('code'),$this->input->post('vid'));
 		}
 
-		redirect('Procurement/pro_catalog');
+		echo "<script>window.opener.location.reload();</script>";
+		echo "<script>window.close();</script>";
+		//redirect('Procurement/pro_catalog');
 	}
 
 }

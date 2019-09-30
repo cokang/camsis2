@@ -36,7 +36,7 @@ border-bottom: solid 1px black;
 }
 
 .tbl-info-detail{
-	font-size:10px;
+	font-size:9px;
 
 }
 .tbl-info-td{
@@ -59,7 +59,7 @@ border-right: 1px solid black;
 
 }
 .tbl-info-invoice{
-	font-size:10px;
+	font-size:9px;
 border-bottom: 1px solid black;
 border-top: 1px solid black;
 border-left: 1px solid black;
@@ -84,10 +84,7 @@ border-right: 1px solid black;
 </style>
 
 <html>
-	<head>
-
-
-	</head>
+	
 	<body>
 			<div class="wrapper">
 
@@ -180,7 +177,7 @@ border-right: 1px solid black;
 			//echo "lkajsdk:".print_r($arabla).$arabla[day]." ".$arabla[month]." ".$arabla[year];
 			//echo "lkajsdk:".$arabla;
 			 ?>
-			<td width="90%">	&nbsp;<?=$arabla?> / <?=$das?></td>
+			<td width="100%">	&nbsp;<?=$arabla?> / <?=$das?></td>
 		</tr>
 		<tr>
 			<td style="border-right:1px solid black;" align="right"><b>Your Ref.&nbsp;&nbsp;</b> </td>
@@ -188,7 +185,7 @@ border-right: 1px solid black;
 		</tr>
 		<tr>
 			<td style="border-right:1px solid black;"align="right"><b>PR No.</b>&nbsp;&nbsp; </td>
-			<td>	&nbsp;N/A</td>
+			<td>	&nbsp;<?=(isset($record[0]->PR_No)) ? $record[0]->PR_No :''?></td>
 		</tr>
 		<tr>
 			<td style="border-right:1px solid black;"align="right"><b>MRIN No.</b>&nbsp;&nbsp;</td>
@@ -209,12 +206,12 @@ border-right: 1px solid black;
 		<td><b>DELIVERY ADDRESS : ADVANCE PACT SDN BHD</b></td>
 	</tr>
 	<tr>
-		<td class="tbl-info-td">ASSET NO : <?=(isset($record[0]->V_Asset_no)) ? $record[0]->V_Asset_no :''?></td>
-		<td><?=$hospdet[0]->v_HospitalName?></td>
+		<td class="tbl-info-td">ASSET NO : <?=(isset($record[0]->V_Tag_no)) ? $record[0]->V_Tag_no :''?></td>
+		<td><?=$hospdet[0]->v_HospitalAdd1?></td>
 	</tr>
 	<tr>
 		<td class="tbl-info-td">EQUIPMENT: <?=(isset($record[0]->V_Asset_name)) ? $record[0]->V_Asset_name :''?></td>
-		<td><?=$hospdet[0]->v_HospitalAdd1?> <?=$hospdet[0]->v_HospitalAdd2?></td>
+		<td><?=$hospdet[0]->v_HospitalAdd2?></td>
 	</tr>
 	<tr>
 		<td class="tbl-info-td">DEPARTMENT : <?=(isset($record[0]->V_User_Dept_code)) ? $record[0]->V_User_Dept_code :''?> </td>
@@ -222,20 +219,24 @@ border-right: 1px solid black;
 	</tr>
 	<tr>
 		<td class="tbl-info-td">WORK ORDER NO : <?=(isset($record[0]->V_Request_no)) ? $record[0]->V_Request_no :''?> </td>
-		<td><b><i>ATTN:<?=$hospdet[0]->v_head_of_bems?> / <?=$hospdet[0]->v_teleno?></i></b></td>
+		<?php if (strpos($this->input->get('mrin'), 'IMG') !== false) {?>
+		<td><b><i>ATTN: <?=$hospdet[0]->v_head_of_lls?> /  <?=$hospdet[0]->v_contractor_ph?></i></b></td>
+	<?php } else { ?>
+		<td><b><i>ATTN: <?=$hoswakilx?> / <?=$hospdet[0]->v_teleno?></i></b></td>
+		<?php } ?>
 	</tr>
 	</table><br><br><br>
 		<table class="tbl-info-invoice">
 	<tr nobr="true">
-		<th width="4%">No</th>
-		<th width="27%">Description</th>
-		<th>Unit <br/> Measure</th>
-		<th width="5%">Qty</th>
-		<th>Unit Price <br/> (RM)</th>
-		<th>Amount (RM)<br/> Before GST</th>
-		<th width="8%">GST %</th>
-		<th width="8%">GST (RM)</th>
-		<th width="15%">Amount (RM)<br/> After GST</th>
+		<th width="4%"><b>No</b></th>
+		<th width="27%"><b>Description</b></th>
+		<th><b>Unit <br/> Measure</b></th>
+		<th width="5%"><b>Qty</b></th>
+		<th><b>Unit Price <br/> (RM)</b></th>
+		<th><b>Amount (RM)<br/> Before SST</b></th>
+		<th width="8%"><b>SST %</b></th>
+		<th width="8%"><b>SST (RM)</b></th>
+		<th width="15%"><b>Amount (RM)<br/> After SST</b></th>
 	</tr>
 	<tr nobr="true">
 		<td style="border-right:1px solid black;"></td>
@@ -250,16 +251,29 @@ border-right: 1px solid black;
 	</tr>
 
 
+			
+				<?php
+
+	$totalcost = 0;
+	$maintotalcost = 0;
+	//print_r($itemrec);
+	if(!empty($itemrec)){
+		$no=1;
+		foreach($itemrec as $rowed):?>
+
 				<tr nobr="true" style="height:20px;vertical-align:top; border-top:hidden;">
-					<td style="border-right:1px solid black;">1</td>
-					<td style=" border-right:1px solid black;text-align:left;"><?=$itemrec[0]->ItemName?><br /> P/N : </td>
+					<td style="border-right:1px solid black;"><?=$no;?></td>
+					<td style=" border-right:1px solid black;text-align:left;"><?=strtoupper($rowed->vendor_item_name)?><br /> P/N : <?=$rowed->Vendor_Item_Code?></td>
 					<td style="border-right:1px solid black;">UNIT</td>
-					<td style="border-right:1px solid black;" ><?=$itemrec[0]->QtyReqfx?></td>
+					<td style="border-right:1px solid black;"><?=$rowed->QtyReqfx?></td>
 					<?php
-					$howmanyunit = floatval($itemrec[0]->QtyReqfx);
-					$perunit = floatval($itemrec[0]->Unit_Costx);
+					$howmanyunit = floatval($rowed->QtyReqfx);
+					$perunit = floatval($rowed->Unit_Costx);
 					$totalcost = $perunit*$howmanyunit;
-					$gstcost = $totalcost*.06;
+					$tax = 0;
+					//echo "totalcost : ".$no.":".$totalcost;
+					//$gstcost = $totalcost*.06;
+					$gstcost = $totalcost*$tax;
 					$totalwgst = $gstcost+$totalcost;
 					//echo "qwqwqw".$itemrec[0]->Unit_Costx."iuiuiu".$perunit;
 					?>
@@ -267,11 +281,18 @@ border-right: 1px solid black;
 					<td style="border-right:1px solid black;" align="right"><?=number_format($totalcost,2)?></td>
 
 
-					<td style="border-right:1px solid black;" align="right">6%</td>
+					<td style="border-right:1px solid black;" align="right"><?=$tax?></td>
 					<td style="border-right:1px solid black;" align="right"><?=number_format($gstcost,2)?></td>
 					<td style="border-right:1px solid black;" align="right"><?=number_format($totalwgst,2)?></td>
 
 				</tr>
+
+				<?php
+
+				$maintotalcost = $totalwgst+$maintotalcost;
+					$no++;endforeach;
+				}
+				?>
 
 
 
@@ -300,9 +321,9 @@ border-right: 1px solid black;
 		<td style="border-right:1px solid black;border-bottom:1px solid black;"></td>
 	</tr>
 	<tr nobr="true">
-		<td colspan="6" style="text-align:left; padding-left:5px; text-transform: none; height:20px;"><i>Please notify us immediately (refer PO acceptance form) if this order cannot</i><br /><i>be shipped or completed on before 14 days from the last date of signatory</i></td>
-		<td colspan="2" style="border-right:1px solid black;border-left:1px solid black;" >TOTAL PRICE <br /> AFTER GST</td>
-		<td align="right"><?=number_format($totalwgst,2)?></td>
+		<td colspan="6" style="text-align:left; padding-left:5px; text-transform: none; height:20px;"><i>Please notify us immediately (refer PO acceptance form) if this order cannot</i><br /><i>be shipped or completed on before 7 days from the last date of signatory</i></td>
+		<td colspan="2" style="border-right:1px solid black;border-left:1px solid black;" >TOTAL PRICE <br /> AFTER SST</td>
+		<td align="right"><?=number_format($maintotalcost,2)?></td>
 	</tr>
 </table>
 <table  border="0" class="tbl-info-tc">

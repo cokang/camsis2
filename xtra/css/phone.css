@@ -191,10 +191,10 @@
   }
   /************************** END SELECT ********************************/
 
-  .ui-left_web,#web ,.ui-header-middle-color ,div.ui-left_web{
+  #web ,.ui-header-middle-color ,div.ui-left_web, span.ui-left_web, div.ui-left_web, tr.ui-left_web{
     display: none;
   }
-  div.ui-left_mobile, #mobile , td.ui-left_mobile , span.ui-left_mobile ,tr.ui-left_mobile{
+  .ui-left_web,div.ui-left_mobile, #mobile , td.ui-left_mobile , span.ui-left_mobile ,tr.ui-left_mobile{
     display: initial;
     /*display: none;*/
   }
@@ -384,7 +384,7 @@
 	}
   
   table.ui-content-middle-menu-workorder tr td a{
-    font-size:16px;
+    font-size:12px;
   }
   img.ui-icon{
     width:40px;
@@ -817,7 +817,7 @@
   div.box7{
     float: left;
     display:block;
-    width: 33.3333333333333%;
+    width: 100%;
     text-align:center;
     position:relative;
     min-height:0px;
@@ -1199,7 +1199,7 @@
 		left: -9999px;
 	}
 	
-	#no-more-tables  tr:nth-of-type(2n+1) { border:background:#eee ; }
+	/* #no-more-tables  tr:nth-of-type(2n+1) { border:background:#eee ; } */
 	
 	#no-more-tables td { 
 		/* Behave  like a "row" */
@@ -1451,8 +1451,8 @@ div.content-workorder table.ui-desk-style-table3 tr.ui-header-new td span.spaces
 
 .footer_contents {
 
-    height:24px; // Replace with the height your footer should be
-    width: 1000px; // Visible width of footer
+    height:24px; /* Replace with the height your footer should be */
+    width: 1000px; /* Visible width of footer*/
     margin:auto;
 
 }
@@ -1882,7 +1882,7 @@ div.content-workorder table.ui-desk-style-table3 tr.ui-header-new td span.spaces
 		background: rgba(255,255,255,.8);   
 	}
   table.ui-content-middle-menu-workorder tr td a{
-    font-size:16px;
+    font-size:12px;
   }
   img.ui-icon{
     padding: 8px;
@@ -1896,7 +1896,7 @@ div.content-workorder table.ui-desk-style-table3 tr.ui-header-new td span.spaces
   /** baru ***/
   div.main-box{
     margin: 0px;
-    margin-bottom: 35%;
+    /* margin-bottom: 35%; */
   }
   div.icon {
     display: none;
@@ -2389,7 +2389,7 @@ div.content-workorder table.ui-desk-style-table3 tr.ui-header-new td span.spaces
   	left: -9999px;
   }
 
-  #no-more-tables  tr:nth-of-type(2n+1) { border:background:#eee ; }
+  /* #no-more-tables  tr:nth-of-type(2n+1) { border:background:#eee ; } */
 
   #no-more-tables td { 
   	/* Behave  like a "row" */
@@ -2484,7 +2484,7 @@ div.content-workorder table.ui-desk-style-table3 tr.ui-header-new td span.spaces
     margin-right: 0px;
     margin-left: auto;
   }
-  .table-middle-screen-2{s
+  .table-middle-screen-2{
     width: 100%; 
     table-layout: auto;
     background-color: white; 
@@ -2603,7 +2603,7 @@ div.content-workorder table.ui-desk-style-table3 tr.ui-header-new td span.spaces
 	div.box7{
     float: left;
     display:block;
-    width: 33.3333333333333%;
+    width: 100%;
     text-align:center;
     position:relative;
     min-height:0px;
