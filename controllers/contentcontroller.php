@@ -987,10 +987,15 @@ class Contentcontroller extends CI_Controller {
 	}
 
 	public function confirmmaintenance (){
+		$data['assetno'] = $this->input->get('assetno');
+		$this->load->model("get_model");
+		
+		$data['asset_det'] = $this->get_model->get_assetdet2($data['assetno']);
+		$data['asset_UMDNS'] = $this->get_model->get_UMDNSAsset($data['asset_det'][0]->V_Equip_code);
 
 		$this ->load->view("head");
 		$this ->load->view("left");
-		$this ->load->view("Update_Maintenance_Confirm");
+		$this ->load->view("Update_Maintenance_Confirm",$data);
 	}
 
 	public function confirmmaintenancesv (){
@@ -1785,12 +1790,12 @@ class Contentcontroller extends CI_Controller {
 	/*	public function assets (){
 		$this->load->model("get_model");
 		$data['asset_images'] = $this->get_model->assetimage();
-		//print_r($data['asset_images']);
-		//exit();
+		print_r($data['asset_images']);
+		exit();
 		$data['asset_cat'] = $this->get_model->get_assetcat();//get_assetdetx
-		//$data['asset_det'] = $this->get_model->get_assetdetx('16-597');
-		//print_r($data['asset_det']);
-		//exit();
+		$data['asset_det'] = $this->get_model->get_assetdetx('16-597');
+		print_r($data['asset_det']);
+		exit();
 		$this ->load->view("head");
 		$this ->load->view("left");
 		$this ->load->view("content_assets", $data);
@@ -8626,6 +8631,7 @@ public function chronologyplus(){
   $this->load->model("display_model");
   $this->load->model('get_model');
   $data['rc'] = $this->get_model->getrootcause();
+  $data['rc_parent'] = $this->get_model->getrootcause_nodash();
   //if (substr($data['wrk_ord'],0,2) == 'PP'){
   //echo "nilai visit " . $data['visit'];
   if ($data['visit'] != "") {
@@ -8641,8 +8647,10 @@ public function chronologyplus(){
 
 }
 
-
-
+public function rootChild($nama){
+	$this->load->model('get_model');
+	$this->get_model->rootChild($nama);
+}
 
 
 public function request_AP19(){
@@ -8757,49 +8765,27 @@ public function save_request_AP19(){
 
 
 }
-public function report_chronology(){
-	    $this->load->model("get_model");
-		$data['det'] = $this->get_model->getroot_cause();
-		$negeri=array('JOH'=>0,'MKA'=>0,'NS'=>0);
-		$data['negeri']=array('JOH'=>array('HSA','HSI','KTG','KUL','PER','SGT','KLN','MER','PON','BPH','MUR','MKJ','TGK'),'MKA'=>array('AGJ','JAS','MKA','TMP'),'NS'=>array('JLB','JMP','KPL','PDX','SBN'));
-		//echo "<pre>";
-		//print_r($data['negeri']);
-		foreach($data['det'] as $key=>$row){
-			$data['det'][$key]->negeri=$negeri;
-		}
-		foreach($data['det'] as $key1=>$row1){
-		$jumlah=0;
-			foreach ($negeri as $n=>$k){
-			$data['det'][$key1]->negeri[$n]=$this->get_model->getkira_cause($data['negeri'][$n],$row1->id);
-			//$jumlah = $this->get_model->getkira_cause($data['negeri'][$n],$key1)++;
-			}
-		//$data['det'][$key1]->jumlah=array_sum($key1->negeri);
-		}
-		//foreach
-		//echo "<pre>";
-        //print_r($data['det']);
-		//exit();
 
+public function report_chronology(){
+		$this->load->model("get_model");
+		$from = $this->input->get('from') ? $this->input->get('from') : '';
+		$to = $this->input->get('to') ? $this->input->get('to') : '';
+		$data['from']=$from;
+		$data['to']=$to;
+		$data['det'] =$this->get_model->reportChronology($from, $to);
 		$this ->load->view("head");
 		$this ->load->view("content_report_chronology",$data);
 	}
 
 	public function summary_chonology(){
 		$this->load->model("display_model");
-		$data['negeri']=array('JOH'=>array('HSA','HSI','KTG','KUL','PER','SGT','KLN','MER','PON','BPH','MUR','MKJ','TGK'),'MKA'=>array('AGJ','JAS','MKA','TMP'),'NS'=>array('JLB','JMP','KPL','PDX','SBN'));
-		$findloc = ($this->input->get('loc') <> 'NULL') ? $data['negeri'][$this->input->get('loc')] : NULL;
-        $data['records'] = $this->display_model->chrology_sum_report($this->input->get('id'),$findloc);
-		foreach($data['records'] as $key=>$rec){
-		$loc='-';
-			foreach($data['negeri'] as $kunci =>$row){
-
-			if(in_array($rec->v_HospitalCode,$row)){
-				$loc=$kunci;
-				break;
-			}
-			}
-			$data['records'][$key]->negeri = $loc;
-		}
+		$from = $this->input->get('from') ? $this->input->get('from') : '';
+		$to = $this->input->get('to') ? $this->input->get('to') : '';
+		$nama = $this->input->get('nama');
+		$negeri = $this->input->get('negeri');
+		// echo 'test'.$nama.$negeri;
+		// exit();
+        $data['records'] = $this->display_model->chrology_sum_report($from, $to,$nama,$negeri);
 
 		$this ->load->view("head");
 		$this ->load->view("content_summary_chono",$data);
