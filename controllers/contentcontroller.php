@@ -987,10 +987,15 @@ class Contentcontroller extends CI_Controller {
 	}
 
 	public function confirmmaintenance (){
+		$data['assetno'] = $this->input->get('assetno');
+		$this->load->model("get_model");
+
+		$data['asset_det'] = $this->get_model->get_assetdet2($data['assetno']);
+		$data['asset_UMDNS'] = $this->get_model->get_UMDNSAsset($data['asset_det'][0]->V_Equip_code);
 
 		$this ->load->view("head");
 		$this ->load->view("left");
-		$this ->load->view("Update_Maintenance_Confirm");
+		$this ->load->view("Update_Maintenance_Confirm",$data);
 	}
 
 	public function confirmmaintenancesv (){
