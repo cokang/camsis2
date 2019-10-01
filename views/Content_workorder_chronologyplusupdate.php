@@ -13,16 +13,6 @@
         
         <td class="td-assest" valign="top">Summary Root Cause : </td>
         <td >
-        <!-- <div class="form-group">
-                <select name="summaryrc" class="form-control" style="width:350px">
-                <option value="">--- Select Cause ---</option>
-                    <?php
-                        foreach ($rc as $key => $value) {
-                            echo "<option value='".$value->id."'>".$value->nama."</option>";
-                        }
-                    ?>
-                </select>
-            </div> -->
            
             <?php echo form_dropdown('parent_rc', $rc_parent, set_value('parent_rc',isset($record[0]->v_ReschAuthBy) == TRUE ? $record[0]->v_ReschAuthBy : 'N/A') , 'class="dropdown n_wi-date" id="parentText"'); ?>
 
@@ -33,9 +23,9 @@
       <tr>
       <td class="td-assest" valign="top">Root Cause : </td>
         <td >
-        <!-- <?php echo form_dropdown('n_Type_of_Work', $rc, set_value('n_Type_of_Work',isset($record[0]->v_ReschAuthBy) == TRUE ? $record[0]->v_ReschAuthBy : 'N/A') , 'class="dropdown n_wi-date" id="sumcr"'); ?> -->
  <div class="form-group" >
                 <select name="n_Type_of_Work" class="dropdown n_wi-date" >
+                  
                 </select>
             </div>
          
@@ -98,12 +88,14 @@ $(document).ready(function() {
                     dataType: "json",
                     success:function(data) {
                         $('select[name="n_Type_of_Work"]').empty();
+                        
                         $.each(data, function(key, value) {
                             $('select[name="n_Type_of_Work"]').append('<option value="'+ value.id +'">'+ value.nama +'</option>');
                         });
                     }
                 });
-            }else{
+            }
+            else{
                 $('select[name="n_Type_of_Work"]').empty();
                 
             }

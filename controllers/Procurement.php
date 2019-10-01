@@ -440,7 +440,6 @@ class Procurement extends CI_Controller {
 				}
 				$search = $this->input->post('searchquestion');
 			}
-			//echo "nilai search : ".$search;
 		$data['tab']= ($this->input->get('tab') != '') ? $this->input->get('tab') : 0;
 		if ($data['tab'] != 2){
 			$data['record'] = $this->display_model->prlist($data['month'],$data['year'],$this->input->get('tab'));
@@ -900,19 +899,17 @@ class Procurement extends CI_Controller {
 				$dateto = $this->input->post("dateto");
 			}
 			//$data["data_item_specification"] = $this->display_model->rl_mrin('HSA','2019');
-			////$data["data_item_specification"] = $this->display_model->releaseNote_get_itemspecification($area,$this->input->get('id'),$datefrom, $dateto)['table'];
+			$data["data_item_specification"] = $this->display_model->releaseNote_get_itemspecification($area,$this->input->get('id'),$datefrom, $dateto)['table'];
 
 							//echo "hi babexxxxyyyyy";
 							//exit();
 			if($_SERVER['REQUEST_METHOD'] === 'POST' && $this->form_validation->run() == false){
-				echo "watthefak : 1";
-				exit();
+
 				$data["save_link"] = "/Release_note?pro=new&id=".$this->input->get('id');
 				$data["formType"] = "new";
 				$this ->load->view("Content_Release_note_newedit",$data);
 			}else if($_SERVER['REQUEST_METHOD'] === 'POST' && $this->form_validation->run() == true){
-				//echo "watthefak : 2";
-				//exit();
+
 				$data["formType"] = "edit";
 				$data["save_link"] = "/save_release_note?id=".$this->input->get('id');
 				$data["data_item_specification"] = "";
@@ -933,7 +930,6 @@ class Procurement extends CI_Controller {
 				$data["data_item_specification"] = $this->display_model->releaseNote_get_itemspecification($area,$this->input->get('id'),$datefrom, $dateto)['table'];
 				$this ->load->view("Content_Release_note_newedit",$data);
 			}else{
-				echo "watthefak : 3";
 				$data["save_link"] = "/Release_note?pro=new&id=".$this->input->get('id');
 				$data["formType"] = "new";
 				$this ->load->view("Content_Release_note_newedit",$data);
@@ -980,11 +976,8 @@ class Procurement extends CI_Controller {
 				$datefrom	= "";
 				$dateto 	= "";
 				$storeid = $this->input->post('storeid');
-				//$storeid = "COE";
-				//$site = "MKA";
 				if( isset($_POST['site']) && $this->input->post("site")!="" ){
 					$site = $this->input->post("site");
-
 				}
 				if( isset($_POST['datefrom']) && $this->input->post("datefrom")!="" ){
 					$datefrom = date("m-d-Y", strtotime($this->input->post("datefrom")));

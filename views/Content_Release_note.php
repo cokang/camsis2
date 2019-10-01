@@ -45,7 +45,6 @@
 					</table>
 				</td>
 			</tr>
-
 			<tr class="ui-color-contents-style-1">
 				<td colspan="4" style="background-color: #fffefc;" valign="top" >
 					<table class="ui-content-middle-menu-workorder2 ui-landscape" width="100%">
@@ -64,6 +63,7 @@
 							.ui-content-middle-menu-workorder2 tr td.td-desk a{ font-weight:bold; font-size:14px;}
 						</style>
 						<?php $numrow = 1; ?>
+
 						<?php if(!empty($records)){?>
 						<?php foreach($records as $row):$status="";if($row->rn_status==0){$status="Send";}?>
 						<tr align="center" <?= ($numrow%2==0) ?  'class="ui-color-color-color"' :  '' ?> >
@@ -76,7 +76,7 @@
 							</td>
 							<td class="td-desk"><?=$status;?></td>
 							<td class="td-desk"><?= ($row->Date_Stamp) ? date("d-m-Y", strtotime($row->Date_Stamp)) : 'N/A' ;?> </td>
-							<td class="td-desk"><?= ($row->consignment_date) ? date("d-m-Y", strtotime($row->consignment_date)) : 'N/A' ;?> </td>
+							<td class="td-desk"><?= ($row->consignment_date) ? date("d-m-Y", strtotime($row->Date_Stamp)) : 'N/A' ;?> </td>
 						</tr>
 						<?php endforeach;?>
 						<?php }else{ ?>

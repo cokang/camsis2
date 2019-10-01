@@ -987,10 +987,15 @@ class Contentcontroller extends CI_Controller {
 	}
 
 	public function confirmmaintenance (){
+		$data['assetno'] = $this->input->get('assetno');
+		$this->load->model("get_model");
+		
+		$data['asset_det'] = $this->get_model->get_assetdet2($data['assetno']);
+		$data['asset_UMDNS'] = $this->get_model->get_UMDNSAsset($data['asset_det'][0]->V_Equip_code);
 
 		$this ->load->view("head");
 		$this ->load->view("left");
-		$this ->load->view("Update_Maintenance_Confirm");
+		$this ->load->view("Update_Maintenance_Confirm",$data);
 	}
 
 	public function confirmmaintenancesv (){
@@ -1785,12 +1790,12 @@ class Contentcontroller extends CI_Controller {
 	/*	public function assets (){
 		$this->load->model("get_model");
 		$data['asset_images'] = $this->get_model->assetimage();
-		//print_r($data['asset_images']);
-		//exit();
+		print_r($data['asset_images']);
+		exit();
 		$data['asset_cat'] = $this->get_model->get_assetcat();//get_assetdetx
-		//$data['asset_det'] = $this->get_model->get_assetdetx('16-597');
-		//print_r($data['asset_det']);
-		//exit();
+		$data['asset_det'] = $this->get_model->get_assetdetx('16-597');
+		print_r($data['asset_det']);
+		exit();
 		$this ->load->view("head");
 		$this ->load->view("left");
 		$this ->load->view("content_assets", $data);
@@ -4012,14 +4017,12 @@ class Contentcontroller extends CI_Controller {
 
 	public function report_ppmwos(){
     $this->load->model("update_model");
-    //$apola = "INSERT INTO asisbah (`A`,`B`) VALUES('c','b')";
+    $apola = "INSERT INTO asisbah (`A`,`B`) VALUES('c','b')";
     //$apola = "SELECT * FROM asisbah";
-//$this->update_model->updateOnDuplicatex('asisbah',$apola);
+$this->update_model->updateOnDuplicatex('asisbah',$apola);
 	  $this->load->model("display_model");
 		$data['records'] = $this->display_model->list_hospinfo();
 		$data['fon']= ($this->input->get('fon')) ? $this->input->get('fon') : "";
-    $data['from']= ($this->input->get('from') <> 0) ? $this->input->get('from') : $this->display_model->dater(1,$this->input->get('m'),$this->input->get('y'));
- 	  $data['to']= ($this->input->get('to') <> 0) ? $this->input->get('to') : $this->display_model->dater(2,$this->input->get('m'),$this->input->get('y'));
 		//echo "nilai fon : ".$data['fon'].":".$this->input->get('fon');
 		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
 		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
@@ -4044,13 +4047,6 @@ class Contentcontroller extends CI_Controller {
 		}
 		//$data['rqsum'] = $this->display_model->sumrq($data['month'],$data['year']);
 		//$data['complntsum'] = $this->display_model->sumcomplnt($data['month'],$data['year']);
-    if($this->input->get('m')){
-      $data['a'] = 'm='.$data['month'];
-      $data['b'] = 'y='.$data['year'];
-      }else{
-      $data['a'] = 'from='.$data['from'];
-      $data['b'] = 'to='.$data['to'];
-      }
 
 	  $this ->load->view("headprinter");
 		//$this ->load->view("Content_report_ppmsum", $data);
@@ -5745,7 +5741,7 @@ class Contentcontroller extends CI_Controller {
 			}
 
 		if($data['item'] <> ''){
-		$data['assetrec'] = $this->display_model->storeasset_report($data['item'],$data['month'],$data['year']);
+		$data['assetrec'] = $this->display_model->storeasset_report($data['code'],$data['month'],$data['year']);
 		$data['countarray'] = count($data['assetrec']);
 		if($data['countarray']==0){
 		$data['assetrec'] = array(
@@ -8591,78 +8587,6 @@ public function processupload(){
     $this->load->model('upload_services');
     $data['result']=$this->upload_services->upload_sampledata_csv2();
         break;
-    case "3":
-    ini_set('max_execution_time', 0);
-    ini_set('memory_limit','2048M');
-    $this->load->model('upload_services');
-    $data['result']=$this->upload_services->upload_sampledata_csv3();
-        break;
-    case "4":
-    ini_set('max_execution_time', 0);
-    ini_set('memory_limit','2048M');
-    $this->load->model('upload_services');
-    $data['result']=$this->upload_services->upload_sampledata_csv4();
-        break;
-    case "5":
-    ini_set('max_execution_time', 0);
-    ini_set('memory_limit','2048M');
-    $this->load->model('upload_services');
-    $data['result']=$this->upload_services->upload_sampledata_csv5();
-        break;
-    case "6":
-    ini_set('max_execution_time', 0);
-    ini_set('memory_limit','2048M');
-    $this->load->model('upload_services');
-    $data['result']=$this->upload_services->upload_sampledata_csv6();
-        break;
-    case "7":
-    ini_set('max_execution_time', 0);
-    ini_set('memory_limit','2048M');
-    $this->load->model('upload_services');
-    $data['result']=$this->upload_services->upload_sampledata_csv7();
-        break;
-    case "8":
-    ini_set('max_execution_time', 0);
-    ini_set('memory_limit','2048M');
-    $this->load->model('upload_services');
-    $data['result']=$this->upload_services->upload_sampledata_csv8();
-        break;
-    case "9":
-    ini_set('max_execution_time', 0);
-    ini_set('memory_limit','2048M');
-    $this->load->model('upload_services');
-    $data['result']=$this->upload_services->upload_sampledata_csv9();
-        break;
-    case "10":
-    ini_set('max_execution_time', 0);
-    ini_set('memory_limit','2048M');
-    $this->load->model('upload_services');
-    $data['result']=$this->upload_services->upload_sampledata_csv10();
-        break;
-    case "11":
-    ini_set('max_execution_time', 0);
-    ini_set('memory_limit','2048M');
-    $this->load->model('upload_services');
-    $data['result']=$this->upload_services->upload_sampledata_csv11();
-        break;
-    case "12":
-    ini_set('max_execution_time', 0);
-    ini_set('memory_limit','2048M');
-    $this->load->model('upload_services');
-    $data['result']=$this->upload_services->upload_sampledata_csv12();
-        break;
-    case "13":
-    ini_set('max_execution_time', 0);
-    ini_set('memory_limit','2048M');
-    $this->load->model('upload_services');
-    $data['result']=$this->upload_services->upload_sampledata_csv13();
-        break;
-    case "14":
-    ini_set('max_execution_time', 0);
-    ini_set('memory_limit','2048M');
-    $this->load->model('upload_services');
-    $data['result']=$this->upload_services->upload_sampledata_csv14();
-        break;
     /*case "green":
         echo "Your favorite color is green!";
         break;
@@ -8707,7 +8631,7 @@ public function chronologyplus(){
   $this->load->model("display_model");
   $this->load->model('get_model');
   $data['rc'] = $this->get_model->getrootcause();
-  $data['rc_parent'] = $this->get_model->getrootcause_nodash();;
+  $data['rc_parent'] = $this->get_model->getrootcause_nodash();
   //if (substr($data['wrk_ord'],0,2) == 'PP'){
   //echo "nilai visit " . $data['visit'];
   if ($data['visit'] != "") {
@@ -8723,8 +8647,10 @@ public function chronologyplus(){
 
 }
 
-
-
+public function rootChild($nama){
+	$this->load->model('get_model');
+	$this->get_model->rootChild($nama);
+}
 
 
 public function request_AP19(){
@@ -8839,6 +8765,7 @@ public function save_request_AP19(){
 
 
 }
+
 public function report_chronology(){
 		$this->load->model("get_model");
 		$from = $this->input->get('from') ? $this->input->get('from') : '';
@@ -8861,7 +8788,7 @@ public function report_chronology(){
         $data['records'] = $this->display_model->chrology_sum_report($from, $to,$nama,$negeri);
 
 		$this ->load->view("head");
-		$this ->load->view("Content_summary_chono",$data);
+		$this ->load->view("content_summary_chono",$data);
 	}
 
 	public function report_Part_Menu(){
@@ -8909,17 +8836,6 @@ $this ->load->view("report-a10.php",$data);
   		$this ->load->view("headprinter");
   		$this ->load->view("Content_woa10sr.php", $data);
   	}
-
-
-    public  function rootChild($nama) {
-    	//echo $nama;
-    	//$namaNospace =  str_replace("%20"," ",$nama);
-    	//$result = $this->db->like('nama',$namaNospace)->get('pmis2_egm_rootcause')->result();
-    	//echo $this->db->last_query();//exit();
-    	//echo json_encode($result);
-      $this->load->model('get_model');
-      $this->get_model->rootChild($nama);
-    }
 
 }
 ?>

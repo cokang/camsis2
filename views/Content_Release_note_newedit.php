@@ -336,7 +336,6 @@ $save = $save_link;
 		// var code = $(d).val();
 		var area 	= $("select[name=area]").val();
 			//alert(area);
-			//alert(storeid);
 		//var datefrom= $("input[name=datefrom]").val();
 		//var dateto	= $("input[name=dateto]").val();
 

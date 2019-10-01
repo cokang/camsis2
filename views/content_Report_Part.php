@@ -31,14 +31,14 @@
 			</tr>
 		</table>
 		<div id="Instruction" >
-		<center>View List :
+		<center>View List : 
 
 		<form action="" method="GET">
 
-		<?php
+		<?php 
 		 foreach ($record as $row){
 		 	$stock_part['Select Item Name'] = 'Select Item Name';
-		 	$stock_part[$row->ItemCode] = $row->ItemName;
+		 	$stock_part[$row->ItemName] = $row->ItemName;
 		 }
           	$stockpart = "stockpart";
 			$fy = $this->input->post($stockpart);
@@ -88,8 +88,8 @@
 			<th class="td-r">Remark</th>
 		  </tr>
 		<?php } ?>
-
-
+		  	
+		  	
 		  	<?php
 			is_numeric($rows->Qty_Before) ? $Qty_Before = $rows->Qty_Before : $Qty_Before = 0;
 			is_numeric($rows->Qty_Taken) ? $Qty_Taken = $rows->Qty_Taken : $Qty_Taken = 0;
@@ -149,3 +149,4 @@
 	<?php endforeach; ?>
 	</body>
 </html>
+

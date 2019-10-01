@@ -96,7 +96,6 @@ $record[0]->item_specification[1] =
 							</tr>
 						</thead>
 						<tbody>
-
 							<?php $no=1;foreach($rn_item as $row){?>
 							<tr style="height: auto; min-height: 360px;">
 								<td class="detail" valign="top"><?=$no;?></td>

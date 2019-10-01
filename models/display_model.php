@@ -769,7 +769,7 @@ ORDER BY r.D_date, r.D_time
 	 		}
 
 			$query = $this->db->get();
-			echo $this->db->last_query();
+			//echo $this->db->last_query();
 			//exit();
 			$query_result = $query->result();
 			return $query_result;
@@ -1706,12 +1706,10 @@ return $query->result();
 		$this->db->select('a.*,d.v_Mohdesc,b.V_Tag_no');
 		$this->db->select("IFNULL(IFNULL(e.d_LocDate,e.v_Vdate),f.D_commission) AS D_commission,IFNULL(f.D_commission,01/01/1997) AS D_comm",FALSE);
 		$this->db->from('ap_vo_vvfdetails a');
-		//$this->db->join('pmis2_egm_assetregistration b','b.V_Asset_no = a.vvfAssetNo AND b.V_Hospitalcode = a.vvfHospitalCode');
-    $this->db->join('pmis2_egm_assetregistration b'," (SUBSTRING_INDEX(vvfAssetNo, '-', -2) )  = b.V_Asset_no AND b.V_Hospitalcode = a.vvfHospitalCode");
+		$this->db->join('pmis2_egm_assetregistration b'," (SUBSTRING_INDEX(vvfAssetNo, '-', -2) )  = b.V_Asset_no AND b.V_Hospitalcode = a.vvfHospitalCode");
 		$this->db->join('pmis2_sa_userdept c','b.V_User_Dept_code = c.v_UserDeptCode AND b.V_Hospitalcode = c.v_HospitalCode');
 		$this->db->join('pmis2_sa_mohdept d','d.v_mohcode = c.v_Mohcode');
-		//$this->db->join('pmis2_egm_assetmaintenance e','a.vvfAssetNo = e.v_AssetNo');
-    $this->db->join('pmis2_egm_assetmaintenance e'," (SUBSTRING_INDEX(vvfAssetNo, '-', -2) )  = e.v_AssetNo");
+		$this->db->join('pmis2_egm_assetmaintenance e'," (SUBSTRING_INDEX(vvfAssetNo, '-', -2) )  = e.v_AssetNo");
 		$this->db->join('pmis2_egm_assetreg_general f','e.v_AssetNo = f.V_Asset_no AND e.v_Hospitalcode = f.V_Hospital_code');
 		$this->db->where('a.vvfReportNo',$rpt_no);
 		$this->db->where('a.vvfActionflag <>','D');
@@ -2266,7 +2264,7 @@ return $query->result();
 			$this->db->order_by('a.Time_Stamp','DESC');
 			$this->db->limit(5);
 			$query = $this->db->get();
-			echo $this->db->last_query();
+			//echo $this->db->last_query();
 			//exit();
 			return $query->result();
 		}
@@ -2298,10 +2296,9 @@ return $query->result();
 			$this->db->from('tbl_item_movement a');
 			$this->db->join('tbl_invitem b','a.ItemCode = b.ItemCode','inner');
 			$this->db->join('pmis2_sa_hospital c','a.site_id = c.v_HospitalCode','left');
-			//$this->db->where('a.Store_Id', $this->session->userdata('hosp_code'));//$this->session->userdata('usersess'));
-      $this->db->where('a.Store_Id', 'COE');
+			$this->db->where('a.Store_Id', $this->session->userdata('hosp_code'));//$this->session->userdata('usersess'));
 			if($m!=""){
-				//$this->db->where('MONTH(a.Time_Stamp)',$m);
+				$this->db->where('MONTH(a.Time_Stamp)',$m);
 			}
 			if($y!=""){
 				$this->db->where('YEAR(a.Time_Stamp)',$y);
@@ -2315,7 +2312,7 @@ return $query->result();
 			$this->db->order_by('a.Time_Stamp','ASC');
 
 			$query = $this->db->get();
-			 //echo $this->db->last_query();
+			// echo $this->db->last_query();
 			// exit();
 			return $query->result();
 		}
@@ -2395,7 +2392,7 @@ return $query->result();
           $dataTable[$i]["Price_Taken"]		= 0;
           $dataTable[$i]["Last_User_Update"]	= 0;
           $dataTable[$i]["Related_WO"]		= 0;
-          $dataTable[$i]["Remark"]			= $row->noday;
+          $dataTable[$i]["Remark"]			= 0;
           $dataTable[$i]["v_head_of_lls"]		=  $v_head_of_lls;
 
           $i++;
@@ -2412,7 +2409,7 @@ return $query->result();
         //exit();
         $v_head_of_lls = $dataTable[0]['v_head_of_lls'];
       }
-//print_r($dataTable);
+//print_r();
 //exit();
       $table = $this->generateItemSpecificationTable($dataTable);
 
@@ -2444,7 +2441,7 @@ return $query->result();
 					$html .= "		<td data-title='No :'>$numrow</td>";
 					$html .= "		<td data-title='Item Code :'><input type='text' name='itemCode[]' class='readonly' value='$trow->ItemCode' readonly /></td>";
 					$html .= "		<td data-title='Item Name :'>$trow->ItemName</td>";
-					$html .= "		<td data-title='MRIN Ref No. :'><input type='hidden' name='MIRNcode[]' value='$trow->MIRNcode'>$trow->MIRNcode <br> ($trow->Remark days old)</td>";
+					$html .= "		<td data-title='MRIN Ref No. :'><input type='hidden' name='MIRNcode[]' value='$trow->MIRNcode'>$trow->MIRNcode</td>";
 					$html .= "		<td data-title='Qty Req :'>$trow->QtyReq</td>";
 					$html .= "		<td data-title='Qty Delivered :'>$trow->theqty</td>";
 					$html .= "		<td data-title='Qty Store :'>$trow->QtyS</td>";
@@ -2544,7 +2541,6 @@ return $query->result();
 				$this->db->where("a.RN_No", $maklumat["RN_No"]);
 			}
 			$this->db->group_by("a.RN_No");
-      $this->db->order_by("a.Date_Stamp", "desc");
 			$result = $this->db->get()->result();
 			// echo $this->db->last_query();exit();
 			// echo "<pre>";var_export($result);die;
@@ -2736,6 +2732,8 @@ return $query->result();
 			$query_result = $query->result();
 			return $query_result;
 		}
+
+		
 
 		function sumppm($month,$year,$grpsel,$bystak = "",$fon = "")
 		{//echo "nlailafonmodel : ".$fon;
@@ -4213,7 +4211,7 @@ function vendor_update($code,$id=""){
   $this->db->group_end();
   }
 	$query = $this->db->get();
-	echo $this->db->last_query();
+	//echo $this->db->last_query();
 	//exit();
 	$query_result = $query->result();
 	return $query_result;
@@ -4615,8 +4613,8 @@ ORDER BY r.D_date, r.D_time
 	  $inter = (int)$month;
 		$this->db->select('m.*,IFNULL(s.V_Asset_no,p.v_Asset_no) AS V_Asset_no,st.Status, IFNULL(IFNULL(IFNULL(ApprCommentsxx,ApprCommentsx),ApprComments),Comments) AS Commentsx',FALSE);
 		$this->db->from('tbl_materialreq m');
-		$this->db->join('pmis2_egm_service_request s',"m.WorkOfOrder = s.V_Request_no AND s.V_actionflag <> 'D' AND s.v_hospitalcode = REPLACE(LEFT(RIGHT(m.DocReferenceNo, 14), 3), '/', '')",'left outer');
-		$this->db->join('pmis2_egm_schconfirmmon p',"m.WorkOfOrder = p.v_WrkOrdNo AND p.v_Actionflag <> 'D' AND p.v_hospitalcode = REPLACE(LEFT(RIGHT(m.DocReferenceNo, 14), 3), '/', '')",'left outer');
+		$this->db->join('pmis2_egm_service_request s','m.WorkOfOrder = s.V_Request_no AND s.V_actionflag <> "D"','left outer');
+		$this->db->join('pmis2_egm_schconfirmmon p','m.WorkOfOrder = p.v_WrkOrdNo AND p.v_Actionflag <> "D"','left outer');
 		$this->db->join('tbl_status st','m.ApprStatusID = st.StatusID');
     //$this->db->join('pmis2_sa_userhospital hosp',"hosp.v_hospitalcode=REPLACE(LEFT(RIGHT(m.DocReferenceNo, 14), 3), '/', '') AND hosp.v_userid='".$this->session->userdata('v_UserName')."'");
     $this->db->join('tbl_user tu',"tu.login = '".$this->session->userdata('v_UserName')."'");
@@ -4722,16 +4720,14 @@ function mrindet($mrinno){
 	}
 
 function itemdet($mrinno){
-	  $this->db->select('a.*,b.ItemName, rn.RN_No, rn.Qty as QtyRN, IFNULL(c.Qty,0) AS Qtys', FALSE);
-		//$this->db->select('a.*,b.ItemName, IFNULL(c.Qty,0) AS Qtys', FALSE);
+		$this->db->select('a.*,b.ItemName, IFNULL(c.Qty,0) AS Qtys', FALSE);
 		$this->db->from('tbl_mirn_comp a');
 		$this->db->join('tbl_invitem b','a.ItemCode = b.ItemCode');
 		$this->db->join('tbl_item_store_qty c',"c.ItemCode = a.ItemCode AND c.Action_Flag <> 'D' AND c.Hosp_code = '".$this->session->userdata('hosp_code')."'",'left outer');
-    $this->db->join('tbl_rn_item rn', 'rn.Item_code = a.ItemCode AND rn.MRIN_No = a.MIRNcode', 'left');
-  	$this->db->where('MIRNcode',$mrinno);
+		$this->db->where('MIRNcode',$mrinno);
 		$this->db->where('Who_Del IS NULL', null, false);
 		$query = $this->db->get();
-		echo $this->db->last_query();
+		//echo $this->db->last_query();
 		//exit();
 		$query_result = $query->result();
 		return $query_result;
@@ -4950,7 +4946,7 @@ ORDER BY a.V_Asset_no
 			$this->db->order_by("a.V_Tag_no, a.V_Asset_name");
 			$this->db->group_by('a.V_Tag_no');
 			$query = $this->db->get();
-			echo $this->db->last_query();
+			//echo $this->db->last_query();
 			//exit();
 			$query_result = $query->result();
 			return $query_result;
@@ -5057,10 +5053,8 @@ function polist($month,$year,$searchitem=""){
 	$this->db->join('tbl_zone b','a.ZoneID = b.ZoneID');
 	$this->db->join('tbl_user c','a.RequestUserID = c.UserID');
 	$this->db->join('tbl_status d','a.ApprStatusID = d.StatusID');
-  if ($searchitem == "") {
 	$this->db->where('MONTH(a.datecreated)',$month);
 	$this->db->where('YEAR(a.datecreated)',$year);
-  }
   if ($searchitem != "") {
     $this->db->group_start();
     $this->db->like("e.PO_No",$searchitem)->or_like("e.MIRN_No",$searchitem);
@@ -6912,7 +6906,6 @@ return $query->result();
   WHERE
   `RN_No` = '".$rn."'");
   //$query = $this->db->get();
-  //$query = $query->result();
   //echo $this->db->last_query();
   //exit();
   return $query->result();
@@ -6932,8 +6925,7 @@ return $query->result();
         case "MKA":
         case "AGJ":
         case "JAS":
-            //$hospape = "'TMP','MKA','AGJ','JAS'";
-            $hospape = "'TMP','AGJ'";
+            $hospape = "'TMP','MKA','AGJ','JAS'";
             break;
         case "HSA":
         case "PER":
@@ -6958,7 +6950,7 @@ return $query->result();
             $hospape = "'".$hosp."'";
     }
 	$this->db->distinct();
-    $this->db->select('a.ItemCode,a.ItemName,b.MIRNcode, ifnull(CASE WHEN `f`.`theqty` >  `b`.`Qty` THEN 0 ELSE `b`.`Qty` - `f`.`theqty` END,`b`.`QtyReq`) as QtyReq,ifnull(f.theqty,0)as theqty,d.qty as qstore, DATEDIFF(now(), c.DateCreated) AS noday');
+    $this->db->select('a.ItemCode,a.ItemName,b.MIRNcode, ifnull(CASE WHEN `f`.`theqty` >  `b`.`Qty` THEN 0 ELSE `b`.`Qty` - `f`.`theqty` END,`b`.`QtyReq`) as QtyReq,ifnull(f.theqty,0)as theqty,d.qty as qstore');
 	$this->db->from('tbl_materialreq c');
 	$this->db->join('tbl_mirn_comp b','c.DocReferenceNo = b.MIRNcode','inner');
 	$this->db->join('tbl_invitem a','a.ItemCode = b.ItemCode','inner');
@@ -7072,6 +7064,7 @@ return $query_result;
 
 
 function chrology_sum_report($datefrom,$dateto,$nama,$negeri){
+	$this->db->distinct();
 $this->db->select("d.D_date, a.v_WrkOrdNo,d.v_ref_wo_no,a.v_HospitalCode,a.v_ActionTaken,ar.V_Asset_no,ar.V_Tag_no,ar.V_Asset_name,ar.V_Manufacturer,ar.V_Model_no,b.nama,
 mr.DocReferenceNo,pom.MIRN_No, pom.PO_No, pom.Vendor_No, vi.VENDOR_NAME, vi.TELEPHONE_NO, po.PO_Date,
 (CASE
@@ -7090,24 +7083,71 @@ $this->db->join('tbl_po_mirn pom', 'mr.DocReferenceNo = pom.MIRN_No', 'left');
 $this->db->join('tbl_po po', 'pom.PO_No = po.PO_No', 'left');
 $this->db->join('tbl_vendor_info vi', 'pom.Vendor_No = vi.VENDOR_CODE', 'left');
 
+
+
 if($datefrom!=null || $dateto!=null){
 $this->db->where('d.D_date BETWEEN"'.$datefrom.'"and"'.$dateto.'"');
-
 }
-//$this->db->where('b.nama', $nama);
-//$this->db->having('negeri',$negeri);
 if($nama!='ALL'){
 $this->db->where('b.nama', $nama);}
+$this->db->where('a.n_Visit', 1);
+
 if($negeri!='ALL'){
 $this->db->having('negeri',$negeri);}
-$this->db->where('a.n_Visit', 1);
 $this->db->order_by('D_date', 'asc');
+
 // $this->db->group_by('b.id');
 $query = $this->db->get();
 // echo $this->db->last_query();
 //exit();
 $query_result = $query->result();
 return $query_result;
+}
+
+public function getrnitemnew($rn){
+  switch ($rn) {
+      case "JLB":
+      case "JMP":
+      case "KPL":
+      case "PDX":
+      case "SBN":
+          $hospape = "'JLB','JMP','KPL','PDX','SBN'";
+          break;
+      case "TMP":
+      case "MKA":
+      case "AGJ":
+      case "JAS":
+      case "JSN":
+          $hospape = "'TMP','MKA','AGJ','JSN','JAS'";
+          break;
+      case "MER":
+      case "HSA":
+      case "HSI":
+      case "MUR":
+      case "BPH":
+      case "KTG":
+      case "KLN":
+      case "PER":
+      case "KUL":
+      case "SGT":
+      case "TGK":
+      case "PON":
+          $hospape = "'MER','HSA','HSI','MUR','BPH','KTG','KLN','PER','KUL','SGT','TGK','PON'";
+          break;
+      default:
+          $hospape = "'".$rn."'";
+  }
+$this->db->select('b.*,a.ItemName,d.qty as qstore');
+$this->db->from('tbl_materialreq c');
+$this->db->join('tbl_mirn_comp b','c.DocReferenceNo = b.MIRNcode ');
+$this->db->join('tbl_invitem a','a.ItemCode = b.ItemCode');
+$this->db->join('tbl_item_store_qty d',"d.ItemCode = b.ItemCode AND d.hosp_code = 'COE'  AND REPLACE(LEFT(RIGHT(DocReferenceNo, 14), 3), '/', '') IN (" . $hospape . ")");
+$this->db->where("YEAR(c.datecreated) > 2017 AND c.Apprstatusid = '4'AND d.qty > 0");
+$this->db->order_by('c.DateCreated DESC');
+$query = $this->db->get();
+//echo $this->db->last_query();
+//exit();
+return $query->result();
 }
 
 
@@ -7265,7 +7305,7 @@ return $query_result;
       	$this->db->where('V_request_type <> ', 'A9');
       		}
       	$query = $this->db->get();
-      	echo $this->db->last_query();
+      	//echo $this->db->last_query();
       	//exit();
 
       	$query_result = $query->result();
@@ -7279,14 +7319,8 @@ return $query_result;
         $this->db->join('tbl_materialreq c','c.DocReferenceNo = b.MIRNcode');
         $this->db->join('tbl_rn_item d','a.ItemCode = d.Item_code AND c.DocReferenceNo = d.MRIN_No');
         $this->db->join('tbl_rn_release e','e.RN_No = d.RN_No');
-        $this->db->join("(SELECT a.ItemCode, a.Price_Taken
-FROM apbesys.tbl_item_movement
-a inner join (
-    SELECT MAX(id) AS id
-    FROM apbesys.tbl_item_movement
-    where (Store_Id = 'COE') AND (Qty_Add IS NOT NULL)
-    GROUP BY ItemCode
-) b on a.id=b.id) zz",'a.ItemCode = zz.ItemCode','LEFT OUTER');
+        $this->db->join("(select max(id) as id, ItemCode, Price_Taken from apbesys.tbl_item_movement
+where (Store_Id = 'COE') AND (Qty_Add IS NOT NULL) group by ItemCode, Price_Taken) zz",'a.ItemCode = zz.ItemCode','LEFT OUTER');
         $this->db->where('MONTH(e.Date_Stamp)',$month);
         $this->db->where('YEAR(e.Date_Stamp)',$year);
         //$this->db->order_by('v_Equip_Desc','ASC');

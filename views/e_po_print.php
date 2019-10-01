@@ -273,9 +273,9 @@ img{
 	<tr>
 		<td class="bold">work order no : <?=(isset($record[0]->V_Request_no)) ? $record[0]->V_Request_no :''?> </td>
 		<?php if (strpos($this->input->get('mrin'), 'IMG') !== false) {?>
-		<td><b><i>ATTN: <i><?=$hospdet[0]->v_head_of_lls?> /  <?=$hospdet[0]->v_contractor_ph?></i></b></td>
+		<td><b><i>ATTN: <?=$hospdet[0]->v_head_of_lls?> /  <?=$hospdet[0]->v_contractor_ph?></i></b></td>
 	<?php } else { ?>
-		<td><b><i>ATTN: <i><?=$hoswakilx?> / <?=$hospdet[0]->v_teleno?></i></b></td>
+		<td><b><i>ATTN: <?=$hoswakilx?> / <?=$hospdet[0]->v_teleno?></i></b></td>
 		<?php } ?>
 	</tr>
 	</table>

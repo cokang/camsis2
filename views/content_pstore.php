@@ -9,7 +9,7 @@ height:100%;
 <div class="ui-middle-screen">
 	<div class="main-box">
 		<?php $tab[0] = array("url"=>"contentcontroller/store_item_new?id=".$this->input->get('id'), "label"=>"New Part", "device"=>"web", "in"=>0);?>
-		<?php $tab[1] = array("url"=>"contentcontroller/Report_Part_Menu?id=".$this->input->get('id'), "label"=>"Report Part", "device"=>"web", "in"=>0);?>
+		<?php $tab[1] = array("url"=>"contentcontroller/Report_Part_Menu", "label"=>"Report Part", "device"=>"web", "in"=>0);?>
 		<?php //$tab[1] = array("url"=>"contentcontroller/Report_Part?id=".$this->input->get('id'), "label"=>"Report Part", "device"=>"web", "in"=>0);?>
 		<?php $tab[2] = array("url"=>"contentcontroller/vendor_reg", "label"=>"Vendor Reg", "device"=>"web", "in"=>0);?>
 		<?php $tab[3] = array("url"=>"contentcontroller/vendor_reg_update", "label"=>"Vendor Reg Update", "device"=>"web", "in"=>1);?>

@@ -272,7 +272,7 @@
 							<td colspan="2" class="ui-header-new">
 								<b><span class="textmenu" style="float:left;">Maintenance Status</span></b>
 								<span class="textmenu1" style="float:right;padding-top:0px;">
-									<?php echo anchor ('contentcontroller/updatemaintenance?assetno='.$assetn, '<button type="button" class="btn-button btn-primary-button"'.$blhkex.'>Update</button>'); ?>
+									<?php echo anchor ('contentcontroller/updatemaintenance?assetno='.$assetn, '<button type="button" class="btn-button btn-primary-button">Update</button>'); ?>
 								</span>
 							</td>
 						</tr>
