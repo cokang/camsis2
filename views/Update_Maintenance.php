@@ -1,4 +1,4 @@
-<?php echo form_open('contentcontroller/confirmmaintenance?assetno='.$assetno.'');?>
+<?php echo form_open('contentcontroller/confirmmaintenance');?>
 <?php $numberdate = 0; ?>
 <div class="ui-middle-screen">
 	<div class="content-workorder" align="center">

@@ -74,15 +74,15 @@
 			<tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">MOH Classification</td></tr>
 			<tr>
 				<td class="td-assest">Asset Type:&nbsp;</td>			
-				<td><?=($asset_UMDNS[0]->Asset_Type) ? $asset_UMDNS[0]->Asset_Type : 'NA'?> </td>
+				<td>10-051 </td>
 			</tr>
 			<tr>
 				<td class="td-assest">Group:&nbsp;</td>			
-				<td><?=($asset_det[0]->v_Location) ? $asset_det[0]->v_Location : 'N/A' ?> </td>
+				<td>A04 </td>
 			</tr>
 			<tr>
 				<td class="td-assest">Description:&nbsp;</td>			
-				<td><?=($asset_det[0]->d_LocDate) ? $asset_det[0]->d_LocDate : 'N/A' ?></td>
+				<td>Air Samplers</td>
 			</tr>
 			<tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">Checklist</td></tr>
 			<tr>
