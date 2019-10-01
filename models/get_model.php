@@ -177,6 +177,8 @@ function get_assetnewnum($assetcd)
 //$this->db->select(" ifnull(max(MID(V_asset_no,9,5)),0) + 1 AS thenum ", FALSE);
 //$this->db->select(" ifnull(max(MID(V_asset_no,CHAR_LENGTH(V_asset_no)-4,5)),0) + 1 AS thenum ", FALSE);
 $this->db->select(" ifnull(max(MID(V_asset_no,CHAR_LENGTH(V_asset_no)-(CHAR_LENGTH(V_asset_no)-POSITION('-' IN V_asset_no)-1),6)),0) + 1 AS thenum ", FALSE);
+
+$this->db->where('V_Asset_no', $this->session->userdata('hosp_code'));
 $this->db->like('V_asset_no', $assetcd, 'after');
 //    return $this->db->get('pmis2_sa_asset_mapping');
 $query = $this->db->get('pmis2_egm_assetregistration');
@@ -4345,6 +4347,73 @@ function get_stock_asset($searchitem=""){
 			//echo $this->db->last_query();
 			//exit();
 			return $query->result();
+		}
+
+		function getrootcause(){
+
+ 			$this->db->from('pmis2_egm_rootcause');
+			$query = $this->db->get();
+			foreach($query->result() as $row ){
+				//this sets the key to equal the value so that
+				//the pulldown array lists the same for each
+			$array[$row->id] = $row->nama;
+			}
+			return $array;
+		}
+
+		function getrootcause_nodash(){
+			$this->db->select("SUBSTRING_INDEX(nama, '-', 1) as nama");
+			$this->db->from('pmis2_egm_rootcause');
+			// $this->db->where('nama LIKE ');
+		   $query = $this->db->get();
+		   $array[] = "Please Select";
+		   foreach($query->result() as $row ){
+				   $array[$row->nama] = $row->nama;
+		   }
+		   return $array;
+
+		   }
+
+		     function rootChild($nama) {
+			//echo $nama;
+			$namaNospace =  str_replace("%20"," ",$nama);
+			$result = $this->db->like('nama',$namaNospace)->get('pmis2_egm_rootcause')->result();
+			//echo $this->db->last_query();//exit();
+			echo json_encode($result);
+		}
+
+		function reportChronology($datefrom, $dateto){
+			$this->db->select("d.D_date,
+			b.nama, count(b.id) as total,
+			SUM(CASE
+				WHEN a.v_HospitalCode in ('HSA','HSI','KTG','KUL','PER','SGT','KLN','MER','PON','BPH','MUR','MKJ','TGK') THEN  1
+						 ELSE 0
+			END) as JOH,
+			SUM(CASE
+				WHEN a.v_HospitalCode in ('AGJ','JAS','MKA','TMP') THEN  1
+						 ELSE 0
+			END) as MKA,
+			SUM(CASE
+				WHEN a.v_HospitalCode in ('JLB','JMP','KPL','PDX','SBN') THEN 1
+						 ELSE 0
+			END) as NS");
+		$this->db->from('pmis2_emg_chronology a');
+		$this->db->join('pmis2_egm_rootcause b', 'a.v_ReschAuthBy = b.id', 'inner');
+		$this->db->join('pmis2_egm_schconfirmmon c', 'a.v_WrkOrdNo = c.v_WrkOrdNo AND a.v_hospitalcode = c.v_hospitalcode', 'left');
+		$this->db->join('pmis2_egm_service_request d', 'a.v_WrkOrdNo = d.V_Request_no AND a.v_hospitalcode = d.v_hospitalcode', 'left');
+		if($datefrom!=null || $dateto!=null){
+		$this->db->where('d.D_date BETWEEN"'.$datefrom.'"and"'.$dateto.'"');
+
+		}
+		$this->db->where('a.n_Visit', 1);
+		$this->db->group_by('b.id');
+		// $this->db->where('NOW()', $Value);
+
+		$query = $this->db->get();
+		return $query->result();
+		// echo $this->db->last_query();
+
+
 		}
 }
 ?>

@@ -77,11 +77,10 @@
 				<th>AVAILABILITY PARTS( Y IF AVAILABLE , N IF NOT AVAILABLE)</th>
  				<th>EXEMPTION DEDUCTION LETTER( Y IF AVAILABLE , N IF NOT AVAILABLE)</th>
 			</tr>
-			<?php $no=1; ?>
+			<?php $no=1; $prevWrkOrdNo ='1'; $prevPO='1';?>
 		<?php foreach($records as $row):?>
-	
               <tr>
-				<td><?=$no++;?></td>
+				<td><?php if($prevWrkOrdNo!=$row->v_WrkOrdNo){echo $no++;}?></td>
 				<td><?=$row->negeri;?></td>
 				<td><?=$row->v_HospitalCode;?></td>
 				<td><?=$row->v_ref_wo_no;?></td>
@@ -113,11 +112,11 @@
 				<td></td>
 				<td></td>
 				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td><?= $row->MIRN_No;?></td>
+				<td><?php if($row->PO_Date!='')echo date("d/m/Y",strtotime($row->PO_Date));?></td>
+				<td><?=$row->PO_No;?></td>
+				<td><?=$row->VENDOR_NAME;?></td>
+				<td><?=$row->TELEPHONE_NO;?></td>
 				<td>-</td>
 				<td></td>
 				<td></td>
@@ -142,7 +141,9 @@
 				<td></td>
 				<td></td>
 			</tr>
-			<?php endforeach; ?>
+			<?php  $prevWrkOrdNo=$row->v_WrkOrdNo;  $prevPO=$row->PO_No; //if($prevPO==''){$prevPO='1';}else{}
+		endforeach;?>
+
 			<!--<tr>
 				<td>813</td>
 				<td>JOH</td>

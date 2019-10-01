@@ -5,7 +5,7 @@
 		<form method="get" action="">
 			<tr class="ui-color-contents-style-1" height="40px">
 				<td class="ui-header-new" colspan="7"><span style="float: left; margin-top:5px; font-weight: bold; margin-right:7px;">Reports By Group </span>
-				<?php 
+				<?php
 						$assetgroup = array(
 							'' => 'All',
 							'1' => 'Group 1',
@@ -36,8 +36,8 @@
 							<a href="?y=<?= $year+1?>&m=<?= $month?>&grp=<?php echo $this->input->get('grp')?>"><img src="<?php echo base_url(); ?>images/arrow-right2.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
 							</td>
 			</tr>
-	    <?php 
-			
+	    <?php
+
 			function evenodd($numberx) {
 			//$number++;
 			if ($numberx % 2 == 0) {
@@ -48,14 +48,14 @@
 			   return "ui-rpt-color-style";
 			   echo "hai";
 			}
-			
+
 			}
-			
+
 		?>
 		<!-- <?php if (!in_array("contentcontroller/Attendance", $chkers)) { ?> -->
 			<tr class="<?php  $number++; echo evenodd($number); ?> ">
 				<td colspan="4">
-					<?php echo anchor ('contentcontroller/Report_part','<img src="'. base_url() .'images/user.png" alt="" style="width:75px; height:75px;vertical-align: middle;"/>&nbsp;&nbsp;&nbsp;&nbsp;Stock Report'); ?>
+					<?php echo anchor ('contentcontroller/Report_part?id='.$this->input->get('id'),'<img src="'. base_url() .'images/user.png" alt="" style="width:75px; height:75px;vertical-align: middle;"/>&nbsp;&nbsp;&nbsp;&nbsp;Stock Report'); ?>
 				</td>
 			</tr>
 		    <!-- <?php  } ?> -->
