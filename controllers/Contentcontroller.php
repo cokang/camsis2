@@ -8846,8 +8846,10 @@ public function save_request_AP19(){
 }
 public function report_chronology(){
 		$this->load->model("get_model");
-		$from = $this->input->get('from') ? $this->input->get('from') : '';
-		$to = $this->input->get('to') ? $this->input->get('to') : '';
+		$start= (date("Y-01-01",time())); 
+		$end = (date("Y-12-31",time()));
+		$from = $this->input->get('from') ? $this->input->get('from') : $start;
+		$to = $this->input->get('to') ? $this->input->get('to') : $end;
 		$data['from']=$from;
 		$data['to']=$to;
 		$data['det'] =$this->get_model->reportChronology($from, $to);
