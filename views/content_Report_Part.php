@@ -1,13 +1,15 @@
 <body>
 	<div id="Instruction" class="pr-printer">
 		<div class="header-pr"> Stock Part </div>
-		<button onclick='myFunction()' class="btn-button btn-primary-button">PRINT</button>
+		<!-- <button onclick='myFunction()' class="btn-button btn-primary-button">PRINT</button> -->
+		<button onclick="javascript:window.print();" class="btn-button btn-primary-button">PRINT</button>
+		<!-- <button type="cancel" class="btn-button btn-primary-button" onclick="location.href = '<?php base_url();?>Report_Part_Menu?<?php echo 'id='.$this->input->get('id');?>';">CANCEL</button> -->
 		<button type="cancel" class="btn-button btn-primary-button" onclick="window.history.back()">CANCEL</button>
 	</div>
 	<div class="form">
 		<?php $numrow=1;foreach($assetrec as $rows): ?>
 		<?php if ($numrow == 1 OR $numrow%23==1) { ?>
-		<table class="tbl-wo" border="1" align="center" style="border: 1px solid;">
+		<table class="tbl-wo" border="0" align="center" style="border: 1px solid;">
 			<tr>
 				<td style="padding-left:5px; width:160px;"><img src="<?php echo base_url(); ?>images/logo.png" style="width:150px; height:50px;"/></td>
 				<td>
@@ -23,9 +25,10 @@
 						</tr>
 					</table>
 				</td>
+				<td style="padding-left:5px; width:160px;"></td>
 			</tr>
 		</table>
-		<table class="tbl-wo-1" border="0" align="center">
+		<table class="tbl-wo-1"  align="center">
 			<tr>
 				<td align="center"><span style="font-weight:bold;">&nbsp;</span></td>
 			</tr>
@@ -36,15 +39,16 @@
 		<form action="" method="GET">
 
 		<?php
-		 foreach ($record as $row){
-		 	$stock_part['Select Item Name'] = 'Select Item Name';
-		 	$stock_part[$row->ItemCode] = $row->ItemName;
-		 }
+		//  foreach ($record as $row){
+		//  	$stock_part['Select Item Name'] = 'Select Item Name';
+		//  	$stock_part[$row->ItemCode] = $row->ItemName;
+		//  }
           	$stockpart = "stockpart";
 			$fy = $this->input->post($stockpart);
         ?>
-              <?php echo form_dropdown($stockpart, $stock_part, set_value($stockpart,(!empty($fy) ? $fy : 'Select Stock Part')) , 'class="dropdown" style="width: 300px;"'); ?>
-
+              <?php //echo form_dropdown($stockpart, $stock_part, set_value($stockpart,(!empty($fy) ? $fy : 'Select Stock Part')) , 'class="dropdown" style="width: 300px;"'); ?>
+		 	<?php echo form_input($stockpart, $item, 'class="input" style="width: 300px;" placeholder="Search by Item Name or Item Code"');
+			 ?>
 		<input type="submit" value="Apply" onclick="javascript: submit()">
 
 		</form>

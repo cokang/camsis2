@@ -5737,17 +5737,19 @@ class Contentcontroller extends CI_Controller {
 		$data['item']= !($this->input->get('stockpart')) || $this->input->get('stockpart') == 'Select Item Name' ? '' : $this->input->get('stockpart');
 		//echo $data['item'];
 		//exit();
+		//$data['id']= $this->input->get('id');
+		//echo $data['id'];
 		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
 		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
 
 		$this->load->model('display_model');
-		$data['record'] = $this->display_model->stock_asset();
+		// $data['record'] = $this->display_model->stock_asset();
 
-			foreach($data['record'] as $row){
-				if($data['item'] == $row->ItemName){
-					$data['code'] = $row->ItemCode;
-				}
-			}
+			// foreach($data['record'] as $row){
+			// 	if($data['item'] == $row->ItemName){
+			// 		$data['code'] = $row->ItemCode;
+			// 	}
+			// }
 
 		if($data['item'] <> ''){
 		$data['assetrec'] = $this->display_model->storeasset_report($data['item'],$data['month'],$data['year']);
@@ -5763,7 +5765,8 @@ class Contentcontroller extends CI_Controller {
 								  'ItemName' => NULL,
 			);
 		}
-
+		// echo 'exit';
+		// exit();
 		$this ->load->view("headprinter");
 		$this ->load->view("content_Report_Part",$data);
 	}

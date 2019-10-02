@@ -2307,7 +2307,8 @@ return $query->result();
 				$this->db->where('YEAR(a.Time_Stamp)',$y);
 			}
 			if($ItemCode!=""){
-				$this->db->where('a.ItemCode',$ItemCode);
+				$this->db->like('a.ItemCode',$ItemCode); 
+				$this->db->or_like('b.ItemName',$ItemCode); 
 			}
 			if( $site!="" ){
 				$this->db->where('a.site_id', $site);
