@@ -5751,8 +5751,16 @@ class Contentcontroller extends CI_Controller {
 			// 	}
 			// }
 
+	
+				
+			//	exit();
 		if($data['item'] <> ''){
 		$data['assetrec'] = $this->display_model->storeasset_report($data['item'],$data['month'],$data['year']);
+		$unique = array(); 
+			foreach($data['assetrec'] as $asset){
+		$unique[]=$asset->ItemName.'('.$asset->ItemCode.'), ';
+		$data['names']= array_unique($unique);
+		}
 		$data['countarray'] = count($data['assetrec']);
 		if($data['countarray']==0){
 		$data['assetrec'] = array(

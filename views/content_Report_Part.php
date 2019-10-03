@@ -79,7 +79,9 @@
 		<?php if ($numrow==1 OR $numrow%23==1) { ?>
 	<table class="tftable2" border="1" style="text-align:center;" align="center">
 		 <tr class="greyii">
-		    <th colspan="8" class="td-r"><?= $item ?> - <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?> Transaction</th>
+			<th colspan="8" class="td-r"><?php 
+	foreach ($names as $name)
+  { echo $name; }   echo '</br>'?> -  Transaction</th>
 		  </tr>
 		  <tr class="greyii">
 		  	<th class="td-r">No</th>
