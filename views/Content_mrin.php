@@ -133,7 +133,7 @@
 							<td class="td-desk"><?=$numrow++?></td>
 							<td class="td-desk" style="text-align:left;">
 								<a href="<?php echo base_url();?>index.php/Procurement?mrinno=<?=$row->DocReferenceNo?>&pro=<?=$pro?>">
-									<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>
+									<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo.'</br>'.$row->resolve : ''?>
 								</a>
 							</td>
 							<td class="td-desk"><?=isset($row->WorkOfOrder) ? $row->WorkOfOrder : ''?></td>

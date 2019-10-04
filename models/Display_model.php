@@ -2319,6 +2319,9 @@ return $query->result();
 			 //echo $this->db->last_query();
 			// exit();
 			return $query->result();
+			
+			// $query1 = $this->db->get();
+			// return $query1->result();
 		}
 
     function releaseNote_get_itemspecification($site="",$storeid="", $datefrom="", $dateto=""){
@@ -4614,10 +4617,12 @@ ORDER BY r.D_date, r.D_time
 	//echo "nilai kelas : " . $kelas . " type : " . $type;
   //exit();
 	  $inter = (int)$month;
-		$this->db->select('m.*,IFNULL(s.V_Asset_no,p.v_Asset_no) AS V_Asset_no,st.Status, IFNULL(IFNULL(IFNULL(ApprCommentsxx,ApprCommentsx),ApprComments),Comments) AS Commentsx',FALSE);
+		$this->db->select('m.*,IFNULL(s.V_Asset_no,p.v_Asset_no) AS V_Asset_no,st.Status, IFNULL(IFNULL(IFNULL(ApprCommentsxx,ApprCommentsx),ApprComments),Comments) AS Commentsx, rn.RN_No,
+		 if(rn.RN_No is null,null,"(RN Issued)") as resolve',FALSE);
 		$this->db->from('tbl_materialreq m');
 		$this->db->join('pmis2_egm_service_request s',"m.WorkOfOrder = s.V_Request_no AND s.V_actionflag <> 'D' AND s.v_hospitalcode = REPLACE(LEFT(RIGHT(m.DocReferenceNo, 14), 3), '/', '')",'left outer');
 		$this->db->join('pmis2_egm_schconfirmmon p',"m.WorkOfOrder = p.v_WrkOrdNo AND p.v_Actionflag <> 'D' AND p.v_hospitalcode = REPLACE(LEFT(RIGHT(m.DocReferenceNo, 14), 3), '/', '')",'left outer');
+		$this->db->join('tbl_rn_item rn', 'm.DocReferenceNo = rn.MRIN_No', 'left');
 		$this->db->join('tbl_status st','m.ApprStatusID = st.StatusID');
     //$this->db->join('pmis2_sa_userhospital hosp',"hosp.v_hospitalcode=REPLACE(LEFT(RIGHT(m.DocReferenceNo, 14), 3), '/', '') AND hosp.v_userid='".$this->session->userdata('v_UserName')."'");
     $this->db->join('tbl_user tu',"tu.login = '".$this->session->userdata('v_UserName')."'");
