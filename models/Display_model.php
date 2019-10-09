@@ -2294,7 +2294,7 @@ return $query->result();
 			return $query->result();
 		}
 		function storeasset_report($ItemCode,$m,$y,$site=""){
-			$this->db->select('a.Time_Stamp,a.Qty_Before,a.Qty_Taken,a.Qty_Add,a.Price_Taken,a.Last_User_Update,a.Related_WO,a.Remark,a.ItemCode,b.ItemName,c.v_head_of_lls');
+			$this->db->select('a.Time_Stamp,a.Qty_Before,a.Qty_Taken,a.Qty_Add,a.Price_Taken,a.Last_User_Update,a.Related_WO,a.Remark,a.ItemCode,b.ItemName, b.Model,c.v_head_of_lls');
 			$this->db->from('tbl_item_movement a');
 			$this->db->join('tbl_invitem b','a.ItemCode = b.ItemCode','inner');
 			$this->db->join('pmis2_sa_hospital c','a.site_id = c.v_HospitalCode','left');
@@ -2307,22 +2307,26 @@ return $query->result();
 				$this->db->where('YEAR(a.Time_Stamp)',$y);
 			}
 			if($ItemCode!=""){
+				$this->db->group_start();
 				$this->db->like('a.ItemCode',$ItemCode); 
 				$this->db->or_like('b.ItemName',$ItemCode); 
+				$this->db->or_like('b.Model',$ItemCode); 
+				$this->db->group_end();
 			}
 			if( $site!="" ){
 				$this->db->where('a.site_id', $site);
 			}
-			$this->db->order_by('a.Time_Stamp','ASC');
+			$this->db->order_by('a.ItemCode, a.Time_Stamp','ASC');
 
 			$query = $this->db->get();
-			 //echo $this->db->last_query();
+			//echo $this->db->last_query();
 			// exit();
 			return $query->result();
 			
 			// $query1 = $this->db->get();
 			// return $query1->result();
 		}
+	
 
     function releaseNote_get_itemspecification($site="",$storeid="", $datefrom="", $dateto=""){
 

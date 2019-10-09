@@ -7,7 +7,9 @@
 		<button type="cancel" class="btn-button btn-primary-button" onclick="window.history.back()">CANCEL</button>
 	</div>
 	<div class="form">
-		<?php $numrow=1;foreach($assetrec as $rows): ?>
+	<?php  foreach ($codes as $code): ?>
+		<?php $numrow=1;foreach($assetrec as $rows): 
+		if($code == $rows->ItemCode ){ ?>
 		<?php if ($numrow == 1 OR $numrow%23==1) { ?>
 		<table class="tbl-wo" border="0" align="center" style="border: 1px solid;">
 			<tr>
@@ -47,7 +49,7 @@
 			$fy = $this->input->post($stockpart);
         ?>
               <?php //echo form_dropdown($stockpart, $stock_part, set_value($stockpart,(!empty($fy) ? $fy : 'Select Stock Part')) , 'class="dropdown" style="width: 300px;"'); ?>
-		 	<?php echo form_input($stockpart, $item, 'class="input" style="width: 300px;" placeholder="Search by Item Name or Item Code"');
+		 	<?php echo form_input($stockpart, $item, 'class="input" style="width: 300px;" placeholder="Search by Item Name/Item Code/Model"');
 			 ?>
 		<input type="submit" value="Apply" onclick="javascript: submit()">
 
@@ -72,7 +74,7 @@
 			</td>
 		</tr>
 	</table>
-	<?php } ?>
+	<?php  }?>
 		</div>
 		<?php if ($item <> '') { ?>
 		<?php if ($countarray <> 0) { ?>
@@ -80,8 +82,8 @@
 	<table class="tftable2" border="1" style="text-align:center;" align="center">
 		 <tr class="greyii">
 			<th colspan="8" class="td-r"><?php 
-	foreach ($names as $name)
-  { echo $name; }   echo '</br>'?> -  Transaction</th>
+
+   echo 'ItemName: '.$rows->ItemName.' (ItemCode: '.$code.', Model: '.$rows->Model.')';    ?> -  Transaction</th>
 		  </tr>
 		  <tr class="greyii">
 		  	<th class="td-r">No</th>
@@ -101,6 +103,7 @@
 			is_numeric($rows->Qty_Taken) ? $Qty_Taken = $rows->Qty_Taken : $Qty_Taken = 0;
 			is_numeric($rows->Qty_Add) ? $Qty_Add = $rows->Qty_Add : $Qty_Add = 0;
 			$Qty_Bal = $Qty_Before + $Qty_Add - $Qty_Taken;
+			
 			?>
 			<tr>
 				<td><?= $numrow ?></td>
@@ -112,9 +115,9 @@
 				<td><?= $Qty_Bal ?></td>
 				<td><?= $rows->Remark ?></td>
 			</tr>
+			
 			<?php $numrow++ ?>
-
-			<?php if (($numrow-1)==$countarray){ ?>
+			<?php if (($numrow-1)==$occurences[$rows->ItemCode] ){ ?>
 			<?php $lastrow=$numrow ?>
 			<?php for ($x = 0; $x <= (23 - ($lastrow%23)); $x++) { ?>
 			<?php $numrow++ ?>
@@ -129,7 +132,7 @@
 				<td >&nbsp;</td>
 			</tr>
 			<?php  } ?>
-			<?php  } ?>
+			<?php  }?>
 
 			<?php } else {?>
 			<table class="tftable2" border="1" style="text-align:center;" align="center">
@@ -151,7 +154,8 @@
 			</tr>
 	</table>
 	<div class="StartNewPage" id="breakpage"><span id="pagebreak">Page Break</span></div>
-	<?php } ?>
+	<?php } }?>
+	<?php endforeach; ?>
 	<?php endforeach; ?>
 	</body>
 </html>
