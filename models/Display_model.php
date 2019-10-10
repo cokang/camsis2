@@ -112,6 +112,10 @@
             case "12":
                 //echo "masuk1";
                 $this->db->where('V_request_type = ', 'AP19');
+				break;
+				case "13":
+                //echo "masuk1";
+                $this->db->where('V_request_type = ', 'AP');
                 break;
             case "11":
                 $this->db->where('V_request_status <> ', 'C');
