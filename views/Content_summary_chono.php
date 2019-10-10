@@ -111,7 +111,7 @@
 				<td></td>
 				<td></td>
 				<td></td>
-				<td></td>
+				<td><?php if($row->DateCreated!='')echo date("d/m/Y",strtotime($row->DateCreated));?></td>
 				<td><?= $row->MIRN_No;?></td>
 				<td><?php if($row->PO_Date!='')echo date("d/m/Y",strtotime($row->PO_Date));?></td>
 				<td><?=$row->PO_No;?></td>
