@@ -94,7 +94,7 @@
 				<td><?=$row->V_Asset_no;?></td>
 				<td><?=$row->V_Tag_no;?></td>
 				<td><?=$row->V_Asset_name;?></td>
-				<td>-</td>
+				<td><?php if($row->D_commission!='')echo date("d/m/Y",strtotime($row->D_commission));?></td>
 				<td><?=$row->V_Manufacturer;?></td>
 				<td><?=$row->V_Model_no;?></td>
 				<td>-</td>
