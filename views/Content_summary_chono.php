@@ -80,7 +80,7 @@
 			<?php $no=1; $prevWrkOrdNo ='1'; $prevPO='1';?>
 		<?php foreach($records as $row):?>
               <tr>
-				<td><?php echo $no++?></td>
+				<td><?php if($prevWrkOrdNo!=$row->v_WrkOrdNo){echo $no++;}?></td>
 				<td><?=$row->negeri;?></td>
 				<td><?=$row->v_HospitalCode;?></td>
 				<td><?=$row->v_ref_wo_no;?></td>
