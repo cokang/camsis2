@@ -5182,7 +5182,7 @@ function getthepo($whichone,$month,$year,$whatdept="NONE"){
 	$this->db->group_by('a.PO_No, b.MIRN_No, a.PO_Date');
 	//$this->db->where('a.Date_Completedc',date('Y'));
 	$query = $this->db->get();
-	//echo $this->db->last_query();
+	echo $this->db->last_query();
 	//exit();
 	return $query->result();
 }
@@ -7086,8 +7086,10 @@ return $query_result;
 
 
 function chrology_sum_report($datefrom,$dateto,$nama,$negeri){
+	$this->db->distinct();
 $this->db->select("d.D_date, a.v_WrkOrdNo,d.v_ref_wo_no,a.v_HospitalCode,a.v_ActionTaken,ar.V_Asset_no,ar.V_Tag_no,ar.V_Asset_name,ar.V_Manufacturer,ar.V_Model_no,b.nama,
-mr.DocReferenceNo,pom.MIRN_No, pom.PO_No, pom.Vendor_No, vi.VENDOR_NAME, vi.TELEPHONE_NO, po.PO_Date, mr.DateCreated,ag.D_commission,
+mr.DocReferenceNo,pom.MIRN_No, pom.PO_No, pom.Vendor_No, vi.VENDOR_NAME, vi.TELEPHONE_NO, po.PO_Date, mr.DateCreated,ag.D_commission,ag.N_Cost, IFNULL(IFNULL(IFNULL(ApprCommentsxx,ApprCommentsx),ApprComments),Comments) AS Commentsx,
+jr.v_Personal1, d.V_request_status,d.V_servicecode, po.paytype,
 (CASE
    WHEN a.v_HospitalCode in ('HSA','HSI','KTG','KUL','PER','SGT','KLN','MER','PON','BPH','MUR','MKJ','TGK') THEN  'JOH'
 			WHEN a.v_HospitalCode in ('AGJ','JAS','MKA','TMP') THEN  'MKA'
@@ -7104,6 +7106,8 @@ $this->db->join('tbl_po_mirn pom', 'mr.DocReferenceNo = pom.MIRN_No', 'left');
 $this->db->join('tbl_po po', 'pom.PO_No = po.PO_No', 'left');
 $this->db->join('tbl_vendor_info vi', 'pom.Vendor_No = vi.VENDOR_CODE', 'left');
 $this->db->join('pmis2_egm_assetreg_general ag', 'd.V_Asset_no = ag.V_Asset_no AND d.V_hospitalcode=ag.V_Hospital_code', 'left');
+$this->db->join('pmis2_emg_jobresponse jr', 'a.v_WrkOrdNo = jr.v_WrkOrdNo AND a.v_HospitalCode=jr.v_HospitalCode', 'left');
+
 
 
 if($datefrom!=null || $dateto!=null){
@@ -7120,6 +7124,21 @@ $this->db->where('a.n_Visit', 1);
 $this->db->order_by('D_date', 'asc');
 // $this->db->group_by('b.id');
 $query = $this->db->get();
+// echo $this->db->last_query();
+//exit();
+$query_result = $query->result();
+return $query_result;
+}
+
+function sparepart_cost($mirn){
+	$this->db->select('MIRNcode,(QtyReqfx*Unit_Costx) as PartCost, b.ItemName');
+	$this->db->from('tbl_mirn_comp a');
+	$this->db->join('tbl_invitem b', 'a.ItemCode = b.ItemCode', 'left');
+	$this->db->where('MIRNcode', $mirn);
+	$this->db->where('MIRNcode<>', 'null');
+	$this->db->where('ItemName<>', '');
+	$this->db->order_by('DtApprv', 'asc');
+	$query = $this->db->get();
 // echo $this->db->last_query();
 //exit();
 $query_result = $query->result();

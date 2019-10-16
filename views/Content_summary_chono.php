@@ -60,18 +60,18 @@
 				<th>Paid ( Cost)</th>
 				<th>Ageing WO from WO issued</th>
 				<th>DEDUCTION PER DAY</th>
-				<th>IMPACT DEDUCTION TILL JAN 18</th>
-				<th>IMPACT DEDUCTION TILL FEB 18</th>
-				<th>IMPACT DEDUCTION TILL MAC 18</th>
-				<th>IMPACT DEDUCTION TILL APR 18</th>
-				<th>IMPACT DEDUCTION TILL MAY 18</th>
-				<th>IMPACT DEDUCTION TILL JUNE 18</th>
-				<th>IMPACT DEDUCTION TILL JULY 18</th>
-				<th>IMPACT DEDUCTION TILL AUG 18</th>
-				<th>IMPACT DEDUCTION TILL SEPT 18</th>
-				<th>IMPACT DEDUCTION TILL OCT 18</th>
-				<th>IMPACT DEDUCTION TILL NOV 18</th>
-				<th>IMPACT DEDUCTION TILL DEC 18</th>
+				<th>IMPACT DEDUCTION TILL JAN <?= $year?></th>
+				<th>IMPACT DEDUCTION TILL FEB <?= $year?></th>
+				<th>IMPACT DEDUCTION TILL MAC <?= $year?></th>
+				<th>IMPACT DEDUCTION TILL APR <?= $year?></th>
+				<th>IMPACT DEDUCTION TILL MAY <?= $year?></th>
+				<th>IMPACT DEDUCTION TILL JUNE <?= $year?></th>
+				<th>IMPACT DEDUCTION TILL JULY <?= $year?></th>
+				<th>IMPACT DEDUCTION TILL AUG <?= $year?></th>
+				<th>IMPACT DEDUCTION TILL SEPT <?= $year?></th>
+				<th>IMPACT DEDUCTION TILL OCT <?= $year?></th>
+				<th>IMPACT DEDUCTION TILL NOV <?= $year?></th>
+				<th>IMPACT DEDUCTION TILL DEC <?= $year?></th>
 				<th>FEEDBACK CONVERSATION FROM BOTH PARTY  ( Y IF AVAILABLE , N IF NOT AVAILABLE) </th>
 				<th>DATE ETA / LAST FEEDBACK  </th>
 				<th>AVAILABILITY PARTS( Y IF AVAILABLE , N IF NOT AVAILABLE)</th>
@@ -85,11 +85,11 @@
 				<td><?=$row->v_HospitalCode;?></td>
 				<td><?=$row->v_ref_wo_no;?></td>
 				<td><?=$row->v_WrkOrdNo;?></td>
-				<td>-</td>
-				<td>-</td>
+				<td><?=$row->V_request_status?></td>
+				<td><?=$row->V_servicecode?></td>
 				<td><?=date("d/m/Y",strtotime($row->D_date));?></td>
 				<td><?=date("M-y",strtotime($row->D_date));?></td>
-				<td>-</td>
+				<td>NA</td>
 				<td><?=$row->v_ActionTaken;?></td>
 				<td><?=$row->V_Asset_no;?></td>
 				<td><?=$row->V_Tag_no;?></td>
@@ -97,49 +97,60 @@
 				<td><?php if($row->D_commission!='')echo date("d/m/Y",strtotime($row->D_commission));?></td>
 				<td><?=$row->V_Manufacturer;?></td>
 				<td><?=$row->V_Model_no;?></td>
+				<td>RM<?=$row->N_Cost;?></td>
 				<td>-</td>
 				<td>-</td>
+				<td><?=$row->v_Personal1;?></td>
 				<td>-</td>
 				<td>-</td>
-				<td>-</td>
-				<td>-</td>
-				<td></td>
-				<td></td>
+				<td>NA</td>
+				<td>NA</td>
 				<td>-</td>
 				<td><?=$row->nama;?></td>
-				<td>-</td>
+				<td>NA</td>
 				<td></td>
-				<td></td>
-				<td></td>
+				<td><?=$row->Commentsx;?></td>
+				<td>NA</td>
 				<td><?php if($row->DateCreated!='')echo date("d/m/Y",strtotime($row->DateCreated));?></td>
 				<td><?= $row->MIRN_No;?></td>
 				<td><?php if($row->PO_Date!='')echo date("d/m/Y",strtotime($row->PO_Date));?></td>
 				<td><?=$row->PO_No;?></td>
 				<td><?=$row->VENDOR_NAME;?></td>
 				<td><?=$row->TELEPHONE_NO;?></td>
+				<td><?=$row->paytype;?></td>
+				<td></td>
+				<td><?php  if($Costs!=null){foreach($Costs as $cost){
+					if($cost!=null){$n=1;
+					foreach($cost as $costV){
+						
+					if($row->MIRN_No==$costV->MIRNcode){ 
+						if($costV->MIRNcode!=null){
+						 echo $n++.')'.$costV->ItemName.': RM'.$costV->PartCost.'</br>';
+						}
+					}
+				}}
+				}}
+				?></td>
 				<td>-</td>
 				<td></td>
-				<td></td>
-				<td>-</td>
-				<td></td>
 				<td>-</td>
 				<td>-</td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td>NA</td>
+				<td>NA</td>
+				<td>NA</td>
+				<td>NA</td>
+				<td>NA</td>
+				<td>NA</td>
+				<td>NA</td>
+				<td>NA</td>
+				<td>NA</td>
+				<td>NA</td>
+				<td>NA</td>
+				<td>NA</td>
+				<td>NA</td>
+				<td>NA</td>
+				<td>NA</td>
+				<td>NA</td>
 			</tr>
 			<?php  $prevWrkOrdNo=$row->v_WrkOrdNo;  $prevPO=$row->PO_No; //if($prevPO==''){$prevPO='1';}else{}
 		endforeach;?>

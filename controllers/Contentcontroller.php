@@ -5795,6 +5795,8 @@ class Contentcontroller extends CI_Controller {
 		$data['wrk_ord'] = $this->input->get('wrk_ord');
 		$this->load->model("display_model");
 
+		//echo substr($data['wrk_ord'],0,2);
+		//exit();
 		//if (substr($data['wrk_ord'],0,2) == 'PP'){
 		if ((substr($data['wrk_ord'],0,2) == 'PP') || (substr($data['wrk_ord'],0,2) == 'RI')) {
 		$data['records'] = $this->display_model->visit1ppm_tab($data['wrk_ord']);
@@ -8884,10 +8886,28 @@ public function report_chronology(){
 		$to = $this->input->get('to') ? $this->input->get('to') : '';
 		$nama = $this->input->get('nama');
 		$negeri = $this->input->get('negeri');
-		// echo 'test'.$nama.$negeri;
-		// exit();
-        $data['records'] = $this->display_model->chrology_sum_report($from, $to,$nama,$negeri);
-
+		$data['year']= date("Y");
+		$data['records'] = $this->display_model->chrology_sum_report($from, $to,$nama,$negeri);
+		$cost[]='';
+		if($data['records']!=null){
+		foreach($data['records'] as $key => $val){
+			$pro_id[] = $val->MIRN_No;
+			
+		 }
+		 
+		 $data['partCosts'] = array_unique($pro_id);
+		 foreach($data['partCosts'] as $mirn){
+			$id[] = $mirn;
+		
+		if($mirn!=null){
+			$cost[] = $this->display_model->sparepart_cost($mirn);
+		 }
+		}$data['Costs']=  $cost;
+	}else{
+		$data['Costs']=  null;
+	}
+		 
+	
 		$this ->load->view("head");
 		$this ->load->view("Content_summary_chono",$data);
 	}
