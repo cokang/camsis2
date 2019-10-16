@@ -80,7 +80,7 @@
 			<?php $no=1; $prevWrkOrdNo ='1'; $prevPO='1';?>
 		<?php foreach($records as $row):?>
               <tr>
-				<td><?php if($prevWrkOrdNo!=$row->v_WrkOrdNo){echo $no++;}?></td>
+				<td><?php echo $no++?></td>
 				<td><?=$row->negeri;?></td>
 				<td><?=$row->v_HospitalCode;?></td>
 				<td><?=$row->v_ref_wo_no;?></td>
@@ -112,7 +112,7 @@
 				<td><?=$row->Commentsx;?></td>
 				<td>NA</td>
 				<td><?php if($row->DateCreated!='')echo date("d/m/Y",strtotime($row->DateCreated));?></td>
-				<td><?= $row->MIRN_No;?></td>
+				<td><?= $row->DocReferenceNo;?></td>
 				<td><?php if($row->PO_Date!='')echo date("d/m/Y",strtotime($row->PO_Date));?></td>
 				<td><?=$row->PO_No;?></td>
 				<td><?=$row->VENDOR_NAME;?></td>
