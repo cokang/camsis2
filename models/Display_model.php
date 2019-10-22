@@ -5110,6 +5110,8 @@ function findvencd($mri){
 	$this->db->where('a.ItemCode <>','GST-A00001');
   $this->db->group_start();
 	$this->db->where('a.ApprvRmk1x <>','');
+	$this->db->where('a.QtyReqfx <>', 0);
+	
   //$this->db->or_where('a.ApprvRmk1 <>','');
   $this->db->group_end();
 	$query = $this->db->get();
