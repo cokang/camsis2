@@ -229,7 +229,8 @@
 									</tr>
 									<tr>
 										<td class="td-assest" valign="top">Warranty End Date&nbsp;: </td>
-										<?php echo strtotime($asset_det[0]->V_Wrn_end_code)."lalalala".strtotime(date("Y-m-d")); if (strtotime($asset_det[0]->V_Wrn_end_code) > strtotime(date("Y-m-d"))){?>
+										<?php //echo strtotime($asset_det[0]->V_Wrn_end_code)."lalalala".strtotime(date("Y-m-d")); 
+										if (strtotime($asset_det[0]->V_Wrn_end_code) > strtotime(date("Y-m-d"))) {?>
 										<td>
 											<span style="color:#00FF00;">
 												<?= ($asset_det[0]->V_Wrn_end_code) ? ($asset_det[0]->V_Wrn_end_code != '0000-00-00 00:00:00' ? date("d-m-Y",strtotime($asset_det[0]->V_Wrn_end_code)) : '-' ) : 'N/A' ?>

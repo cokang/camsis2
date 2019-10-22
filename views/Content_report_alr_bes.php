@@ -41,7 +41,7 @@ if ($this->input->get('ex') == 'excel'){
 					</tr>
 					<tr>
 						<td>
-							<?php 
+							<?php
 							$dept_list = array('' => 'All');
 							foreach ($dept as $row){
 								$dept_list[$row->v_UserDeptCode] = $row->v_UserDeptDesc.' ('.$row->v_UserDeptCode.')';
@@ -49,8 +49,8 @@ if ($this->input->get('ex') == 'excel'){
 							?>
 							<?php echo form_dropdown('dept', $dept_list , set_value('dept',$deptdp) , 'style="width: 300px;" id="cs_month"'); ?>
 						</td>
-						<td>
-							<?php 
+						<!--<td>
+							<?php
 							$assetgroup_list = array('' => 'All');
 							foreach ($assetgroup as $r){
 								// $assetgroup_list[$r->v_Equip_Code] = $r->v_workgroupdesc;
@@ -58,15 +58,15 @@ if ($this->input->get('ex') == 'excel'){
 							}
 							?>
 							<?php echo form_dropdown('group', $assetgroup_list , set_value('group',$assetgrp) , 'style="width: 300px;" id="cs_month"'); ?>
-						</td>
-						
+						</td>-->
+
 						<td><button type="submit"  onclick="javascript: submit()">Generate</button></td>
-						
+
 					</tr>
 				</table>
 			</form>
 		</div>
-		<?php } ?>	
+		<?php } ?>
 	</div>
 </div>
 <div id="constrainer">

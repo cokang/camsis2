@@ -34,12 +34,12 @@
 				<?php echo anchor ('contentcontroller/workorder?&work-a=7'.'&y='.$year.'&m='.$month. '&parent='.$this->input->get('parent'), 'A7'); ?></td>
 				<?= ($this->input->get('work-a') == '8') ? '<td class="ui-highlight" align="center" colspan="0">' : '<td class="ui-content-menu-desk-color" align="center" colspan="0">'?>
 				<?php echo anchor ('contentcontroller/workorder?&work-a=8'.'&y='.$year.'&m='.$month. '&parent='.$this->input->get('parent'), 'A8'); ?></td>
-				<?= ($this->input->get('work-a') == '9') ? '<td class="ui-highlight" align="center" colspan="0">' : '<td class="ui-content-menu-desk-color" align="center" colspan="0">'?>
-				<?php echo anchor ('contentcontroller/workorder?&work-a=9'.'&y='.$year.'&m='.$month. '&parent='.$this->input->get('parent'), 'A9'); ?></td>
 				<?= ($this->input->get('work-a') == '10') ? '<td class="ui-highlight" align="center" colspan="0">' : '<td class="ui-content-menu-desk-color" align="center" colspan="0">'?>
 				<?php echo anchor ('contentcontroller/workorder?&work-a=10'.'&y='.$year.'&m='.$month. '&parent='.$this->input->get('parent'), 'A10'); ?></td>
 				<?= ($this->input->get('work-a') == '12') ? '<td class="ui-highlight" align="center" colspan="0">' : '<td class="ui-content-menu-desk-color" align="center" colspan="0">'?>
 				<?php echo anchor ('contentcontroller/workorder?&work-a=12'.'&y='.$year.'&m='.$month. '&parent='.$this->input->get('parent'), 'AP19'); ?></td>
+				<?= ($this->input->get('work-a') == '13') ? '<td class="ui-highlight" align="center" colspan="0">' : '<td class="ui-content-menu-desk-color" align="center" colspan="0">'?>
+				<?php echo anchor ('contentcontroller/workorder?&work-a=13'.'&y='.$year.'&m='.$month. '&parent='.$this->input->get('parent'), 'AP'); ?></td>
 				<?= ($this->input->get('work-a') == '11') ? '<td class="ui-highlight" align="center" colspan="0">' : '<td class="ui-content-menu-desk-color" align="center" colspan="0">'?>
 				<?php echo anchor ('contentcontroller/workorder?&work-a=11'.'&y='.$year.'&m='.$month. '&parent='.$this->input->get('parent'), 'Open & BO'); ?></td>
 			</tr>
@@ -141,6 +141,11 @@
 			        $tulis = "AP19";
 					$left = base_url().'index.php/contentcontroller/workorder?&work-a=12'.'&y='.$year.'&m='.$month. '&parent='.$this->input->get('parent');
 					$right = base_url().'index.php/contentcontroller/workorder?&work-a=11'.'&y='.$year.'&m='.$month. '&parent='.$this->input->get('parent');
+					break;
+					case "13":
+			        $tulis = "AP";
+					$left = base_url().'index.php/contentcontroller/workorder?&work-a=13'.'&y='.$year.'&m='.$month. '&parent='.$this->input->get('parent');
+					$right = base_url().'index.php/contentcontroller/workorder?&work-a=12'.'&y='.$year.'&m='.$month. '&parent='.$this->input->get('parent');
 			        break;
     default:
         $tulis = "All";

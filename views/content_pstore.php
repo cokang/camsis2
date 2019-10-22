@@ -161,7 +161,6 @@ height:100%;
 	</div>
 </div>
 </div>
-<?php// include 'content_jv_popup.php';?>
 
 <script language="javascript" type="text/javascript">
 

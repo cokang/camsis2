@@ -6,10 +6,12 @@
 	padding-left: 80px;
 }
 </style>
+
 <div class="ui-middle-screen">
 	<div class="div-p"></div>
 	<div class="main-box">
 		<div class="box7">
+      <?php if (!empty($user)) { //echo "nilai user : ".print_r($user); ?>
 			<?php $autocolor = array('bg-purple', 'bg-red', 'bg-yellow', 'bg-aqua', 'bg-light-blue'); shuffle($autocolor);?>
 			<div class="small-box <?php echo $autocolor[0];?>">
 				<div class="inner2" >
@@ -18,6 +20,7 @@
 				<div class="icon"><i class="icon-file-text2"></i></div>
 				<?php echo anchor ('Procurement?pro=new','<span class="ui-left_web">More Info <i class="icon-arrow-right"></i></span>','class="small-box-footer"'); ?>
 			</div>
+    <?php } ?>
 		</div>
 	</div>
 	<div class="content-workorder">
@@ -133,7 +136,7 @@
 							<td class="td-desk"><?=$numrow++?></td>
 							<td class="td-desk" style="text-align:left;">
 								<a href="<?php echo base_url();?>index.php/Procurement?mrinno=<?=$row->DocReferenceNo?>&pro=<?=$pro?>">
-									<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>
+									<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo.'</br>'.$row->resolve : ''?>
 								</a>
 							</td>
 							<td class="td-desk"><?=isset($row->WorkOfOrder) ? $row->WorkOfOrder : ''?></td>

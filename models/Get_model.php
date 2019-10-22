@@ -4406,6 +4406,7 @@ function get_stock_asset($searchitem=""){
 
 		}
 		$this->db->where('a.n_Visit', 1);
+		$this->db->where('b.id <>', 1);
 		$this->db->group_by('b.id');
 		// $this->db->where('NOW()', $Value);
 

@@ -47,6 +47,9 @@
         break;
 		case "12":
         $tulis = "AP19";
+		break;
+		case "13":
+        $tulis = "AP";
         break;
     case "11":
         $tulis = "Opened & BO";
@@ -56,10 +59,10 @@
 } ?>
 			<?php include 'content_workorder_tab.php';?>
 			<tr class="ui-color-contents-style-1 nonetr">
-				<td colspan="13" height="40px" style="padding-left:10px; color:black;"><?=$tulis?> Requests <span style="color:red;"><?= $totalrec > 0 ? ': Total WO '.$totalrec : ''?> <?=$status?></span></td>
+				<td colspan="14" height="40px" style="padding-left:10px; color:black;"><?=$tulis?> Requests <span style="color:red;"><?= $totalrec > 0 ? ': Total WO '.$totalrec : ''?> <?=$status?></span></td>
 			</tr>
 			<tr class="ui-color-contents-style-1">
-				<td colspan="13" height="40px">
+				<td colspan="14" height="40px">
 					<table width="100%" class="ui-content-middle-menu-desk">
 						<tr style="background:#B3130A;">
 							<td width="3%" height="30px">
@@ -82,10 +85,10 @@
 				</td>
 			</tr>
 			<tr class="ui-color-contents-style-1 ui-left_web">
-				<td height="25px" colspan="13"></td>
+				<td height="25px" colspan="14"></td>
 				</tr>
 			<tr class="ui-color-contents-style-1">
-				<td colspan="13" style="">
+				<td colspan="14" style="">
 				<style>
 				.ui-content-middle-menu-workorder2 tr td {padding:8px;font-size:14px;}
 				</style>
@@ -195,7 +198,7 @@
 							<?php endforeach;?>
 							<?php }else { ?>
 						<tr align="center" style="height:400px;">
-						<td colspan="13" class="ui-color-color-color default-NO">NO <?=$tulis?> <?php if ($this->input->get('parent') == 'desk' ){?>
+						<td colspan="14" class="ui-color-color-color default-NO">NO <?=$tulis?> <?php if ($this->input->get('parent') == 'desk' ){?>
 								COMPLAINTS
 								<?php } elseif ($this->input->get('parent') == 'wrkodr'){?>
 								REQUEST
@@ -206,7 +209,7 @@
 				</td>
 			</tr>
 			<tr class="ui-header-new" style="height:5px;">
-				<td align="center" colspan="13">
+				<td align="center" colspan="14">
 				</td>
 			</tr>
 		</table>

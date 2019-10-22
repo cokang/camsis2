@@ -315,7 +315,7 @@ img{
 
 				<tr style="height:20px;vertical-align:top; border-top:hidden;">
 					<td><?=$no;?></td>
-					<td style="text-align:left;"><?=strtoupper($rowed->vendor_item_name)?><br /> P/N : <?=$rowed->Vendor_Item_Code?></td>
+					<td style="text-align:left;"><?=strtoupper($rowed->vendor_item_name)?><br /> P/N : <?=strtoupper($rowed->Vendor_Item_Code)?></td>
 					<td>UNIT</td>
 					<td ><?=$rowed->QtyReqfx?></td>
 					<?php
