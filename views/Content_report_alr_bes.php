@@ -70,7 +70,7 @@ if ($this->input->get('ex') == 'excel'){
 	</div>
 </div>
 <div id="constrainer">
-	<div class="scrolltable<?=($this->input->get('none') == 'closed') ? '' : '1';?>">
+	<div class="scrolltable<?=($this->input->get('none') == '') ? '' : '1';?>">
 		<table class="header-alr-bes">
 			<thead>
 				<tr>
