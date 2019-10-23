@@ -283,7 +283,7 @@ img{
 	<table class="tbl-info-invoice">
 	<tr>
 		<th>No</th>
-		<th>Description</th>
+		<th style="width: 50%;">Description</th>
 		<th>Unit <br/> Measure</th>
 		<th>Qty</th>
 		<th>Unit Price <br/> (RM)</th>
@@ -314,17 +314,18 @@ img{
 		foreach($itemrec as $rowed):?>
 
 				<tr style="height:20px;vertical-align:top; border-top:hidden;">
-					<td><?=$no;?></td>
+					<td ><?=$no;?></td>
 					<td style="text-align:left;"><?=strtoupper($rowed->vendor_item_name)?><br /> P/N : <?=$rowed->Vendor_Item_Code?></td>
-					<td>UNIT</td>
+					<td >UNIT</td>
 					<td ><?=$rowed->QtyReqfx?></td>
 					<?php
 					$howmanyunit = floatval($rowed->QtyReqfx);
 					$perunit = floatval($rowed->Unit_Costx);
 					$totalcost = $perunit*$howmanyunit;
+					$tax=0;
 					//echo "totalcost : ".$no.":".$totalcost;
 					//$gstcost = $totalcost*.06;
-					$gstcost = $totalcost*0;
+					$gstcost = $totalcost*$tax;
 					$totalwgst = $gstcost+$totalcost;
 					//echo "qwqwqw".$itemrec[0]->Unit_Costx."iuiuiu".$perunit;
 					?>
@@ -332,7 +333,7 @@ img{
 					<td align="right"><?=number_format($totalcost,2)?></td>
 
 
-					<td align="right">0%</td>
+					<td align="right"><?=$tax.'%' ?></td>
 					<td align="right"><?=number_format($gstcost,2)?></td>
 					<td align="right"><?=number_format($totalwgst,2)?></td>
 
