@@ -4139,14 +4139,14 @@ class Contentcontroller extends CI_Controller {
 		$data['grpsel']= $this->input->get('grp') ? $this->input->get('grp') : '';
 		$data['dept'] = $this->display_model->deptdp();
 		$data['deptdp']= $this->input->get('dept') ? $this->input->get('dept') : '';
-		if ($this->session->userdata('usersess') != 'BES'){
+		if ($this->session->userdata('usersess') != 'BEMS'){
 			$data['record'] = $this->display_model->rpt_alr($data['month'],$data['year'],$data['grpsel'],$data['deptdp']);
 		}
 		else{
 			$data['record'] = $this->display_model->rpt_alr_bes($data['month'],$data['year'],$data['grpsel'],$data['deptdp']);
 		}
 		$this ->load->view("headprinter");
-		if ($this->session->userdata('usersess') != 'BES'){
+		if ($this->session->userdata('usersess') != 'BEMS'){
 			$this ->load->view("Content_report_alr", $data);
 		}
 		else{
@@ -5563,6 +5563,7 @@ class Contentcontroller extends CI_Controller {
 		isset($_GET['p']) ? $data['page'] = $_GET['p'] : $data['page'] = 1;
 		$data['start'] = ($data['page'] * $data['limit']) - $data['limit'];
 		//$data['rec'] = $this->get_model->get_assetcat();
+    if (isset($_GET['id'])) {
     $data['rec'] = $this->get_model->get_stock_asset();
 		$data['result'] = count($data['rec']);
 	    if($data['result'] > ($data['page'] * $data['limit']) ){
@@ -5581,6 +5582,7 @@ class Contentcontroller extends CI_Controller {
 //exit();
 		$data['assetrec'][] = $data['assetl'];
 		}
+    } //end if getid
 		function toArray($obj)
 		{
     $obj = (array) $obj;//cast to array, optional
@@ -5733,61 +5735,62 @@ class Contentcontroller extends CI_Controller {
 		$this ->load->view("content_usaCleansing_Items");
 	}
 
-	public function Report_Part(){
-		$data['item']= !($this->input->get('stockpart')) || $this->input->get('stockpart') == 'Select Item Name' ? '' : $this->input->get('stockpart');
-		//echo $data['item'];
-		//exit();
-		//$data['id']= $this->input->get('id');
-		//echo $data['id'];
-		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
-		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
 
-		$this->load->model('display_model');
-		// $data['record'] = $this->display_model->stock_asset();
+  	public function Report_Part(){
+  		$data['item']= !($this->input->get('stockpart')) || $this->input->get('stockpart') == 'Select Item Name' ? '' : $this->input->get('stockpart');
+  		//echo $data['item'];
+  		//exit();
+  		//$data['id']= $this->input->get('id');
+  		//echo $data['id'];
+  		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
+  		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
 
-			// foreach($data['record'] as $row){
-			// 	if($data['item'] == $row->ItemName){
-			// 		$data['code'] = $row->ItemCode;
-			// 	}
-			// }
+  		$this->load->model('display_model');
+  		// $data['record'] = $this->display_model->stock_asset();
 
-	
-				
-			//	exit();
-		if($data['item'] <> ''){
-		$data['assetrec'] = $this->display_model->storeasset_report($data['item'],$data['month'],$data['year']);
-		$unique = array(); 
-			foreach($data['assetrec'] as $asset){ 
-				$assetCode[]=$asset->ItemCode;
-				$data['assets']=$asset->ItemCode;
-				$data['codes']=array_unique($assetCode);
-				$data['occurences'] = array_count_values($assetCode);
-		
-		}//print_r($data['codes']); 
-		//exit();
-		$data['countarray'] = count($data['assetrec']);
-		if($data['countarray']==0){
-		$data['assetrec'] = array(
-								  '0' => (object)array('ItemCode'=> null),
-			);
-			$data['codes'] = array( null,
-);
-		}
-		
-		}
-		else {
-		$data['assetrec'] = array(
-			'0' => (object)array('ItemCode'=> null),
-								  
-			);
-			$data['codes'] = array( null,
-);
-		}
-		// echo 'exit';
-		// exit();
-		$this ->load->view("headprinter");
-		$this ->load->view("content_Report_Part",$data);
-	}
+  			// foreach($data['record'] as $row){
+  			// 	if($data['item'] == $row->ItemName){
+  			// 		$data['code'] = $row->ItemCode;
+  			// 	}
+  			// }
+
+
+
+  			//	exit();
+  		if($data['item'] <> ''){
+  		$data['assetrec'] = $this->display_model->storeasset_report($data['item'],$data['month'],$data['year']);
+  		$unique = array();
+  			foreach($data['assetrec'] as $asset){
+  				$assetCode[]=$asset->ItemCode;
+  				$data['assets']=$asset->ItemCode;
+  				$data['codes']=array_unique($assetCode);
+  				$data['occurences'] = array_count_values($assetCode);
+
+  		}//print_r($data['codes']);
+  		//exit();
+  		$data['countarray'] = count($data['assetrec']);
+  		if($data['countarray']==0){
+  		$data['assetrec'] = array(
+  								  '0' => (object)array('ItemCode'=> null),
+  			);
+  			$data['codes'] = array( null,
+  );
+  		}
+
+  		}
+  		else {
+  		$data['assetrec'] = array(
+  			'0' => (object)array('ItemCode'=> null),
+
+  			);
+  			$data['codes'] = array( null,
+  );
+  		}
+  		// echo 'exit';
+  		// exit();
+  		$this ->load->view("headprinter");
+  		$this ->load->view("content_Report_Part",$data);
+  	}
 
 
 	public function visitplus(){
@@ -5795,8 +5798,6 @@ class Contentcontroller extends CI_Controller {
 		$data['wrk_ord'] = $this->input->get('wrk_ord');
 		$this->load->model("display_model");
 
-		//echo substr($data['wrk_ord'],0,2);
-		//exit();
 		//if (substr($data['wrk_ord'],0,2) == 'PP'){
 		if ((substr($data['wrk_ord'],0,2) == 'PP') || (substr($data['wrk_ord'],0,2) == 'RI')) {
 		$data['records'] = $this->display_model->visit1ppm_tab($data['wrk_ord']);
@@ -8249,20 +8250,25 @@ public function new_item (){
 		$this->load->model("display_model");
     	$this->load->model("get_model");
 		$this->load->model('update_model');
-    //echo "lalalalalalla : ".$this->input->post('searchquestion');
+	//echo "lalalalalalla : ".$this->input->post('searchquestion');
+		$data['search']=($this->input->get('search')!=null ? $this->input->get('search') : $this->input->post('searchquestion'));
          if (isset($_GET['edit'])){
 
 		$data['edititem'] = $this->get_model->get_asset_list($_GET['edit']);
 	    // print_r ($data['edititem']);
 		}
 		$data['limit'] = 10;
+		
         isset($_GET['pa']) ? $data['page'] = $_GET['pa'] : $data['page'] = 1;
 	    $data['start'] = ($data['page'] * $data['limit']) - $data['limit'];
 
-     	$data['records'] = $this->display_model->s_item_detail($data['limit'],$data['start'],$this->input->post('searchquestion'));
+     	$data['records'] = $this->display_model->s_item_detail($data['limit'],$data['start'],$data['search']);
 
 		$data['count'] = count($data['records']);
-        $data['rec'] =  $this->display_model->s_item_detail('0','0',$this->input->post('searchquestion'));
+		
+        $data['rec'] =  $this->display_model->s_item_detail('0','0',$data['search']);
+		$data['maxpage']= round($data['rec'][0]->jumlah/$data['limit']);
+		// echo 'test'.$data['maxpage'];
 		if($data['rec'][0]->jumlah > ($data['page'] * $data['limit']) ){
 	    $data['next'] = ++$data['page'];
 		}
@@ -8869,10 +8875,12 @@ public function save_request_AP19(){
 }
 public function report_chronology(){
 		$this->load->model("get_model");
-		$start= (date("Y-01-01",time())); 
+		$start= (date("Y-01-01",time()));
 		$end = (date("Y-12-31",time()));
 		$from = $this->input->get('from') ? $this->input->get('from') : $start;
 		$to = $this->input->get('to') ? $this->input->get('to') : $end;
+		//$from = $this->input->get('from') ? $this->input->get('from') : '';
+		//$to = $this->input->get('to') ? $this->input->get('to') : '';
 		$data['from']=$from;
 		$data['to']=$to;
 		$data['det'] =$this->get_model->reportChronology($from, $to);
@@ -8886,28 +8894,33 @@ public function report_chronology(){
 		$to = $this->input->get('to') ? $this->input->get('to') : '';
 		$nama = $this->input->get('nama');
 		$negeri = $this->input->get('negeri');
-		$data['year']= date("Y");
-		$data['records'] = $this->display_model->chrology_sum_report($from, $to,$nama,$negeri);
-		$cost[]='';
-		if($data['records']!=null){
-		foreach($data['records'] as $key => $val){
-			$pro_id[] = $val->MIRN_No;
-			
-		 }
-		 
-		 $data['partCosts'] = array_unique($pro_id);
-		 foreach($data['partCosts'] as $mirn){
-			$id[] = $mirn;
-		
-		if($mirn!=null){
-			$cost[] = $this->display_model->sparepart_cost($mirn);
-		 }
-		}$data['Costs']=  $cost;
-	}else{
-		$data['Costs']=  null;
-	}
-		 
-	
+		// echo 'test'.$nama.$negeri;
+		// exit();
+        //$data['records'] = $this->display_model->chrology_sum_report($from, $to,$nama,$negeri);
+
+    		$data['year']= date("Y");
+    		$data['records'] = $this->display_model->chrology_sum_report($from, $to,$nama,$negeri);
+    		$cost[]='';
+    		if($data['records']!=null){
+    		foreach($data['records'] as $key => $val){
+    			$pro_id[] = $val->MIRN_No;
+
+    		 }
+
+    		 $data['partCosts'] = array_unique($pro_id);
+    		 foreach($data['partCosts'] as $mirn){
+    			$id[] = $mirn;
+
+    		if($mirn!=null){
+    			$cost[] = $this->display_model->sparepart_cost($mirn);
+    		 }
+    		}$data['Costs']=  $cost;
+    	}else{
+    		$data['Costs']=  null;
+    	}
+
+
+
 		$this ->load->view("head");
 		$this ->load->view("Content_summary_chono",$data);
 	}
