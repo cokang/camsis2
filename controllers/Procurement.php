@@ -56,7 +56,7 @@ class Procurement extends CI_Controller {
 			}
 			//$data['record']= $this->display_model->mrinlist($data['month'],$data['year'],$data['mrintype'], $data['user'][0]->class_id,$search);
 			$data['status'] = $this->display_model->status_table();
-			//print_r($data['status']);
+			//print_r($data['record']);
 			//exit();
 			$this ->load->view("Content_mrin",$data);
 		}elseif ($this->input->get('pro') == 'approved'){
@@ -89,7 +89,7 @@ class Procurement extends CI_Controller {
 			$data['run_no'] = $this->get_model->run_no();
 			$update_data = array('Run_no' => $data['run_no'][0]->Run_no + 1,
 								 'time_stamp' => date("Y-m-d H:i:s"));
-			$this->update_model->uprun_no($update_data);
+			//$this->update_model->uprun_no($update_data);
 			$data['runningno'] = 'temp'.$data['run_no'][0]->Run_no;
 			//print_r($data['run_no']);
 			//exit();
@@ -456,10 +456,11 @@ class Procurement extends CI_Controller {
 	public function e_po_print(){
 		$this->load->model('display_model');
 		$data['record'] = $this->display_model->prdet($this->input->get('mrin'));
-		$data['itemrec'] = $this->display_model->itemprdet($this->input->get('mrin'));
 		$data['vencd'] = $this->display_model->findvencd($this->input->get('mrin'));
 		$data['veninfo'] = $this->display_model->findven((isset($data['vencd'][0]->Vendor)) ? $data['vencd'][0]->Vendor : 'noval');
 		$data['podetail'] = $this->display_model->podet($this->input->get('po'));
+		$data['itemrec'] = $this->display_model->itemprdet($this->input->get('mrin'));
+		$data['itemrec']?$data['itemrec']:$data['itemrec'] =$this->display_model->itemprdet2($this->input->get('mrin'),$data['vencd'][0]->Vendor);
 		$favcolor = "red";
 		$hospapa = "";
 		$hoswakil = "";
@@ -596,7 +597,7 @@ class Procurement extends CI_Controller {
 		$data['run_no'] = $this->get_model->run_no();
 		$update_data = array('Run_no' => $data['run_no'][0]->Run_no + 1,
 							 'time_stamp' => date("Y-m-d H:i:s"));
-		$this->update_model->uprun_no($update_data);
+		//$this->update_model->uprun_no($update_data);
 		$data['runningno'] = 'temp'.$data['run_no'][0]->Run_no;
 
 
