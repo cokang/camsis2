@@ -5032,13 +5032,18 @@ function prdet($mrinno){
 		$query_result = $query->result();
 		return $query_result;
 	}
-function itemprdet($mrinno){
+function itemprdet($mrinno,  $unitcost=""){
     $this->db->distinct();
 		$this->db->select('a.*,b.ItemName,v.VENDOR_NAME,va.Vendor_Item_Code, va.vendor_item_name');
 		$this->db->from('tbl_mirn_comp a');
 		$this->db->join('tbl_invitem b','a.ItemCode = b.ItemCode');
 		$this->db->join('tbl_vendor_info v','a.ApprvRmk1x = v.VENDOR_CODE OR a.ApprvRmk1 = v.VENDOR_CODE','left');
-		$this->db->join('tbl_vendor va',"(a.ApprvRmk1x = va.VENDOR OR a.ApprvRmk1 = va.VENDOR) AND a.ItemCode = va.Item_Code ",'left');
+		if($unitcost==1){
+			$this->db->join('tbl_vendor va',"(a.ApprvRmk1x = va.VENDOR OR a.ApprvRmk1 = va.VENDOR) AND a.ItemCode = va.Item_Code and a.Unit_Costx = va.List_Price",'left');
+		}else{
+			$this->db->join('tbl_vendor va',"(a.ApprvRmk1x = va.VENDOR OR a.ApprvRmk1 = va.VENDOR) AND a.ItemCode = va.Item_Code ",'left');
+		}
+		
 		$this->db->where('MIRNcode',$mrinno);
     $this->db->where('va.flag <>','D');
     $this->db->where('QtyReqfx <>','0');

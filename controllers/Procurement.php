@@ -419,14 +419,14 @@ class Procurement extends CI_Controller {
 			//echo "nilai hosp : ".$area."<br>";
 			//echo "klklk : PO/OPU-02/".substr(substr($testbed,-17),0,6)."/".$alphabet[$monthe].date('Y').$area.":".$hosp.":".$alphabet[3];
 		$data['record'] = $this->display_model->prdet($this->input->get('mrinno'));
-		$data['itemrec'] = $this->display_model->itemprdet($this->input->get('mrinno'));
+		$data['itemrec'] = $this->display_model->itemprdet($this->input->get('mrinno'),1);
 		$data['comrec'] = $this->display_model->comrec($this->input->get('mrinno'));
 		$data['attrec'] = $this->display_model->attrec($this->input->get('mrinno'));
 
 		$this ->load->view("Content_mrin_procure",$data);
 		}elseif ($this->input->get('pr') == 'approved'){
 		$data['record'] = $this->display_model->prdet($this->input->get('mrinno'));
-		$data['itemrec'] = $this->display_model->itemprdet($this->input->get('mrinno'));
+		$data['itemrec'] = $this->display_model->itemprdet($this->input->get('mrinno'),1);
 		$data['comrec'] = $this->display_model->comrec($this->input->get('mrinno'));
 		$data['attrec'] = $this->display_model->attrec($this->input->get('mrinno'));
 		$this ->load->view("Content_mrin_procure",$data);
