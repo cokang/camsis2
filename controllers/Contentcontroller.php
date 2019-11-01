@@ -2012,7 +2012,8 @@ class Contentcontroller extends CI_Controller {
 		$data['asset_det'] = $this->get_model->get_assetdet2($data['assetn']);
 		//print_r($data['asset_det']);
 		$data['asset_UMDNS'] = $this->get_model->get_UMDNSAsset($data['asset_det'][0]->V_Equip_code);
-		$data['asset_vo'] = $this->get_model->get_VOStatus($data['assetn']);
+		$vvfassetno = $this->session->userdata('hosp_code').'-'.$data['assetn'];
+		$data['asset_vo'] = $this->get_model->get_VOStatus($vvfassetno);
 		$data['asset_chklist'] = $this->get_model->get_chklist($data['asset_det'][0]->v_ChecklistCode);
 		//$data['asset_chklist'] = $this->get_model->get_chklist($data['asset_det'][0]->V_Equip_code);
 		//print_r($data['asset_chklist']);
