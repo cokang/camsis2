@@ -48,6 +48,7 @@ class Procurement extends CI_Controller {
 			//echo "lalalal : ".$data['mrintype'];
 			$this->load->model('display_model');
 			$data['user'] = $this->display_model->user_class($this->session->userdata('v_UserName'));
+			print_r($data['user']);
 			$this->load->model('get_model');
 			if ((empty($search)) && ($this->get_model->check_userimg())) {
 				$data['record']= $this->display_model->mrinlist($data['month'],$data['year'],$data['mrintype'], $data['user'][0]->class_id,"IMG");
@@ -419,14 +420,14 @@ class Procurement extends CI_Controller {
 			//echo "nilai hosp : ".$area."<br>";
 			//echo "klklk : PO/OPU-02/".substr(substr($testbed,-17),0,6)."/".$alphabet[$monthe].date('Y').$area.":".$hosp.":".$alphabet[3];
 		$data['record'] = $this->display_model->prdet($this->input->get('mrinno'));
-		$data['itemrec'] = $this->display_model->itemprdet($this->input->get('mrinno'));
+		$data['itemrec'] = $this->display_model->itemprdet($this->input->get('mrinno'),1);
 		$data['comrec'] = $this->display_model->comrec($this->input->get('mrinno'));
 		$data['attrec'] = $this->display_model->attrec($this->input->get('mrinno'));
 
 		$this ->load->view("Content_mrin_procure",$data);
 		}elseif ($this->input->get('pr') == 'approved'){
 		$data['record'] = $this->display_model->prdet($this->input->get('mrinno'));
-		$data['itemrec'] = $this->display_model->itemprdet($this->input->get('mrinno'));
+		$data['itemrec'] = $this->display_model->itemprdet($this->input->get('mrinno'),1);
 		$data['comrec'] = $this->display_model->comrec($this->input->get('mrinno'));
 		$data['attrec'] = $this->display_model->attrec($this->input->get('mrinno'));
 		$this ->load->view("Content_mrin_procure",$data);
@@ -456,10 +457,12 @@ class Procurement extends CI_Controller {
 	public function e_po_print(){
 		$this->load->model('display_model');
 		$data['record'] = $this->display_model->prdet($this->input->get('mrin'));
-		$data['itemrec'] = $this->display_model->itemprdet($this->input->get('mrin'));
+		//$data['itemrec'] = $this->display_model->itemprdet($this->input->get('mrin'));
 		$data['vencd'] = $this->display_model->findvencd($this->input->get('mrin'));
 		$data['veninfo'] = $this->display_model->findven((isset($data['vencd'][0]->Vendor)) ? $data['vencd'][0]->Vendor : 'noval');
 		$data['podetail'] = $this->display_model->podet($this->input->get('po'));
+		$data['itemrec'] = $this->display_model->itemprdet($this->input->get('mrin'),1);
+		$data['itemrec']?$data['itemrec']:$data['itemrec'] =$this->display_model->itemprdet2($this->input->get('mrin'),$data['vencd'][0]->Vendor);
 		$favcolor = "red";
 		$hospapa = "";
 		$hoswakil = "";

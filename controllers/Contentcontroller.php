@@ -8250,20 +8250,25 @@ public function new_item (){
 		$this->load->model("display_model");
     	$this->load->model("get_model");
 		$this->load->model('update_model');
-    //echo "lalalalalalla : ".$this->input->post('searchquestion');
+	//echo "lalalalalalla : ".$this->input->post('searchquestion');
+		$data['search']=($this->input->get('search')!=null ? $this->input->get('search') : $this->input->post('searchquestion'));
          if (isset($_GET['edit'])){
 
 		$data['edititem'] = $this->get_model->get_asset_list($_GET['edit']);
 	    // print_r ($data['edititem']);
 		}
 		$data['limit'] = 10;
+
         isset($_GET['pa']) ? $data['page'] = $_GET['pa'] : $data['page'] = 1;
 	    $data['start'] = ($data['page'] * $data['limit']) - $data['limit'];
 
-     	$data['records'] = $this->display_model->s_item_detail($data['limit'],$data['start'],$this->input->post('searchquestion'));
+     	$data['records'] = $this->display_model->s_item_detail($data['limit'],$data['start'],$data['search']);
 
 		$data['count'] = count($data['records']);
-        $data['rec'] =  $this->display_model->s_item_detail('0','0',$this->input->post('searchquestion'));
+
+        $data['rec'] =  $this->display_model->s_item_detail('0','0',$data['search']);
+		$data['maxpage']= round($data['rec'][0]->jumlah/$data['limit']);
+		// echo 'test'.$data['maxpage'];
 		if($data['rec'][0]->jumlah > ($data['page'] * $data['limit']) ){
 	    $data['next'] = ++$data['page'];
 		}
