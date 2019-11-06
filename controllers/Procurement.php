@@ -1014,6 +1014,11 @@ class Procurement extends CI_Controller {
 		$this ->load->view("content_report_progress",$data);
 	}
 
+	public function resetmirn(){
+		$this ->load->view("headprinter");
+		$this ->load->view("content_resetmirn");
+	}
+
 	public function update_delete_comm(){
 		$this->load->model('update_model');
 		if ($this->input->get('act') == 'delete'){

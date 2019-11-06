@@ -53,7 +53,13 @@
 				<td>
 				<a href="<?php echo base_url();?>index.php/Procurement/report_progress"><img src="<?php echo base_url(); ?>images/report.png" alt="" class="ui-icon"/><br></br>Progress Work Order</a>
 				</td>
-				<td style="border: none"></td>
+				
+			<?php  } ?>
+			<?php  if (!in_array("Procurement/resetmirn", $chkers)&&$this->session->userdata('v_UserName') == "harun") { ?>
+				<td>
+				<a href="<?php echo base_url();?>index.php/Procurement/resetmirn"><img src="<?php echo base_url(); ?>images/SystemAdministration.png" alt="" class="ui-icon"/><br></br>Admin</a>
+				</td>
+				
 			<?php  } ?>
 
 		</table>		
@@ -116,6 +122,12 @@
 			<tr class="wb">
 				<td>
 				<a href="<?php echo base_url();?>index.php/Procurement/report_progress"><img src="<?php echo base_url(); ?>images/report.png" alt="" class="ui-icon"/><br></br>Progress Work Order</a>
+				</td>
+			<?php  } ?>
+			<?php  if (!in_array("Procurement/resetmirn", $chkers)&&$this->session->userdata('v_UserName') == "harun") { ?>
+			
+				<td>
+				<a href="<?php echo base_url();?>index.php/Procurement/resetmirn"><img src="<?php echo base_url(); ?>images/SystemAdministration.png" alt="" class="ui-icon"/><br></br>Admin</a>
 				</td>
 			<?php  } ?>
             </tr>

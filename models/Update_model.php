@@ -656,5 +656,14 @@ function chronology_update($visit,$wo,$insert_data){
 	$this->db->update('pmis2_emg_chronology',$insert_data);
 }
 
+function resetmirn($mirn, $status){
+		$this->db->set('ApprStatusIDxx',$status);
+		$this->db->set('ApprStatusIDx', $status);
+		$this->db->where('DocReferenceNo', $mirn);
+		$this->db->update('tbl_materialreq');
+		//echo $this->db->last_query();
+		//exit();
+	  	return $this->db->affected_rows() > 0;
+	  	}
 }
 ?>
