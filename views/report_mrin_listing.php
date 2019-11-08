@@ -11,7 +11,8 @@ header('Content-Disposition: attachment; filename='.$filename);
     <button onclick="javascript:myFunction('pr_report?pr=vr&m=<?=$month?>&y=<?=$year?>&none=closed');" class="btn-button btn-primary-button">PRINT</button>
     <button type="cancel" class="btn-button btn-primary-button" onclick="location.href = '<?php base_url();?>report?<?php echo '&m='.$this->input->get('m').'&y='.$this->input->get('y');?>';">CANCEL</button>
 	<?php if (($this->input->get('ex') == '') or ($this->input->get('none') == '')){?>
-	<a href="<?php echo base_url();?>index.php/Procurement/pr_report?pr=vr&m=<?=$this->input->get('m');?>&y=<?=$this->input->get('y');?>&ex=excel&none=close" style="float:right; margin-right:40px;"><img src="<?php echo base_url();?>images/excel.png" style="width:40px; height:38px; position:absolute;" title="export to excel"></a>
+	<!-- <a href="<?php echo base_url();?>index.php/Procurement/pr_report?pr=vr&m=<?=$this->input->get('m');?>&y=<?=$this->input->get('y');?>&ex=excel&none=close" style="float:right; margin-right:40px;"><img src="<?php echo base_url();?>images/excel.png" style="width:40px; height:38px; position:absolute;" title="export to excel"></a> -->
+	<img src="<?php echo base_url();?>images/excel.png" style="width:40px; height:38px; position:fixed; margin-left: 85%;right:0;top:0" title="export to excel" onclick="tableToExcel('tblData')">
 	<?php } ?>
 </div>
 <?php } ?>
@@ -113,7 +114,7 @@ header('Content-Disposition: attachment; filename='.$filename);
 				</tr>
 			</table>
 			<?php } ?>
-			<table class="tftable scrolltable" border="1" style="text-align:center; width:100%;" align="center">
+			<table class="tftable scrolltable" border="1" style="text-align:center; width:100%;" align="center" id="tblData">
 				<tr style="background:#CCC;">
 					<td>No.</td>
 					<td>MRIN No.</td>
@@ -377,3 +378,16 @@ header('Content-Disposition: attachment; filename='.$filename);
 <?php } ?>
 <div class="StartNewPage" id="breakpage"><span id="pagebreak">Page Break</span></div>
 <?php } ?>
+<script type="text/javascript">
+    var tableToExcel = (function() {
+      var uri = 'data:application/vnd.ms-excel;base64,'
+        , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
+        , base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
+        , format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
+      return function(table, name) {
+        if (!table.nodeType) table = document.getElementById(table)
+        var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
+        window.location.href = uri + base64(format(template, ctx))
+      }
+    })()
+    </script>
