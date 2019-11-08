@@ -113,7 +113,7 @@ header('Content-Disposition: attachment; filename='.$filename);
 				</tr>
 			</table>
 			<?php } ?>
-			<table class="tftable" border="1" style="text-align:center; width:70%;" align="center">
+			<table class="tftable scrolltable" border="1" style="text-align:center; width:100%;" align="center">
 				<tr style="background:#CCC;">
 					<td>No.</td>
 					<td>MRIN No.</td>
@@ -142,7 +142,7 @@ header('Content-Disposition: attachment; filename='.$filename);
 					<td>HQ Logistic Status</td>
 					<td>HQ Logistic Comments</td>
 				</tr>
-				<?php if(!empty($whatr)){?>
+				<?php  if(!empty($whatr)){?>
 				<?php $nom=0;foreach($whatr as $uResa):$nom++;?>
 				<tr >
 					<td><?=$nom;?></td>
@@ -238,10 +238,11 @@ header('Content-Disposition: attachment; filename='.$filename);
 				<?php endforeach;?>
 				<?php } ?>
 
-				<?php if( !empty($whatr2) ){?>
-				<?php $nom=$nom+1;foreach($whatr2 as $r):?>
+				<?php $prevMirn ='1';
+				if( !empty($whatr2) ){?>
+				<?php $nom=1;foreach($whatr2 as $r):?>
 				<tr>
-					<td><?=$nom;?></td>
+					<td><?php if($prevMirn!=$r->WorkOfOrder){echo $nom++;}?></td>
 					<td><?=$r->DocReferenceNo;?>&nbsp;</td>
 					<td><?=$r->DateCreated;?>&nbsp;</td>
 					<td><?=$r->ItemCode;?>&nbsp;</td>
@@ -291,11 +292,11 @@ header('Content-Disposition: attachment; filename='.$filename);
 					<td><?=$spec2;?>&nbsp;</td>
 					<td><?=$r->ApprCommentsx;?>&nbsp;</td>
 					<?php
-					if( !empty($whatr3) ){
-						foreach ($whatr3 as $ro):
-						$spec1 = ($ro->Specialist) ? $ro->Specialist : "&nbsp;";
+					if( !empty($whatr2) ){
+						foreach ($whatr2 as $ro):
+						$spec1 = ($ro->Specialist) ? $ro->Specialist : "N/A";
 						$spec2 = ($ro->Status) ? $ro->Status : "&nbsp;";
-						$spec3 = ($ro->Remark) ? $ro->Remark : "&nbsp;";
+						$spec3 = ($ro->Remark) ? $ro->Remark : "N/A";
 						if( $spec2 == 4 ){
 							$spec2 = "Approved";
 						}elseif( $spec2 == 5 ){
@@ -330,7 +331,7 @@ header('Content-Disposition: attachment; filename='.$filename);
 					<td><?=$spec2;?>&nbsp;</td>
 					<td><?=$r->ApprCommentsxx;?>&nbsp;</td>
 				</tr>
-				<?php $nom++;endforeach;?>
+				<?php $prevMirn=$r->WorkOfOrder;endforeach;?>
 				<?php } ?>
 				<?php if( empty($whatr) && empty($whatr2) ){?>
 				<tr><td colspan="26">No Result</td></tr>

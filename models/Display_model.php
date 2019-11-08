@@ -6785,12 +6785,12 @@ return $obj['path'];
 		// $this->db->join("tbl_materialreq a", "e.MIRNcode = a.DocReferenceNo", "FULL OUTER");
 		$this->db->join("tbl_mirn_comp e", "f.ItemCode = e.ItemCode", "LEFT OUTER");
 		$this->db->join("tbl_materialreq a", "e.MIRNcode = a.DocReferenceNo", "LEFT OUTER");
-		$this->db->join("pmis2_egm_service_request b", "a.WorkOfOrder = b.V_Request_no AND b.V_hospitalcode = SUBSTRING_INDEX(SUBSTRING_INDEX(`DocReferenceNo`, '/', -4), '/', 1)", "INNER");
+		$this->db->join("pmis2_egm_service_request b", "a.WorkOfOrder = b.V_Request_no AND b.V_hospitalcode = SUBSTRING_INDEX(SUBSTRING_INDEX(`DocReferenceNo`, '/', -3), '/', 1)", "INNER");
 		$this->db->join("pmis2_egm_assetregistration d", "b.V_Asset_no = d.V_Asset_no AND b.V_hospitalcode = d.V_Hospitalcode", "INNER");
 		$this->db->join("tbl_specialist_review g", "g.MIRN_No=a.DocReferenceNo", "left");
 		$this->db->where("MONTH(a.DateCreated)", $Month);
 		$this->db->where("YEAR(a.DateCreated)", $Year);
-		$this->db->where("d.V_Hospitalcode", $this->input->get("whathosp") );
+		$this->db->where("SUBSTRING_INDEX(SUBSTRING_INDEX(`a`.`DocReferenceNo`, '/', -4), '/', 1)=", $this->input->get("whathosp") );
 
 		if( $this->input->get("whatr")==3 ){
 			$this->db->where("(a.ApprStatusID=5 OR a.ApprStatusIDx=5 OR a.ApprStatusIDxx=5)");
@@ -6816,18 +6816,18 @@ return $obj['path'];
 
 
 		//=========right outer join
-		$this->db->select("a.DocReferenceNo, a.DateCreated, e.ItemCode, f.ItemName, e.Qty, a.WorkOfOrder, d.V_Asset_name, b.V_Asset_no, d.V_Tag_no, d.V_Brandname, d.V_Model_no, b.D_date, a.rone, a.rtwo, a.rthree, a.Comments, a.ApprStatusID, a.ApprComments, a.ApprStatusIDx, a.ApprCommentsx, a.ApprStatusIDxx, a.ApprCommentsxx, g.Specialist, IFNULL(g.Status, '6') AS Status, IFNULL(g.Remark, '') AS Remark");
+		$this->db->select(" a.DocReferenceNo, a.DateCreated, e.ItemCode, f.ItemName, e.Qty, a.WorkOfOrder, d.V_Asset_name, b.V_Asset_no, d.V_Tag_no, d.V_Brandname, d.V_Model_no, b.D_date, a.rone, a.rtwo, a.rthree, a.Comments, a.ApprStatusID, a.ApprComments, a.ApprStatusIDx, a.ApprCommentsx, a.ApprStatusIDxx, a.ApprCommentsxx, g.Specialist, IFNULL(g.Status, '6') AS Status, IFNULL(g.Remark, '') AS Remark");
 		$this->db->from("tbl_invitem f");
 		// $this->db->join("tbl_mirn_comp e", "f.ItemCode = e.ItemCode", "FULL OUTER");
 		// $this->db->join("tbl_materialreq a", "e.MIRNcode = a.DocReferenceNo", "FULL OUTER");
 		$this->db->join("tbl_mirn_comp e", "f.ItemCode = e.ItemCode", "RIGHT OUTER");
 		$this->db->join("tbl_materialreq a", "e.MIRNcode = a.DocReferenceNo", "RIGHT OUTER");
-		$this->db->join("pmis2_egm_service_request b", "a.WorkOfOrder = b.V_Request_no AND b.V_hospitalcode = SUBSTRING_INDEX(SUBSTRING_INDEX(`DocReferenceNo`, '/', -4), '/', 1)", "INNER");
+		$this->db->join("pmis2_egm_service_request b", "a.WorkOfOrder = b.V_Request_no AND b.V_hospitalcode = SUBSTRING_INDEX(SUBSTRING_INDEX(`DocReferenceNo`, '/', -3), '/', 1)", "INNER");
 		$this->db->join("pmis2_egm_assetregistration d", "b.V_Asset_no = d.V_Asset_no AND b.V_hospitalcode = d.V_Hospitalcode", "INNER");
 		$this->db->join("tbl_specialist_review g", "g.MIRN_No=a.DocReferenceNo", "left");
 		$this->db->where("MONTH(a.DateCreated)", $Month);
 		$this->db->where("YEAR(a.DateCreated)", $Year);
-		$this->db->where("d.V_Hospitalcode", $this->input->get("whathosp") );
+		$this->db->where("SUBSTRING_INDEX(SUBSTRING_INDEX(`a`.`DocReferenceNo`, '/', -4), '/', 1)=", $this->input->get("whathosp") );
 
 		if( $this->input->get("whatr")==3 ){
 			$this->db->where("(a.ApprStatusID=5 OR a.ApprStatusIDx=5 OR a.ApprStatusIDxx=5)");
