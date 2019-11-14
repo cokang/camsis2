@@ -6953,65 +6953,42 @@ return $query->result();
   }
 
   function rl_mrin($hosp,$storeid,$y){
-	$HSA  = "'HSA','PER','KUL','SGT'";
-	$MUR  = "'MUR','BPH','KLN','TGK'";
-	$HSI  = "'HSI','KTG','MER','PON','MKJ'";
+
     switch ($hosp) {
-        case "JLB":
+		case "JLB":
         case "JMP":
         case "KPL":
         case "PDX":
         case "SBN":
-            // $hospape = "'JLB','JMP','KPL','PDX','SBN'";
-            // break;
+            $hospape = "'JLB','JMP','KPL','PDX','SBN'";
+            break;
         case "TMP":
         case "MKA":
         case "AGJ":
         case "JAS":
             //$hospape = "'TMP','MKA','AGJ','JAS'";
-            // $hospape = "'TMP','AGJ'";
-            // break;
-		case "HSA":
-			$hospape = $HSA;
+            $hospape = "'TMP','AGJ'";
             break;
-		case "PER":
-			$hospape = $HSA;
+        case "HSA":
+        case "PER":
+        case "KUL":
+        case "SGT":
+            $hospape = "'HSA','PER','KUL','SGT'";
             break;
-		case "KUL":
-			$hospape = $HSA;
-            break;
-		case "SGT":
-			$hospape = $HSA;
-            break;
-            // $hospape = "'HSA','PER','KUL','SGT'";
-            // break;
 		case "MUR":
-			$hospape = $MUR;
-            break;
-		case "TGK":
-			$hospape = $MUR;
-            break;
-		case "PON":
-			$hospape = $HSI;
-            break;
+		case "BPH":
 		case "KLN":
-			$hospape = $MUR;
-            break;
-        case "KTG":
-            $hospape = $HSI;
+        case "TGK":
+            $hospape = "'MUR','BPH''KLN','TGK',";
             break;
 		case "HSI":
-			$hospape = $HSI;
-            break;
-		case "BPH":
-			$hospape = $MUR;
-            break;
+		case "KTG":
+		case "MER":
+		case "PON":
 		case "MKJ":
-			$hospape = $HSI;
+            $hospape = "'HSI','KTG','MER','PON','MKJ'";
             break;
-        case "MER":
-            $hospape = $HSI;
-            break;
+
         default:
             $hospape = "'".$hosp."'";
     }
