@@ -6960,34 +6960,40 @@ return $query->result();
         case "KPL":
         case "PDX":
         case "SBN":
-            $hospape = "'JLB','JMP','KPL','PDX','SBN'";
-            break;
+            // $hospape = "'JLB','JMP','KPL','PDX','SBN'";
+            // break;
         case "TMP":
         case "MKA":
         case "AGJ":
         case "JAS":
             //$hospape = "'TMP','MKA','AGJ','JAS'";
-            $hospape = "'TMP','AGJ'";
+            // $hospape = "'TMP','AGJ'";
+            // break;
+		case "HSA":
+			$hospape = "'HSA','PER','KUL','SGT'";
             break;
-        case "HSA":
         case "PER":
         case "KUL":
         case "SGT":
-            $hospape = "'HSA','PER','KUL','SGT'";
+            // $hospape = "'HSA','PER','KUL','SGT'";
+            // break;
+		case "MUR":
+			$hospape = "'MUR','BPH','KLN','TGK'";
             break;
-        case "MUR":
         case "TGK":
         case "PON":
         case "KLN":
         case "KTG":
-            $hospape = "'MUR','TGK','PON','KLN','KTG'";
+            // $hospape = "'MUR','TGK','PON','KLN','KTG'";
+            // break;
+		case "HSI":
+			$hospape = "'HSI','KTG','MER','PON','MKJ'";
             break;
-        case "HSI":
         case "BPH":
         case "MKJ":
         case "MER":
-            $hospape = "'HSI','BPH','MKJ','MER'";
-            break;
+            // $hospape = "'HSI','BPH','MKJ','MER'";
+            // break;
         default:
             $hospape = "'".$hosp."'";
     }
