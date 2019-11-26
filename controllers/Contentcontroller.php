@@ -8344,15 +8344,17 @@ public function new_item (){
 		exit(); */
 
 		if($this->input->post('editid')){
-			echo $this->input->post('editid');
+			echo 'test'.$this->input->post('editid');
 		 $this->load->model('update_model');
 		 $this->update_model->updateitems($insert_data,$this->input->post('editid'));
 		 }else{
-          $this->insert_model->ins_itembaru($insert_data);
+		  $data['success']= $this->insert_model->ins_itembaru($insert_data);
 		 }
+		//  echo $this->input->post('n_description');
+		//  exit();
 	/* 	 echo $this->db->last_query();
 		 exit(); */
-		 redirect('contentcontroller/new_item?itemname='.$this->input->post('n_description').'&itemcode='.$this->input->post('n_code'));
+		 redirect('contentcontroller/new_item?itemname='.$this->input->post('n_description').'&itemcode='.$this->input->post('n_code').'&status='.$data['success']);
 		}else{
 		$this ->load->view("content_new_item",$data);
 		}

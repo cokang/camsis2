@@ -2668,10 +2668,19 @@ function tbl_po($insert_data){
 	$this->db->insert('tbl_po',$insert_data);
 }
 function ins_itembaru($insert_data){
+	$this->db->select('*');
+	$this->db->from('tbl_invitem');
+	$this->db->where('ItemCode', $insert_data['ItemCode']);
+	$query = $this->db->get();
 
-$this->db->insert('tbl_invitem', $insert_data);
-
-
+	if($query->num_rows()>0){
+		return 0;
+	}else{
+		$this->db->insert('tbl_invitem', $insert_data);
+		return 1;
+	}
+	// echo $this->db->last_query();
+	// exit();
 }
 
 

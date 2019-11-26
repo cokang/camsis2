@@ -520,7 +520,11 @@
 			<?php if ($this->input->get('itemcode')) { ?>
 			<table id="myElem" class="onloadworkorder">
 				<tr>
+				<?php  if($this->input->get('status')==1){?>
 					<th style="text-align:left; color:#ee4000;">The item have been registered.&nbsp;&nbsp;<span class="blinking"><font color="black">Item Name :</font><?=$this->input->get('itemname')?>&nbsp;&nbsp;<font color="black">Item Code :</font><?=$this->input->get('itemcode')?> </span></th>
+				<?php }else{?>
+					<th style="text-align:left; color:#ee4000;">Item code duplicate, cannot registered.&nbsp;&nbsp;<span class="blinking"><font color="black">Item Name :</font><?=$this->input->get('itemname')?>&nbsp;&nbsp;<font color="black">Item Code :</font><?=$this->input->get('itemcode')?> </span></th>
+				<?php } ?>
 				</tr>
 			</table>
 	<?php }?><div style="overflow-x:auto;">
