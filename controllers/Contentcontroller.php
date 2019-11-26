@@ -1358,16 +1358,18 @@ class Contentcontroller extends CI_Controller {
 	public function personnelinvolved_update(){
 		$data['wrk_ord'] = $this->input->get('wrk_ord');
 		$this->load->model('display_model');
-		$data['rpersonnel'] = $this->display_model->response_tab($data['wrk_ord']);
+		$data['rpersonnel']= $this->display_model->response_tab($data['wrk_ord']);
+		// $data['rpersonnel'] = $data_respond!=null?$data_respond:0;
+		// print_r($data['rpersonnel']);
 		$data['rvisit1'] = $this->display_model->visit1_tab($data['wrk_ord']);
-		$hour1 = (floor( $data['rpersonnel'][0]->n_Hours1 ));
-		$minute1 = ($data['rpersonnel'][0]->n_Hours1 - $hour1);
+		$hour1 = $data['rpersonnel']!=null?(floor( $data['rpersonnel'][0]->n_Hours1 )):0;
+		$minute1 = $data['rpersonnel']!=null?($data['rpersonnel'][0]->n_Hours1 - $hour1):0;
 		$data['minutes1']= $hour1*60+$minute1*100;
-		$hour2 = (floor( $data['rpersonnel'][0]->n_Hours2 ));
-		$minute2 = ($data['rpersonnel'][0]->n_Hours2 - $hour2);
+		$hour2 = $data['rpersonnel']!=null?(floor( $data['rpersonnel'][0]->n_Hours2 )):0;
+		$minute2 = $data['rpersonnel']!=null?($data['rpersonnel'][0]->n_Hours2 - $hour2):0;
 		$data['minutes2']= $hour2*60+$minute2*100;
-		$hour3 = (floor( $data['rpersonnel'][0]->n_Hours3 ));
-		$minute3 = ($data['rpersonnel'][0]->n_Hours3 - $hour3);
+		$hour3 = $data['rpersonnel']!=null?(floor( $data['rpersonnel'][0]->n_Hours3 )):0;
+		$minute3 = $data['rpersonnel']!=null?($data['rpersonnel'][0]->n_Hours3 - $hour3):0;
 		$data['minutes3']= $hour3*60+$minute3*100;
 		$this ->load->view("head");
 		$this ->load->view("left");
@@ -8342,6 +8344,7 @@ public function new_item (){
 		exit(); */
 
 		if($this->input->post('editid')){
+			echo $this->input->post('editid');
 		 $this->load->model('update_model');
 		 $this->update_model->updateitems($insert_data,$this->input->post('editid'));
 		 }else{
