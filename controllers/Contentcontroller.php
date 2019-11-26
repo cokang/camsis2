@@ -1005,15 +1005,18 @@ class Contentcontroller extends CI_Controller {
 					'v_AssetCondition'=>$this->input->post('n_asset_condition'),
 					'v_AssetVStatus'=>$this->input->post('n_variation_status'),
 					'v_AssetStatus'=>$this->input->post('n_asset_status'),
-					'V_Assetno'=>$this->input->post('n_asset_number'),
+					//'V_Assetno'=>$this->input->post('n_asset_number'),
+					'v_Location'=>$this->input->post('location'),
 					'v_assettypecode'=>$this->input->post('n_asset_class'),
 					'v_safetytest'=>$this->input->post('n_safety_test'),
 					'v_criticality'=>$this->input->post('n_criticality'),
 					'v_checklistcode'=>$this->input->post('n_chklistcd'),
 					'v_sparelistcode'=>$this->input->post('n_sparelist'),
+					'd_LocDate'=>$this->input->post('dater')?date('Y-m-d H:i:s', strtotime($this->input->post('dater'))):null,
 					'd_Timestamp'=>date('Y-m-d H:i:s'),
 					'V_Actionflag'=>'U'
 		);
+		//if($this->input->post('dater')!=null){ $insert_data['d_LocDate'] = date('Y-m-d H:i:s', strtotime($this->input->post('dater'))); }
 		//print_r($insert_data);
 		//exit();
 		$this->load->model('update_model');
@@ -1029,57 +1032,37 @@ class Contentcontroller extends CI_Controller {
 		$this->update_model->update_pmis2_egm_assetreg_general($insert_data);
 		//print_r($insert_data);
 		//exit();
-
+		$arr = explode(":", $this->input->post('n_variation_status'), 2);
+		$status = $arr[0];
+		// echo $first; exit();
 		$insert_data = array(
 					//'V_capacityunit'=>$this->input->post('n_capacity'),
-					'vvfReportNo'=>$this->input->post('n_sparelist'),
-					'vvfRefNo'=>date('Y-m-d H:i:s'),
-					'vvfHospitalCode'=>date('Y-m-d H:i:s'),
-					'vvfDept'=>date('Y-m-d H:i:s'),
-					'vvfAssetNo'=>date('Y-m-d H:i:s'),
-					'vvfAssetTagNo'=>date('Y-m-d H:i:s'),
-					'vvfAssetType'=>date('Y-m-d H:i:s'),
-					'vvfAssetDesc'=>date('Y-m-d H:i:s'),
-					'vvfMfg'=>date('Y-m-d H:i:s'),
-					'vvfModel'=>date('Y-m-d H:i:s'),
-					'vvfPurchaseCost'=>date('Y-m-d H:i:s'),
-					'vvfVStatus'=>date('Y-m-d H:i:s'),
-					'vvfDateComm'=>date('Y-m-d H:i:s'),
-					'vvfDateStart'=>date('Y-m-d H:i:s'),
-					'vvfDateStart'=>date('Y-m-d H:i:s'),
-					'vvfDateStart'=>date('Y-m-d H:i:s'),
-					'vvfDateStart'=>date('Y-m-d H:i:s'),
-					'vvfDateStart'=>date('Y-m-d H:i:s'),
-					'd_Timestamp'=>date('Y-m-d H:i:s'),
-					'V_Asset_no'=>$this->input->post('n_asset_number'),
-					'V_Actionflag'=>'U'
+					//'vvfReportNo'=>$this->input->post('n_sparelist'),
+					'vvfRefNo'=>$this->input->post('n_snfvnf')!=null?$this->input->post('n_snfvnf'):'',
+					// 'vvfHospitalCode'=>date('Y-m-d H:i:s'),
+					// 'vvfDept'=>date('Y-m-d H:i:s'),
+					// 'vvfAssetNo'=>date('Y-m-d H:i:s'),
+					// 'vvfAssetTagNo'=>date('Y-m-d H:i:s'),
+					// 'vvfAssetType'=>date('Y-m-d H:i:s'),
+					 'vvfHQRemarks'=>$this->input->post('V2Remark'),
+					// 'vvfMfg'=>date('Y-m-d H:i:s'),
+					// 'vvfModel'=>date('Y-m-d H:i:s'),
+					// 'vvfPurchaseCost'=>date('Y-m-d H:i:s'),
+					'vvfVStatus'=>$status,
+					// 'vvfDateComm'=>date('Y-m-d H:i:s'),
+					// 'vvfDateStart'=>date('Y-m-d H:i:s'),
+					// 'vvfDateStart'=>date('Y-m-d H:i:s'),
+					// 'vvfDateStart'=>date('Y-m-d H:i:s'),
+					// 'vvfDateStart'=>date('Y-m-d H:i:s'),
+					// 'vvfDateStart'=>date('Y-m-d H:i:s'),
+					//'vvfDateComm'=>$this->input->post('dater'),
+					'vvfSubmissionDate'=>date('Y-m-d H:i:s', strtotime($this->input->post('subdater'))),
+					//'V_Asset_no'=>$this->session->userdata('hosp_code').'-'.$this->input->post('n_asset_number'),
+					'vvfActionflag'=>'U'
 		);
-		/*
-		INSERT apbesysex..ap_vo_vvfdetails
-			(vvfReportNo,		vvfRefNo,		vvfHospitalCode,
-			vvfDept,		vvfAssetNo,		vvfAssetTagNo,
-			vvfAssetType,		vvfAssetDesc,		vvfMfg,
-			vvfModel,		vvfPurchaseCost,	vvfVStatus,
-			vvfDateComm,		vvfDateStart,		vvfDateStop,
-			vvfDateWarrantyEnd,	vvfAssetLockedDate,	vvfAssetLockedStatus,
-			vvfAssetLockedBy,	vvfAuthorizedDate,	vvfAuthorizedStatus,
-			vvfAuthorizedBy,	vvfActionflag,		vvfTimestamp,
-			vvfSubmissionDate,	vvfRateDW,		vvfRatePW,
-			vvfFeeDW,     		vvfFeePW,		vvfHQRemarksDate,
-			vvfHQRemarks)
-		VALUES
-			(@ReportNo,		@RefNo,					@HospitalCode,
-			@Dept,			UPPER(@HospitalCode + '-' + @AssetNo),	@AssetTagNo,
-			@AssetType,		@AssetDesc,					@Mfg,
-			@Model,		@PurchaseCost,				@VStatus,
-			@DateComm,		@DateStart,					@DateStop,
-			@DateWarrantyEnd,	@AssetLockedDate,				@AssetLockedStatus,
-			@AssetLockedBy,	@AuthorizedDate,				@AuthorizedStatus,
-			@AuthorizedBy,		@Actionflag,					@Timestamp,
-			@SubmissionDate,	@RateDW,					@RatePW,
-			@FeeDW,     		@FeePW,					@HQRemarksDate,
-			@HQRemarks)
-		*/
+		//if($this->input->post('V2Remark')!=null){ $insert_data['vvfHQRemarks'] = $this->input->post('V2Remark'); }
+		$this->update_model->update_ap_VO_VVFDetails($insert_data);
+	
 
 
 
@@ -1280,6 +1263,7 @@ class Contentcontroller extends CI_Controller {
 		$data['wrk_ord'] = $this->input->get('wrk_ord');
 		$this->load->model('display_model');
 		if (substr($data['wrk_ord'],0,2) == 'PP'){
+			
 		$data['rvisit1'] = $this->display_model->visit1ppm_tab($data['wrk_ord']);
 		//$data['rvisit2'] = $this->display_model->visit2ppm_tab($data['wrk_ord']);
 		//$data['rvisit3'] = $this->display_model->visit3ppm_tab($data['wrk_ord']);
@@ -1289,6 +1273,7 @@ class Contentcontroller extends CI_Controller {
 		$data['rvisit1'] = $this->display_model->visit1_tab($data['wrk_ord']);
 		//$data['rvisit2'] = $this->display_model->visit2_tab($data['wrk_ord']);
 		//$data['rvisit3'] = $this->display_model->visit3_tab($data['wrk_ord']);
+		//print_r($data['rpersonnel']);
 		}
 
 		if (isset($data['rpersonnel'][0]->v_WrkOrdNo)){
@@ -1298,6 +1283,30 @@ class Contentcontroller extends CI_Controller {
 		$data['P1ptime'] = explode(':',$data['rpersonnel'][0]->n_Hours1);
 		$data['P2ptime'] = explode(':',$data['rpersonnel'][0]->n_Hours2);
 		$data['P3ptime'] = explode(':',$data['rpersonnel'][0]->n_Hours3);
+		print_r($data['P1ptime']);
+
+		// $hour[0] =  $data['rpersonnel'][0]->n_Hours1 ;
+		// $fhour[0]= (floor( $data['rpersonnel'][0]->n_Hours1 ));
+		// $hour[1] =  $data['rpersonnel'][0]->n_Hours2 ;
+		// $fhour[1]= (floor( $data['rpersonnel'][0]->n_Hours2 ));
+		// $hour[2]=  $data['rpersonnel'][0]->n_Hours3 ;
+		// $fhour[2]= (floor( $data['rpersonnel'][0]->n_Hours3 ));
+		// for($x=0,$i=1;$x<3;$x++){
+		// 	$minute[$x] = ($hour[$x] - $fhour[$x]);
+		// $data['minutes'.$i++]= $fhour[$x]*60+$minute[$x]*100;
+		// }
+		
+		$hour1 = (floor( $data['rpersonnel'][0]->n_Hours1 ));
+		$minute1 = ($data['rpersonnel'][0]->n_Hours1 - $hour1);
+		$data['minutes1']= $hour1*60+$minute1*100;
+		$hour2 = (floor( $data['rpersonnel'][0]->n_Hours2 ));
+		$minute2 = ($data['rpersonnel'][0]->n_Hours2 - $hour2);
+		$data['minutes2']= $hour2*60+$minute2*100;
+		$hour3 = (floor( $data['rpersonnel'][0]->n_Hours3 ));
+		$minute3 = ($data['rpersonnel'][0]->n_Hours3 - $hour3);
+		$data['minutes3']= $hour3*60+$minute3*100;
+
+
 		$data['P1pRate'] = number_format($data['rpersonnel'][0]->n_Rate1,2);
 		$data['P2pRate'] = number_format($data['rpersonnel'][0]->n_Rate2,2);
 		$data['P3pRate'] = number_format($data['rpersonnel'][0]->n_Rate3,2);
@@ -1345,6 +1354,27 @@ class Contentcontroller extends CI_Controller {
 		$this ->load->view("Content_workorder_personnelinvolved",$data);
 		}
 	}
+
+	public function personnelinvolved_update(){
+		$data['wrk_ord'] = $this->input->get('wrk_ord');
+		$this->load->model('display_model');
+		$data['rpersonnel'] = $this->display_model->response_tab($data['wrk_ord']);
+		$data['rvisit1'] = $this->display_model->visit1_tab($data['wrk_ord']);
+		$hour1 = (floor( $data['rpersonnel'][0]->n_Hours1 ));
+		$minute1 = ($data['rpersonnel'][0]->n_Hours1 - $hour1);
+		$data['minutes1']= $hour1*60+$minute1*100;
+		$hour2 = (floor( $data['rpersonnel'][0]->n_Hours2 ));
+		$minute2 = ($data['rpersonnel'][0]->n_Hours2 - $hour2);
+		$data['minutes2']= $hour2*60+$minute2*100;
+		$hour3 = (floor( $data['rpersonnel'][0]->n_Hours3 ));
+		$minute3 = ($data['rpersonnel'][0]->n_Hours3 - $hour3);
+		$data['minutes3']= $hour3*60+$minute3*100;
+		$this ->load->view("head");
+		$this ->load->view("left");
+		$this ->load->view("Content_workorder_personnelinvolved_update",$data);
+	}
+
+
 		public function jobclose(){
 		$data['wrk_ord'] = $this->input->get('wrk_ord');
 		$this->load->model("display_model");
@@ -2001,7 +2031,7 @@ class Contentcontroller extends CI_Controller {
 			}
 	}
 		public function assetupdate (){
-		$data['assetn'] = $this->input->get('asstno');
+		$data['assetn'] = $this->input->get('asstno'); //1
 		//echo 'nilai'.$assetn;
     //echo "session skrg : ".$this->session->userdata('hosp_code');
     if (!empty($this->input->get('mrinhosp')) && ($this->session->userdata('hosp_code')!=$this->input->get('mrinhosp')))
@@ -2010,10 +2040,11 @@ class Contentcontroller extends CI_Controller {
     }
 		$this->load->model("get_model");
 		$data['asset_det'] = $this->get_model->get_assetdet2($data['assetn']);
-		//print_r($data['asset_det']);
+		// print_r($data['asset_det']);
 		$data['asset_UMDNS'] = $this->get_model->get_UMDNSAsset($data['asset_det'][0]->V_Equip_code);
-		$vvfassetno = $this->session->userdata('hosp_code').'-'.$data['assetn'];
-		$data['asset_vo'] = $this->get_model->get_VOStatus($vvfassetno);
+		$vvfassetno = $this->session->userdata('hosp_code').'-'.$data['assetn']; //2
+		$data['asset_vo'] = $this->get_model->get_VOStatus($vvfassetno); //3
+		//print_r($data['asset_vo']);
 		$data['asset_chklist'] = $this->get_model->get_chklist($data['asset_det'][0]->v_ChecklistCode);
 		//$data['asset_chklist'] = $this->get_model->get_chklist($data['asset_det'][0]->V_Equip_code);
 		//print_r($data['asset_chklist']);
@@ -2034,7 +2065,7 @@ class Contentcontroller extends CI_Controller {
 
     		//echo "nilai id : ".print_r($idArray);
     		$data['chkers'] = $idArray;
-
+		// print_r($data); exit();
 		$this ->load->view("head");
 		$this ->load->view("left",$data);
 		$this ->load->view("content_assetupdate",$data);
@@ -2089,6 +2120,7 @@ class Contentcontroller extends CI_Controller {
 		$data['assetno'] = $this->input->get('assetno');
 		$this->load->model("get_model");
 		$data['asset_main'] = $this->get_model->get_assetmainte($data['assetno']);
+		$data['assetStatus'] = explode(':',$data['asset_main'][0]->v_AssetVStatus);
 		//$data['asset_chklist'] = $this->get_model->get_chklist($data['asset_main'][0]->v_checklistcode);
 		$data['asset_chklist'] = $this->get_model->assetchklist($data['assetno']);
 		$data['asset_vo'] = $this->get_model->get_VOStatus($data['assetno']);

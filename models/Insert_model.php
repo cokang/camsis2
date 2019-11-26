@@ -2832,6 +2832,7 @@ $this->db->insert('tbl_invitem', $insert_data);
 						$insert_data = array(
 								 'v_ActionTaken' => $this->input->post('n_Action_Taken'),
 								 'v_ReschAuthBy' => $this->input->post('n_Type_of_Work'),
+								 'n_Spares' => $this->input->post('movement'),
 								 'v_Actionflag' => 'U',
 								 'd_Timestamp' => date("Y-m-d H:i:s")
 								);
@@ -2844,6 +2845,7 @@ $this->db->insert('tbl_invitem', $insert_data);
 							 'v_WrkOrdNo'=> $RN,
 							 'v_ActionTaken' => $this->input->post('n_Action_Taken'),
 							 'v_ReschAuthBy' => $this->input->post('n_Type_of_Work'),
+							 'n_Spares' => $this->input->post('movement'),
 							 'v_Actionflag' => 'I',
 							 'd_Timestamp' => date("Y-m-d H:i:s"),
 							 'v_HospitalCode' => $this->session->userdata('hosp_code'),
@@ -2851,6 +2853,63 @@ $this->db->insert('tbl_invitem', $insert_data);
 					$this->db->insert('pmis2_emg_chronology', $insert_data);
 					}
 
+
+		}
+
+		function personnelinvolved_exist($wrkOrd){
+			$this->db->select('*');
+			$this->db->from('pmis2_emg_jobresponse');
+			$this->db->where('v_WrkOrdNo', $wrkOrd);
+			$this->db->where('v_HospitalCode',$this->session->userdata('hosp_code'));
+			$query = $this->db->get();
+			// echo $this->db->last_query();
+			// echo $this->input->post('v_personal1');
+			// exit();
+			$query_result = $query->result();
+
+			if($query->num_rows()>0){
+					$this->load->model('update_model');
+					$insert_data = array(
+						'v_Personal1' => $this->input->post('v_personal1'), 
+						'v_Personal2' => $this->input->post('v_personal2'), 
+						'v_Personal3' => $this->input->post('v_personal3'), 
+						'n_Hours1' => $this->input->post('v_hour1'), 
+						'n_Hours2' => $this->input->post('v_hour2'), 
+						'n_Hours3' => $this->input->post('v_hour3'), 
+						'n_Rate1' => $this->input->post('v_rate1'), 
+						'n_Rate2' => $this->input->post('v_rate2'), 
+						'n_Rate3' => $this->input->post('v_rate3'), 
+						'n_Total1' => $this->input->post('v_total1'), 
+						'n_Total2' => $this->input->post('v_total2'), 
+						'n_Total3' => $this->input->post('v_total3'), 
+						'v_Actionflag' => 'U',
+					);
+					$this->update_model->personnelinvolved_update($wrkOrd,$insert_data);
+			}else{
+
+				$insert_data = array(
+					'v_WrkOrdNo'=> $wrkOrd,
+					'v_Personal1' => $this->input->post('v_personal1'), 
+					'v_Personal2' => $this->input->post('v_personal2'), 
+					'v_Personal3' => $this->input->post('v_personal3'), 
+					'n_Hours1' => $this->input->post('v_hour1'), 
+					'n_Hours2' => $this->input->post('v_hour2'), 
+					'n_Hours3' => $this->input->post('v_hour3'), 
+					'n_Rate1' => $this->input->post('v_rate1'), 
+					'n_Rate2' => $this->input->post('v_rate2'), 
+					'n_Rate3' => $this->input->post('v_rate3'), 
+					'n_Total1' => $this->input->post('v_total1'), 
+					'n_Total2' => $this->input->post('v_total2'), 
+					'n_Total3' => $this->input->post('v_total3'), 
+					'v_Actionflag' => 'I',
+					'd_Timestamp' => date("Y-m-d H:i:s"),
+					'v_HospitalCode' => $this->session->userdata('hosp_code'),
+			 );
+			 $this->db->insert('pmis2_emg_jobresponse', $insert_data);
+			 
+			}
+			
+			
 
 		}
 

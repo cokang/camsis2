@@ -28,9 +28,11 @@ function update_pmis2_egm_assetreg_general($insert_data){
 
 function update_ap_VO_VVFDetails($insert_data){
 	$this->db->where('vvfActionflag <> ','D');
-	$this->db->where('vvfassetno',$insert_data['V_Asset_no']);
+	$this->db->where('vvfAssetno',$this->session->userdata('hosp_code').'-'.$this->input->post('n_asset_number'));
 	$this->db->where('vvfHospitalcode',$this->session->userdata('hosp_code'));
 	$this->db->update('ap_vo_vvfdetails', $insert_data);
+	// echo $this->db->last_query();
+	// exit();
 	}
 
 function pmis2_egm_accesories($insert_data){
@@ -155,6 +157,12 @@ function assetmaintenance_form($insert_data){
 	$this->db->update('pmis2_egm_assetmaintenance', $insert_data);
 	//echo $this->db->last_query();
 	//exit();
+}
+function update_vo($insert_data){
+	$assetNo = $this->session->userdata('hosp_code').'-'.$this->input->post('n_asset_number');
+	$this->db->where('vvfAssetNo',$assetNo);
+	$this->db->update('ap_vo_vvfdetails', $insert_data);
+	echo $this->db->last_query();
 }
 function checklistcode_update($insert_data){
 	$assetNo = 'BEDEN16-00001'; //only for test
@@ -654,6 +662,12 @@ function chronology_update($visit,$wo,$insert_data){
   $this->db->where('v_WrkOrdNo',$wo);
   $this->db->where('v_HospitalCode',$this->session->userdata('hosp_code'));
 	$this->db->update('pmis2_emg_chronology',$insert_data);
+}
+
+function personnelinvolved_update($wo,$insert_data){
+  $this->db->where('v_WrkOrdNo',$wo);
+  $this->db->where('v_HospitalCode',$this->session->userdata('hosp_code'));
+	$this->db->update('pmis2_emg_jobresponse',$insert_data);
 }
 
 function resetmirn($mirn, $status){

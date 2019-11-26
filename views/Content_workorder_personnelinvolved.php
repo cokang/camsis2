@@ -1,3 +1,4 @@
+<?php echo form_open('contentcontroller/personnelinvolved_update?wrk_ord='.$this->input->get('wrk_ord'));?>
 <div class="ui-middle-screen">
 	<div class="content-workorder" align="center">
 			<table class="ui-content-middle-menu-workorder" border="0" height="" width="100%" align="center">
@@ -9,7 +10,7 @@
 				<td class="pd-bttm" colspan="6" valign="top">
 					<table class="ui-content-middle-menu-workorder" style="">
 						<tr class="ui-color-contents-style-1" height="30px">
-							<td colspan="2" class="ui-header-new" valign="top"><span style="float: left; margin-top:4px; font-weight: bold;">Personnel Involved</span></td>
+							<td colspan="2" class="ui-header-new" valign="top"><span style="float: left; margin-top:4px; font-weight: bold;">Personnel Involved</span>&nbsp;<span style="float: right; padding-right:10px;"><input type="submit" class="btn-button btn-primary-button" style="width: 100px;" name="mysubmit" value="Update"></span></td>
 						</tr>
 						<tr>
 							<td class="ui-desk-style-table">
@@ -21,7 +22,7 @@
 												<tr style="font-weight: bold;">
 													<td width="5%"></td>
 													<td width="35%"></td>
-													<td width="15%">Hours</td>
+													<td width="15%">Minutes</td>
 													<td width="15%">Rate</td>
 													<td width="25%">Total</td>
 												</tr>
@@ -35,7 +36,7 @@
 												<tr>
 													<td width="5%" align="center">#1</td>
 													<td width="35%"><?= isset($P1personnel[0]) == TRUE ? $P1personnel[0] : 'N/A'?> <?= isset($P1personnel[1]) == TRUE ? $P1personnel[1] : ''?></td>
-													<td width="15%"><?= isset($P1ptime[0]) == TRUE ? $P1ptime[0] : 'N/A'?>  hr <?= isset($P1ptime[1]) == TRUE ? $P1ptime[1] : 'N/A'?> mins </td>
+													<td width="15%"><?= isset($minutes1) == TRUE ? $minutes1 : 'N/A'?>  minutes  </td>
 													<td width="15%">RM <?= isset($P1pRate) == TRUE ? $P1pRate : 'N/A'?></td>
 													<td width="25%">RM <?= isset($P1pTrate) == TRUE ? $P1pTrate : 'N/A'?></td>
 												</tr>
@@ -49,7 +50,7 @@
 												<tr>
 													<td width="5%" align="center">#2</td>
 													<td width="35%"><?= isset($P2personnel[0]) == TRUE ? $P2personnel[0] : 'N/A'?> <?= isset($P2personnel[1]) == TRUE ? $P2personnel[1] : ''?></td>
-													<td width="15%"><?= isset($P2ptime[0]) == TRUE ? $P2ptime[0] : 'N/A'?>  hr <?= isset($P2ptime[1]) == TRUE ? $P2ptime[1] : 'N/A'?> mins</td>
+													<td width="15%"><?= isset($minutes2) == TRUE ? $minutes2 : 'N/A'?>  minutes  </td>
 													<td width="15%">RM <?= isset($P2pRate) == TRUE ? $P2pRate : 'N/A'?></td>
 													<td width="25%">RM <?= isset($P2pTrate) == TRUE ? $P2pTrate : 'N/A'?></td>
 												</tr>
@@ -63,7 +64,7 @@
 												<tr>
 													<td width="5%" align="center">#3</td>
 													<td width="35%"><?= isset($P3personnel[0]) == TRUE ? $P3personnel[0] : 'N/A'?> <?= isset($P3personnel[1]) == TRUE ? $P3personnel[1] : ''?></td>
-													<td width="15%"><?= isset($P3ptime[0]) == TRUE ? $P3ptime[0] : 'N/A'?>  hr <?= isset($P3ptime[1]) == TRUE ? $P3ptime[1] : 'N/A'?> mins</td>
+													<td width="15%"><?= isset($minutes3) == TRUE ? $minutes3 : 'N/A'?>  minutes  </td>
 													<td width="15%">RM <?= isset($P3pRate) == TRUE ? $P3pRate : 'N/A'?></td>
 													<td width="25%">RM <?= isset($P3pTrate) == TRUE ? $P3pTrate : 'N/A'?></td>
 												</tr>
