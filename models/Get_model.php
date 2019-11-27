@@ -4415,5 +4415,17 @@ function get_stock_asset($searchitem=""){
 
 
 		}
+		function check_itembaru($itemcode){
+			$this->db->select('*');
+			$this->db->from('tbl_invitem');
+			$this->db->where('ItemCode', $itemcode);
+			$query = $this->db->get();
+		
+			if($query->num_rows()>0){
+				return 0;
+			}else{
+				return 1;
+			}
+		}
 }
 ?>

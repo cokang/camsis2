@@ -5,9 +5,20 @@
 		<div class="div-p">&nbsp;</div>
 		<div class="ui-main-form">
 			<div class="ui-main-form-header">
+      <?php if($status==0){ 
+        $disableButton='disabled'; 
+        $titlestlye= -215;
+        ?>
+      <table align="left" height="40px" border="0">
+					<tr>
+						<td><span  style=" color:red;">Item code duplicate, cannot register.</span></td>
+					</tr>
+				</table> 
+      <?php }else{$disableButton='enable';
+      $titlestlye= 10;}?>
 				<table align="center" height="40px" border="0">
 					<tr>
-						<td><span style="margin-left:10px;">Confirm New Item</span></td>
+						<td><span style="margin-left:<?=$titlestlye ?>px;">Confirm New Item</span></td>
 					</tr>
 				</table>
 			</div>
@@ -214,7 +225,7 @@
 			<table align="center" height="40px" border="0" style="width:100%;" class="ui-main-form-footer">
 				<tr>
 					<td align="center">
-						<input type="submit" class="btn-button btn-primary-button" name="mysubmit" value="Save" style="width:150px;"/>
+						<input type="submit" class="btn-button btn-primary-button" name="mysubmit" value="Save" <?= $disableButton ?> style="width:150px;"/>
                         <input type="button" class="btn-button btn-primary-button" name="Cancel" value="Cancel" onclick="window.history.back()" style="width:150px;"/>
 					</td>
 				</tr>

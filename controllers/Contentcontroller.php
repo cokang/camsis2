@@ -8310,7 +8310,8 @@ public function new_item (){
 
 
 		if($this->input->get('p') == 'confirm'){
-		$this ->load->view("content_new_item_confirm");
+			$data['status']= $this->get_model->check_itembaru($this->input->post('n_code'));
+		$this ->load->view("content_new_item_confirm",$data);
 		}elseif($this->input->get('p') == 'save'){
 
      	$this->db->select('id');
