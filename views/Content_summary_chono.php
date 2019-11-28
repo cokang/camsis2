@@ -90,7 +90,7 @@
 				<td><?=date("d/m/Y",strtotime($row->D_date));?></td>
 				<td><?=date("M-y",strtotime($row->D_date));?></td>
 				<td>NA</td>
-				<td><?=$row->v_ActionTaken;?></td>
+				<td><?=$row->V_summary;?></td>
 				<td><?=$row->V_Asset_no;?></td>
 				<td><?=$row->V_Tag_no;?></td>
 				<td><?=$row->V_Asset_name;?></td>
@@ -100,15 +100,27 @@
 				<td>RM<?=$row->N_Cost;?></td>
 				<td>-</td>
 				<td>-</td>
-				<td><?=$row->v_Personal1;?></td>
+				<td><?php echo '1.'.$row->v_Personal1;echo '</br>2.'.$row->v_Personal1;echo '</br>3.'.$row->v_Personal1;?></td>
 				<td>-</td>
-				<td>-</td>
+				<td><?= $row->v_ActionTaken?></td>
 				<td>NA</td>
 				<td>NA</td>
 				<td>-</td>
 				<td><?=$row->nama;?></td>
 				<td>NA</td>
-				<td></td>
+				<td>
+				<!-- <?php  if($Costs!=null){foreach($Costs as $cost){
+					if($cost!=null){$n=1;
+					foreach($cost as $costV){
+						
+					if($row->MIRN_No==$costV->MIRNcode){ 
+						if($costV->MIRNcode!=null&&$costV->GrandCategory!=null){
+						 echo $n++.')'.$costV->GrandCategory.'</br>';
+						}
+					}
+				}}
+				}} ?> -->
+				</td>
 				<td><?=$row->Commentsx;?></td>
 				<td>NA</td>
 				<td><?php if($row->DateCreated!='')echo date("d/m/Y",strtotime($row->DateCreated));?></td>

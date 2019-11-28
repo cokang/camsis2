@@ -7110,7 +7110,7 @@ function chrology_sum_report($datefrom,$dateto,$nama,$negeri){
 	$this->db->distinct();
 $this->db->select("d.D_date, a.v_WrkOrdNo,d.v_ref_wo_no,a.v_HospitalCode,a.v_ActionTaken,ar.V_Asset_no,ar.V_Tag_no,ar.V_Asset_name,ar.V_Manufacturer,ar.V_Model_no,b.nama,
 mr.DocReferenceNo,pom.MIRN_No, pom.PO_No, pom.Vendor_No, vi.VENDOR_NAME, vi.TELEPHONE_NO, po.PO_Date, mr.DateCreated,ag.D_commission,ag.N_Cost, IFNULL(IFNULL(IFNULL(ApprCommentsxx,ApprCommentsx),ApprComments),Comments) AS Commentsx,
-jr.v_Personal1, d.V_request_status,d.V_servicecode, po.paytype,
+jr.v_Personal1, d.V_request_status,d.V_servicecode, po.paytype,d.V_summary,
 (CASE
    WHEN a.v_HospitalCode in ('HSA','HSI','KTG','KUL','PER','SGT','KLN','MER','PON','BPH','MUR','MKJ','TGK') THEN  'JOH'
 			WHEN a.v_HospitalCode in ('AGJ','JAS','MKA','TMP') THEN  'MKA'
