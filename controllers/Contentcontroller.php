@@ -8310,7 +8310,12 @@ public function new_item (){
 
 
 		if($this->input->get('p') == 'confirm'){
-			$data['status']= $this->get_model->check_itembaru($this->input->post('n_code'));
+			//echo 'test'.$this->input->post('editid');
+			if($this->input->post('editid')==null){
+		$data['status']= $this->get_model->check_itembaru($this->input->post('n_code')); 
+		}else{
+			$data['status']= 1;
+		}
 		$this ->load->view("content_new_item_confirm",$data);
 		}elseif($this->input->get('p') == 'save'){
 
@@ -8347,7 +8352,9 @@ public function new_item (){
 		if($this->input->post('editid')){
 			echo 'test'.$this->input->post('editid');
 		 $this->load->model('update_model');
+		 
 		 $this->update_model->updateitems($insert_data,$this->input->post('editid'));
+		 $data['success']=1;
 		 }else{
 		  $data['success']= $this->insert_model->ins_itembaru($insert_data);
 		 }
