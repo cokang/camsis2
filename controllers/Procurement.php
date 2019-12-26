@@ -459,7 +459,7 @@ class Procurement extends CI_Controller {
 		$data['vencd'] = $this->display_model->findvencd($this->input->get('mrin'));
 		$data['veninfo'] = $this->display_model->findven((isset($data['vencd'][0]->Vendor)) ? $data['vencd'][0]->Vendor : 'noval');
 		$data['podetail'] = $this->display_model->podet($this->input->get('po'));
-		$data['itemrec'] = $this->display_model->itemprdet($this->input->get('mrin'));
+		$data['itemrec'] = $this->display_model->itemprdet($this->input->get('mrin'),1);
 		$data['itemrec']?$data['itemrec']:$data['itemrec'] =$this->display_model->itemprdet2($this->input->get('mrin'),$data['vencd'][0]->Vendor);
 		$favcolor = "red";
 		$hospapa = "";
@@ -524,6 +524,29 @@ class Procurement extends CI_Controller {
 		$hoswakil = $data['hospdet'][0]->v_head_of_lls;
     //echo 'true ler'.$data['hospdet'][0]->v_head_of_lls;
 		//print_r($data['hospdet'][0]);
+		}
+		$items=$data['itemrec'];
+		//echo $items[0]->ItemCode;
+		// print_r($items);
+	
+		//print_r($insertData);
+		$this->load->model('update_model');
+		$this->load->model('insert_model');
+		if($this->input->get("reset")==1){
+		$this->update_model->resetmirn($this->input->get("mrin"),6);
+		$this->update_model->delete_PO_MIRN($this->input->get("mrin"),$data['vencd'][0]->Vendor);
+		$i=0;
+		foreach($items as $item){
+			$insertData[] = array('po_no' => $this->input->get("po"), 
+								'item_code' => $item->ItemCode,
+								'price' => $item->Unit_Costx
+			);
+			$this->insert_model->insert_PO_del_item($insertData[$i++]);
+		}
+		
+		
+		redirect('Procurement/e_pr?tab=2&y='.date("Y") .'&m='.date("m") ,'refresh');
+		
 		}
 		//echo "nilai ".$hoswakil.$hospapa."abis";
 		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");

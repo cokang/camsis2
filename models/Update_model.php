@@ -679,5 +679,15 @@ function resetmirn($mirn, $status){
 		//exit();
 	  	return $this->db->affected_rows() > 0;
 	  	}
+		  
+function delete_PO_MIRN($mirn,$vendor){
+		$this->db->set('MIRN_No',$mirn.'D');
+		$this->db->set('Vendor_No',$vendor.'-'.$this->session->userdata('v_UserName'));
+		$this->db->where('MIRN_No', $mirn);
+		$this->db->update('tbl_po_mirn');
+		//echo $this->db->last_query();
+		//exit();
+	  	return $this->db->affected_rows() > 0;
+}
 }
 ?>

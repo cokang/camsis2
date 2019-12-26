@@ -134,6 +134,8 @@ img{
 
 	<a href="<?php echo base_url();?>index.php/Procurement/e_po_print?po=<?=$this->input->get('po')?>&mrin=<?=$this->input->get('mrin')?>&pdf=1" style="float:right; margin-right:80px;"><img src="<?php echo base_url();?>images/pdf.png" style="width:40px; height:35px; position:absolute;" title="export to pdf"></a>
 	<?php } ?>
+	<button type="cancel" class="btn-button btn-primary-button" onclick="location.href='<?php echo base_url();?>index.php/Procurement/e_po_print?po=<?=$this->input->get('po')?>&mrin=<?=$this->input->get('mrin')?>&reset=1';" style="float:right; margin-right:130px;">CANCEL PO</button>
+
 </div>
 
 			<div class="wrapper">

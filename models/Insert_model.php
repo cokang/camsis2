@@ -2922,5 +2922,12 @@ function ins_itembaru($insert_data){
 
 		}
 
+		function insert_PO_del_item($insert_data){
+			// print_r($insert_data);
+			// exit();
+			$this->db->insert('tbl_po_del_item', $insert_data);
+			
+		}
+
 }
 ?>
