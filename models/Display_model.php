@@ -160,7 +160,9 @@
     				case "2":
         		$this->db->where('a.v_Wrkordstatus <> ', 'C');
         		break;
-    				}
+					}
+					$this->db->order_by('v_WrkOrdNo', 'asc');
+					
             $query = $this->db->get("pmis2_egm_schconfirmmon a");
 
             //echo $this->db->last_query();
