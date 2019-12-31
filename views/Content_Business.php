@@ -32,7 +32,9 @@
 				<td>
 					<?php echo anchor ('contentcontroller/reportbi_ind_listing', '<img src="'. base_url() .'images/user2.png" alt="" class="ui-icon"/><br></br> Deduction Report'); ?>
 				</td>
-				
+				<td>
+					<?php echo anchor ('contentcontroller/RCMOutstanding', '<img src="'. base_url() .'images/user2.png" alt="" class="ui-icon"/><br></br> RCM Outstanding'); ?>
+				</td>
 				</tr>
 				<tr class="wb">
 				<td>
@@ -52,6 +54,9 @@
 				</td>
 				<td>
 					<?php echo anchor ('contentcontroller/report_chronology', '<img src="'. base_url() .'images/user2.png" alt="" class="ui-icon"/><br></br> Chronology Report'); ?>
+				</td>
+				<td>
+					<?php echo anchor ('contentcontroller/PPMOutstanding', '<img src="'. base_url() .'images/user2.png" alt="" class="ui-icon"/><br></br> PPM Outstanding'); ?>
 				</td>
 				</tr>
 		</table>		
@@ -117,6 +122,14 @@
 				</td>
 				<td>
 					<?php echo anchor ('contentcontroller/report_chronology', '<img src="'. base_url() .'images/user2.png" alt="" class="ui-icon"/><br></br> Chronology Report'); ?>
+				</td>
+			</tr>
+			<tr class="wb">
+				<td>
+					<?php echo anchor ('contentcontroller/RCMOutstanding', '<img src="'. base_url() .'images/user2.png" alt="" class="ui-icon"/><br></br> RCM Outstanding'); ?>
+				</td>
+				<td>
+					<?php echo anchor ('contentcontroller/PPMOutstanding', '<img src="'. base_url() .'images/user2.png" alt="" class="ui-icon"/><br></br> PPM Outstanding'); ?>
 				</td>
 			</tr>
 		</table>

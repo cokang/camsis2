@@ -9026,7 +9026,23 @@ $this ->load->view("report-a10.php",$data);
     	//echo json_encode($result);
       $this->load->model('get_model');
       $this->get_model->rootChild($nama);
-    }
+	}
+	
+	public function RCMOutstanding() {
+		$this->load->model("get_model");
+		$data['records'] = $this->get_model->get_RCMOutstanding();
+		//print_r($data['records']);
+		$this ->load->view("head");
+		$this ->load->view("content_report_RCMOutstanding",$data);
+	}
+
+	public function PPMOutstanding() {
+		$this->load->model("get_model");
+		$data['records'] = $this->get_model->get_PPMOutstanding();
+		//print_r($data['records']);
+		$this ->load->view("head");
+		$this ->load->view("content_report_PPMOutstanding",$data);
+	}
 
 }
 ?>
