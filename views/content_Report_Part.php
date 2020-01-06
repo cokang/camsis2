@@ -49,7 +49,6 @@
 			$fy = $this->input->post($stockpart);
         ?>
               <?php //echo form_dropdown($stockpart, $stock_part, set_value($stockpart,(!empty($fy) ? $fy : 'Select Stock Part')) , 'class="dropdown" style="width: 300px;"'); ?>
-			  <?php echo form_dropdown('record_year', $record_year, set_value('record_year',$this->input->get('record_year')) , 'class="dropdown" style="width: 60px;"'); ?>
 		 	<?php echo form_input($stockpart, $item, 'class="input" style="width: 300px;" placeholder="Search by Item Name/Item Code/Model"');
 			 ?>
 		<input type="submit" value="Apply" onclick="javascript: submit()">
@@ -59,19 +58,13 @@
 		<table class="tbl-wo" border="0" align="center">
 		<tr style="background:#B3130A;">
 			<td width="3%" height="30px">
-			<a href="?y=<?= $year-1?>&m=<?= $month?>&stockpart=<?= $item ?>"><img src="http://192.168.1.142/fms/images/arrow-left2.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
-			</td>
-			<td width="3%">
-			<a href="?y=<?= ($month-1 == 0) ? $year-1 :$year?>&m=<?= ($month-1 == 0) ? 12 :$month-1?>&stockpart=<?= $item ?>"><img src="http://192.168.1.142/fms/images/arrow-left.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
+			<a href="?y=<?= $year-1?>&stockpart=<?= $item ?>"><img src="http://myapbesys.advancepact.com/images/arrow-left2.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
 			</td>
 			<td width="88%" align="center">
 			<b> <?=$year?></b>
 			</td>
 			<td width="3%">
-			<a href="?y=<?= ($month+1 == 13) ? $year+1 :$year?>&m=<?= ($month+1 == 13) ? 1 :$month+1?>&stockpart=<?= $item ?>"><img src="http://192.168.1.142/fms/images/arrow-right.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
-			</td>
-			<td width="3%">
-			<a href="?y=<?= $year+1?>&m=<?= $month?>&stockpart=<?= $item ?>"><img src="http://192.168.1.142/fms/images/arrow-right2.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
+			<a href="?y=<?= $year+1?>&stockpart=<?= $item ?>"><img src="http://myapbesys.advancepact.com/images/arrow-right2.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
 			</td>
 		</tr>
 	</table>
@@ -138,13 +131,13 @@
 			<?php } else {?>
 			<table class="tftable2" border="1" style="text-align:center;" align="center">
 			<tr align="center" style="height:500px;">
-				<td colspan="8"><b>NO TRANSACTION FOUND FOR <?= $item ?> - <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?></b></td>
+				<td colspan="8"><b>NO TRANSACTION FOUND FOR <?= $item ?> -  <?=$year?></b></td>
 			</tr>
 			<?php } ?>
 			<?php } else {?>
 			<table class="tftable2" border="1" style="text-align:center;" align="center">
 			<tr align="center" style="height:500px;">
-				<td colspan="8"><b>NO TRANSACTION FOUND FOR <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?></b></td>
+				<td colspan="8"><b>NO TRANSACTION FOUND FOR  <?=$year?></b></td>
 			</tr>
 			<?php } ?>
 			<?php if (($numrow-1)%23==0) { ?>

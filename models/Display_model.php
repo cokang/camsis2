@@ -7356,24 +7356,5 @@ a inner join (
       return $query_result;
 	  }
 	  
-	  function year_history(){
-		  $this->db->select('distinct Year(Time_Stamp) as year');
-		  $this->db->from('tbl_item_movement');
-		  $this->db->where('Year(Time_Stamp)<>', 0);
-		  $this->db->order_by('year', 'desc');
-		  
-		  $query = $this->db->get();
-		  // echo $this->db->last_query();
-		  //exit();
-		  $year = array();
-		 // $year[''] = 'Please Select';
-		  if($query->num_rows() > 0) {
-		  foreach($query->result_array() as $row) {
-		  $year[$row['year']] = $row['year'];
-		  }
-		  }
-		  return $year;
-		  
-	  }
 }
 ?>

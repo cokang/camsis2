@@ -5772,60 +5772,51 @@ class Contentcontroller extends CI_Controller {
 
 
   	public function Report_Part(){
-  		$data['item']= !($this->input->get('stockpart')) || $this->input->get('stockpart') == 'Select Item Name' ? '' : $this->input->get('stockpart');
-  		//echo $data['item'];
-  		//exit();
-  		//$data['id']= $this->input->get('id');
-  		//echo $data['id'];
-  		
-
-  		$this->load->model('display_model');
-  		// $data['record'] = $this->display_model->stock_asset();
-$data['year']= ($this->input->get('record_year') <> 0) ? $this->input->get('record_year') : date("Y");
-  		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
-  			// foreach($data['record'] as $row){
-  			// 	if($data['item'] == $row->ItemName){
-  			// 		$data['code'] = $row->ItemCode;
-  			// 	}
-  			// }
-			  $data['record_year']= $this->display_model->year_history();
-			  //$year=$data['record_year'];
-// print_r($year);
-
-  			//	exit();
-  		if($data['item'] <> ''){
-  		$data['assetrec'] = $this->display_model->storeasset_report($data['item'],$data['month'],$data['year']);
-  		$unique = array();
-  			foreach($data['assetrec'] as $asset){
-  				$assetCode[]=$asset->ItemCode;
-  				$data['assets']=$asset->ItemCode;
-  				$data['codes']=array_unique($assetCode);
-  				$data['occurences'] = array_count_values($assetCode);
-
-  		}//print_r($data['codes']);
-  		//exit();
-  		$data['countarray'] = count($data['assetrec']);
-  		if($data['countarray']==0){
-  		$data['assetrec'] = array(
-  								  '0' => (object)array('ItemCode'=> null),
-  			);
-  			$data['codes'] = array( null,
-  );
-  		}
-
-  		}
-  		else {
-  		$data['assetrec'] = array(
-  			'0' => (object)array('ItemCode'=> null),
-
-  			);
-  			$data['codes'] = array( null,
-  );
-  		}
-  		// echo 'exit';
-  		// exit();
-  		$this ->load->view("headprinter");
-  		$this ->load->view("content_Report_Part",$data);
+		$data['item']= !($this->input->get('stockpart')) || $this->input->get('stockpart') == 'Select Item Name' ? '' : $this->input->get('stockpart');
+		//echo $data['item'];
+		//exit();
+		//$data['id']= $this->input->get('id');
+		//echo $data['id'];
+		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
+		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+		$this->load->model('display_model');
+		// $data['record'] = $this->display_model->stock_asset();
+			// foreach($data['record'] as $row){
+			// 	if($data['item'] == $row->ItemName){
+			// 		$data['code'] = $row->ItemCode;
+			// 	}
+			// }
+			//	exit();
+		if($data['item'] <> ''){
+		$data['assetrec'] = $this->display_model->storeasset_report($data['item'],$data['month'],$data['year']);
+		$unique = array();
+			foreach($data['assetrec'] as $asset){
+				$assetCode[]=$asset->ItemCode;
+				$data['assets']=$asset->ItemCode;
+				$data['codes']=array_unique($assetCode);
+				$data['occurences'] = array_count_values($assetCode);
+		}//print_r($data['codes']);
+		//exit();
+		$data['countarray'] = count($data['assetrec']);
+		if($data['countarray']==0){
+		$data['assetrec'] = array(
+								  '0' => (object)array('ItemCode'=> null),
+			);
+			$data['codes'] = array( null,
+);
+		}
+		}
+		else {
+		$data['assetrec'] = array(
+			'0' => (object)array('ItemCode'=> null),
+			);
+			$data['codes'] = array( null,
+);
+		}
+		// echo 'exit';
+		// exit();
+		$this ->load->view("headprinter");
+		$this ->load->view("content_Report_Part",$data);
   	}
 
 
