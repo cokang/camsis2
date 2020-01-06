@@ -5777,19 +5777,20 @@ class Contentcontroller extends CI_Controller {
   		//exit();
   		//$data['id']= $this->input->get('id');
   		//echo $data['id'];
-  		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
-  		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+  		
 
   		$this->load->model('display_model');
   		// $data['record'] = $this->display_model->stock_asset();
-
+$data['year']= ($this->input->get('record_year') <> 0) ? $this->input->get('record_year') : date("Y");
+  		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
   			// foreach($data['record'] as $row){
   			// 	if($data['item'] == $row->ItemName){
   			// 		$data['code'] = $row->ItemCode;
   			// 	}
   			// }
-
-
+			  $data['record_year']= $this->display_model->year_history();
+			  //$year=$data['record_year'];
+// print_r($year);
 
   			//	exit();
   		if($data['item'] <> ''){

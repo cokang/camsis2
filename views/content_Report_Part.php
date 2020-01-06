@@ -40,7 +40,7 @@
 
 		<form action="" method="GET">
 
-		<?php
+		<?php 
 		//  foreach ($record as $row){
 		//  	$stock_part['Select Item Name'] = 'Select Item Name';
 		//  	$stock_part[$row->ItemCode] = $row->ItemName;
@@ -49,6 +49,7 @@
 			$fy = $this->input->post($stockpart);
         ?>
               <?php //echo form_dropdown($stockpart, $stock_part, set_value($stockpart,(!empty($fy) ? $fy : 'Select Stock Part')) , 'class="dropdown" style="width: 300px;"'); ?>
+			  <?php echo form_dropdown('record_year', $record_year, set_value('record_year',$this->input->get('record_year')) , 'class="dropdown" style="width: 60px;"'); ?>
 		 	<?php echo form_input($stockpart, $item, 'class="input" style="width: 300px;" placeholder="Search by Item Name/Item Code/Model"');
 			 ?>
 		<input type="submit" value="Apply" onclick="javascript: submit()">
@@ -64,7 +65,7 @@
 			<a href="?y=<?= ($month-1 == 0) ? $year-1 :$year?>&m=<?= ($month-1 == 0) ? 12 :$month-1?>&stockpart=<?= $item ?>"><img src="http://192.168.1.142/fms/images/arrow-left.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
 			</td>
 			<td width="88%" align="center">
-			<b><?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?></b>
+			<b> <?=$year?></b>
 			</td>
 			<td width="3%">
 			<a href="?y=<?= ($month+1 == 13) ? $year+1 :$year?>&m=<?= ($month+1 == 13) ? 1 :$month+1?>&stockpart=<?= $item ?>"><img src="http://192.168.1.142/fms/images/arrow-right.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>

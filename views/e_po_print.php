@@ -130,6 +130,8 @@ img{
     <!--<button onclick="javascript:myFunction('e_po_print?po=<?=$this->input->get('po')?>&mrin=<?=$this->input->get('mrin')?>');" class="btn-button btn-primary-button">PRINT</button>-->
 		<button onclick="javascript:window.print();" class="btn-button btn-primary-button">PRINT</button>
     <button type="cancel" class="btn-button btn-primary-button" onclick="location.href = '<?php base_url();?>e_pr?<?php echo '&m='.$this->input->get('m').'&y='.$this->input->get('y');?>&tab=2';">CANCEL</button>
+	
+
 		<?php if (($this->input->get('ex') == '') or ($this->input->get('none') == '')){?>
 
 	<a href="<?php echo base_url();?>index.php/Procurement/e_po_print?po=<?=$this->input->get('po')?>&mrin=<?=$this->input->get('mrin')?>&pdf=1" style="float:right; margin-right:80px;"><img src="<?php echo base_url();?>images/pdf.png" style="width:40px; height:35px; position:absolute;" title="export to pdf"></a>
@@ -221,7 +223,7 @@ img{
     $date['day']   = $day;
 
 		$bulanda = array();
-		$bulanda = array("kosong", "Muharram", "Safar", "RabiulAwwal", "Rabiuthani", "JumadiulAwwal", "Jumadiuthani", "Rajab", "Shaban", "Ramadan", "Shawwal", "ZhulQada", "ZhulHijja");
+		$bulanda = array("kosong", "Muharram", "Safar", "RabiulAwal", "Rabiulakhir", "Jamadilawal", "Jamadilakhir", "Rejab", "Syaaban", "Ramadhan", "Shawal", "Zulkaedah", "Zulhijjah");
 
     if (!$string)
         return $date;

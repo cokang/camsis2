@@ -2273,7 +2273,7 @@ return $query->result();
 			$this->db->order_by('a.Time_Stamp','DESC');
 			$this->db->limit(5);
 			$query = $this->db->get();
-			echo $this->db->last_query();
+			//echo $this->db->last_query();
 			//exit();
 			return $query->result();
 		}
@@ -4744,7 +4744,7 @@ function itemdet($mrinno){
   	$this->db->where('MIRNcode',$mrinno);
 		$this->db->where('Who_Del IS NULL', null, false);
 		$query = $this->db->get();
-		echo $this->db->last_query();
+		//echo $this->db->last_query();
 		//exit();
 		$query_result = $query->result();
 		return $query_result;
@@ -7354,6 +7354,26 @@ a inner join (
       //exit();
       $query_result = $query->result();
       return $query_result;
-      }
+	  }
+	  
+	  function year_history(){
+		  $this->db->select('distinct Year(Time_Stamp) as year');
+		  $this->db->from('tbl_item_movement');
+		  $this->db->where('Year(Time_Stamp)<>', 0);
+		  $this->db->order_by('year', 'desc');
+		  
+		  $query = $this->db->get();
+		  // echo $this->db->last_query();
+		  //exit();
+		  $year = array();
+		 // $year[''] = 'Please Select';
+		  if($query->num_rows() > 0) {
+		  foreach($query->result_array() as $row) {
+		  $year[$row['year']] = $row['year'];
+		  }
+		  }
+		  return $year;
+		  
+	  }
 }
 ?>
