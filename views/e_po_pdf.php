@@ -36,7 +36,7 @@ border-bottom: solid 1px black;
 }
 
 .tbl-info-detail{
-	font-size:9px;
+	font-size:10px;
 
 }
 .tbl-info-td{
@@ -207,11 +207,11 @@ border-right: 1px solid black;
 	</tr>
 	<tr>
 		<td class="tbl-info-td">ASSET NO : <?=(isset($record[0]->V_Tag_no)) ? $record[0]->V_Tag_no :''?></td>
-		<td><?=$hospdet[0]->v_HospitalAdd1?></td>
+		<td><?=$hospdet[0]->v_HospitalName?></td>
 	</tr>
 	<tr>
 		<td class="tbl-info-td">EQUIPMENT: <?=(isset($record[0]->V_Asset_name)) ? $record[0]->V_Asset_name :''?></td>
-		<td><?=$hospdet[0]->v_HospitalAdd2?></td>
+		<td><?=$hospdet[0]->v_HospitalAdd1?> <?=$hospdet[0]->v_HospitalAdd2?></td>
 	</tr>
 	<tr>
 		<td class="tbl-info-td">DEPARTMENT : <?=(isset($record[0]->V_User_Dept_code)) ? $record[0]->V_User_Dept_code :''?> </td>
@@ -228,15 +228,15 @@ border-right: 1px solid black;
 	</table><br><br><br>
 		<table class="tbl-info-invoice">
 	<tr nobr="true">
-		<th width="4%"><b>No</b></th>
-		<th width="27%"><b>Description</b></th>
-		<th><b>Unit <br/> Measure</b></th>
-		<th width="5%"><b>Qty</b></th>
-		<th><b>Unit Price <br/> (RM)</b></th>
-		<th><b>Amount (RM)<br/> Before SST</b></th>
-		<th width="8%"><b>SST %</b></th>
-		<th width="8%"><b>SST (RM)</b></th>
-		<th width="15%"><b>Amount (RM)<br/> After SST</b></th>
+		<th width="4%">No</th>
+		<th width="27%">Description</th>
+		<th>Unit <br/> Measure</th>
+		<th width="5%">Qty</th>
+		<th>Unit Price <br/> (RM)</th>
+		<th>Amount (RM)<br/> Before SST</th>
+		<th width="8%">SST %</th>
+		<th width="8%">SST (RM)</th>
+		<th width="15%">Amount (RM)<br/> After SST</th>
 	</tr>
 	<tr nobr="true">
 		<td style="border-right:1px solid black;"></td>

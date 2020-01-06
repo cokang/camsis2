@@ -3920,7 +3920,8 @@ function nextprnumber(){
 
 function nextponumber($mrinno=''){
 	$alphabet = range('A', 'Z');
-	$monthe = date('m', strtotime('first day of -1 month'))-1+1;
+	//$monthe = date('m', strtotime('first day of -1 month'))-1+1;
+	$monthe = date('m')-1;
 	$area = substr(substr(substr($mrinno,-18),0,6),0,3);
 	$area2 = substr(substr($mrinno,0,7),5);
 	$aponie = substr(substr($mrinno,-17),0,6);
@@ -4044,13 +4045,13 @@ switch ($to) {
 				break;
 		case "MUR":
 		case "TGK":
-		case "PON":
 		case "KLN":
-		case "KTG":
+		case "BPH":
 				$to = "MUR";
 				break;
+		case "PON":
+		case "KTG":
 		case "HSI":
-		case "BPH":
 		case "MKJ":
 		case "MER":
 				$to = "HSI";
@@ -4415,6 +4416,18 @@ function get_stock_asset($searchitem=""){
 		// echo $this->db->last_query();
 
 
+		}
+		function check_itembaru($itemcode){
+			$this->db->select('*');
+			$this->db->from('tbl_invitem');
+			$this->db->where('ItemCode', $itemcode);
+			$query = $this->db->get();
+
+			if($query->num_rows()>0){
+				return 0;
+			}else{
+				return 1;
+			}
 		}
 }
 ?>

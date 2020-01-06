@@ -656,5 +656,31 @@ function chronology_update($visit,$wo,$insert_data){
 	$this->db->update('pmis2_emg_chronology',$insert_data);
 }
 
+
+function resetmirn($mirn, $status){
+		$this->db->set('ApprStatusIDxx',$status);
+		$this->db->set('ApprStatusIDx', $status);
+		$this->db->where('DocReferenceNo', $mirn);
+		$this->db->update('tbl_materialreq');
+		//echo $this->db->last_query();
+		//exit();
+	  	return $this->db->affected_rows() > 0;
+	  	}
+
+      function personnelinvolved_update($wo,$insert_data){
+        $this->db->where('v_WrkOrdNo',$wo);
+        $this->db->where('v_HospitalCode',$this->session->userdata('hosp_code'));
+      	$this->db->update('pmis2_emg_jobresponse',$insert_data);
+      }
+
+function delete_PO_MIRN($mirn,$vendor){
+		$this->db->set('MIRN_No',$mirn.'D');
+		$this->db->set('Vendor_No',$vendor.'-'.$this->session->userdata('v_UserName'));
+		$this->db->where('MIRN_No', $mirn);
+		$this->db->update('tbl_po_mirn');
+		//echo $this->db->last_query();
+		//exit();
+	  	return $this->db->affected_rows() > 0;
+}
 }
 ?>

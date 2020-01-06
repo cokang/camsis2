@@ -40,7 +40,7 @@
 
 		<form action="" method="GET">
 
-		<?php
+		<?php 
 		//  foreach ($record as $row){
 		//  	$stock_part['Select Item Name'] = 'Select Item Name';
 		//  	$stock_part[$row->ItemCode] = $row->ItemName;
@@ -58,19 +58,13 @@
 		<table class="tbl-wo" border="0" align="center">
 		<tr style="background:#B3130A;">
 			<td width="3%" height="30px">
-			<a href="?y=<?= $year-1?>&m=<?= $month?>&stockpart=<?= $item ?>"><img src="http://192.168.1.142/fms/images/arrow-left2.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
-			</td>
-			<td width="3%">
-			<a href="?y=<?= ($month-1 == 0) ? $year-1 :$year?>&m=<?= ($month-1 == 0) ? 12 :$month-1?>&stockpart=<?= $item ?>"><img src="http://192.168.1.142/fms/images/arrow-left.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
+			<a href="?y=<?= $year-1?>&stockpart=<?= $item ?>"><img src="http://myapbesys.advancepact.com/images/arrow-left2.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
 			</td>
 			<td width="88%" align="center">
-			<b><?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?></b>
+			<b> <?=$year?></b>
 			</td>
 			<td width="3%">
-			<a href="?y=<?= ($month+1 == 13) ? $year+1 :$year?>&m=<?= ($month+1 == 13) ? 1 :$month+1?>&stockpart=<?= $item ?>"><img src="http://192.168.1.142/fms/images/arrow-right.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
-			</td>
-			<td width="3%">
-			<a href="?y=<?= $year+1?>&m=<?= $month?>&stockpart=<?= $item ?>"><img src="http://192.168.1.142/fms/images/arrow-right2.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
+			<a href="?y=<?= $year+1?>&stockpart=<?= $item ?>"><img src="http://myapbesys.advancepact.com/images/arrow-right2.png" alt="" class="ui-img-icon" style="padding-top:4px; padding-left:4px;"/></a>
 			</td>
 		</tr>
 	</table>
@@ -137,13 +131,13 @@
 			<?php } else {?>
 			<table class="tftable2" border="1" style="text-align:center;" align="center">
 			<tr align="center" style="height:500px;">
-				<td colspan="8"><b>NO TRANSACTION FOUND FOR <?= $item ?> - <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?></b></td>
+				<td colspan="8"><b>NO TRANSACTION FOUND FOR <?= $item ?> -  <?=$year?></b></td>
 			</tr>
 			<?php } ?>
 			<?php } else {?>
 			<table class="tftable2" border="1" style="text-align:center;" align="center">
 			<tr align="center" style="height:500px;">
-				<td colspan="8"><b>NO TRANSACTION FOUND FOR <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?></b></td>
+				<td colspan="8"><b>NO TRANSACTION FOUND FOR  <?=$year?></b></td>
 			</tr>
 			<?php } ?>
 			<?php if (($numrow-1)%23==0) { ?>
