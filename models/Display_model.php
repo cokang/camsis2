@@ -161,6 +161,7 @@
         		$this->db->where('a.v_Wrkordstatus <> ', 'C');
         		break;
     				}
+  					$this->db->order_by('v_WrkOrdNo', 'asc');
             $query = $this->db->get("pmis2_egm_schconfirmmon a");
 
             //echo $this->db->last_query();
@@ -2283,6 +2284,7 @@ return $query->result();
 			if ($cari <> ''){
 			$this->db->like('CONCAT_WS(" ",ItemName,ItemCode,PartNumber)', $cari, 'both');
 			}
+			$this->db->order_by('a.ItemCode','DESC');
       $this->db->limit(200);
 			$query = $this->db->get();
 			//echo $this->db->last_query();
@@ -5032,13 +5034,19 @@ function prdet($mrinno){
 		$query_result = $query->result();
 		return $query_result;
 	}
-function itemprdet($mrinno){
+function itemprdet($mrinno, $unitcost=""){
     $this->db->distinct();
 		$this->db->select('a.*,b.ItemName,v.VENDOR_NAME,va.Vendor_Item_Code, va.vendor_item_name');
 		$this->db->from('tbl_mirn_comp a');
 		$this->db->join('tbl_invitem b','a.ItemCode = b.ItemCode');
 		$this->db->join('tbl_vendor_info v','a.ApprvRmk1x = v.VENDOR_CODE OR a.ApprvRmk1 = v.VENDOR_CODE','left');
-		$this->db->join('tbl_vendor va',"(a.ApprvRmk1x = va.VENDOR OR a.ApprvRmk1 = va.VENDOR) AND a.ItemCode = va.Item_Code and a.Unit_Costx = va.List_Price",'left');
+		//$this->db->join('tbl_vendor va',"(a.ApprvRmk1x = va.VENDOR OR a.ApprvRmk1 = va.VENDOR) AND a.ItemCode = va.Item_Code and a.Unit_Costx = va.List_Price",'left');
+    //$this->db->join('tbl_vendor va',"(a.ApprvRmk1x = va.VENDOR OR a.ApprvRmk1 = va.VENDOR) AND a.ItemCode = va.Item_Code ",'left');
+    if($unitcost==1){
+			$this->db->join('tbl_vendor va',"(a.ApprvRmk1x = va.VENDOR OR a.ApprvRmk1 = va.VENDOR) AND a.ItemCode = va.Item_Code and a.Unit_Costx = va.List_Price",'left');
+		}else{
+			$this->db->join('tbl_vendor va',"(a.ApprvRmk1x = va.VENDOR OR a.ApprvRmk1 = va.VENDOR) AND a.ItemCode = va.Item_Code ",'left');
+		}
 		$this->db->where('MIRNcode',$mrinno);
     $this->db->where('va.flag <>','D');
     $this->db->where('QtyReqfx <>','0');
@@ -6769,7 +6777,8 @@ return $obj['path'];
 		$this->db->join("tbl_specialist_review g", "g.MIRN_No=a.DocReferenceNo", "left");
 		$this->db->where("MONTH(a.DateCreated)", $Month);
 		$this->db->where("YEAR(a.DateCreated)", $Year);
-		$this->db->where("d.V_Hospitalcode", $this->input->get("whathosp") );
+    $this->db->where("SUBSTRING_INDEX(SUBSTRING_INDEX(`a`.`DocReferenceNo`, '/', -4), '/', 1)=", $this->input->get("whathosp") );
+    //$this->db->where("d.V_Hospitalcode", $this->input->get("whathosp") );
 
 		if( $this->input->get("whatr")==3 ){
 			$this->db->where("(a.ApprStatusID=5 OR a.ApprStatusIDx=5 OR a.ApprStatusIDxx=5)");
@@ -6806,7 +6815,8 @@ return $obj['path'];
 		$this->db->join("tbl_specialist_review g", "g.MIRN_No=a.DocReferenceNo", "left");
 		$this->db->where("MONTH(a.DateCreated)", $Month);
 		$this->db->where("YEAR(a.DateCreated)", $Year);
-		$this->db->where("d.V_Hospitalcode", $this->input->get("whathosp") );
+		$this->db->where("SUBSTRING_INDEX(SUBSTRING_INDEX(`a`.`DocReferenceNo`, '/', -4), '/', 1)=", $this->input->get("whathosp") );
+		//$this->db->where("d.V_Hospitalcode", $this->input->get("whathosp") );
 
 		if( $this->input->get("whatr")==3 ){
 			$this->db->where("(a.ApprStatusID=5 OR a.ApprStatusIDx=5 OR a.ApprStatusIDxx=5)");
@@ -6945,8 +6955,8 @@ return $query->result();
         case "MKA":
         case "AGJ":
         case "JAS":
-            //$hospape = "'TMP','MKA','AGJ','JAS'";
-            $hospape = "'TMP','AGJ'";
+            $hospape = "'TMP','MKA','AGJ','JAS'";
+            //$hospape = "'TMP','AGJ'";
             break;
         case "HSA":
         case "PER":
@@ -6956,16 +6966,16 @@ return $query->result();
             break;
         case "MUR":
         case "TGK":
-        case "PON":
+        case "BPH":
         case "KLN":
-        case "KTG":
-            $hospape = "'MUR','TGK','PON','KLN','KTG'";
+            $hospape = "'MUR','BPH','KLN','TGK'";
             break;
         case "HSI":
-        case "BPH":
+        case "KTG":
         case "MKJ":
         case "MER":
-            $hospape = "'HSI','BPH','MKJ','MER'";
+        case "PON":
+            $hospape = "'HSI','KTG','MER','PON','MKJ'";
             break;
         default:
             $hospape = "'".$hosp."'";
@@ -7088,7 +7098,7 @@ function chrology_sum_report($datefrom,$dateto,$nama,$negeri){
 	$this->db->distinct();
 $this->db->select("d.D_date, a.v_WrkOrdNo,d.v_ref_wo_no,a.v_HospitalCode,a.v_ActionTaken,ar.V_Asset_no,ar.V_Tag_no,ar.V_Asset_name,ar.V_Manufacturer,ar.V_Model_no,b.nama,
 mr.DocReferenceNo,pom.MIRN_No, pom.PO_No, pom.Vendor_No, vi.VENDOR_NAME, vi.TELEPHONE_NO, po.PO_Date, mr.DateCreated,ag.D_commission,ag.N_Cost, IFNULL(IFNULL(IFNULL(ApprCommentsxx,ApprCommentsx),ApprComments),Comments) AS Commentsx,
-jr.v_Personal1, d.V_request_status,d.V_servicecode, po.paytype,
+jr.v_Personal1, d.V_request_status,d.V_servicecode, po.paytype,d.V_summary,
 (CASE
    WHEN a.v_HospitalCode in ('HSA','HSI','KTG','KUL','PER','SGT','KLN','MER','PON','BPH','MUR','MKJ','TGK') THEN  'JOH'
 			WHEN a.v_HospitalCode in ('AGJ','JAS','MKA','TMP') THEN  'MKA'
@@ -7331,5 +7341,23 @@ a inner join (
       $query_result = $query->result();
       return $query_result;
       }
+
+
+    	function itemprdet2($mrinno,$vendorcode){
+    		$this->db->distinct();
+    		$this->db->select('a.*,b.ItemName,v.VENDOR_NAME,va.Vendor_Item_Code, va.vendor_item_name');
+    		$this->db->from('tbl_mirn_comp a');
+    		$this->db->join('tbl_invitem b','a.ItemCode = b.ItemCode');
+    		$this->db->join('tbl_vendor_info v',"v.VENDOR_CODE = '$vendorcode' OR a.ApprvRmk1 = v.VENDOR_CODE",'left');
+    		$this->db->join('tbl_vendor va',"(va.VENDOR = '$vendorcode' OR a.ApprvRmk1 = va.VENDOR) AND a.ItemCode = va.Item_Code AND va.flag <> 'D' ",'left');
+    		$this->db->where('MIRNcode',$mrinno);
+        $this->db->where('va.flag <>','D');
+        $this->db->where('QtyReqfx <>','0');
+        $query = $this->db->get();
+    		//echo $this->db->last_query();
+    		//exit();
+    		$query_result = $query->result();
+    		return $query_result;
+    		}
 }
 ?>

@@ -52,7 +52,7 @@ class Prapproval_ctrl extends CI_Controller{
 			$this->insert_model->tbl_pr($insert_pr);
 
 			$insert_app = array('PR_No' => $data['newpr'][0]->prno,
-								'WHO_Apprv' => 'SM');
+								'WHO_Apprv' => 'SM'.'-'.$this->session->userdata('v_UserName'));
 			$this->insert_model->tbl_pr_apprv($insert_app);
 
 			$update_prno = array('pr_next_no' => $data['newpr'][0]->pr_next_no + 1,

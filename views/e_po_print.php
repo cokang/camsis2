@@ -283,7 +283,7 @@ img{
 	<table class="tbl-info-invoice">
 	<tr>
 		<th>No</th>
-		<th>Description</th>
+		<th style="width: 50%;">Description</th>
 		<th>Unit <br/> Measure</th>
 		<th>Qty</th>
 		<th>Unit Price <br/> (RM)</th>

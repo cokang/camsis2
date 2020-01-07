@@ -48,6 +48,7 @@ class Procurement extends CI_Controller {
 			//echo "lalalal : ".$data['mrintype'];
 			$this->load->model('display_model');
 			$data['user'] = $this->display_model->user_class($this->session->userdata('v_UserName'));
+			print_r($data['user']);
 			$this->load->model('get_model');
 			if ((empty($search)) && ($this->get_model->check_userimg())) {
 				$data['record']= $this->display_model->mrinlist($data['month'],$data['year'],$data['mrintype'], $data['user'][0]->class_id,"IMG");
@@ -419,14 +420,14 @@ class Procurement extends CI_Controller {
 			//echo "nilai hosp : ".$area."<br>";
 			//echo "klklk : PO/OPU-02/".substr(substr($testbed,-17),0,6)."/".$alphabet[$monthe].date('Y').$area.":".$hosp.":".$alphabet[3];
 		$data['record'] = $this->display_model->prdet($this->input->get('mrinno'));
-		$data['itemrec'] = $this->display_model->itemprdet($this->input->get('mrinno'));
+		$data['itemrec'] = $this->display_model->itemprdet($this->input->get('mrinno'),1);
 		$data['comrec'] = $this->display_model->comrec($this->input->get('mrinno'));
 		$data['attrec'] = $this->display_model->attrec($this->input->get('mrinno'));
 
 		$this ->load->view("Content_mrin_procure",$data);
 		}elseif ($this->input->get('pr') == 'approved'){
 		$data['record'] = $this->display_model->prdet($this->input->get('mrinno'));
-		$data['itemrec'] = $this->display_model->itemprdet($this->input->get('mrinno'));
+		$data['itemrec'] = $this->display_model->itemprdet($this->input->get('mrinno'),1);
 		$data['comrec'] = $this->display_model->comrec($this->input->get('mrinno'));
 		$data['attrec'] = $this->display_model->attrec($this->input->get('mrinno'));
 		$this ->load->view("Content_mrin_procure",$data);
@@ -456,10 +457,12 @@ class Procurement extends CI_Controller {
 	public function e_po_print(){
 		$this->load->model('display_model');
 		$data['record'] = $this->display_model->prdet($this->input->get('mrin'));
-		$data['itemrec'] = $this->display_model->itemprdet($this->input->get('mrin'));
+		//$data['itemrec'] = $this->display_model->itemprdet($this->input->get('mrin'));
 		$data['vencd'] = $this->display_model->findvencd($this->input->get('mrin'));
 		$data['veninfo'] = $this->display_model->findven((isset($data['vencd'][0]->Vendor)) ? $data['vencd'][0]->Vendor : 'noval');
 		$data['podetail'] = $this->display_model->podet($this->input->get('po'));
+		$data['itemrec'] = $this->display_model->itemprdet($this->input->get('mrin'),1);
+		$data['itemrec']?$data['itemrec']:$data['itemrec'] =$this->display_model->itemprdet2($this->input->get('mrin'),$data['vencd'][0]->Vendor);
 		$favcolor = "red";
 		$hospapa = "";
 		$hoswakil = "";
@@ -524,6 +527,42 @@ class Procurement extends CI_Controller {
     //echo 'true ler'.$data['hospdet'][0]->v_head_of_lls;
 		//print_r($data['hospdet'][0]);
 		}
+
+
+		$items=$data['itemrec'];
+		//echo $items[0]->ItemCode;
+		// print_r($items);
+
+		//print_r($insertData);
+		$this->load->model('update_model');
+		$this->load->model('insert_model');
+		if($this->input->get("reset")==1){
+		$this->update_model->resetmirn($this->input->get("mrin"),6);
+		$this->update_model->delete_PO_MIRN($this->input->get("mrin"),$data['vencd'][0]->Vendor);
+		$i=0;
+		foreach($items as $item){
+			$insertData[] = array('po_no' => $this->input->get("po"),
+								'item_code' => $item->ItemCode,
+								'price' => $item->Unit_Costx
+			);
+			$this->insert_model->insert_PO_del_item($insertData[$i++]);
+		}
+
+
+		redirect('Procurement/e_pr?tab=2&y='.date("Y") .'&m='.date("m") ,'refresh');
+
+		}
+
+		function toArray($obj)
+{
+    $obj = (array) $obj;//cast to array, optional
+    return $obj['path'];
+}
+    $idArray = array_map('toArray', $this->session->userdata('accessr'));
+
+		//echo "nilai id : ".print_r($idArray);
+		$data['chkers'] = $idArray;
+
 		//echo "nilai ".$hoswakil.$hospapa."abis";
 		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
 		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
@@ -905,8 +944,8 @@ class Procurement extends CI_Controller {
 							//echo "hi babexxxxyyyyy";
 							//exit();
 			if($_SERVER['REQUEST_METHOD'] === 'POST' && $this->form_validation->run() == false){
-				echo "watthefak : 1";
-				exit();
+				//echo "watthefak : 1";
+				//exit();
 				$data["save_link"] = "/Release_note?pro=new&id=".$this->input->get('id');
 				$data["formType"] = "new";
 				$this ->load->view("Content_Release_note_newedit",$data);
@@ -1236,6 +1275,11 @@ class Procurement extends CI_Controller {
 		$this->load->view("report_mrin_listing", $data);
 	}
 
+
+	public function resetmirn(){
+		$this ->load->view("headprinter");
+		$this ->load->view("content_resetmirn");
+	}
 
 
 
