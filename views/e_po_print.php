@@ -134,6 +134,9 @@ img{
 
 	<a href="<?php echo base_url();?>index.php/Procurement/e_po_print?po=<?=$this->input->get('po')?>&mrin=<?=$this->input->get('mrin')?>&pdf=1" style="float:right; margin-right:80px;"><img src="<?php echo base_url();?>images/pdf.png" style="width:40px; height:35px; position:absolute;" title="export to pdf"></a>
 	<?php } ?>
+	<?php if (in_array("cancelpo", $chkers)) { ?>
+	<button type="cancel" class="btn-button btn-primary-button" onclick="location.href='<?php echo base_url();?>index.php/Procurement/e_po_print?po=<?=$this->input->get('po')?>&mrin=<?=$this->input->get('mrin')?>&reset=1';" style="float:right; margin-right:130px;">CANCEL PO</button>
+	<?php  } ?>
 </div>
 
 			<div class="wrapper">
@@ -314,17 +317,18 @@ img{
 		foreach($itemrec as $rowed):?>
 
 				<tr style="height:20px;vertical-align:top; border-top:hidden;">
-					<td><?=$no;?></td>
-					<td style="text-align:left;"><?=strtoupper($rowed->vendor_item_name)?><br /> P/N : <?=strtoupper($rowed->Vendor_Item_Code)?></td>
-					<td>UNIT</td>
+					<td ><?=$no;?></td>
+					<td style="text-align:left;"><?=strtoupper($rowed->vendor_item_name)?><br /> P/N : <?=$rowed->Vendor_Item_Code?></td>
+					<td >UNIT</td>
 					<td ><?=$rowed->QtyReqfx?></td>
 					<?php
 					$howmanyunit = floatval($rowed->QtyReqfx);
 					$perunit = floatval($rowed->Unit_Costx);
 					$totalcost = $perunit*$howmanyunit;
+					$tax=0;
 					//echo "totalcost : ".$no.":".$totalcost;
 					//$gstcost = $totalcost*.06;
-					$gstcost = $totalcost*0;
+					$gstcost = $totalcost*$tax;
 					$totalwgst = $gstcost+$totalcost;
 					//echo "qwqwqw".$itemrec[0]->Unit_Costx."iuiuiu".$perunit;
 					?>
@@ -332,7 +336,7 @@ img{
 					<td align="right"><?=number_format($totalcost,2)?></td>
 
 
-					<td align="right">0%</td>
+					<td align="right"><?=$tax.'%' ?></td>
 					<td align="right"><?=number_format($gstcost,2)?></td>
 					<td align="right"><?=number_format($totalwgst,2)?></td>
 
