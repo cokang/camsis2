@@ -3920,7 +3920,8 @@ function nextprnumber(){
 
 function nextponumber($mrinno=''){
 	$alphabet = range('A', 'Z');
-	$monthe = date('m', strtotime('first day of -1 month'))-1+1;
+	//$monthe = date('m', strtotime('first day of -1 month'))-1+1;
+	$monthe = date('m')-1;
 	$area = substr(substr(substr($mrinno,-18),0,6),0,3);
 	$area2 = substr(substr($mrinno,0,7),5);
 	$aponie = substr(substr($mrinno,-17),0,6);
@@ -4044,13 +4045,13 @@ switch ($to) {
 				break;
 		case "MUR":
 		case "TGK":
-		case "PON":
 		case "KLN":
-		case "KTG":
+		case "BPH":
 				$to = "MUR";
 				break;
+		case "PON":
+		case "KTG":
 		case "HSI":
-		case "BPH":
 		case "MKJ":
 		case "MER":
 				$to = "HSI";
@@ -4382,7 +4383,7 @@ function get_stock_asset($searchitem=""){
 			echo json_encode($result);
 		}
 
-		function reportChronology($datefrom, $dateto){
+		function reportChronology($datefrom, $dateto, $filterby){
 			$this->db->select("d.D_date,
 			b.nama, count(b.id) as total,
 			SUM(CASE
@@ -4405,7 +4406,11 @@ function get_stock_asset($searchitem=""){
 		$this->db->where('d.D_date BETWEEN"'.$datefrom.'"and"'.$dateto.'"');
 
 		}
+		if($filterby!='All'){
+			$this->db->where('d.V_request_status', $filterby);
+		}
 		$this->db->where('a.n_Visit', 1);
+		$this->db->where('b.id <>', 1);
 		$this->db->group_by('b.id');
 		// $this->db->where('NOW()', $Value);
 
@@ -4420,7 +4425,7 @@ function get_stock_asset($searchitem=""){
 			$this->db->from('tbl_invitem');
 			$this->db->where('ItemCode', $itemcode);
 			$query = $this->db->get();
-		
+
 			if($query->num_rows()>0){
 				return 0;
 			}else{

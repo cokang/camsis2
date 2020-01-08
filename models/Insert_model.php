@@ -2841,7 +2841,7 @@ function ins_itembaru($insert_data){
 						$insert_data = array(
 								 'v_ActionTaken' => $this->input->post('n_Action_Taken'),
 								 'v_ReschAuthBy' => $this->input->post('n_Type_of_Work'),
-								 'n_Spares' => $this->input->post('movement'),
+								 'V_AssetMovement' => $this->input->post('movement'),
 								 'v_Actionflag' => 'U',
 								 'd_Timestamp' => date("Y-m-d H:i:s")
 								);
@@ -2854,7 +2854,7 @@ function ins_itembaru($insert_data){
 							 'v_WrkOrdNo'=> $RN,
 							 'v_ActionTaken' => $this->input->post('n_Action_Taken'),
 							 'v_ReschAuthBy' => $this->input->post('n_Type_of_Work'),
-							 'n_Spares' => $this->input->post('movement'),
+							 'V_AssetMovement' => $this->input->post('movement'),
 							 'v_Actionflag' => 'I',
 							 'd_Timestamp' => date("Y-m-d H:i:s"),
 							 'v_HospitalCode' => $this->session->userdata('hosp_code'),

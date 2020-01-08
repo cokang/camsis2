@@ -30,6 +30,9 @@ class Wo_chronology_update_ctrl extends CI_Controller{
   //if (substr($data['wrk_ord'],0,2) == 'PP'){
   $data['rc'] = $this->get_model->getrootcause();
 	$data['wrk_ord'] = $this->input->post('wrk_ord');
+	$data['movement'] = array('Workshop' => 'Workshop', 
+                  			'Vendor' => 'Vendor',
+                   			'Remain at user location'=> 'Remain at user location');
 
 	$this->form_validation->set_rules('n_Type_of_Work','Root Cause','trim|required');
 	$this->form_validation->set_rules('n_Action_Taken','Details Of Work Progress','trim|required');

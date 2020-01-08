@@ -10,9 +10,17 @@
                   <tr>
                         <td valign="top" class="td-assest">Root Cause : </td>
                         <td>
-                              <?php echo form_dropdown('n_Type_of_Work', $rc, $this->input->post('n_Type_of_Work') , 'class="dropdown n_wi-date2" disabled'); ?>
+                              <?php echo form_dropdown('n_Type_of_Work', $rc, $this->input->post('n_Type_of_Work') , 'class="dropdown n_wi-date" disabled'); ?>
                         </td>
                   </tr>
+                  <tr>
+                  <td valign="top" class="td-assest" >Asset movement Internal : </td>
+        <td >
+        <?php echo form_dropdown('movement', $movement, $this->input->post('movement') , 'class="dropdown n_wi-date" id="parentText" disabled'); ?>
+                      </td>
+                      </tr>
+     
+     
                   <tr>
                         <td valign="top" class="td-assest">Details Of Work Progress : </td>
                         <td><textarea class="input n_com" name="n_Action_Taken"  readonly><?php echo $this->input->post('n_Action_Taken');?><?php echo set_value('n_Action_Taken'); ?></textarea></td>
@@ -35,6 +43,7 @@
             <?php echo form_hidden('n_Ehour',$this->input->post('n_Ehour'));?>
             <?php echo form_hidden('n_Emin',$this->input->post('n_Emin'));?>
             <?php echo form_hidden('n_Type_of_Work',$this->input->post('n_Type_of_Work'));?>
+            <?php echo form_hidden('movement',$this->input->post('movement'));?>
             <?php echo form_hidden ('n_Action_Taken',$this->input->post('n_Action_Taken')); ?>
             <?php echo form_hidden ('C_requestor1',$this->input->post('C_requestor1')); ?>
             <?php echo form_hidden ('V_requestor1',$this->input->post('V_requestor1')); ?>

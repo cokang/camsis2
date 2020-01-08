@@ -8779,7 +8779,11 @@ public function chronologyplus(){
   $this->load->model("display_model");
   $this->load->model('get_model');
   $data['rc'] = $this->get_model->getrootcause();
-  $data['rc_parent'] = $this->get_model->getrootcause_nodash();;
+  $data['rc_parent'] = $this->get_model->getrootcause_nodash();
+  $data['records'] = $this->display_model->chronology_tab($data['wrk_ord']);
+  $data['movement'] = array('Workshop' => 'Workshop', 
+                  'Vendor' => 'Vendor',
+                   'Remain at user location'=> 'Remain at user location');
   //if (substr($data['wrk_ord'],0,2) == 'PP'){
   //echo "nilai visit " . $data['visit'];
   if ($data['visit'] != "") {
@@ -8917,11 +8921,12 @@ public function report_chronology(){
 		$end = (date("Y-12-31",time()));
 		$from = $this->input->get('from') ? $this->input->get('from') : $start;
 		$to = $this->input->get('to') ? $this->input->get('to') : $end;
+		$filterby= $this->input->get('status');
 		//$from = $this->input->get('from') ? $this->input->get('from') : '';
 		//$to = $this->input->get('to') ? $this->input->get('to') : '';
 		$data['from']=$from;
 		$data['to']=$to;
-		$data['det'] =$this->get_model->reportChronology($from, $to);
+		$data['det'] =$this->get_model->reportChronology($from, $to,$filterby);
 		$this ->load->view("head");
 		$this ->load->view("content_report_chronology",$data);
 	}
@@ -8932,12 +8937,13 @@ public function report_chronology(){
 		$to = $this->input->get('to') ? $this->input->get('to') : '';
 		$nama = $this->input->get('nama');
 		$negeri = $this->input->get('negeri');
+		$filterby= $this->input->get('status');
 		// echo 'test'.$nama.$negeri;
 		// exit();
         //$data['records'] = $this->display_model->chrology_sum_report($from, $to,$nama,$negeri);
 
     		$data['year']= date("Y");
-    		$data['records'] = $this->display_model->chrology_sum_report($from, $to,$nama,$negeri);
+    		$data['records'] = $this->display_model->chrology_sum_report($from, $to,$nama,$negeri,$filterby);
     		$cost[]='';
     		if($data['records']!=null){
     		foreach($data['records'] as $key => $val){

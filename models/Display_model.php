@@ -128,7 +128,7 @@
             $this->db->order_by('V_Request_no ASC');
             //$query = $this->db->get("pmis2_egm_service_request");
             $query = $this->db->get();
-            echo $this->db->last_query();
+            //echo $this->db->last_query();
             //exit();
             $query_result = $query->result();
             return $query_result;
@@ -2285,6 +2285,7 @@ return $query->result();
 			if ($cari <> ''){
 			$this->db->like('CONCAT_WS(" ",ItemName,ItemCode,PartNumber)', $cari, 'both');
 			}
+			$this->db->order_by('a.ItemCode','DESC');
       $this->db->limit(200);
 			$query = $this->db->get();
 			//echo $this->db->last_query();
@@ -7108,7 +7109,7 @@ return $query_result;
 }
 
 
-function chrology_sum_report($datefrom,$dateto,$nama,$negeri){
+function chrology_sum_report($datefrom,$dateto,$nama,$negeri,$filterby){
 	$this->db->distinct();
 $this->db->select("d.D_date, a.v_WrkOrdNo,d.v_ref_wo_no,a.v_HospitalCode,a.v_ActionTaken,ar.V_Asset_no,ar.V_Tag_no,ar.V_Asset_name,ar.V_Manufacturer,ar.V_Model_no,b.nama,
 mr.DocReferenceNo,pom.MIRN_No, pom.PO_No, pom.Vendor_No, vi.VENDOR_NAME, vi.TELEPHONE_NO, po.PO_Date, mr.DateCreated,ag.D_commission,ag.N_Cost, IFNULL(IFNULL(IFNULL(ApprCommentsxx,ApprCommentsx),ApprComments),Comments) AS Commentsx,
@@ -7143,6 +7144,9 @@ if($nama!='ALL'){
 $this->db->where('b.nama', $nama);}
 if($negeri!='ALL'){
 $this->db->having('negeri',$negeri);}
+if($filterby!='All'){
+			$this->db->where('d.V_request_status', $filterby);
+		}
 $this->db->where('a.n_Visit', 1);
 $this->db->order_by('D_date', 'asc');
 // $this->db->group_by('b.id');

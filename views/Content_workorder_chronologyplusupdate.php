@@ -41,7 +41,13 @@
          
                       </td>
                       </tr>
-     
+                      <tr>
+      <td class="td-assest" valign="top">Asset movement Internal : </td> 
+        <td >
+        <?php echo form_dropdown('movement', $movement,set_value('movement',isset($records[0]->V_AssetMovement)?$records[0]->V_AssetMovement:'', ( !empty($movement) && $movement == isset($records[0]->V_AssetMovement)?$records[0]->V_AssetMovement:'' ? TRUE : FALSE ))  , 'class="dropdown n_wi-date" id="assetmovement"'); ?>
+                      </td>
+                      </tr>
+    
       <tr>
         <td class="td-assest" valign="top">Details Of Work Progress : </td>
         <td><textarea class="input n_com" name="n_Action_Taken"><?php echo set_value('n_Action_Taken', isset($record[0]->v_ActionTaken) == TRUE ? $record[0]->v_ActionTaken : 'N/A')?></textarea></td>
