@@ -390,7 +390,11 @@ class Contentcontroller extends CI_Controller {
 		$this->load->model("display_model");
 		//$data['r'] = $this->display_model->listworkorder();
 		$data['records'] = $this->display_model->list_workorderx($data);
-		//print_r($data['records']);
+		//print_r($data['records'] ); exit();
+		$userdata = $this->display_model->user_class($this->session->userdata('v_UserName'));
+		$data['userclass'] = $userdata[0]->class_id;
+	
+	//	print_r($data['records']);
 		//exit();
 		$data['totalrec'] = count($data['records']);
 

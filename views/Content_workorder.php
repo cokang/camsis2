@@ -90,7 +90,7 @@
 			<tr class="ui-color-contents-style-1">
 				<td colspan="14" style="">
 				<style>
-				.ui-content-middle-menu-workorder2 tr td {padding:8px;font-size:14px;}
+				.ui-content-middle-menu-workorder2 tr td {padding:2px;font-size:14px;}
 				</style>
 					<table class="ui-content-middle-menu-workorder2 ui-left_web" width="100%" height="25px">
 						<?php if ($tulis == "AP19") {?>
@@ -113,6 +113,7 @@
 							<td width="">Type</td>
 							<td width="">Hosp</td>
 							<td width="">Request Number</td>
+							<td width="">MRIN</td>
 							<td width="">QAP</td>
 							<td width="">Priority</td>
 							<td width="">Location</td>
@@ -123,13 +124,46 @@
 					</tr>
 					<?php }?>
 						<?php  if (!empty($records)) {?>
-				<?php $numrow = 1; foreach($records as $row):?>
+				<?php $numrow = 1;$prevwo='0'; foreach($records as $row):?>
 
-	    				<?php echo ($numrow%2==0) ? '<tr class="ui-color-color-color">' : '<tr>'; ?>
+						<?php echo ($numrow%2==0) ? '<tr class="ui-color-color-color">' : '<tr>'; 	
+						if($row->V_Request_no==$prevwo){continue;}?>
 	    					<td style="text-transform: capitalize;"><?php if ($tulis == "AP19") {echo $row->V_User_dept_code;} else {echo $row->V_requestor;}?></td>
 		        			<td><?=$row->V_servicecode?></td>
 		        			<td><?=$row->V_request_type?></td>
 		        			<td><?php echo anchor ('contentcontroller/workorderlist?&wrk_ord='.$row->V_Request_no,''.$row->V_Request_no.'','style="font-size:16px; font-weight:bold;"' ) ?></td>
+							<td><?php 
+						
+							foreach($records as $list){
+		
+							
+								if ($userclass == 1){
+									if ($list->ApprStatusID == 6 || $list->ApprStatusID == 128){
+										$pro = 'pending';
+									}else {
+										$pro = 'approved';
+									}
+								}else if ($userclass == 2){
+									if ($list->ApprStatusID == 6){
+										$pro = 'pending';
+										//$pro = 'approved';
+									}else if ($list->ApprStatusID == 107) {
+										$pro = 'edit';
+									}else {
+										$pro = 'approved';
+										//$pro = 'pending';
+									}
+								}else if ($userclass == 3){
+									if ($list->ApprStatusID == 4 && ($list->ApprStatusIDx == 6 || $list->ApprStatusIDx == 128 || $list->ApprStatusIDx == NULL)){
+										$pro = 'pending';
+									}else {
+										$pro = 'approved';
+									}
+								}
+							if($list->V_Request_no==$row->V_Request_no){echo anchor ('Procurement?mrinno='.$list->DocReferenceNo.'&pro='.$pro,''.$list->DocReferenceNo.'<br>'.'','style="font-size:16px; font-weight:bold;"' );}//echo $list[$x++]->DocReferenceNo.'<br>';	
+						}
+						
+							?></td>
 		        			<td><?php if ($tulis == "AP19") {echo $row->V_phone_no;} else {echo "";}?></td>
 		        			<td><?php if ($tulis == "AP19") {echo $row->V_MohDesg;} else {echo $row->V_priority_code;}?></td>
 		        			<td><?php if ($tulis == "AP19") {echo $row->v_ref_status;} else {echo $row->V_Location_code.'<br>'.$row->v_Location_Name;}?></td>
@@ -138,8 +172,11 @@
 		        			<td><?=$row->V_request_status?></td>
 		        			<td style="width:100px; text-align:left;"><?=$row->V_summary?></td>
 	        			</tr>
-	        			<?php $numrow++; ?>
-			    		<?php endforeach;?>
+						<?php $numrow++; 
+						$prevwo=$row->V_Request_no;
+						?>
+						<?php endforeach;
+						?>
 			    		<?php }else { ?>
 						<tr align="center" style="background:white; height:200px;">
 	    					<td colspan="11"><span style="color:red; text-transform: uppercase;">NO <?=$tulis?> <?php if ($this->input->get('parent') == 'desk' ){?>
