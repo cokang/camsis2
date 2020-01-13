@@ -1267,7 +1267,6 @@ class Contentcontroller extends CI_Controller {
 		$data['wrk_ord'] = $this->input->get('wrk_ord');
 		$this->load->model('display_model');
 		if (substr($data['wrk_ord'],0,2) == 'PP'){
-			
 		$data['rvisit1'] = $this->display_model->visit1ppm_tab($data['wrk_ord']);
 		//$data['rvisit2'] = $this->display_model->visit2ppm_tab($data['wrk_ord']);
 		//$data['rvisit3'] = $this->display_model->visit3ppm_tab($data['wrk_ord']);
@@ -1277,7 +1276,6 @@ class Contentcontroller extends CI_Controller {
 		$data['rvisit1'] = $this->display_model->visit1_tab($data['wrk_ord']);
 		//$data['rvisit2'] = $this->display_model->visit2_tab($data['wrk_ord']);
 		//$data['rvisit3'] = $this->display_model->visit3_tab($data['wrk_ord']);
-		//print_r($data['rpersonnel']);
 		}
 
 		if (isset($data['rpersonnel'][0]->v_WrkOrdNo)){
@@ -1738,14 +1736,18 @@ class Contentcontroller extends CI_Controller {
 		}
 	}
 		public function technicalsummary(){
+		$this->load->model('display_model');
+		$data['record'] = $this->display_model->rootcause($this->input->get('wrk_ord'));
 		$this ->load->view("head");
 		$this ->load->view("left");
-		$this ->load->view("Content_workorder_technicalsummary");
+		$this ->load->view("Content_workorder_technicalsummary",$data);
 	}
 		public function technicalsummary_update(){
+		$this->load->model('display_model');
+		$data['record'] = $this->display_model->rootcause($this->input->get('wrk_ord'));
 		$this ->load->view("head");
 		$this ->load->view("left");
-		$this ->load->view("Content_workorder_technicalsummary_Update");
+		$this ->load->view("Content_workorder_technicalsummary_Update",$data);
 	}
 		public function clause(){
 		$this ->load->view("head");
@@ -3385,6 +3387,16 @@ class Contentcontroller extends CI_Controller {
 			}
 		}
 			redirect("contentcontroller/Licenses");
+	}
+	
+	public function print_rootcause()
+	{
+		$this->load->model('display_model');
+		$this->load->model("get_model");
+		$data['wrk_ord'] = $this->input->get('wrk_ord');
+		$data['record'] = $this->display_model->rootcause($this->input->get('wrk_ord'));
+		$this ->load->view("headprinter");
+		$this->load->view("Content_rootcause_print", $data);
 	}
 
 	public function print_workorder(){

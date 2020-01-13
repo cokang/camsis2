@@ -24,7 +24,7 @@ function myFunction() {
 	<?= ($this->input->get('wo') == '2') ? '<td class="ui-highlight" align="center" colspan="0"  width="">' : '<td class="ui-content-menu-desk-color" align="center" colspan="0" style="" width="">'?>
 	<?php echo anchor ('contentcontroller/personnelinvolved?wrk_ord='.$this->input->get('wrk_ord').'&wo=2', 'Personnel Involved'); ?></td>
 	<?= ($this->input->get('wo') == '3') ? '<td class="ui-highlight" align="center" colspan="0"  width="">' : '<td class="ui-content-menu-desk-color" align="center" colspan="0" style="" width="">'?>
-	<?php echo anchor ('contentcontroller/technicalsummary?wrk_ord='.$this->input->get('wrk_ord').'&wo=3', 'Technical Summary'); ?></td>
+	<?php echo anchor ('contentcontroller/technicalsummary?wrk_ord='.$this->input->get('wrk_ord').'&wo=3', 'Root Cause'); ?></td>
 	<?= ($this->input->get('wo') == '4') ? '<td class="ui-highlight" align="center" colspan="0"  width="">' : '<td class="ui-content-menu-desk-color" align="center" colspan="0" style="" width="">'?>
 	<?php //echo anchor ('contentcontroller/clause?wrk_ord='.$this->input->get('wrk_ord').'&wo=9', 'Clause'); ?>
 	<?php //echo anchor ('href="http://apbesys.advancepact.com/procurement/camsisredirect.asp?userid=ika&procno=1" onclick="javascript:void window.open("http://apbesys.advancepact.com/procurement/camsisredirect.asp?userid=nezam&procno=1","1453261608607","width=700,height=500,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0");return false;', 'Clause'); ?>
@@ -52,7 +52,7 @@ function myFunction() {
 		$right = base_url().'index.php/contentcontroller/technicalsummary?wrk_ord='.$this->input->get('wrk_ord').'&wo=3';
 		break;
 	case "3":
-		$tulis = "Technical Summary";
+		$tulis = "Root Cause";
 		$left = base_url().'index.php/contentcontroller/personnelinvolved?wrk_ord='.$this->input->get('wrk_ord').'&wo=2';
 		$right = '';
 		break;

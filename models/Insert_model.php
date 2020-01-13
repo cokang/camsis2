@@ -2668,19 +2668,10 @@ function tbl_po($insert_data){
 	$this->db->insert('tbl_po',$insert_data);
 }
 function ins_itembaru($insert_data){
-	$this->db->select('*');
-	$this->db->from('tbl_invitem');
-	$this->db->where('ItemCode', $insert_data['ItemCode']);
-	$query = $this->db->get();
 
-	if($query->num_rows()>0){
-		return 0;
-	}else{
-		$this->db->insert('tbl_invitem', $insert_data);
-		return 1;
-	}
-	// echo $this->db->last_query();
-	// exit();
+$this->db->insert('tbl_invitem', $insert_data);
+
+
 }
 
 
@@ -2865,6 +2856,7 @@ function ins_itembaru($insert_data){
 
 		}
 
+
 		function personnelinvolved_exist($wrkOrd){
 			$this->db->select('*');
 			$this->db->from('pmis2_emg_jobresponse');
@@ -2879,18 +2871,18 @@ function ins_itembaru($insert_data){
 			if($query->num_rows()>0){
 					$this->load->model('update_model');
 					$insert_data = array(
-						'v_Personal1' => $this->input->post('v_personal1'), 
-						'v_Personal2' => $this->input->post('v_personal2'), 
-						'v_Personal3' => $this->input->post('v_personal3'), 
-						'n_Hours1' => $this->input->post('v_hour1'), 
-						'n_Hours2' => $this->input->post('v_hour2'), 
-						'n_Hours3' => $this->input->post('v_hour3'), 
-						'n_Rate1' => $this->input->post('v_rate1'), 
-						'n_Rate2' => $this->input->post('v_rate2'), 
-						'n_Rate3' => $this->input->post('v_rate3'), 
-						'n_Total1' => $this->input->post('v_total1'), 
-						'n_Total2' => $this->input->post('v_total2'), 
-						'n_Total3' => $this->input->post('v_total3'), 
+						'v_Personal1' => $this->input->post('v_personal1'),
+						'v_Personal2' => $this->input->post('v_personal2'),
+						'v_Personal3' => $this->input->post('v_personal3'),
+						'n_Hours1' => $this->input->post('v_hour1'),
+						'n_Hours2' => $this->input->post('v_hour2'),
+						'n_Hours3' => $this->input->post('v_hour3'),
+						'n_Rate1' => $this->input->post('v_rate1'),
+						'n_Rate2' => $this->input->post('v_rate2'),
+						'n_Rate3' => $this->input->post('v_rate3'),
+						'n_Total1' => $this->input->post('v_total1'),
+						'n_Total2' => $this->input->post('v_total2'),
+						'n_Total3' => $this->input->post('v_total3'),
 						'v_Actionflag' => 'U',
 					);
 					$this->update_model->personnelinvolved_update($wrkOrd,$insert_data);
@@ -2898,27 +2890,27 @@ function ins_itembaru($insert_data){
 
 				$insert_data = array(
 					'v_WrkOrdNo'=> $wrkOrd,
-					'v_Personal1' => $this->input->post('v_personal1'), 
-					'v_Personal2' => $this->input->post('v_personal2'), 
-					'v_Personal3' => $this->input->post('v_personal3'), 
-					'n_Hours1' => $this->input->post('v_hour1'), 
-					'n_Hours2' => $this->input->post('v_hour2'), 
-					'n_Hours3' => $this->input->post('v_hour3'), 
-					'n_Rate1' => $this->input->post('v_rate1'), 
-					'n_Rate2' => $this->input->post('v_rate2'), 
-					'n_Rate3' => $this->input->post('v_rate3'), 
-					'n_Total1' => $this->input->post('v_total1'), 
-					'n_Total2' => $this->input->post('v_total2'), 
-					'n_Total3' => $this->input->post('v_total3'), 
+					'v_Personal1' => $this->input->post('v_personal1'),
+					'v_Personal2' => $this->input->post('v_personal2'),
+					'v_Personal3' => $this->input->post('v_personal3'),
+					'n_Hours1' => $this->input->post('v_hour1'),
+					'n_Hours2' => $this->input->post('v_hour2'),
+					'n_Hours3' => $this->input->post('v_hour3'),
+					'n_Rate1' => $this->input->post('v_rate1'),
+					'n_Rate2' => $this->input->post('v_rate2'),
+					'n_Rate3' => $this->input->post('v_rate3'),
+					'n_Total1' => $this->input->post('v_total1'),
+					'n_Total2' => $this->input->post('v_total2'),
+					'n_Total3' => $this->input->post('v_total3'),
 					'v_Actionflag' => 'I',
 					'd_Timestamp' => date("Y-m-d H:i:s"),
 					'v_HospitalCode' => $this->session->userdata('hosp_code'),
 			 );
 			 $this->db->insert('pmis2_emg_jobresponse', $insert_data);
-			 
+
 			}
-			
-			
+
+
 
 		}
 
@@ -2926,8 +2918,11 @@ function ins_itembaru($insert_data){
 			// print_r($insert_data);
 			// exit();
 			$this->db->insert('tbl_po_del_item', $insert_data);
-			
-		}
 
+		}
+		
+		function rootcause($insert_data){
+			$this->db->insert('tbl_materialreq',$insert_data);
+		}
 }
 ?>

@@ -162,9 +162,8 @@
     				case "2":
         		$this->db->where('a.v_Wrkordstatus <> ', 'C');
         		break;
-					}
-					$this->db->order_by('v_WrkOrdNo', 'asc');
-					
+    				}
+  					$this->db->order_by('v_WrkOrdNo', 'asc');
             $query = $this->db->get("pmis2_egm_schconfirmmon a");
 
             //echo $this->db->last_query();
@@ -2275,7 +2274,7 @@ return $query->result();
 			$this->db->order_by('a.Time_Stamp','DESC');
 			$this->db->limit(5);
 			$query = $this->db->get();
-			//echo $this->db->last_query();
+			echo $this->db->last_query();
 			//exit();
 			return $query->result();
 		}
@@ -4747,7 +4746,7 @@ function itemdet($mrinno){
   	$this->db->where('MIRNcode',$mrinno);
 		$this->db->where('Who_Del IS NULL', null, false);
 		$query = $this->db->get();
-		//echo $this->db->last_query();
+		echo $this->db->last_query();
 		//exit();
 		$query_result = $query->result();
 		return $query_result;
@@ -5037,13 +5036,15 @@ function prdet($mrinno){
 		$query_result = $query->result();
 		return $query_result;
 	}
-function itemprdet($mrinno,  $unitcost=""){
+function itemprdet($mrinno, $unitcost=""){
     $this->db->distinct();
 		$this->db->select('a.*,b.ItemName,v.VENDOR_NAME,va.Vendor_Item_Code, va.vendor_item_name');
 		$this->db->from('tbl_mirn_comp a');
 		$this->db->join('tbl_invitem b','a.ItemCode = b.ItemCode');
 		$this->db->join('tbl_vendor_info v','a.ApprvRmk1x = v.VENDOR_CODE OR a.ApprvRmk1 = v.VENDOR_CODE','left');
-		if($unitcost==1){
+		//$this->db->join('tbl_vendor va',"(a.ApprvRmk1x = va.VENDOR OR a.ApprvRmk1 = va.VENDOR) AND a.ItemCode = va.Item_Code and a.Unit_Costx = va.List_Price",'left');
+    //$this->db->join('tbl_vendor va',"(a.ApprvRmk1x = va.VENDOR OR a.ApprvRmk1 = va.VENDOR) AND a.ItemCode = va.Item_Code ",'left');
+    if($unitcost==1){
 			$this->db->join('tbl_vendor va',"(a.ApprvRmk1x = va.VENDOR OR a.ApprvRmk1 = va.VENDOR) AND a.ItemCode = va.Item_Code and a.Unit_Costx = va.List_Price",'left');
 		}else{
 			$this->db->join('tbl_vendor va',"(a.ApprvRmk1x = va.VENDOR OR a.ApprvRmk1 = va.VENDOR) AND a.ItemCode = va.Item_Code ",'left');
@@ -5057,22 +5058,6 @@ function itemprdet($mrinno,  $unitcost=""){
 		$query_result = $query->result();
 		return $query_result;
 	}
-	function itemprdet2($mrinno,$vendorcode){
-		$this->db->distinct();
-		$this->db->select('a.*,b.ItemName,v.VENDOR_NAME,va.Vendor_Item_Code, va.vendor_item_name');
-		$this->db->from('tbl_mirn_comp a');
-		$this->db->join('tbl_invitem b','a.ItemCode = b.ItemCode');
-		$this->db->join('tbl_vendor_info v',"v.VENDOR_CODE = '$vendorcode' OR a.ApprvRmk1 = v.VENDOR_CODE",'left');
-		$this->db->join('tbl_vendor va',"(va.VENDOR = '$vendorcode' OR a.ApprvRmk1 = va.VENDOR) AND a.ItemCode = va.Item_Code ",'left');
-		$this->db->where('MIRNcode',$mrinno);
-    $this->db->where('va.flag <>','D');
-    $this->db->where('QtyReqfx <>','0');
-    $query = $this->db->get();
-		//echo $this->db->last_query();
-		//exit();
-		$query_result = $query->result();
-		return $query_result;
-		}
 
 function printpr($prno){
 	$this->db->select('p.PRNo,m.MIRN_No,c.ItemCode,c.ApprvRmk1x,c.Qty,c.Unit_Costx');
@@ -6789,12 +6774,13 @@ return $obj['path'];
 		// $this->db->join("tbl_materialreq a", "e.MIRNcode = a.DocReferenceNo", "FULL OUTER");
 		$this->db->join("tbl_mirn_comp e", "f.ItemCode = e.ItemCode", "LEFT OUTER");
 		$this->db->join("tbl_materialreq a", "e.MIRNcode = a.DocReferenceNo", "LEFT OUTER");
-		$this->db->join("pmis2_egm_service_request b", "a.WorkOfOrder = b.V_Request_no AND b.V_hospitalcode = SUBSTRING_INDEX(SUBSTRING_INDEX(`DocReferenceNo`, '/', -3), '/', 1)", "INNER");
+		$this->db->join("pmis2_egm_service_request b", "a.WorkOfOrder = b.V_Request_no AND b.V_hospitalcode = SUBSTRING_INDEX(SUBSTRING_INDEX(`DocReferenceNo`, '/', -4), '/', 1)", "INNER");
 		$this->db->join("pmis2_egm_assetregistration d", "b.V_Asset_no = d.V_Asset_no AND b.V_hospitalcode = d.V_Hospitalcode", "INNER");
 		$this->db->join("tbl_specialist_review g", "g.MIRN_No=a.DocReferenceNo", "left");
 		$this->db->where("MONTH(a.DateCreated)", $Month);
 		$this->db->where("YEAR(a.DateCreated)", $Year);
-		$this->db->where("SUBSTRING_INDEX(SUBSTRING_INDEX(`a`.`DocReferenceNo`, '/', -4), '/', 1)=", $this->input->get("whathosp") );
+    $this->db->where("SUBSTRING_INDEX(SUBSTRING_INDEX(`a`.`DocReferenceNo`, '/', -4), '/', 1)=", $this->input->get("whathosp") );
+    //$this->db->where("d.V_Hospitalcode", $this->input->get("whathosp") );
 
 		if( $this->input->get("whatr")==3 ){
 			$this->db->where("(a.ApprStatusID=5 OR a.ApprStatusIDx=5 OR a.ApprStatusIDxx=5)");
@@ -6820,18 +6806,19 @@ return $obj['path'];
 
 
 		//=========right outer join
-		$this->db->select(" a.DocReferenceNo, a.DateCreated, e.ItemCode, f.ItemName, e.Qty, a.WorkOfOrder, d.V_Asset_name, b.V_Asset_no, d.V_Tag_no, d.V_Brandname, d.V_Model_no, b.D_date, a.rone, a.rtwo, a.rthree, a.Comments, a.ApprStatusID, a.ApprComments, a.ApprStatusIDx, a.ApprCommentsx, a.ApprStatusIDxx, a.ApprCommentsxx, g.Specialist, IFNULL(g.Status, '6') AS Status, IFNULL(g.Remark, '') AS Remark");
+		$this->db->select("a.DocReferenceNo, a.DateCreated, e.ItemCode, f.ItemName, e.Qty, a.WorkOfOrder, d.V_Asset_name, b.V_Asset_no, d.V_Tag_no, d.V_Brandname, d.V_Model_no, b.D_date, a.rone, a.rtwo, a.rthree, a.Comments, a.ApprStatusID, a.ApprComments, a.ApprStatusIDx, a.ApprCommentsx, a.ApprStatusIDxx, a.ApprCommentsxx, g.Specialist, IFNULL(g.Status, '6') AS Status, IFNULL(g.Remark, '') AS Remark");
 		$this->db->from("tbl_invitem f");
 		// $this->db->join("tbl_mirn_comp e", "f.ItemCode = e.ItemCode", "FULL OUTER");
 		// $this->db->join("tbl_materialreq a", "e.MIRNcode = a.DocReferenceNo", "FULL OUTER");
 		$this->db->join("tbl_mirn_comp e", "f.ItemCode = e.ItemCode", "RIGHT OUTER");
 		$this->db->join("tbl_materialreq a", "e.MIRNcode = a.DocReferenceNo", "RIGHT OUTER");
-		$this->db->join("pmis2_egm_service_request b", "a.WorkOfOrder = b.V_Request_no AND b.V_hospitalcode = SUBSTRING_INDEX(SUBSTRING_INDEX(`DocReferenceNo`, '/', -3), '/', 1)", "INNER");
+		$this->db->join("pmis2_egm_service_request b", "a.WorkOfOrder = b.V_Request_no AND b.V_hospitalcode = SUBSTRING_INDEX(SUBSTRING_INDEX(`DocReferenceNo`, '/', -4), '/', 1)", "INNER");
 		$this->db->join("pmis2_egm_assetregistration d", "b.V_Asset_no = d.V_Asset_no AND b.V_hospitalcode = d.V_Hospitalcode", "INNER");
 		$this->db->join("tbl_specialist_review g", "g.MIRN_No=a.DocReferenceNo", "left");
 		$this->db->where("MONTH(a.DateCreated)", $Month);
 		$this->db->where("YEAR(a.DateCreated)", $Year);
 		$this->db->where("SUBSTRING_INDEX(SUBSTRING_INDEX(`a`.`DocReferenceNo`, '/', -4), '/', 1)=", $this->input->get("whathosp") );
+		//$this->db->where("d.V_Hospitalcode", $this->input->get("whathosp") );
 
 		if( $this->input->get("whatr")==3 ){
 			$this->db->where("(a.ApprStatusID=5 OR a.ApprStatusIDx=5 OR a.ApprStatusIDxx=5)");
@@ -6959,7 +6946,7 @@ return $query->result();
   function rl_mrin($hosp,$storeid,$y){
 
     switch ($hosp) {
-		case "JLB":
+        case "JLB":
         case "JMP":
         case "KPL":
         case "PDX":
@@ -6970,8 +6957,8 @@ return $query->result();
         case "MKA":
         case "AGJ":
         case "JAS":
-            //$hospape = "'TMP','MKA','AGJ','JAS'";
-            $hospape = "'TMP','AGJ'";
+            $hospape = "'TMP','MKA','AGJ','JAS'";
+            //$hospape = "'TMP','AGJ'";
             break;
         case "HSA":
         case "PER":
@@ -6979,20 +6966,19 @@ return $query->result();
         case "SGT":
             $hospape = "'HSA','PER','KUL','SGT'";
             break;
-		case "MUR":
-		case "BPH":
-		case "KLN":
+        case "MUR":
         case "TGK":
-            $hospape = "'MUR','BPH''KLN','TGK',";
+        case "BPH":
+        case "KLN":
+            $hospape = "'MUR','BPH','KLN','TGK'";
             break;
-		case "HSI":
-		case "KTG":
-		case "MER":
-		case "PON":
-		case "MKJ":
+        case "HSI":
+        case "KTG":
+        case "MKJ":
+        case "MER":
+        case "PON":
             $hospape = "'HSI','KTG','MER','PON','MKJ'";
             break;
-
         default:
             $hospape = "'".$hosp."'";
     }
@@ -7154,6 +7140,7 @@ $this->db->order_by('D_date', 'asc');
 $query = $this->db->get();
 // echo $this->db->last_query();
 //exit();
+$this->output->enable_profiler(TRUE);
 $query_result = $query->result();
 return $query_result;
 }
@@ -7359,7 +7346,40 @@ a inner join (
       //exit();
       $query_result = $query->result();
       return $query_result;
-	  }
-	  
+      }
+
+
+    	function itemprdet2($mrinno,$vendorcode){
+    		$this->db->distinct();
+    		$this->db->select('a.*,b.ItemName,v.VENDOR_NAME,va.Vendor_Item_Code, va.vendor_item_name');
+    		$this->db->from('tbl_mirn_comp a');
+    		$this->db->join('tbl_invitem b','a.ItemCode = b.ItemCode');
+    		$this->db->join('tbl_vendor_info v',"v.VENDOR_CODE = '$vendorcode' OR a.ApprvRmk1 = v.VENDOR_CODE",'left');
+    		$this->db->join('tbl_vendor va',"(va.VENDOR = '$vendorcode' OR a.ApprvRmk1 = va.VENDOR) AND a.ItemCode = va.Item_Code AND va.flag <> 'D' ",'left');
+    		$this->db->where('MIRNcode',$mrinno);
+        $this->db->where('va.flag <>','D');
+        $this->db->where('QtyReqfx <>','0');
+        $query = $this->db->get();
+    		//echo $this->db->last_query();
+    		//exit();
+    		$query_result = $query->result();
+    		return $query_result;
+			}
+			
+			function rootcause($wo){
+				$this->db->select('m.*,s.V_Asset_no,s.D_date,u.Name,ar.V_Asset_name, ar.V_Asset_no, ar.V_Tag_no,ar.V_Brandname, ar.V_Model_no, mc.LastRepDt');
+				$this->db->from('tbl_materialreq m');
+				$this->db->join('pmis2_egm_service_request s','m.WorkOfOrder = s.V_Request_no','left');
+				$this->db->join('tbl_user u','m.RequestUserID = u.UserID','left');
+				$this->db->join('pmis2_egm_assetregistration ar', 'ar.V_Asset_no=s.V_Asset_no AND ar.V_Hospitalcode=s.V_hospitalcode', 'left');
+				$this->db->join('tbl_mirn_comp mc', 'm.DocReferenceNo=mc.MIRNcode', 'left');
+				//$this->db->join('tbl_status st','m.StatusID = st.StatusID');
+				$this->db->where('m.WorkOfOrder',$wo);
+				$query = $this->db->get();
+				//echo $this->db->last_query();
+				//exit();
+				$query_result = $query->result();
+				return $query_result;
+			}
 }
 ?>
