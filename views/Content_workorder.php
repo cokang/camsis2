@@ -159,7 +159,7 @@
 									}else {
 										$pro = 'approved';
 									}
-								}
+								}else{$pro=null;}
 							if($list->V_Request_no==$row->V_Request_no){echo anchor ('Procurement?mrinno='.$list->DocReferenceNo.'&pro='.$pro,''.$list->DocReferenceNo.'<br>'.'','style="font-size:16px; font-weight:bold;"' );}//echo $list[$x++]->DocReferenceNo.'<br>';	
 						}
 						
