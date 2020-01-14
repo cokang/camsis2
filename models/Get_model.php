@@ -4383,7 +4383,7 @@ function get_stock_asset($searchitem=""){
 			echo json_encode($result);
 		}
 
-		function reportChronology($datefrom, $dateto){
+		function reportChronology($datefrom, $dateto, $filterby){
 			$this->db->select("d.D_date,
 			b.nama, count(b.id) as total,
 			SUM(CASE
@@ -4405,6 +4405,9 @@ function get_stock_asset($searchitem=""){
 		if($datefrom!=null || $dateto!=null){
 		$this->db->where('d.D_date BETWEEN"'.$datefrom.'"and"'.$dateto.'"');
 
+		}
+		if($filterby!='All'){
+			$this->db->where('d.V_request_status', $filterby);
 		}
 		$this->db->where('a.n_Visit', 1);
 		$this->db->where('b.id <>', 1);
@@ -4429,5 +4432,18 @@ function get_stock_asset($searchitem=""){
 				return 1;
 			}
 		}
+
+		function chkmrin($wono){
+			//$this->db->select("CONCAT('PO/',".$this->db->escape(date('m').date('y')).",'/',RIGHT(CONCAT('0000',CAST(po_next_no AS char)), 5)) AS pono,po_next_no",FALSE);
+			$this->db->select("WorkOfOrder");
+			$this->db->from('tbl_materialreq');
+			$this->db->where('WorkOfOrder',$wono);
+			$this->db->where('DocReferenceNo = ""', NULL, FALSE);
+			$query = $this->db->get();
+			//echo $this->db->last_query();
+			//exit();
+			return $query->result();
+		}
+
 }
 ?>

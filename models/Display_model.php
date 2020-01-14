@@ -57,13 +57,15 @@
         {
 
             //$tabber =  $this->input->get('work-a');
-                $this->db->select('s.*,l.v_Location_Name,m.v_Tag_no');
+                //$this->db->select('s.*,l.v_Location_Name,m.v_Tag_no');
+                $this->db->select('s.*,l.v_Location_Name,m.v_Tag_no,mr.DocReferenceNo, mr.DocReferenceNo, mr.ApprStatusIDx, mr.ApprStatusID');
                 $this->db->from('pmis2_egm_service_request s');
                 $this->db->join('pmis2_egm_assetlocation l','s.V_Location_code = l.V_location_code AND s.V_hospitalcode = l.V_Hospitalcode AND l.V_Actionflag <> "D"','left outer');
                 //$this->db->join('pmis2_egm_assetregistration m','s.V_Asset_no = m.V_Asset_no AND s.V_hospitalcode = m.V_Hospitalcode','left outer');
                 $this->db->join('pmis2_egm_assetregistration m','s.V_Location_code = m.V_Location_code AND s.V_hospitalcode = m.V_Hospitalcode AND s.V_Asset_no = m.V_Asset_no AND s.V_servicecode = m.V_service_code AND m.V_Actionflag <> "D"','left outer');
                 //$this->db->join('pmis2_egm_assetlocation l','s.V_Location_code = l.V_location_code AND s.V_hospitalcode = l.V_Hospitalcode', 'left outer');
-                  $this->db->where('s.V_servicecode = ',$this->session->userdata('usersess'));
+                $this->db->join('tbl_materialreq mr', 'mr.WorkOfOrder = s.V_Request_no', 'left outer');
+              $this->db->where('s.V_servicecode = ',$this->session->userdata('usersess'));
             $this->db->where("DATE_FORMAT(s.D_date,'%m') = ",$maklumat['month']);
             $this->db->where("DATE_FORMAT(s.D_date,'%Y') = ",$maklumat['year']);
             $this->db->where("s.V_hospitalcode = ",$this->session->userdata('hosp_code'));
@@ -126,6 +128,7 @@
 
 
             $this->db->order_by('V_Request_no ASC');
+      			$this->db->order_by('DocReferenceNo', 'asc');
             //$query = $this->db->get("pmis2_egm_service_request");
             $query = $this->db->get();
             //echo $this->db->last_query();
@@ -2215,10 +2218,11 @@ return $query->result();
 		}
 		function poprequest_rcm($hosp,$y,$m,$s){
 			$this->db->select('s.V_Request_no,s.V_Asset_no,s.D_date,s.D_time,s.V_requestor,s.V_phone_no,s.V_User_dept_code,s.V_Location_code,s.V_summary,s.V_priority_code,s.V_request_status');
-			$this->db->select('s.v_closeddate,s.v_closedtime,s.V_MohDesg,a.V_Asset_no,a.V_Tag_no,a.V_Serial_no,a.V_Asset_name,a.V_Manufacturer,a.V_Brandname,a.V_Model_no,b.V_PO_date,b.N_Cost');//,DATEDIFF(%m,b.D_commission,CURDATE()) AS Ages
+			$this->db->select('s.v_closeddate,s.v_closedtime,s.V_MohDesg,a.V_Asset_no,a.V_Tag_no,a.V_Serial_no,a.V_Asset_name,a.V_Manufacturer,a.V_Brandname,a.V_Model_no,b.V_PO_date,b.N_Cost,c.rone,c.rtwo,c.rthree');//,DATEDIFF(%m,b.D_commission,CURDATE()) AS Ages
 			$this->db->from('pmis2_egm_service_request s');
 			$this->db->join('pmis2_egm_assetregistration a','s.V_hospitalcode = a.V_Hospitalcode AND s.V_Asset_no = a.V_Asset_no', 'left outer');
 			$this->db->join('pmis2_egm_assetreg_general b','a.V_Hospitalcode = b.V_Hospital_code AND a.V_Asset_no = b.V_Asset_no', 'left outer');
+			$this->db->join('tbl_materialreq c','s.V_Request_no = c.WorkOfOrder AND c.DocReferenceNo = ""', 'left outer');
 			$this->db->where('s.V_actionflag <>','D');
 			$this->db->where('s.V_servicecode',$this->session->userdata('usersess'));
 			$this->db->where('s.V_hospitalcode',$hosp);
@@ -7094,7 +7098,7 @@ return $query_result;
 }
 
 
-function chrology_sum_report($datefrom,$dateto,$nama,$negeri){
+function chrology_sum_report($datefrom,$dateto,$nama,$negeri,$filterby){
 	$this->db->distinct();
 $this->db->select("d.D_date, a.v_WrkOrdNo,d.v_ref_wo_no,a.v_HospitalCode,a.v_ActionTaken,ar.V_Asset_no,ar.V_Tag_no,ar.V_Asset_name,ar.V_Manufacturer,ar.V_Model_no,b.nama,
 mr.DocReferenceNo,pom.MIRN_No, pom.PO_No, pom.Vendor_No, vi.VENDOR_NAME, vi.TELEPHONE_NO, po.PO_Date, mr.DateCreated,ag.D_commission,ag.N_Cost, IFNULL(IFNULL(IFNULL(ApprCommentsxx,ApprCommentsx),ApprComments),Comments) AS Commentsx,
@@ -7129,6 +7133,9 @@ if($nama!='ALL'){
 $this->db->where('b.nama', $nama);}
 if($negeri!='ALL'){
 $this->db->having('negeri',$negeri);}
+if($filterby!='All'){
+			$this->db->where('d.V_request_status', $filterby);
+		}
 $this->db->where('a.n_Visit', 1);
 $this->db->order_by('D_date', 'asc');
 // $this->db->group_by('b.id');
@@ -7359,5 +7366,21 @@ a inner join (
     		$query_result = $query->result();
     		return $query_result;
     		}
+
+  			function rootcause($wo){
+  				$this->db->select('m.*,s.V_Asset_no,s.D_date,u.Name,ar.V_Asset_name, ar.V_Asset_no, ar.V_Tag_no,ar.V_Brandname, ar.V_Model_no, mc.LastRepDt');
+  				$this->db->from('tbl_materialreq m');
+  				$this->db->join('pmis2_egm_service_request s','m.WorkOfOrder = s.V_Request_no','left');
+  				$this->db->join('tbl_user u','m.RequestUserID = u.UserID','left');
+  				$this->db->join('pmis2_egm_assetregistration ar', 'ar.V_Asset_no=s.V_Asset_no AND ar.V_Hospitalcode=s.V_hospitalcode', 'left');
+  				$this->db->join('tbl_mirn_comp mc', 'm.DocReferenceNo=mc.MIRNcode', 'left');
+  				//$this->db->join('tbl_status st','m.StatusID = st.StatusID');
+  				$this->db->where('m.WorkOfOrder',$wo);
+  				$query = $this->db->get();
+  				//echo $this->db->last_query();
+  				//exit();
+  				$query_result = $query->result();
+  				return $query_result;
+  			}
 }
 ?>

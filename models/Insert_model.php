@@ -2832,6 +2832,9 @@ $this->db->insert('tbl_invitem', $insert_data);
 						$insert_data = array(
 								 'v_ActionTaken' => $this->input->post('n_Action_Taken'),
 								 'v_ReschAuthBy' => $this->input->post('n_Type_of_Work'),
+								 'V_AssetMovement' => $this->input->post('movement'),
+								 'standby1' => $this->input->post('assignapsb'),
+								 'standby2' => $this->input->post('assignname'),
 								 'v_Actionflag' => 'U',
 								 'd_Timestamp' => date("Y-m-d H:i:s")
 								);
@@ -2844,10 +2847,13 @@ $this->db->insert('tbl_invitem', $insert_data);
 							 'v_WrkOrdNo'=> $RN,
 							 'v_ActionTaken' => $this->input->post('n_Action_Taken'),
 							 'v_ReschAuthBy' => $this->input->post('n_Type_of_Work'),
+							 'V_AssetMovement' => $this->input->post('movement'),
+							 'standby1' => $this->input->post('assignapsb'),
+								 'standby2' => $this->input->post('assignname'),
 							 'v_Actionflag' => 'I',
 							 'd_Timestamp' => date("Y-m-d H:i:s"),
 							 'v_HospitalCode' => $this->session->userdata('hosp_code'),
-						 	 'n_Visit' => $variable1);
+							 'n_Visit' => $variable1);
 					$this->db->insert('pmis2_emg_chronology', $insert_data);
 					}
 
@@ -2917,6 +2923,10 @@ $this->db->insert('tbl_invitem', $insert_data);
 			// exit();
 			$this->db->insert('tbl_po_del_item', $insert_data);
 
+		}
+
+		function rootcause($insert_data){
+			$this->db->insert('tbl_materialreq',$insert_data);
 		}
 }
 ?>

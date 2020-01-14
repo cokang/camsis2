@@ -129,6 +129,19 @@ if ($this->input->get('parent') == 'woresponse' OR $this->input->get('parent') =
         }
       </script>';
   }
+  else if ($this->input->get('v') == 'r' && $this->input->get('r') == '4' ){
+    echo  '<script type="text/javascript">
+          function Setworkorder(a_number,t_number) {
+            if (window.opener != null && !window.opener.closed) {
+            var anumber = window.opener.document.getElementById("n_personnel_code3");
+            anumber.value =  a_number;
+            var anumber = window.opener.document.getElementById("n_personnel_name3");
+            anumber.value =  t_number;
+            }
+            window.close();
+          }
+        </script>';
+    }
   else if ($this->input->get('v') == 'r' && $this->input->get('r') == 'jc' ){
   echo  '<script type="text/javascript">
         function Setworkorder(a_number,t_number,s_number) {
