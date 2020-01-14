@@ -222,7 +222,7 @@ img{
     $date['day']   = $day;
 
 		$bulanda = array();
-		$bulanda = array("kosong", "Muharram", "Safar", "RabiulAwwal", "Rabiuthani", "JumadiulAwwal", "Jumadiuthani", "Rajab", "Shaban", "Ramadan", "Shawwal", "ZhulQada", "ZhulHijja");
+		$bulanda = array("kosong", "Muharram", "Safar", "RabiulAwal", "Rabiulakhir", "Jamadilawal", "Jamadilakhir", "Rejab", "Syaaban", "Ramadhan", "Shawal", "Zulkaedah", "Zulhijjah");
 
     if (!$string)
         return $date;

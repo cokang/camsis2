@@ -390,6 +390,11 @@ class Contentcontroller extends CI_Controller {
 		$this->load->model("display_model");
 		//$data['r'] = $this->display_model->listworkorder();
 		$data['records'] = $this->display_model->list_workorderx($data);
+		//print_r($data['records'] ); exit();
+		$userdata = $this->display_model->user_class($this->session->userdata('v_UserName'));
+		//$data['userclass'] = $userdata[0]->class_id;
+		$data['userclass'] = $userdata!=null?$userdata[0]->class_id:null;
+
 		//print_r($data['records']);
 		//exit();
 		$data['totalrec'] = count($data['records']);
@@ -1713,14 +1718,18 @@ class Contentcontroller extends CI_Controller {
 		}
 	}
 		public function technicalsummary(){
+		$this->load->model('display_model');
+		$data['record'] = $this->display_model->rootcause($this->input->get('wrk_ord'));
 		$this ->load->view("head");
 		$this ->load->view("left");
-		$this ->load->view("Content_workorder_technicalsummary");
+		$this ->load->view("Content_workorder_technicalsummary",$data);
 	}
 		public function technicalsummary_update(){
+		$this->load->model('display_model');
+		$data['record'] = $this->display_model->rootcause($this->input->get('wrk_ord'));
 		$this ->load->view("head");
 		$this ->load->view("left");
-		$this ->load->view("Content_workorder_technicalsummary_Update");
+		$this ->load->view("Content_workorder_technicalsummary_Update",$data);
 	}
 		public function clause(){
 		$this ->load->view("head");
@@ -8753,7 +8762,11 @@ public function chronologyplus(){
   $this->load->model("display_model");
   $this->load->model('get_model');
   $data['rc'] = $this->get_model->getrootcause();
-  $data['rc_parent'] = $this->get_model->getrootcause_nodash();;
+  $data['rc_parent'] = $this->get_model->getrootcause_nodash();
+  $data['records'] = $this->display_model->chronology_tab($data['wrk_ord']);
+  $data['movement'] = array('Workshop' => 'Workshop',
+                  'Vendor' => 'Vendor',
+                   'Remain at user location'=> 'Remain at user location');
   //if (substr($data['wrk_ord'],0,2) == 'PP'){
   //echo "nilai visit " . $data['visit'];
   if ($data['visit'] != "") {
@@ -8891,27 +8904,29 @@ public function report_chronology(){
 		$end = (date("Y-12-31",time()));
 		$from = $this->input->get('from') ? $this->input->get('from') : $start;
 		$to = $this->input->get('to') ? $this->input->get('to') : $end;
+		$filterby= $this->input->get('status');
 		//$from = $this->input->get('from') ? $this->input->get('from') : '';
 		//$to = $this->input->get('to') ? $this->input->get('to') : '';
 		$data['from']=$from;
 		$data['to']=$to;
-		$data['det'] =$this->get_model->reportChronology($from, $to);
+		$data['det'] =$this->get_model->reportChronology($from, $to,$filterby);
 		$this ->load->view("head");
 		$this ->load->view("content_report_chronology",$data);
 	}
 
-	public function summary_chonology(){
+  public function summary_chonology(){
 		$this->load->model("display_model");
 		$from = $this->input->get('from') ? $this->input->get('from') : '';
 		$to = $this->input->get('to') ? $this->input->get('to') : '';
 		$nama = $this->input->get('nama');
 		$negeri = $this->input->get('negeri');
+		$filterby= $this->input->get('status');
 		// echo 'test'.$nama.$negeri;
 		// exit();
         //$data['records'] = $this->display_model->chrology_sum_report($from, $to,$nama,$negeri);
 
     		$data['year']= date("Y");
-    		$data['records'] = $this->display_model->chrology_sum_report($from, $to,$nama,$negeri);
+    		$data['records'] = $this->display_model->chrology_sum_report($from, $to,$nama,$negeri,$filterby);
     		$cost[]='';
     		if($data['records']!=null){
     		foreach($data['records'] as $key => $val){
@@ -9014,6 +9029,17 @@ $this ->load->view("report-a10.php",$data);
     		$this ->load->view("left");
     		$this ->load->view("Content_workorder_personnelinvolved_update",$data);
     	}
+
+    	public function print_rootcause()
+    	{
+    		$this->load->model('display_model');
+    		$this->load->model("get_model");
+    		$data['wrk_ord'] = $this->input->get('wrk_ord');
+    		$data['record'] = $this->display_model->rootcause($this->input->get('wrk_ord'));
+    		$this ->load->view("headprinter");
+    		$this->load->view("Content_rootcause_print", $data);
+    	}
+
 
 }
 ?>

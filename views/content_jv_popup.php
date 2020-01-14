@@ -178,6 +178,26 @@ if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 			Win.window.focus();
 		}
 </script>
+<?php }elseif($this->uri->slash_segment(2) == 'chronologyupdate/'){ ?>
+<script>
+function fCalldetailname(a)
+		{
+			var parent = a.getAttribute('value');
+			//var hour = hour;
+			//var minute = minute;
+			winProp = 'width=600,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
+			Win = window.open('<?php
+if ($this->uri->slash_segment(1) == 'contentcontroller/') {
+	echo "assetdetailname";
+
+	}
+	else {
+		echo "contentcontroller/assetdetailname";
+
+	}?>?parent='+parent, 'assetdetailname', winProp);
+			Win.window.focus();
+		}
+</script>
 <?php }elseif(($this->uri->slash_segment(1) == 'Procurement/') or ( $this->uri->slash_segment(1) == 'mrinnew_ctrl/')){ ?>
 		<?php if(($this->input->get('pro') == 'new') or ($this->input->get('pr') == 'pending') or ($this->input->get('pro') == 'edit')){ ?>
 <script>

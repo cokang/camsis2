@@ -46,6 +46,13 @@ class Mrinnew_ctrl extends CI_Controller{
 		$this->form_validation->set_rules('n_purchasedate','Purchase Date','trim');
 		$this->form_validation->set_rules('n_age','Age','trim');
 
+
+		if ($this->input->post('rows') <> '' && $this->input->post('rows') > 0){
+				for ($row = 1; $row <= $this->input->post('rows'); $row++){
+						$this->form_validation->set_rules('startDate'.$row,'Item Last Replaced Date','required');
+				}
+			}
+
 		if($this->form_validation->run()==FALSE || $this->input->get('act') <> '')
 			{
 				$this->load->model('get_model');
@@ -229,7 +236,13 @@ class Mrinnew_ctrl extends CI_Controller{
 			//print_r($insert_data);
 			//exit();
 
-			$this->insert_model->newmrin($insert_data);
+			if ($this->get_model->chkmrin($this->input->post('n_request'))){
+				$this->update_model->u_mrinwo($insert_data,$this->input->post('n_request'));
+			} else {
+				$this->insert_model->newmrin($insert_data);
+			}
+
+			//$this->insert_model->newmrin($insert_data);
 			//$this->send_mail_frmout('nezam@advancepact.com',$data['new_mrin'][0]->mrinno,$this->input->post('n_comment'));
 			//$this->send_mail_frmout('nezam@advancepact.com',$data['new_mrin'][0]->mrinno,$this->$this->input->post('n_comment'));
 			$update_data = array('asset_no' => $data['new_mrin'][0]->mrinno);

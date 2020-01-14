@@ -70,18 +70,26 @@
 								<?php $numrow = 1; foreach ($record as $row): ?>
 						<tr align="center" <?= ($numrow%2==0) ?  'class="ui-color-color-color"' :  '' ?> >
 							<td class="td-desk"><?=$numrow++?></td>
+							<?php if (in_array("cancelpo", $chkers)) { ?>
 							<td class="td-desk" style="text-align:left;">
 								<a href="<?php echo base_url();?>index.php/Procurement/e_pr?pr=pending&mrinno=<?=$row->DocReferenceNo?>">
 									<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>
 								</a>
 							</td>
+						<?php  }  else {?>
+							<td class="td-desk"><?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?></td>
+							<?php  } ?>
 							<td class="td-desk"><?=isset($row->DateCreated) ? date("d-m-Y",strtotime($row->DateCreated)) : ''?></td>
 							<td class="td-desk"><?=isset($row->name) ? $row->name : ''?></td>
+							<?php if (in_array("cancelpo", $chkers)) { ?>
 							<td class="td-desk">
 								<a href="<?php echo base_url();?>index.php/Procurement?mrinno=<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>&pro=approved">
 									<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>
 								</a>
 							</td>
+						<?php  }  else {?>
+							<td class="td-desk"><?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?></td>
+							<?php  } ?>
 							<td class="td-desk">Pending</td>
 							<td class="td-desk"><?=isset($row->DateCreated) ? date("d-m-Y",strtotime($row->DateCreated)) : ''?></td>
 						</tr>

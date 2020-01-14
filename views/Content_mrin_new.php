@@ -82,15 +82,15 @@ echo form_open('mrinnew_ctrl?pro=edit&mrinno='.$this->input->get('mrinno'));
 								<table class="ui-content-form" width="100%" border="0">
 									<tr>
 										<td style="padding-left:10px;" class="ui-w">Possible Failure of Complaint / Error / Problem Statement : </td>
-										<td style="padding-left:10px;"><textarea class="Input n_com2" name="n_complaint"><?=set_value('n_complaint',isset($record[0]->rone) ? $record[0]->rone : '')?></textarea></td>
+										<td style="padding-left:10px;"><textarea class="Input n_com2" name="n_complaint" id="n_complaint"> <?=set_value('n_complaint',isset($record[0]->rone) ? $record[0]->rone : '')?></textarea></td>
 									</tr>
 									<tr>
 										<td style="padding-left:10px;">Finding: <br/>i)Process of Troubleshooting <br/>ii) Action Taken </td>
-										<td style="padding-left:10px;"><textarea class="Input n_com2" name="n_troubleshooting"><?=set_value('n_troubleshooting',isset($record[0]->rtwo) ? $record[0]->rtwo : '')?></textarea></td>
+										<td style="padding-left:10px;"><textarea class="Input n_com2" name="n_troubleshooting" id="n_troubleshooting"><?=set_value('n_troubleshooting',isset($record[0]->rtwo) ? $record[0]->rtwo : '')?></textarea></td>
 									</tr>
 									<tr>
 										<td style="padding-left:10px;">Possible Root Cause of Finding </td>
-										<td style="padding-left:10px;"><textarea class="Input n_com2" name="n_finding"><?=set_value('n_finding',isset($record[0]->rthree) ? $record[0]->rthree : '')?></textarea></td>
+										<td style="padding-left:10px;"><textarea class="Input n_com2" name="n_finding" id="n_finding"><?=set_value('n_finding',isset($record[0]->rthree) ? $record[0]->rthree : '')?></textarea></td>
 									</tr>
 								</table>
 							</td>

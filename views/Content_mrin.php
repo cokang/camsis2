@@ -139,7 +139,11 @@
 									<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo.'</br>'.$row->resolve : ''?>
 								</a>
 							</td>
-							<td class="td-desk"><?=isset($row->WorkOfOrder) ? $row->WorkOfOrder : ''?></td>
+							<td class="td-desk">
+							<a href="<?php echo base_url();?>index.php/contentcontroller/workorderlist?wrk_ord=<?=$row->WorkOfOrder?>">
+									<?=isset($row->WorkOfOrder) ? $row->WorkOfOrder : ''?>
+								</a>
+							</td>
 							<td class="td-desk"><?=isset($row->V_Asset_no) ? $row->V_Asset_no : ''?></td>
 								<?php foreach($status as $stat){ ?>
 									<?php

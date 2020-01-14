@@ -682,5 +682,20 @@ function delete_PO_MIRN($mirn,$vendor){
 		//exit();
 	  	return $this->db->affected_rows() > 0;
 }
+
+function u_mrinwo($insert_data,$wono){
+	$this->db->where('WorkOfOrder',$wono);
+  $this->db->where('DocReferenceNo = ""', NULL, FALSE);
+	$this->db->update('tbl_materialreq',$insert_data);
+	//echo $this->db->last_query();
+	//exit();
+}
+function updaterootcause($insert_data,$wo){
+	$this->db->where('WorkOfOrder',$wo);
+	// $this->db->where('v_ActionFlag <>','D');
+	$this->db->update('tbl_materialreq',$insert_data);
+}
+
+
 }
 ?>

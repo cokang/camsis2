@@ -32,7 +32,7 @@
 										<td class="td-assest">Request Date&nbsp;:&nbsp;</td>
 										<td><?= isset($record[0]->D_date) == TRUE ? date_format(new DateTime($record[0]->D_date), 'd-m-Y H:i') : 'N/A'?></a></td>
 									</tr>
-									<?php if($record[0]->V_request_type=='AP19'){ ?>
+									<?php if(isset($record[0]->V_request_type)=='AP19'){ ?>
 									<tr>
 										<td class="td-assest">Nature of Visit&nbsp;:&nbsp;</td>
 										<td><?= isset($record[0]->V_priority_code) == 'RQ' ? 'Request' : 'N/A'?></td>
@@ -78,8 +78,9 @@
 									<tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">Location</td></tr>
 									<tr>
 										<?php
+										if(isset($record[0])){
 										if ($record[0]->V_User_dept_code == "") {$record[0]->V_User_dept_code = $record[0]->assdept;};
-										if ($record[0]->V_Location_code == "") {$record[0]->V_Location_code = $record[0]->assloc;};
+										if ($record[0]->V_Location_code == "") {$record[0]->V_Location_code = $record[0]->assloc;};}
 										?>
 										<td class="td-assest">User Department:</td>
 										<td><?= isset($record[0]->V_User_dept_code) == TRUE ? $record[0]->V_User_dept_code : 'N/A' ?></td>
@@ -95,7 +96,7 @@
 									</tr>
 									<tr>
 										<td class="td-assest">Asset Number: </td>
-										<td><b><?= ($record[0]->V_Asset_no) && $record[0]->V_Asset_no != 'N/A'  ? anchor ('contentcontroller/assetupdate?asstno='.$record[0]->V_Asset_no.'&tab=0&parent=assets',''.$record[0]->V_Tag_no.'' ) : 'N/A'?></b></td>
+										<td><b><?= isset($record[0]->V_Asset_no) && isset($record[0]->V_Asset_no) != 'N/A'  ? anchor ('contentcontroller/assetupdate?asstno='.$record[0]->V_Asset_no.'&tab=0&parent=assets',''.$record[0]->V_Tag_no.'' ) : 'N/A'?></b></td>
 									</tr>
 									<!--<tr>
 										<td class="td-assest">Asset Tag: </td>

@@ -1,13 +1,13 @@
 <body style="margin:0px;">
 <table class="tftable" border="0" style="text-align:center;">
-<?php 
+<?php
 $var='';
 if($this->input->get('p')){
 if ($this->input->get('p') == 'Norequest'){
-$var='&p=Norequest';	 
+$var='&p=Norequest';
 }
 if ($this->input->get('p') == 'rwo'){
-$var='&p=rwo';	 
+$var='&p=rwo';
 }
 }
 ?>
@@ -65,6 +65,9 @@ $var='&p=rwo';
 			$Model = isset($row->V_Model_no) ? $row->V_Model_no : '';
 			$PCost = isset($row->N_Cost) ? $row->N_Cost : '';
 			$PDate = isset($row->V_PO_date) ? $row->V_PO_date : '';
+			$rone = isset($row->rone) ? $row->rone : '';
+			$rtwo = isset($row->rtwo) ? $row->rtwo : '';
+			$rthree = isset($row->rthree) ? $row->rthree : '';
 		}elseif($wwo == 2){
 			$RequestNo = isset($row->v_WrkOrdNo) ? $row->v_WrkOrdNo : '';
 			$Date = isset($row->d_DueDt) ? date('d-m-Y',strtotime($row->d_DueDt)) : '';
@@ -87,8 +90,11 @@ $var='&p=rwo';
 			$Model = 'N/A';//isset($row->V_Model_no) ? $row->V_Model_no : '';
 			$PCost = 'N/A';//isset($row->N_Cost) ? $row->N_Cost : '';
 			$PDate = 'N/A';//isset($row->V_PO_date) ? $row->V_PO_date : '';
-			
-			
+			$rone = "lahanat1";
+			$rtwo = "lahanat2";
+			$rthree = "lahanat3";
+
+
 		}else{
 
 			$RequestNo =  isset($row->MIRNcode) ? $row->MIRNcode : '';
@@ -112,14 +118,17 @@ $var='&p=rwo';
 			$Model = 'N/A';
 			$PCost = 'N/A';
 			$PDate = 'N/A';
-			
+			$rone = "lahanat1";
+			$rtwo = "lahanat2";
+			$rthree = "lahanat3";
+
 		}
 		?>
 	<tr align="center">
-		
+
 		<td ><?= $numrow ?></td>
 		<?php if($this->input->get('p') == 'Norequest'){?>
-		<td><a href="javascript:Setasset('<?=$RequestNo?>','<?=$Date?>','<?=$Summary?>','<?=$RBM?>','<?=$Description?>','<?=$Model?>','<?=$TagNo?>','<?=$AssetNo?>','<?=$SerialNo?>','<?=$PCost?>','<?=$PDate?>','<?=$PDate?>')" ><?= $RequestNo ?></a></td>
+		<td><a href="javascript:Setasset('<?=$RequestNo?>','<?=$Date?>','<?=$Summary?>','<?=$RBM?>','<?=$Description?>','<?=$Model?>','<?=$TagNo?>','<?=$AssetNo?>','<?=$SerialNo?>','<?=$PCost?>','<?=$PDate?>','<?=$PDate?>','<?=$rone?>','<?=$rtwo?>','<?=$rthree?>')" ><?= $RequestNo ?></a></td>
 		<?php }else{ ?>
 		<td><a href="javascript:Setasset('<?=$RequestNo?>','<?=$Date?>','<?=$Status?>','<?=$UserDept?>','<?=$AssetNo?>','<?=$Location?>','<?=$Summary?>','<?=$Priority?>','<?=$ClosedDate?>','<?=$ClosedTime?>','<?=$Requestor?>','<?=$TagNo?>','<?=$SerialNo?>','<?=$Phone?>','<?=$Time?>','<?=$Designation?>','<?=$Description?>','<?=$RBM?>','<?=$Model?>','<?=$PCost?>','<?=$PDate?>')" ><?= $RequestNo ?></a></td>
 		<?php } ?>
@@ -132,7 +141,7 @@ $var='&p=rwo';
 </table>
 <?php if($this->input->get('p') == 'Norequest'){?>
 <script type="text/javascript">
-    function Setasset(a,b,c,d,e,f,g,h,i,j,k,l) {
+    function Setasset(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o) {
         if (window.opener != null && !window.opener.closed) {
             var aa = window.opener.document.getElementById("n_request");
             aa.value = a;
@@ -158,11 +167,17 @@ $var='&p=rwo';
             kk.value = k;
 			var ll = window.opener.document.getElementById("n_age");
             ll.value = l;
+			var mm = window.opener.document.getElementById("n_complaint");
+            mm.value = m;
+			var nn = window.opener.document.getElementById("n_troubleshooting");
+            nn.value = n;
+			var oo = window.opener.document.getElementById("n_finding");
+            oo.value = o;
         }
         window.close();
     }
 </script>
-<?php }else if($this->input->get('p') == 'rwo'){?>	
+<?php }else if($this->input->get('p') == 'rwo'){?>
 <script type="text/javascript">
     function Setasset(a_request) {
         if (window.opener != null && !window.opener.closed) {
@@ -172,7 +187,7 @@ $var='&p=rwo';
         window.close();
     }
 </script>
-<?php }else{?>	   		
+<?php }else{?>
 <script type="text/javascript">
     function Setasset(a_request) {
         if (window.opener != null && !window.opener.closed) {

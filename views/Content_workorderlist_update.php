@@ -155,7 +155,7 @@
 							<?php if ($this->input->get('bookwo') == '') { ?>
 							<tr>
 								<td class="td-assest">Link Work Order : </td>
-								<td ><input type="text" name="n_link" id="n_link" value="<?php echo set_value('n_link', isset($record[0]->link_wo) == TRUE ? $record[0]->link_wo : '')?>" class="form-control-button n_wi-date2 n_wi-eq3" readonly> <span class="icon-windows" onclick="flink('<?=date('m',strtotime($record[0]->D_date))?>','<?=date('Y',strtotime($record[0]->D_date))?>')"></span></td>
+								<td ><input type="text" name="n_link" id="n_link" value="<?php echo set_value('n_link', isset($record[0]->link_wo) == TRUE ? isset($record[0]->link_wo) : '')?>" class="form-control-button n_wi-date2 n_wi-eq3" readonly> <span class="icon-windows" onclick="flink('<?=date('m',strtotime(isset($record[0]->D_date)))?>','<?=date('Y',strtotime(isset($record[0]->D_date)))?>')"></span></td>
 							</tr>
 							<?php } ?>
 							<?php } ?>

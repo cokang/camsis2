@@ -449,6 +449,15 @@ class Procurement extends CI_Controller {
 		else{
 			$data['record'] = $this->display_model->polist($data['month'],$data['year'],$search);
 		}
+		function toArray($obj)
+{
+    $obj = (array) $obj;//cast to array, optional
+    return $obj['path'];
+}
+    $idArray = array_map('toArray', $this->session->userdata('accessr'));
+
+		//echo "nilai id : ".print_r($idArray);
+		$data['chkers'] = $idArray;
 		//print_r($data['record']);
 		//exit();
 		$this ->load->view("asset3_e_pr", $data);
