@@ -1,21 +1,21 @@
 <?php if ('contentcontroller/sys_admin/' == $this->uri->slash_segment(1) .$this->uri->slash_segment(2)){ ?>
     <?php if ($this->input->get('gbl') == 2){?>
  <script>
+ 
 
-
-
+ 
  function fLabour(a)
 		{
 			//var parent = a.getAttribute('value');
 			winProp = 'width=1200,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-			Win = window.open('<?php
+			Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "pop_syslabour";
-
+		
 	}
 	else {
 		echo "contentcontroller/pop_syslabour";
-
+		
 	}?>', '', winProp);
 			Win.window.focus();
 		}
@@ -25,182 +25,177 @@ if ($this->uri->slash_segment(1) == 'contentcontroller/') {
  function fsystemcode(a){
 //var parent = a.getAttribute('value');
 winProp = 'width=1200,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-Win = window.open('<?php
+Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "pop_systemcode";
-
+		
 	}
 	else {
 		echo "contentcontroller/pop_systemcode";
-
+		
 	}?>', '', winProp);
 			Win.window.focus();
 		}
 function fchecklist(a){
 var parent = a.getAttribute('value');
 winProp = 'width=1200,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-Win = window.open('<?php
+Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "pop_checklist";
-
+		
 	}
 	else {
 		echo "contentcontroller/pop_checklist";
-
+		
 	}?>?id='+parent+'', '', winProp);
 			Win.window.focus();
 		}
 function fWorkgroup(a){
 var parent = a.getAttribute('value');
 winProp = 'width=1200,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-Win = window.open('<?php
+Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "pop_fWorkgroup";
-
+		
 	}
 	else {
 		echo "contentcontroller/pop_fWorkgroup";
-
+		
 	}?>?id='+parent+'', '', winProp);
 			Win.window.focus();
 		}
-
+		
 </script>
 <?php }elseif($this->input->get('jt') == 2){ ?>
 <script>
 function fchecklist(a){
 var parent = a.getAttribute('value');
 winProp = 'width=1200,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-Win = window.open('<?php
+Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "pop_checklist";
-
+		
 	}
 	else {
 		echo "contentcontroller/pop_checklist";
-
+		
 	}?>?id='+parent+'', '', winProp);
 			Win.window.focus();
 		}
 function fEquipment(a){
 var parent = a.getAttribute('value');
 winProp = 'width=1200,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-Win = window.open('<?php
+Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "pop_fEquipment";
-
+		
 	}
 	else {
 		echo "contentcontroller/pop_fEquipment";
-
+		
 	}?>?id='+parent+'', '', winProp);
 			Win.window.focus();
 		}
 function fType(a){
 var parent = a.getAttribute('value');
 winProp = 'width=1200,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-Win = window.open('<?php
+Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "pop_fType";
-
+		
 	}
 	else {
 		echo "contentcontroller/pop_fType";
-
+		
 	}?>?id='+parent+'', '', winProp);
 			Win.window.focus();
 		}
 function fProcedure(a){
 var parent = a.getAttribute('value');
 winProp = 'width=1200,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-Win = window.open('<?php
+Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "pop_fProcedure";
-
+		
 	}
 	else {
 		echo "contentcontroller/pop_fProcedure";
-
+		
 	}?>?id='+parent+'', '', winProp);
 			Win.window.focus();
 		}
 </script>
-<?php }elseif($this->input->get('ud') == 2){ ?>
+<?php }elseif($this->input->get('ud') == 2){ ?>	
 <script>
 function mohcode(a){
 var parent = a.getAttribute('value');
 winProp = 'width=1200,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-Win = window.open('<?php
+Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "mohcode";
-
+		
 	}
 	else {
 		echo "contentcontroller/mohcode";
-
+		
 	}?>', '', winProp);
 			Win.window.focus();
 		}
 </script>
 	<?php } ?>
-<?php }elseif($this->uri->slash_segment(2) == 'updatecommissioning/'){ ?>
+<?php }elseif($this->uri->slash_segment(2) == 'updatecommissioning/'){ ?>	
 <script>
 function fRequest12(a){
 var parent = a.getAttribute('value');
 winProp = 'width=1200,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-Win = window.open('<?php
+Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "pop_fRequest12";
-
+		
 	}
 	else {
 		echo "contentcontroller/pop_fRequest12";
-
+		
 	}?>', '', winProp);
 			Win.window.focus();
 		}
 </script>
-<?php }elseif($this->uri->slash_segment(2) == 'fail_bank/'){ ?>
+<?php }elseif($this->uri->slash_segment(2) == 'fail_bank/'){ ?>	
 <script>
 function fbank(a,b){
 //var parent = a.getAttribute('value');
 //var docid = b.getAttribute('value');
 winProp = 'width=500,height=100,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-Win = window.open('<?php
+Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "pop_fail";
-
+		
 	}
 	else {
 		echo "contentcontroller/pop_fail";
-
+		
 	}?>?assetno='+a+'&docid='+b+'', '', winProp);
-			Win.window.focus();
-		}
-</script>
-<?php }elseif($this->uri->slash_segment(2) == 'chronologyupdate/'){ ?>
-<script>
-function fCalldetailname(a)
-		{
-			var parent = a.getAttribute('value');
-			//var hour = hour;
-			//var minute = minute;
-			winProp = 'width=600,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-			Win = window.open('<?php
-if ($this->uri->slash_segment(1) == 'contentcontroller/') {
-	echo "assetdetailname";
-
-	}
-	else {
-		echo "contentcontroller/assetdetailname";
-
-	}?>?parent='+parent, 'assetdetailname', winProp);
 			Win.window.focus();
 		}
 </script>
 <?php }elseif(($this->uri->slash_segment(1) == 'Procurement/') or ( $this->uri->slash_segment(1) == 'mrinnew_ctrl/')){ ?>
 		<?php if(($this->input->get('pro') == 'new') or ($this->input->get('pr') == 'pending') or ($this->input->get('pro') == 'edit')){ ?>
 <script>
+function pecodes3(id)
+{
+	winProp = 'width=600,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
+	Win = window.open('<?php 
+if ($this->uri->slash_segment(1) == 'contentcontroller/') {
+	echo "pecodes";
+		
+	}
+	else {
+		echo "contentcontroller/pecodes";
+		
+	}?>?mrin=yes&hosp=<?=$this->session->userdata('hosp_code');?>&id='+id, 'assetnumber', winProp);//change hosp to session
+	Win.window.focus();
+}
+
 function fCallRequestA(){
 	var assno = document.getElementById("n_assetnumber");
 	winProp = 'width=' + screen.width + ',height=' + screen.height + ',left=,top=,menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
@@ -238,9 +233,9 @@ function fCallitem(){
 	<?php } ?>
     cell1.innerHTML = rows+'<input type="hidden" name="rows" value="'+rows+'">';
     cell2.innerHTML = '<p id="itemcode'+rows+'"></p><input type="hidden" id="itemcodei'+rows+'" name="itemcode'+rows+'" value="">';
-    cell3.innerHTML = '<div id="itemname'+rows+'" style="display:inline-block; padding-right:5px;"></div><span class="icon-windows" style="display:inline-block;" onclick="fCallitemxx(\'itemname'+rows+'\',\'itemcode'+rows+'\')"></span>';
+    cell3.innerHTML = '<div id="itemname'+rows+'" style="display:inline-block; padding-right:5px;"></div><span class="icon-windows" style="display:inline-block;" onclick="pecodes3('+rows+')"></span>';
 	cell4.innerHTML = '<input type="text" name="n_qty'+rows+'" value="" class="form-control-button2" style=width:100px;">';
-	cell5.innerHTML = '<select name="a_rem'+rows+'" class="dropdown"><option value="" selected="selected">None</option><option value="1">Mishandling</option><option value="2">Supplementary</option><option value="3">Upgrading</option><option value="4">Re-Installation</option><option value="5">Other</option></select>';
+	cell5.innerHTML = '<select name="a_rem'+rows+'" class="dropdown"><option value="" selected="selected">None</option><option value="1">Mishandling</option><option value="2">Supplementary</option><option value="3">Upgrading</option><option value="4">Re-Installation</option><option value="5">Other</option></select>'; 	
 	cell6.innerHTML = '<INPUT TYPE="text" name="startDate'+rows+'" class="form-control-button2" style=width:100px;" onChange="validDate(this)">';
 	<?php if ($this->input->get('pro') != 'edit') { ?>
 	cell7.innerHTML = '<input type="text" name="n_price'+rows+'" id="n_price'+rows+'" value="" class="form-control-button2" style=width:100px;"><span class="icon-windows" style="display:inline-block; padding-left:5px;" id="itemc'+rows+'" onclick="fCallpricexx(\'n_price'+rows+'\',\'vendor'+rows+'\', this.value)" value=""></span>';
@@ -280,13 +275,13 @@ function validDate(fld) {
         // work around IE timing problem with alert by
         // invoking a focus/select function through setTimeout();
         // must pass along reference of fld (as string)
-        setTimeout("doSelection(document.forms['" +
+        setTimeout("doSelection(document.forms['" + 
         fld.form.name + "'].elements['" + fld.name + "'])", 0)
         return false
     } else {
         // everything's OK; if browser supports new date method,
         // show just date string in status bar
-        status = (testDate.toLocaleDateString) ? testDate.toLocaleDateString() :
+        status = (testDate.toLocaleDateString) ? testDate.toLocaleDateString() : 
             "Date OK"
         return true
     }
@@ -328,7 +323,7 @@ function fCallLocatioa(mrinno,tag)
 	 		}
 		document.body.style.cursor='default';
 		} ,300);
-
+ 			
 	}
 	function fCallLocatiod(mrinno, id, tag)
 	{
@@ -340,7 +335,7 @@ function fCallLocatioa(mrinno,tag)
 		winProp = 'width=450,height=270,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
 		Win = window.open(url, 'Location', winProp);
 		Win.window.focus();
-
+ 			
 	}
 	function fCallLocatioe(mrinno, id, tag)
 	{
@@ -352,7 +347,7 @@ function fCallLocatioa(mrinno,tag)
 		winProp = 'width=450,height=270,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
 		Win = window.open(url, 'Location', winProp);
 		Win.window.focus();
-
+ 			
 	}
 </script>
 <?php }elseif(($this->input->get('po') == 'update') and ($this->input->get('pr') == 'pen')){ ?>
@@ -363,14 +358,14 @@ function fCalldetailname(a)
 			//var hour = hour;
 			//var minute = minute;
 			winProp = 'width=600,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-			Win = window.open('<?php
+			Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'Procurement/') {
 	echo "assetdetailname";
-
+		
 	}
 	else {
 		echo "contentcontroller/assetdetailname";
-
+		
 	}?>?pr='+parent, 'assetdetailname', winProp);
 			Win.window.focus();
 		}
@@ -381,8 +376,9 @@ if ($this->uri->slash_segment(1) == 'Procurement/') {
 function fkmrin(a)
 		{
 			var parent = a.getAttribute('value');
-  		var parentx = a.getAttribute('valuex');
+  		        var parentx = a.getAttribute('valuex');
 			winProp = 'width=1200,height=500,left=' + ((screen.width - 1200) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
+			//Win = window.open('contentcontroller/assetupdate?asstno='+parent+'&tab=0&parent=assets', 'assetdetailname', winProp);
 			Win = window.open('contentcontroller/assetupdate?asstno='+parent+'&tab=0&parent=assets&mrinhosp='+parentx, 'assetdetailname', winProp);
 			Win.window.focus();
 		}
@@ -418,7 +414,7 @@ function pop_store(a, b, c, d, e){
         alert("U press cancel!!");
     }
 }
-</script>
+</script> 
 <?php } ?>
 <?php } elseif(($this->uri->slash_segment(1).$this->uri->slash_segment(2) == 'contentcontroller/bar_code/') or ( $this->uri->slash_segment(1) == 'mrinnew_ctrl/')){ ?>
 <script>
@@ -434,14 +430,14 @@ function searchKeyPress(e)
     e = e || window.event;
     if (e.keyCode == 13)
     {//alert("lalalallazzzzzzzzzzz");
-
+		
 		e.preventDefault();
-
+		
 		var nilai = document.getElementById('n_barput').value;
 		var textcontrol = document.getElementById("n_barput");
     textcontrol.value = "";
-
-
+		
+		
 		var oReq = new XMLHttpRequest(); //New request object
     oReq.onload = function() {
         //This is where you handle what to do with the response.
@@ -473,34 +469,34 @@ function searchKeyPress(e)
 		<?php } else {?>
 		cell4.innerHTML = '<INPUT TYPE="text" name="itemcode9'+rows+'" value="" class="form-control-button2" style=width:100px;"><input type="hidden" name="itemcode3'+rows+'" value="'+data.Qty+'">';
 		<?php } ?>
-	cell5.innerHTML = '<input type="text" name="itemcode4'+rows+'" value="" class="form-control-button2" style=width:100px;">';
+	cell5.innerHTML = '<input type="text" name="itemcode4'+rows+'" value="" class="form-control-button2" style=width:100px;">';	
 	cell6.innerHTML = '<INPUT TYPE="text" name="itemcode5'+rows+'" class="form-control-button2" style=width:100px;">';
-
+	
 	cell7.innerHTML = '<input type="text" name="itemcode6'+rows+'" id="itemcode6'+rows+'" value="" class="form-control-button2" style=width:100px;"><!--<span class="icon-windows" style="display:inline-block; padding-left:5px;" id="itemc'+rows+'" onclick="fCallpricexx(\'n_price'+rows+'\',\'vendor'+rows+'\', this.value)" value=""></span>-->';
 	cell8.innerHTML = '<p id="vendor'+rows+'"></p><span class="" style="display:inline-block; padding-left:5px;" id="itemc'+rows+'" onclick="deleteRow(this)" value=""><img class="manImg" src="<?=base_url()?>images/trash-can.jpg" height="42" width="42"></img></span>';
-
-
+	
+	
         //document.getElementById('btnSearch').click();
         return false;
     };
     oReq.open("get", "<?php echo base_url ('index.php/ajaxjson?itemape=') ?>"+nilai, true);
     //                               ^ Don't block the rest of the execution.
-    //                                 Don't wait until the request finishes to
+    //                                 Don't wait until the request finishes to 
     //                                 continue.
     oReq.send();
-
-
+		
+		
 		//tmpt asal
     }
     return true;
 }
-
+ 
 function fCallitem(){
 
 	 e = e || window.event;
     if (e.keyCode == 13)
     {alert("lalalalla");
-
+		
 				var table = document.getElementById("myTable");
 	var rows = document.getElementById("myTable").getElementsByTagName("tr").length;
     var row = table.insertRow(-1);
@@ -518,35 +514,35 @@ function fCallitem(){
     cell2.innerHTML = '<p id="itemcode'+rows+'"></p><input type="hidden" id="itemcodei'+rows+'" name="itemcode'+rows+'" value="">';
     cell3.innerHTML = '<div id="itemname'+rows+'" style="display:inline-block; padding-right:5px;"></div><span class="icon-windows" style="display:inline-block;" onclick="fCallitemxx(\'itemname'+rows+'\',\'itemcode'+rows+'\')"></span>';
 	cell4.innerHTML = '<input type="text" name="n_qty'+rows+'" value="" class="form-control-button2" style=width:100px;">';
-	cell5.innerHTML = '<select name="a_rem'+rows+'" class="dropdown"><option value="" selected="selected">None</option><option value="1">Mishandling</option><option value="2">Supplementary</option><option value="3">Upgrading</option><option value="4">Re-Installation</option><option value="5">Other</option></select>';
+	cell5.innerHTML = '<select name="a_rem'+rows+'" class="dropdown"><option value="" selected="selected">None</option><option value="1">Mishandling</option><option value="2">Supplementary</option><option value="3">Upgrading</option><option value="4">Re-Installation</option><option value="5">Other</option></select>'; 	
 	cell6.innerHTML = '<INPUT TYPE="text" name="startDate'+rows+'" class="form-control-button2" style=width:100px;" onChange="validDate(this)">';
 	<?php if ($this->input->get('pro') != 'edit') { ?>
 	cell7.innerHTML = '<input type="text" name="n_price'+rows+'" id="n_price'+rows+'" value="" class="form-control-button2" style=width:100px;"><span class="icon-windows" style="display:inline-block; padding-left:5px;" id="itemc'+rows+'" onclick="fCallpricexx(\'n_price'+rows+'\',\'vendor'+rows+'\', this.value)" value=""></span>';
 	cell8.innerHTML = '<p id="vendor'+rows+'"></p><input type="hidden" id="vendori'+rows+'" name="vendor'+rows+'" value="">';
-	<?php } ?>
-
+	<?php } ?>		
+		
         //document.getElementById('btnSearch').click();
         return false;
     }
     return true;
-
-
-
+				 
+				 
+	
 }
-</script>
+</script> 
 <?php } else{ ?>
 <script>
 function fchecklist(a){
 var parent = a.getAttribute('value');
 winProp = 'width=1200,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-Win = window.open('<?php
+Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "pop_checklist";
-
+		
 	}
 	else {
 		echo "contentcontroller/pop_checklist";
-
+		
 	}?>?id='+parent+'', '', winProp);
 			Win.window.focus();
 		}
@@ -560,14 +556,14 @@ function fCalllocation(value,object = false)
 		{
 		//alert(value);
 			winProp = 'width=1200,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-			Win = window.open('<?php
+			Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "location";
-
+		
 	}
 	else {
 		echo "contentcontroller/location";
-
+		
 	}?>?parent='+value, 'location', winProp);
 			Win.window.focus();
 		}
@@ -575,17 +571,17 @@ function rel()
 		{
 			var span_Text = document.getElementById("n_location").value;
 			winProp = 'width=1200,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-			Win = window.open('<?php
+			Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "relworkorder";
-
+		
 	}
 	else {
 		echo "contentcontroller/relworkorder";
-
+		
 	}?>?loc='+span_Text, 'location', winProp);
 			Win.window.focus();
-
+			
 		}
 function fCalltc_r_number()
 		{
@@ -597,14 +593,14 @@ function fCallpop_vendor(a)
 		{
 			var parent = a.getAttribute('value');
 			winProp = 'width=1200,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-			Win = window.open('<?php
+			Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "pop_vendor";
-
+		
 	}
 	else {
 		echo "contentcontroller/pop_vendor";
-
+		
 	}?>?parent='+parent+'', 'location', winProp);
 			Win.window.focus();
 		}
@@ -620,14 +616,14 @@ function fCalldetailname(a,hour,minute)
 			//var hour = hour;
 			//var minute = minute;
 			winProp = 'width=600,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-			Win = window.open('<?php
+			Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "assetdetailname";
-
+		
 	}
 	else {
 		echo "contentcontroller/assetdetailname";
-
+		
 	}?>?parent='+parent+'&hour='+hour+'&minute='+minute, 'assetdetailname', winProp);
 			Win.window.focus();
 		}
@@ -638,16 +634,16 @@ if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 			//var minute = minute;
 			winProp = 'width=600,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
 			//alert('nilai <?=$this->uri->slash_segment(1).' dan '.$this->uri->slash_segment(2)?>');
-			Win = window.open('<?php
+			Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "assetdetailname";
-
+		
 	}elseif (($this->uri->slash_segment(1) != 'contentcontroller/') && ($this->uri->slash_segment(2) != '/')){
 	echo "../contentcontroller/assetdetailname";
 	}
 	else {
 		echo "contentcontroller/assetdetailname";
-
+		
 	}
 	?>?parent='+parent, 'assetdetailname', winProp);
 			Win.window.focus();
@@ -662,14 +658,14 @@ function fCallassetsnumber(a)
 		{
 			var parent = a.getAttribute('value');
 			winProp = 'width=1200,height=500,left=' + ((screen.width - 1200) / 2) +',top=' + ((screen.height - 600) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-			Win = window.open('<?php
+			Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "assetnumber";
-
+		
 	}
 	else {
 		echo "contentcontroller/assetnumber";
-
+		
 	}?>?parent='+parent, 'assetnumber', winProp);
 			Win.window.focus();
 		}
@@ -679,14 +675,14 @@ function flink(m,y)
 			//var month = m.getAttribute('value');
 			//var year = y.getAttribute('value');
 			winProp = 'width=1200,height=500,left=' + ((screen.width - 1200) / 2) +',top=' + ((screen.height - 600) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-			Win = window.open('<?php
+			Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "pop_link";
-
+		
 	}
 	else {
 		echo "contentcontroller/pop_link";
-
+		
 	}?>?m='+m+'&y='+y, 'assetnumber', winProp);
 			Win.window.focus();
 		}
@@ -718,28 +714,28 @@ function fCallpop_Checklist_Code()
 function fpop_location_user()
 {
 	winProp = 'width=600,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-	Win = window.open('<?php
+	Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "pop_location_user";
-
+		
 	}
 	else {
 		echo "contentcontroller/pop_location_user";
-
+		
 	}?>', 'assetnumber', winProp);
 	Win.window.focus();
 }
 function pecodes()
 {
 	winProp = 'width=600,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-	Win = window.open('<?php
+	Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "pecodes";
-
+		
 	}
 	else {
 		echo "contentcontroller/pecodes";
-
+		
 	}?>?hosp=<?php echo $this->input->get('id');?>', 'assetnumber', winProp);//change hosp to session
 	Win.window.focus();
 }
@@ -750,14 +746,14 @@ function pecodes2()
 			if (assno.value != '')
 				{
 	winProp = 'width=600,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-	Win = window.open('<?php
+	Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "pecodes2";
-
+		
 	}
 	else {
 		echo "contentcontroller/pecodes2";
-
+		
 	}?>?ic='+assno.value , 'assetnumber', winProp);
 	Win.window.focus();
 	}
@@ -771,14 +767,14 @@ function pop_requests(a)
 {
 var value = a.getAttribute('value');
 	winProp = 'width=600,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-	Win = window.open('<?php
+	Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "pop_requests";
-
+		
 	}
 	else {
 		echo "contentcontroller/pop_requests";
-
+		
 	}?>?p='+value, 'assetnumber', winProp);
 	Win.window.focus();
 }
@@ -786,14 +782,14 @@ function Schduler(a)
 		{
 			var assno = a.getAttribute('value');
 			winProp = 'width=1300,height=600,left=' + ((screen.width - 1300) / 2) +',top=' + ((screen.height - 700) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-			Win = window.open('<?php
+			Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "p_Schduler";
-
+		
 	}
 	else {
 		echo "contentcontroller/p_Schduler";
-
+		
 	}?>?loct='+assno, 'location', winProp);
 			Win.window.focus();
 		}
@@ -801,14 +797,14 @@ if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	function popauthority()
 		{
 			winProp = 'width=600,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-			Win = window.open('<?php
+			Win = window.open('<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "pop_authority";
-
+		
 	}
 	else {
 		echo "contentcontroller/pop_authority";
-
+		
 	}?>', '', winProp);
 			Win.window.focus();
 		}
@@ -818,14 +814,14 @@ function fCallRequestA()
 			winProp = 'width=' + screen.width + ',height=' + screen.height + ',left=,top=,menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
 				if (assno.value != '')
 				{
-				Win = window.open("<?php
+				Win = window.open("<?php 
 if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	echo "assetupdate";
-
+		
 	}
 	else {
 		echo "contentcontroller/assetupdate";
-
+		
 	}?>?asstno="+assno.value , "AssetDetails", winProp);
 				Win.window.focus();
 				}
