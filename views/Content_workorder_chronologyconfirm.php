@@ -14,6 +14,12 @@
                         </td>
                   </tr>
                   <tr>
+                      <td class="td-assest" valign="top">Assign To : </td> 
+                      <td> <div class="p-vo-2"><span class="ui-left_mobile">Name : </span>
+                                    <input type="text" id="n_personnel_code3" name="assignapsb" value="<?php echo set_value('assignapsb'); ?>" size="10" class="form-control-button2" readonly>
+                                    <span style="font-size:14px;"><input type="text" id="n_personnel_name3" name="assignname" value="<?php echo set_value('assignname'); ?>" size="10" class="input-none" readonly></span></div></td></tr>
+                      <tr>
+                  <tr>
                   <td valign="top" class="td-assest" >Asset movement Internal : </td>
         <td >
         <?php echo form_dropdown('movement', $movement, $this->input->post('movement') , 'class="dropdown n_wi-date" id="parentText" disabled'); ?>

@@ -2833,6 +2833,8 @@ $this->db->insert('tbl_invitem', $insert_data);
 								 'v_ActionTaken' => $this->input->post('n_Action_Taken'),
 								 'v_ReschAuthBy' => $this->input->post('n_Type_of_Work'),
 								 'V_AssetMovement' => $this->input->post('movement'),
+								 'standby1' => $this->input->post('assignapsb'),
+								 'standby2' => $this->input->post('assignname'),
 								 'v_Actionflag' => 'U',
 								 'd_Timestamp' => date("Y-m-d H:i:s")
 								);
@@ -2846,6 +2848,8 @@ $this->db->insert('tbl_invitem', $insert_data);
 							 'v_ActionTaken' => $this->input->post('n_Action_Taken'),
 							 'v_ReschAuthBy' => $this->input->post('n_Type_of_Work'),
 							 'V_AssetMovement' => $this->input->post('movement'),
+							 'standby1' => $this->input->post('assignapsb'),
+								 'standby2' => $this->input->post('assignname'),
 							 'v_Actionflag' => 'I',
 							 'd_Timestamp' => date("Y-m-d H:i:s"),
 							 'v_HospitalCode' => $this->session->userdata('hosp_code'),

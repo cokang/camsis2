@@ -42,6 +42,12 @@
                       </td>
                       </tr>
                       <tr>
+                      <td class="td-assest" valign="top">Assign To : </td> 
+                      <td> <div class="p-vo-2"><span class="ui-left_mobile">Name : </span>
+                                    <input type="text" id="n_personnel_code3" name="assignapsb" value="<?php echo set_value('assignapsb',isset($records[0]->standby1) == TRUE ? $records[0]->standby1 : 'N/A')?>" size="10" class="form-control-button2" readonly>
+                                    <span class="icon-windows" onclick="fCalldetailname(this)" value="woresponse&v=r&r=4"></span>
+                                    <span style="font-size:14px;"><input type="text" id="n_personnel_name3" name="assignname" value="<?php echo set_value('assignname',isset($records[0]->standby2) == TRUE ? $records[0]->standby2 : '')?>" size="10" class="input-none" readonly></span></div></td></tr>
+                      <tr>
       <td class="td-assest" valign="top">Asset movement Internal : </td> 
         <td >
         <?php echo form_dropdown('movement', $movement,set_value('movement',isset($records[0]->V_AssetMovement)?$records[0]->V_AssetMovement:'', ( !empty($movement) && $movement == isset($records[0]->V_AssetMovement)?$records[0]->V_AssetMovement:'' ? TRUE : FALSE ))  , 'class="dropdown n_wi-date" id="assetmovement"'); ?>
@@ -50,7 +56,7 @@
     
       <tr>
         <td class="td-assest" valign="top">Details Of Work Progress : </td>
-        <td><textarea class="input n_com" name="n_Action_Taken"><?php echo set_value('n_Action_Taken', isset($record[0]->v_ActionTaken) == TRUE ? $record[0]->v_ActionTaken : 'N/A')?></textarea></td>
+        <td><textarea class="input n_com" name="n_Action_Taken"><?php echo set_value('n_Action_Taken', isset($records[0]->v_ActionTaken) == TRUE ? $records[0]->v_ActionTaken : 'N/A')?></textarea></td>
       </tr>
 			   <tr>
 			    <td colspan="3" class="closedwo"></td>
@@ -136,6 +142,5 @@ $(document).ready(function() {
   </div>
       <?php include 'ajaxtime.php';?>
       <?php include 'content_jv_popup.php';?>
-      <!-- <?php include 'rootcause.php';?> -->
 </div>
 <?php echo form_close(); ?>
