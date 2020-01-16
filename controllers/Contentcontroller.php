@@ -8796,15 +8796,15 @@ public function chronologyplus(){
   $this->load->model('get_model');
   $data['rc'] = $this->get_model->getrootcause();
   $data['rc_parent'] = $this->get_model->getrootcause_nodash();
-  $data['records'] = $this->display_model->chronology_tab($data['wrk_ord']);
-  $data['movement'] = array('Workshop' => 'Workshop', 
+  $data['movement'] = array('Workshop' => 'Workshop',
                   'Vendor' => 'Vendor',
                    'Remain at user location'=> 'Remain at user location');
   //if (substr($data['wrk_ord'],0,2) == 'PP'){
   //echo "nilai visit " . $data['visit'];
   if ($data['visit'] != "") {
-  //$data['latestvisit'] = $this->get_model->latestvisit($data['wrk_ord']);
-  $data['record'] = $this->display_model->chronology_tabu($data['wrk_ord'],$data['visit']);
+  $visit = $this->get_model->latestchronologyvisit($data['wrk_ord']);
+  $data['visit']=$visit[0]->n_Visit;
+  $data['records'] = $this->display_model->chronology_tabu($data['wrk_ord'],$data['visit']);
   //$data['recordjob'] = $this->display_model->jobclose_tab($data['wrk_ord']);
   }
   //print_r($data['record']);

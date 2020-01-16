@@ -2140,6 +2140,22 @@ function latestppmvisit($wrk_ord){
 	$query_result = $query->result();
 	return $query_result;
 }
+
+function latestchronologyvisit($wrk_ord){
+	$this->db->select('n_Visit');
+	$this->db->from('pmis2_emg_chronology v1');
+	$this->db->where("v_HospitalCode = ", $this->session->userdata('hosp_code'));
+	$this->db->where('v_WrkOrdNo',$wrk_ord);
+	//$this->db->where('s.v_ServiceCode = ',$this->session->userdata('usersess'));
+	$this->db->order_by('n_Visit DESC');
+	$this->db->limit(1);
+	$query = $this->db->get();
+	//echo $this->db->last_query();
+	//exit();
+	$query_result = $query->result();
+	return $query_result;
+}
+
 function assetimages($assetno,$service,$hosp){
 	$this->db->select('imageid,file_name');
 	$this->db->from('asset_images');
