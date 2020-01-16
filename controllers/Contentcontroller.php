@@ -8798,14 +8798,12 @@ public function chronologyplus(){
   $data['rc_parent'] = $this->get_model->getrootcause_nodash();
   $data['movement'] = array('Workshop' => 'Workshop',
                   'Vendor' => 'Vendor',
-                   'Remain at user location'=> 'Remain at user location');
-  //if (substr($data['wrk_ord'],0,2) == 'PP'){
-  //echo "nilai visit " . $data['visit'];
+				   'Remain at user location'=> 'Remain at user location');
+				   
   if ($data['visit'] != "") {
-  $visit = $this->get_model->latestchronologyvisit($data['wrk_ord']);
-  $data['visit']=$visit[0]->n_Visit;
-  $data['records'] = $this->display_model->chronology_tabu($data['wrk_ord'],$data['visit']);
-  //$data['recordjob'] = $this->display_model->jobclose_tab($data['wrk_ord']);
+  $result = $this->display_model->chronology_tabu($data['wrk_ord'],$data['visit']);
+ $data['dbroot']= $this->get_model->rootChild2($result[0]->nama);
+   $data['records']=$result;
   }
   //print_r($data['record']);
 

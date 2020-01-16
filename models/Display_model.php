@@ -7077,7 +7077,7 @@ return $query->result();
 }
 
 function chronology_tabu($wrk_ord,$visit){
-$this->db->select('v1.*,rc.nama AS type_of_work');
+$this->db->select('v1.*,rc.nama AS type_of_work,SUBSTRING_INDEX(rc.nama, "-", 1) as nama');
 $this->db->from('pmis2_emg_chronology v1');
 //$this->db->join('pmis2_egm_service_request s','s.V_Request_no = v1.v_WrkOrdNo');
 //$this->db->join('pmis2_emg_jobvisit1tow vt','v1.v_WrkOrdNo = vt.v_WrkOrdNo');
@@ -7091,6 +7091,7 @@ $this->db->order_by('n_Visit ASC');
 $query = $this->db->get();
 //echo $this->db->last_query();
 //exit();
+
 $query_result = $query->result();
 return $query_result;
 }
@@ -7119,6 +7120,7 @@ $this->db->join('tbl_vendor_info vi', 'pom.Vendor_No = vi.VENDOR_CODE', 'left');
 $this->db->join('pmis2_egm_assetreg_general ag', 'd.V_Asset_no = ag.V_Asset_no AND d.V_hospitalcode=ag.V_Hospital_code', 'left');
 $this->db->join('pmis2_emg_jobresponse jr', 'a.v_WrkOrdNo = jr.v_WrkOrdNo AND a.v_HospitalCode=jr.v_HospitalCode', 'left');
 
+$this->output->enable_profiler(TRUE);
 
 
 if($datefrom!=null || $dateto!=null){
@@ -7140,7 +7142,6 @@ $this->db->order_by('D_date', 'asc');
 $query = $this->db->get();
 // echo $this->db->last_query();
 //exit();
-$this->output->enable_profiler(TRUE);
 $query_result = $query->result();
 return $query_result;
 }

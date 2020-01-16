@@ -4398,6 +4398,18 @@ function get_stock_asset($searchitem=""){
 			//echo $this->db->last_query();//exit();
 			echo json_encode($result);
 		}
+		
+		function rootChild2($nama) {
+			//echo $nama;
+			$namaNospace =  str_replace("%20"," ",$nama);
+			$this->db->select('*');
+			$this->db->from('pmis2_egm_rootcause');
+			$this->db->like('nama',$namaNospace);
+			$query = $this->db->get();
+			//echo $this->db->last_query();
+			//exit();
+			return $query->result();
+		}
 
 		function reportChronology($datefrom, $dateto, $filterby){
 			$this->db->select("d.D_date,
