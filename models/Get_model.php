@@ -4523,5 +4523,17 @@ function get_stock_asset($searchitem=""){
 		// exit();
 		return $query->result();
 		}
+		function get_special_cat(){
+			$this->db->select("specialty_cat");
+			$this->db->from('pmis2_sa_add_info');
+			$this->db->group_by('specialty_cat');
+		   $query = $this->db->get();
+		   $array[''] = "All";
+		   foreach($query->result() as $row ){
+				   $array[$row->specialty_cat] = $row->specialty_cat;
+		   }
+		   return $array;
+
+		   }
 }
 ?>

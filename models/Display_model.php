@@ -52,19 +52,20 @@
 			$query_result = $query->result();
 			return $query_result;
         }
-	
+
         function list_workorderx($maklumat)
         {
 
             //$tabber =  $this->input->get('work-a');
+                //$this->db->select('s.*,l.v_Location_Name,m.v_Tag_no');
                 $this->db->select('s.*,l.v_Location_Name,m.v_Tag_no,mr.DocReferenceNo, mr.DocReferenceNo, mr.ApprStatusIDx, mr.ApprStatusID');
                 $this->db->from('pmis2_egm_service_request s');
                 $this->db->join('pmis2_egm_assetlocation l','s.V_Location_code = l.V_location_code AND s.V_hospitalcode = l.V_Hospitalcode AND l.V_Actionflag <> "D"','left outer');
                 //$this->db->join('pmis2_egm_assetregistration m','s.V_Asset_no = m.V_Asset_no AND s.V_hospitalcode = m.V_Hospitalcode','left outer');
                 $this->db->join('pmis2_egm_assetregistration m','s.V_Location_code = m.V_Location_code AND s.V_hospitalcode = m.V_Hospitalcode AND s.V_Asset_no = m.V_Asset_no AND s.V_servicecode = m.V_service_code AND m.V_Actionflag <> "D"','left outer');
                 //$this->db->join('pmis2_egm_assetlocation l','s.V_Location_code = l.V_location_code AND s.V_hospitalcode = l.V_Hospitalcode', 'left outer');
-				 $this->db->join('tbl_materialreq mr', 'mr.WorkOfOrder = s.V_Request_no', 'left outer');
-				$this->db->where('s.V_servicecode = ',$this->session->userdata('usersess'));
+                $this->db->join('tbl_materialreq mr', 'mr.WorkOfOrder = s.V_Request_no', 'left outer');
+              $this->db->where('s.V_servicecode = ',$this->session->userdata('usersess'));
             $this->db->where("DATE_FORMAT(s.D_date,'%m') = ",$maklumat['month']);
             $this->db->where("DATE_FORMAT(s.D_date,'%Y') = ",$maklumat['year']);
             $this->db->where("s.V_hospitalcode = ",$this->session->userdata('hosp_code'));
@@ -126,8 +127,8 @@
                 }
 
 
-			$this->db->order_by('V_Request_no ASC');
-			$this->db->order_by('DocReferenceNo', 'asc');
+            $this->db->order_by('V_Request_no ASC');
+      			$this->db->order_by('DocReferenceNo', 'asc');
             //$query = $this->db->get("pmis2_egm_service_request");
             $query = $this->db->get();
             //echo $this->db->last_query();
@@ -652,7 +653,7 @@ ORDER BY r.D_date, r.D_time
 			}
 
 			if ($broughtfwd == ''){
-			$this->db->select("r.v_ref_status, r.takenby, r.V_MohDesg, g.V_Asset_name, e.v_location_name, r.v_location_code, r.V_hospitalcode, r.closedby, r.D_date, r.D_time, r.V_Request_no, r.V_Asset_no, r.V_summary AS ReqSummary, r.V_User_dept_code, r.V_requestor, r.V_request_status, r.v_closeddate, r.v_closedtime, w.V_Wrn_end_code, a.v_summary, g.v_tag_no, d.v_UserDeptDesc, DATEDIFF(IFNULL(r.v_closeddate,'".$this->dater(3,$month,$year)."'),r.D_date) + 1 AS DiffDate,r.V_request_type,g.v_asset_grp,jr.d_Date,jr.v_Time,jr.v_Personal1,jr.v_ActionTaken,g.V_Asset_WG_code, IFNULL(dt.ori_wo,'none') AS linker,jv.d_Date AS schedule_d", false);
+			$this->db->select("r.v_ref_status, r.takenby, r.V_MohDesg, g.V_Asset_name, e.v_location_name, r.v_location_code, r.V_hospitalcode, r.closedby, r.D_date, r.D_time, r.V_Request_no, r.V_Asset_no, r.V_summary AS ReqSummary, r.V_User_dept_code, r.V_requestor, r.V_request_status, r.v_closeddate, r.v_closedtime, w.V_Wrn_end_code, a.v_summary, g.v_tag_no, d.v_UserDeptDesc, DATEDIFF(IFNULL(r.v_closeddate,'".$this->dater(3,$month,$year)."'),r.D_date) + 1 AS DiffDate,r.V_request_type,g.v_asset_grp,jr.d_Date,jr.v_Time,jr.v_Personal1,jr.v_ActionTaken,g.V_Asset_WG_code, IFNULL(dt.ori_wo,'none') AS linker,jv.d_Date AS schedule_d,ad.specialty_cat,ad.medical_dev_class", false);
 			}else{
       //$this->db->select("e.v_location_name, r.v_location_code, r.V_hospitalcode, r.closedby, r.D_date, r.D_time, r.V_Request_no, r.V_Asset_no, r.V_summary AS ReqSummary, r.V_User_dept_code, r.V_requestor, r.V_request_status, r.v_closeddate, r.v_closedtime, w.V_Wrn_end_code, a.v_summary, g.v_tag_no, d.v_UserDeptDesc, CASE WHEN r.V_request_status = 'C' AND MONTH(r.v_closeddate) = MONTH(DATE_SUB('".$year."-".$month."-08 23:59:59', INTERVAL 1 MONTH)) AND YEAR(r.v_closeddate) = YEAR(DATE_SUB('".$year."-".$month."-08 23:59:59', INTERVAL 1 MONTH)) THEN DATEDIFF(r.v_closeddate, r.D_date)+1 WHEN r.V_request_status <> 'C' AND DAY(LAST_DAY(".$this->db->escape($year."-".$month."-01").")) > DATEDIFF(now(), r.D_date) THEN DATEDIFF( now(),r.D_date)+1 ELSE DAY(LAST_DAY(".$this->db->escape($year."-".$month."-01").")) END AS DiffDate,r.V_request_type,g.v_asset_grp,jr.d_Date,jr.v_Time,jr.v_Personal1,jr.v_ActionTaken,g.V_Asset_WG_code, IFNULL(dt.ori_wo,'none') AS linker", false);
 			//$this->db->select("e.v_location_name, r.v_location_code, r.V_hospitalcode, r.closedby, r.D_date, r.D_time, r.V_Request_no, r.V_Asset_no, r.V_summary AS ReqSummary, r.V_User_dept_code, r.V_requestor, r.V_request_status, r.v_closeddate, r.v_closedtime, w.V_Wrn_end_code, a.v_summary, g.v_tag_no, d.v_UserDeptDesc, CASE WHEN r.V_request_status = 'C' AND r.v_closeddate < MONTH(DATE_ADD('".$year."-".$month."-08 23:59:59', INTERVAL 1 MONTH)) THEN DATEDIFF(r.v_closeddate, r.D_date)+1 WHEN r.V_request_status <> 'C' AND DAY(LAST_DAY(".$this->db->escape($year."-".$month."-01").")) > DATEDIFF(now(), r.D_date) THEN DATEDIFF( now(),r.D_date)+1 ELSE DAY(LAST_DAY(".$this->db->escape($year."-".$month."-01").")) END AS DiffDate,r.V_request_type,g.v_asset_grp,jr.d_Date,jr.v_Time,jr.v_Personal1,jr.v_ActionTaken,g.V_Asset_WG_code, IFNULL(dt.ori_wo,'none') AS linker", false);
@@ -670,8 +671,16 @@ ORDER BY r.D_date, r.D_time
 			$this->db->join('pmis2_emg_jobresponse jr',"r.V_Request_no = jr.v_WrkOrdNo AND jr.v_HospitalCode = r.v_HospitalCode",'left outer');
 			$this->db->join('pmis2_egm_sharedowntime dt',"r.V_Request_no = dt.ori_wo",'left outer');
 			$this->db->join('pmis2_emg_jobvisit1 jv',"r.V_Request_no = jv.v_WrkOrdNo AND r.v_HospitalCode = jv.v_HospitalCode AND jv.n_Visit = 1",'left outer');
+			$this->db->join('pmis2_sa_asset_mapping am', 'am.old_asset_type = g.V_Equip_code', 'left outer');
+			$this->db->join('pmis2_sa_add_info ad', 'ad.asset_type = am.new_asset_type', 'left outer');
+			
 			$this->db->where('r.V_servicecode', $this->session->userdata('usersess'));
 			$this->db->where('r.V_actionflag <> ', 'D');
+			if($this->input->get('req_status')!='')
+			$this->db->where('r.V_request_status', $this->input->get('req_status'));
+			if($this->input->get('special_cat')!='')
+			$this->db->where('ad.specialty_cat', $this->input->get('special_cat'));
+			
 			if ($pilih <> "A") {
 			//$this->db->where('r.v_request_status <> ', $pilih);
 			if ($fon == "") {
@@ -751,8 +760,10 @@ ORDER BY r.D_date, r.D_time
 			//$this->db->where('YEAR(r.D_date) ', $year);
 			//$this->db->where('MONTH(r.D_date) ', $month);
 			else{
-			$this->db->where('r.d_date >=', $this->dater(1,$month,$year));
-			$this->db->where('r.d_date <=', $this->dater(2,$month,$year).'  23:59:59');
+			// $this->db->where('r.d_date >=', $this->dater(1,$month,$year));
+			// $this->db->where('r.d_date <=', $this->dater(2,$month,$year).'  23:59:59');
+			$this->db->where('r.d_date >=', $month);
+			$this->db->where('r.d_date <=', $year.'  23:59:59');
 			//$this->db->order_by("g.v_tag_no, r.d_date");
       $this->db->order_by("r.d_date, g.v_tag_no");
 			}
@@ -777,7 +788,7 @@ ORDER BY r.D_date, r.D_time
 	 		}
 
 			$query = $this->db->get();
-			echo $this->db->last_query();
+			// echo $this->db->last_query();
 			//exit();
 			$query_result = $query->result();
 			return $query_result;
@@ -2217,10 +2228,11 @@ return $query->result();
 		}
 		function poprequest_rcm($hosp,$y,$m,$s){
 			$this->db->select('s.V_Request_no,s.V_Asset_no,s.D_date,s.D_time,s.V_requestor,s.V_phone_no,s.V_User_dept_code,s.V_Location_code,s.V_summary,s.V_priority_code,s.V_request_status');
-			$this->db->select('s.v_closeddate,s.v_closedtime,s.V_MohDesg,a.V_Asset_no,a.V_Tag_no,a.V_Serial_no,a.V_Asset_name,a.V_Manufacturer,a.V_Brandname,a.V_Model_no,b.V_PO_date,b.N_Cost');//,DATEDIFF(%m,b.D_commission,CURDATE()) AS Ages
+			$this->db->select('s.v_closeddate,s.v_closedtime,s.V_MohDesg,a.V_Asset_no,a.V_Tag_no,a.V_Serial_no,a.V_Asset_name,a.V_Manufacturer,a.V_Brandname,a.V_Model_no,b.V_PO_date,b.N_Cost,c.rone,c.rtwo,c.rthree');//,DATEDIFF(%m,b.D_commission,CURDATE()) AS Ages
 			$this->db->from('pmis2_egm_service_request s');
 			$this->db->join('pmis2_egm_assetregistration a','s.V_hospitalcode = a.V_Hospitalcode AND s.V_Asset_no = a.V_Asset_no', 'left outer');
 			$this->db->join('pmis2_egm_assetreg_general b','a.V_Hospitalcode = b.V_Hospital_code AND a.V_Asset_no = b.V_Asset_no', 'left outer');
+			$this->db->join('tbl_materialreq c','s.V_Request_no = c.WorkOfOrder AND c.DocReferenceNo = ""', 'left outer');
 			$this->db->where('s.V_actionflag <>','D');
 			$this->db->where('s.V_servicecode',$this->session->userdata('usersess'));
 			$this->db->where('s.V_hospitalcode',$hosp);
@@ -4937,7 +4949,7 @@ WHERE     (a.V_Actionflag <> 'D') AND (b.V_ActionFlag <> 'D') AND (c.v_Actionfla
 ORDER BY a.V_Asset_no
 		*/
 		  $this->db->distinct();
-			$this->db->select('b.V_File_Ref_no, a.V_Hospitalcode, a.V_Tag_no, a.V_Asset_no, e.Asset_Type, a.V_Equip_code, f.v_Equip_Desc, a.V_Brandname, a.V_Model_no, a.V_Make, a.V_Serial_no, g.v_UserDeptDesc, a.V_User_Dept_code,h.v_Location_Name, a.V_Location_code, b.D_commission AS CommissionDate, b.V_Wrn_end_code AS WarrantyEndDate, (YEAR(NOW()) - YEAR(b.D_commission)) AS Age, IFNULL(b.N_Cost, 0) AS N_Cost, b.V_Agent, c.v_AssetStatus, a.v_asset_grp, GROUP_CONCAT(i.v_description) AS accessories,mt.cat_name', false);
+			$this->db->select('b.V_File_Ref_no, a.V_Hospitalcode, a.V_Tag_no, a.V_Asset_no, e.Asset_Type, a.V_Equip_code, f.v_Equip_Desc, a.V_Brandname, a.V_Model_no, a.V_Make, a.V_Serial_no, g.v_UserDeptDesc, a.V_User_Dept_code,h.v_Location_Name, a.V_Location_code, b.D_commission AS CommissionDate, b.V_Wrn_end_code AS WarrantyEndDate, (YEAR(NOW()) - YEAR(b.D_commission)) AS Age, IFNULL(b.N_Cost, 0) AS N_Cost, b.V_Agent, c.v_AssetStatus, a.v_asset_grp, GROUP_CONCAT(i.v_description) AS accessories,mt.cat_name,ad.specialty_cat,ad.medical_dev_class', false);
 			//$this->db->select('a.V_Equip_code, m.new_asset_type, a.V_Asset_name', false);
 			$this->db->from('pmis2_egm_assetregistration a');
 			$this->db->join("pmis2_egm_assetreg_general b","a.V_Asset_no = b.V_Asset_no AND a.V_Hospitalcode = b.V_Hospital_code AND a.V_Actionflag != 'D'");
@@ -4948,11 +4960,13 @@ ORDER BY a.V_Asset_no
 			$this->db->join('pmis2_sa_userdept g','a.V_User_Dept_code = g.v_UserDeptCode AND a.V_Hospitalcode = g.v_HospitalCode AND g.v_ActionFlag <> "D"');
 			$this->db->join('pmis2_egm_assetlocation h','a.V_Location_code = h.V_location_code AND a.V_Hospitalcode = h.V_Hospitalcode AND h.V_Actionflag <> "D"');
 			$this->db->join('pmis2_egm_accesories i',"a.V_Asset_no = i.v_assetno AND a.V_Hospitalcode = i.v_hospitalcode AND i.v_actionflag <> 'D'",'left outer');
-      $this->db->join('pmis2_egm_maintaincat mt','mt.id_cat=a.V_GEN_status AND mt.v_service="BEMS"','left outer');
-      $this->db->where('a.V_service_code', $this->session->userdata('usersess'));
+	  		$this->db->join('pmis2_egm_maintaincat mt','mt.id_cat=a.V_GEN_status AND mt.v_service="BEMS"','left outer');
+			$this->db->join('pmis2_sa_add_info ad', 'ad.asset_type = m.new_asset_type', 'left outer');
+     		 $this->db->where('a.V_service_code', $this->session->userdata('usersess'));
 			$this->db->where('a.V_Actionflag != ', 'D');
 			$this->db->where('b.V_ActionFlag != ', 'D');
 			$this->db->where('c.V_ActionFlag != ', 'D');
+		//	$this->db->where('Field / comparison', $Value);
 			//$this->db->where('YEAR(d_date)', $year);
 			//$this->db->where('MONTH(d_date)', $month);
 			$this->db->where('a.V_Hospitalcode' ,$this->session->userdata('hosp_code'));
@@ -4962,10 +4976,13 @@ ORDER BY a.V_Asset_no
 			if ($dept <> ''){
 				$this->db->where('a.V_User_Dept_code',$dept);
 			}
+			if($this->input->get('cat')!='')
+			$this->db->where('ad.specialty_cat', $this->input->get('cat'));
 			//$this->db->group_by('a.V_Equip_code, m.new_asset_type, a.V_Asset_name');
 			$this->db->order_by("a.V_Tag_no, a.V_Asset_name");
 			$this->db->group_by('a.V_Tag_no');
 			$query = $this->db->get();
+			
 			//echo $this->db->last_query();
 			//exit();
 			$query_result = $query->result();
@@ -4982,6 +4999,10 @@ function deptdp(){
 	//exit();
 	$query_result = $query->result();
 	return $query_result;
+}
+
+function special_category(){
+	
 }
 
 function status_table(){
@@ -7365,22 +7386,22 @@ a inner join (
     		//exit();
     		$query_result = $query->result();
     		return $query_result;
-			}
-			
-			function rootcause($wo){
-				$this->db->select('m.*,s.V_Asset_no,s.D_date,u.Name,ar.V_Asset_name, ar.V_Asset_no, ar.V_Tag_no,ar.V_Brandname, ar.V_Model_no, mc.LastRepDt');
-				$this->db->from('tbl_materialreq m');
-				$this->db->join('pmis2_egm_service_request s','m.WorkOfOrder = s.V_Request_no','left');
-				$this->db->join('tbl_user u','m.RequestUserID = u.UserID','left');
-				$this->db->join('pmis2_egm_assetregistration ar', 'ar.V_Asset_no=s.V_Asset_no AND ar.V_Hospitalcode=s.V_hospitalcode', 'left');
-				$this->db->join('tbl_mirn_comp mc', 'm.DocReferenceNo=mc.MIRNcode', 'left');
-				//$this->db->join('tbl_status st','m.StatusID = st.StatusID');
-				$this->db->where('m.WorkOfOrder',$wo);
-				$query = $this->db->get();
-				//echo $this->db->last_query();
-				//exit();
-				$query_result = $query->result();
-				return $query_result;
-			}
+    		}
+
+  			function rootcause($wo){
+  				$this->db->select('m.*,s.V_Asset_no,s.D_date,u.Name,ar.V_Asset_name, ar.V_Asset_no, ar.V_Tag_no,ar.V_Brandname, ar.V_Model_no, mc.LastRepDt');
+  				$this->db->from('tbl_materialreq m');
+  				$this->db->join('pmis2_egm_service_request s','m.WorkOfOrder = s.V_Request_no','left');
+  				$this->db->join('tbl_user u','m.RequestUserID = u.UserID','left');
+  				$this->db->join('pmis2_egm_assetregistration ar', 'ar.V_Asset_no=s.V_Asset_no AND ar.V_Hospitalcode=s.V_hospitalcode', 'left');
+  				$this->db->join('tbl_mirn_comp mc', 'm.DocReferenceNo=mc.MIRNcode', 'left');
+  				//$this->db->join('tbl_status st','m.StatusID = st.StatusID');
+  				$this->db->where('m.WorkOfOrder',$wo);
+  				$query = $this->db->get();
+  				//echo $this->db->last_query();
+  				//exit();
+  				$query_result = $query->result();
+  				return $query_result;
+  			}
 }
 ?>

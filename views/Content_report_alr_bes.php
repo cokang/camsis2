@@ -11,10 +11,10 @@ if ($this->input->get('ex') == 'excel'){
 <?php if ($this->input->get('ex') == ''){?>
 <div id="Instruction" class="pr-printer">
 	<div class="header-pr">Asset Listing Report</div>
-	<button onclick="javascript:myFunction('report_alr?m=<?=$month?>&y=<?=$year?>&none=closed&grp=<?=$this->input->get('grp');?>&dept=<?=$this->input->get('dept');?>&group=<?=$this->input->get('group');?>');" class="btn-button btn-primary-button">PRINT</button>
+	<button onclick="javascript:myFunction('report_alr?m=<?=$month?>&y=<?=$year?>&none=closed&grp=<?=$this->input->get('grp');?>&dept=<?=$this->input->get('dept');?>&group=<?=$this->input->get('group');?>&cat=<?=$this->input->get('cat');?>');" class="btn-button btn-primary-button">PRINT</button>
 	<button type="cancel" class="btn-button btn-primary-button" onclick="location.href = '<?php base_url();?>Schedule?<?php echo '&grp='.$this->input->get('grp');?>';">CANCEL</button>
 	<?php if (($this->input->get('ex') == '') or ($this->input->get('none') == '')){?>
-	<a href="<?php echo base_url();?>index.php/contentcontroller/report_alr?m=<?=$this->input->get('m');?>&y=<?=$this->input->get('y');?>&stat=<?=$this->input->get('stat');?>&ex=excel&none=close&grp=<?=$this->input->get('grp');?>&dept=<?=$this->input->get('dept');?>&group=<?=$this->input->get('group');?>" style="float:right; margin-right:40px;"><img src="<?php echo base_url();?>images/excel.png" style="width:40px; height:38px; position:absolute;" title="export to excel"></a>
+	<a href="<?php echo base_url();?>index.php/contentcontroller/report_alr?m=<?=$this->input->get('m');?>&y=<?=$this->input->get('y');?>&stat=<?=$this->input->get('stat');?>&ex=excel&none=close&grp=<?=$this->input->get('grp');?>&dept=<?=$this->input->get('dept');?>&group=<?=$this->input->get('group');?>&cat=<?=$this->input->get('cat');?>" style="float:right; margin-right:40px;"><img src="<?php echo base_url();?>images/excel.png" style="width:40px; height:38px; position:absolute;" title="export to excel"></a>
 	<?php } ?>
 </div>
 <?php } ?>
@@ -36,8 +36,8 @@ if ($this->input->get('ex') == 'excel'){
 				<table class="tbl-wo-3">
 					<tr>
 						<td>Department</td>
+						<td>Specialty category</td>
 						<td>Group</td>
-						<td></td>
 					</tr>
 					<tr>
 						<td>
@@ -48,6 +48,15 @@ if ($this->input->get('ex') == 'excel'){
 							}
 							?>
 							<?php echo form_dropdown('dept', $dept_list , set_value('dept',$deptdp) , 'style="width: 300px;" id="cs_month"'); ?>
+						</td>
+						<td>
+							<?php
+							$special = array('' => 'All');
+							foreach ($dept as $row){
+								$special[$row->v_UserDeptCode] = $row->v_UserDeptDesc.' ('.$row->v_UserDeptCode.')';
+							}
+							?>
+							<?php echo form_dropdown('cat', $special_cat , set_value('cat',$this->input->get('cat')) , 'style="width: 300px;" id="cs_month"'); ?>
 						</td>
 						<!--<td>
 							<?php
@@ -70,7 +79,7 @@ if ($this->input->get('ex') == 'excel'){
 	</div>
 </div>
 <div id="constrainer">
-	<div class="scrolltable<?=($this->input->get('none') == '') ? '' : '1';?>">
+	<div class="scrolltable<?=($this->input->get('none') == 'closed') ? '' : '1';?>">
 		<table class="header-alr-bes">
 			<thead>
 				<tr>
@@ -94,8 +103,8 @@ if ($this->input->get('ex') == 'excel'){
 					<th>Agent</th>
 					<th>Asset<br/>Status</th>
 					<th>File/MDA</th>
-					<th>Asset Group</th>
-					<th>Maintenance Category</th>
+					<th>Medical Device classification</th>
+					<th>Specialty category</th>
 				</tr>
 			</thead>
 			<?php  if (!empty($record)) {?>
@@ -123,15 +132,15 @@ if ($this->input->get('ex') == 'excel'){
 					<td><?= ($row->V_Agent) ? $row->V_Agent : 'N/A' ?></td>
 					<td><?= ($row->v_AssetStatus) ? $row->v_AssetStatus : 'N/A' ?></td>
 					<td><?= ($row->V_File_Ref_no) ? $row->V_File_Ref_no : 'N/A' ?></td>
-					<td><?= ($row->v_asset_grp) ? $row->v_asset_grp : 'N/A' ?></td>
-					<td><?= ($row->cat_name) ? $row->cat_name : 'N/A' ?></td>
+					<td><?= ($row->medical_dev_class) ? $row->medical_dev_class : 'N/A' ?></td>
+					<td><?= ($row->specialty_cat) ? $row->specialty_cat : 'N/A' ?></td>
 				</tr>
 				<?php $numrow++; endforeach;?>
 			</tbody>
 			<?php }else { ?>
 			<tbody>
 				<tr class="tbl-fixed-td-bes" align="center" style="background:white; height:310px;">
-					<td colspan="21"><span style="color:red; display:block;">NO COMPLAINT RECORDS FOUND FOR THIS WORK ORDER.</span></td>
+					<td colspan="22"><span style="color:red; display:block;">NO COMPLAINT RECORDS FOUND FOR THIS WORK ORDER.</span></td>
 				</tr>
 			</tbody>
 			<?php } ?>
