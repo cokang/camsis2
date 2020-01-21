@@ -2039,7 +2039,7 @@ class Contentcontroller extends CI_Controller {
 			}
 	}
 		public function assetupdate (){
-		$data['assetn'] = $this->input->get('asstno'); //1
+		$data['assetn'] = $this->input->get('asstno');
 		//echo 'nilai'.$assetn;
     //echo "session skrg : ".$this->session->userdata('hosp_code');
     if (!empty($this->input->get('mrinhosp')) && ($this->session->userdata('hosp_code')!=$this->input->get('mrinhosp')))
@@ -2048,11 +2048,11 @@ class Contentcontroller extends CI_Controller {
     }
 		$this->load->model("get_model");
 		$data['asset_det'] = $this->get_model->get_assetdet2($data['assetn']);
-		// print_r($data['asset_det']);
+		//print_r($data['asset_det']);
 		$data['asset_UMDNS'] = $this->get_model->get_UMDNSAsset($data['asset_det'][0]->V_Equip_code);
-		$vvfassetno = $this->session->userdata('hosp_code').'-'.$data['assetn']; //2
-		$data['asset_vo'] = $this->get_model->get_VOStatus($vvfassetno); //3
-		//print_r($data['asset_vo']);
+		//$data['asset_vo'] = $this->get_model->get_VOStatus($data['assetn']);
+    $vvfassetno = $this->session->userdata('hosp_code').'-'.$data['assetn'];
+		$data['asset_vo'] = $this->get_model->get_VOStatus($vvfassetno);
 		$data['asset_chklist'] = $this->get_model->get_chklist($data['asset_det'][0]->v_ChecklistCode);
 		//$data['asset_chklist'] = $this->get_model->get_chklist($data['asset_det'][0]->V_Equip_code);
 		//print_r($data['asset_chklist']);
@@ -2073,7 +2073,7 @@ class Contentcontroller extends CI_Controller {
 
     		//echo "nilai id : ".print_r($idArray);
     		$data['chkers'] = $idArray;
-		// print_r($data); exit();
+
 		$this ->load->view("head");
 		$this ->load->view("left",$data);
 		$this ->load->view("content_assetupdate",$data);
@@ -2128,7 +2128,6 @@ class Contentcontroller extends CI_Controller {
 		$data['assetno'] = $this->input->get('assetno');
 		$this->load->model("get_model");
 		$data['asset_main'] = $this->get_model->get_assetmainte($data['assetno']);
-		$data['assetStatus'] = explode(':',$data['asset_main'][0]->v_AssetVStatus);
 		//$data['asset_chklist'] = $this->get_model->get_chklist($data['asset_main'][0]->v_checklistcode);
 		$data['asset_chklist'] = $this->get_model->assetchklist($data['assetno']);
 		$data['asset_vo'] = $this->get_model->get_VOStatus($data['assetno']);
@@ -3848,7 +3847,12 @@ class Contentcontroller extends CI_Controller {
 				}
 			}
 		}
-		$data['record'] = $this->display_model->rpt_volu($data['from'],$data['to'],$this->input->get('stat'),$data['reqtype'],$this->input->get('broughtfwd'),$data['grpsel'],$pilape,$data['tag'],$data['cm'],$data['limab'],$data['bfwd'],"",$data['fon']);
+		if ($this->input->get('broughtfwd') != ''){
+			$data['record'] = $this->display_model->rpt_volu($data['month'],$data['year'],$this->input->get('stat'),$data['reqtype'],$this->input->get('broughtfwd'),$data['grpsel'],$pilape,$data['tag'],$data['cm'],$data['limab'],$data['bfwd'],"",$data['fon']);
+		}else{
+			$data['record'] = $this->display_model->rpt_volu($data['from'],$data['to'],$this->input->get('stat'),$data['reqtype'],$this->input->get('broughtfwd'),$data['grpsel'],$pilape,$data['tag'],$data['cm'],$data['limab'],$data['bfwd'],"",$data['fon']);
+		}
+
 
 		//print_r($data['record']);
 		//exit();

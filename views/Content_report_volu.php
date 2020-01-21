@@ -79,11 +79,11 @@ $locationone = "0";
 <?php include 'content_btp.php';?>
 <div id="Instruction" class="pr-printer">
     <div class="header-pr"><?php if ($this->input->get('broughtfwd') != ''){?>Unscheduled Brought Forward Work Order Details<?php }else{ ?>Work Order Report Listing<?php }?></div>
-    <button onclick="javascript:myFunction('report_volu?from=<?=$from?>&to=<?=$to?>&special_cat=<?=$this->input->get('special_cat');?>&ex=&stat=<?=$this->input->get('stat');?>&grp=<?=$this->input->get('grp');?>&wid=1&req_status=<?=$this->input->get('req_status');?>&broughtfwd=<?=$this->input->get('broughtfwd')?>&serv=<?=$this->input->get('serv')?>&tag=<?=$this->input->get('tag')?>&cm=<?=$this->input->get('cm')?>');" class="btn-button btn-primary-button">PRINT</button>
+    <button onclick="javascript:myFunction('report_volu?from=<?=$from?>&to=<?=$to?>&m=<?=$this->input->get('m');?>&y=<?=$this->input->get('y');?>&special_cat=<?=$this->input->get('special_cat');?>&ex=&stat=<?=$this->input->get('stat');?>&grp=<?=$this->input->get('grp');?>&wid=1&req_status=<?=$this->input->get('req_status');?>&broughtfwd=<?=$this->input->get('broughtfwd')?>&serv=<?=$this->input->get('serv')?>&tag=<?=$this->input->get('tag')?>&cm=<?=$this->input->get('cm')?>');" class="btn-button btn-primary-button">PRINT</button>
     <button type="cancel" class="btn-button btn-primary-button" onclick="location.href = '<?php echo $btp ;?>';">CANCEL</button>
 	<?php if (($this->input->get('ex') == '') or ($this->input->get('none') == '')){?>
-	<a href="<?php echo base_url();?>index.php/contentcontroller/report_volu?req=<?=$this->input->get('req');?>&from=<?=$from?>&to=<?=$to?>&req_status=<?=$this->input->get('req_status');?>&special_cat=<?=$this->input->get('special_cat');?>&ex=excel&none=close&stat=<?=$this->input->get('stat');?>&resch=<?=$this->input->get('resch');?>&broughtfwd=<?=$this->input->get('broughtfwd');?>&xxx=export&grp=<?=$this->input->get('grp');?>&serv=<?=$this->input->get('serv')?>>&tag=<?=$this->input->get('tag')?>&cm=<?=$this->input->get('cm')?>" style="float:right; margin-right:40px;"><img src="<?php echo base_url();?>images/excel.png" style="width:40px; height:38px; position:absolute;" title="export to excel"></a>
-	<a href="<?php echo base_url();?>index.php/contentcontroller/report_volu?req=<?=$this->input->get('req');?>&from=<?=$from?>&to=<?=$to?>&req_status=<?=$this->input->get('req_status');?>&special_cat=<?=$this->input->get('special_cat');?>&ex=excel&none=close&stat=<?=$this->input->get('stat');?>&resch=<?=$this->input->get('resch');?>&broughtfwd=<?=$this->input->get('broughtfwd');?>&pdf=1&grp=<?=$this->input->get('grp');?>&serv=<?=$this->input->get('serv')?>&tag=<?=$this->input->get('tag')?>&cm=<?=$this->input->get('cm')?>" style="float:right; margin-right:80px;"><img src="<?php echo base_url();?>images/pdf.png" style="width:40px; height:38px; position:absolute;" title="export to pdf"></a>
+	<a href="<?php echo base_url();?>index.php/contentcontroller/report_volu?req=<?=$this->input->get('req');?>&from=<?=$from?>&to=<?=$to?>&m=<?=$this->input->get('m');?>&y=<?=$this->input->get('y');?>&req_status=<?=$this->input->get('req_status');?>&special_cat=<?=$this->input->get('special_cat');?>&ex=excel&none=close&stat=<?=$this->input->get('stat');?>&resch=<?=$this->input->get('resch');?>&broughtfwd=<?=$this->input->get('broughtfwd');?>&xxx=export&grp=<?=$this->input->get('grp');?>&serv=<?=$this->input->get('serv')?>>&tag=<?=$this->input->get('tag')?>&cm=<?=$this->input->get('cm')?>" style="float:right; margin-right:40px;"><img src="<?php echo base_url();?>images/excel.png" style="width:40px; height:38px; position:absolute;" title="export to excel"></a>
+	<a href="<?php echo base_url();?>index.php/contentcontroller/report_volu?req=<?=$this->input->get('req');?>&from=<?=$from?>&to=<?=$to?>&m=<?=$this->input->get('m');?>&y=<?=$this->input->get('y');?>&req_status=<?=$this->input->get('req_status');?>&special_cat=<?=$this->input->get('special_cat');?>&ex=excel&none=close&stat=<?=$this->input->get('stat');?>&resch=<?=$this->input->get('resch');?>&broughtfwd=<?=$this->input->get('broughtfwd');?>&pdf=1&grp=<?=$this->input->get('grp');?>&serv=<?=$this->input->get('serv')?>&tag=<?=$this->input->get('tag')?>&cm=<?=$this->input->get('cm')?>" style="float:right; margin-right:80px;"><img src="<?php echo base_url();?>images/pdf.png" style="width:40px; height:38px; position:absolute;" title="export to pdf"></a>
 	<?php } ?>
 </div>
 <?php } ?>
@@ -125,10 +125,10 @@ $locationone = "0";
 			<th>Dept/Loc</th>
 			<?php if ($this->input->get('broughtfwd') != '') { ?>
 			<th>Work Order Group</th>
-			<?php } else { ?>
+			<?php }  ?>
 			<th>Medical Device classification</th>
 			<th>Specialty category</th>
-			<?php } ?>
+			<?php  ?>
 		</tr>
 
 		<?php  if (!empty($record)) {?>
@@ -180,9 +180,10 @@ $locationone = "0";
 			<td><?= ($row->v_UserDeptDesc) ? $row->v_UserDeptDesc.' / '.$row->v_location_name : 'N/A' ?></td>
 			<?php if ($this->input->get('broughtfwd') != '') { ?>
 			<td><?= ($row->V_Asset_WG_code) ? $row->V_Asset_WG_code : 'N/A' ?></td>
-			<?php } else { ?>
+			<?php }  ?>
 			<td><?= ($row->medical_dev_class) ? $row->medical_dev_class : 'N/A' ?></td>
-			<?php } ?>
+			<td><?= ($row->specialty_cat) ? $row->specialty_cat : 'N/A' ?></td>
+			<?php  ?>
 	        			</tr>
 	        			<?php $numrow++; ?>
 			    		<?php endforeach;?>
@@ -335,10 +336,10 @@ $locationone = "0";
 			<th>Dept/Loc</th>
 			<?php if ($this->input->get('broughtfwd') != '') { ?>
 			<th>Work Order Group</th>
-			<?php } else { ?>
+			<?php }  ?>
 			<th>Medical Device classification</th>
 			<th>Specialty category</th>
-			<?php } ?>
+			<?php  ?>
 		</tr>
 
 						<tr align="center" style="background:white; height:200px;">
@@ -505,8 +506,10 @@ if ($numrow==1 OR $numrow%18==1) {
 			<?php } ?>
 
 			<th <?php if($this->input->get('wid')== 1){ echo "style='width:10%;'";}?>>Dept/Loc</th>
-			<th><?php if($this->input->get('wid')== 1){ echo "grp";}else{ if($this->input->get('broughtfwd') != ''){echo "Work Order Group";} else{echo "Medical Device classification";}}?></th>
-      <th <?php if($this->input->get('wid')== 1){ echo "style='width:10%;'";}?>>Specialty category</th>
+			<?php if($this->input->get('broughtfwd') != '') {?><th <?php if($this->input->get('wid')== 1){ echo "grp";}?>>Work Order Group</th> <?php }?>
+			<!-- <th><?php if($this->input->get('wid')== 1){ echo "grp";}else{ if($this->input->get('broughtfwd') != ''){echo "Work Order Group";} else{echo "Medical Device classification";}}?></th> -->
+			<th <?php if($this->input->get('wid')== 1){ echo "style='width:10%;'";}?>>Medical Device classification</th>
+	  <th <?php if($this->input->get('wid')== 1){ echo "style='width:10%;'";}?>>Specialty category</th>
       </tr>
 		<?php } ?>
 
@@ -563,10 +566,10 @@ if ($numrow==1 OR $numrow%18==1) {
 			<td><?= ($row->v_UserDeptDesc) ? $row->v_UserDeptDesc.' / '.$row->v_location_name : 'N/A' ?></td>
 			<?php if ($this->input->get('broughtfwd') != '') { ?>
 			<td><?= ($row->V_Asset_WG_code) ? $row->V_Asset_WG_code : 'N/A' ?></td>
-			<?php } else { ?>
+			<?php }  ?>
 			<td><?= ($row->medical_dev_class) ? $row->medical_dev_class : 'N/A' ?></td>
 			<td><?= ($row->specialty_cat) ? $row->specialty_cat : 'N/A' ?></td>
-			<?php } ?>
+			<?php  ?>
 
 	        			</tr>
 
