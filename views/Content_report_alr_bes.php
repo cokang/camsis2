@@ -70,7 +70,7 @@ if ($this->input->get('ex') == 'excel'){
 	</div>
 </div>
 <div id="constrainer">
-	<div class="scrolltable<?=($this->input->get('none') == 'closed') ? '' : '1';?>">
+	<div class="scrolltable<?=($this->input->get('none') == '') ? '' : '1';?>">
 		<table class="header-alr-bes">
 			<thead>
 				<tr>
@@ -94,8 +94,8 @@ if ($this->input->get('ex') == 'excel'){
 					<th>Agent</th>
 					<th>Asset<br/>Status</th>
 					<th>File/MDA</th>
-					<th>Asset Group</th>
-					<th>Maintenance Category</th>
+					<th>Medical Device classification</th>
+					<th>Specialty category</th>
 				</tr>
 			</thead>
 			<?php  if (!empty($record)) {?>
@@ -123,8 +123,8 @@ if ($this->input->get('ex') == 'excel'){
 					<td><?= ($row->V_Agent) ? $row->V_Agent : 'N/A' ?></td>
 					<td><?= ($row->v_AssetStatus) ? $row->v_AssetStatus : 'N/A' ?></td>
 					<td><?= ($row->V_File_Ref_no) ? $row->V_File_Ref_no : 'N/A' ?></td>
-					<td><?= ($row->v_asset_grp) ? $row->v_asset_grp : 'N/A' ?></td>
-					<td><?= ($row->cat_name) ? $row->cat_name : 'N/A' ?></td>
+					<td><?= ($row->medical_dev_class) ? $row->medical_dev_class : 'N/Azzzz' ?></td>
+					<td><?= ($row->specialty_cat) ? $row->specialty_cat : 'N/Azzzz' ?></td>
 				</tr>
 				<?php $numrow++; endforeach;?>
 			</tbody>

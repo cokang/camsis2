@@ -2,7 +2,6 @@
     <?php if ($this->input->get('gbl') == 2){?>
  <script>
  
-
  
  function fLabour(a)
 		{
@@ -178,6 +177,26 @@ if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 			Win.window.focus();
 		}
 </script>
+<?php }elseif($this->uri->slash_segment(2) == 'chronologyupdate/'){ ?>
+<script>
+function fCalldetailname(a)
+		{
+			var parent = a.getAttribute('value');
+			//var hour = hour;
+			//var minute = minute;
+			winProp = 'width=600,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
+			Win = window.open('<?php
+if ($this->uri->slash_segment(1) == 'contentcontroller/') {
+	echo "assetdetailname";
+
+	}
+	else {
+		echo "contentcontroller/assetdetailname";
+
+	}?>?parent='+parent, 'assetdetailname', winProp);
+			Win.window.focus();
+		}
+</script>
 <?php }elseif(($this->uri->slash_segment(1) == 'Procurement/') or ( $this->uri->slash_segment(1) == 'mrinnew_ctrl/')){ ?>
 		<?php if(($this->input->get('pro') == 'new') or ($this->input->get('pr') == 'pending') or ($this->input->get('pro') == 'edit')){ ?>
 <script>
@@ -195,7 +214,6 @@ if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	}?>?mrin=yes&hosp=<?=$this->session->userdata('hosp_code');?>&id='+id, 'assetnumber', winProp);//change hosp to session
 	Win.window.focus();
 }
-
 function fCallRequestA(){
 	var assno = document.getElementById("n_assetnumber");
 	winProp = 'width=' + screen.width + ',height=' + screen.height + ',left=,top=,menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
@@ -242,7 +260,6 @@ function fCallitem(){
 	cell8.innerHTML = '<p id="vendor'+rows+'"></p><input type="hidden" id="vendori'+rows+'" name="vendor'+rows+'" value="">';
 	<?php } ?>
 }
-
 function validDate(fld) {
     var testMo, testDay, testYr, inpMo, inpDay, inpYr, msg
     var inp = fld.value
@@ -286,7 +303,6 @@ function validDate(fld) {
         return true
     }
 }
-
 // separate function to accommodate IE timing problem
 function doSelection(fld) {
     fld.focus()
@@ -307,7 +323,6 @@ function fCallpricexx(price,vendor,itemcode){
 	Win = window.open(url, 'Location', winProp);
 	Win.window.focus();
 }
-
 function fCallLocatioa(mrinno,tag)
 	{
 		setTimeout(function() {
@@ -418,12 +433,10 @@ function pop_store(a, b, c, d, e){
 <?php } ?>
 <?php } elseif(($this->uri->slash_segment(1).$this->uri->slash_segment(2) == 'contentcontroller/bar_code/') or ( $this->uri->slash_segment(1) == 'mrinnew_ctrl/')){ ?>
 <script>
-
 function deleteRow(btn) {
   var row = btn.parentNode.parentNode;
   row.parentNode.removeChild(row);
 }
-
 function searchKeyPress(e)
 {
     // look for window.event in case event isn't passed in
@@ -492,7 +505,6 @@ function searchKeyPress(e)
 }
  
 function fCallitem(){
-
 	 e = e || window.event;
     if (e.keyCode == 13)
     {alert("lalalalla");
@@ -710,7 +722,6 @@ function fCallpop_Checklist_Code()
 			Win = window.open('pop_Checklist_Code', 'assetnumber', winProp);
 			Win.window.focus();
 		}
-
 function fpop_location_user()
 {
 	winProp = 'width=600,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
@@ -742,7 +753,6 @@ if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 function pecodes2()
 {
 	var assno = document.getElementById("n_agent");
-
 			if (assno.value != '')
 				{
 	winProp = 'width=600,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
@@ -761,7 +771,6 @@ if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 				{
 				alert('Please Choose Equipment First..');
 				}
-
 }
 function pop_requests(a)
 {
@@ -793,7 +802,6 @@ if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 	}?>?loct='+assno, 'location', winProp);
 			Win.window.focus();
 		}
-
 	function popauthority()
 		{
 			winProp = 'width=600,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';

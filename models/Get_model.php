@@ -4445,5 +4445,34 @@ function get_stock_asset($searchitem=""){
 			return $query->result();
 		}
 
+
+
+		function latestchronologyvisit($wrk_ord){
+			$this->db->select('n_Visit');
+			$this->db->from('pmis2_emg_chronology v1');
+			$this->db->where("v_HospitalCode = ", $this->session->userdata('hosp_code'));
+			$this->db->where('v_WrkOrdNo',$wrk_ord);
+			//$this->db->where('s.v_ServiceCode = ',$this->session->userdata('usersess'));
+			$this->db->order_by('n_Visit DESC');
+			$this->db->limit(1);
+			$query = $this->db->get();
+			//echo $this->db->last_query();
+			//exit();
+			$query_result = $query->result();
+			return $query_result;
+		}
+
+		function rootChild2($nama) {
+			//echo $nama;
+			$namaNospace =  str_replace("%20"," ",$nama);
+			$this->db->select('*');
+			$this->db->from('pmis2_egm_rootcause');
+			$this->db->like('nama',$namaNospace);
+			$query = $this->db->get();
+			//echo $this->db->last_query();
+			//exit();
+			return $query->result();
+		}
+
 }
 ?>
