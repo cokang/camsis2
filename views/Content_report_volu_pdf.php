@@ -115,6 +115,8 @@ $colspan='colspan="18"';
 			<?php } else { ?>
 			<th <?=$rowspan?> style="width:35px;">Asset Group</th>
 			<?php } ?>
+			<th <?=$rowspan?>>Medical Device classification</th>
+			<th <?=$rowspan?>>Specialty category</th>
 		</tr>
 			<?php if (($this->session->userdata('usersess')=='BES') && ($this->input->get('req') <> 'A9')) { ?>
 		   <tr>
@@ -148,7 +150,7 @@ $colspan='colspan="18"';
 			<td><?= ($row->v_closeddate) ? date("d/m/Y",strtotime($row->v_closeddate)) : 'N/A' ?></td>
 			<td><?= ($row->v_closedtime) ? $row->v_closedtime : 'N/A' ?></td>
 			<td><?= ($row->closedby) ? $row->closedby : 'N/A' ?></td>
-			<td><?= ($row->v_AcceptedBy) ? $row->v_AcceptedBy : 'N/A' ?></td>
+			<td><?= isset($row->v_AcceptedBy) ? $row->v_AcceptedBy : 'N/A' ?></td>
 
 			<?php if (($this->input->get('broughtfwd') != '') && ($row->v_tag_no != $assetone) && ($row->V_request_type != "A34") && ($row->V_request_type != "A10") && ($row->linker == "none")){ ?>
 			<!--<td><?=$row->DiffDate?></td>-->
@@ -185,6 +187,8 @@ $colspan='colspan="18"';
 			<?php } else { ?>
 			<td><?= ($row->v_asset_grp) ? $row->v_asset_grp : 'N/A' ?></td>
 			<?php } ?>
+			<td><?= ($row->medical_dev_class) ? $row->medical_dev_class : 'N/A' ?></td>
+			<td><?= ($row->specialty_cat) ? $row->specialty_cat : 'N/A' ?></td>
 		</tr>
 		<?php $numrow++; ?>
 		<?php endforeach;?>

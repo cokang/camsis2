@@ -1,5 +1,9 @@
 <?php
 
+$status = array('' => 'All' ,
+				'A' => 'A',
+				'BO'=> 'BO',
+				'C'=> 'C');
 //echo "nilai lalalal : ".cal_days_in_month(CAL_GREGORIAN, $this->input->get('m'), $this->input->get('y'));
 if ($this->input->get('broughtfwd') != ''){
    $tajuk = 'Unscheduled Brought Forward Work Order Details';
@@ -50,7 +54,7 @@ $locationone = "0";
 				break;
 			case "F":
 				$tulis = "Floor - Related Report";
-				break;
+				break;	
 			case "WD":
 				$tulis = "Wall / Door - Related Report";
 				break;
@@ -59,15 +63,15 @@ $locationone = "0";
 				break;
 			case "W":
 				$tulis = "Window - Related Report";
-				break;
+				break;	
 			case "FIX":
 				$tulis = "Fixtures - Related Report";
 				break;
 			case "FUR":
 				$tulis = "Furniture / Fitting - Related Report";
-				break;
+				break;					
 			default:
-        $tulis = "All";
+        $tulis = "All";	
 				break;
 			} ?>
 <div class="none">
@@ -75,11 +79,11 @@ $locationone = "0";
 <?php include 'content_btp.php';?>
 <div id="Instruction" class="pr-printer">
     <div class="header-pr"><?php if ($this->input->get('broughtfwd') != ''){?>Unscheduled Brought Forward Work Order Details<?php }else{ ?>Work Order Report Listing<?php }?></div>
-    <button onclick="javascript:myFunction('report_volu?m=<?=$month?>&y=<?=$year?>&ex=&stat=<?=$this->input->get('stat');?>&grp=<?=$this->input->get('grp');?>&wid=1&req=<?=$this->input->get('req');?>&broughtfwd=<?=$this->input->get('broughtfwd')?>&serv=<?=$this->input->get('serv')?>&tag=<?=$this->input->get('tag')?>&cm=<?=$this->input->get('cm')?>');" class="btn-button btn-primary-button">PRINT</button>
+    <button onclick="javascript:myFunction('report_volu?from=<?=$from?>&to=<?=$to?>&m=<?=$this->input->get('m');?>&y=<?=$this->input->get('y');?>&special_cat=<?=$this->input->get('special_cat');?>&ex=&stat=<?=$this->input->get('stat');?>&grp=<?=$this->input->get('grp');?>&wid=1&req_status=<?=$this->input->get('req_status');?>&broughtfwd=<?=$this->input->get('broughtfwd')?>&serv=<?=$this->input->get('serv')?>&tag=<?=$this->input->get('tag')?>&cm=<?=$this->input->get('cm')?>');" class="btn-button btn-primary-button">PRINT</button>
     <button type="cancel" class="btn-button btn-primary-button" onclick="location.href = '<?php echo $btp ;?>';">CANCEL</button>
 	<?php if (($this->input->get('ex') == '') or ($this->input->get('none') == '')){?>
-	<a href="<?php echo base_url();?>index.php/contentcontroller/report_volu?req=<?=$this->input->get('req');?>&m=<?=$this->input->get('m');?>&y=<?=$this->input->get('y');?>&ex=excel&none=close&stat=<?=$this->input->get('stat');?>&resch=<?=$this->input->get('resch');?>&broughtfwd=<?=$this->input->get('broughtfwd');?>&xxx=export&grp=<?=$this->input->get('grp');?>&serv=<?=$this->input->get('serv')?>>&tag=<?=$this->input->get('tag')?>&cm=<?=$this->input->get('cm')?>" style="float:right; margin-right:40px;"><img src="<?php echo base_url();?>images/excel.png" style="width:40px; height:38px; position:absolute;" title="export to excel"></a>
-	<a href="<?php echo base_url();?>index.php/contentcontroller/report_volu?req=<?=$this->input->get('req');?>&m=<?=$this->input->get('m');?>&y=<?=$this->input->get('y');?>&ex=excel&none=close&stat=<?=$this->input->get('stat');?>&resch=<?=$this->input->get('resch');?>&broughtfwd=<?=$this->input->get('broughtfwd');?>&pdf=1&grp=<?=$this->input->get('grp');?>&serv=<?=$this->input->get('serv')?>&tag=<?=$this->input->get('tag')?>&cm=<?=$this->input->get('cm')?>" style="float:right; margin-right:80px;"><img src="<?php echo base_url();?>images/pdf.png" style="width:40px; height:38px; position:absolute;" title="export to pdf"></a>
+	<a href="<?php echo base_url();?>index.php/contentcontroller/report_volu?req=<?=$this->input->get('req');?>&from=<?=$from?>&to=<?=$to?>&m=<?=$this->input->get('m');?>&y=<?=$this->input->get('y');?>&req_status=<?=$this->input->get('req_status');?>&special_cat=<?=$this->input->get('special_cat');?>&ex=excel&none=close&stat=<?=$this->input->get('stat');?>&resch=<?=$this->input->get('resch');?>&broughtfwd=<?=$this->input->get('broughtfwd');?>&xxx=export&grp=<?=$this->input->get('grp');?>&serv=<?=$this->input->get('serv')?>>&tag=<?=$this->input->get('tag')?>&cm=<?=$this->input->get('cm')?>" style="float:right; margin-right:40px;"><img src="<?php echo base_url();?>images/excel.png" style="width:40px; height:38px; position:absolute;" title="export to excel"></a>
+	<a href="<?php echo base_url();?>index.php/contentcontroller/report_volu?req=<?=$this->input->get('req');?>&from=<?=$from?>&to=<?=$to?>&m=<?=$this->input->get('m');?>&y=<?=$this->input->get('y');?>&req_status=<?=$this->input->get('req_status');?>&special_cat=<?=$this->input->get('special_cat');?>&ex=excel&none=close&stat=<?=$this->input->get('stat');?>&resch=<?=$this->input->get('resch');?>&broughtfwd=<?=$this->input->get('broughtfwd');?>&pdf=1&grp=<?=$this->input->get('grp');?>&serv=<?=$this->input->get('serv')?>&tag=<?=$this->input->get('tag')?>&cm=<?=$this->input->get('cm')?>" style="float:right; margin-right:80px;"><img src="<?php echo base_url();?>images/pdf.png" style="width:40px; height:38px; position:absolute;" title="export to pdf"></a>
 	<?php } ?>
 </div>
 <?php } ?>
@@ -121,9 +125,10 @@ $locationone = "0";
 			<th>Dept/Loc</th>
 			<?php if ($this->input->get('broughtfwd') != '') { ?>
 			<th>Work Order Group</th>
-			<?php } else { ?>
-			<th>Asset Group</th>
-			<?php } ?>
+			<?php }  ?>
+			<th>Medical Device classification</th>
+			<th>Specialty category</th>
+			<?php  ?>
 		</tr>
 
 		<?php  if (!empty($record)) {?>
@@ -175,9 +180,10 @@ $locationone = "0";
 			<td><?= ($row->v_UserDeptDesc) ? $row->v_UserDeptDesc.' / '.$row->v_location_name : 'N/A' ?></td>
 			<?php if ($this->input->get('broughtfwd') != '') { ?>
 			<td><?= ($row->V_Asset_WG_code) ? $row->V_Asset_WG_code : 'N/A' ?></td>
-			<?php } else { ?>
+			<?php }  ?>
 			<td><?= ($row->medical_dev_class) ? $row->medical_dev_class : 'N/A' ?></td>
-			<?php } ?>
+			<td><?= ($row->specialty_cat) ? $row->specialty_cat : 'N/A' ?></td>
+			<?php  ?>
 	        			</tr>
 	        			<?php $numrow++; ?>
 			    		<?php endforeach;?>
@@ -200,13 +206,13 @@ $locationone = "0";
 
 <?php if (($this->input->get('ex') == '' && $this->input->get('broughtfwd') == '') OR ($this->input->get('ex') != '' && $this->input->get('broughtfwd') != '')){?>
 <div id="Instruction" >
-<center>View List :
+<center>View List : 
 <form method="get" action="">
 
 		<?php
-
+		
     $idArray = array_map('toArray', $this->session->userdata('accessr'));
-		if (!(in_array("contentcontroller/Schedule(main)", $idArray))) {
+		if (!(in_array("contentcontroller/Schedule(main)", $idArray))) { 
 		 if ($this->session->userdata('usersess')=="HKS") {
 			$req_type = array(
 			'' => 'All',
@@ -255,7 +261,11 @@ $locationone = "0";
 			'A10' => 'A10 - Reimbursable Work'
 		 );*/
 		?>
-		<?php echo form_dropdown('req', $req_type, set_value('req', $reqtype) , 'style="width: 300px;" id="cs_month"'); ?><br>
+		<?php echo form_dropdown('req', $req_type, set_value('req', $reqtype) , 'style="width: 300px;" id="cs_month"'); ?><br><br>
+		Status : 
+		<?php echo form_dropdown('req_status', $status, set_value('req_status', $this->input->get('req_status')) , 'style="width: 100px;" id="cs_month"'); ?>
+		Special Category : 
+		<?php echo form_dropdown('special_cat', $special_cat, set_value('special_cat', $this->input->get('special_cat')) , 'style="width: 350px;" id="cs_month"'); ?><br>
 
 		<?php  } else {
 		$_POST['req'] = '';
@@ -275,16 +285,18 @@ $locationone = "0";
 			'12' => 'December'
 		 );
 		?>
-		<?php echo form_dropdown('m', $month_list, set_value('m', isset($record[0]->Month) ? $record[0]->Month : $month) , 'style="width: 90px;" id="cs_month"'); ?>
-
-		<?php
+		<!-- <?php echo form_dropdown('m', $month_list, set_value('m', isset($record[0]->Month) ? $record[0]->Month : $month) , 'style="width: 90px;" id="cs_month"'); ?> -->
+		Date Range:
+		<input type="date" name="from" id="from" value="<?php echo $from ?>" class="form-control-button2 ">
+		<?php 
 			for ($dyear = '2015';$dyear <= date("Y");$dyear++){
 				$year_list[$dyear] = $dyear;
 			}
 		?>
-		<?php echo form_dropdown('y', $year_list, set_value('y', isset($record[0]->Year) ? $record[0]->Year : $year) , 'style="width: 65px;" id="cs_year"'); ?>
+		<!-- <?php echo form_dropdown('y', $year_list, set_value('y', isset($record[0]->Year) ? $record[0]->Year : $year) , 'style="width: 65px;" id="cs_year"'); ?> -->
+		<input type="date" name="to" id="to" value="<?php echo $to ?>" class="form-control-button2 ">
 <input type="hidden" value="<?php echo set_value('stat', ($this->input->get('stat')) ? $this->input->get('stat') : ''); ?>" name="stat">
-<input type="hidden" value="<?php echo set_value('grp', ($this->input->get('grp')) ? $this->input->get('grp') : ''); ?>" name="grp">
+<input type="hidden" value="<?php echo set_value('grp', ($this->input->get('grp')) ? $this->input->get('grp') : ''); ?>" name="grp">				
 <input type="submit" value="Apply" onchange="javascript: submit()"/></center>
 </form>
 </div>
@@ -303,7 +315,7 @@ $locationone = "0";
 			<th>Date Req</th>
 			<th>Time Req</th>
 			<th>Request No</th>
-			<th>Asset No</th>
+			<th>Asset No</th>				
 			<th>Request Summary</th>
 			<th>ULC</th>
 			<th>Requestor<br>Name</th>
@@ -324,13 +336,14 @@ $locationone = "0";
 			<th>Dept/Loc</th>
 			<?php if ($this->input->get('broughtfwd') != '') { ?>
 			<th>Work Order Group</th>
-			<?php } else { ?>
-			<th>Asset Group</th>
-			<?php } ?>
+			<?php }  ?>
+			<th>Medical Device classification</th>
+			<th>Specialty category</th>
+			<?php  ?>
 		</tr>
 
 						<tr align="center" style="background:white; height:200px;">
-	    					<td colspan="16"><span style="color:red;">NO RECORDS FOUND FOR THIS WORK ORDER.</span></td>
+	    					<td colspan="17"><span style="color:red;">NO RECORDS FOUND FOR THIS WORK ORDER.</span></td>
 	    				</tr>
 	</table>
 </div>
@@ -356,7 +369,7 @@ $locationone = "0";
 
 <?php if ($this->input->get('xxx') != 'export') { ?>
 <?php $numrow = 1; foreach($record as $row):?>
-<?php //if ($numrow==1 OR $numrow%13==1) {
+<?php //if ($numrow==1 OR $numrow%13==1) { 
 if ($numrow==1 OR $numrow%18==1) {
 ?>
 <?php if (($this->input->get('ex') == '') or ($this->input->get('none') == 'closed')){?>
@@ -365,13 +378,13 @@ if ($numrow==1 OR $numrow%18==1) {
 
 <?php if (($this->input->get('ex') == '' && $this->input->get('broughtfwd') == '') OR ($this->input->get('ex') != '' && $this->input->get('broughtfwd') != '')){?>
 <div id="Instruction" >
-<center>View List :
+<center>View List : 
 <form method="get" action="">
 
 		<?php
-
+		
     $idArray = array_map('toArray', $this->session->userdata('accessr'));
-		if (!(in_array("contentcontroller/Schedule(main)", $idArray))) {
+		if (!(in_array("contentcontroller/Schedule(main)", $idArray))) { 
 		 if ($this->session->userdata('usersess')=="HKS") {
 			$req_type = array(
 			'' => 'All',
@@ -420,8 +433,11 @@ if ($numrow==1 OR $numrow%18==1) {
 			'A10' => 'A10 - Reimbursable Work'
 		 );*/
 		?>
-		<?php echo form_dropdown('req', $req_type, set_value('req', $reqtype) , 'style="width: 300px;" id="cs_month"'); ?><br>
-
+		<?php echo form_dropdown('req', $req_type, set_value('req', $reqtype) , 'style="width: 300px;" id="cs_month"'); ?><br><br>
+		Status : 
+		<?php echo form_dropdown('req_status', $status, set_value('req_status', $this->input->get('req_status')) , 'style="width: 100px;" id="cs_month"'); ?>
+		Special Category : 
+		<?php echo form_dropdown('special_cat', $special_cat, set_value('special_cat', $this->input->get('special_cat')) , 'style="width: 350px;" id="cs_month"'); ?><br>
 		<?php  } else {
 		$_POST['req'] = '';
 		}
@@ -440,16 +456,18 @@ if ($numrow==1 OR $numrow%18==1) {
 			'12' => 'December'
 		 );
 		?>
-		<?php echo form_dropdown('m', $month_list, set_value('m', isset($record[0]->Month) ? $record[0]->Month : $month) , 'style="width: 90px;" id="cs_month"'); ?>
-
-		<?php
+		<!-- <?php echo form_dropdown('m', $month_list, set_value('m', isset($record[0]->Month) ? $record[0]->Month : $month) , 'style="width: 90px;" id="cs_month"'); ?> -->
+		Date Range:
+		<input type="date" name="from" id="from" value="<?php echo $from ?>" class="form-control-button2 ">
+		<?php 
 			for ($dyear = '2015';$dyear <= date("Y");$dyear++){
 				$year_list[$dyear] = $dyear;
 			}
 		?>
-		<?php echo form_dropdown('y', $year_list, set_value('y', isset($record[0]->Year) ? $record[0]->Year : $year) , 'style="width: 65px;" id="cs_year"'); ?>
+		<!-- <?php echo form_dropdown('y', $year_list, set_value('y', isset($record[0]->Year) ? $record[0]->Year : $year) , 'style="width: 65px;" id="cs_year"'); ?> -->
+		<input type="date" name="to" id="to" value="<?php echo $to ?>" class="form-control-button2 ">
 <input type="hidden" value="<?php echo set_value('stat', ($this->input->get('stat')) ? $this->input->get('stat') : ''); ?>" name="stat">
-<input type="hidden" value="<?php echo set_value('grp', ($this->input->get('grp')) ? $this->input->get('grp') : ''); ?>" name="grp">
+<input type="hidden" value="<?php echo set_value('grp', ($this->input->get('grp')) ? $this->input->get('grp') : ''); ?>" name="grp">				
 <input type="submit" value="Apply" onchange="javascript: submit()"/></center>
 </form>
 </div>
@@ -488,8 +506,10 @@ if ($numrow==1 OR $numrow%18==1) {
 			<?php } ?>
 
 			<th <?php if($this->input->get('wid')== 1){ echo "style='width:10%;'";}?>>Dept/Loc</th>
-			<th><?php if($this->input->get('wid')== 1){ echo "grp";}else{ if($this->input->get('broughtfwd') != ''){echo "Work Order Group";} else{echo "Medical Device classification";}}?></th>
-      <th <?php if($this->input->get('wid')== 1){ echo "style='width:10%;'";}?>>Specialty category</th>
+			<?php if($this->input->get('broughtfwd') != '') {?><th <?php if($this->input->get('wid')== 1){ echo "grp";}?>>Work Order Group</th> <?php }?>
+			<!-- <th><?php if($this->input->get('wid')== 1){ echo "grp";}else{ if($this->input->get('broughtfwd') != ''){echo "Work Order Group";} else{echo "Medical Device classification";}}?></th> -->
+			<th <?php if($this->input->get('wid')== 1){ echo "style='width:10%;'";}?>>Medical Device classification</th>
+	  <th <?php if($this->input->get('wid')== 1){ echo "style='width:10%;'";}?>>Specialty category</th>
       </tr>
 		<?php } ?>
 
@@ -546,10 +566,10 @@ if ($numrow==1 OR $numrow%18==1) {
 			<td><?= ($row->v_UserDeptDesc) ? $row->v_UserDeptDesc.' / '.$row->v_location_name : 'N/A' ?></td>
 			<?php if ($this->input->get('broughtfwd') != '') { ?>
 			<td><?= ($row->V_Asset_WG_code) ? $row->V_Asset_WG_code : 'N/A' ?></td>
-			<?php } else { ?>
+			<?php }  ?>
 			<td><?= ($row->medical_dev_class) ? $row->medical_dev_class : 'N/A' ?></td>
 			<td><?= ($row->specialty_cat) ? $row->specialty_cat : 'N/A' ?></td>
-			<?php } ?>
+			<?php  ?>
 
 	        			</tr>
 
@@ -569,7 +589,7 @@ if ($numrow==1 OR $numrow%18==1) {
 			<td width="50%" align="right"></td>
 		</tr>
 	</table>
-
+	
 <div class="StartNewPage" id="breakpage"><span id="pagebreak">Page Break</span></div>
 <?php } ?>
 </div>

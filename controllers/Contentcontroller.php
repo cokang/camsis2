@@ -3788,6 +3788,7 @@ class Contentcontroller extends CI_Controller {
 		$pilape = "IIUM C";
 		}
 	  	$this->load->model("display_model");
+		  $this->load->model("get_model");
 		$data['records'] = $this->display_model->list_hospinfo();
 		$data['fon']= ($this->input->get('fon')) ? $this->input->get('fon') : "";
 		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
@@ -3798,6 +3799,16 @@ class Contentcontroller extends CI_Controller {
 		$data['cm']= $this->input->get('cm') ? $this->input->get('cm') : '';
 		$data['limab']= $this->input->get('limab') ? $this->input->get('limab') : '0';
 		$data['bfwd'] = array();
+		$date = new DateTime('now');
+		$date->modify('first day of this month');
+		$start = $date->format('Y-m-d');
+		$date->modify('last day of this month');
+		$end = $date->format('Y-m-d');
+		$from = $this->input->get('from') ? $this->input->get('from') : $start;
+		$to = $this->input->get('to') ? $this->input->get('to') : $end;
+		$data['from']=$from;
+		$data['to']=$to;
+		$data['special_cat'] = $this->get_model->get_special_cat();
 		if (($data['tag'] == 'total') || ($data['tag'] == 'totala10'))
 		{
 			$data['records'] = $this->display_model->broughtfwd($data['month'],$data['year']);
@@ -3808,8 +3819,12 @@ class Contentcontroller extends CI_Controller {
 				}
 			}
 		}
-		$data['record'] = $this->display_model->rpt_volu($data['month'],$data['year'],$this->input->get('stat'),$data['reqtype'],$this->input->get('broughtfwd'),$data['grpsel'],$pilape,$data['tag'],$data['cm'],$data['limab'],$data['bfwd'],"",$data['fon']);
-
+		//$data['record'] = $this->display_model->rpt_volu($data['month'],$data['year'],$this->input->get('stat'),$data['reqtype'],$this->input->get('broughtfwd'),$data['grpsel'],$pilape,$data['tag'],$data['cm'],$data['limab'],$data['bfwd'],"",$data['fon']);
+    if ($this->input->get('broughtfwd') != ''){
+			$data['record'] = $this->display_model->rpt_volu($data['month'],$data['year'],$this->input->get('stat'),$data['reqtype'],$this->input->get('broughtfwd'),$data['grpsel'],$pilape,$data['tag'],$data['cm'],$data['limab'],$data['bfwd'],"",$data['fon']);
+		}else{
+			$data['record'] = $this->display_model->rpt_volu($data['from'],$data['to'],$this->input->get('stat'),$data['reqtype'],$this->input->get('broughtfwd'),$data['grpsel'],$pilape,$data['tag'],$data['cm'],$data['limab'],$data['bfwd'],"",$data['fon']);
+		}
 		//print_r($data['record']);
 		//exit();
 		//$this ->load->view("headprinter");
@@ -4155,12 +4170,14 @@ class Contentcontroller extends CI_Controller {
 
 	public function report_alr(){
 	  $this->load->model("display_model");
+	  $this->load->model("get_model");
 		$data['records'] = $this->display_model->list_hospinfo();
 		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
 		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
 		$data['grpsel']= $this->input->get('grp') ? $this->input->get('grp') : '';
 		$data['dept'] = $this->display_model->deptdp();
 		$data['deptdp']= $this->input->get('dept') ? $this->input->get('dept') : '';
+    $data['special_cat'] = $this->get_model->get_special_cat();
 		if ($this->session->userdata('usersess') != 'BEMS'){
 			$data['record'] = $this->display_model->rpt_alr($data['month'],$data['year'],$data['grpsel'],$data['deptdp']);
 		}
@@ -8756,32 +8773,29 @@ public function chronologyplus(){
 }
 
 
-  public function chronologyupdate(){
-  $data['wrk_ord'] = $this->input->get('wrk_ord');
-  $data['visit'] = $this->input->get('visit');
-  $this->load->model("display_model");
-  $this->load->model('get_model');
-  $data['rc'] = $this->get_model->getrootcause();
-  $data['rc_parent'] = $this->get_model->getrootcause_nodash();
-  $data['records'] = $this->display_model->chronology_tab($data['wrk_ord']);
-  $data['movement'] = array('Workshop' => 'Workshop',
-                  'Vendor' => 'Vendor',
-                   'Remain at user location'=> 'Remain at user location');
-  //if (substr($data['wrk_ord'],0,2) == 'PP'){
-  //echo "nilai visit " . $data['visit'];
-  if ($data['visit'] != "") {
-  //$data['latestvisit'] = $this->get_model->latestvisit($data['wrk_ord']);
-  $data['record'] = $this->display_model->chronology_tabu($data['wrk_ord'],$data['visit']);
-  //$data['recordjob'] = $this->display_model->jobclose_tab($data['wrk_ord']);
-  }
-  //print_r($data['record']);
+public function chronologyupdate(){
+$data['wrk_ord'] = $this->input->get('wrk_ord');
+$data['visit'] = $this->input->get('visit');
+$this->load->model("display_model");
+$this->load->model('get_model');
+$data['rc'] = $this->get_model->getrootcause();
+$data['rc_parent'] = $this->get_model->getrootcause_nodash();
+$data['movement'] = array('Workshop' => 'Workshop',
+                'Vendor' => 'Vendor',
+         'Remain at user location'=> 'Remain at user location');
 
-  $this ->load->view("head");
-  $this ->load->view("left");
-  $this ->load->view("Content_workorder_chronologyplusupdate",$data);
+if ($data['visit'] != "") {
+$result = $this->display_model->chronology_tabu($data['wrk_ord'],$data['visit']);
+$data['dbroot']= $this->get_model->rootChild2($result[0]->nama);
+ $data['records']=$result;
+}
+//print_r($data['record']);
+
+$this ->load->view("head");
+$this ->load->view("left");
+$this ->load->view("Content_workorder_chronologyplusupdate",$data);
 
 }
-
 
 
 
