@@ -24,7 +24,7 @@
                 </select>
             </div> -->
            
-            <?php echo form_dropdown('parent_rc', $rc_parent, set_value('parent_rc',isset($records[0]->v_ReschAuthBy) == TRUE ? $records[0]->nama : 'N/A') , 'class="dropdown n_wi-date" id="parentText"'); ?>
+            <?php echo form_dropdown('parent_rc', $rc_parent, set_value('parent_rc', (isset($records[0]->v_ReschAuthBy) == TRUE ? $records[0]->nama : (substr($wrk_ord,0,2) == 'WO'&&($status[0]->V_request_status=='BO'||$status[0]->V_request_status=='A')?'Troubleshoot In Progress':'N/A'))) , 'class="dropdown n_wi-date" id="parentText"'); ?>
 
            
         </td>
@@ -35,7 +35,7 @@
         <td >
  <div class="form-group" >
                 <select name="n_Type_of_Work" class="dropdown n_wi-date" >
-                <?php if(isset($records[0]->v_ReschAuthBy) == TRUE){ 
+                <?php if(isset($records[0]->v_ReschAuthBy) == TRUE || isset($dbroot[0]->nama)){ 
                   foreach($dbroot as $root){
                     if($records[0]->v_ReschAuthBy==$root->id){
                       echo "<option selected value='".$root->id."'>".$root->nama."</option>";

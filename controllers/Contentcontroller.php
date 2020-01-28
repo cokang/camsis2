@@ -8803,30 +8803,46 @@ public function chronologyplus(){
 }
 
 
-  public function chronologyupdate(){
-  $data['wrk_ord'] = $this->input->get('wrk_ord');
-  $data['visit'] = $this->input->get('visit');
-  $this->load->model("display_model");
-  $this->load->model('get_model');
-  $data['rc'] = $this->get_model->getrootcause();
-  $data['rc_parent'] = $this->get_model->getrootcause_nodash();
-  $data['movement'] = array('Workshop' => 'Workshop',
-                  'Vendor' => 'Vendor',
-				   'Remain at user location'=> 'Remain at user location');
-				   
-  if ($data['visit'] != "") {
-  $result = $this->display_model->chronology_tabu($data['wrk_ord'],$data['visit']);
- $data['dbroot']= $this->get_model->rootChild2($result[0]->nama);
-   $data['records']=$result;
-  }
-  //print_r($data['record']);
+public function chronologyupdate(){
+$data['wrk_ord'] = $this->input->get('wrk_ord');
+$data['visit'] = $this->input->get('visit');
+$this->load->model("display_model");
+$this->load->model('get_model');
+$data['rc'] = $this->get_model->getrootcause();
+$data['rc_parent'] = $this->get_model->getrootcause_nodash();
+$data['movement'] = array('Workshop' => 'Workshop',
+                'Vendor' => 'Vendor',
+		 'Remain at user location'=> 'Remain at user location');
 
-  $this ->load->view("head");
-  $this ->load->view("left");
-  $this ->load->view("Content_workorder_chronologyplusupdate",$data);
+$latestvisit = $this->get_model->latestchronologyvisit($data['wrk_ord']);
+//echo $latestvisit[0]->n_Visit;
+$data['latestvisit'] = $latestvisit;
+print_r($data['visit']);
+$WOstatus = $this->get_model->get_wo_status($data['wrk_ord']);//print_r($WOstatus);
+if ($data['visit'] != "") {
+$result = $this->display_model->chronology_tabu($data['wrk_ord'],$data['visit']);
+$data['dbroot']= $this->get_model->rootChild($result[0]->nama,1);
+ $data['records']=$result;
+}elseif($data['visit'] == "" && substr($data['wrk_ord'],0,2) == 'WO'){
+	
+	if ($WOstatus[0]->V_request_status=='BO'|| $WOstatus[0]->V_request_status=='A'){
+	$result = $this->display_model->chronology_tabu($data['wrk_ord'],isset($latestvisit[0]->n_Visit)?$latestvisit[0]->n_Visit:0);
+	unset($result[0]->v_ActionTaken,$result[0]->standby1,$result[0]->standby2,$result[0]->V_AssetMovement);
+	
+	$data['dbroot']= $this->get_model->rootChild(isset($result[0]->nama)?$result[0]->nama:'Troubleshoot In Progress',1);
+	// if($data['visit']=='')$result[0]->nama='Troubleshoot In Progress';
+	 $data['records']=$result; 
+	 //print_r($data['dbroot']);
+	 
+}
+}$data['status']=$WOstatus;//print_r($WOstatus);
+//print_r($data['records']);
+
+$this ->load->view("head");
+$this ->load->view("left");
+$this ->load->view("Content_workorder_chronologyplusupdate",$data);
 
 }
-
 
 
 

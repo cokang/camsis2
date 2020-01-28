@@ -2140,22 +2140,6 @@ function latestppmvisit($wrk_ord){
 	$query_result = $query->result();
 	return $query_result;
 }
-
-function latestchronologyvisit($wrk_ord){
-	$this->db->select('n_Visit');
-	$this->db->from('pmis2_emg_chronology v1');
-	$this->db->where("v_HospitalCode = ", $this->session->userdata('hosp_code'));
-	$this->db->where('v_WrkOrdNo',$wrk_ord);
-	//$this->db->where('s.v_ServiceCode = ',$this->session->userdata('usersess'));
-	$this->db->order_by('n_Visit DESC');
-	$this->db->limit(1);
-	$query = $this->db->get();
-	//echo $this->db->last_query();
-	//exit();
-	$query_result = $query->result();
-	return $query_result;
-}
-
 function assetimages($assetno,$service,$hosp){
 	$this->db->select('imageid,file_name');
 	$this->db->from('asset_images');
@@ -4391,24 +4375,17 @@ function get_stock_asset($searchitem=""){
 
 		   }
 
-		     function rootChild($nama) {
-			//echo $nama;
-			$namaNospace =  str_replace("%20"," ",$nama);
-			$result = $this->db->like('nama',$namaNospace)->get('pmis2_egm_rootcause')->result();
-			//echo $this->db->last_query();//exit();
-			echo json_encode($result);
-		}
-		
-		function rootChild2($nama) {
+		     function rootChild($nama,$onchange='') {
 			//echo $nama;
 			$namaNospace =  str_replace("%20"," ",$nama);
 			$this->db->select('*');
 			$this->db->from('pmis2_egm_rootcause');
 			$this->db->like('nama',$namaNospace);
 			$query = $this->db->get();
-			//echo $this->db->last_query();
-			//exit();
+			if($onchange==1){
 			return $query->result();
+			}
+			echo json_encode($query->result());
 		}
 
 		function reportChronology($datefrom, $dateto, $filterby){
@@ -4522,7 +4499,24 @@ function get_stock_asset($searchitem=""){
 		// echo $this->db->last_query();
 		// exit();
 		return $query->result();
+
+
+		function latestchronologyvisit($wrk_ord){
+			$this->db->select('n_Visit');
+			$this->db->from('pmis2_emg_chronology v1');
+			$this->db->where("v_HospitalCode = ", $this->session->userdata('hosp_code'));
+			$this->db->where('v_WrkOrdNo',$wrk_ord);
+			//$this->db->where('s.v_ServiceCode = ',$this->session->userdata('usersess'));
+			$this->db->order_by('n_Visit DESC');
+			$this->db->limit(1);
+			$query = $this->db->get();
+			//echo $this->db->last_query();
+			//exit();
+			$query_result = $query->result();
+			return $query_result;
 		}
+
+		
 		function get_special_cat(){
 			$this->db->select("specialty_cat");
 			$this->db->from('pmis2_sa_add_info');
@@ -4535,5 +4529,16 @@ function get_stock_asset($searchitem=""){
 		   return $array;
 
 		   }
+
+		function get_wo_status($wo){
+			$this->db->select('V_request_status');
+			$this->db->from('pmis2_egm_service_request');
+			$this->db->where('V_Request_no', $wo);
+			$query = $this->db->get();
+			//echo $this->db->last_query();
+			//exit();
+			return $query->result();
+		}
+
 }
 ?>
