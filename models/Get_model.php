@@ -4375,13 +4375,18 @@ function get_stock_asset($searchitem=""){
 
 		   }
 
-		     function rootChild($nama) {
-			//echo $nama;
-			$namaNospace =  str_replace("%20"," ",$nama);
-			$result = $this->db->like('nama',$namaNospace)->get('pmis2_egm_rootcause')->result();
-			//echo $this->db->last_query();//exit();
-			echo json_encode($result);
+			 function rootChild($nama,$onchange='') {
+		//echo $nama;
+		$namaNospace =  str_replace("%20"," ",$nama);
+		$this->db->select('*');
+		$this->db->from('pmis2_egm_rootcause');
+		$this->db->like('nama',$namaNospace);
+		$query = $this->db->get();
+		if($onchange==1){
+		return $query->result();
 		}
+		echo json_encode($query->result());
+	}
 
 		function reportChronology($datefrom, $dateto, $filterby){
 			$this->db->select("d.D_date,
@@ -4485,6 +4490,16 @@ function get_stock_asset($searchitem=""){
 		   return $array;
 
 		   }
+
+		function get_wo_status($wo){
+			$this->db->select('V_request_status');
+			$this->db->from('pmis2_egm_service_request');
+			$this->db->where('V_Request_no', $wo);
+			$query = $this->db->get();
+			//echo $this->db->last_query();
+			//exit();
+			return $query->result();
+		}
 
 }
 ?>
