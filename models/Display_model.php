@@ -673,8 +673,11 @@ ORDER BY r.D_date, r.D_time
 			$this->db->join('pmis2_emg_jobresponse jr',"r.V_Request_no = jr.v_WrkOrdNo AND jr.v_HospitalCode = r.v_HospitalCode",'left outer');
 			$this->db->join('pmis2_egm_sharedowntime dt',"r.V_Request_no = dt.ori_wo",'left outer');
 			$this->db->join('pmis2_emg_jobvisit1 jv',"r.V_Request_no = jv.v_WrkOrdNo AND r.v_HospitalCode = jv.v_HospitalCode AND jv.n_Visit = 1",'left outer');
-      $this->db->join('pmis2_sa_asset_mapping mp',"mp.old_asset_type = g.V_Equip_code ",'left outer');
-      $this->db->join('pmis2_sa_add_info ad',"ad.asset_type = mp.new_asset_type ",'left outer');
+      		$this->db->join('pmis2_sa_asset_mapping mp',"mp.old_asset_type = g.V_Equip_code ",'left outer');
+			$this->db->join('pmis2_sa_add_info ad',"ad.asset_type = mp.new_asset_type ",'left outer');
+	  		$this->db->join('pmis2_sa_userhospital uh', 'uh.v_hospitalcode = r.V_hospitalcode', 'left outer');
+			$this->db->where('uh.v_userid', $this->session->userdata('v_UserName'));
+			
 			$this->db->where('r.V_servicecode', $this->session->userdata('usersess'));
 			$this->db->where('r.V_actionflag <> ', 'D');
 			if($this->input->get('req_status')!='')
@@ -768,9 +771,9 @@ ORDER BY r.D_date, r.D_time
       $this->db->order_by("r.d_date, g.v_tag_no");
 			}
       //echo "<br>pak : ".strtoupper ($this->session->userdata('v_UserName'));
-      if ((strtoupper ($this->session->userdata('v_UserName')) != "APSB375") && (strtoupper ($this->session->userdata('v_UserName')) != "APSB196") && (strtoupper ($this->session->userdata('v_UserName')) != "APSB332") && (strtoupper ($this->session->userdata('v_UserName')) != "APSB126")){
-			$this->db->where('r.V_hospitalcode',$this->session->userdata('hosp_code'));
-      }
+    //   if ((strtoupper ($this->session->userdata('v_UserName')) != "APSB375") && (strtoupper ($this->session->userdata('v_UserName')) != "APSB196") && (strtoupper ($this->session->userdata('v_UserName')) != "APSB332") && (strtoupper ($this->session->userdata('v_UserName')) != "APSB126")){
+			// $this->db->where('r.V_hospitalcode',$this->session->userdata('hosp_code'));
+    //   }
       if ($grpsel <> ''){
 				$this->db->where('g.v_asset_grp',$grpsel);
 			}
@@ -789,7 +792,7 @@ ORDER BY r.D_date, r.D_time
 
 			$query = $this->db->get();
 			echo $this->db->last_query();
-			//exit();
+			// exit();
 			$query_result = $query->result();
 			return $query_result;
 		}
