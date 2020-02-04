@@ -302,7 +302,7 @@ $this->db->where("(pmis2_egm_assetregistration.v_user_dept_code LIKE '%$departme
 //$this->db->where('pmis2_sa_equip_code.v_EffectiveDt_to > ', date('Y-m-d H:i:s'));
 //$this->db->where('pmis2_sa_equip_code.v_ActiveStatus = ', 'Y');
 $this->db->join('pmis2_egm_assetlocation','pmis2_egm_assetlocation.v_hospitalcode = pmis2_egm_assetregistration.v_hospitalcode AND pmis2_egm_assetregistration.v_user_dept_code = pmis2_egm_assetlocation.v_UserDeptCode AND pmis2_egm_assetregistration.v_location_code = pmis2_egm_assetlocation.V_location_code','left');
-$this->db->join('pmis2_sa_userdept','pmis2_sa_userdept.v_HospitalCode = pmis2_egm_assetregistration.v_hospitalcode AND pmis2_sa_userdept.v_UserDeptCode = pmis2_egm_assetregistration.v_user_dept_code','inner');
+$this->db->join('pmis2_sa_userdept','pmis2_sa_userdept.v_HospitalCode = pmis2_egm_assetregistration.v_hospitalcode AND pmis2_sa_userdept.v_UserDeptCode = pmis2_egm_assetregistration.v_user_dept_code','left');
 $this->db->join('pmis2_egm_assetreg_general','pmis2_egm_assetreg_general.v_hospital_code = pmis2_egm_assetregistration.v_hospitalcode AND pmis2_egm_assetreg_general.v_asset_no = pmis2_egm_assetregistration.v_asset_no ');
 $this->db->join('pmis2_egm_assetmaintenance','pmis2_egm_assetmaintenance.v_hospitalcode = pmis2_egm_assetregistration.v_hospitalcode AND pmis2_egm_assetmaintenance.v_assetno = pmis2_egm_assetregistration.v_asset_no ');
 
