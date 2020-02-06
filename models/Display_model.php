@@ -149,6 +149,12 @@
 
 		function list_deskppm($maklumat)
         {
+			$this->db->select("*,case when a.v_Wrkordstatus='C' Then 'C'
+			when a.v_Wrkordstatus='CA' THEN 'Cancelled' 
+			when a.v_Wrkordstatus='OP' THEN 'Open' 
+			when a.v_Wrkordstatus='NO' THEN 'Not Done & Closed'  
+			when a.v_Wrkordstatus='A' Then 'A'  end as v_Wrkordstatus");
+			
             $this->db->where('a.V_servicecode = ',$this->session->userdata('usersess'));
 						$this->db->where("DATE_FORMAT(a.d_DueDt,'%m') = ",$maklumat['month']);
 						$this->db->where("DATE_FORMAT(a.d_DueDt,'%Y') = ",$maklumat['year']);
@@ -441,7 +447,11 @@
 			return $query_result;
 		}
 		function wo_ppm($wrk_ord){
-			$this->db->select('wp.*,a.*,g.V_Wrn_end_code,m.v_SafetyTest');
+			$this->db->select("wp.*,a.*,g.V_Wrn_end_code,m.v_SafetyTest,case when wp.v_Wrkordstatus='C' Then 'C'
+			when wp.v_Wrkordstatus='CA' THEN 'Cancelled' 
+			when wp.v_Wrkordstatus='OP' THEN 'Open' 
+			when wp.v_Wrkordstatus='NO' THEN 'Not Done & Closed'  
+			when wp.v_Wrkordstatus='A' Then 'A'  end as v_Wrkordstatus");
 			$this->db->from('pmis2_egm_schconfirmmon wp');
 			$this->db->join('pmis2_egm_assetregistration a','wp.v_Asset_no = a.V_Asset_no AND a.v_Hospitalcode = wp.v_HospitalCode');
 			$this->db->join('pmis2_egm_assetreg_general g','wp.V_Asset_no = g.V_Asset_no AND g.V_Hospital_code = wp.v_HospitalCode');
@@ -536,7 +546,11 @@
 		}
 
 		function searchppm($srch){
-
+			$this->db->select("*,case when a.v_Wrkordstatus='C' Then 'C'
+			when a.v_Wrkordstatus='CA' THEN 'Cancelled' 
+			when a.v_Wrkordstatus='OP' THEN 'Open' 
+			when a.v_Wrkordstatus='NO' THEN 'Not Done & Closed'  
+			when a.v_Wrkordstatus='A' Then 'A'  end as v_Wrkordstatus");
 			$this->db->where('a.V_servicecode = ',$this->session->userdata('usersess'));
 			$this->db->where('a.v_HospitalCode = ',$this->session->userdata('hosp_code'));
 			$this->db->where("a.v_actionflag <> ", "D");
