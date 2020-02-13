@@ -4420,6 +4420,8 @@ function get_stock_asset($searchitem=""){
 		// $this->db->where('NOW()', $Value);
 
 		$query = $this->db->get();
+		$this->output->enable_profiler(TRUE);
+		
 		return $query->result();
 		// echo $this->db->last_query();
 
@@ -4437,68 +4439,19 @@ function get_stock_asset($searchitem=""){
 				return 1;
 			}
 		}
-		function get_RCMOutstanding(){
-			$this->db->select("LEFT(e.v_AssetCondition, LOCATE(':', e.v_AssetCondition) - 1) AS conditions, 
-			RIGHT(e.v_AssetCondition, length(e.v_AssetCondition) - LOCATE(':', e.v_AssetCondition)) AS condition_desc, 
-			LEFT(e.v_AssetVStatus, LOCATE(':', e.v_AssetVStatus) - 1) AS variation, 
-			RIGHT(e.v_AssetVStatus, length(e.v_AssetVStatus) - LOCATE(':', e.v_AssetVStatus)) AS variation_status, 
-			LEFT(e.v_AssetStatus, LOCATE(':', e.v_AssetStatus) - 1) AS status_, 
-			RIGHT(e.v_AssetStatus, length(e.v_AssetStatus) - LOCATE(':', e.v_AssetStatus)) AS status_desc, a.V_Request_no, a.V_Asset_no, b.V_Asset_name, 
-			c.N_Cost, b.V_Manufacturer, b.V_Model_no, b.V_Serial_no, b.V_Brandname, b.V_Make, a.D_date, a.D_time, a.V_servicecode, a.V_requestor, 
-			a.V_phone_no, a.V_User_dept_code, a.V_Location_code, a.V_summary, a.V_details, a.V_priority_code, a.V_request_type, a.V_request_status, 
-			a.V_hospitalcode, a.V_actionflag, a.D_timestamp, a.V_respon, a.v_respondate, a.v_respontime, a.v_closeddate, a.v_closedtime, a.V_MohDesg, 
-			TIMESTAMPDIFF(DAY, a.D_date ,CURDATE()) AS Aging , TIMESTAMPDIFF(YEAR, c.D_commission, CURDATE() )  AS years, 
-			b.V_Tag_no, c.V_Wrn_end_code, 
-			CASE WHEN c.V_Wrn_end_code > CURDATE() THEN 'Under Warranty' WHEN c.V_Wrn_end_code < CURDATE() 
-			THEN 'Post Warranty' ELSE 'NA' END AS warranty_stat, CASE IFNULL(z.vvfAuthorizedStatus, '0') 
-			WHEN '2' THEN 'Unclaimed' ELSE 'Claimed' END AS claimstatus, CASE WHEN length(v_tag_no) > 8 THEN b.V_tag_no ELSE b.V_Hospitalcode + '-' + b.V_Asset_no END AS AssetCMIS, c.D_commission AS TnCDATE");
-			$this->db->from('pmis2_egm_assetmaintenance e');
-			$this->db->join('pmis2_egm_service_request a','e.v_AssetNo = a.V_Asset_no AND 
-			e.v_Hospitalcode = a.V_hospitalcode','inner');
-			$this->db->join(' pmis2_egm_assetregistration b  ', 'a.V_Asset_no = b.V_Asset_no AND a.V_hospitalcode = b.V_Hospitalcode', 'inner');
-			$this->db->join('pmis2_egm_assetreg_general c ', 'a.V_Asset_no = c.V_Asset_no AND a.V_hospitalcode = c.V_Hospital_code  ', 'inner');
-			$this->db->join('ap_vo_vvfdetails z', "a.V_hospitalcode + '-' + a.V_Asset_no AND z.vvfActionflag <> 'D'", 'left outer');
-			$this->db->where('a.D_date <=',date("Y/m/d"));
-			$this->db->where('a.V_Actionflag <> ',"D");
-			$this->db->where('a.V_request_status <> ',"C");
-			$this->db->where('e.v_Actionflag <> ',"D");
-			$this->db->where_in('a.V_hospitalcode', $this->session->userdata('hosp_code'));
-			$this->db->order_by('a.D_date, a.V_Asset_no', 'desc');
-			
-			$query = $this->db->get();
-		// echo $this->db->last_query();
-		// exit();
-		return $query->result();
-			
-		}
-		
-		function get_PPMOutstanding(){
-			$this->db->select(' LEFT(e.v_AssetCondition, LOCATE(":", e.v_AssetCondition) - 1) AS conditions, b.V_Tag_no, c.v_wrn_end_code, RIGHT(e.v_AssetCondition, LENGTH(e.v_AssetCondition) - LOCATE(":", 
-			e.v_AssetCondition)) AS condition_desc, LEFT(e.v_AssetVStatus, LOCATE(":", e.v_AssetVStatus) - 1) AS variation, RIGHT(e.v_AssetVStatus, 
-			LENGTH(e.v_AssetVStatus) - LOCATE(":", e.v_AssetVStatus)) AS variation_status, LEFT(e.v_AssetStatus, LOCATE(":", e.v_AssetStatus) - 1) AS status_, 
-			RIGHT(e.v_AssetStatus, LENGTH(e.v_AssetStatus) - LOCATE(":", e.v_AssetStatus)) AS status_desc, a.v_WrkOrdNo, a.v_Asset_no, c.N_Cost, 
-			b.V_Asset_name, b.V_User_Dept_code, b.V_Location_code, b.V_Manufacturer, b.V_Model_no, b.V_Serial_no, b.V_Brandname, b.V_Make, a.v_Month, 
-			a.n_StartWk, a.n_DueWk, a.v_Confirmation, a.v_Remarks, a.v_HospitalCode, a.d_Timestamp, a.v_Actionflag, a.v_ServiceType, a.d_StartDt, a.d_DueDt,
-			 a.d_Reschdt, d.v_ReschReason, a.v_Wrkordstatus, a.v_jobtype, a.v_year, a.v_ServiceCode, a.v_respondate, a.v_respontime, a.v_closeddate, 
-			a.v_closedtime, TIMESTAMPDIFF(DAY, a.d_DueDt ,CURDATE()) AS Aging , TIMESTAMPDIFF(YEAR, c.D_commission, CURDATE() )  AS years, 
-			CASE WHEN c.V_Wrn_end_code > CURDATE() 
-			THEN "Under Warranty"  ELSE "Post Warranty" END AS warranty_stat, c.D_commission AS TnCDATE');
-			$this->db->from('pmis2_egm_assetmaintenance e');
-		$this->db->join('pmis2_egm_schconfirmmon a','e.v_AssetNo = a.v_Asset_no AND e.v_Hospitalcode = a.v_HospitalCode','inner');
-		$this->db->join(' pmis2_egm_assetregistration b  ', 'a.v_Asset_no = b.V_Asset_no AND a.v_HospitalCode = b.V_Hospitalcode', 'inner');
-		$this->db->join('pmis2_egm_assetreg_general c ', 'a.v_Asset_no = c.V_Asset_no AND a.v_HospitalCode = c.V_Hospital_code', 'inner');
-		$this->db->join('pmis2_emg_jobvisit1 d ', 'a.v_WrkOrdNo = d.v_WrkOrdNo ', 'left outer');
-		$this->db->where('a.d_DueDt <=',date("Y/m/d"));
-		$this->db->where('a.v_Actionflag <> ',"D");
-		$this->db->where('a.v_Wrkordstatus <> ',"C");
-		$this->db->where('e.v_Actionflag <> ',"D");
-		$this->db->where_in('a.v_HospitalCode', $this->session->userdata('hosp_code'));
-		$this->db->order_by('Aging', 'desc');
 
-		$query = $this->db->get();
-		// echo $this->db->last_query();
-		// exit();
-		return $query->result();
+		function chkmrin($wono){
+			//$this->db->select("CONCAT('PO/',".$this->db->escape(date('m').date('y')).",'/',RIGHT(CONCAT('0000',CAST(po_next_no AS char)), 5)) AS pono,po_next_no",FALSE);
+			$this->db->select("WorkOfOrder");
+			$this->db->from('tbl_materialreq');
+			$this->db->where('WorkOfOrder',$wono);
+			$this->db->where('DocReferenceNo = ""', NULL, FALSE);
+			$query = $this->db->get();
+			//echo $this->db->last_query();
+			//exit();
+			return $query->result();
+		}
+
 
 
 		function latestchronologyvisit($wrk_ord){
@@ -4536,6 +4489,36 @@ function get_stock_asset($searchitem=""){
 			$this->db->where('V_Request_no', $wo);
 			$query = $this->db->get();
 			//echo $this->db->last_query();
+			//exit();
+			return $query->result();
+		}
+
+		function get_cmis($wo,$id=''){
+			$this->db->select('*');
+			$this->db->from('component_details');
+			$this->db->where('asset_no',$wo);
+			$this->db->where('flag <>','D');
+			if($id!='')$this->db->where('Id',$id);
+			$this->db->where('SUBSTRING_INDEX(com_id, "_", 1)=', 'cmis');
+			$this->db->order_by('com_id','DESC');
+			$query = $this->db->get();
+			// echo $this->db->last_query();
+			//echo '<br><br>';
+			//exit();
+			return $query->result();
+		}
+
+		function get_photo($wo,$id=''){
+			$this->db->select('*');
+			$this->db->from('component_details');
+			$this->db->where('asset_no',$wo);
+			$this->db->where('flag <>','D');
+			if($id!='')$this->db->where('Id',$id);
+			$this->db->where('SUBSTRING_INDEX(com_id, "_", 1)=', 'photo');
+			$this->db->order_by('com_id','DESC');
+			$query = $this->db->get();
+			//echo $this->db->last_query();
+			//echo '<br><br>';
 			//exit();
 			return $query->result();
 		}

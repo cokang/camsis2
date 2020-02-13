@@ -2853,7 +2853,7 @@ $this->db->insert('tbl_invitem', $insert_data);
 							 'v_Actionflag' => 'I',
 							 'd_Timestamp' => date("Y-m-d H:i:s"),
 							 'v_HospitalCode' => $this->session->userdata('hosp_code'),
-						 	 'n_Visit' => $variable1);
+							 'n_Visit' => $variable1);
 					$this->db->insert('pmis2_emg_chronology', $insert_data);
 					}
 
@@ -2924,9 +2924,16 @@ $this->db->insert('tbl_invitem', $insert_data);
 			$this->db->insert('tbl_po_del_item', $insert_data);
 
 		}
-		
+
 		function rootcause($insert_data){
 			$this->db->insert('tbl_materialreq',$insert_data);
 		}
+
+		function upload_cmisphoto($insert_data){
+			$this->db->insert('component_details',$insert_data);
+			$id = $this->db->insert_id();
+			return $id;
+		}
+
 }
 ?>

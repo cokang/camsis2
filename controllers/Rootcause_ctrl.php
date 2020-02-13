@@ -9,9 +9,11 @@ class Rootcause_ctrl extends CI_Controller{
 		// load libraries for URL and form processing
 	    $this->load->helper(array('form', 'url'));
 	    // load library for form validation
-	    $this->load->library('form_validation');
-
-
+		$this->load->library('form_validation');
+		$this->load->model('get_model');
+		$workorderOrMrin = $this->input->get('mrin')==''?$this->input->get('wrk_ord'):$this->input->get('mrin');
+		$data['recordcmis'] = $this->get_model->get_cmis($workorderOrMrin);
+		$data['recordphoto'] = $this->get_model->get_photo($workorderOrMrin);
 
 		// if($this->form_validation->run()==FALSE || $this->input->get('act') <> '')
 		// 	{
@@ -27,7 +29,7 @@ class Rootcause_ctrl extends CI_Controller{
 		// 	{
 				$this ->load->view("head");
 				$this ->load->view("left");
-				$this ->load->view("Content_workorder_technicalsummary_Confirm");
+				$this ->load->view("Content_workorder_technicalsummary_Confirm",$data);
 			//}
 	}
 
