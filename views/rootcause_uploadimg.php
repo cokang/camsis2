@@ -59,7 +59,7 @@
 	<?php if ($this->input->get('tag') == 'CMIS') { ?>
 		<td>Attachment Name : <input type="text" value="<?=$this->input->get('act') != 'addnew' ? $cmisdata[0]->component_name : ''?>" name="att_name" id="att_name"> </td>
 	<?php } else { ?>
-		<td>Attachment Name : <input type="text" value="<?=$this->input->get('act') != 'addnew' ? $photodata[0]->component_name : ''?>" name="att_name" id="att_name"> </td>
+		<td>Attachment Name : <input type="text" value="<?=$this->input->get('act') != 'addnew' ? $photodata[0]->component_name : ''?>" name="att_name" id="att_name"> <a style="color:red;">Compulsary</a> </td> 
 	<?php } ?>
 	</tr>
 	<?php if ( $this->input->get('act') != 'delete'){ ?>
@@ -93,6 +93,10 @@
 	}
 	if(document.getElementById("image_file").value.length < 5) {
 	alert("Invalid filename. Must contain proper extension.");
+	return false;
+	}
+	if(document.getElementById("att_name").value == "") {
+	alert("File name is compulsary");
 	return false;
 	}
 	att_name = document.getElementById("att_name").value ;
