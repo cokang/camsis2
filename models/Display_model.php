@@ -173,7 +173,7 @@
   					$this->db->order_by('v_WrkOrdNo', 'asc');
             $query = $this->db->get("pmis2_egm_schconfirmmon a");
 
-            //echo $this->db->last_query();
+            // echo $this->db->last_query();
 			$query_result = $query->result();
 			return $query_result;
         }
@@ -559,8 +559,8 @@
 			$this->db->join('pmis2_egm_assetregistration r','a.v_Asset_no = r.V_Asset_no AND a.V_hospitalcode = r.V_Hospitalcode','full');
 
             $query = $this->db->get("pmis2_egm_schconfirmmon a");
-			//echo $this->db->last_query();
-			//exit();
+			// echo $this->db->last_query();
+			// exit();
 			$query_result = $query->result();
 			return $query_result;
 		}
@@ -694,6 +694,7 @@ ORDER BY r.D_date, r.D_time
 			
 			$this->db->where('r.V_servicecode', $this->session->userdata('usersess'));
 			$this->db->where('r.V_actionflag <> ', 'D');
+			$this->db->where('d.v_ActionFlag <> ', 'D');
 			if($this->input->get('req_status')!='')
 			$this->db->where('r.V_request_status', $this->input->get('req_status'));
 			if($this->input->get('special_cat')!='')
@@ -924,7 +925,11 @@ ORDER BY s.d_DueDt, s.v_WrkOrdNo
 
 		  $this->db->distinct();
 			//$this->db->select('a.V_Location_code, s.v_Wrkordstatus, s.v_WrkOrdNo AS sv_wrkordno, s.v_Asset_no AS sv_asset_no, s.v_Month AS sv_month, s.v_HospitalCode AS sv_hospitalcode, s.d_DueDt AS sd_duedt, s.v_jobtype AS sv_jobtype, s.v_year AS sv_year, s.v_ServiceCode AS sv_servicecode, a.V_Tag_no AS av_tag_no, a.V_User_Dept_code AS av_user_dept_code, a.V_Asset_name AS av_asset_name, b.v_stest, b.v_ptest, b.d_DateDone, CONCAT(IFNULL(s.v_Remarks,"")," ", ifnull(b.v_summary,"")) AS v_summary, b.d_last_resch_date, c.d_Date, IFNULL(s.d_Reschdt,c.d_Reschdt) AS d_Reschdt, d.v_UserDeptDesc,a.v_asset_grp', FALSE);
-			$this->db->select('a.V_Location_code, s.v_Wrkordstatus, s.v_WrkOrdNo AS sv_wrkordno, s.v_Asset_no AS sv_asset_no, s.v_Month AS sv_month, s.v_HospitalCode AS sv_hospitalcode, s.d_DueDt AS sd_duedt, s.v_jobtype AS sv_jobtype, s.v_year AS sv_year, s.v_ServiceCode AS sv_servicecode, a.V_Tag_no AS av_tag_no, a.V_User_Dept_code AS av_user_dept_code, a.V_Asset_name AS av_asset_name, b.v_stest, b.v_ptest, b.d_DateDone, CONCAT(IFNULL(c.v_ReschReason, c.v_ActionTaken),CONCAT(IFNULL(s.v_Remarks, ""), " ", ifnull(b.v_summary, ""))) AS v_summary, b.d_last_resch_date, c.d_Date, IFNULL(s.d_Reschdt,c.d_Reschdt) AS d_Reschdt, d.v_UserDeptDesc,a.v_asset_grp', FALSE);
+			$this->db->select('a.V_Location_code, s.v_Wrkordstatus, s.v_WrkOrdNo AS sv_wrkordno, s.v_Asset_no AS sv_asset_no, s.v_Month AS sv_month, s.v_HospitalCode AS sv_hospitalcode, s.d_DueDt AS sd_duedt, s.v_jobtype AS sv_jobtype, s.v_year AS sv_year, s.v_ServiceCode AS sv_servicecode, a.V_Tag_no AS av_tag_no, a.V_User_Dept_code AS av_user_dept_code, a.V_Asset_name AS av_asset_name, b.v_stest, b.v_ptest, b.d_DateDone, CONCAT(IFNULL(c.v_ReschReason, c.v_ActionTaken),CONCAT(IFNULL(s.v_Remarks, ""), " ", ifnull(b.v_summary, ""))) AS v_summary, b.d_last_resch_date, c.d_Date, IFNULL(s.d_Reschdt,c.d_Reschdt) AS d_Reschdt, d.v_UserDeptDesc,a.v_asset_grp,case when s.v_Wrkordstatus="C" Then "C"
+			when s.v_Wrkordstatus="CA" THEN "Cancelled" 
+			when s.v_Wrkordstatus="OP" THEN "Open" 
+			when s.v_Wrkordstatus="NO" THEN "Not Done & Closed"  
+			when s.v_Wrkordstatus="A" Then "A"  end as v_Wrkordstatus', FALSE);
 			//$this->db->select('a.V_Location_code, s.v_Wrkordstatus, s.v_WrkOrdNo AS sv_wrkordno, s.v_Asset_no AS sv_asset_no, s.v_Month AS sv_month, s.v_HospitalCode AS sv_hospitalcode, s.d_DueDt AS sd_duedt, s.v_jobtype AS sv_jobtype, s.v_year AS sv_year, s.v_ServiceCode AS sv_servicecode, a.V_Tag_no AS av_tag_no, a.V_User_Dept_code AS av_user_dept_code, a.V_Asset_name AS av_asset_name, b.v_stest, b.v_ptest, b.d_DateDone, b.v_summary, b.d_last_resch_date, b.d_DateDone AS d_Date, IFNULL(s.d_Reschdt,b.d_last_resch_date) AS d_Reschdt, d.v_UserDeptDesc,a.v_asset_grp', FALSE);
 			$this->db->from('pmis2_egm_schconfirmmon s');
 			$this->db->join('pmis2_egm_assetregistration a','s.v_Asset_no = a.V_Asset_no AND s.v_HospitalCode = a.V_Hospitalcode '.$bystak);
