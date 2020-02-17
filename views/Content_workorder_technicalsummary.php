@@ -85,7 +85,7 @@
 									<div style='padding-left: 30px;color: blue;'><?=isset($record[0]->rtwo) ? $record[0]->rtwo : ''?></div>
 									<div style="margin-left: 700px;"><b>Prepared by(Technical/SVR): <?php //isset($recordphoto[0]->user_id)?$recordphoto[0]->user_id:'' ?> </b></div><br>
 									</td></tr>
-									<tr><td colspan='2'><b>9. CMIS</b>
+									<tr><td colspan='2'><b>9. CMIS<br></b>
 									<span style="display:inline-block;" id="spcommaCMIS"></span>
 										<span id="spcmis">
 										<?php
@@ -93,9 +93,13 @@
 											foreach($recordcmis as $row){
 												$extension = explode(".",$row->com_id);
 
-											
+												if ($extension[1] == 'docx' || $extension[1] == 'xlsx' || $extension[1] == 'pdf') {
+													echo "<span class='icon-play icon' style='font-size:15px;'></span><span style='font-size:15px; font-weight:bold;'>" .$row->component_name. "</span><a href=".base_url()."uploadmrinfiles/".$row->com_id."><span class='icon-file-text2 icon'></a></span>";
+													echo '<br>';
+													}else{
 												echo "<br><img src=".base_url()."uploadmrinfiles/".$row->com_id." style='max-width:90%; height:auto; padding-left:5px;' >";
 												echo '<br>';
+													}
 												
 											}
 										}
@@ -107,16 +111,20 @@
 									<span style="display:inline-block;" id="spcommaphoto"></span>
 										<span id="spphoto">
 										<?php
-										if($recordcmis!=null){
+										
 											foreach($recordphoto as $row){
 												$extension = explode(".",$row->com_id);
 
-												
+												if ($extension[1] == 'docx' || $extension[1] == 'xlsx' || $extension[1] == 'pdf') {
+													echo "<span class='icon-play icon' style='font-size:15px;'></span><span style='font-size:15px; font-weight:bold;'>" .$row->component_name. "</span><a href=".base_url()."uploadmrinfiles/".$row->com_id."><span class='icon-file-text2 icon'></a></span>";
+													echo '<br>';
+													}else{
 												echo "<img src=".base_url()."uploadmrinfiles/".$row->com_id." style='max-width:35%; height:auto; padding-left:25px;' >";
 												//echo '<br>';
+													}
 												
 											}
-										}
+										
 										?>
 										
 										</span>

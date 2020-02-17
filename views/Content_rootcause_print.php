@@ -97,20 +97,24 @@
 									</td></tr></table>
 									<div class="StartNewPage" id="breakpage"><span id="pagebreak">Page Break</span></div>
 									<table  width="100%" border="1">
-									<tr  height="300px" valign= "top"><td colspan='2'><b>9. CMIS</b>
+									<tr  height="300px" valign= "top"><td colspan='2'><b>9. CMIS<br></b>
 									<span style="display:inline-block;" id="spcommaCMIS"></span>
 										<span id="spcmis">
 										<?php
-										if($recordcmis!=null){
+										
 											foreach($recordcmis as $row){
 												$extension = explode(".",$row->com_id);
 
-											
+												if ($extension[1] == 'docx' || $extension[1] == 'xlsx' || $extension[1] == 'pdf') {
+													echo "<span class='icon-play icon' style='font-size:15px;'></span><span style='font-size:15px; font-weight:bold;'>" .$row->component_name. "</span>";
+													echo '<br>';
+													}else{
 												echo "<br><img src=".base_url()."uploadmrinfiles/".$row->com_id." style='max-width:90%; height:auto; padding-left:5px;' >";
 												echo '<br>';
+													}
 												
 											}
-										}
+										
 										?>
 										
 										</span>
@@ -119,16 +123,26 @@
 									<span style="display:inline-block;" id="spcommaphoto"></span>
 										<span id="spphoto">
 										<?php
-										if($recordcmis!=null){
+										$pdfNo=1;
 											foreach($recordphoto as $row){
 												$extension = explode(".",$row->com_id);
-
 												
+												if ($extension[1] == 'docx' || $extension[1] == 'xlsx' || $extension[1] == 'pdf') {
+													if($this->input->get('none')=='closed')
+													{
+														echo "<span class='icon-play icon' style='font-size:15px;'></span><span style='font-size:15px; font-weight:bold;'>" .$row->component_name. "</span>";
+													}else{
+														echo "<embed id='iFramePdf' src=".base_url()."uploadmrinfiles/".$row->com_id." type='application/pdf' width='100%' height='600px' />";
+													}
+													// echo "<iframe id='iFramePdf$pdfNo' src=".base_url()."uploadmrinfiles/".$row->com_id." width='100%' height='600px' style=''></iframe>";
+													echo '<br>';
+													}else{
 												echo "<img src=".base_url()."uploadmrinfiles/".$row->com_id." style='max-width:35%; height:auto; padding-left:25px;' >";
 												//echo '<br>';
-												
+													}
+												++$pdfNo;
 											}
-										}
+										
 										?>
 										
 										</span>
