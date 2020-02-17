@@ -57,7 +57,7 @@
 	<?php } ?>
 	<tr>
 	<?php if ($this->input->get('tag') == 'CMIS') { ?>
-		<td>Attachment Name : <input type="text" value="<?=$this->input->get('act') != 'addnew' ? $cmisdata[0]->component_name : ''?>" name="att_name" id="att_name"> </td>
+		<td>Attachment Name : <input type="text" value="<?=$this->input->get('act') != 'addnew' ? $cmisdata[0]->component_name : ''?>" name="att_name" id="att_name"> <a style="color:red;">Compulsary</a> </td>
 	<?php } else { ?>
 		<td>Attachment Name : <input type="text" value="<?=$this->input->get('act') != 'addnew' ? $photodata[0]->component_name : ''?>" name="att_name" id="att_name"> <a style="color:red;">Compulsary</a> </td> 
 	<?php } ?>
