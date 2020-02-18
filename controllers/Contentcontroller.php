@@ -3845,6 +3845,9 @@ class Contentcontroller extends CI_Controller {
 				}
 			}
 		}
+		$data['hospitalcodes'] = $this->get_model->get_allHospitalCode();
+		$data['typeOfWrkOrd'] = $this->get_model->get_typeOfWorkOrder();
+
 		//$data['record'] = $this->display_model->rpt_volu($data['month'],$data['year'],$this->input->get('stat'),$data['reqtype'],$this->input->get('broughtfwd'),$data['grpsel'],$pilape,$data['tag'],$data['cm'],$data['limab'],$data['bfwd'],"",$data['fon']);
     if ($this->input->get('broughtfwd') != ''){
 			$data['record'] = $this->display_model->rpt_volu($data['month'],$data['year'],$this->input->get('stat'),$data['reqtype'],$this->input->get('broughtfwd'),$data['grpsel'],$pilape,$data['tag'],$data['cm'],$data['limab'],$data['bfwd'],"",$data['fon']);

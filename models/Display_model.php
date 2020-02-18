@@ -689,7 +689,7 @@ ORDER BY r.D_date, r.D_time
 			$this->db->join('pmis2_emg_jobvisit1 jv',"r.V_Request_no = jv.v_WrkOrdNo AND r.v_HospitalCode = jv.v_HospitalCode AND jv.n_Visit = 1",'left outer');
       		$this->db->join('pmis2_sa_asset_mapping mp',"mp.old_asset_type = g.V_Equip_code ",'left outer');
 			$this->db->join('pmis2_sa_add_info ad',"ad.asset_type = mp.new_asset_type ",'left outer');
-	  		$this->db->join('pmis2_sa_userhospital uh', 'uh.v_hospitalcode = r.V_hospitalcode', 'left outer');
+			$this->db->join('pmis2_sa_userhospital uh', 'uh.v_hospitalcode = r.V_hospitalcode', 'left outer');
 			$this->db->where('uh.v_userid', $this->session->userdata('v_UserName'));
 			
 			$this->db->where('r.V_servicecode', $this->session->userdata('usersess'));
@@ -699,6 +699,10 @@ ORDER BY r.D_date, r.D_time
 			$this->db->where('r.V_request_status', $this->input->get('req_status'));
 			if($this->input->get('special_cat')!='')
 			$this->db->where('ad.specialty_cat', $this->input->get('special_cat'));
+			if($this->input->get('typeOfWrkOrd')!='')
+			$this->db->where('r.V_request_type',$this->input->get('typeOfWrkOrd'));
+			if($this->input->get('hospitalcodes')!='')
+			$this->db->where('r.V_hospitalcode',$this->input->get('hospitalcodes'));
 			if ($pilih <> "A") {
 			//$this->db->where('r.v_request_status <> ', $pilih);
 			if ($fon == "") {
@@ -806,7 +810,7 @@ ORDER BY r.D_date, r.D_time
 	 		}
 
 			$query = $this->db->get();
-			echo $this->db->last_query();
+			//echo $this->db->last_query();
 			// exit();
 			$query_result = $query->result();
 			return $query_result;

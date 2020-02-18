@@ -4523,5 +4523,42 @@ function get_stock_asset($searchitem=""){
 			return $query->result();
 		}
 
+		function get_allHospitalCode(){
+			$this->db->select('v_HospitalCode');
+			$this->db->from('pmis2_sa_hospital');
+			$this->db->where('v_HospitalAdd1 like',  '%hospital%');
+			$this->db->order_by('v_statename,v_HospitalCode', 'asc');
+			$query = $this->db->get();
+			//echo $this->db->last_query();
+			$array[''] = "All";
+			foreach($query->result() as $row ){
+					$array[$row->v_HospitalCode] = $row->v_HospitalCode;
+			}
+			return $array;
+			
+		}
+
+		function get_typeOfWorkOrder(){
+			$request = array('A10','AP', 'AP1', 'A4', 'AP19');
+			//print_r($request); exit();
+			$this->db->distinct();
+			$this->db->select("V_request_type, case when V_request_type='A4' then 'ASIS'
+			when V_request_type='A10' then 'Advisory Service'
+			when V_request_type='AP' then 'Internal Request'
+			when V_request_type='AP1' then 'Equipment Audit'
+			when V_request_type='AP19' then 'AP Service Report'
+			end as wrkOrdDetails");
+			$this->db->from('pmis2_egm_service_request');
+			$this->db->where_in('V_request_type',  $request);
+			$query = $this->db->get();
+			// echo $this->db->last_query(); exit();
+			$array[''] = "All";
+			foreach($query->result() as $row ){
+					$array[$row->V_request_type] = $row->V_request_type . ' - ' . $row->wrkOrdDetails;
+			}
+			return $array;
+			
+		}
+
 }
 ?>

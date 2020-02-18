@@ -265,8 +265,11 @@ $locationone = "0";
 		Status : 
 		<?php echo form_dropdown('req_status', $status, set_value('req_status', $this->input->get('req_status')) , 'style="width: 100px;" id="cs_month"'); ?>
 		Special Category : 
-		<?php echo form_dropdown('special_cat', $special_cat, set_value('special_cat', $this->input->get('special_cat')) , 'style="width: 350px;" id="cs_month"'); ?><br>
-
+		<?php echo form_dropdown('special_cat', $special_cat, set_value('special_cat', $this->input->get('special_cat')) , 'style="width: 350px;" id="cs_month"'); ?><br><br>
+		Hospitals : 
+		<?php echo form_dropdown('hospitalcodes', $hospitalcodes, set_value('hospitalcodes', $this->input->get('hospitalcodes')) , 'style="width: 100px;" id="cs_month"'); ?>
+		Type Of Work Order : 
+		<?php echo form_dropdown('typeOfWrkOrd', $typeOfWrkOrd, set_value('typeOfWrkOrd', $this->input->get('typeOfWrkOrd')) , 'style="width: 100px;" id="cs_month"'); ?><br>
 		<?php  } else {
 		$_POST['req'] = '';
 		}
@@ -437,7 +440,11 @@ if ($numrow==1 OR $numrow%18==1) {
 		Status : 
 		<?php echo form_dropdown('req_status', $status, set_value('req_status', $this->input->get('req_status')) , 'style="width: 100px;" id="cs_month"'); ?>
 		Special Category : 
-		<?php echo form_dropdown('special_cat', $special_cat, set_value('special_cat', $this->input->get('special_cat')) , 'style="width: 350px;" id="cs_month"'); ?><br>
+		<?php echo form_dropdown('special_cat', $special_cat, set_value('special_cat', $this->input->get('special_cat')) , 'style="width: 350px;" id="cs_month"'); ?><br><br>
+		Hospitals : 
+		<?php echo form_dropdown('hospitalcodes', $hospitalcodes, set_value('hospitalcodes', $this->input->get('hospitalcodes')) , 'style="width: 100px;" id="cs_month"'); ?>
+		Type Of Work Order : 
+		<?php echo form_dropdown('typeOfWrkOrd', $typeOfWrkOrd, set_value('typeOfWrkOrd', $this->input->get('typeOfWrkOrd')) , 'style="width: 100px;" id="cs_month"'); ?><br>
 		<?php  } else {
 		$_POST['req'] = '';
 		}
