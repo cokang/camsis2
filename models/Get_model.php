@@ -3006,7 +3006,7 @@ $query = $this->db->query("SELECT `sr`.`V_Request_no`, `sr`.`D_date`, `sr`.`V_re
 	//exit();
 	return $query->result();
 }
-function wodet($wrk_ord,$assetno){
+function wodet($wrk_ord,$assetno,$hosp=''){
 	$this->db->select('sr.*,d.v_UserDeptDesc,l.v_Location_Name,r.V_Asset_name,jd.v_AcceptedBy,jd.V_ACCEPTED_Designation,jd.v_ptest,jd.v_stest,IFNULL(TIMEDIFF(sr.v_closeddate,sr.D_date),0) as downtime,jd.v_QCPPM,jd.v_QCuptime,SUM(jv.n_PartTotal) as parttotal, SUM(jv.n_Total1 + jv.n_Total2 + jv.n_Total3) as labourtotal,jv.v_ActionTaken,jv.d_Reschdt, r.v_tag_no,jv.d_Date AS schedule_d',FALSE);
 	$this->db->from('pmis2_egm_service_request sr');
 	$this->db->join('pmis2_sa_userdept d','sr.V_User_dept_code = d.v_UserDeptCode AND sr.V_hospitalcode = d.v_HospitalCode','left');
@@ -3016,7 +3016,7 @@ function wodet($wrk_ord,$assetno){
 	$this->db->join('pmis2_egm_jobdonedet jd','sr.V_Request_no = jd.v_Wrkordno','left');
 	$this->db->where('sr.V_Request_no', $wrk_ord);
 	$this->db->where('sr.V_Asset_no', $assetno);
-	$this->db->where('sr.V_hospitalcode',$this->session->userdata('hosp_code'));
+	$this->db->where('sr.V_hospitalcode',$hosp==''?$this->session->userdata('hosp_code'):$hosp);
 	$this->db->where('sr.V_servicecode',$this->session->userdata('usersess'));
 	$this->db->where('d.v_ActionFlag <> ', 'D');
 	$query = $this->db->get();

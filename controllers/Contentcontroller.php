@@ -6867,7 +6867,7 @@ class Contentcontroller extends CI_Controller {
 		}
 		else{
 			if (substr($data['wrk_ord'],0,2) != 'PP'){
-				$data['records'] = $this->get_model->wodet($data['wrk_ord'],$data['assetno']);
+				$data['records'] = $this->get_model->wodet($data['wrk_ord'],$data['assetno'],$data['assetno'],$this->input->get('hosp'));
 				$data['parts'] = $this->get_model->partrep($data['wrk_ord']);
 				if ($data['parts']) {
 				foreach ($data['parts'] as $row){
@@ -9111,6 +9111,7 @@ $this ->load->view("report-a10.php",$data);
     		$this ->load->view("headprinter");
     		$this->load->view("Content_rootcause_print", $data);
 		}
+		
 		
 		public function rootcause_image(){
 			//echo $this->db->last_query();
