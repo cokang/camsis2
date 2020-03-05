@@ -669,7 +669,11 @@ ORDER BY r.D_date, r.D_time
 			}
 
 			if ($broughtfwd == ''){
-			$this->db->select("mr.DocReferenceNo, rc.nama, r.v_ref_wo_no, r.v_ref_status, r.takenby, r.V_MohDesg, g.V_Asset_name, e.v_location_name, r.v_location_code, r.V_hospitalcode, r.closedby, r.D_date, r.D_time, r.V_Request_no, r.V_Asset_no, r.V_summary AS ReqSummary, r.V_User_dept_code, r.V_requestor, r.V_request_status, r.v_closeddate, r.v_closedtime, w.V_Wrn_end_code, a.v_summary, g.v_tag_no, d.v_UserDeptDesc, DATEDIFF(IFNULL(r.v_closeddate,'".$this->dater(3,$month,$year)."'),r.D_date) + 1 AS DiffDate,r.V_request_type,g.v_asset_grp,jr.d_Date,jr.v_Time,jr.v_Personal1,jr.v_ActionTaken,g.V_Asset_WG_code, IFNULL(dt.ori_wo,'none') AS linker,jv.d_Date AS schedule_d, ad.medical_dev_class, ad.specialty_cat,r2.V_Request_no as link_ap19, ", false); //,if(V_Request_no=r.V_Request_no, (select V_Request_no from pmis2_egm_service_request where v_ref_wo_no= r.V_Request_no)  ,'') as linked_ap19
+				if($reqtype=='AP19'){
+					$this->db->select(" r.v_ref_wo_no, r.v_ref_status, r.takenby, r.V_MohDesg, g.V_Asset_name, e.v_location_name, r.v_location_code, r.V_hospitalcode, r.closedby, r.D_date, r.D_time, r.V_Request_no, r.V_Asset_no, r.V_summary AS ReqSummary, r.V_User_dept_code, r.V_requestor, r.V_request_status, r.v_closeddate, r.v_closedtime, w.V_Wrn_end_code, a.v_summary, g.v_tag_no, d.v_UserDeptDesc, DATEDIFF(IFNULL(r.v_closeddate,'".$this->dater(3,$month,$year)."'),r.D_date) + 1 AS DiffDate,r.V_request_type,g.v_asset_grp,jr.d_Date,jr.v_Time,jr.v_Personal1,jr.v_ActionTaken,g.V_Asset_WG_code, IFNULL(dt.ori_wo,'none') AS linker,jv.d_Date AS schedule_d, ad.medical_dev_class, ad.specialty_cat ", false);
+				}else{
+					$this->db->select("mr.DocReferenceNo, rc.nama, r.v_ref_wo_no, r.v_ref_status, r.takenby, r.V_MohDesg, g.V_Asset_name, e.v_location_name, r.v_location_code, r.V_hospitalcode, r.closedby, r.D_date, r.D_time, r.V_Request_no, r.V_Asset_no, r.V_summary AS ReqSummary, r.V_User_dept_code, r.V_requestor, r.V_request_status, r.v_closeddate, r.v_closedtime, w.V_Wrn_end_code, a.v_summary, g.v_tag_no, d.v_UserDeptDesc, DATEDIFF(IFNULL(r.v_closeddate,'".$this->dater(3,$month,$year)."'),r.D_date) + 1 AS DiffDate,r.V_request_type,g.v_asset_grp,jr.d_Date,jr.v_Time,jr.v_Personal1,jr.v_ActionTaken,g.V_Asset_WG_code, IFNULL(dt.ori_wo,'none') AS linker,jv.d_Date AS schedule_d, ad.medical_dev_class, ad.specialty_cat,r2.V_Request_no as link_ap19, ", false); 
+				}
 			}else{
       //$this->db->select("e.v_location_name, r.v_location_code, r.V_hospitalcode, r.closedby, r.D_date, r.D_time, r.V_Request_no, r.V_Asset_no, r.V_summary AS ReqSummary, r.V_User_dept_code, r.V_requestor, r.V_request_status, r.v_closeddate, r.v_closedtime, w.V_Wrn_end_code, a.v_summary, g.v_tag_no, d.v_UserDeptDesc, CASE WHEN r.V_request_status = 'C' AND MONTH(r.v_closeddate) = MONTH(DATE_SUB('".$year."-".$month."-08 23:59:59', INTERVAL 1 MONTH)) AND YEAR(r.v_closeddate) = YEAR(DATE_SUB('".$year."-".$month."-08 23:59:59', INTERVAL 1 MONTH)) THEN DATEDIFF(r.v_closeddate, r.D_date)+1 WHEN r.V_request_status <> 'C' AND DAY(LAST_DAY(".$this->db->escape($year."-".$month."-01").")) > DATEDIFF(now(), r.D_date) THEN DATEDIFF( now(),r.D_date)+1 ELSE DAY(LAST_DAY(".$this->db->escape($year."-".$month."-01").")) END AS DiffDate,r.V_request_type,g.v_asset_grp,jr.d_Date,jr.v_Time,jr.v_Personal1,jr.v_ActionTaken,g.V_Asset_WG_code, IFNULL(dt.ori_wo,'none') AS linker", false);
 			//$this->db->select("e.v_location_name, r.v_location_code, r.V_hospitalcode, r.closedby, r.D_date, r.D_time, r.V_Request_no, r.V_Asset_no, r.V_summary AS ReqSummary, r.V_User_dept_code, r.V_requestor, r.V_request_status, r.v_closeddate, r.v_closedtime, w.V_Wrn_end_code, a.v_summary, g.v_tag_no, d.v_UserDeptDesc, CASE WHEN r.V_request_status = 'C' AND r.v_closeddate < MONTH(DATE_ADD('".$year."-".$month."-08 23:59:59', INTERVAL 1 MONTH)) THEN DATEDIFF(r.v_closeddate, r.D_date)+1 WHEN r.V_request_status <> 'C' AND DAY(LAST_DAY(".$this->db->escape($year."-".$month."-01").")) > DATEDIFF(now(), r.D_date) THEN DATEDIFF( now(),r.D_date)+1 ELSE DAY(LAST_DAY(".$this->db->escape($year."-".$month."-01").")) END AS DiffDate,r.V_request_type,g.v_asset_grp,jr.d_Date,jr.v_Time,jr.v_Personal1,jr.v_ActionTaken,g.V_Asset_WG_code, IFNULL(dt.ori_wo,'none') AS linker", false);
@@ -690,8 +694,10 @@ ORDER BY r.D_date, r.D_time
       		$this->db->join('pmis2_sa_asset_mapping mp',"mp.old_asset_type = g.V_Equip_code ",'left outer');
 			$this->db->join('pmis2_sa_add_info ad',"ad.asset_type = mp.new_asset_type ",'left outer');
 			$this->db->join('pmis2_sa_userhospital uh', 'uh.v_hospitalcode = r.V_hospitalcode', 'left outer');
+			if($reqtype!='AP19'){
 			$this->db->join('tbl_materialreq mr', 'mr.WorkOfOrder = r.V_Request_no', 'left outer');
 			$this->db->join('pmis2_egm_service_request r2', 'r2.v_ref_wo_no = r.V_Request_no ', 'inner');
+			}
 			$this->db->join('pmis2_emg_chronology ch', 'r.V_Request_no = ch.v_WrkOrdNo', 'left');
 			$this->db->join('pmis2_egm_rootcause rc', 'ch.v_ReschAuthBy = rc.id', 'left');
 			
@@ -783,6 +789,10 @@ ORDER BY r.D_date, r.D_time
 				}
 				//$this->db->order_by("g.v_tag_no, r.d_date");
         $this->db->order_by("r.d_date, g.v_tag_no");
+			}else if($reqtype=='AP19'){
+			$this->db->where('YEAR(r.D_date) ', $year);
+			$this->db->where('MONTH(r.D_date) ', $month);	
+			$this->db->order_by("r.d_date");
 			}
 			//$this->db->where('YEAR(r.D_date) ', $year);
 			//$this->db->where('MONTH(r.D_date) ', $month);
@@ -817,6 +827,7 @@ ORDER BY r.D_date, r.D_time
 			$query = $this->db->get();
 			//echo $this->db->last_query();
 			// exit();
+			
 			$query_result = $query->result();
 			return $query_result;
 		}

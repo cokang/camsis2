@@ -202,7 +202,7 @@ $locationone = "0";
 <div id="Instruction" >
 
 <center>View List:
-
+<form method="get" action="">
 <?php
 			$month_list = array(
 			'01' => 'January',
@@ -229,6 +229,7 @@ $locationone = "0";
 		<?php echo form_dropdown('y', $year_list, set_value('y', isset($record[0]->Year) ? $record[0]->Year : $year) , 'style="width: 65px;" id="cs_year"'); ?>
 <input type="hidden" value="<?php echo set_value('stat', ($this->input->get('stat')) ? $this->input->get('stat') : ''); ?>" name="stat">
 <input type="hidden" value="<?php echo set_value('grp', ($this->input->get('grp')) ? $this->input->get('grp') : ''); ?>" name="grp">
+<input type="hidden" value="<?php echo set_value('req', ($this->input->get('req')) ? $this->input->get('req') : ''); ?>" name="req">
 <input type="submit" value="Apply" onchange="javascript: submit()"/></center>
 
 </form>
@@ -310,7 +311,7 @@ if ($numrow==1 OR $numrow%18==1) {
 
 <?php if (($this->input->get('ex') == '' && $this->input->get('broughtfwd') == '') OR ($this->input->get('ex') != '' && $this->input->get('broughtfwd') != '')){?>
 <div id="Instruction" >
-<!--
+
 <center>View List :
 <form method="get" action="">
 
@@ -399,7 +400,7 @@ if ($numrow==1 OR $numrow%18==1) {
 <input type="submit" value="Apply" onchange="javascript: submit()"/></center>
 
 </form>
--->
+
 </div>
 <?php } ?>
 <div class="m-div">
