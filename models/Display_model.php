@@ -150,11 +150,11 @@
 		function list_deskppm($maklumat)
         {
 			$this->db->select("*,case when a.v_Wrkordstatus='C' Then 'C'
-			when a.v_Wrkordstatus='CA' THEN 'Cancelled' 
-			when a.v_Wrkordstatus='OP' THEN 'Open' 
-			when a.v_Wrkordstatus='NO' THEN 'Not Done & Closed'  
+			when a.v_Wrkordstatus='CA' THEN 'Cancelled'
+			when a.v_Wrkordstatus='OP' THEN 'Open'
+			when a.v_Wrkordstatus='NO' THEN 'Not Done & Closed'
 			when a.v_Wrkordstatus='A' Then 'A'  end as v_Wrkordstatus");
-			
+
             $this->db->where('a.V_servicecode = ',$this->session->userdata('usersess'));
 						$this->db->where("DATE_FORMAT(a.d_DueDt,'%m') = ",$maklumat['month']);
 						$this->db->where("DATE_FORMAT(a.d_DueDt,'%Y') = ",$maklumat['year']);
@@ -448,9 +448,9 @@
 		}
 		function wo_ppm($wrk_ord){
 			$this->db->select("wp.*,a.*,g.V_Wrn_end_code,m.v_SafetyTest,case when wp.v_Wrkordstatus='C' Then 'C'
-			when wp.v_Wrkordstatus='CA' THEN 'Cancelled' 
-			when wp.v_Wrkordstatus='OP' THEN 'Open' 
-			when wp.v_Wrkordstatus='NO' THEN 'Not Done & Closed'  
+			when wp.v_Wrkordstatus='CA' THEN 'Cancelled'
+			when wp.v_Wrkordstatus='OP' THEN 'Open'
+			when wp.v_Wrkordstatus='NO' THEN 'Not Done & Closed'
 			when wp.v_Wrkordstatus='A' Then 'A'  end as v_Wrkordstatus");
 			$this->db->from('pmis2_egm_schconfirmmon wp');
 			$this->db->join('pmis2_egm_assetregistration a','wp.v_Asset_no = a.V_Asset_no AND a.v_Hospitalcode = wp.v_HospitalCode');
@@ -547,9 +547,9 @@
 
 		function searchppm($srch){
 			$this->db->select("*,case when a.v_Wrkordstatus='C' Then 'C'
-			when a.v_Wrkordstatus='CA' THEN 'Cancelled' 
-			when a.v_Wrkordstatus='OP' THEN 'Open' 
-			when a.v_Wrkordstatus='NO' THEN 'Not Done & Closed'  
+			when a.v_Wrkordstatus='CA' THEN 'Cancelled'
+			when a.v_Wrkordstatus='OP' THEN 'Open'
+			when a.v_Wrkordstatus='NO' THEN 'Not Done & Closed'
 			when a.v_Wrkordstatus='A' Then 'A'  end as v_Wrkordstatus");
 			$this->db->where('a.V_servicecode = ',$this->session->userdata('usersess'));
 			$this->db->where('a.v_HospitalCode = ',$this->session->userdata('hosp_code'));
@@ -694,9 +694,9 @@ ORDER BY r.D_date, r.D_time
 			$this->db->join('pmis2_egm_service_request r2', 'r2.v_ref_wo_no = r.V_Request_no ', 'inner');
 			$this->db->join('pmis2_emg_chronology ch', 'r.V_Request_no = ch.v_WrkOrdNo', 'left');
 			$this->db->join('pmis2_egm_rootcause rc', 'ch.v_ReschAuthBy = rc.id', 'left');
-			
+
 			$this->db->where('uh.v_userid', $this->session->userdata('v_UserName'));
-			
+
 			$this->db->where('r.V_servicecode', $this->session->userdata('usersess'));
 			$this->db->where('r.V_actionflag <> ', 'D');
 			$this->db->where('d.v_ActionFlag <> ', 'D');
@@ -935,9 +935,9 @@ ORDER BY s.d_DueDt, s.v_WrkOrdNo
 		  $this->db->distinct();
 			//$this->db->select('a.V_Location_code, s.v_Wrkordstatus, s.v_WrkOrdNo AS sv_wrkordno, s.v_Asset_no AS sv_asset_no, s.v_Month AS sv_month, s.v_HospitalCode AS sv_hospitalcode, s.d_DueDt AS sd_duedt, s.v_jobtype AS sv_jobtype, s.v_year AS sv_year, s.v_ServiceCode AS sv_servicecode, a.V_Tag_no AS av_tag_no, a.V_User_Dept_code AS av_user_dept_code, a.V_Asset_name AS av_asset_name, b.v_stest, b.v_ptest, b.d_DateDone, CONCAT(IFNULL(s.v_Remarks,"")," ", ifnull(b.v_summary,"")) AS v_summary, b.d_last_resch_date, c.d_Date, IFNULL(s.d_Reschdt,c.d_Reschdt) AS d_Reschdt, d.v_UserDeptDesc,a.v_asset_grp', FALSE);
 			$this->db->select('a.V_Location_code, s.v_Wrkordstatus, s.v_WrkOrdNo AS sv_wrkordno, s.v_Asset_no AS sv_asset_no, s.v_Month AS sv_month, s.v_HospitalCode AS sv_hospitalcode, s.d_DueDt AS sd_duedt, s.v_jobtype AS sv_jobtype, s.v_year AS sv_year, s.v_ServiceCode AS sv_servicecode, a.V_Tag_no AS av_tag_no, a.V_User_Dept_code AS av_user_dept_code, a.V_Asset_name AS av_asset_name, b.v_stest, b.v_ptest, b.d_DateDone, CONCAT(IFNULL(c.v_ReschReason, c.v_ActionTaken),CONCAT(IFNULL(s.v_Remarks, ""), " ", ifnull(b.v_summary, ""))) AS v_summary, b.d_last_resch_date, c.d_Date, IFNULL(s.d_Reschdt,c.d_Reschdt) AS d_Reschdt, d.v_UserDeptDesc,a.v_asset_grp,case when s.v_Wrkordstatus="C" Then "C"
-			when s.v_Wrkordstatus="CA" THEN "Cancelled" 
-			when s.v_Wrkordstatus="OP" THEN "Open" 
-			when s.v_Wrkordstatus="NO" THEN "Not Done & Closed"  
+			when s.v_Wrkordstatus="CA" THEN "Cancelled"
+			when s.v_Wrkordstatus="OP" THEN "Open"
+			when s.v_Wrkordstatus="NO" THEN "Not Done & Closed"
 			when s.v_Wrkordstatus="A" Then "A"  end as v_Wrkordstatus', FALSE);
 			//$this->db->select('a.V_Location_code, s.v_Wrkordstatus, s.v_WrkOrdNo AS sv_wrkordno, s.v_Asset_no AS sv_asset_no, s.v_Month AS sv_month, s.v_HospitalCode AS sv_hospitalcode, s.d_DueDt AS sd_duedt, s.v_jobtype AS sv_jobtype, s.v_year AS sv_year, s.v_ServiceCode AS sv_servicecode, a.V_Tag_no AS av_tag_no, a.V_User_Dept_code AS av_user_dept_code, a.V_Asset_name AS av_asset_name, b.v_stest, b.v_ptest, b.d_DateDone, b.v_summary, b.d_last_resch_date, b.d_DateDone AS d_Date, IFNULL(s.d_Reschdt,b.d_last_resch_date) AS d_Reschdt, d.v_UserDeptDesc,a.v_asset_grp', FALSE);
 			$this->db->from('pmis2_egm_schconfirmmon s');
@@ -7428,7 +7428,7 @@ a inner join (
   				$query_result = $query->result();
   				return $query_result;
 			  }
-			  
+
 
 }
 ?>
