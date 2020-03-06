@@ -317,60 +317,7 @@ if ($numrow==1 OR $numrow%18==1) {
 
 		<?php
 
-    $idArray = array_map('toArray', $this->session->userdata('accessr'));
-		if (!(in_array("contentcontroller/Schedule(main)", $idArray))) {
-		 if ($this->session->userdata('usersess')=="HKS") {
-			$req_type = array(
-			'' => 'All',
-			'A1' => 'A1 - Breakdown Maintenance (BM)',
-			//'A2' => 'A2 - Schedule Corrective Maintenance (SCM)',
-			'A3' => 'A3 - Corrective Maintenance (CM)',
-			'A4' => 'A4 - User Requests',
-			'A5' => 'A5 - Investigation of Incidences',
-			'A6' => 'A6 - Technical Advice',
-			'A7' => 'A7 - User Training',
-			'A8' => 'A8 - Testing and Commissioning (T&C)',
-			'A9' => 'A9 - Internal Request',
-			'A10' => 'A10 - Reimbursable Work',
-			'F' => 'Floor - Related Report',
-			'WD' => 'Wall / Door - Related Report',
-			'C' => 'Ceiling - Related Report',
-			'W' => 'Window - Related Report',
-			'FIX' => 'Fixtures - Related Report',
-			'FUR' => 'Furniture / Fitting - Related Report'
-		 ); } else {
-		 		$req_type = array(
-			'' => 'All',
-			'A1' => 'A1 - Breakdown Maintenance (BM)',
-			//'A2' => 'A2 - Schedule Corrective Maintenance (SCM)',
-			'A3' => 'A3 - Corrective Maintenance (CM)',
-			'A4' => 'A4 - User Requests',
-			'A5' => 'A5 - Investigation of Incidences',
-			'A6' => 'A6 - Technical Advice',
-			'A7' => 'A7 - User Training',
-			'A8' => 'A8 - Testing and Commissioning (T&C)',
-			'A9' => 'A9 - Internal Request',
-			'A10' => 'A10 - Reimbursable Work'
-		 );
-		 }/*
-			$req_type = array(
-			'' => 'All',
-			'A1' => 'A1 - Breakdown Maintenance (BM)',
-			'A2' => 'A2 - Schedule Corrective Maintenance (SCM)',
-			'A3' => 'A3 - Corrective Maintenance (CM)',
-			'A4' => 'A4 - User Requests',
-			'A5' => 'A5 - Investigation of Incidences',
-			'A6' => 'A6 - Technical Advice',
-			'A7' => 'A7 - User Training',
-			'A8' => 'A8 - Testing and Commissioning (T&C)',
-			'A9' => 'A9 - Internal Request',
-			'A10' => 'A10 - Reimbursable Work'
-		 );*/
-		?>
-
-		<?php  } else {
-		$_POST['req'] = '';
-		}
+		
 			$month_list = array(
 			'01' => 'January',
 			'02' => 'February',
