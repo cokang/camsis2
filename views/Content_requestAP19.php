@@ -137,12 +137,13 @@
 										<tr>
 											<td style="padding-left:10px;" valign="top">Nature of visit:  </td>
 											<td style="padding-left:10px;" valign="top">
-												<input type="radio" id="radio-1-13" name="n_priority" class="regular-radio" value="RQ" <?php echo set_radio('n_priority' , 'RQ' ,TRUE); ?><?=(isset($record[0]->V_priority_code) && ($record[0]->V_priority_code == 'RQ') ? 'checked' : '' )?> />
+												<!-- <input type="radio" id="radio-1-13" name="n_priority" class="regular-radio" value="RQ" <?php echo set_radio('n_priority' , 'RQ' ,TRUE); ?><?=(isset($record[0]->V_priority_code) && ($record[0]->V_priority_code == 'RQ') ? 'checked' : '' )?> />
 												<label for="radio-1-13"></label> Breakdown<br>
 												<input type="radio" id="radio-1-14" name="n_priority" class="regular-radio" value="PPM" <?php echo set_radio('n_priority', 'PPM' ); ?> <?=(isset($record[0]->V_priority_code) && ($record[0]->V_priority_code == 'PPM') ? 'checked' : '' )?> />
 												<label for="radio-1-14"></label> PPM<br>
 												<input type="radio" id="radio-1-14" name="n_priority" class="regular-radio" value="Others" <?php echo set_radio('n_priority', 'Others' ); ?> <?=(isset($record[0]->V_priority_code) && ($record[0]->V_priority_code == 'Others') ? 'checked' : '' )?> />
-												<label for="radio-1-14"></label> Other<br>
+												<label for="radio-1-14"></label> Other<br> -->
+												<?php echo form_dropdown('n_priority', $visit, set_value('n_priority',isset($record[0]->V_priority_code) ? $record[0]->V_priority_code : '') , 'class="dropdown" style="width: 150px;"'); ?>
 											</td>
 										</tr>
 										<tr>

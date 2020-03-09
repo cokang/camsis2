@@ -9,7 +9,9 @@
                         <span style="color:red;"><?php echo validation_errors(); ?>
       </tr>
       <tr>
-        <td valign="top" class="td-assest">Visit Date : </td>
+      <?php $arr = explode("/", $wrk_ord, 4);
+      $workOrderType = $arr[1]; ?> 
+        <td valign="top" class="td-assest"><?= $workOrderType!='AP19'? 'Visit Date :': 'Close/Completed Date' ?></td>
         <td ><input type="text" autocomplete="off" id="date<?php echo $numberdate++; ?>" name="n_Visit_Date" value="<?php echo set_value('n_Visit_Date', isset($record[0]->d_Date) == TRUE ? date_format(new DateTime($record[0]->d_Date), 'd-m-Y') : '')?>" class="form-control-button2 n_wi-date"></td> <!--date_format(new DateTime($recordresp[0]->d_Date), 'Y-m-d')-->
       </tr>
       <tr>
@@ -229,6 +231,7 @@
         <td class="td-assest" valign="top">Actual Work Done /<br> Recommendation : </td>
         <td><textarea class="input n_com" name="n_Action_Taken"><?php echo set_value('n_Action_Taken', isset($record[0]->v_ActionTaken) == TRUE ? $record[0]->v_ActionTaken : 'N/A')?></textarea></td>
       </tr>
+      <?php if($workOrderType!='AP19'){?>
       <tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">MAINTENANCE COST SECTION </td></tr>
 	  <?php if (strstr($wrk_ord, '/A2/')) {	?>
 	  <tr><td colspan="3" ><b>Reschedule</b></td></tr>
@@ -634,6 +637,7 @@
           <?php } ?>
          </td>
 			   </tr>
+          <?php } ?>
 			   <tr>
 			    <td colspan="3" class="closedwo"></td>
 			   </tr>

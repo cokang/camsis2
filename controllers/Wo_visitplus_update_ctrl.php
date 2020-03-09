@@ -39,17 +39,19 @@ class Wo_visitplus_update_ctrl extends CI_Controller{
     // load library for form validation
     $this->load->library('form_validation');
 	
+	$arr = explode("/", $this->input->post('wrk_ord'), 4);
+      $workOrderType = $arr[1];
 	//validation rule
 	if ((substr($this->input->post('wrk_ord'),0,2) == 'PP') || (substr($this->input->post('wrk_ord'),0,2) == 'RI')) {	
 	$this->form_validation->set_rules('n_Visit_Date','Visit Date','trim|required');
 	} else {
-	$this->form_validation->set_rules('n_Visit_Date','Visit Date','trim|required|callback_date_check['.$paramsdt.']');
+	if($workOrderType!='AP19')$this->form_validation->set_rules('n_Visit_Date','Visit Date','trim|required|callback_date_check['.$paramsdt.']');
 	}
 	$this->form_validation->set_rules('n_Shour','Start Hour','trim|required');
 	$this->form_validation->set_rules('n_Smin','Start Minutes','trim|required');
 	$this->form_validation->set_rules('n_Ehour','End Hour','trim|required');
 	$this->form_validation->set_rules('n_Emin','End Minutes','trim|required|callback_time_check['.$params.']');
-	$this->form_validation->set_rules('n_Type_of_Work','Type of Work','trim|required');
+	
 	$this->form_validation->set_rules('n_Action_Taken','Action Taken','trim|required');
 
 	//$this->form_validation->set_rules('n_rschDate','Reschedule Date','trim');
@@ -58,12 +60,15 @@ class Wo_visitplus_update_ctrl extends CI_Controller{
 	$this->form_validation->set_rules('n_rschReason1','Reason1','trim');
 	$this->form_validation->set_rules('n_rschAuth','Reschedule Authorised','trim');	
 
+	if($workOrderType!='AP19'){
+	$this->form_validation->set_rules('n_Type_of_Work','Type of Work','trim|required');
 	$this->form_validation->set_rules('C_requestor1','Responder 1','trim|required');
 	$this->form_validation->set_rules('V_requestor1','Responder 1','trim|required');
 	$this->form_validation->set_rules('n_End_Time_h1','Responder1 Hour','trim|required');
 	$this->form_validation->set_rules('n_End_Time_m1','Responder1 Minutes','trim|required');
 	$this->form_validation->set_rules('V_rate1','Rate1','trim|required');
 	$this->form_validation->set_rules('T_rate1','Total Rate1','trim|required');
+	}
 /*
 	if (substr($this->input->post('wrk_ord'),0,2) == 'PP'){
 	$this->form_validation->set_rules('C_requestor2','Responder 2','trim|required');

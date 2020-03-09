@@ -443,6 +443,7 @@ class Contentcontroller extends CI_Controller {
   $data['time'] = !empty($data['record']) ? explode(':',$data['record'][0]->D_time) : NULL;
   if($data['record'][0]->V_request_type == 'AP19'){
   $data['record'] = $this->get_model->request_updateAP19($data['wrk_ord']);
+  $data['visit'] = $this->get_model->get_natureOfVisit();
   $this ->load->view("Content_requestAP19",$data);
   }else{
   $this ->load->view("Content_workorderlist_update",$data);
@@ -2569,8 +2570,8 @@ class Contentcontroller extends CI_Controller {
 
 		$this->load->model("get_model");
 		$data['records'] = $this->get_model->get_popassetlist($this->input->get('n_asset_number'),$this->input->get('s_department'),$this->input->get('n_tag_number'));
-		$this ->load->view("head");
-		$this ->load->view("content_pop_assetsnumber",$data);
+		$this->load->view("head");
+		$this->load->view("content_pop_assetsnumber",$data);
 	}
 	public function location(){
 
@@ -2592,23 +2593,23 @@ class Contentcontroller extends CI_Controller {
 
 		$this->load->model("display_model");
 		$data['records'] = $this->display_model->list_workorder();
-		$this ->load->view("head");
-		$this ->load->view("content_asset_tag",$data);
+		$this->load->view("head");
+		$this->load->view("content_asset_tag",$data);
 	}
 	public function R_number(){
 		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
 		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
 		$this->load->model("display_model");
 		$data['records'] = $this->display_model->request_tab_comp($data['month'],$data['year']);
-		$this ->load->view("head");
-		$this ->load->view("content_asset_number",$data);
+		$this->load->view("head");
+		$this->load->view("content_asset_number",$data);
 	}
 	public function assetdetailname(){
 
 		$this->load->model("display_model");
 		$data['records'] = $this->display_model->list_personel();
-		$this ->load->view("head");
-		$this ->load->view("content_detail_name",$data);
+		$this->load->view("head");
+		$this->load->view("content_detail_name",$data);
 	}
 	public function tc_r_number(){
 		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
@@ -8850,6 +8851,8 @@ $this ->load->view("Content_workorder_chronologyplusupdate",$data);
 
 
 public function request_AP19(){
+	$this->load->model('get_model');
+  $data['visit'] = $this->get_model->get_natureOfVisit();
   if ($this->input->post('segment')){
   $this->load->helper(array('form', 'url'));
   // load library for form validation
@@ -8867,19 +8870,19 @@ public function request_AP19(){
   {
   $this ->load->view("head");
   $this ->load->view("left");
-  $this ->load->view("Content_requestAP19");
+  $this ->load->view("Content_requestAP19",$data);
   }
 
   else
   {
   $this ->load->view("head");
   $this ->load->view("left");
-  $this ->load->view("content_requestAP19_confirm");
+  $this ->load->view("content_requestAP19_confirm",$data);
   }
   }else{
   $this ->load->view("head");
   $this ->load->view("left");
-  $this ->load->view("Content_requestAP19");
+  $this ->load->view("Content_requestAP19",$data);
   }
 
 

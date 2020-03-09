@@ -4560,5 +4560,18 @@ function get_stock_asset($searchitem=""){
 			
 		}
 
+		function get_natureOfVisit(){
+			//print_r($request); exit();
+			$this->db->select("*");
+			$this->db->from('tbl_nature_visit');
+			$query = $this->db->get();
+			// echo $this->db->last_query(); exit();
+			foreach($query->result() as $row ){
+					$array[$row->code] = $row->description;
+			}
+			return $array;
+			
+		}
+
 }
 ?>

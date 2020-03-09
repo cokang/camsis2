@@ -7,7 +7,9 @@
                         <td class="ui-header-new" colspan="2"><b>Confirm Visit Plus</b></td>
                   </tr>
                   <tr>
-                        <td valign="top" class="td-assest">Visit Date : </td>
+                  <?php $arr = explode("/", $wrk_ord, 4);
+                        $workOrderType = $arr[1]; ?> 
+                        <td valign="top" class="td-assest"><?= $workOrderType!='AP19'? 'Visit Date :': 'Close/Completed Date' ?></td>
                         <td><input type="text" name="n_Visit_Date" value="<?php echo set_value('n_Visit_Date'); ?>" class="form-control-button2 n_wi-date2" readonly></td>
                   </tr>
                   <tr>
@@ -227,6 +229,7 @@
                         <td valign="top" class="td-assest">Action Taken : </td>
                         <td><textarea class="input n_com" name="n_Action_Taken"  readonly><?php echo set_value('n_Action_Taken'); ?></textarea></td>
                   </tr>
+                  
                   <tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">MAINTENANCE COST SECTION </td></tr>
 				  <?php if (strstr($wrk_ord, '/A2/')) {	?>
 				    <tr><td colspan="3" ><b>Reschedule</b></td></tr>
