@@ -692,7 +692,7 @@ ORDER BY r.D_date, r.D_time
 			$this->db->join('pmis2_sa_userhospital uh', 'uh.v_hospitalcode = r.V_hospitalcode', 'left outer');
 			if($reqtype!='AP19'){
 			$this->db->join('tbl_materialreq mr', 'mr.WorkOfOrder = r.V_Request_no', 'left outer');
-			$this->db->join('pmis2_egm_service_request r2', 'r2.v_ref_wo_no = r.V_Request_no ', 'inner');
+			$this->db->join('pmis2_egm_service_request r2', 'r2.v_ref_wo_no = r.V_Request_no ', 'left');
 			}
 			$this->db->join('pmis2_emg_chronology ch', 'r.V_Request_no = ch.v_WrkOrdNo', 'left');
 			$this->db->join('pmis2_egm_rootcause rc', 'ch.v_ReschAuthBy = rc.id', 'left');
