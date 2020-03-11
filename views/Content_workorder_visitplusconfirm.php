@@ -229,7 +229,7 @@
                         <td valign="top" class="td-assest">Action Taken : </td>
                         <td><textarea class="input n_com" name="n_Action_Taken"  readonly><?php echo set_value('n_Action_Taken'); ?></textarea></td>
                   </tr>
-                  
+                  <?php if($workOrderType!='AP19'){?>
                   <tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">MAINTENANCE COST SECTION </td></tr>
 				  <?php if (strstr($wrk_ord, '/A2/')) {	?>
 				    <tr><td colspan="3" ><b>Reschedule</b></td></tr>
@@ -870,7 +870,7 @@
                    <input type="text" id="n_personnel_code1" name="C_jrequestor1" value="<?php echo set_value('C_jrequestor1') ?>" size="10" class="form-control-button2" readonly>
                    <span style="font-size:14px;"><input type="text" id="n_personnel_name1" name="V_jrequestor1" value="<?php echo set_value('V_jrequestor1') ?>" size="10" class="input-none" readonly></span></div></td>
 			</tr>
-				<?php } ?>
+				<?php }} ?>
                   <tr class="ui-header-new" style="height:40px;">
                         <td align="center" colspan="2">
                               <input type="submit" class="btn-button btn-primary-button" name="mysubmit" value="Save" style="width:150px;"/>
