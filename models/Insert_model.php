@@ -1470,7 +1470,8 @@ function visitplus_woexist($value,$variable,$value1,$variable1){
 
 			$query1 = $this->db->get('pmis2_emg_jobvisit1');
 			//$query2 = $this->db->get('pmis2_emg_jobvisit1tow');
-
+			$arr = explode("/", $this->input->post('wrk_ord'), 4);
+     		$workOrderType = $arr[1];
 
 			if($query1->num_rows()>0){
 
@@ -1760,7 +1761,7 @@ function visitplus_woexist($value,$variable,$value1,$variable1){
 						$this->load->model('update_model');
 						$RN = $this->input->post('wrk_ord');
 						$insert_data = array(
-								'V_request_status' => "BO",
+								'V_request_status' => $workOrderType=='AP19'?"C" :"BO",
 								'v_respondate' => ($this->input->post('n_Visit_Date')) ? date('Y-m-d ', strtotime($this->input->post('n_Visit_Date'))).$this->input->post('n_Shour').':'.str_pad($this->input->post('n_Smin'), 2, 0, STR_PAD_LEFT) : NULL,
 								'v_respontime'=>$this->input->post('n_Shour').':'.str_pad($this->input->post('n_Smin'), 2, 0, STR_PAD_LEFT),
 							);
