@@ -7424,7 +7424,7 @@ a inner join (
   				//$this->db->join('tbl_status st','m.StatusID = st.StatusID');
   				$this->db->where('m.WorkOfOrder',$wo);
   				$query = $this->db->get();
-  				//echo $this->db->last_query();
+  				// echo $this->db->last_query();
   				//exit();
   				$query_result = $query->result();
   				return $query_result;
@@ -7475,6 +7475,10 @@ a inner join (
 			if($status!=''){
 						$this->db->where('d.V_request_status', $status);
 					}
+			if($wrkord_type!=''){
+						$this->db->where('d.V_request_type', $wrkord_type);
+					}
+			$this->db->where('mr.service_code', $this->session->userdata('usersess'));
 			$this->db->where('a.n_Visit', 1);
 			$this->db->order_by('D_date', 'asc');
 			// $this->db->group_by('b.id');

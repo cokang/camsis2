@@ -95,11 +95,8 @@ $locationone = "0";
 <form method="get" action="">
 
 	
-		<?php echo form_dropdown('req', $req_type, set_value('req', $reqtype) , 'style="width: 300px;" id="cs_month"'); ?><br><br>
 		Status : 
 		<?php echo form_dropdown('req_status', $status, set_value('req_status', $this->input->get('req_status')) , 'style="width: 100px;" id="cs_month"'); ?>
-		Special Category : 
-		<?php echo form_dropdown('special_cat', $special_cat, set_value('special_cat', $this->input->get('special_cat')) , 'style="width: 350px;" id="cs_month"'); ?><br><br>
 		Hospitals : 
 		<?php echo form_dropdown('hospitalcodes', $hospitalcodes, set_value('hospitalcodes', $this->input->get('hospitalcodes')) , 'style="width: 100px;" id="cs_month"'); ?>
 		Type Of Work Order : 
@@ -107,11 +104,6 @@ $locationone = "0";
 	
 		Date Range:
 		<input type="date" name="from" id="from" value="<?php echo $from ?>" class="form-control-button2 ">
-		<?php 
-			for ($dyear = '2015';$dyear <= date("Y");$dyear++){
-				$year_list[$dyear] = $dyear;
-			}
-		?>
 		<input type="date" name="to" id="to" value="<?php echo $to ?>" class="form-control-button2 ">
 <input type="hidden" value="<?php echo set_value('stat', ($this->input->get('stat')) ? $this->input->get('stat') : ''); ?>" name="stat">
 <input type="hidden" value="<?php echo set_value('grp', ($this->input->get('grp')) ? $this->input->get('grp') : ''); ?>" name="grp">				
@@ -122,9 +114,9 @@ $locationone = "0";
 <div class="m-div">
 	<table class="rport-header">
 		<tr>
-			<?php if ($this->input->get('req') == $req) {?>
+			
 			<td colspan="4" valign="top">Root Cause Work Order Listing - <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?> - <?php echo $this->session->userdata('usersessn');?>  ( <?php if (($this->input->get('req')) and (($this->input->get('grp') == '2') or ($this->input->get('grp') == '3'))){ echo 'Group'.$this->input->get('grp').','.$tulis; } elseif ($this->input->get('req')){echo $tulis; }elseif ($this->input->get('grp') == ''){ echo 'All';}else{ echo 'Group '.$this->input->get('grp');} ?> )</td>
-			<?php } ?>
+			
 		</tr>
 	</table>
 	<table class="tftable" border="1" style="text-align:center;">
@@ -171,11 +163,9 @@ $locationone = "0";
 <?php //if ($numrow==1 OR $numrow%13==1) { 
 if ($numrow==1 OR $numrow%18==1) {
 ?>
-<?php if (($this->input->get('ex') == '') or ($this->input->get('none') == 'closed')){?>
 <?php include 'content_headprint.php';?>
-<?php } ?>
 
-<?php if (($this->input->get('ex') == '' && $this->input->get('broughtfwd') == '') OR ($this->input->get('ex') != '' && $this->input->get('broughtfwd') != '')){?>
+
 <div id="Instruction" >
 <center>View List : 
 <form method="get" action="">
@@ -196,7 +186,6 @@ if ($numrow==1 OR $numrow%18==1) {
 <input type="submit" value="Apply" onchange="javascript: submit()"/></center>
 </form>
 </div>
-<?php } ?>
 <div class="m-div">
 	<table class="rport-header">
 		<tr>
