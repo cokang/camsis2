@@ -3,6 +3,7 @@
  $array = [
     ['contentcontroller/report_vols/', 'PPM Listing'],
 	['contentcontroller/report_volu/', $tajuk ],
+	['contentcontroller/root_cause/', 'Root Cause Work Order Listing'],
 	['contentcontroller/report_Incidences_Listing/', 'Incidences Report Listing'],
 	['contentcontroller/report_volc/', 'Complaint Listing'],
 	['contentcontroller/report_rtlu/', 'TIME RESPONDED'],

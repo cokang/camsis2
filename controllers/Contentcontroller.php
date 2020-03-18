@@ -3858,7 +3858,7 @@ class Contentcontroller extends CI_Controller {
 		else{
 			$data['record'] = $this->display_model->rpt_volu($data['from'],$data['to'],$this->input->get('stat'),$data['reqtype'],$this->input->get('broughtfwd'),$data['grpsel'],$pilape,$data['tag'],$data['cm'],$data['limab'],$data['bfwd'],"",$data['fon']);
 		}
-		//print_r($data['record']);
+		// print_r($data['record']);
 		//exit();
 		//$this ->load->view("headprinter");
 		//$this ->load->view("Content_report_volu", $data);
@@ -8864,7 +8864,7 @@ public function request_AP19(){
   $this->form_validation->set_rules('n_priority','Priority','trim|required');
   $this->form_validation->set_rules('fSummary','*Failure Report','trim|required');
   $this->form_validation->set_rules('fSummary2','*Troubleshoot/Corrective Action','trim|required');
-
+  
 
   if($this->form_validation->run()==FALSE)
   {
@@ -9222,6 +9222,41 @@ $this ->load->view("report-a10.php",$data);
 			
 	
 			$this ->load->view("rootcause_uploadimg");
+		}
+
+		public function root_cause(){
+			
+			  $this->load->model("display_model");
+			  $this->load->model("get_model");
+			$data['records'] = $this->display_model->list_hospinfo();
+			$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
+			$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+			$date = new DateTime('now');
+			$date->modify('first day of this month');
+			$start = $date->format('Y-m-d');
+			$date->modify('last day of this month');
+			$end = $date->format('Y-m-d');
+			$from = $this->input->get('from') ? $this->input->get('from') : $start;
+			$to = $this->input->get('to') ? $this->input->get('to') : $end;
+			$data['from']=$from;
+			$data['to']=$to;
+			$data['special_cat'] = $this->get_model->get_special_cat();
+		
+			$data['hospitalcodes'] = $this->get_model->get_allHospitalCode();
+			$data['typeOfWrkOrd'] = $this->get_model->get_typeOfWorkOrder();
+			$data['hosp'] =  $this->input->get('hospitalcodes') ? $this->input->get('hospitalcodes') : '';
+			$data['status'] = $this->input->get('req_status') ? $this->input->get('req_status') : '';
+			$data['wrkordtype'] = $this->input->get('typeOfWrkOrd') ? $this->input->get('typeOfWrkOrd') : '';
+			$data['record'] = $this->display_model->report_rootcause($data['from'],$data['to'],$data['hosp'],$data['status'],$data['wrkordtype']);
+			// print_r($data['record']);
+			//exit();
+			if ($this->input->get('pdf') == 1){
+			$this ->load->view("Content_report_rootcause_pdf", $data);
+			}else{
+			$this ->load->view("headprinter");
+				  $this ->load->view("Content_report_rootcause", $data);
+		  
+			}
 		}
 
 }
