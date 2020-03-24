@@ -641,6 +641,13 @@
 				</td>
 			</tr>
 			<?php  } ?>
+			<?php  if (!in_array("contentcontroller/root_cause", $chkers)) { ?>
+			<tr class="<?php  $number++; echo evenodd($number); ?>">
+				<td colspan="4">
+					<?php echo anchor ('contentcontroller/root_cause_byWoMRIN', '<img src="'. base_url() .'images/user.png" alt="" class="ui-icon2"/>&nbsp;&nbsp;&nbsp;&nbsp;Root Cause By Work Order & MRIN No'); ?>
+				</td>
+			</tr>
+			<?php  } ?>
 			<tr class="ui-header-new" style="height:2px;">
 				<td align="center" colspan="7">
 				</td>
