@@ -62,13 +62,12 @@ Search by Work Order Or MRIN No :
 	</table>
 <?php include 'content_footerprint.php';?>
 
-						<?php } ?>
+						<?php }else{ ?>
 
 
 
 
 
-<?php include 'content_headprint.php';?>
 
 
 <div id="Instruction" >
@@ -107,8 +106,8 @@ Search by Work Order Or MRIN No :
 	    				<tr>
 
     		<td><?= 1 ?></td>
-			<td><?= ($record[0]->v_HospitalCode) ? $record[0]->v_HospitalCode : 'N/A' ?></td>
-			<td><?=($record[0]->V_Request_no) ? anchor ('contentcontroller/AssetRegis?wrk_ord='.$record[0]->V_Request_no.'&assetno='.$record[0]->V_Asset_no.'&m='.$this->input->get('m').'&y='.$this->input->get('y').'&stat='.$this->input->get('stat').'&resch=fbfb&state='.$this->input->get('state').'&hosp='.$record[0]->v_HospitalCode,''.$record[0]->V_Request_no.'' ) : 'N/A' ?></td>
+			<td><?= isset($record[0]->v_HospitalCode) ? $record[0]->v_HospitalCode : 'N/A' ?></td>
+			<td><?=isset($record[0]->V_Request_no) ? anchor ('contentcontroller/AssetRegis?wrk_ord='.$record[0]->V_Request_no.'&assetno='.$record[0]->V_Asset_no.'&m='.$this->input->get('m').'&y='.$this->input->get('y').'&stat='.$this->input->get('stat').'&resch=fbfb&state='.$this->input->get('state').'&hosp='.$record[0]->v_HospitalCode,''.$record[0]->V_Request_no.'' ) : 'N/A' ?></td>
 			<td><?= isset($record[0]->D_date) ?  date("d/m/Y",strtotime($record[0]->D_date)) : 'N/A' ?></td>
 			<td><?=(($record[0]->V_Asset_no) && $record[0]->V_Asset_no != 'N/A') ? anchor ('contentcontroller/AssetRegis?tab=Maintenance&assetno='.$record[0]->V_Asset_no.'&state='.$this->input->get('state'),''.$record[0]->v_tag_no.'' ) : 'N/A' ?></td>
 			<td><?= isset($record[0]->V_request_status) ? $record[0]->V_request_status : 'N/A' ?></td>
@@ -136,11 +135,11 @@ Search by Work Order Or MRIN No :
 		</tr>
 	</table>
 	
-<div class="StartNewPage" id="breakpage"><span id="pagebreak">Page Break</span></div>
+	<?php include 'content_footerprint.php';?>	
 </div>
+<?php }?>
 
 
 
-<?php include 'content_footerprint.php';?>
 </div>
 </div>
