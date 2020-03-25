@@ -7490,7 +7490,7 @@ a inner join (
 			}
 
 			function report_rootcause_byWoMrin($searchBy){
-				
+			$this->db->distinct();
 			$this->db->select("d.D_date, a.v_WrkOrdNo,a.v_HospitalCode,d.V_Asset_no, d.V_Request_no,
 			mr.DocReferenceNo,d.V_request_status, mr.rone, mr.rthree ,ad.specialty_cat, ar.v_tag_no, mr.service_code");
 			$this->db->from('pmis2_emg_chronology a');
@@ -7504,8 +7504,8 @@ a inner join (
 			
 			
 			$this->db->group_start();
-			$this->db->where('a.v_WrkOrdNo', $searchBy);
-			$this->db->or_where('mr.service_code', $searchBy);
+			$this->db->like('a.v_WrkOrdNo', $searchBy);
+			$this->db->or_like('mr.DocReferenceNo', $searchBy);
 			$this->db->group_end();
 			
 			$this->db->where('mr.service_code', $this->session->userdata('usersess'));

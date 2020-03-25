@@ -9266,19 +9266,21 @@ $this ->load->view("report-a10.php",$data);
 			$data['records'] = $this->display_model->list_hospinfo();
 			$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
 			$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
-		    $results = $this->input->post('searchBy') ? $this->input->post('searchBy')? $this->input->post('searchBy') :$this->input->post('searchBy') : '';
+		    $results = $this->input->post('searchBy') ? $this->input->post('searchBy') : '';
 
-		  $data['record'] = $this->display_model->report_rootcause_byWoMrin($results);
+			if (strlen($results) > 0) {
+			$data['record'] = $this->display_model->report_rootcause_byWoMrin($results);
+			}else{
+				$data['record']=  array( );
+			}
 	
 		  //print_r($data['record']);
 		  //exit();
-		  if ($this->input->get('pdf') == 1){
-		  $this->load->view("Content_report_rootcause_WoMrin_pdf", $data);
-		  }else{
+		
 		  $this->load->view("headprinter");
 				$this ->load->view("Content_report_rootcause_WoMrin", $data);
 		
-		  }
+		  
 	  }
 
 }
