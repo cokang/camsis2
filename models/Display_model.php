@@ -7495,7 +7495,7 @@ a inner join (
 			mr.DocReferenceNo,d.V_request_status, mr.rone, mr.rthree ,ad.specialty_cat, ar.v_tag_no, mr.service_code");
 			$this->db->from('pmis2_emg_chronology a');
 			$this->db->join('pmis2_egm_rootcause b', 'a.v_ReschAuthBy = b.id', 'inner');
-			$this->db->join('pmis2_egm_service_request d', 'a.v_WrkOrdNo = d.V_Request_no AND a.v_hospitalcode = d.v_hospitalcode', 'left');
+			$this->db->join('pmis2_egm_service_request d', 'a.v_WrkOrdNo = d.V_Request_no AND a.v_HospitalCode = d.v_hospitalcode', 'left');
 			$this->db->join('pmis2_egm_assetregistration ar', 'd.V_Asset_no = ar.V_Asset_no AND a.v_HospitalCode = ar.v_HospitalCode', 'left');
 			$this->db->join('tbl_materialreq mr', 'a.v_WrkOrdNo = mr.WorkOfOrder', 'left');
 			$this->db->join('pmis2_emg_jobresponse jr', 'a.v_WrkOrdNo = jr.v_WrkOrdNo AND a.v_HospitalCode=jr.v_HospitalCode', 'left');
@@ -7503,12 +7503,13 @@ a inner join (
 			$this->db->join('pmis2_sa_add_info ad',"ad.asset_type = mp.new_asset_type ",'left outer');
 			
 			
-			$this->db->group_start();
-			$this->db->like('a.v_WrkOrdNo', $searchBy);
-			$this->db->or_like('mr.DocReferenceNo', $searchBy);
-			$this->db->group_end();
+			if(stristr($searchBy, 'MRIN')){
+				$this->db->like('mr.DocReferenceNo', $searchBy);	
+				}else{
+				$this->db->like('d.V_Request_no', $searchBy);	
+				}
 			
-			$this->db->where('mr.service_code', $this->session->userdata('usersess'));
+			$this->db->where('d.V_servicecode', $this->session->userdata('usersess'));
 			$this->db->where('a.n_Visit', 1);
 			$this->db->order_by('D_date', 'asc');
 			// $this->db->group_by('b.id');
