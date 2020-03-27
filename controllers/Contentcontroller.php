@@ -9241,13 +9241,24 @@ $this ->load->view("report-a10.php",$data);
 			$data['from']=$from;
 			$data['to']=$to;
 			$data['special_cat'] = $this->get_model->get_special_cat();
+
+			$data['limit'] =100;
+			$this->input->get('p') ? $data['page'] = $_GET['p'] : $data['page'] = 1;
+			$data['start'] = ($data['page'] * $data['limit']) - $data['limit'];
+
+			
 		
 			$data['hospitalcodes'] = $this->get_model->get_allHospitalCode();
 			$data['typeOfWrkOrd'] = $this->get_model->get_typeOfWorkOrder();
 			$data['hosp'] =  $this->input->get('hospitalcodes') ? $this->input->get('hospitalcodes') : '';
 			$data['status'] = $this->input->get('req_status') ? $this->input->get('req_status') : '';
 			$data['wrkordtype'] = $this->input->get('typeOfWrkOrd') ? $this->input->get('typeOfWrkOrd') : '';
-			$data['record'] = $this->display_model->report_rootcause($data['from'],$data['to'],$data['hosp'],$data['status'],$data['wrkordtype']);
+
+			$data['rec'] = 	 $this->display_model->report_rootcause($data['from'],$data['to'],$data['hosp'],$data['status'],$data['wrkordtype'], $data['limit'], $data['start'], 1);
+			if($data['rec'][0]->jumlah > ($data['page'] * $data['limit']) ){
+				$data['next'] = ++$data['page'];
+			}
+			$data['record'] = $this->display_model->report_rootcause($data['from'],$data['to'],$data['hosp'],$data['status'],$data['wrkordtype'], $data['limit'], $data['start']);
 			// print_r($data['record']);
 			//exit();
 			if ($this->input->get('pdf') == 1){

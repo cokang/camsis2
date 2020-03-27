@@ -17,17 +17,17 @@ $assetone = "0";
 $locationone = "0";
 
 ?>
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <div class="none">
 <?php if ($this->input->get('ex') == ''){?>
 <?php include 'content_btp.php';?>
 <div id="Instruction" class="pr-printer">
     <div class="header-pr">Root Cause Work Order Listing</div>
-    <button onclick="javascript:myFunction('root_cause?req_status=<?=$this->input->get('req_status');?>&from=<?=$from?>&to=<?=$to?>&hospitalcodes=<?=$this->input->get('hospitalcodes');?>&typeOfWrkOrd=<?=$this->input->get('typeOfWrkOrd');?>');" class="btn-button btn-primary-button">PRINT</button>
+    <button onclick="javascript:myFunction('root_cause?p=<?=$this->input->get('p');?>&req_status=<?=$this->input->get('req_status');?>&from=<?=$from?>&to=<?=$to?>&hospitalcodes=<?=$this->input->get('hospitalcodes');?>&typeOfWrkOrd=<?=$this->input->get('typeOfWrkOrd');?>&ex=print');" class="btn-button btn-primary-button">PRINT</button>
     <button type="cancel" class="btn-button btn-primary-button" onclick="location.href = '<?php echo $btp ;?>';">CANCEL</button>
 	<?php if (($this->input->get('ex') == '') or ($this->input->get('none') == '')){?>
-	<a href="<?php echo base_url();?>index.php/contentcontroller/root_cause?req_status=<?=$this->input->get('req_status');?>&from=<?=$from?>&to=<?=$to?>&hospitalcodes=<?=$this->input->get('hospitalcodes');?>&typeOfWrkOrd=<?=$this->input->get('typeOfWrkOrd');?>&ex=excel&none=close&xxx=export" style="float:right; margin-right:40px;"><img src="<?php echo base_url();?>images/excel.png" style="width:40px; height:38px; position:absolute;" title="export to excel"></a>
-	<a href="<?php echo base_url();?>index.php/contentcontroller/root_cause?req_status=<?=$this->input->get('req_status');?>&from=<?=$from?>&to=<?=$to?>&hospitalcodes=<?=$this->input->get('hospitalcodes');?>&typeOfWrkOrd=<?=$this->input->get('typeOfWrkOrd');?>&ex=excel&none=close&pdf=1" style="float:right; margin-right:80px;"><img src="<?php echo base_url();?>images/pdf.png" style="width:40px; height:38px; position:absolute;" title="export to pdf"></a>
+	<a href="<?php echo base_url();?>index.php/contentcontroller/root_cause?p=<?=$this->input->get('p');?>&req_status=<?=$this->input->get('req_status');?>&from=<?=$from?>&to=<?=$to?>&hospitalcodes=<?=$this->input->get('hospitalcodes');?>&typeOfWrkOrd=<?=$this->input->get('typeOfWrkOrd');?>&ex=excel&none=close&xxx=export" style="float:right; margin-right:40px;"><img src="<?php echo base_url();?>images/excel.png" style="width:40px; height:38px; position:absolute;" title="export to excel"></a>
+	<a href="<?php echo base_url();?>index.php/contentcontroller/root_cause?p=<?=$this->input->get('p');?>&req_status=<?=$this->input->get('req_status');?>&from=<?=$from?>&to=<?=$to?>&hospitalcodes=<?=$this->input->get('hospitalcodes');?>&typeOfWrkOrd=<?=$this->input->get('typeOfWrkOrd');?>&ex=excel&none=close&pdf=1" style="float:right; margin-right:80px;"><img src="<?php echo base_url();?>images/pdf.png" style="width:40px; height:38px; position:absolute;" title="export to pdf"></a>
 	<?php } ?>
 </div>
 <?php } ?>
@@ -60,10 +60,10 @@ $locationone = "0";
 				<?php $numrow = 1; foreach($record as $row):?>
 		<?php echo ($numrow%2==0) ? '<tr class="ui-color-color-color">' : '<tr>'; ?>
 		<td><?= $numrow ?></td>
-			<td><?= ($row->v_HospitalCode) ? $row->v_HospitalCode : 'N/A' ?></td>
-			<td><?=($row->V_Request_no) ? anchor ('contentcontroller/AssetRegis?wrk_ord='.$row->V_Request_no.'&assetno='.$row->V_Asset_no.'&m='.$this->input->get('m').'&y='.$this->input->get('y').'&stat='.$this->input->get('stat').'&resch=fbfb&state='.$this->input->get('state').'&hosp='.$row->v_HospitalCode,''.$row->V_Request_no.'' ) : 'N/A' ?></td>
+		<td><?= ($row->v_HospitalCode) ? $row->v_HospitalCode : 'N/A' ?></td>
+			<td><?= isset($row->v_WrkOrdNo) ? $row->v_WrkOrdNo : 'N/A' ?></td>
 			<td><?= isset($row->D_date) ?  date("d/m/Y",strtotime($row->D_date)) : 'N/A' ?></td>
-			<td><?=(($row->V_Asset_no) && $row->V_Asset_no != 'N/A') ? anchor ('contentcontroller/AssetRegis?tab=Maintenance&assetno='.$row->V_Asset_no.'&state='.$this->input->get('state'),''.$row->v_tag_no.'' ) : 'N/A' ?></td>
+			<td><?= isset($row->v_tag_no) ? $row->v_tag_no : 'N/A' ?></td>
 			<td><?= isset($row->V_request_status) ? $row->V_request_status : 'N/A' ?></td>
 			<td><?= isset($row->DocReferenceNo) ? $row->DocReferenceNo : 'N/A' ?></td>
 			<td><?= isset($row->rone) ? $row->rone : 'N/A' ?></td>
@@ -159,9 +159,9 @@ $locationone = "0";
 
 
 <?php if ($this->input->get('xxx') != 'export') { ?>
-<?php $numrow = 1; foreach($record as $row):?>
+
 <?php //if ($numrow==1 OR $numrow%13==1) { 
-if ($numrow==1 OR $numrow%18==1) {
+if (!empty($record)) {
 ?>
 <?php include 'content_headprint.php';?>
 
@@ -208,14 +208,23 @@ if ($numrow==1 OR $numrow%18==1) {
 			<th>Special Category</th>
       </tr>
 		<?php } ?>
+		<?php $numrow = 1; foreach($record as $row):?>
+	    				<?php //echo ($numrow%2==0) ? '<tr class="ui-color-color-color">' : '<tr>'; ?>
+						<tr>
 
-	    				<?php echo ($numrow%2==0) ? '<tr class="ui-color-color-color">' : '<tr>'; ?>
-
-    		<td><?= $numrow ?></td>
+    		<td><?= $start+1 ?></td>
 			<td><?= ($row->v_HospitalCode) ? $row->v_HospitalCode : 'N/A' ?></td>
+			<?php if  ($this->input->get('ex') != 'print'){ ?>
 			<td><?=($row->V_Request_no) ? anchor ('contentcontroller/AssetRegis?wrk_ord='.$row->V_Request_no.'&assetno='.$row->V_Asset_no.'&m='.$this->input->get('m').'&y='.$this->input->get('y').'&stat='.$this->input->get('stat').'&resch=fbfb&state='.$this->input->get('state').'&hosp='.$row->v_HospitalCode,''.$row->V_Request_no.'' ) : 'N/A' ?></td>
+			<?php }else{ ?>
+			<td><?= isset($row->v_WrkOrdNo) ? $row->v_WrkOrdNo : 'N/A' ?></td>
+			<?php } ?>
 			<td><?= isset($row->D_date) ?  date("d/m/Y",strtotime($row->D_date)) : 'N/A' ?></td>
+			<?php if  ($this->input->get('ex') != 'print'){ ?>
 			<td><?=(($row->V_Asset_no) && $row->V_Asset_no != 'N/A') ? anchor ('contentcontroller/AssetRegis?tab=Maintenance&assetno='.$row->V_Asset_no.'&state='.$this->input->get('state'),''.$row->v_tag_no.'' ) : 'N/A' ?></td>
+			<?php }else{ ?>
+			<td><?= isset($row->V_Asset_no) ? $row->V_Asset_no : 'N/A' ?></td>
+			<?php } ?>
 			<td><?= isset($row->V_request_status) ? $row->V_request_status : 'N/A' ?></td>
 			<td><?= isset($row->DocReferenceNo) ? $row->DocReferenceNo : 'N/A' ?></td>
 			<td><?= isset($row->rone) ? $row->rone : 'N/A' ?></td>
@@ -223,11 +232,11 @@ if ($numrow==1 OR $numrow%18==1) {
 			<td><?= isset($row->specialty_cat) ? $row->specialty_cat : '' ?></td>
 	        			</tr>
 
-<?php $numrow++; ?>
+<?php $numrow++; $start++; ?>
 			<?php //if (($numrow-1)%13==0) {
-				if ((($numrow-1)%18==0) || (($numrow-1)== count($record))) {
+				if ( (($numrow-1)== count($record))) {
 		?>
-	</table>
+	</table><!-- 
 </div>
 <?php if (($this->input->get('ex') == '') or ($this->input->get('none') == 'closed')){?>
 	<table width="99%" border="0">
@@ -242,12 +251,24 @@ if ($numrow==1 OR $numrow%18==1) {
 	
 <div class="StartNewPage" id="breakpage"><span id="pagebreak">Page Break</span></div>
 <?php } ?>
-</div>
-<?php } ?>
+</div>-->
+
+<?php } ?> 
 <?php endforeach;?>
-
+<center>
+<ul class="pagination">
+						<?php if ($rec[0]->jumlah > $limit){ ?>
+							<li><a href="?p=1&req_status=<?=$this->input->get('req_status');?>&from=<?=$from?>&to=<?=$to?>&hospitalcodes=<?=$this->input->get('hospitalcodes');?>&typeOfWrkOrd=<?=$this->input->get('typeOfWrkOrd');?>"> <i class="fa fa-chevron-circle-left" style="color:green"></i> First Page </a></li>
+							<li><a href="?p=<?=($this->input->get('p') > 1 ? $this->input->get('p')-1 : 1)?>&req_status=<?=$this->input->get('req_status');?>&from=<?=$from?>&to=<?=$to?>&hospitalcodes=<?=$this->input->get('hospitalcodes');?>&typeOfWrkOrd=<?=$this->input->get('typeOfWrkOrd');?>">Prev</a></li>
+							
+							<li><a href=""><?=($this->input->get('p') ? $this->input->get('p') : 1)?></a></li>
+							<li class="paginate_button previous"><a href="?p=<?php echo $page?>&req_status=<?=$this->input->get('req_status');?>&from=<?=$from?>&to=<?=$to?>&hospitalcodes=<?=$this->input->get('hospitalcodes');?>&typeOfWrkOrd=<?=$this->input->get('typeOfWrkOrd');?>">Next</a></li>
+							<li><a href="?p=<?php echo ceil($rec[0]->jumlah/$limit);?>&req_status=<?=$this->input->get('req_status');?>&from=<?=$from?>&to=<?=$to?>&hospitalcodes=<?=$this->input->get('hospitalcodes');?>&typeOfWrkOrd=<?=$this->input->get('typeOfWrkOrd');?>"> Last Page <i class="fa fa-chevron-circle-right" style="color:red;"></i></a></li>
+						<?php } ?>
+						</ul>
+						</center>
 <?php } ?>
 
-<?php include 'content_footerprint.php';?>
+<?php if (!empty($record)) {include 'content_footerprint.php';}?>
 </div>
 </div>
