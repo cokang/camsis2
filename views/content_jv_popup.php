@@ -366,8 +366,13 @@ function fCallLocatioa(mrinno,tag)
 	}
 	function pop_asset_maint_history(assettag, assetno){
 	winProp = 'width=700,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
+	if(assetno!=''){
 	Win = window.open('contentcontroller/pop_maint_history?assettag='+assettag+'&assetno='+assetno, 'assetnumber', winProp);
 	Win.window.focus();
+	}else
+				{
+				alert('Please Choose Workorder..');
+				}
 	}
 </script>
 <?php }elseif(($this->input->get('po') == 'update') and ($this->input->get('pr') == 'pen')){ ?>
