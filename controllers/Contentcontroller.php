@@ -9294,5 +9294,14 @@ $this ->load->view("report-a10.php",$data);
 		  
 	  }
 
+	  public function pop_maint_history(){
+			$this->load->model('display_model');
+			
+			$data['record'] = $this->display_model->asset_maint_history($this->input->get('assettag'),$this->input->get('assetno'));
+			//print_r($data['record']);
+			$this->load->view("head");
+			$this->load->view("content_pop_maint_history",$data);
+		}
+
 }
 ?>

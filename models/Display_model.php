@@ -7527,5 +7527,24 @@ a inner join (
 			return $query_result;
 			}
 
+			function asset_maint_history( $tag_no,$asset_no){
+				$this->db->select('sr.V_Request_no,sr.D_date,ar.V_Tag_no, jv.n_Total1,jv.n_Total2,n_Total3,jv.n_PartTotal,jv.v_PartName ');
+				$this->db->from('pmis2_egm_service_request sr');
+				$this->db->join('pmis2_egm_assetregistration ar', 'ar.V_Asset_no = sr.V_Asset_no', 'left');
+				$this->db->join('pmis2_emg_jobvisit1 jv', 'jv.v_WrkOrdNo = sr.V_Request_no', 'left');
+				$this->db->where('sr.V_Asset_no', $asset_no);
+				$this->db->where('ar.V_Tag_no', $tag_no);
+				$this->db->where('sr.V_hospitalcode',$this->session->userdata('hosp_code'));
+				$this->db->where('sr.V_servicecode', $this->session->userdata('usersess'));
+				$this->db->order_by('sr.D_date', 'asc');
+				$query = $this->db->get();
+				// echo $this->db->last_query();
+				// exit();
+			
+				$query_result = $query->result();
+				return $query_result;
+				
+			}
+
 }
 ?>
