@@ -5080,6 +5080,8 @@ function prdet($mrinno){
 		$this->db->join('tbl_user u','m.RequestUserID = u.UserID','left');
 		//$this->db->join('tbl_status st','m.StatusID = st.StatusID');
 		$this->db->where('m.DocReferenceNo',$mrinno);
+		$this->db->where('s.V_hospitalcode',  substr(substr($this->input->get('mrin'),-14),0,3));
+		
 		$query = $this->db->get();
 		//echo $this->db->last_query();
 		//exit();
