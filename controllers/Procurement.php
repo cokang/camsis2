@@ -242,6 +242,7 @@ class Procurement extends CI_Controller {
 			$data['upload_data'] = NULL;
 			$data['insertid'] = '';
 		}
+		//print_r($data);exit();
 		$this ->load->view("head");
 		$this ->load->view("asset3_comm_new",$data);
 	}
@@ -655,6 +656,8 @@ class Procurement extends CI_Controller {
 		elseif($this->input->get('powhat') == 'update') {
 
 
+			$poNo= $this->input->get('po');
+			$data['WO_detail'] = $this->display_model->wo_detail_pofollow($poNo);
 			//print_r($data);
 			$this ->load->view("Content_po_follow_up2_update",$data);
 		}

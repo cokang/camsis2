@@ -4673,7 +4673,7 @@ ORDER BY r.D_date, r.D_time
 	  $inter = (int)$month;
 
 		$this->db->distinct();
-		$this->db->select('m.*,IFNULL(s.V_Asset_no,p.v_Asset_no) AS V_Asset_no,st.Status, rn.RN_No, IFNULL(IFNULL(IFNULL(ApprCommentsxx,ApprCommentsx),ApprComments),Comments) AS Commentsx, if(rn.RN_No is null,null,"(RN Issued)") as resolve',FALSE);
+		$this->db->select('m.*,IFNULL(s.V_Asset_no,p.v_Asset_no) AS V_Asset_no,st.Status, rn.RN_No, IFNULL(IFNULL(IFNULL(ApprCommentsxx,ApprCommentsx),ApprComments),Comments) AS Commentsx, if(rn.RN_No is null,null,"(RN Issued)") as resolve, tmc.Unit_Costx',FALSE);
 		$this->db->from('tbl_materialreq m');
 		$this->db->join('pmis2_egm_service_request s',"m.WorkOfOrder = s.V_Request_no AND s.V_actionflag <> 'D' AND s.v_hospitalcode = REPLACE(LEFT(RIGHT(m.DocReferenceNo, 14), 3), '/', '')",'left outer');
 		$this->db->join('pmis2_egm_schconfirmmon p',"m.WorkOfOrder = p.v_WrkOrdNo AND p.v_Actionflag <> 'D' AND p.v_hospitalcode = REPLACE(LEFT(RIGHT(m.DocReferenceNo, 14), 3), '/', '')",'left outer');
@@ -4683,6 +4683,7 @@ ORDER BY r.D_date, r.D_time
     $this->db->join('tbl_user tu',"tu.login = '".$this->session->userdata('v_UserName')."'");
 		$this->db->join('tbl_zone tz','tz.zoneid = tu.zoneid');
 		$this->db->join('tbl_zone_hosp tzh',"tzh.zone_code = tz.zonecode and tzh.hosp_code =REPLACE(LEFT(RIGHT(m.DocReferenceNo, 14), 3), '/', '')");
+		$this->db->join('tbl_mirn_comp tmc', 'tmc.MIRNcode = m.DocReferenceNo', 'left');
 		//$this->db->where('MONTH(DATE(m.DateCreated))',$inter);
 		//$this->db->where('YEAR(DATE(m.DateCreated))',$year);
 		$this->db->where('service_code',$this->session->userdata('usersess'));
@@ -7528,7 +7529,7 @@ a inner join (
 			}
 
 			function asset_maint_history( $tag_no,$asset_no){
-				$this->db->select('sr.V_Request_no,sr.D_date,ar.V_Tag_no, jv.n_Total1,jv.n_Total2,n_Total3,jv.n_PartTotal,jv.v_PartName ');
+				$this->db->select('sr.V_Request_no,sr.D_date,ar.V_Tag_no, jv.n_Total1,jv.n_Total2,jv.n_Total3,jv.n_PartTotal,jv.v_PartName ');
 				$this->db->from('pmis2_egm_service_request sr');
 				$this->db->join('pmis2_egm_assetregistration ar', 'ar.V_Asset_no = sr.V_Asset_no', 'left');
 				$this->db->join('pmis2_emg_jobvisit1 jv', 'jv.v_WrkOrdNo = sr.V_Request_no', 'left');
@@ -7543,6 +7544,28 @@ a inner join (
 			
 				$query_result = $query->result();
 				return $query_result;
+				
+			}
+
+			function wo_detail_pofollow($poNo){
+				$this->db->select('pomr.MIRN_No,mr.WorkOfOrder,  mr.DateCreated,sr.D_date, po.PO_No,po.PO_Date,vi.VENDOR_NAME,mp.Payment_Opt, SUM(QtyReqfx * Unit_Costx)  POamount ');
+				$this->db->from('tbl_po_mirn pomr');
+				$this->db->join('tbl_materialreq mr ', 'mr.DocReferenceNo = pomr.MIRN_No', 'left');
+				$this->db->join('pmis2_egm_service_request sr', 'mr.WorkOfOrder= sr.V_Request_no', 'left');
+				$this->db->join('tbl_po po ', 'po.PO_No = pomr.PO_No', 'left');
+				$this->db->join('tbl_vendor_info vi', 'vi.VENDOR_CODE= pomr.Vendor_No', 'left');
+				$this->db->join('tbl_mirn_payment mp ', 'mp.MirnCode = pomr.MIRN_No', 'left');
+				$this->db->join('tbl_mirn_comp mc', 'mc.MIRNcode = pomr.MIRN_No', 'left');
+				
+				
+				$this->db->where('pomr.PO_No', $poNo);
+				$query = $this->db->get();
+				// echo $this->db->last_query();
+				// exit();
+			
+				$query_result = $query->result();
+				return $query_result;
+				
 				
 			}
 

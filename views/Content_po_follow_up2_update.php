@@ -17,7 +17,7 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 					<td colspan="2" class="ui-header-new">
 					<span class="textmenu" style="float:left;">
 					<?php if($this->input->get('powhat') == 'confirm'){?><b>Confirm</b><?php }?>
-					<?php if ($this->input->get('tab') == 0){ ?> <b> Shipment </b> One
+					<?php if ($this->input->get('tab') == 0){ ?> <b> PO Approved Details </b>
 					<?php }elseif($this->input->get('tab') == 1){ ?> <b> Shipment </b> Two
 					<?php }elseif($this->input->get('tab') == 2){ ?><b>Shipment </b> Three
 					<?php }elseif($this->input->get('tab') == 3){ ?><b>Payment </b>
@@ -158,6 +158,50 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 													<td><input type="text"  name="n_podt" value="<?=$this->input->post('n_podt')?>" class="form-control-button2 n_wi-date2" id="date<?php echo $numberdate++; ?>" <?=$confim?>></td>
 												</tr>
 												<?php } ?>
+												<tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">Details of Request</td></tr>
+													<td class="td-assest">WO No :</td>
+													<td><input type="text"   value="<?=isset($WO_detail[0]->WorkOfOrder)?$WO_detail[0]->WorkOfOrder:''?>" class="form-control-button2 n_wi-date2" ></td>
+												</tr>
+												<tr>
+													<td class="td-assest">WO Date:</td>
+													<td><input type="text"  value="<?=isset($WO_detail[0]->D_date)?date('d/m/Y h:i:s',strtotime($WO_detail[0]->D_date)):''?>" class="form-control-button2 n_wi-date2" ></td>
+
+												</tr>
+												<tr>
+													<td class="td-assest">MRIN No :</td>
+													<td><input type="text"   value="<?=isset($WO_detail[0]->MIRN_No)?$WO_detail[0]->MIRN_No:''?>" class="form-control-button2 n_wi-date2" ></td>
+
+												</tr>
+												<tr>
+													<td class="td-assest">MRIN Date :</td>
+													<td><input type="text"   value="<?=isset($WO_detail[0]->DateCreated)?date('d/m/Y h:i:s',strtotime($WO_detail[0]->DateCreated)):''?>" class="form-control-button2 n_wi-date2" ></td>
+
+												</tr>
+												<tr>
+													<td class="td-assest">PO No :</td>
+													<td><input type="text"  value="<?=isset($WO_detail[0]->PO_No)?$WO_detail[0]->PO_No:''?>" class="form-control-button2 n_wi-date2" ></td>
+
+												</tr>
+												<tr>
+													<td class="td-assest">PO Approval Date :</td>
+													<td><input type="text"  value="<?=isset($WO_detail[0]->PO_Date)?date('d/m/Y h:i:s',strtotime($WO_detail[0]->PO_Date)):''?>" class="form-control-button2 n_wi-date2" ></td>
+
+												</tr>
+												<tr>
+													<td class="td-assest">PO Amount :</td>
+													<td><input type="text" value="<?=isset($WO_detail[0]->POamount)?$WO_detail[0]->POamount:''?>" class="form-control-button2 n_wi-date2" ></td>
+
+												</tr>
+												<tr>
+													<td class="td-assest">Vendor Name :</td>
+													<td><input type="text"  value="<?=isset($WO_detail[0]->VENDOR_NAME)?$WO_detail[0]->VENDOR_NAME:''?>" class="form-control-button2 n_wi-date2" ></td>
+
+												</tr>
+												<tr>
+													<td class="td-assest">Payment Method :</td>
+													<td><input type="text"   value="<?=isset($WO_detail[0]->Payment_Opt)?$WO_detail[0]->Payment_Opt:''?>" class="form-control-button2 n_wi-date2" ></td>
+
+												</tr>
 												<tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">SHIPMENT</td></tr>
 												<!--<tr>
 													<td class="td-assest" style="width:40%;">PARTS (RM)/UNIT </td>
