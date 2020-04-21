@@ -708,6 +708,16 @@ function update_delete_photo($insert_data,$assetno,$id=''){
 	//exit();
 }
 
+function update_PO_MRIN($mrin, $update_data){
+	$this->db->where('MIRN_No',$mrin);
+	$this->db->update('tbl_po_mirn',$update_data);
 
+}
+
+function update_PR_MRIN($mrin, $update_data){
+	$this->db->where('MIRN_No',$mrin);
+	$this->db->update('tbl_pr_mirn',$update_data);
+
+}
 }
 ?>

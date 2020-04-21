@@ -5045,7 +5045,8 @@ function status_table(){
 		}
 
 function prlist($month,$year,$tab=0){
-	$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PR_No');
+	$this->db->distinct();
+	$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PR_No, mp.Payment_Opt, vi.VENDOR_NAME');
 	$this->db->from('tbl_pr_mirn e');
 	if ($tab == 1){
 	$this->db->join('tbl_pr p','p.PRNo = e.PR_No');
@@ -5054,6 +5055,10 @@ function prlist($month,$year,$tab=0){
 	$this->db->join('tbl_zone b','a.ZoneID = b.ZoneID');
 	$this->db->join('tbl_user c','a.RequestUserID = c.UserID');
 	$this->db->join('tbl_status d','a.ApprStatusID = d.StatusID');
+	$this->db->join('tbl_mirn_payment mp', 'mp.MirnCode = a.DocReferenceNo', 'left');
+	$this->db->join('tbl_mirn_comp mc', 'mc.MIRNcode = a.DocReferenceNo', 'left');
+	$this->db->join('tbl_vendor_info vi', 'vi.VENDOR_CODE = mc.ApprvRmk', 'left');
+	
 	$this->db->where('MONTH(a.datecreated)',$month);
 	$this->db->where('YEAR(a.datecreated)',$year);
 	if ($tab == 0){
@@ -5124,13 +5129,19 @@ function printpr($prno){
 	return $query_result;
 }
 
-function polist($month,$year,$searchitem=""){
-	$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No');
+function polist($month,$year,$searchitem="",$tab=""){
+	$this->db->distinct();
+	$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt,vi.VENDOR_NAME');
 	$this->db->from('tbl_po_mirn e');
 	$this->db->join('tbl_materialreq a','e.MIRN_No = a.DocReferenceNo');
 	$this->db->join('tbl_zone b','a.ZoneID = b.ZoneID');
 	$this->db->join('tbl_user c','a.RequestUserID = c.UserID');
 	$this->db->join('tbl_status d','a.ApprStatusID = d.StatusID');
+	$this->db->join('tbl_mirn_payment mp', 'mp.MirnCode = a.DocReferenceNo', 'left');
+	$this->db->join('tbl_mirn_comp mc', 'mc.MIRNcode = a.DocReferenceNo', 'left');
+	$this->db->join('tbl_vendor_info vi', 'vi.VENDOR_CODE = mc.ApprvRmk', 'left');
+	
+	
   if ($searchitem == "") {
 	$this->db->where('MONTH(a.datecreated)',$month);
 	$this->db->where('YEAR(a.datecreated)',$year);
@@ -5141,6 +5152,11 @@ function polist($month,$year,$searchitem=""){
     $this->db->group_end();
     }
 	$this->db->where('a.apprstatusidxx','4');
+	if($tab==1){
+		$this->db->where('e.status', 1);
+	}elseif($tab==2){
+		$this->db->where('e.status ', 2);
+	}
 	$query = $this->db->get();
 	//echo $this->db->last_query();
 	//exit();
@@ -7568,6 +7584,19 @@ a inner join (
 				$query_result = $query->result();
 				return $query_result;
 				
+				
+			}
+
+			function checkPO($mrin){
+				$this->db->select('*');
+				$this->db->from('tbl_po_mirn');
+				$this->db->where('MIRN_No', $mrin);
+				$query = $this->db->get();
+				// echo $this->db->last_query();
+				// exit();
+			
+				$query_result = $query->result();
+				return $query_result;
 				
 			}
 

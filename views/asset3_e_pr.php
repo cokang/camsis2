@@ -10,8 +10,8 @@
 			$procument = $this->input->get('tab');
 			switch ($procument) {
 				case "1":
-					$tulis = "PR Generated";
-					$tulis2 = "PR Reference No";
+					$tulis = "PO Generated";
+					$tulis2 = "PO Reference No";
 				break;
 				case "2":
 					$tulis = "PO Generated";
@@ -54,50 +54,90 @@
 						<tr class="ui-menu-color-header" style="color:white; font-size:12px;">
 							<th >&nbsp;</th>
 							<th style="text-align:left;"><?=$tulis2?></th>
+							<?php if($this->input->get('tab')==2){ ?>
+							<th>Issue Date</th>
+							<th>Requestor</th>
+							<th>MRIN</th>
+							<th>Status</th>
+							<th>Date</th>
+								<?php }else{?><th>Payment Type</th> 
 							<th >Issue Date</th>
-							<th >Requestor</th>
-							<th >MRIN</th>
+							<!-- <th >Requestor</th> -->
+							<?php if($procument==1){?><th >MRIN Reference No</th><?php } ?>
 							<th >Status</th>
-							<th >Date</th>
+							<?php if($user[0]->class_id==3){ ?>
+							<?php if($procument==0){?><th>Recommended</th><?php }elseif($procument==1){ ?>
+								<th>Approve</th>
+								<?php } ?>
+							<th>Return</th>
+							<?php }?>
+							<!-- <th >Date</th> -->
+							<th>Vendor</th>
+							<th>Justification</th>
+							<?php } ?>
 						</tr>
 						<style>
 							.ui-content-middle-menu-workorder2 tr th {padding:8px;font-size:14px;}
 							.ui-content-middle-menu-workorder2 tr td {padding:8px;font-size:14px;}
 							.ui-content-middle-menu-workorder2 tr td.td-desk a{ font-weight:bold; font-size:14px;}
 						</style>
+						<?php if($this->input->get('tab') == 0){$spanval=9;}elseif($this->input->get('tab') == 1){$spanval=10;}else{$spanval=7;}?>
 						<?php if ($record) { ?>
 							<?php if($this->input->get('tab') == 0){?>
 								<?php $numrow = 1; foreach ($record as $row): ?>
 						<tr align="center" <?= ($numrow%2==0) ?  'class="ui-color-color-color"' :  '' ?> >
 							<td class="td-desk"><?=$numrow++?></td>
+						
 							<td class="td-desk" style="text-align:left;">
 								<a href="<?php echo base_url();?>index.php/Procurement/e_pr?pr=pending&mrinno=<?=$row->DocReferenceNo?>">
 									<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>
 								</a>
 							</td>
+							
+					
+							<td><?=isset($row->Payment_Opt) ? $row->Payment_Opt : ''?></td>
 							<td class="td-desk"><?=isset($row->DateCreated) ? date("d-m-Y",strtotime($row->DateCreated)) : ''?></td>
-							<td class="td-desk"><?=isset($row->name) ? $row->name : ''?></td>
+							<!-- <td class="td-desk"><?=isset($row->name) ? $row->name : ''?></td> -->
+							<!-- <?php if (in_array("cancelpo", $chkers)) { ?>
 							<td class="td-desk">
 								<a href="<?php echo base_url();?>index.php/Procurement?mrinno=<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>&pro=approved">
 									<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>
 								</a>
 							</td>
+						<?php  }  else {?>
+							<td class="td-desk"><?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?></td>
+							<?php  } ?> -->
 							<td class="td-desk">Pending</td>
+							<?php if($user[0]->class_id==3){ ?>
+							<td class="td-desk"><input type="checkbox" id="chk_status1<?=$row->DocReferenceNo?>" name="chk_status" onclick="recommend_po('4','<?=$row->DocReferenceNo?>');"></td>
+							<td class="td-desk"><input type="checkbox" id="chk_status2<?=$row->DocReferenceNo?>" name="chk_status" onclick="recommend_po('107','<?=$row->DocReferenceNo?>');"></td>
+							<?php } ?>
+							<td class="td-desk"><?=isset($row->VENDOR_NAME) ? $row->VENDOR_NAME : ''?></td>
 							<td class="td-desk"><?=isset($row->DateCreated) ? date("d-m-Y",strtotime($row->DateCreated)) : ''?></td>
 						</tr>
 								<?php endforeach; ?>
+								
 							<?php }elseif($this->input->get('tab') == 1){?>
 								<?php $numrow = 1; foreach ($record as $row): ?>
 						<tr align="center" <?= ($numrow%2==0) ?  'class="ui-color-color-color"' :  '' ?> >
 							<td class="td-desk"><?=$numrow++?></td>
-							<td class="td-desk" style="text-align:left;"><a href="<?php echo base_url();?>index.php/Procurement/e_pr?pr=approved&mrinno=<?=$row->DocReferenceNo?>"><?=isset($row->PR_No) ? $row->PR_No : ''?></a></td>
+							<!-- <td class="td-desk" style="text-align:left;"><a href="<?php echo base_url();?>index.php/Procurement/e_pr?pr=approved&mrinno=<?=$row->DocReferenceNo?>"><?=isset($row->PR_No) ? $row->PR_No : ''?></a></td> -->
+							<td class="td-desk" style="text-align:left;">
+								<a href="<?php echo base_url();?>index.php/Procurement/e_po_print?po=<?=isset($row->PO_No) ? $row->PO_No : ''?>&mrin=<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>">
+									<?=isset($row->PO_No) ? $row->PO_No : ''?>
+								</a>
+							</td>
+							<td><?=isset($row->Payment_Opt) ? $row->Payment_Opt : ''?></td>
 							<td class="td-desk"><?=isset($row->DateCreated) ? date("d-m-Y",strtotime($row->DateCreated)) : ''?></td>
-							<td class="td-desk"><?=isset($row->name) ? $row->name : ''?></td>
+							<!-- <td class="td-desk"><?=isset($row->name) ? $row->name : ''?></td> -->
 							<td class="td-desk"><b><a href="<?php echo base_url();?>index.php/Procurement?mrinno=<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>&pro=approved">
 								<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>
 							</a></b></td>
 							<td class="td-desk">Pending</td>
-							<td class="td-desk"><?=isset($row->DateCreated) ? date("d-m-Y",strtotime($row->DateCreated)) : ''?></td>
+							<td class="td-desk"><input type="checkbox" id="chk_status1<?=$row->DocReferenceNo?>" name="chk_status" onclick="approval_po('2','<?=$row->DocReferenceNo?>');"></td>
+							<td class="td-desk"><input type="checkbox" id="chk_status2<?=$row->DocReferenceNo?>" name="chk_status" onclick="approval_po('0','<?=$row->DocReferenceNo?>');"></td>
+							<td class="td-desk"><?=isset($row->VENDOR_NAME) ? $row->VENDOR_NAME : ''?></td>
+							<td class="td-desk"></td>
 						</tr>
 								<?php endforeach; ?>
 							<?php }elseif($this->input->get('tab') == 2){?>
@@ -119,9 +159,10 @@
 						</tr>
 								<?php endforeach; ?>
 							<?php } ?>
+							<tr ><td class="td-desk" colspan="10" ><button class="btn-button btn-primary-button "onClick="window.location.reload()">Refresh</button></td></tr>
 						<?php } else { ?>
 						<tr align="center" style="height:200px; background:white;">
-							<td colspan="7" class="default-NO">
+							<td colspan="<?=$spanval; ?>" class="default-NO">
 								NO <?php if($tulis == "All MRIN" ){ echo "MRIN";}else{ echo $tulis;}?> FOUND FOR <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?>
 							</td>
 						</tr>
@@ -169,7 +210,7 @@
 								<?php } ?>
 							<?php }else{?>
 							<tr align="center" style="height:200px; background:white;">
-								<td colspan="2" class="default-NO">
+								<td colspan="" class="default-NO">
 									NO <?php if($tulis == "All MRIN" ){ echo "MRIN";}else{ echo $tulis;}?> FOUND FOR <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?>
 								</td>
 							</tr>
@@ -179,7 +220,7 @@
 				</td>
 			</tr>
 			<tr class="ui-header-new" style="height:5px;">
-				<td align="center" colspan="4">
+				<td align="center" colspan="9">
 				</td>
 			</tr>
 		</table>
@@ -189,4 +230,45 @@
 </tr>
 </table>
 </body>
+<script>
+	function recommend_po(action, mrin) {
+	$.ajax({
+		url: 'recommendPO',
+                    type: "POST",
+                    dataType: "json",
+					data: { action: action, mrin: mrin },
+                    success:function(data) {
+					  document.getElementById("chk_status").disabled = true;
+                    }
+                });
+	document.getElementById("chk_status1"+mrin).disabled = true;
+	document.getElementById("chk_status2"+mrin).disabled = true;
+ }
+
+ function approval_po(action, mrin) {
+	if(action==2){
+  var r = confirm("Approve "+mrin +"?");
+  if (r == true) {
+    approvalJSON(action, mrin);
+  } }else{
+	approvalJSON(action, mrin);
+  }
+	
+ }
+
+ function approvalJSON(action, mrin){
+	$.ajax({
+		url: 'approvalPO',
+                    type: "POST",
+                    dataType: "json",
+					data: { action: action, mrin: mrin },
+                    success:function(data) {
+					  document.getElementById("chk_status").disabled = true;
+                    }
+                });
+	document.getElementById("chk_status1"+mrin).disabled = true;
+	document.getElementById("chk_status2"+mrin).disabled = true;
+ }
+
+</script>
 </html>
