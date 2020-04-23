@@ -5157,6 +5157,7 @@ function polist($month,$year,$searchitem="",$tab=""){
 	}elseif($tab==2){
 		$this->db->where('e.status ', 2);
 	}
+	$this->db->order_by('DateCreated', 'desc');
 	$query = $this->db->get();
 	//echo $this->db->last_query();
 	//exit();
