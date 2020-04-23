@@ -5155,7 +5155,10 @@ function polist($month,$year,$searchitem="",$tab=""){
 	if($tab==1){
 		$this->db->where('e.status', 1);
 	}elseif($tab==2){
-		$this->db->where('e.status ', 2);
+		$this->db->group_start();
+		$this->db->where('e.status <>', 1);
+		$this->db->or_where('e.status',null  );
+		$this->db->group_end();
 	}
 	$query = $this->db->get();
 	//echo $this->db->last_query();
