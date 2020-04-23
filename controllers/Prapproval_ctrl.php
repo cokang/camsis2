@@ -52,7 +52,7 @@ class Prapproval_ctrl extends CI_Controller{
 			$this->insert_model->tbl_pr($insert_pr);
 
 			$insert_app = array('PR_No' => $data['newpr'][0]->prno,
-								'WHO_Apprv' => 'SM'.'-'.$this->session->userdata('v_UserName'));
+								'WHO_Apprv' => 'SM'.'-('.$this->session->userdata('v_UserName').')');
 			$this->insert_model->tbl_pr_apprv($insert_app);
 
 			$update_prno = array('pr_next_no' => $data['newpr'][0]->pr_next_no + 1,
@@ -74,8 +74,7 @@ class Prapproval_ctrl extends CI_Controller{
 
 			$insert_po = array('MIRN_No' => $this->input->post('mrinno'),
 							   'PO_No' => $data['newpo'][0]->pono,
-							   'Vendor_No' => $data['itemrec'][0]->ApprvRmk1x,
-								'status' => 2);
+							   'Vendor_No' => $data['itemrec'][0]->ApprvRmk1x);
 			$this->insert_model->tbl_po_mirn($insert_po);
 
 			$update_pono = array('po_next_no' => $data['newpo'][0]->po_next_no + 1,
