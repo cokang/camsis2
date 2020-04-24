@@ -1305,9 +1305,6 @@ class Procurement extends CI_Controller {
 				$this->load->model('get_model');
 
 				$data['PO_mrin'] = $this->display_model->checkPO($mrin);
-							$insert_data = array('MirnCode' => $mrin,
-								 'Payment_Opt' => 'COD');
-							if($data['PO_mrin']==null)$this->insert_model->mrin_payment($insert_data);
 						
 							$data['itemrec'] = $this->display_model->itemdet($mrin);
 							foreach($data['itemrec'] as $row){

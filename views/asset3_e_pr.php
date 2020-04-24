@@ -54,6 +54,7 @@
 						<tr class="ui-menu-color-header" style="color:white; font-size:12px;">
 							<th >&nbsp;</th>
 							<th style="text-align:left;"><?=$tulis2?></th>
+							<?php if($this->input->get('tab')!=0){ ?><th>PO Amount</th> <?php }?>
 							<?php if($this->input->get('tab')==2){ ?>
 							<th>Issue Date</th>
 							<th>Requestor</th>
@@ -81,7 +82,7 @@
 							.ui-content-middle-menu-workorder2 tr td {padding:8px;font-size:14px;}
 							.ui-content-middle-menu-workorder2 tr td.td-desk a{ font-weight:bold; font-size:14px;}
 						</style>
-						<?php if($this->input->get('tab') == 0){$spanval=9;}elseif($this->input->get('tab') == 1){$spanval=10;}else{$spanval=7;}?>
+						<?php if($this->input->get('tab') == 0){$spanval=10;}elseif($this->input->get('tab') == 1){$spanval=11;}else{$spanval=8;}?>
 						<?php if ($record) { ?>
 							<?php if($this->input->get('tab') == 0){?>
 								<?php $numrow = 1; foreach ($record as $row): ?>
@@ -93,7 +94,6 @@
 									<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>
 								</a>
 							</td>
-							
 					
 							<td><?=isset($row->Payment_Opt) ? $row->Payment_Opt : ''?></td>
 							<td class="td-desk"><?=isset($row->DateCreated) ? date("d-m-Y",strtotime($row->DateCreated)) : ''?></td>
@@ -113,7 +113,7 @@
 							<td class="td-desk"><input type="checkbox" id="chk_status2<?=$row->DocReferenceNo?>" name="chk_status" onclick="recommend_po('107','<?=$row->DocReferenceNo?>');"></td>
 							<?php } ?>
 							<td class="td-desk"><?=isset($row->VENDOR_NAME) ? $row->VENDOR_NAME : ''?></td>
-							<td class="td-desk"><?=isset($row->DateCreated) ? date("d-m-Y",strtotime($row->DateCreated)) : ''?></td>
+							<td class="td-desk"><?=isset($row->ApprCommentsx) ? $row->ApprCommentsx : ''?></td>
 						</tr>
 								<?php endforeach; ?>
 								
@@ -127,6 +127,7 @@
 									<?=isset($row->PO_No) ? $row->PO_No : ''?>
 								</a>
 							</td>
+							<td><?=isset($row->totalPO) ? 'RM'.number_format($row->totalPO,2) : ''?></td>
 							<td><?=isset($row->Payment_Opt) ? $row->Payment_Opt : ''?></td>
 							<td class="td-desk"><?=isset($row->DateCreated) ? date("d-m-Y",strtotime($row->DateCreated)) : ''?></td>
 							<!-- <td class="td-desk"><?=isset($row->name) ? $row->name : ''?></td> -->
@@ -137,7 +138,7 @@
 							<td class="td-desk"><input type="checkbox" id="chk_status1<?=$row->DocReferenceNo?>" name="chk_status" onclick="approval_po('2','<?=$row->DocReferenceNo?>');"></td>
 							<td class="td-desk"><input type="checkbox" id="chk_status2<?=$row->DocReferenceNo?>" name="chk_status" onclick="approval_po('0','<?=$row->DocReferenceNo?>');"></td>
 							<td class="td-desk"><?=isset($row->VENDOR_NAME) ? $row->VENDOR_NAME : ''?></td>
-							<td class="td-desk"></td>
+							<td class="td-desk"><?=isset($row->ApprCommentsx) ? $row->ApprCommentsx : ''?></td>
 						</tr>
 								<?php endforeach; ?>
 							<?php }elseif($this->input->get('tab') == 2){?>
@@ -149,6 +150,7 @@
 									<?=isset($row->PO_No) ? $row->PO_No : ''?>
 								</a>
 							</td>
+							<td><?=isset($row->totalPO) ? 'RM'.number_format($row->totalPO,2) : ''?></td>
 							<td class="td-desk"><?=isset($row->DateCreated) ? date("d-m-Y",strtotime($row->DateCreated)) : ''?></td>
 							<td class="td-desk"><?=isset($row->name) ? $row->name : ''?></td>
 							<td class="td-desk"><b><a href="<?php echo base_url();?>index.php/Procurement?mrinno=<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>&pro=approved">

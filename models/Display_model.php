@@ -5046,7 +5046,7 @@ function status_table(){
 
 function prlist($month,$year,$tab=0){
 	$this->db->distinct();
-	$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PR_No, mp.Payment_Opt, vi.VENDOR_NAME');
+	$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PR_No, mp.Payment_Opt, vi.VENDOR_NAME,a.ApprCommentsx, GROUP_CONCAT( DISTINCT  VENDOR_NAME ) as VENDOR_NAME');
 	$this->db->from('tbl_pr_mirn e');
 	if ($tab == 1){
 	$this->db->join('tbl_pr p','p.PRNo = e.PR_No');
@@ -5069,6 +5069,8 @@ function prlist($month,$year,$tab=0){
 		$this->db->where('p.SM_Status IS NULL');
 	}
 	$this->db->where('a.apprstatusidxx','4');
+	$this->db->group_by('a.DocReferenceNo');
+	
 	$query = $this->db->get();
 	//echo $this->db->last_query();
 	//exit();
@@ -5110,7 +5112,7 @@ function itemprdet($mrinno, $unitcost=""){
     $this->db->where('va.flag <>','D');
     $this->db->where('QtyReqfx <>','0');
     $query = $this->db->get();
-		//echo $this->db->last_query();
+		echo $this->db->last_query();
 		//exit();
 		$query_result = $query->result();
 		return $query_result;
@@ -5130,8 +5132,7 @@ function printpr($prno){
 }
 
 function polist($month,$year,$searchitem="",$tab=""){
-	$this->db->distinct();
-	$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt,vi.VENDOR_NAME');
+	$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt,vi.VENDOR_NAME, SUM( DISTINCT Unit_Costx * QtyReqfx) as totalPO,sum( DISTINCT Unit_Costx * QtyReqfx) as totalPO ,a.ApprCommentsx , GROUP_CONCAT( DISTINCT  VENDOR_NAME ) as VENDOR_NAME');
 	$this->db->from('tbl_po_mirn e');
 	$this->db->join('tbl_materialreq a','e.MIRN_No = a.DocReferenceNo');
 	$this->db->join('tbl_zone b','a.ZoneID = b.ZoneID');
@@ -5155,11 +5156,13 @@ function polist($month,$year,$searchitem="",$tab=""){
 	if($tab==1){
 		$this->db->where('e.status', 1);
 	}elseif($tab==2){
-		$this->db->where('e.status ', 2);
+		$this->db->where('e.status', 2);
 	}
 	$this->db->order_by('DateCreated', 'desc');
+	$this->db->group_by('a.DocReferenceNo');
+	
 	$query = $this->db->get();
-	//echo $this->db->last_query();
+	// echo $this->db->last_query();
 	//exit();
 	$query_result = $query->result();
 	return $query_result;
