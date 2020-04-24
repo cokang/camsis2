@@ -5132,7 +5132,7 @@ function printpr($prno){
 }
 
 function polist($month,$year,$searchitem="",$tab=""){
-	$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt,vi.VENDOR_NAME, SUM( DISTINCT Unit_Costx * QtyReqfx) as totalPO,sum( DISTINCT Unit_Costx * QtyReqfx) as totalPO ,a.ApprCommentsx , GROUP_CONCAT( DISTINCT  VENDOR_NAME ) as VENDOR_NAME');
+	$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt,vi.VENDOR_NAME, SUM( DISTINCT Unit_Costx * QtyReqfx) as totalPO, a.ApprCommentsx , GROUP_CONCAT( DISTINCT  VENDOR_NAME ) as VENDOR_NAME');
 	$this->db->from('tbl_po_mirn e');
 	$this->db->join('tbl_materialreq a','e.MIRN_No = a.DocReferenceNo');
 	$this->db->join('tbl_zone b','a.ZoneID = b.ZoneID');
@@ -5159,7 +5159,7 @@ function polist($month,$year,$searchitem="",$tab=""){
 		$this->db->where('e.status', 2);
 	}
 	$this->db->order_by('DateCreated', 'desc');
-	$this->db->group_by('a.DocReferenceNo');
+	$this->db->group_by('mp.MirnCode');
 	
 	$query = $this->db->get();
 	// echo $this->db->last_query();
