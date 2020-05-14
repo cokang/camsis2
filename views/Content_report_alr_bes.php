@@ -110,6 +110,7 @@ if ($this->input->get('ex') == 'excel'){
 			<?php  if (!empty($record)) {?>
 			<tbody class="asst">
 				<?php $numrow = 1; foreach($record as $row):?>
+					<table>
 				<tr class="tbl-fixed-td-bes">
 					<td><?= $numrow ?></td>
 					<td><?= ($row->V_Tag_no) ? anchor ('contentcontroller/AssetRegis?tab=Maintenance&assetno='.$row->V_Asset_no.'&state='.$this->input->get('state'),''.$row->V_Tag_no.'' ) : 'N/A' ?></td>
@@ -135,19 +136,11 @@ if ($this->input->get('ex') == 'excel'){
 					<td><?= ($row->medical_dev_class) ? $row->medical_dev_class : 'N/A' ?></td>
 					<td><?= ($row->specialty_cat) ? $row->specialty_cat : 'N/A' ?></td>
 				</tr>
-				<?php $numrow++; endforeach;?>
-			</tbody>
-			<?php }else { ?>
-			<tbody>
-				<tr class="tbl-fixed-td-bes" align="center" style="background:white; height:310px;">
-					<td colspan="22"><span style="color:red; display:block;">NO COMPLAINT RECORDS FOUND FOR THIS WORK ORDER.</span></td>
-				</tr>
-			</tbody>
-			<?php } ?>
-		</table>
-	</div>
-</div>
-<?php if (($this->input->get('ex') == '') or ($this->input->get('none') == 'closed')){?>
+				<?php $numrow++; if ((($numrow-1)%18==0) || (($numrow-1)== count($record))) {?>
+					</tbody>
+				<?php if (($this->input->get('ex') == '') or ($this->input->get('none') == 'closed')){
+					?>
+					
 	<table width="99%" border="0">
 		<tr>
 			<td valign="top" colspan="2"><hr color="black" size="1Px"></td>
@@ -157,10 +150,22 @@ if ($this->input->get('ex') == 'excel'){
 			<td width="50%" align="right"></td>
 		</tr>
 	</table>
-<!-- </div> -->
-<?php if (($this->input->get('ex') == '') or ($this->input->get('none') == 'closed')){?>
-<?php include 'content_footerprint.php';?>
-<?php } ?>
+
 <div class="StartNewPage" id="breakpage"><span id="pagebreak">Page Break</span></div>
 
 <?php } ?>
+<?php }
+endforeach; ?>
+</table>
+</table>
+			<?php }else { ?>
+			<tbody>
+				<tr class="tbl-fixed-td-bes" align="center" style="background:white; height:310px;">
+					<td colspan="22"><span style="color:red; display:block;">NO COMPLAINT RECORDS FOUND FOR THIS WORK ORDER.</span></td>
+				</tr>
+			</tbody>
+			<?php } ?>
+		
+		<?php include 'content_footerprint.php';?>
+	</div>
+</div>
