@@ -4375,20 +4375,20 @@ function get_stock_asset($searchitem=""){
 
 		   }
 
-		     function rootChild($nama,$onchange='') {
-			//echo $nama;
-			$namaNospace =  str_replace("%20"," ",$nama);
-			$this->db->select('*');
-			$this->db->from('pmis2_egm_rootcause');
-			$this->db->like('nama',$namaNospace);
-			$query = $this->db->get();
-			if($onchange==1){
-			return $query->result();
-			}
-			echo json_encode($query->result());
+			 function rootChild($nama,$onchange='') {
+		//echo $nama;
+		$namaNospace =  str_replace("%20"," ",$nama);
+		$this->db->select('*');
+		$this->db->from('pmis2_egm_rootcause');
+		$this->db->like('nama',$namaNospace);
+		$query = $this->db->get();
+		if($onchange==1){
+		return $query->result();
 		}
+		echo json_encode($query->result());
+	}
 
-		function reportChronology($datefrom, $dateto, $filterby,$request_type){
+		function reportChronology($datefrom, $dateto, $filterby,$request_type="",$special_cat=""){
 			$this->db->select("d.D_date,
 			b.nama, count(b.id) as total,
 			SUM(CASE
@@ -4407,6 +4407,9 @@ function get_stock_asset($searchitem=""){
 		$this->db->join('pmis2_egm_rootcause b', 'a.v_ReschAuthBy = b.id', 'inner');
 		$this->db->join('pmis2_egm_schconfirmmon c', 'a.v_WrkOrdNo = c.v_WrkOrdNo AND a.v_hospitalcode = c.v_hospitalcode', 'left');
 		$this->db->join('pmis2_egm_service_request d', 'a.v_WrkOrdNo = d.V_Request_no AND a.v_hospitalcode = d.v_hospitalcode', 'left');
+		$this->db->join('pmis2_egm_assetregistration g','d.v_Asset_no = g.V_Asset_no AND d.v_HospitalCode = g.V_Hospitalcode AND g.V_Actionflag <> "D"', 'left outer');
+		$this->db->join('pmis2_sa_asset_mapping mp',"mp.old_asset_type = g.V_Equip_code ",'left outer');
+		$this->db->join('pmis2_sa_add_info ad',"ad.asset_type = mp.new_asset_type ",'left outer');
 		if($datefrom!=null || $dateto!=null){
 		$this->db->where('d.D_date BETWEEN"'.$datefrom.'"and"'.$dateto.'"');
 
@@ -4417,13 +4420,15 @@ function get_stock_asset($searchitem=""){
 		if($request_type!='All'){
 			$this->db->where('d.V_request_type', $request_type);
 		}
+		if($special_cat!='All'){
+			$this->db->where('ad.specialty_cat', $special_cat);
+		}
 		$this->db->where('a.n_Visit', 1);
 		$this->db->where('b.id <>', 1);
 		$this->db->group_by('b.id');
 		// $this->db->where('NOW()', $Value);
 
 		$query = $this->db->get();
-		
 		return $query->result();
 		// echo $this->db->last_query();
 
@@ -4471,7 +4476,17 @@ function get_stock_asset($searchitem=""){
 			return $query_result;
 		}
 
-		
+		function rootChild2($nama) {
+			//echo $nama;
+			$namaNospace =  str_replace("%20"," ",$nama);
+			$this->db->select('*');
+			$this->db->from('pmis2_egm_rootcause');
+			$this->db->like('nama',$namaNospace);
+			$query = $this->db->get();
+			//echo $this->db->last_query();
+			//exit();
+			return $query->result();
+		}
 		function get_special_cat(){
 			$this->db->select("specialty_cat");
 			$this->db->from('pmis2_sa_add_info');
@@ -4537,7 +4552,7 @@ function get_stock_asset($searchitem=""){
 					$array[$row->v_HospitalCode] = $row->v_HospitalCode;
 			}
 			return $array;
-			
+
 		}
 
 		function get_typeOfWorkOrder(){
@@ -4559,8 +4574,9 @@ function get_stock_asset($searchitem=""){
 					$array[$row->V_request_type] = $row->V_request_type . ' - ' . $row->wrkOrdDetails;
 			}
 			return $array;
-			
+
 		}
+
 
 		function get_natureOfVisit(){
 			//print_r($request); exit();
@@ -4572,7 +4588,7 @@ function get_stock_asset($searchitem=""){
 					$array[$row->code] = $row->description;
 			}
 			return $array;
-			
+
 		}
 
 }

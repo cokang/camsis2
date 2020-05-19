@@ -30,9 +30,13 @@
 );
 	echo form_dropdown('status', $filter,set_value('status', $this->input->get('status')), 'class="form-control-button2 "');
  ?>
+ <br>
  <label for="to">Request Type</label>
  <?php echo form_dropdown('request_type', $request_type,set_value('request_type', $this->input->get('request_type')), 'class="form-control-button2 "'); ?>
  
+ <label for="to">Specialty</label>
+ <?php echo form_dropdown('special_cat', $special_cat,set_value('special_cat', $this->input->get('special_cat')), 'class="form-control-button2 "'); ?>
+
 <input class="btn-button btn-secondary-button" type="submit" value="Apply" onchange="javascript: submit()"/></center>
 </form>
 </div>
@@ -57,11 +61,11 @@
 			<?php $totalJOH=0;$totalMKA=0;$totalNS=0;$totalALL=0;$numrow=1; foreach($det as $row): ?>
 			<tr><form method="get" action="">
 				<td><?=isset($row->nama) ? $row->nama : ''?></td>
-				<td><?php echo anchor ('contentcontroller/Summary_chonology?from='.$from.'&to='.$to.'&nama='.$row->nama.'&negeri=JOH'.'&status='.$this->input->get('status').'&request_type='.$this->input->get('request_type'), $row->JOH); ?></td>
-				<td><?php echo anchor ('contentcontroller/Summary_chonology?from='.$from.'&to='.$to.'&nama='.$row->nama.'&negeri=MKA'.'&status='.$this->input->get('status').'&request_type='.$this->input->get('request_type'),$row->MKA); ?></td>
-				<td><?php echo anchor ('contentcontroller/Summary_chonology?from='.$from.'&to='.$to.'&nama='.$row->nama.'&negeri=NS'.'&status='.$this->input->get('status').'&request_type='.$this->input->get('request_type'),$row->NS); 
+				<td><?php echo anchor ('contentcontroller/Summary_chonology?from='.$from.'&to='.$to.'&nama='.$row->nama.'&negeri=JOH'.'&status='.$this->input->get('status').'&request_type='.$this->input->get('request_type').'&special_cat='.$this->input->get('special_cat'), $row->JOH); ?></td>
+				<td><?php echo anchor ('contentcontroller/Summary_chonology?from='.$from.'&to='.$to.'&nama='.$row->nama.'&negeri=MKA'.'&status='.$this->input->get('status').'&request_type='.$this->input->get('request_type').'&special_cat='.$this->input->get('special_cat'),$row->MKA); ?></td>
+				<td><?php echo anchor ('contentcontroller/Summary_chonology?from='.$from.'&to='.$to.'&nama='.$row->nama.'&negeri=NS'.'&status='.$this->input->get('status').'&request_type='.$this->input->get('request_type').'&special_cat='.$this->input->get('special_cat'),$row->NS); 
 				?></td>
-				<td><?php echo anchor ('contentcontroller/Summary_chonology?from='.$from.'&to='.$to.'&nama='.$row->nama.'&negeri=ALL'.'&status='.$this->input->get('status').'&request_type='.$this->input->get('request_type'),$row->total); ?></td>
+				<td><?php echo anchor ('contentcontroller/Summary_chonology?from='.$from.'&to='.$to.'&nama='.$row->nama.'&negeri=ALL'.'&status='.$this->input->get('status').'&request_type='.$this->input->get('request_type').'&request_type='.$this->input->get('special_cat'),$row->total); ?></td>
 				<?php $totalALL+=$row->total;
 					  $totalJOH+=$row->JOH;
 					  $totalMKA+=$row->MKA;
@@ -71,10 +75,10 @@
 			<?php endforeach; ?>
 			<tr class="tbl">
 				<td>Grand Total</td>
-				<td><?php echo anchor ('contentcontroller/Summary_chonology?from='.$from.'&to='.$to.'&nama=ALL&negeri=JOH'.'&status='.$this->input->get('status').'&request_type='.$this->input->get('request_type'),$totalJOH); ?></td>
-				<td><?php echo anchor ('contentcontroller/Summary_chonology?from='.$from.'&to='.$to.'&nama=ALL&negeri=MKA'.'&status='.$this->input->get('status').'&request_type='.$this->input->get('request_type'),$totalMKA); ?></td>
-				<td><?php echo anchor ('contentcontroller/Summary_chonology?from='.$from.'&to='.$to.'&nama=ALL&negeri=NS'.'&status='.$this->input->get('status').'&request_type='.$this->input->get('request_type'),$totalNS); ?></td>
-				<td><?php echo anchor ('contentcontroller/Summary_chonology?from='.$from.'&to='.$to.'&nama=ALL&negeri=ALL'.'&status='.$this->input->get('status').'&request_type='.$this->input->get('request_type'),$totalALL); ?></td>
+				<td><?php echo anchor ('contentcontroller/Summary_chonology?from='.$from.'&to='.$to.'&nama=ALL&negeri=JOH'.'&status='.$this->input->get('status').'&request_type='.$this->input->get('request_type').'&special_cat='.$this->input->get('special_cat'),$totalJOH); ?></td>
+				<td><?php echo anchor ('contentcontroller/Summary_chonology?from='.$from.'&to='.$to.'&nama=ALL&negeri=MKA'.'&status='.$this->input->get('status').'&request_type='.$this->input->get('request_type').'&special_cat='.$this->input->get('special_cat'),$totalMKA); ?></td>
+				<td><?php echo anchor ('contentcontroller/Summary_chonology?from='.$from.'&to='.$to.'&nama=ALL&negeri=NS'.'&status='.$this->input->get('status').'&request_type='.$this->input->get('request_type').'&special_cat='.$this->input->get('special_cat'),$totalNS); ?></td>
+				<td><?php echo anchor ('contentcontroller/Summary_chonology?from='.$from.'&to='.$to.'&nama=ALL&negeri=ALL'.'&status='.$this->input->get('status').'&request_type='.$this->input->get('request_type').'&special_cat='.$this->input->get('special_cat'),$totalALL); ?></td>
 			</tr>
 
 
