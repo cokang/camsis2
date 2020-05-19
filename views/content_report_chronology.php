@@ -2,6 +2,9 @@
 	.middle_report_tbl .tbl td{
 		font-weight: bold;
 	}
+	#Instruction{
+		color: white;
+	}
 
 </style>
 <body>
