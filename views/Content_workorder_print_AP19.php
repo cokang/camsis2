@@ -120,7 +120,13 @@
 			<?php }else{ ?>
 			<?php } ?>
 			</div></td>
-			<td></td>
+			<td>TNC</td>
+			<td><div class="box2">
+			<?php if($woAP19[0]->V_priority_code == 'TNC'){?>
+			<img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/>
+			<?php }else{ ?>
+			<?php } ?>
+			</div></td>
 			<td></td>
 			<td>PIC	</td>
 			<td>:</td>
@@ -135,13 +141,38 @@
 			<?php }else{ ?>
 			<?php } ?>
 			</div></td>
-			<td></td>
+			<td>User Training</td>
+			<td><div class="box2">
+			<?php if($woAP19[0]->V_priority_code == 'UT'){?>
+			<img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/>
+			<?php }else{ ?>
+			<?php } ?>
 			<td></td>
 			<td>Team	</td>
 			<td>:</td>
 			<td style="border-bottom: 1px solid black;"><?=$woAP19[0]->V_User_dept_code;?></td>
 		</tr>
 
+		<td>Technical Advice</td>
+		<td></td>
+			<td><div class="box2">
+				<?php if($woAP19[0]->V_priority_code == 'TA'){?>
+			<img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/>
+			<?php }else{ ?>
+			<?php } ?>
+			</div></td>
+			<td>On Job Training</td>
+			<td><div class="box2">
+			<?php if($woAP19[0]->V_priority_code == 'OJT'){?>
+			<img src="<?php echo base_url(); ?>images/tick2.png" class="img-tick"/>
+			<?php }else{ ?>
+			<?php } ?>
+			<td></td>
+			<td>Letter</td>
+			<td>:</td>
+			<td style="border-bottom: 1px solid black;"><?=$woAP19[0]->V_Location_code;?></td>
+		</tr>
+		<tr>
 		<td>Others</td>
 		<td></td>
 			<td><div class="box2">
@@ -150,11 +181,7 @@
 			<?php }else{ ?>
 			<?php } ?>
 			</div></td>
-			<td></td>
-			<td></td>
-			<td>Letter</td>
-			<td>:</td>
-			<td style="border-bottom: 1px solid black;"><?=$woAP19[0]->V_Location_code;?></td>
+			
 		</tr>
 		<tr>
 			<td>Work Order No	</td>

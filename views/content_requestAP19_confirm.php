@@ -137,12 +137,13 @@
 										<tr>
 											<td style="padding-left:10px;" valign="top">Nature of visit :  </td>
 											<td style="padding-left:10px;" valign="top">
-												<input type="radio" id="radio-1-13" name="n_priority" class="regular-radio" value="RQ" disabled <?php echo set_radio('n_priority', 'RQ',TRUE); ?> />
+												<!-- <input type="radio" id="radio-1-13" name="n_priority" class="regular-radio" value="RQ" disabled <?php echo set_radio('n_priority', 'RQ',TRUE); ?> />
 												<label for="radio-1-13"></label> Breakdown<br>
 												<input type="radio" id="radio-1-14" name="n_priority" class="regular-radio" value="PPM" disabled <?php echo set_radio('n_priority', 'PPM'); ?>/>
 												<label for="radio-1-14"></label> PPM<br>
 												<input type="radio" id="radio-1-14" name="n_priority" class="regular-radio" value="Others" disabled <?php echo set_radio('n_priority', 'Others'); ?>/>
-												<label for="radio-1-14"></label> Other<br>
+												<label for="radio-1-14"></label> Other<br> -->
+												<?php echo form_dropdown('n_priority', $visit, set_value('n_priority',isset($record[0]->V_priority_code) ? $record[0]->V_priority_code : '') , 'class="dropdown" style="width: 150px;"'); ?>
 											</td>
 										</tr>
 										<tr>

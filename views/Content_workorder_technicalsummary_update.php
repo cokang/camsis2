@@ -1,4 +1,8 @@
-<?php echo form_open('rootcause_ctrl?wrk_ord='.$this->input->get('wrk_ord'));?>
+<?php echo form_open('rootcause_ctrl?wrk_ord='.$this->input->get('wrk_ord').'&mrin='.$this->input->get('mrin'));?>
+<?php if($this->input->get('mrin')!=null){
+	$wrkOrdOrMrin = $this->input->get('mrin');
+}else{ $wrkOrdOrMrin = $this->input->get('wrk_ord');
+	}?> 
 <div class="ui-middle-screen">
 	<div class="div-p"></div>
 	<div class="content-workorder" align="center">
@@ -37,17 +41,17 @@
 											<td style="padding-left:10px;" valign="top">Tick where appropriate :   </td>
 											<td style="padding-left:10px;" valign="top">
 												<?php $num = 1; $num2 = 1?>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="0"<?=set_radio('n_Case','0',TRUE)?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 0 ? 'checked' : '' ?>/>
+												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="0"<?=set_radio('n_Case','0',TRUE)?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 0 ? '' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Wear & Tear<br>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="1"<?=set_radio('n_Case','1')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 1 ? 'checked' : '' ?>/>
+												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="1"<?=set_radio('n_Case','1')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 1 ? '' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Accidental<br>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="2"<?=set_radio('n_Case','2')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 2 ? 'checked' : '' ?>/>
+												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="2"<?=set_radio('n_Case','2')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 2 ? '' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Obsolote model<br>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="3"<?=set_radio('n_Case','3')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 3 ? 'checked' : '' ?>/>
+												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="3"<?=set_radio('n_Case','3')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 3 ? '' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Mishandling<br>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="4"<?=set_radio('n_Case','4')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 4 ? 'checked' : '' ?>/>
+												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="4"<?=set_radio('n_Case','4')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 4 ? '' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Environmental<br>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="5"<?=set_radio('n_Case','5')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 5 ? 'checked' : '' ?>/>
+												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="5"<?=set_radio('n_Case','5')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 5 ? '' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Others<br>
 
 											</td>
@@ -92,28 +96,88 @@
 							<td colspan="2" class="ui-header-new"><b>CMIS</b> </td>
 						</tr>
 						<tr>	<td><div class="form-group" id="sick_leave_img">
-                  <label>Image Reference</label><br />
-                  <img src="<?php echo base_url(); ?>uploadassetimages/No_image_available.jpg" width="90%" title="Choose Your Picture" onclick="getFile()" name="file_name" id="file_name" value="picture"/>
+                  <!-- <label>Image Reference</label><br /> -->
+                  <!-- <img src="<?php echo base_url(); ?>uploadassetimages/No_image_available.jpg" width="90%" title="Choose Your Picture" onclick="getFile()" name="file_name" id="file_name" value="picture"/> -->
+				  
+									
+									
                 </div></td></tr>
+				<tr>
+										<td  ><label>Image Reference: </label>  
+										
+											<a href="javascript:void(0)" onclick="fCallCmisPhoto('<?=$wrkOrdOrMrin?>','CMIS')" value="z" ><span class="icon-plus" style="font-size:12px; color:green;" ></span> Add New </a></td>
+										
+										
+										
+									</tr>
+
+									<tr style="display:block" id="trcommaCMIS">
+										<td style="padding-left:10px; display:block;">
+										
+										<span style="display:inline-block;" id="spcommaCMIS"></span>
+										<span id="spcmis">
+										<?php
+										
+											foreach($recordcmis as $row){
+												$extension = explode(".",$row->com_id);
+
+												if ($extension[1] == 'docx' || $extension[1] == 'xlsx' || $extension[1] == 'pdf') {
+													echo "<span class='icon-play icon' style='font-size:15px;'></span><span style='font-size:15px; font-weight:bold;'>" .$row->component_name. "</span><a href=".base_url()."uploadmrinfiles/".$row->com_id."><span class='icon-file-text2 icon'></a></span><a href='javascript:fCallCmisPhotoDel(\"".$row->asset_no."\",\"".$row->Id."\",\"photo\");'><span class='icon-cross icon' style='color:red;'></span></a>";
+													echo '<br>';
+													}else{
+												echo "<span name='cmis$row->Id' class='icon-play icon' style='font-size:15px;'></span><span style='font-size:15px; font-weight:bold;'>" .$row->component_name. "</span> <br/><img src=".base_url()."uploadmrinfiles/".$row->com_id." style='max-width:90%; height:auto; padding-left:5px;' ><a href='javascript:fCallCmisPhotoDel(\"".$row->asset_no."\",\"".$row->Id."\",\"CMIS\");'><span class='icon-cross icon' style='color:red;'></span></a>";
+												echo '<br>';
+													}
+											}
+										
+										?>
+										
+										</span>
+										</td>
+									</tr>
 						
 					</table>
 				</div>
 				<div class="middle_d">
-					<table class="ui-content-form-reg" >
-						<tr class="ui-color-contents-style-1" height="30px">
-							<td colspan="2" class="ui-header-new"><b>Photo</b></td>
+					<table class="ui-content-form-reg">
+					<tr style="color:white;" height="30px">
+							<td colspan="2" class="ui-header-new"><b>Photo</b> </td>
 						</tr>
-						<tr><td><div class="form-group" id="sick_leave_img">
-                  <label>Image Reference</label><br />
-                  <img src="<?php echo base_url(); ?>uploadassetimages/No_image_available.jpg" width="90%" title="Choose Your Picture" onclick="getFile()" name="file_name" id="file_name" value="picture"/>
-                </div></td></tr>
-						<tr >
-							<td class="ui-desk-style-table">
-								<table class="ui-content-form" width="100%" border="0">
-								
-								</table>
-							</td>
-						</tr>
+					
+						
+						<tr>
+										<td ><label>Image Reference: </label><a href="javascript:void(0)" onclick="fCallCmisPhoto('<?=$wrkOrdOrMrin?>','photo')" value="z" ><span class="icon-plus" style="font-size:12px; color:green;" ></span> Add New </a></td>
+										<!--<td style="padding:10px;"><a href="" ><span class="icon-plus" style="font-size:12px; color:green;"></span> Add New</a></td>-->
+									
+										<td style="padding:10px;"></td>
+										
+									</tr>
+									<tr id="trcommaphoto">
+										<td style="padding-left:10px; " >
+										
+										<span style="display:inline-block;" id="spcommaphoto"></span>
+										<span id="spphoto">
+										<?php
+										
+											foreach($recordphoto as $row){
+												$extension = explode(".",$row->com_id);
+
+												if ($extension[1] == 'docx' || $extension[1] == 'xlsx' || $extension[1] == 'pdf') {
+													echo "<span class='icon-play icon' style='font-size:15px;'></span><span style='font-size:15px; font-weight:bold;'>" .$row->component_name. "</span><a href=".base_url()."uploadmrinfiles/".$row->com_id."><span class='icon-file-text2 icon'></a></span><a href='javascript:fCallCmisPhotoDel(\"".$row->asset_no."\",\"".$row->Id."\",\"photo\");'><span class='icon-cross icon' style='color:red;'></span></a>";
+													echo '<br>';
+													}else{
+												//if($line!=1&&$line!=2&&$line%2!=0)echo '<td>';
+												echo "<span class='icon-play icon' style='font-size:15px;'></span><span style='font-size:15px; font-weight:bold;'>" .$row->component_name. "</span> <br/><img src=".base_url()."uploadmrinfiles/".$row->com_id." style='max-width:20%; height:auto; padding-left:5px;' ><a href='javascript:fCallCmisPhotoDel(\"".$row->asset_no."\",\"".$row->Id."\",\"photo\");'><span class='icon-cross icon' style='color:red;'></span></a>";
+												echo '<br>';
+													}
+												
+											}
+										
+										?>
+										
+										</span>
+										</td>
+									</tr>
 					</table>
 				</div>
 			</div>
@@ -134,7 +198,7 @@
 									</tr>
 									<tr>
 										<td style="padding:10px;" valign="top">Remark Specialist Team   :   </td>
-									<td><td style="padding-left:10px;"><textarea class="Input n_com2" name="rc_remarkST"><?=set_value('n_finding',isset($record[0]->rthree) ? $record[0]->rthree : '')?></textarea></td></td>
+									<td><td style="padding-left:10px;"><textarea class="Input n_com2" name="rc_remarkST"></textarea></td></td>
 									</tr>
 								</table>
 							</td>
@@ -176,7 +240,7 @@
 												
 												<tr>
 										<td style="padding:10px;" valign="top">(*Attachments Received)   :   </td>
-									<td><td style="padding-left:10px;"><textarea class="Input n_com2" name="rc_technical"><?=set_value('n_finding',isset($record[0]->rthree) ? $record[0]->rthree : '')?></textarea></td></td>
+									<td><td style="padding-left:10px;"><textarea class="Input n_com2" name="rc_technical"></textarea></td></td>
 									</tr>
 												
 											
@@ -203,4 +267,5 @@
 		</table>				
 	</div>
 </div>
+<?php include 'content_jv_popup.php';?>
 <?php echo form_close(); ?>

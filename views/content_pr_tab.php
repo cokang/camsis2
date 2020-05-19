@@ -1,8 +1,8 @@
 <tr class="ui-left_web">
 	<?= ($this->input->get('tab') == '0') ? '<td class="ui-highlight" align="center" colspan="0" style=" height:30px; width:25%;">' : '<td class="ui-content-menu-desk-color" align="center" colspan="0" style=" height:30px; width:25%;">'?>
-	<?php echo anchor ('Procurement/e_pr?tab=0'.'&y='.$year.'&m='.$month, 'MRIN TO PO Approval'); ?></td>
-	<!---<?= ($this->input->get('tab') == '1') ? '<td class="ui-highlight" align="center" colspan="0" style="height:30px; width:25%;">' : '<td class="ui-content-menu-desk-color" align="center" colspan="0" style="width:25%;">'?>
-	<?php echo anchor ('Procurement/e_pr?tab=1'.'&y='.$year.'&m='.$month, 'Purchase Request'); ?></td> -->
+	<?php echo anchor ('Procurement/e_pr?tab=0'.'&y='.$year.'&m='.$month, 'PO Recommended'); ?></td>
+	<?= ($this->input->get('tab') == '1') ? '<td class="ui-highlight" align="center" colspan="0" style="height:30px; width:25%;">' : '<td class="ui-content-menu-desk-color" align="center" colspan="0" style="width:25%;">'?>
+	<?php echo anchor ('Procurement/e_pr?tab=1'.'&y='.$year.'&m='.$month, 'PO Approval'); ?></td> 
 	<?= ($this->input->get('tab') == '2') ? '<td class="ui-highlight" align="center" colspan="0" style="width:25%;">' : '<td class="ui-content-menu-desk-color" align="center" colspan="0" style="width:25%;">'?>
 	<?php echo anchor ('Procurement/e_pr?tab=2'.'&y='.$year.'&m='.$month, 'Purchase Order'); ?></td>
 </tr>

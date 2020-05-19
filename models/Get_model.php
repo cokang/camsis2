@@ -302,7 +302,7 @@ $this->db->where("(pmis2_egm_assetregistration.v_user_dept_code LIKE '%$departme
 //$this->db->where('pmis2_sa_equip_code.v_EffectiveDt_to > ', date('Y-m-d H:i:s'));
 //$this->db->where('pmis2_sa_equip_code.v_ActiveStatus = ', 'Y');
 $this->db->join('pmis2_egm_assetlocation','pmis2_egm_assetlocation.v_hospitalcode = pmis2_egm_assetregistration.v_hospitalcode AND pmis2_egm_assetregistration.v_user_dept_code = pmis2_egm_assetlocation.v_UserDeptCode AND pmis2_egm_assetregistration.v_location_code = pmis2_egm_assetlocation.V_location_code','left');
-$this->db->join('pmis2_sa_userdept','pmis2_sa_userdept.v_HospitalCode = pmis2_egm_assetregistration.v_hospitalcode AND pmis2_sa_userdept.v_UserDeptCode = pmis2_egm_assetregistration.v_user_dept_code','inner');
+$this->db->join('pmis2_sa_userdept','pmis2_sa_userdept.v_HospitalCode = pmis2_egm_assetregistration.v_hospitalcode AND pmis2_sa_userdept.v_UserDeptCode = pmis2_egm_assetregistration.v_user_dept_code','left');
 $this->db->join('pmis2_egm_assetreg_general','pmis2_egm_assetreg_general.v_hospital_code = pmis2_egm_assetregistration.v_hospitalcode AND pmis2_egm_assetreg_general.v_asset_no = pmis2_egm_assetregistration.v_asset_no ');
 $this->db->join('pmis2_egm_assetmaintenance','pmis2_egm_assetmaintenance.v_hospitalcode = pmis2_egm_assetregistration.v_hospitalcode AND pmis2_egm_assetmaintenance.v_assetno = pmis2_egm_assetregistration.v_asset_no ');
 
@@ -3006,7 +3006,7 @@ $query = $this->db->query("SELECT `sr`.`V_Request_no`, `sr`.`D_date`, `sr`.`V_re
 	//exit();
 	return $query->result();
 }
-function wodet($wrk_ord,$assetno){
+function wodet($wrk_ord,$assetno,$hosp=''){
 	$this->db->select('sr.*,d.v_UserDeptDesc,l.v_Location_Name,r.V_Asset_name,jd.v_AcceptedBy,jd.V_ACCEPTED_Designation,jd.v_ptest,jd.v_stest,IFNULL(TIMEDIFF(sr.v_closeddate,sr.D_date),0) as downtime,jd.v_QCPPM,jd.v_QCuptime,SUM(jv.n_PartTotal) as parttotal, SUM(jv.n_Total1 + jv.n_Total2 + jv.n_Total3) as labourtotal,jv.v_ActionTaken,jv.d_Reschdt, r.v_tag_no,jv.d_Date AS schedule_d',FALSE);
 	$this->db->from('pmis2_egm_service_request sr');
 	$this->db->join('pmis2_sa_userdept d','sr.V_User_dept_code = d.v_UserDeptCode AND sr.V_hospitalcode = d.v_HospitalCode','left');
@@ -3016,7 +3016,7 @@ function wodet($wrk_ord,$assetno){
 	$this->db->join('pmis2_egm_jobdonedet jd','sr.V_Request_no = jd.v_Wrkordno','left');
 	$this->db->where('sr.V_Request_no', $wrk_ord);
 	$this->db->where('sr.V_Asset_no', $assetno);
-	$this->db->where('sr.V_hospitalcode',$this->session->userdata('hosp_code'));
+	$this->db->where('sr.V_hospitalcode',$hosp==''?$this->session->userdata('hosp_code'):$hosp);
 	$this->db->where('sr.V_servicecode',$this->session->userdata('usersess'));
 	$this->db->where('d.v_ActionFlag <> ', 'D');
 	$query = $this->db->get();
@@ -4388,7 +4388,7 @@ function get_stock_asset($searchitem=""){
 		echo json_encode($query->result());
 	}
 
-		function reportChronology($datefrom, $dateto, $filterby){
+		function reportChronology($datefrom, $dateto, $filterby,$request_type=""){
 			$this->db->select("d.D_date,
 			b.nama, count(b.id) as total,
 			SUM(CASE
@@ -4413,6 +4413,9 @@ function get_stock_asset($searchitem=""){
 		}
 		if($filterby!='All'){
 			$this->db->where('d.V_request_status', $filterby);
+		}
+		if($request_type!='All'){
+			$this->db->where('d.V_request_type', $request_type);
 		}
 		$this->db->where('a.n_Visit', 1);
 		$this->db->where('b.id <>', 1);
@@ -4499,6 +4502,87 @@ function get_stock_asset($searchitem=""){
 			//echo $this->db->last_query();
 			//exit();
 			return $query->result();
+		}
+
+		function get_cmis($wo,$id=''){
+			$this->db->select('*');
+			$this->db->from('component_details');
+			$this->db->where('asset_no',$wo);
+			$this->db->where('flag <>','D');
+			if($id!='')$this->db->where('Id',$id);
+			$this->db->where('SUBSTRING_INDEX(com_id, "_", 1)=', 'cmis');
+			$this->db->order_by('com_id','DESC');
+			$query = $this->db->get();
+			// echo $this->db->last_query();
+			//echo '<br><br>';
+			//exit();
+			return $query->result();
+		}
+
+		function get_photo($wo,$id=''){
+			$this->db->select('*');
+			$this->db->from('component_details');
+			$this->db->where('asset_no',$wo);
+			$this->db->where('flag <>','D');
+			if($id!='')$this->db->where('Id',$id);
+			$this->db->where('SUBSTRING_INDEX(com_id, "_", 1)=', 'photo');
+			$this->db->order_by('com_id','DESC');
+			$query = $this->db->get();
+			//echo $this->db->last_query();
+			//echo '<br><br>';
+			//exit();
+			return $query->result();
+		}
+
+		function get_allHospitalCode(){
+			$this->db->select('v_HospitalCode');
+			$this->db->from('pmis2_sa_hospital');
+			$this->db->where('v_HospitalAdd1 like',  '%hospital%');
+			$this->db->order_by('v_statename,v_HospitalCode', 'asc');
+			$query = $this->db->get();
+			//echo $this->db->last_query();
+			$array[''] = "All";
+			foreach($query->result() as $row ){
+					$array[$row->v_HospitalCode] = $row->v_HospitalCode;
+			}
+			return $array;
+
+		}
+
+		function get_typeOfWorkOrder(){
+			$request = array('A10','AP', 'AP1', 'A4', 'AP19');
+			//print_r($request); exit();
+			$this->db->distinct();
+			$this->db->select("V_request_type, case when V_request_type='A4' then 'ASIS'
+			when V_request_type='A10' then 'Advisory Service'
+			when V_request_type='AP' then 'Internal Request'
+			when V_request_type='AP1' then 'Equipment Audit'
+			when V_request_type='AP19' then 'AP Service Report'
+			end as wrkOrdDetails");
+			$this->db->from('pmis2_egm_service_request');
+			$this->db->where_in('V_request_type',  $request);
+			$query = $this->db->get();
+			// echo $this->db->last_query(); exit();
+			$array[''] = "All";
+			foreach($query->result() as $row ){
+					$array[$row->V_request_type] = $row->V_request_type . ' - ' . $row->wrkOrdDetails;
+			}
+			return $array;
+
+		}
+
+
+		function get_natureOfVisit(){
+			//print_r($request); exit();
+			$this->db->select("*");
+			$this->db->from('tbl_nature_visit');
+			$query = $this->db->get();
+			// echo $this->db->last_query(); exit();
+			foreach($query->result() as $row ){
+					$array[$row->code] = $row->description;
+			}
+			return $array;
+
 		}
 
 }

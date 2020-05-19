@@ -364,6 +364,16 @@ function fCallLocatioa(mrinno,tag)
 		Win.window.focus();
  			
 	}
+	function pop_asset_maint_history(assettag, assetno){
+	winProp = 'width=700,height=400,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
+	if(assetno!=''){
+	Win = window.open('contentcontroller/pop_maint_history?assettag='+assettag+'&assetno='+assetno, 'assetnumber', winProp);
+	Win.window.focus();
+	}else
+				{
+				alert('Please Choose Workorder..');
+				}
+	}
 </script>
 <?php }elseif(($this->input->get('po') == 'update') and ($this->input->get('pr') == 'pen')){ ?>
 <script>
@@ -838,5 +848,45 @@ if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 				alert('Please Choose Workorder..');
 				}
 }
+
+	function fCallCmisPhoto(wo,tag){
+	winProp = 'width=450,height=270,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
+	Win = window.open('<?php if ($this->uri->slash_segment(2) != 'e_pr/') { echo "rootcause_image";} else { echo "asset3_comm_new"; }?>?wo=' + wo + '&act=addnew' + '&tag=' + tag, 'Location', winProp);
+	Win.window.focus();
+	}
+	function fCallCmisPhotoDel(wo, id, tag)
+	{
+		var url		=	'<?php echo base_url ('index.php/contentcontroller/rootcause_image') ?>?wo='+wo+'&id='+id+'&act=delete'+'&tag='+tag;
+		winProp = 'width=450,height=270,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
+		Win = window.open(url, 'Location', winProp);
+		Win.window.focus();
+ 			
+	}
+	function fCallCmisPhotoEdit(wo, id, tag)
+	{
+		var url		=	'<?php echo base_url ('index.php/contentcontroller/rootcause_image') ?>?wo='+wo+'&id='+id+'&act=update'+'&tag='+tag;
+		winProp = 'width=450,height=270,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
+		Win = window.open(url, 'Location', winProp);
+		Win.window.focus();
+ 			
+	}
+	function refresh_cmisphoto(wo,tag)
+	{
+		setTimeout(function() {
+			var url		=	'<?php echo base_url ('index.php/ajaxrootcause') ?>?wo='+wo+'&tag='+tag;
+	 		document.getElementById('spcomma'+tag).innerHTML = '';
+			$('#spcomma'+tag).load(url);
+	 		document.getElementById('trcomma'+tag).style.display='block';
+	 		if (tag == 'CMIS') {
+	 		document.getElementById('spcmis').style.display='none';
+			 document.getElementById('addcmis').style.display='none';
+	 		}
+	 		else {
+	 		document.getElementById('spphoto').style.display='none';
+	 		}
+		document.body.style.cursor='default';
+		} ,300);
+ 			
+	}
 </script>
 <?php } ?>

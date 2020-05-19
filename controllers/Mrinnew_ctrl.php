@@ -264,6 +264,12 @@ class Mrinnew_ctrl extends CI_Controller{
 					}
 				}
 				$this->insert_model->insertmrincomp_b($insert_item);
+				$update_data = array('asset_no' => $data['new_mrin'][0]->mrinno,
+												 'flag' => 'U',
+												 'Date_time_stamp' => date("Y-m-d H:i:s"));
+
+
+						$this->update_model->update_delete_photo($update_data,$this->input->post('n_request'));
 			}
 		}
 		else{

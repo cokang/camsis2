@@ -443,11 +443,12 @@ class Procurement extends CI_Controller {
 			}
 			//echo "nilai search : ".$search;
 		$data['tab']= ($this->input->get('tab') != '') ? $this->input->get('tab') : 0;
-		if ($data['tab'] != 2){
+		//if ($data['tab'] != 2){
+		if ($data['tab'] == 0){
 			$data['record'] = $this->display_model->prlist($data['month'],$data['year'],$this->input->get('tab'));
 		}
 		else{
-			$data['record'] = $this->display_model->polist($data['month'],$data['year'],$search);
+			$data['record'] = $this->display_model->polist($data['month'],$data['year'],$search,$data['tab']);
 		}
 		function toArray($obj)
 {
@@ -456,6 +457,7 @@ class Procurement extends CI_Controller {
 }
     $idArray = array_map('toArray', $this->session->userdata('accessr'));
 
+		$data['user'] = $this->display_model->user_class($this->session->userdata('v_UserName'));
 		//echo "nilai id : ".print_r($idArray);
 		$data['chkers'] = $idArray;
 		//print_r($data['record']);
@@ -515,7 +517,7 @@ class Procurement extends CI_Controller {
 			case "PDX" :
 			case "KPL" :
 			case "SBN" :
-       $hoswakil = "Amirul Shazwan bin Amran";
+       $hoswakil = "Kamarulnizam bin Abu Hassan";
 			 //$hospapa = "SBN";
 			 break;
     	case "IIU":
@@ -679,6 +681,8 @@ class Procurement extends CI_Controller {
 		elseif($this->input->get('powhat') == 'update') {
 
 
+			$poNo= $this->input->get('po');
+			$data['WO_detail'] = $this->display_model->wo_detail_pofollow($poNo);
 			//print_r($data);
 			$this ->load->view("Content_po_follow_up2_update",$data);
 		}
@@ -1288,6 +1292,90 @@ class Procurement extends CI_Controller {
 	public function resetmirn(){
 		$this ->load->view("headprinter");
 		$this ->load->view("content_resetmirn");
+	}
+
+	public function recommendPO(){
+		$action = $this->input->post('action');
+		$mrin = $this->input->post('mrin');
+		$this->load->model('update_model');
+				$this->load->model('insert_model');
+				$this->load->model('display_model');
+				$this->load->model('get_model');
+
+				$data['PO_mrin'] = $this->display_model->checkPO($mrin);
+				/*
+							$insert_data = array('MirnCode' => $mrin,
+								 'Payment_Opt' => 'COD');
+							if($data['PO_mrin']==null)$this->insert_model->mrin_payment($insert_data);
+							*/
+							$data['itemrec'] = $this->display_model->itemdet($mrin);
+							foreach($data['itemrec'] as $row){
+								$insert_data = array('QtyReqfx' => $row->QtyReq,
+						'DtApprv1x' => date("Y-m-d H:i:s"),
+						'Unit_Costx' => $row->Unit_Cost,
+						'ApprvRmk1x' => $row->ApprvRmk,
+						'Part_Exchg' =>  0);
+							}
+							$this->update_model->mrincomp_u($insert_data,$mrin);
+							$data['newpr'] = $this->get_model->nextprnumber();
+
+
+							$update_data = array('PR_No' => $data['newpr'][0]->prno);
+
+							$this->update_model->tbl_pr_mirn($update_data,$mrin);
+							$insert_pr = array('PRNo' => $data['newpr'][0]->prno,
+							   'DT_Released' => date("Y-m-d H:i:s"),
+							   //'Procure_Logis_Comen' => $this->input->post('n_remark'),
+							   'Procure_Logis_Status' => $action,
+							   'Apprv_By' => $this->session->userdata('v_UserName'),
+							   'SM_Status' => $action,
+							   'DT_Apprv' => date("Y-m-d H:i:s"));
+							   if($data['PO_mrin']==null)$this->insert_model->tbl_pr($insert_pr);
+							$insert_app = array('PR_No' => $data['newpr'][0]->prno,
+								'WHO_Apprv' => 'SM'.'-'.$this->session->userdata('v_UserName'));
+								if($data['PO_mrin']==null)$this->insert_model->tbl_pr_apprv($insert_app);
+							$update_prno = array('pr_next_no' => $data['newpr'][0]->pr_next_no + 1,
+								 'userid' => $this->session->userdata('v_UserName'));
+							$this->update_model->updatepr($update_prno,date('Y'));
+							// $insert_pr = array(//'SM_Comen' => $this->input->post('n_remark'),
+							//    'SM_Status' => '4',
+							//    //'vendor_rmk' => $this->input->post('n_remark'),
+							//    'Apprv_By' => $this->session->userdata('v_UserName'),
+							//    'DT_Apprv' => date("Y-m-d H:i:s"));
+							//$this->update_model->tbl_pr_u($insert_pr,$data['newpr'][0]->prno);
+							$data['newpo'] = $this->get_model->nextponumber($mrin);
+							$insert_po = array(
+								'MIRN_No' => $mrin,
+							   'PO_No' => $data['newpo'][0]->pono,
+							   'Vendor_No' => $data['itemrec'][0]->ApprvRmk1x);
+							   if($action==4){
+								   $insert_po['status']= 1;
+							   }
+							   if($data['PO_mrin']==null){
+								   $this->insert_model->tbl_po_mirn($insert_po);
+							}else{
+								unset($insert_po['MIRN_No'],$insert_po['PO_No'],$insert_po['Vendor_No']);
+								$this->update_model->update_PO_MRIN($mrin, $insert_po);
+							}
+							$update_pono = array('po_next_no' => $data['newpo'][0]->po_next_no + 1,
+								 'userid' => $this->session->userdata('v_UserName'));
+							$this->update_model->updatepo($update_pono,date('Y'));
+							$insert_tbl_po = array('PO_No' => $data['newpo'][0]->pono,
+							   'PO_Date' => date("Y-m-d"),
+								 'visit' => '1');
+								 if($data['PO_mrin']==null)$this->insert_model->tbl_po($insert_tbl_po);
+
+	}
+
+	public function approvalPO(){
+		$action = $this->input->post('action');
+		$mrin = $this->input->post('mrin');
+		$this->load->model('update_model');
+		$update_data = array('status' => $action);
+		$this->update_model->update_PO_MRIN($mrin, $update_data);
+		if($action==0){
+		$update_data = array('PR_No' => null);
+		$this->update_model->update_PR_MRIN($mrin, $update_data);}
 	}
 
 

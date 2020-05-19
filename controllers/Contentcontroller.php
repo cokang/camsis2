@@ -443,6 +443,7 @@ class Contentcontroller extends CI_Controller {
   $data['time'] = !empty($data['record']) ? explode(':',$data['record'][0]->D_time) : NULL;
   if($data['record'][0]->V_request_type == 'AP19'){
   $data['record'] = $this->get_model->request_updateAP19($data['wrk_ord']);
+  $data['visit'] = $this->get_model->get_natureOfVisit();
   $this ->load->view("Content_requestAP19",$data);
   }else{
   $this ->load->view("Content_workorderlist_update",$data);
@@ -1719,14 +1720,40 @@ class Contentcontroller extends CI_Controller {
 	}
 		public function technicalsummary(){
 		$this->load->model('display_model');
+		$this->load->model('get_model');
 		$data['record'] = $this->display_model->rootcause($this->input->get('wrk_ord'));
+		if($data['record']!=null){
+		$workorderOrMrin = $data['record'][0]->DocReferenceNo==''?$this->input->get('wrk_ord'):$data['record'][0]->DocReferenceNo;
+		$data['mrin']= $data['record'][0]->DocReferenceNo;
+
+		}else{
+			$data['mrin'] = null;
+			$data['recordcmis'] = null;
+			$data['recordphoto'] = null;
+			$workorderOrMrin = $this->input->get('wrk_ord');
+		}
+		$data['recordcmis'] = $this->get_model->get_cmis($workorderOrMrin);
+		$data['recordphoto'] = $this->get_model->get_photo($workorderOrMrin);
 		$this ->load->view("head");
 		$this ->load->view("left");
 		$this ->load->view("Content_workorder_technicalsummary",$data);
 	}
 		public function technicalsummary_update(){
 		$this->load->model('display_model');
+		$this->load->model('get_model');
 		$data['record'] = $this->display_model->rootcause($this->input->get('wrk_ord'));
+		if($data['record']!=null){
+			$workorderOrMrin = $data['record'][0]->DocReferenceNo==''?$this->input->get('wrk_ord'):$data['record'][0]->DocReferenceNo;
+			$data['mrin']= $data['record'][0]->DocReferenceNo;
+
+			}else{
+				$data['mrin'] = null;
+				$data['recordcmis'] = null;
+				$data['recordphoto'] = null;
+				$workorderOrMrin = $this->input->get('wrk_ord');
+			}
+			$data['recordcmis'] = $this->get_model->get_cmis($workorderOrMrin);
+			$data['recordphoto'] = $this->get_model->get_photo($workorderOrMrin);
 		$this ->load->view("head");
 		$this ->load->view("left");
 		$this ->load->view("Content_workorder_technicalsummary_Update",$data);
@@ -2055,7 +2082,8 @@ class Contentcontroller extends CI_Controller {
 
     		//echo "nilai id : ".print_r($idArray);
     		$data['chkers'] = $idArray;
-
+//print_r($data);
+//exit();
 		$this ->load->view("head");
 		$this ->load->view("left",$data);
 		$this ->load->view("content_assetupdate",$data);
@@ -3819,10 +3847,17 @@ class Contentcontroller extends CI_Controller {
 				}
 			}
 		}
+		$data['hospitalcodes'] = $this->get_model->get_allHospitalCode();
+		$data['typeOfWrkOrd'] = $this->get_model->get_typeOfWorkOrder();
+
 		//$data['record'] = $this->display_model->rpt_volu($data['month'],$data['year'],$this->input->get('stat'),$data['reqtype'],$this->input->get('broughtfwd'),$data['grpsel'],$pilape,$data['tag'],$data['cm'],$data['limab'],$data['bfwd'],"",$data['fon']);
     if ($this->input->get('broughtfwd') != ''){
 			$data['record'] = $this->display_model->rpt_volu($data['month'],$data['year'],$this->input->get('stat'),$data['reqtype'],$this->input->get('broughtfwd'),$data['grpsel'],$pilape,$data['tag'],$data['cm'],$data['limab'],$data['bfwd'],"",$data['fon']);
-		}else{
+		}
+    else if($this->input->get('req')== 'AP19'){
+      $data['record'] = $this->display_model->report_ap19($data['month'],$data['year']);
+    }
+    else{
 			$data['record'] = $this->display_model->rpt_volu($data['from'],$data['to'],$this->input->get('stat'),$data['reqtype'],$this->input->get('broughtfwd'),$data['grpsel'],$pilape,$data['tag'],$data['cm'],$data['limab'],$data['bfwd'],"",$data['fon']);
 		}
 		//print_r($data['record']);
@@ -6838,7 +6873,8 @@ class Contentcontroller extends CI_Controller {
 		}
 		else{
 			if (substr($data['wrk_ord'],0,2) != 'PP'){
-				$data['records'] = $this->get_model->wodet($data['wrk_ord'],$data['assetno']);
+				//$data['records'] = $this->get_model->wodet($data['wrk_ord'],$data['assetno']);
+        $data['records'] = $this->get_model->wodet($data['wrk_ord'],$data['assetno'],$this->input->get('hosp'));
 				$data['parts'] = $this->get_model->partrep($data['wrk_ord']);
 				if ($data['parts']) {
 				foreach ($data['parts'] as $row){
@@ -8818,6 +8854,8 @@ $this ->load->view("Content_workorder_chronologyplusupdate",$data);
 
 
 public function request_AP19(){
+	$this->load->model('get_model');
+  $data['visit'] = $this->get_model->get_natureOfVisit();
   if ($this->input->post('segment')){
   $this->load->helper(array('form', 'url'));
   // load library for form validation
@@ -8835,19 +8873,19 @@ public function request_AP19(){
   {
   $this ->load->view("head");
   $this ->load->view("left");
-  $this ->load->view("Content_requestAP19");
+  $this ->load->view("Content_requestAP19",$data);
   }
 
   else
   {
   $this ->load->view("head");
   $this ->load->view("left");
-  $this ->load->view("content_requestAP19_confirm");
+  $this ->load->view("content_requestAP19_confirm",$data);
   }
   }else{
   $this ->load->view("head");
   $this ->load->view("left");
-  $this ->load->view("Content_requestAP19");
+  $this ->load->view("Content_requestAP19",$data);
   }
 
 
@@ -8935,12 +8973,13 @@ public function report_chronology(){
 		$end = (date("Y-12-31",time()));
 		$from = $this->input->get('from') ? $this->input->get('from') : $start;
 		$to = $this->input->get('to') ? $this->input->get('to') : $end;
-		$filterby= $this->input->get('status');
+    $filterby= $this->input->get('status')? $this->input->get('status') : 'All';
+		$request_type = $this->input->get('request_type')? $this->input->get('request_type') : 'All';
 		//$from = $this->input->get('from') ? $this->input->get('from') : '';
 		//$to = $this->input->get('to') ? $this->input->get('to') : '';
 		$data['from']=$from;
 		$data['to']=$to;
-		$data['det'] =$this->get_model->reportChronology($from, $to,$filterby);
+    $data['det'] =$this->get_model->reportChronology($from, $to,$filterby,$request_type);
 		$this ->load->view("head");
 		$this ->load->view("content_report_chronology",$data);
 	}
@@ -8952,12 +8991,13 @@ public function report_chronology(){
 		$nama = $this->input->get('nama');
 		$negeri = $this->input->get('negeri');
 		$filterby= $this->input->get('status');
+		$request_type= ($this->input->get('request_type')) ? $this->input->get('request_type') : "All";
 		// echo 'test'.$nama.$negeri;
 		// exit();
         //$data['records'] = $this->display_model->chrology_sum_report($from, $to,$nama,$negeri);
 
     		$data['year']= date("Y");
-    		$data['records'] = $this->display_model->chrology_sum_report($from, $to,$nama,$negeri,$filterby);
+    		$data['records'] = $this->display_model->chrology_sum_report($from, $to,$nama,$negeri,$filterby,$request_type);
     		$cost[]='';
     		if($data['records']!=null){
     		foreach($data['records'] as $key => $val){
@@ -9066,11 +9106,205 @@ $this ->load->view("report-a10.php",$data);
     		$this->load->model('display_model');
     		$this->load->model("get_model");
     		$data['wrk_ord'] = $this->input->get('wrk_ord');
-    		$data['record'] = $this->display_model->rootcause($this->input->get('wrk_ord'));
+			$data['record'] = $this->display_model->rootcause($this->input->get('wrk_ord'));
+			if($data['record']!=null){
+				$workorderOrMrin = $data['record'][0]->DocReferenceNo==''?$this->input->get('wrk_ord'):$data['record'][0]->DocReferenceNo;
+				$data['mrin']= $data['record'][0]->DocReferenceNo;
+
+				}else{
+					$data['mrin'] = null;
+					$data['recordcmis'] = null;
+					$data['recordphoto'] = null;
+					$workorderOrMrin = $this->input->get('wrk_ord');
+				}
+				$data['recordcmis'] = $this->get_model->get_cmis($workorderOrMrin);
+				$data['recordphoto'] = $this->get_model->get_photo($workorderOrMrin);
     		$this ->load->view("headprinter");
     		$this->load->view("Content_rootcause_print", $data);
-    	}
+		}
+  		public function rootcause_image(){
+  			//echo $this->db->last_query();
+  			$this->load->model('get_model');
+  			if ($this->input->get('tag') == 'CMIS'){
+  				$data['cmisdata'] = $this->get_model->get_cmis($this->input->get('wo'),$this->input->get('id'));
+  			}
+  			else{
+  				$data['photodata'] = $this->get_model->get_photo($this->input->get('wo'),$this->input->get('id'));
+  			}
 
+  			if ($this->input->get('MC') == '1'){
+
+  				$data['comp_details'] = $this->get_model->comprunno();
+  				if ($_FILES){
+  					$config['upload_path']          = 'C:\wamp64\www\camsis\uploadmrinfiles';
+  					//$config['upload_path']          = '/var/www/vhosts/camsis2.advancepact.com/httpdocs/uploadmrinfiles';
+  					$config['allowed_types']        = 'jpg|jpeg|gif|tif|png|doc|docx|xls|xlsx|pdf';
+  					$config['max_size']             = '3000';
+  					$config['max_width']            = 'auto';
+  					$config['max_height']           = 'auto';
+  					$ext = explode(".",$_FILES["image_file"]['name']);
+
+  					if ($this->input->get('tag') == 'CMIS'){
+  						$new_name = 'cmis_'.$data['comp_details'][0]->component_no.'.'.$ext[1];
+  					}
+  					else{
+  						$new_name = 'photo_'.$data['comp_details'][0]->component_no.'.'.$ext[1];
+  					}
+
+  					$config['file_name'] = $new_name;
+  					$data['upload_data']['client_name'] = $new_name;
+
+  					$this->load->library('upload', $config);
+
+  					if ( ! $this->upload->do_upload('image_file'))
+  					{
+  							$data['error'] = array($this->upload->display_errors());
+  					}
+  					else
+  					{
+
+  							$data['upload_data'] = $this->upload->data();
+
+
+  								$data['upload_data']['asset_no'] = $this->input->get('wo');
+  								$data['upload_data']['component_name'] = $this->input->post('att_name');
+  								$data['upload_data']['com_id'] = $data['upload_data']['file_name'];
+  								$data['upload_data']['user_id'] = $this->session->userdata('v_UserName');
+
+
+  							if ($this->input->get('id') == ''){
+  								$this->load->model('insert_model');
+
+  									$insert_data = array('asset_no' => $data['upload_data']['asset_no'],
+  														 'component_name' => $data['upload_data']['component_name'],
+  														 'com_id' => $data['upload_data']['com_id'],
+  														 'com_path' => $data['upload_data']['file_path'],
+  														 'flag' => 'I',
+  														 'Date_time_stamp' => date("Y-m-d H:i:s"),
+  														 'user_id' => $data['upload_data']['user_id']);
+
+  									$data['insertid'] = $this->insert_model->upload_cmisphoto($insert_data);
+
+
+  							}
+
+
+  					}
+  				}
+  			}
+  			else{
+  				$data['upload_data'] = NULL;
+  				$data['insertid'] = '';
+  			}
+
+
+  			//print_r($data);exit();
+  			$this ->load->view("head");
+  			$this ->load->view("rootcause_uploadimg",$data);
+  		}
+
+  		public function update_delete_cmisphoto(){
+
+  			$this->load->model('update_model');
+  			if($this->input->get('act') != 'addnew'){
+  			if ($this->input->get('act') == 'delete'){
+  				$update_data = array('flag' => 'D',
+  									 'Date_time_stamp' => date("Y-m-d H:i:s"),
+  									 'user_id' => $this->session->userdata('v_UserName'));
+  			}
+  			else if ($this->input->get('act') == 'update'){
+  					$update_data = array('component_name' => $this->input->post('att_name'),
+  										 'flag' => 'U',
+  										 'Date_time_stamp' => date("Y-m-d H:i:s"),
+  										 'user_id' => $this->session->userdata('v_UserName'));
+
+  			}
+  				$this->update_model->update_delete_photo($update_data,$this->input->get('wo'),$this->input->get('id'));
+
+  		}
+
+
+  			$this ->load->view("rootcause_uploadimg");
+  		}
+
+      public function root_cause(){
+
+  			  $this->load->model("display_model");
+  			  $this->load->model("get_model");
+  			$data['records'] = $this->display_model->list_hospinfo();
+  			$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
+  			$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+  			$date = new DateTime('now');
+  			$date->modify('first day of this month');
+  			$start = $date->format('Y-m-d');
+  			$date->modify('last day of this month');
+  			$end = $date->format('Y-m-d');
+  			$from = $this->input->get('from') ? $this->input->get('from') : $start;
+  			$to = $this->input->get('to') ? $this->input->get('to') : $end;
+  			$data['from']=$from;
+  			$data['to']=$to;
+  			$data['special_cat'] = $this->get_model->get_special_cat();
+
+  			$data['limit'] =50;
+  			$this->input->get('p') ? $data['page'] = $_GET['p'] : $data['page'] = 1;
+  			$data['start'] = ($data['page'] * $data['limit']) - $data['limit'];
+
+
+
+  			$data['hospitalcodes'] = $this->get_model->get_allHospitalCode();
+  			$data['typeOfWrkOrd'] = $this->get_model->get_typeOfWorkOrder();
+  			$data['hosp'] =  $this->input->get('hospitalcodes') ? $this->input->get('hospitalcodes') : '';
+  			$data['status'] = $this->input->get('req_status') ? $this->input->get('req_status') : '';
+  			$data['wrkordtype'] = $this->input->get('typeOfWrkOrd') ? $this->input->get('typeOfWrkOrd') : '';
+
+  			$data['rec'] = 	 $this->display_model->report_rootcause($data['from'],$data['to'],$data['hosp'],$data['status'],$data['wrkordtype'], $data['limit'], $data['start'], 1);
+  			if($data['rec'][0]->jumlah > ($data['page'] * $data['limit']) ){
+  				$data['next'] = ++$data['page'];
+  			}
+  			$data['record'] = $this->display_model->report_rootcause($data['from'],$data['to'],$data['hosp'],$data['status'],$data['wrkordtype'], $data['limit'], $data['start']);
+  			// print_r($data['record']);
+  			//exit();
+  			if ($this->input->get('pdf') == 1){
+  			$this ->load->view("Content_report_rootcause_pdf", $data);
+  			}else{
+  			$this->load->view("headprinter");
+  				  $this ->load->view("Content_report_rootcause", $data);
+
+  			}
+  		}
+
+      		public function root_cause_byWoMRIN(){
+
+      			$this->load->model("display_model");
+      			$this->load->model("get_model");
+      			$data['records'] = $this->display_model->list_hospinfo();
+      			$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
+      			$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+      		    $results = $this->input->post('searchBy') ? $this->input->post('searchBy') : '';
+
+      			if (strlen($results) > 0) {
+      			$data['record'] = $this->display_model->report_rootcause_byWoMrin($results);
+      			}else{
+      				$data['record']=  array( );
+      			}
+
+      		  //print_r($data['record']);
+      		  //exit();
+
+      		  $this->load->view("headprinter");
+      				$this ->load->view("Content_report_rootcause_WoMrin", $data);
+
+
+      	  }
+
+      	  public function pop_maint_history(){
+      			$this->load->model('display_model');
+
+      			$data['record'] = $this->display_model->asset_maint_history($this->input->get('assettag'),$this->input->get('assetno'));
+      			//print_r($data['record']);
+      			$this->load->view("head");
+      			$this->load->view("content_pop_maint_history",$data);
+      		}
 
 }
 ?>

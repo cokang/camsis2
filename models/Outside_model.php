@@ -36,6 +36,7 @@ parent::__construct();
 	{
 		$DBo = $this->load->database('ibu', TRUE);
 		$DBo->where('v_userid', $this->input->post('name'));
+		$DBo->where('v_Actionflag <>', 'D');
 		$DBo->where('v_password',md5($this->input->post('password')));
 		$query = $DBo->get('pmis2_sa_user');
 		$DBo->close();
@@ -48,6 +49,7 @@ parent::__construct();
 	function matchpass(){
 	  $DBo = $this->load->database('ibu', TRUE);
 		$DBo->where('v_userid', $this->input->post('username'));
+		$DBo->where('v_Actionflag <>', 'D');
 		$DBo->where('v_password',md5($this->input->post('opassword')));
 		$query = $DBo->get('pmis2_sa_user');
 		$DBo->close();
@@ -95,6 +97,7 @@ parent::__construct();
 		$DBo = $this->load->database('ibu', TRUE);
 		$DBo->select('datediff(now(), IFNULL(a.v_sec_dt,now())) AS dayer, b.valid_period',false) ;
 		$DBo->where('v_userid', $userid);
+		$DBo->where('v_Actionflag <>', 'D');
 		//$DBo->join('pmis2_sa_passvalidity b','a.v_hospitalcode = b.hosp');
 		$DBo->join('pmis2_sa_passvalidity b',"b.hosp = 'iam'");
 		$query = $DBo->get('pmis2_sa_user a');

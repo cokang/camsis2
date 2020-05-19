@@ -696,6 +696,30 @@ function updaterootcause($insert_data,$wo){
 	$this->db->update('tbl_materialreq',$insert_data);
 }
 
+function update_delete_photo($insert_data,$assetno,$id=''){
+	$this->db->where('asset_no',$assetno);
+	if($id!=''){
+		$this->db->where('Id',$id);
+	}else{
+		$this->db->where('flag <>', 'D');
+	}
+	$this->db->update('component_details',$insert_data);
+	//echo $this->db->last_query();
+	//exit();
+}
+
+function update_PO_MRIN($mrin, $update_data){
+	$this->db->where('MIRN_No',$mrin);
+	$this->db->update('tbl_po_mirn',$update_data);
+
+}
+
+function update_PR_MRIN($mrin, $update_data){
+	$this->db->where('MIRN_No',$mrin);
+	$this->db->update('tbl_pr_mirn',$update_data);
+
+}
+
 
 }
 ?>

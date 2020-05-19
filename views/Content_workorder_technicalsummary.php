@@ -10,8 +10,8 @@
 				<td class="pd-bttm" colspan="11" valign="top">
 				<div id="Instruction" class="pr-printer">
 		<!-- <button onclick="javascript:window.print();" class="btn-button btn-primary-button">PRINT</button> -->
-		<?php echo anchor ('contentcontroller/print_rootcause?wrk_ord='.$this->input->get('wrk_ord'), '<button class="btn-button btn-primary-button" style="width:10%; height:33px;">Print Root Cause</button>'); ?>
-		<?php echo form_open('contentcontroller/technicalsummary_update?wrk_ord='.$this->input->get('wrk_ord'));?>
+		<?php echo anchor ('contentcontroller/print_rootcause?wrk_ord='.$this->input->get('wrk_ord'), '<button class="btn-button btn-primary-button" style="width:20%; height:33px;">Print Root Cause <i class="icon-printer"></i></button>'); ?>
+		<?php echo form_open('contentcontroller/technicalsummary_update?wrk_ord='.$this->input->get('wrk_ord').'&mrin='.$mrin);?>
 	</div> </tr>
 					<table width="98%" class="ui-content-middle-menu-workorder" style="">
 						<tr class="ui-color-contents-style-1" height="30px">
@@ -28,17 +28,17 @@
 									<td width='30%'><b>1. MRIN</b></td>
 									<td style="padding-left:10px;" valign="top">
 												<?php $num = 1; $num2 = 1?>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="0"<?=set_radio('n_Case','0')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 0 ? 'checked' : '' ?>/>
+												<input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="0"<?=set_radio('n_Case','0')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 0 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> BD
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="4"<?=set_radio('n_Case','4')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 4 ? 'checked' : '' ?>/>
+												<input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="4"<?=set_radio('n_Case','4')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 4 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> RW
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="1"<?=set_radio('n_Case','1')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 1 ? 'checked' : '' ?>/>
+												<input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="1"<?=set_radio('n_Case','1')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 1 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> PPM
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="2"<?=set_radio('n_Case','2')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 2 ? 'checked' : '' ?>/>
+												<input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="2"<?=set_radio('n_Case','2')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 2 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Stock
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="3"<?=set_radio('n_Case','3')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 3 ? 'checked' : '' ?>/>
+												<input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="3"<?=set_radio('n_Case','3')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 3 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Vendor
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="5"<?=set_radio('n_Case','5')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 5 ? 'checked' : '' ?>/>
+												<input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="5"<?=set_radio('n_Case','5')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 5 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Others
 
 											</td>
@@ -61,20 +61,20 @@
 									<td width='60%'><b>5. Brand : </b><?=isset($record[0]->V_Brandname) ? $record[0]->V_Brandname : ''?></td>
 									<td width='40%'><b>Model: </b><?=isset($record[0]->V_Model_no) ? $record[0]->V_Model_no : ''?></td>
 									</tr>
-									<tr><td colspan='2'><b>6. Complaint / Error / Problem statement: </b><?=isset($record[0]->rone) ? $record[0]->rone : ''?></td></tr>
-									<tr><td colspan='2'><b>7. Root cause to part faulty: </b><?=isset($record[0]->rthree) ? $record[0]->rthree : ''?><br><br><b>*Tick (&#10004;) where appropriate</b><br><br>
+									<tr><td colspan='2'><b>6. Complaint / Error / Problem statement: </b><label style="color: blue;"><?=isset($record[0]->rone) ? $record[0]->rone : ''?></label></td></tr>
+									<tr><td colspan='2'><b>7. Root cause to part faulty: </b><label style="color: blue;"><?=isset($record[0]->rthree) ? $record[0]->rthree : ''?></label><br><br><b>*Tick (&#10004;) where appropriate</b><br><br>
 									<table style='padding-left: 110px;'><?php $num = 1; $num2 = 1?>
-											<tr>	<td><input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="0"<?=set_radio('n_Case','1')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 0 ? '' : '' ?>/>
+											<tr>	<td><input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="0"<?=set_radio('n_Case','1')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 0 ? '' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Wear & Tear</td>
-												<td><input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="1"<?=set_radio('n_Case','0')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 1 ? 'checked' : '' ?>/>
+												<td><input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="1"<?=set_radio('n_Case','0')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 1 ? '' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Accidental</td>
-												<td><input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="2"<?=set_radio('n_Case','2')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 2 ? 'checked' : '' ?>/>
+												<td><input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="2"<?=set_radio('n_Case','2')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 2 ? '' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Obsolote model</td></tr><tr>
-												<td><input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="3"<?=set_radio('n_Case','3')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 3 ? 'checked' : '' ?>/>
+												<td><input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="3"<?=set_radio('n_Case','3')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 3 ? '' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Mishandling</td>
-												<td><input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="4"<?=set_radio('n_Case','4')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 4 ? 'checked' : '' ?>/>
+												<td><input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="4"<?=set_radio('n_Case','4')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 4 ? '' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Environmental</td>
-												<td><input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="5"<?=set_radio('n_Case','5')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 5 ? 'checked' : '' ?>/>
+												<td><input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="5"<?=set_radio('n_Case','5')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 5 ? '' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Others</tr></table></td>
 									</td></tr>
 									<tr><td colspan='2'><b>8. Action taken:</b><br><br>
@@ -82,11 +82,53 @@
 									<b>i) How / Why?</b><br>
 									<b>ii) Effect / Action Taken?</b><br>
 									<b>iii) Solution</b><br></div>
-									<div style='padding-left: 30px;'><?=isset($record[0]->rtwo) ? $record[0]->rtwo : ''?></div>
-									<div style="margin-left: 700px;"><b>Prepared by(Technical/SVR): </b></div><br>
+									<div style='padding-left: 30px;color: blue;'><?=isset($record[0]->rtwo) ? $record[0]->rtwo : ''?></div>
+									<div style="margin-left: 700px;"><b>Prepared by(Technical/SVR): <?php //isset($recordphoto[0]->user_id)?$recordphoto[0]->user_id:'' ?> </b></div><br>
 									</td></tr>
-									<tr><td colspan='2'><b>9. CMIS</b></td></tr>
-									<tr><td colspan='2'><b>10. Photo</b></td></tr>
+									<tr><td colspan='2'><b>9. CMIS<br></b>
+									<span style="display:inline-block;" id="spcommaCMIS"></span>
+										<span id="spcmis">
+										<?php
+										if($recordcmis!=null){
+											foreach($recordcmis as $row){
+												$extension = explode(".",$row->com_id);
+
+												if ($extension[1] == 'docx' || $extension[1] == 'xlsx' || $extension[1] == 'pdf') {
+													echo "<span class='icon-play icon' style='font-size:15px;'></span><span style='font-size:15px; font-weight:bold;'>" .$row->component_name. "</span><a href=".base_url()."uploadmrinfiles/".$row->com_id."><span class='icon-file-text2 icon'></a></span>";
+													echo '<br>';
+													}else{
+												echo "<br><img src=".base_url()."uploadmrinfiles/".$row->com_id." style='max-width:90%; height:auto; padding-left:5px;' >";
+												echo '<br>';
+													}
+												
+											}
+										}
+										?>
+										
+										</span>
+									</td></tr>
+									<tr><td colspan='2'><b>10. Photo<br></b>
+									<span style="display:inline-block;" id="spcommaphoto"></span>
+										<span id="spphoto">
+										<?php
+										
+											foreach($recordphoto as $row){
+												$extension = explode(".",$row->com_id);
+
+												if ($extension[1] == 'docx' || $extension[1] == 'xlsx' || $extension[1] == 'pdf') {
+													echo "<span class='icon-play icon' style='font-size:15px;'></span><span style='font-size:15px; font-weight:bold;'>" .$row->component_name. "</span><a href=".base_url()."uploadmrinfiles/".$row->com_id."><span class='icon-file-text2 icon'></a></span>";
+													echo '<br>';
+													}else{
+												echo "<img src=".base_url()."uploadmrinfiles/".$row->com_id." style='max-width:35%; height:auto; padding-left:25px;' >";
+												//echo '<br>';
+													}
+												
+											}
+										
+										?>
+										
+										</span>
+									</td></tr>
 									<tr><td colspan='2'><b>11. Parts Required Last Replaced: </b><?=isset($record[0]->LastRepDt) ? $record[0]->LastRepDt : ''?></td></tr>
 									<tr><td colspan='2'><b>12. Remark Procument:</b><?=isset($record[0]->ApprCommentsx) ? $record[0]->ApprCommentsx : ''?><br><br>
 									<div style='padding-left: 110px;'>

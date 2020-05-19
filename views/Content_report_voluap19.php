@@ -202,7 +202,7 @@ $locationone = "0";
 <div id="Instruction" >
 
 <center>View List:
-
+<form method="get" action="">
 <?php
 			$month_list = array(
 			'01' => 'January',
@@ -229,6 +229,7 @@ $locationone = "0";
 		<?php echo form_dropdown('y', $year_list, set_value('y', isset($record[0]->Year) ? $record[0]->Year : $year) , 'style="width: 65px;" id="cs_year"'); ?>
 <input type="hidden" value="<?php echo set_value('stat', ($this->input->get('stat')) ? $this->input->get('stat') : ''); ?>" name="stat">
 <input type="hidden" value="<?php echo set_value('grp', ($this->input->get('grp')) ? $this->input->get('grp') : ''); ?>" name="grp">
+<input type="hidden" value="<?php echo set_value('req', ($this->input->get('req')) ? $this->input->get('req') : ''); ?>" name="req">
 <input type="submit" value="Apply" onchange="javascript: submit()"/></center>
 
 </form>
@@ -310,66 +311,13 @@ if ($numrow==1 OR $numrow%18==1) {
 
 <?php if (($this->input->get('ex') == '' && $this->input->get('broughtfwd') == '') OR ($this->input->get('ex') != '' && $this->input->get('broughtfwd') != '')){?>
 <div id="Instruction" >
-<!--
+
 <center>View List :
 <form method="get" action="">
 
 		<?php
 
-    $idArray = array_map('toArray', $this->session->userdata('accessr'));
-		if (!(in_array("contentcontroller/Schedule(main)", $idArray))) {
-		 if ($this->session->userdata('usersess')=="HKS") {
-			$req_type = array(
-			'' => 'All',
-			'A1' => 'A1 - Breakdown Maintenance (BM)',
-			//'A2' => 'A2 - Schedule Corrective Maintenance (SCM)',
-			'A3' => 'A3 - Corrective Maintenance (CM)',
-			'A4' => 'A4 - User Requests',
-			'A5' => 'A5 - Investigation of Incidences',
-			'A6' => 'A6 - Technical Advice',
-			'A7' => 'A7 - User Training',
-			'A8' => 'A8 - Testing and Commissioning (T&C)',
-			'A9' => 'A9 - Internal Request',
-			'A10' => 'A10 - Reimbursable Work',
-			'F' => 'Floor - Related Report',
-			'WD' => 'Wall / Door - Related Report',
-			'C' => 'Ceiling - Related Report',
-			'W' => 'Window - Related Report',
-			'FIX' => 'Fixtures - Related Report',
-			'FUR' => 'Furniture / Fitting - Related Report'
-		 ); } else {
-		 		$req_type = array(
-			'' => 'All',
-			'A1' => 'A1 - Breakdown Maintenance (BM)',
-			//'A2' => 'A2 - Schedule Corrective Maintenance (SCM)',
-			'A3' => 'A3 - Corrective Maintenance (CM)',
-			'A4' => 'A4 - User Requests',
-			'A5' => 'A5 - Investigation of Incidences',
-			'A6' => 'A6 - Technical Advice',
-			'A7' => 'A7 - User Training',
-			'A8' => 'A8 - Testing and Commissioning (T&C)',
-			'A9' => 'A9 - Internal Request',
-			'A10' => 'A10 - Reimbursable Work'
-		 );
-		 }/*
-			$req_type = array(
-			'' => 'All',
-			'A1' => 'A1 - Breakdown Maintenance (BM)',
-			'A2' => 'A2 - Schedule Corrective Maintenance (SCM)',
-			'A3' => 'A3 - Corrective Maintenance (CM)',
-			'A4' => 'A4 - User Requests',
-			'A5' => 'A5 - Investigation of Incidences',
-			'A6' => 'A6 - Technical Advice',
-			'A7' => 'A7 - User Training',
-			'A8' => 'A8 - Testing and Commissioning (T&C)',
-			'A9' => 'A9 - Internal Request',
-			'A10' => 'A10 - Reimbursable Work'
-		 );*/
-		?>
-
-		<?php  } else {
-		$_POST['req'] = '';
-		}
+		
 			$month_list = array(
 			'01' => 'January',
 			'02' => 'February',
@@ -399,7 +347,7 @@ if ($numrow==1 OR $numrow%18==1) {
 <input type="submit" value="Apply" onchange="javascript: submit()"/></center>
 
 </form>
--->
+
 </div>
 <?php } ?>
 <div class="m-div">

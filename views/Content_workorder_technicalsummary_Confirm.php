@@ -39,17 +39,17 @@ echo form_open('rootcause_ctrl/comfirmation');
 											<td style="padding-left:10px;" valign="top">Tick where appropriate :   </td>
 											<td style="padding-left:10px;" valign="top">
 												<?php $num = 1; $num2 = 1?>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case" disabled value="0"<?=set_radio('n_Case','0',TRUE)?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 0 ? 'checked' : 'checked' ?>/>
+												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case" disabled value="0"<?=set_radio('n_Case','0',TRUE)?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 0 ? '' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Wear & Tear<br>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case" disabled value="1"<?=set_radio('n_Case','1')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 1 ? 'checked' : '' ?>/>
+												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case" disabled value="1"<?=set_radio('n_Case','1')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 1 ? '' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Accidental<br>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case" disabled value="2"<?=set_radio('n_Case','2')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 2 ? 'checked' : '' ?>/>
+												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case" disabled value="2"<?=set_radio('n_Case','2')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 2 ? '' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Obsolote model<br>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case" disabled value="3"<?=set_radio('n_Case','3')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 3 ? 'checked' : '' ?>/>
+												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case" disabled value="3"<?=set_radio('n_Case','3')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 3 ? '' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Mishandling<br>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case" disabled value="4"<?=set_radio('n_Case','4')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 4 ? 'checked' : '' ?>/>
+												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case" disabled value="4"<?=set_radio('n_Case','4')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 4 ? '' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Environmental<br>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case" disabled value="5"<?=set_radio('n_Case','5')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 5 ? 'checked' : '' ?>/>
+												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case" disabled value="5"<?=set_radio('n_Case','5')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 5 ? '' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Others<br>
 
 											</td>
@@ -92,29 +92,66 @@ echo form_open('rootcause_ctrl/comfirmation');
 						<tr style="color:white;" height="30px">
 							<td colspan="2" class="ui-header-new"><b>CMIS</b> </td>
 						</tr>
-						<tr>	<td><div class="form-group" id="sick_leave_img">
-                  <label>Image Reference</label><br />
-                  <img src="<?php echo base_url(); ?>uploadassetimages/No_image_available.jpg" width="90%" title="Choose Your Picture" onclick="getFile()" name="file_name" id="file_name" value="picture"/>
-                </div></td></tr>
+						<tr>
+										<td  ><label>Image Reference: </label>  </td>
+										
+										
+										
+									</tr>
+
+									<tr style="display:block' ?>;" id="trcommacomponent">
+										<td style="padding-left:10px; display:block;">
+										
+										<span style="display:inline-block;" id="spcommaCMIS"></span>
+										<span id="spcmis">
+										<?php
+											foreach($recordcmis as $row){
+												$extension = explode(".",$row->com_id);
+
+											
+												echo "<span class='icon-play icon' style='font-size:15px;'></span><span style='font-size:15px; font-weight:bold;'>" .$row->component_name. "</span> <br/><img src=".base_url()."uploadmrinfiles/".$row->com_id." style='max-width:90%; height:auto; padding-left:5px;' >";
+												echo '<br>';
+												
+											}
+										?>
+										
+										</span>
+										</td>
+									</tr>
 						
 					</table>
 				</div>
 				<div class="middle_d">
-					<table class="ui-content-form-reg" >
+					<table class="ui-content-form-reg">
 						<tr class="ui-color-contents-style-1" height="30px">
 							<td colspan="2" class="ui-header-new"><b>Photo</b></td>
 						</tr>
-						<tr><td><div class="form-group" id="sick_leave_img">
-                  <label>Image Reference</label><br />
-                  <img src="<?php echo base_url(); ?>uploadassetimages/No_image_available.jpg" width="90%" title="Choose Your Picture" onclick="getFile()" name="file_name" id="file_name" value="picture"/>
-                </div></td></tr>
-						<tr >
-							<td class="ui-desk-style-table">
-								<table class="ui-content-form" width="100%" border="0">
-								
-								</table>
-							</td>
-						</tr>
+						<tr>
+										<td ><label>Image Reference: </label></td>
+					
+										
+									</tr>
+									<tr id="trcommaattachment">
+										<td style="padding-left:10px; ">
+										
+										<span style="display:inline-block;" id="spcommaphoto"></span>
+										<span id="spphoto">
+										<?php
+										$line=1;
+											foreach($recordphoto as $row){
+												$extension = explode(".",$row->com_id);
+
+												//if($line!=1&&$line%2!=0)echo '<td>';
+												echo "<span class='icon-play icon' style='font-size:15px;'></span><span style='font-size:15px; font-weight:bold;'>" .$row->component_name. "</span> <br/><img src=".base_url()."uploadmrinfiles/".$row->com_id." style='max-width:20%; height:auto; padding-left:5px;' >";
+												echo '<br>';
+												//if($line!=1&&$line%2!=0)echo '</td>';
+												++$line;
+											}
+										?>
+										
+										</span>
+										</td>
+									</tr>
 					</table>
 				</div>
 			</div>

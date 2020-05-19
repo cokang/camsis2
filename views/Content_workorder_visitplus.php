@@ -16,7 +16,7 @@ function fToggle(elementId,te) {
         if (elementId == json[post][test].n_Visit){
 console.log(json);
       trHTML +="<tr>";
-      trHTML +='<td class="td-assest">Visit Date : </td>';
+      trHTML +='<?php $arr = explode("/",$this->input->get('wrk_ord'), 4);$workOrderType = $arr[1]; ?><?php if($workOrderType=='AP19'){?><td class="td-assest">Close/Completed Date :</td><?php }else{?><td class="td-assest">Close/Completed Date :</td><?php } ?>';
       trHTML +='<td>'+json['visitD'][elementId]+'</td>';
       trHTML +='<td rowspan="6" align="center"><a href="visitplusupdate?wrk_ord='+te+'&visit='+elementId+'" class="btn-button btn-primary-button" style="width:200px;">Update</a></td>';
       trHTML +='</tr>';

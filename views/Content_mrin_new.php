@@ -90,7 +90,7 @@ echo form_open('mrinnew_ctrl?pro=edit&mrinno='.$this->input->get('mrinno'));
 									</tr>
 									<tr>
 										<td style="padding-left:10px;">Possible Root Cause of Finding </td>
-										<td style="padding-left:10px;"><textarea class="Input n_com2" name="n_finding" id="n_finding"><?=set_value('n_finding',isset($record[0]->rthree) ? $record[0]->rthree : '')?></textarea></td>
+										<td style="padding-left:10px;"><textarea class="Input n_com2" name="n_finding" id="n_finding"></textarea></td>
 									</tr>
 								</table>
 							</td>
@@ -171,6 +171,10 @@ echo form_open('mrinnew_ctrl?pro=edit&mrinno='.$this->input->get('mrinno'));
 									<tr>
 										<td style="padding-left:10px;" valign="top">Age   : </td>
 										<td style="padding-left:10px;"><input type="text" name="n_age" value="<?=set_value('n_age',isset($record[0]->V_PO_date) ? date("d-m-Y",strtotime($record[0]->V_PO_date)) : '')?>" id="n_age" class="form-control-button n_wi-date2" readonly></td>
+									</tr>
+									<tr>
+										<td style="padding-left:10px;" valign="top">Asset Maintenance History   : </td>
+										<td style="padding-left:10px;"><span class="icon-windows"  onclick="pop_asset_maint_history(document.getElementById('n_assettag').value,document.getElementById('n_assetnumber').value)" ></span></td>
 									</tr>
 								</table>
 							</td>
