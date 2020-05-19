@@ -8971,11 +8971,12 @@ public function report_chronology(){
 		$from = $this->input->get('from') ? $this->input->get('from') : $start;
 		$to = $this->input->get('to') ? $this->input->get('to') : $end;
 		$filterby= $this->input->get('status')? $this->input->get('status') : 'All';
+		$request_type = $this->input->get('request_type')? $this->input->get('request_type') : 'All';
 		//$from = $this->input->get('from') ? $this->input->get('from') : '';
 		//$to = $this->input->get('to') ? $this->input->get('to') : '';
 		$data['from']=$from;
 		$data['to']=$to;
-		$data['det'] =$this->get_model->reportChronology($from, $to,$filterby);
+		$data['det'] =$this->get_model->reportChronology($from, $to,$filterby,$request_type);
 		$this ->load->view("head");
 		$this ->load->view("content_report_chronology",$data);
 	}
@@ -8987,12 +8988,13 @@ public function report_chronology(){
 		$nama = $this->input->get('nama');
 		$negeri = $this->input->get('negeri');
 		$filterby= $this->input->get('status');
+		$request_type= $this->input->get('request_type');
 		// echo 'test'.$nama.$negeri;
 		// exit();
         //$data['records'] = $this->display_model->chrology_sum_report($from, $to,$nama,$negeri);
 
     		$data['year']= date("Y");
-    		$data['records'] = $this->display_model->chrology_sum_report($from, $to,$nama,$negeri,$filterby);
+    		$data['records'] = $this->display_model->chrology_sum_report($from, $to,$nama,$negeri,$filterby,$request_type);
     		$cost[]='';
     		if($data['records']!=null){
     		foreach($data['records'] as $key => $val){
@@ -9295,6 +9297,12 @@ $this ->load->view("report-a10.php",$data);
 	  }
 
 	  public function pop_maint_history(){
+		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
+			$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+			//$data['wwo']= (!($this->input->get('wwo'))) || $this->input->get('wwo') == 1 ? 1 : 2;
+			$data['wwo']= ($this->input->get('wwo') <> '') ?  $this->input->get('wwo') : 1;
+			$data['s']= $this->input->get('s');
+			$data['hosp'] = $this->session->userdata('hosp_code');
 			$this->load->model('display_model');
 			
 			$data['record'] = $this->display_model->asset_maint_history($this->input->get('assettag'),$this->input->get('assetno'));

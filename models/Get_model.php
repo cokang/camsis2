@@ -4388,7 +4388,7 @@ function get_stock_asset($searchitem=""){
 			echo json_encode($query->result());
 		}
 
-		function reportChronology($datefrom, $dateto, $filterby){
+		function reportChronology($datefrom, $dateto, $filterby,$request_type){
 			$this->db->select("d.D_date,
 			b.nama, count(b.id) as total,
 			SUM(CASE
@@ -4414,13 +4414,15 @@ function get_stock_asset($searchitem=""){
 		if($filterby!='All'){
 			$this->db->where('d.V_request_status', $filterby);
 		}
+		if($request_type!='All'){
+			$this->db->where('d.V_request_type', $request_type);
+		}
 		$this->db->where('a.n_Visit', 1);
 		$this->db->where('b.id <>', 1);
 		$this->db->group_by('b.id');
 		// $this->db->where('NOW()', $Value);
 
 		$query = $this->db->get();
-		$this->output->enable_profiler(TRUE);
 		
 		return $query->result();
 		// echo $this->db->last_query();

@@ -7168,7 +7168,7 @@ return $query_result;
 }
 
 
-function chrology_sum_report($datefrom,$dateto,$nama,$negeri,$filterby){
+function chrology_sum_report($datefrom,$dateto,$nama,$negeri,$filterby,$request_type){
 	$this->db->distinct();
 $this->db->select("d.D_date, a.v_WrkOrdNo,d.v_ref_wo_no,a.v_HospitalCode,a.v_ActionTaken,ar.V_Asset_no,ar.V_Tag_no,ar.V_Asset_name,ar.V_Manufacturer,ar.V_Model_no,b.nama,
 mr.DocReferenceNo,pom.MIRN_No, pom.PO_No, pom.Vendor_No, vi.VENDOR_NAME, vi.TELEPHONE_NO, po.PO_Date, mr.DateCreated,ag.D_commission,ag.N_Cost, IFNULL(IFNULL(IFNULL(ApprCommentsxx,ApprCommentsx),ApprComments),Comments) AS Commentsx,
@@ -7205,6 +7205,9 @@ if($negeri!='ALL'){
 $this->db->having('negeri',$negeri);}
 if($filterby!='All'){
 			$this->db->where('d.V_request_status', $filterby);
+		}
+if($request_type!='All'){
+			$this->db->where('d.V_request_type', $request_type);
 		}
 $this->db->where('a.n_Visit', 1);
 $this->db->order_by('D_date', 'asc');
