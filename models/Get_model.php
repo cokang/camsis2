@@ -4411,7 +4411,7 @@ function get_stock_asset($searchitem=""){
 		$this->db->join('pmis2_sa_asset_mapping mp',"mp.old_asset_type = g.V_Equip_code ",'left outer');
 		$this->db->join('pmis2_sa_add_info ad',"ad.asset_type = mp.new_asset_type ",'left outer');
 		if($datefrom!=null || $dateto!=null){
-		$this->db->where('d.D_date BETWEEN"'.$datefrom.'"and"'.$dateto.'"');
+		$this->db->where('date(d.D_date) BETWEEN"'.$datefrom.'"and"'.$dateto.'"');
 
 		}
 		if($filterby!='All'){
