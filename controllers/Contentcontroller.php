@@ -8992,7 +8992,7 @@ public function report_chronology(){
 		$to = $this->input->get('to') ? $this->input->get('to') : '';
 		$nama = $this->input->get('nama');
 		$negeri = $this->input->get('negeri');
-		$filterby= $this->input->get('status');
+		$filterby= $this->input->get('status')?$this->input->get('status'):'All';
 		$request_type= ($this->input->get('request_type')) ? $this->input->get('request_type') : "All";
 		$special_cat= ($this->input->get('special_cat')) ? $this->input->get('special_cat') : "All";
 		// echo 'test'.$nama.$negeri;

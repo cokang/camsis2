@@ -7173,7 +7173,7 @@ function chrology_sum_report($datefrom,$dateto,$nama,$negeri,$filterby,$request_
 	$this->db->distinct();
 $this->db->select("d.D_date, a.v_WrkOrdNo,d.v_ref_wo_no,a.v_HospitalCode,a.v_ActionTaken,ar.V_Asset_no,ar.V_Tag_no,ar.V_Asset_name,ar.V_Manufacturer,ar.V_Model_no,b.nama,
 mr.DocReferenceNo,pom.MIRN_No, pom.PO_No, pom.Vendor_No, vi.VENDOR_NAME, vi.TELEPHONE_NO, po.PO_Date, mr.DateCreated,ag.D_commission,ag.N_Cost, IFNULL(IFNULL(IFNULL(ApprCommentsxx,ApprCommentsx),ApprComments),Comments) AS Commentsx,
-jr.v_Personal1, d.V_request_status,d.V_servicecode, po.paytype,d.V_summary,
+jr.v_Personal1, d.V_request_status,d.V_servicecode, po.paytype,d.V_summary,a.V_AssetMovement,b.external_rootcause,
 (CASE
    WHEN a.v_HospitalCode in ('HSA','HSI','KTG','KUL','PER','SGT','KLN','MER','PON','BPH','MUR','MKJ','TGK') THEN  'JOH'
 			WHEN a.v_HospitalCode in ('AGJ','JAS','MKA','TMP') THEN  'MKA'
@@ -7197,7 +7197,7 @@ $this->db->join('pmis2_sa_add_info ad',"ad.asset_type = mp.new_asset_type ",'lef
 
 
 if($datefrom!=null || $dateto!=null){
-$this->db->where('d.D_date BETWEEN"'.$datefrom.'"and"'.$dateto.'"');
+$this->db->where('date(d.D_date) BETWEEN"'.$datefrom.'"and"'.$dateto.'"');
 
 }
 //$this->db->where('b.nama', $nama);

@@ -36,7 +36,7 @@
 				<th>Purchase Cost</th>
 				<th>Category</th>
 				<th>Category (IMG / Non IMG)</th>
-				<th>Workorder assigned to</th>
+				<th>Staff Name</th>
 				<th>Asset movement Internal</th>
 				<th>Cronology outstanding</th>
 				<th>WO AP Justification</th>
@@ -100,14 +100,14 @@
 				<td>RM<?=$row->N_Cost;?></td>
 				<td>-</td>
 				<td>-</td>
-				<td><?php echo '1.'.$row->v_Personal1;echo '</br>2.'.$row->v_Personal1;echo '</br>3.'.$row->v_Personal1;?></td>
-				<td>-</td>
+				<td><?php if($row->v_Personal1!=null)echo '1.'.$row->v_Personal1?></td>
+				<td><?= $row->V_AssetMovement?></td>
 				<td><?= $row->v_ActionTaken?></td>
 				<td>NA</td>
 				<td>NA</td>
 				<td>-</td>
 				<td><?=$row->nama;?></td>
-				<td>NA</td>
+				<td><?=$row->external_rootcause;?></td>
 				<td>
 				<!-- <?php  if($Costs!=null){foreach($Costs as $cost){
 					if($cost!=null){$n=1;
