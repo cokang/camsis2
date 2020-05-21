@@ -25,7 +25,10 @@
 						<!-- <?php echo anchor ('contentcontroller/select?hc='.$apa->v_hospitalcode,'<img src="'. base_url() .'images/hosp2.png" alt="" class="ui-icon-screen2" /><span class="caption">&nbsp;&nbsp;'.$apa->v_hospitalcode.'&nbsp;&nbsp;</span>'); ?> -->
 
 						<!-- bazli edit -->
-						<?php echo anchor ('contentcontroller/select?hc='.$apa->v_hospitalcode,'<center><img src="'. base_url() .'images/hosp2.png" alt="" style="width: 50px; height: 50px; padding: 10px;"/><br><span class=>&nbsp;&nbsp;'.$apa->v_hospitalcode.'&nbsp;&nbsp;</span></center>'); ?>
+						<?php if($apa->d_run_type!='O')$hospIcon='hosp2';
+						else $hospIcon='hosp-old';
+						?>
+						<?php echo anchor ('contentcontroller/select?hc='.$apa->v_hospitalcode,'<center><img src="'. base_url() .'images/'.$hospIcon.'.png" alt="" style="width: 50px; height: 50px; padding: 10px;"/><br><span class=>&nbsp;&nbsp;'.$apa->v_hospitalcode.'&nbsp;&nbsp;</span></center>'); ?>
 					</div>
 
 					<?php };?>
