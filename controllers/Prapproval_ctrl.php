@@ -75,7 +75,7 @@ class Prapproval_ctrl extends CI_Controller{
 			$insert_po = array('MIRN_No' => $this->input->post('mrinno'),
 							   'PO_No' => $data['newpo'][0]->pono,
 							   'Vendor_No' => $data['itemrec'][0]->ApprvRmk1x,
-								'status' => 1);
+							   'status' => 1);
 			$this->insert_model->tbl_po_mirn($insert_po);
 
 			$update_pono = array('po_next_no' => $data['newpo'][0]->po_next_no + 1,
@@ -89,6 +89,8 @@ class Prapproval_ctrl extends CI_Controller{
 								 'visit' => '1');
 			$this->insert_model->tbl_po($insert_tbl_po);
 			////////po no tbl_po inc.
+			if($this->input->post('n_options')==107)
+			$this->update_model->resetmirn($this->input->post("mrinno"),6);
 
 		}
 		else {
