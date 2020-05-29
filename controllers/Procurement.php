@@ -50,7 +50,7 @@ class Procurement extends CI_Controller {
 			//echo "lalalal : ".$data['mrintype'];
 			$this->load->model('display_model');
 			$data['user'] = $this->display_model->user_class($this->session->userdata('v_UserName'));
-			//print_r($data['user']);
+			print_r($data['user']);
 			$this->load->model('get_model');
 			if ((empty($search)) && ($this->get_model->check_userimg())) {
 				$data['record']= $this->display_model->mrinlist($data['month'],$data['year'],$data['mrintype'], $data['user'][0]->class_id,"IMG");
@@ -146,7 +146,6 @@ class Procurement extends CI_Controller {
 				}
 
 				$config['file_name'] = $new_name;
-				$data['upload_data']['client_name'] = $new_name;
 
 	            $this->load->library('upload', $config);
 
@@ -246,7 +245,6 @@ class Procurement extends CI_Controller {
 			$data['upload_data'] = NULL;
 			$data['insertid'] = '';
 		}
-		//print_r($data);exit();
 		$this ->load->view("head");
 		$this ->load->view("asset3_comm_new",$data);
 	}
@@ -447,6 +445,7 @@ class Procurement extends CI_Controller {
 			}
 			//echo "nilai search : ".$search;
 		$data['tab']= ($this->input->get('tab') != '') ? $this->input->get('tab') : 0;
+		//if ($data['tab'] != 2){
 		if ($data['tab'] == 0){
 			$data['record'] = $this->display_model->prlist($data['month'],$data['year'],$this->input->get('tab'));
 		}
@@ -520,7 +519,7 @@ class Procurement extends CI_Controller {
 			case "PDX" :
 			case "KPL" :
 			case "SBN" :
-       $hoswakil = "Amirul Shazwan bin Amran";
+       $hoswakil = "Kamarulnizam bin Abu Hassan";
 			 //$hospapa = "SBN";
 			 break;
     	case "IIU":
@@ -649,7 +648,7 @@ class Procurement extends CI_Controller {
 		$data['run_no'] = $this->get_model->run_no();
 		$update_data = array('Run_no' => $data['run_no'][0]->Run_no + 1,
 							 'time_stamp' => date("Y-m-d H:i:s"));
-		//$this->update_model->uprun_no($update_data);
+		$this->update_model->uprun_no($update_data);
 		$data['runningno'] = 'temp'.$data['run_no'][0]->Run_no;
 
 
@@ -1304,28 +1303,23 @@ class Procurement extends CI_Controller {
 				$this->load->model('display_model');
 				$this->load->model('get_model');
 
-				if($action==107)
-								$this->update_model->resetmirn($mrin,6);
 				$data['PO_mrin'] = $this->display_model->checkPO($mrin);
-				/*
-							$insert_data = array('MirnCode' => $mrin,
-								 'Payment_Opt' => 'COD');
-							if($data['PO_mrin']==null)$this->insert_model->mrin_payment($insert_data);
-							*/
-							$data['itemrec'] = $this->display_model->itemdet($mrin);
-							foreach($data['itemrec'] as $row){
-								$insert_data = array('QtyReqfx' => $row->QtyReq,
-						'DtApprv1x' => date("Y-m-d H:i:s"),
-						'Unit_Costx' => $row->Unit_Cost,
-						'ApprvRmk1x' => $row->ApprvRmk,
-						'Part_Exchg' =>  0);
+				$data['itemrec'] = $this->display_model->itemdet($mrin);
+				if($action==107){
+								$this->update_model->resetmirn($mrin,6);
 							}
-							$this->update_model->mrincomp_u($insert_data,$mrin);
-							$data['newpr'] = $this->get_model->nextprnumber();
-							
+								elseif($action==4){
+									foreach($data['itemrec'] as $row){
+										$insert_data = array('QtyReqfx' => $row->QtyReq,
+								'DtApprv1x' => date("Y-m-d H:i:s"),
+								'Unit_Costx' => $row->Unit_Cost,
+								'ApprvRmk1x' => $row->ApprvRmk,
+								'Part_Exchg' =>  0);
+									}
+									$this->update_model->mrincomp_u($insert_data,$mrin);
+									$data['newpr'] = $this->get_model->nextprnumber();
 
 							$update_data = array('PR_No' => $data['newpr'][0]->prno);
-							
 							$this->update_model->tbl_pr_mirn($update_data,$mrin);
 							$insert_pr = array('PRNo' => $data['newpr'][0]->prno,
 							   'DT_Released' => date("Y-m-d H:i:s"),
@@ -1341,12 +1335,6 @@ class Procurement extends CI_Controller {
 							$update_prno = array('pr_next_no' => $data['newpr'][0]->pr_next_no + 1,
 								 'userid' => $this->session->userdata('v_UserName'));
 							$this->update_model->updatepr($update_prno,date('Y'));
-							// $insert_pr = array(//'SM_Comen' => $this->input->post('n_remark'),
-							//    'SM_Status' => '4',
-							//    //'vendor_rmk' => $this->input->post('n_remark'),
-							//    'Apprv_By' => $this->session->userdata('v_UserName'),
-							//    'DT_Apprv' => date("Y-m-d H:i:s"));
-							//$this->update_model->tbl_pr_u($insert_pr,$data['newpr'][0]->prno);
 							$data['newpo'] = $this->get_model->nextponumber($mrin);
 							$insert_po = array(
 								'MIRN_No' => $mrin,
@@ -1368,6 +1356,29 @@ class Procurement extends CI_Controller {
 							   'PO_Date' => date("Y-m-d"),
 								 'visit' => '1');
 								 if($data['PO_mrin']==null)$this->insert_model->tbl_po($insert_tbl_po);
+								}
+				
+				/*
+							$insert_data = array('MirnCode' => $mrin,
+								 'Payment_Opt' => 'COD');
+							if($data['PO_mrin']==null)$this->insert_model->mrin_payment($insert_data);
+							*/
+							
+							
+							
+							
+
+							
+							
+							// $insert_pr = array(//'SM_Comen' => $this->input->post('n_remark'),
+							//    'SM_Status' => '4',
+							//    //'vendor_rmk' => $this->input->post('n_remark'),
+							//    'Apprv_By' => $this->session->userdata('v_UserName'),
+							//    'DT_Apprv' => date("Y-m-d H:i:s"));
+							//$this->update_model->tbl_pr_u($insert_pr,$data['newpr'][0]->prno);
+							
+
+								 
 
 	}
 
