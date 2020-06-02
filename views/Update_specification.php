@@ -21,9 +21,10 @@
 			</tr>
 			<tr>
 				<td class="td-assest">Manufacturer :</td>			
-				<td>
+				<!-- <td>
 				  <?php echo form_dropdown('n_manufacturer', $manufacturer_list, set_value('n_manufacturer',isset($asset_det[0]->V_Manufacturer) == TRUE ? $asset_det[0]->V_Manufacturer : 'N/A') , 'class="dropdown n_wi-date"'); ?>
-				</td>
+				</td> -->
+				<td><input type="text" name="n_manufacturer" value="<?= isset($asset_det[0]->V_Manufacturer) == TRUE ? $asset_det[0]->V_Manufacturer : 'N/A'?>" class="form-control-button2 n_wi-date"></td>
 			</tr>
 			<tr>
 				<td class="td-assest">Brand : &nbsp;</td>
