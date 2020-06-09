@@ -5047,7 +5047,7 @@ function status_table(){
     function prlist($month,$year,$tab=0){
     	$this->db->distinct();
     	//$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PR_No, mp.Payment_Opt, vi.VENDOR_NAME');
-      $this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PR_No, mp.Payment_Opt, vi.VENDOR_NAME,a.ApprCommentsx, GROUP_CONCAT( DISTINCT  VENDOR_NAME ) as VENDOR_NAME');
+      $this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PR_No, mp.Payment_Opt, vi.VENDOR_NAME,a.ApprCommentsx, GROUP_CONCAT( DISTINCT  VENDOR_NAME ) as VENDOR_NAME, SUM( DISTINCT Unit_Costx * QtyReqfx) as totalPO');
     	$this->db->from('tbl_pr_mirn e');
     	if ($tab == 1){
     	$this->db->join('tbl_pr p','p.PRNo = e.PR_No');
@@ -5058,7 +5058,7 @@ function status_table(){
     	$this->db->join('tbl_status d','a.ApprStatusID = d.StatusID');
     	$this->db->join('tbl_mirn_payment mp', 'mp.MirnCode = a.DocReferenceNo', 'left');
     	$this->db->join('tbl_mirn_comp mc', 'mc.MIRNcode = a.DocReferenceNo', 'left');
-    	$this->db->join('tbl_vendor_info vi', 'vi.VENDOR_CODE = mc.ApprvRmk', 'left');
+    	$this->db->join('tbl_vendor_info vi', 'vi.VENDOR_CODE = mc.ApprvRmk1x', 'left');
 
     	$this->db->where('MONTH(a.datecreated)',$month);
     	$this->db->where('YEAR(a.datecreated)',$year);
@@ -5134,7 +5134,7 @@ function polist($month,$year,$searchitem="",$tab=""){
 	$this->db->distinct();
 	//$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt,vi.VENDOR_NAME');
   //$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt,vi.VENDOR_NAME, SUM( DISTINCT Unit_Costx * QtyReqfx) as totalPO,sum( DISTINCT Unit_Costx * QtyReqfx) as totalPO ,a.ApprCommentsx , GROUP_CONCAT( DISTINCT  VENDOR_NAME ) as VENDOR_NAME');
-  $this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt,vi.VENDOR_NAME, SUM( DISTINCT Unit_Costx * QtyReqfx) as totalPO, a.ApprCommentsx , GROUP_CONCAT( DISTINCT  VENDOR_NAME ) as VENDOR_NAME');
+  $this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt,vi.VENDOR_NAME, SUM( DISTINCT Unit_Costx * QtyReqfx) as totalPO, a.ApprCommentsx , GROUP_CONCAT( DISTINCT  VENDOR_NAME ) as VENDOR_NAME,a.DateApproval');
 	$this->db->from('tbl_po_mirn e');
 	$this->db->join('tbl_materialreq a','e.MIRN_No = a.DocReferenceNo');
 	$this->db->join('tbl_zone b','a.ZoneID = b.ZoneID');
@@ -5142,7 +5142,7 @@ function polist($month,$year,$searchitem="",$tab=""){
 	$this->db->join('tbl_status d','a.ApprStatusID = d.StatusID');
 	$this->db->join('tbl_mirn_payment mp', 'mp.MirnCode = a.DocReferenceNo', 'left');
 	$this->db->join('tbl_mirn_comp mc', 'mc.MIRNcode = a.DocReferenceNo', 'left');
-	$this->db->join('tbl_vendor_info vi', 'vi.VENDOR_CODE = mc.ApprvRmk', 'left');
+	$this->db->join('tbl_vendor_info vi', 'vi.VENDOR_CODE = mc.ApprvRmk1x', 'left');
 
 
   if ($searchitem == "") {
