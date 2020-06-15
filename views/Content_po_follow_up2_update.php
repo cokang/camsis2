@@ -1,9 +1,14 @@
 <?php
-
+if($this->input->post('mysubmit')=="Save as Draft"){
+	$saved= 1;
+}else{
+	$saved= 2;
+}
 if ($this->input->get('powhat')=="update") {
 echo form_open('Procurement/po_follow_up2?pr='.$this->input->get('pr').'&po='.$this->input->get('po').'&tab='.$this->input->get('tab').'&powhat=confirm');}
 else {
-echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$this->input->get('po').'&tab='.$this->input->get('tab'));}
+echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$this->input->get('po').'&tab='.$this->input->get('tab').'&saved='.$saved);
+}
 
 ?>
 
@@ -17,7 +22,7 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 					<td colspan="2" class="ui-header-new">
 					<span class="textmenu" style="float:left;">
 					<?php if($this->input->get('powhat') == 'confirm'){?><b>Confirm</b><?php }?>
-					<?php if ($this->input->get('tab') == 0){ ?> <b> PO Approved Details </b>
+					<?php if ($this->input->get('tab') == 0){ ?> <b> PO Details </b>
 					<?php }elseif($this->input->get('tab') == 1){ ?> <b> Shipment </b> Two
 					<?php }elseif($this->input->get('tab') == 2){ ?><b>Shipment </b> Three
 					<?php }elseif($this->input->get('tab') == 3){ ?><b>Payment </b>
@@ -183,26 +188,43 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 
 												</tr>
 												<tr>
-													<td class="td-assest">PO Approval Date :</td>
+													<td class="td-assest">PO Approved Date :</td>
 													<td><input type="text"  value="<?=isset($WO_detail[0]->PO_Date)?date('d/m/Y h:i:s',strtotime($WO_detail[0]->PO_Date)):''?>" class="form-control-button2 n_wi-date2" ></td>
 
 												</tr>
 												<tr>
-													<td class="td-assest">PO Amount :</td>
+													<td class="td-assest">Amount :</td>
 													<td><input type="text" value="<?=isset($WO_detail[0]->POamount)?$WO_detail[0]->POamount:''?>" class="form-control-button2 n_wi-date2" ></td>
 
 												</tr>
 												<tr>
-													<td class="td-assest">Vendor Name :</td>
+													<td class="td-assest">Vendor :</td>
 													<td><input type="text"  value="<?=isset($WO_detail[0]->VENDOR_NAME)?$WO_detail[0]->VENDOR_NAME:''?>" class="form-control-button2 n_wi-date2" ></td>
 
 												</tr>
 												<tr>
-													<td class="td-assest">Payment Method :</td>
+													<td class="td-assest">Payment Type :</td>
 													<td><input type="text"   value="<?=isset($WO_detail[0]->Payment_Opt)?$WO_detail[0]->Payment_Opt:''?>" class="form-control-button2 n_wi-date2" ></td>
 
 												</tr>
-												<tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">SHIPMENT</td></tr>
+												<tr>
+													<td class="td-assest">Bank Name :</td>
+													<td><input type="text"   value="" class="form-control-button2 n_wi-date2" disabled></td>
+
+												</tr>
+												<tr>
+													<td class="td-assest">Account Number :</td>
+													<td><input type="text"   value="" class="form-control-button2 n_wi-date2" disabled></td>
+
+												</tr>
+												<tr>
+										<td style="padding:10px;  valign="top">Invoice/Quotation  :   </td>
+										<?php if ( $WO_detail[0]->Payment_Opt == "COD"){ ?>
+										<td style="padding:10px;"><a href="javascript:void(0)" onclick="fCallLocationa('<?=$runningno?>','component')" value="z" ><span class="icon-plus" style="font-size:12px; color:green;" ></span> Upload </a></td>
+										<?php }  ?>
+										
+									</tr>
+												<!-- <tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">SHIPMENT</td></tr> -->
 												<!--<tr>
 													<td class="td-assest" style="width:40%;">PARTS (RM)/UNIT </td>
 													<td><input type="number" step="0.01" name="n_partsrm" value="<?=$parts_rm?><?=$this->input->post('n_partsrm')?>" class="form-control-button2 n_wi-date2" <?=$confim?>></td>
@@ -216,7 +238,7 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 													<td><input type="number" step="0.01"  name="n_ctrlstorerm" value="<?=$cs_rm?><?=$this->input->post('n_ctrlstorerm')?>" class="form-control-button2 n_wi-date2" <?=$confim?>></td>
 												</tr>
 												<tr>-->
-													<td class="td-assest">COST (RM) :</td>
+													<!-- <td class="td-assest">COST (RM) :</td>
 													<td><input type="number" step="0.01" id="n_costrm"  name="n_costrm" value="<?=$cost_rm?><?=$this->input->post('n_costrm')?>" class="form-control-button2 n_wi-date2" <?=$confim?>></td>
 												</tr>
 												<tr>
@@ -228,7 +250,7 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 													<td class="td-assest">TOTAL INC GST (RM) :</td>
 													<td><input type="number" step="0.01" id="n_totalrm" name="n_totalrm" value="<?=$total_rm?><?=$this->input->post('n_totalrm')?>" class="form-control-button2 n_wi-date2" <?=$confim?>></td>
 
-												</tr>
+												</tr> -->
 												<!--<tr>
 													<td class="td-assest">STATUS (C/P) :</td>
 													<td>
@@ -243,31 +265,28 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 														<?php echo form_dropdown('n_status_list', $status_list ,$status_set.$this->input->post('n_status_list'), 'class="dropdown n_wi-date2"'.$confim.''); ?>
 													</td>
 												</tr>-->
-												<tr>
-													<td class="td-assest" valign="top">RECEIPIENT :</td>
+												<!-- <tr> -->
+													<!-- <td class="td-assest" valign="top">RECEIPIENT :</td>
 													<td>
 													<input type="text"  id="n_receipient" name="n_receipient" value="<?=$recipient_code?><?=$this->input->post('n_receipient')?>" class="form-control-button2 n_wi-date"  >
 													<?php if($this->input->get('powhat') != 'confirm'){?>
 													<span class="icon-windows" onclick="testje(this)" value="update"></span><br/>
 													<?php }?>
-													</td>
+													</td> -->
 													<!--<input type="text"  id="n_receipient" name="n_receipient" value="<?=$recipient_code?><?=$this->input->post('n_receipient')?>" class="form-control-button2 n_wi-date2" id="code2" style="border:none;" readonly></td>-->
-												</tr>
+												<!-- </tr> -->
 
-												<tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">FINANCE SUBMISSION Date</td></tr>
+												<tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">Payment Request</td></tr>
 												<tr style="height:20px;">
-													<td class="td-assest">FINANCE SUBMISSION Date</td>
-													<td><input type="text"  name="n_completeddt" value="<?=$Date_Completed?><?=$this->input->post('n_completeddt')?>" class="form-control-button2 n_wi-date2" id="date<?php echo $numberdate++; ?>" <?=$confim?>></td>
+													<td class="td-assest">Payment Approved Date</td>
+													<td><input type="text"  name="n_completeddt" value="<?= ($Date_Completed!='')?$Date_Completed:date("d-m-Y")?>" class="form-control-button2 n_wi-date2" id="date<?php echo $numberdate++; ?>" <?=$confim?>></td>
 												</tr><br>
-                                                <tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">Components & Attachments</td></tr>
-												<tr>
-										<td style="padding:10px;  valign="top">Components  :   </td>
-										<?php if ($this->input->get('po') == 3){ ?>
-										<td style="padding:10px;"><a href="javascript:void(0)" onclick="fCallLocationa('<?=$runningno?>','component')" value="z" ><span class="icon-plus" style="font-size:12px; color:green;" ></span> Add New </a></td>
-										<?php } else { ?>
-										<td style="padding:10px;"><a href="javascript:void(0)" onclick="fCallLocationa('<?=$runningno?>','component')" value="z" ><span class="icon-plus" style="font-size:12px; color:green;" ></span> Add New </a></td>
-										<?php } ?>
-									</tr>
+												<!-- <tr>
+													<td class="td-assest">Payment Approved Date :</td>
+													<td><input type="text"  name="n_codcdt" value="<?=$closingdt?><?=$this->input->post('n_codcdt')?>" class="form-control-button2 n_wi-date2" id="date<?php echo $numberdate++; ?>" <?=$confim?>></td>
+												</tr> -->
+                                                <!-- <tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">Components & Attachments</td></tr> -->
+										
                                     <tr style="display:<?=($this->input->get('powhat')=="update" ? 'none' : 'block' )?>;" id="trcommacomponent">
 
 										<td style="padding-left:10px; display:block;">
@@ -312,24 +331,45 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 									<tr >
 										<td class="ui-desk-style-table">
 											<table class="ui-content-form" width="100%" border="0">
-												<tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">INVOICE & Delivery Order</td></tr>
+												<tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">Invoice & Delivery Order</td></tr>
 												<tr>
 													<td class="td-assest" style="width:40%;">Delivery Order :</td>
 													<td><input type="text"  name="n_do" value="<?=$do_no?><?=$this->input->post('n_do')?>" class="form-control-button2 n_wi-date2" <?=$confim?>></td>
 												</tr>
 												<tr>
 													<td class="td-assest">Delivery Order Date :</td>
-													<td><input type="text"  name="n_dodt" value="<?=$do_date?><?=$this->input->post('n_dodt')?>" class="form-control-button2 n_wi-date2" id="date<?php echo $numberdate++; ?>" <?=$confim?>></td>
+													<td><input type="text"  name="n_dodt" value="<?=$do_date!=''?$do_date:date("d-m-Y")?>" class="form-control-button2 n_wi-date2" id="date<?php echo $numberdate++; ?>" <?=$confim?>></td>
 												</tr>
 												<tr>
-													<td class="td-assest">TAX INV / INV :</td>
+													<td class="td-assest">Tax Invoice / Invoice :</td>
 													<td><input type="text"  name="n_inv" value="<?=$Invoice_No?><?=$this->input->post('n_inv')?>" class="form-control-button2 n_wi-date2" <?=$confim?>></td>
 												</tr>
 												<tr>
-													<td class="td-assest">TAX INV / INV Date :</td>
-													<td><input type="text"  name="n_invdt" value="<?=$invoice_date?><?=$this->input->post('n_invdt')?>" class="form-control-button2 n_wi-date2" id="date<?php echo $numberdate++; ?>" <?=$confim?>></td>
+													<td class="td-assest">Tax Invoice / Invoice Date :</td>
+													<td><input type="text"  name="n_invdt" value="<?=$invoice_date!=''?$invoice_date:date("d-m-Y")?><?=$this->input->post('n_invdt')?>" class="form-control-button2 n_wi-date2" id="date<?php echo $numberdate++; ?>" <?=$confim?>></td>
 												</tr>
-												<tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">Others</td></tr>
+												<tr>
+													<td class="td-assest">COD Closing Month :</td>
+													<td><?php  $mon_list = array(
+													'' => '',
+															  '1' => 'Jan',
+															  '2' => 'Feb',
+															  '3' => 'Mar',
+															  '4' => 'Apr',
+															  '5' => 'May',
+															  '6' => 'Jun',
+															  '7' => 'Jul',
+															  '8' => 'Aug',
+															  '9' => 'Sep',
+															  '10' => 'Oct',
+															  '11' => 'Nov',
+															  '12' => 'Dis',
+
+														   );
+													 ?>
+														<?php echo form_dropdown('n_codcdt', $mon_list ,$closingdt.$this->input->post('n_codcdt'), 'class="dropdown n_wi-date2"'.$confim.''); ?></td>
+												</tr>
+												<!-- <tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">Others</td></tr>
 												<tr style="height:20px;">
 													<td class="td-assest">Department :</td>
 													<td><?php
@@ -388,7 +428,6 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 												</tr>
 												<tr>
 													<td class="td-assest">COD Closing Month :</td>
-													<!--<td><input type="text"  name="n_monclosed" value="<?=$closemonth?><?=$this->input->post('n_monclosed')?>" class="form-control-button2 n_wi-date2" id="date<?php echo $numberdate++; ?>" <?=$confim?>></td>-->
 													<td><?php  $mon_list = array(
 													'' => '',
 															  '1' => 'Jan',
@@ -407,11 +446,8 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 														   );
 													 ?>
 														<?php echo form_dropdown('n_codcdt', $mon_list ,$closingdt.$this->input->post('n_codcdt'), 'class="dropdown n_wi-date2"'.$confim.''); ?></td>
-												</tr>
-												<tr>
-													<td class="td-assest">Payment Approval Date :</td>
-													<td><input type="text"  name="n_codcdt" value="<?=$closingdt?><?=$this->input->post('n_codcdt')?>" class="form-control-button2 n_wi-date2" id="date<?php echo $numberdate++; ?>" <?=$confim?>></td>
-												</tr>
+												</tr> -->
+												
 											</table>
 
 										</td>
@@ -424,9 +460,13 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 				<?php } ?>
 				<tr class="ui-color-contents-style-1" height="30px">
 					<td colspan="2" class="ui-header-new" align="center">
-					<?php if (validation_errors() == '') { ?>
-					<input type="submit" class="btn-button btn-primary-button" name="mysubmit" value="Save" style="width:150px;"/>
-					<?php } ?>
+					<?php if (validation_errors() == '') { 
+						if ($this->input->get('powhat')=="update") {?>
+					<input type="submit"  class="btn-button btn-primary-button" name="mysubmit" disabled value="Save as Draft" style="width:150px;"/>
+					<input type="submit" class="btn-button btn-primary-button" name="mysubmit" value="Submit" style="width:150px;"/>
+					<?php }else{
+						?><input type="submit" class="btn-button btn-primary-button" name="mysubmit" value="Confirm" style="width:150px;"/> <?php
+					}} ?>
                     <input type="button" class="btn-button btn-primary-button" name="Cancel" value="Cancel" onclick="window.history.back()" style="width:150px;"/>
 					</td>
 				</tr>

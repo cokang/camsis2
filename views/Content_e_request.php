@@ -1,7 +1,7 @@
 <div class="ui-middle-screen">
 <div class="div-p"></div>
 
-<div class="main-box">
+<!-- <div class="main-box">
 	<div class="box7">
 	<?php $autocolor = array('bg-purple', 'bg-red', 'bg-yellow', 'bg-aqua', 'bg-light-blue'); shuffle($autocolor);?>
 		<div class="small-box <?php echo $autocolor[0];?>">
@@ -12,7 +12,7 @@
 			<?php echo anchor ('Procurement/po_follow_up2?po=3&powhat=update&tab=1111','<span class="ui-left_web">Proceed <i class="icon-arrow-right"></i></span>','class="small-box-footer"'); ?>
 		</div>
 	</div>
-</div>
+</div> -->
 
 	<div class="content-workorder">
 		<table class="ui-content-middle-menu-workorder" border="0" height="" align="center">
@@ -122,7 +122,7 @@ switch ($procument) {
 					<tr align="center" <?= ($numrow%2==0) ?  'class="ui-color-color-color"' :  '' ?> >
 						<td class="td-desk"><?=$numrow++?></td>
 						<td class="td-desk" style="text-align:left;">
-							<a href="<?php echo base_url();?>index.php/Procurement/po_follow_up2?tab=0&po=<?=isset($row->PO_No) ? $row->PO_No : ''?>"><?=isset($row->PO_No) ? $row->PO_No : ''?></a>
+							<a href="<?php echo base_url();?>index.php/Procurement/po_follow_up2?tab=0&powhat=update&po=<?=isset($row->PO_No) ? $row->PO_No : ''?>"><?=isset($row->PO_No) ? $row->PO_No : ''?></a>
 						</td>
 						<td class="td-desk"><?=isset($row->VENDOR_NAME) ? $row->VENDOR_NAME : 'NA'?></td>
 						<td class="td-desk"><?=isset($row->paytype) ? $row->paytype : 'NA'?></td>
@@ -169,7 +169,7 @@ switch ($procument) {
 							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
 								<td >PO Reference No</td>
 								<td class="td-desk">:
-									<a href="<?php echo base_url();?>index.php/Procurement/po_follow_up2?tab=0&po=<?=isset($row->PO_No) ? $row->PO_No : ''?>"><?=isset($row->PO_No) ? $row->PO_No : ''?></a>
+									<a href="<?php echo base_url();?>index.php/Procurement/po_follow_up2?tab=0&powhat=update&po=<?=isset($row->PO_No) ? $row->PO_No : ''?>"><?=isset($row->PO_No) ? $row->PO_No : ''?></a>
 								</td>
 							</tr>
 							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
