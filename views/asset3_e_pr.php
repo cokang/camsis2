@@ -10,15 +10,15 @@
 			$procument = $this->input->get('tab');
 			switch ($procument) {
 				case "1":
-					$tulis = "PO Generated";
+					$tulis = "PO Approved";
 					$tulis2 = "PO No";
 				break;
 				case "2":
-					$tulis = "PO Generated";
+					$tulis = "PO Approval";
 					$tulis2 = "PO No";
 				break;
 				default:
-					$tulis = "PR Generated";
+					$tulis = "PO Recommended";
 					$tulis2 = "MRIN No";
 			} ?>
 			<?php include 'content_pr_tab.php';?>
