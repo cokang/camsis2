@@ -88,9 +88,14 @@ class Contentcontroller extends CI_Controller {
 		// if ( !empty($_GET['continue']) && count($data['service_apa']) > 1 ){echo 123;die;
 		// 	$url = site_url('contentcontroller/content/'.$data['service_apa'][0]->v_servicecode);
 		// }
+		
 		$this->load->view('head');
 		$this->load->view('left');
 		$this->load->view('content_choose3', $data);
+		if(empty($_GET["hc"])&&($_SESSION['hosp_code'])!='pilih'){
+			$url = site_url('contentcontroller/select?hc=pilih');
+			redirect($url);
+		}
 		//$this->load->view('content_choose2', $data);
 		if(!empty($_GET["hc"])){
 			$this->session->set_userdata('hosp_code', $_GET["hc"]);
