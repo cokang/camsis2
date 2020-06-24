@@ -682,9 +682,11 @@ class Procurement extends CI_Controller {
 		}
 		elseif($this->input->get('powhat') == 'update') {
 
+
 			$poNo= $this->input->get('po');
 			$data['WO_detail'] = $this->display_model->wo_detail_pofollow($poNo);
-			//print_r($data);
+			$data['vendor_acc'] = $this->display_model->get_vendoracc($data['WO_detail'][0]->Vendor_No);
+			// print_r($data);
 			$this ->load->view("Content_po_follow_up2_update",$data);
 		}
 		elseif ($this->input->get('powhat') == 'confirm'){
@@ -709,6 +711,9 @@ class Procurement extends CI_Controller {
 			//echo $this->db->last_query();
 			//echo validation_errors();
 			//exit();
+			$poNo= $this->input->get('po');
+			$data['WO_detail'] = $this->display_model->wo_detail_pofollow($poNo);
+			$data['vendor_acc'] = $this->display_model->get_vendoracc($data['WO_detail'][0]->Vendor_No);
 			if($this->form_validation->run()==FALSE)
 			{
 			$data['runningno'] = $this->input->post('tempno');
@@ -731,8 +736,11 @@ class Procurement extends CI_Controller {
 		$visitwhat = "0";
 		$visitwhat = $this->input->get('tab') + 1;
 		$statuswhat = "N";
-		if ($this->input->post('n_completeddt') != "") {
-		$statuswhat = "C";
+		if ($this->input->post('n_completeddt') != "" ) {
+		if( $this->input->get('saved')==2){
+			$statuswhat = "C";
+		}else{
+			$statuswhat = "D";}
 		}
 		$closingdt = (($this->input->post('n_codcdt')) != '') ? date('y-m-d',strtotime($this->input->post('n_codcdt'))) : NULL;
 		$subdt = (($this->input->post('n_completeddt')) != '') ? date('y-m-d',strtotime($this->input->post('n_completeddt'))) : NULL;
@@ -741,7 +749,7 @@ class Procurement extends CI_Controller {
 		$dt3 = (($this->input->post('n_mddt')) != '') ? date('y-m-d',strtotime($this->input->post('n_mddt'))) : NULL;
 		//echo "nilai post : ".$this->input->post('n_codcdt')."nilai nktest : ".$nktest;
 		//exit();
-
+		
 
 		if ($visitwhat == 4) {
  			$insert_data = array(
@@ -781,8 +789,8 @@ class Procurement extends CI_Controller {
 					'status_set'=>$this->input->post('n_status_list'),
 					'visit'=>$visitwhat,
 					'recipient_code'=>$this->input->post('n_receipient'),
-					'gst_rm'=>$this->input->post('n_gstrm'),
-
+					// 'gst_rm'=>$this->input->post('n_gstrm'),
+					'gst_rm'=>$this->input->post('vendor_acc'),
 					'totalcost'=>$this->input->post('n_totalrm'),
 					'md_appdt'=>$dt3,
 					'dept'=>$this->input->post('n_dept'),
@@ -828,7 +836,8 @@ class Procurement extends CI_Controller {
 					'status_set'=>$this->input->post('n_status_list'),
 					'visit'=>$visitwhat,
 					'recipient_code'=>$this->input->post('n_receipient'),
-					'gst_rm'=>$this->input->post('n_gstrm'),
+					// 'gst_rm'=>$this->input->post('n_gstrm'),
+					'gst_rm'=>$this->input->post('vendor_acc'),
 					'totalcost'=>$this->input->post('n_totalrm'),
 					'md_appdt'=>$dt3,
 					'dept'=>$this->input->post('n_dept'),
@@ -855,7 +864,8 @@ class Procurement extends CI_Controller {
 			redirect('Procurement/po_follow_up2?tab=0&po='.$a);
 		} else {
 			//redirect('Procurement/po_follow_up2?tab=0&po='.$this->input->get('po'));}
-			redirect('Procurement/po_follow_up2?tab='.$this->input->get('tab').'&po='.$this->input->get('po'));
+			// redirect('Procurement/po_follow_up2?tab='.$this->input->get('tab').'&po='.$this->input->get('po'));
+			redirect('Procurement/e_request');
 		}
 	}
 
@@ -1391,6 +1401,13 @@ class Procurement extends CI_Controller {
 		if($action==0){
 		$update_data = array('PR_No' => null);
 		$this->update_model->update_PR_MRIN($mrin, $update_data);}
+	}
+
+	public function getAccNo($id){
+		//$id = $this->input->get('id');
+		$this->load->model('display_model');
+		$test =$this->display_model->get_noacc($id);
+		// print_r($test);
 	}
 
 

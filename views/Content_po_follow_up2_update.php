@@ -50,14 +50,14 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 										$Date_Completed = isset($pofollow[0]->Date_Completed) ? date("d-m-Y",strtotime($pofollow[0]->Date_Completed)) : '';
 										$Date_Completedc = isset($pofollow[0]->Date_Completedc) ? date("d-m-Y",strtotime($pofollow[0]->Date_Completedc)) : '';
 										$do_no = isset($pofollow[0]->do_no) ? $pofollow[0]->do_no : '';
-										$do_date = isset($pofollow[0]->do_date) ? date("d-m-Y",strtotime($pofollow[0]->do_date)) : '';
+										$do_date = isset($pofollow[0]->do_date) ? date("d-m-Y",strtotime($pofollow[0]->do_date)) : date("d-m-Y");
 										$Invoice_No = isset($pofollow[0]->Invoice_No) ? $pofollow[0]->Invoice_No : '';
-										$invoice_date = isset($pofollow[0]->invoice_date) ? date("d-m-Y",strtotime($pofollow[0]->invoice_date)) : '';
+										$invoice_date = isset($pofollow[0]->invoice_date) ? date("d-m-Y",strtotime($pofollow[0]->invoice_date)) : date("d-m-Y");
 
 										$total_rm = isset($pofollow[0]->totalcost) ? $pofollow[0]->totalcost : '';
 										$md_apprdt = isset($pofollow[0]->md_appdt) ? date("d-m-Y",strtotime($pofollow[0]->md_appdt)) : '';
 										$dept = isset($pofollow[0]->dept) ? $pofollow[0]->dept : '';
-										$closingdt = isset($pofollow[0]->closingdtcc) ? date("d-m-Y",strtotime($pofollow[0]->closingdtcc)) : '';
+										$closingdt = isset($pofollow[0]->closingdtcc) ? date("d-m-Y",strtotime($pofollow[0]->closingdtcc)) : date("d-m-Y");
 										$paytype = isset($pofollow[0]->paytype) ? $pofollow[0]->paytype : '';
 										$vendor = isset($pofollow[0]->vendor) ? $pofollow[0]->vendor : '';
 										$closemonth = isset($pofollow[0]->monthclosed) ? $pofollow[0]->monthclosed : '';
@@ -72,17 +72,17 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 										$gst_rm = '';
 										$status_set = '';
 										$recipient_code = '';
-										$Date_Completed = '';
+										$Date_Completed = isset($pofollow[0]->Date_Completed) ? date("d-m-Y",strtotime($pofollow[0]->Date_Completed)) :  $this->input->post('n_completeddt');
 										$Date_Completedc = '';
-										$do_no = '';
-										$do_date = '';
-										$Invoice_No = '';
-										$invoice_date = '';
+										$do_no = $this->input->post('n_do');
+										$do_date = $this->input->post('n_dodt');
+										$Invoice_No = $this->input->post('n_inv');
+										$invoice_date = $this->input->post('n_invdt');
 
 										$total_rm = '';
 										$md_apprdt = '';
 										$dept = '';
-										$closingdt = '';
+										$closingdt = $this->input->post('n_codcdt');
 										$paytype = '';
 										$vendor = '';
 										$closemonth = '';
@@ -194,7 +194,7 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 												</tr>
 												<tr>
 													<td class="td-assest">Amount :</td>
-													<td><input type="text" value="<?=isset($WO_detail[0]->POamount)?$WO_detail[0]->POamount:''?>" class="form-control-button2 n_wi-date2" ></td>
+													<td><input type="text" value="<?=isset($WO_detail[0]->POamount)?number_format($WO_detail[0]->POamount, 2):''?>" class="form-control-button2 n_wi-date2" ></td>
 
 												</tr>
 												<tr>
@@ -209,12 +209,14 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 												</tr>
 												<tr>
 													<td class="td-assest">Bank Name :</td>
-													<td><input type="text"   value="" class="form-control-button2 n_wi-date2" disabled></td>
+													<td>
+													<?php echo form_dropdown('vendor_acc', $vendor_acc ,set_value('vendor_acc',isset($pofollow[0]->gst_rm)?$pofollow[0]->gst_rm:$this->input->post('vendor_acc')), 'onchange="acc_no()" id="vdr_acc" class="dropdown n_wi-date2"'); ?></td>
+													</td>
 
 												</tr>
 												<tr>
 													<td class="td-assest">Account Number :</td>
-													<td><input type="text"   value="" class="form-control-button2 n_wi-date2" disabled></td>
+													<td><input type="text" name="account_no" id="account_no" value="<?= $this->input->post('account_no')?>"  class="form-control-button2 n_wi-date2" ></td>
 
 												</tr>
 												<tr>
@@ -279,7 +281,7 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 												<tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">Payment Request</td></tr>
 												<tr style="height:20px;">
 													<td class="td-assest">Payment Approved Date</td>
-													<td><input type="text"  name="n_completeddt" value="<?= ($Date_Completed!='')?$Date_Completed:date("d-m-Y")?>" class="form-control-button2 n_wi-date2" id="date<?php echo $numberdate++; ?>" <?=$confim?>></td>
+													<td><input type="text"  name="n_completeddt"  readonly onchange="submitdisable()" value="<?=$Date_Completed?>" class="form-control-button2 n_wi-date2" id="date<?php echo $numberdate++; ?>" <?=$confim?>></td>
 												</tr><br>
 												<!-- <tr>
 													<td class="td-assest">Payment Approved Date :</td>
@@ -334,40 +336,25 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 												<tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">Invoice & Delivery Order</td></tr>
 												<tr>
 													<td class="td-assest" style="width:40%;">Delivery Order :</td>
-													<td><input type="text"  name="n_do" value="<?=$do_no?><?=$this->input->post('n_do')?>" class="form-control-button2 n_wi-date2" <?=$confim?>></td>
+													<td><input type="text"  name="n_do" value="<?=$do_no?>" class="form-control-button2 n_wi-date2" <?=$confim?>></td>
 												</tr>
 												<tr>
 													<td class="td-assest">Delivery Order Date :</td>
-													<td><input type="text"  name="n_dodt" value="<?=$do_date!=''?$do_date:date("d-m-Y")?>" class="form-control-button2 n_wi-date2" id="date<?php echo $numberdate++; ?>" <?=$confim?>></td>
+													<td><input type="text"  name="n_dodt" value="<?=$do_date?>" class="form-control-button2 n_wi-date2" id="date<?php echo $numberdate++; ?>" <?=$confim?>></td>
 												</tr>
 												<tr>
 													<td class="td-assest">Tax Invoice / Invoice :</td>
-													<td><input type="text"  name="n_inv" value="<?=$Invoice_No?><?=$this->input->post('n_inv')?>" class="form-control-button2 n_wi-date2" <?=$confim?>></td>
+													<td><input type="text"  name="n_inv" value="<?=$Invoice_No?>" class="form-control-button2 n_wi-date2" <?=$confim?>></td>
 												</tr>
 												<tr>
 													<td class="td-assest">Tax Invoice / Invoice Date :</td>
-													<td><input type="text"  name="n_invdt" value="<?=$invoice_date!=''?$invoice_date:date("d-m-Y")?><?=$this->input->post('n_invdt')?>" class="form-control-button2 n_wi-date2" id="date<?php echo $numberdate++; ?>" <?=$confim?>></td>
+													<td><input type="text"  name="n_invdt" value="<?=$invoice_date?>" class="form-control-button2 n_wi-date2" id="date<?php echo $numberdate++; ?>" <?=$confim?>></td>
 												</tr>
 												<tr>
 													<td class="td-assest">COD Closing Month :</td>
-													<td><?php  $mon_list = array(
-													'' => '',
-															  '1' => 'Jan',
-															  '2' => 'Feb',
-															  '3' => 'Mar',
-															  '4' => 'Apr',
-															  '5' => 'May',
-															  '6' => 'Jun',
-															  '7' => 'Jul',
-															  '8' => 'Aug',
-															  '9' => 'Sep',
-															  '10' => 'Oct',
-															  '11' => 'Nov',
-															  '12' => 'Dis',
+													<td><input type="text"  name="n_codcdt" value="<?=$closingdt?>" class="form-control-button2 n_wi-date2" id="date<?php echo $numberdate++; ?>" <?=$confim?>></td>
 
-														   );
-													 ?>
-														<?php echo form_dropdown('n_codcdt', $mon_list ,$closingdt.$this->input->post('n_codcdt'), 'class="dropdown n_wi-date2"'.$confim.''); ?></td>
+													<!-- <td><?php echo form_dropdown('n_codcdt', $mon_list ,$closingdt.$this->input->post('n_codcdt'), 'class="dropdown n_wi-date2"'.$confim.''); ?></td> -->
 												</tr>
 												<!-- <tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">Others</td></tr>
 												<tr style="height:20px;">
@@ -462,8 +449,8 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 					<td colspan="2" class="ui-header-new" align="center">
 					<?php if (validation_errors() == '') { 
 						if ($this->input->get('powhat')=="update") {?>
-					<input type="submit"  class="btn-button btn-primary-button" name="mysubmit" disabled value="Save as Draft" style="width:150px;"/>
-					<input type="submit" class="btn-button btn-primary-button" name="mysubmit" value="Submit" style="width:150px;"/>
+					<input type="submit"  class="btn-button btn-primary-button" name="mysubmit"  value="Save as Draft" style="width:150px;"/>
+					<input type="submit" class="btn-button btn-primary-button"  id="btnSubmit" name="mysubmit" value="Submit" style="width:150px;"/>
 					<?php }else{
 						?><input type="submit" class="btn-button btn-primary-button" name="mysubmit" value="Confirm" style="width:150px;"/> <?php
 					}} ?>
@@ -570,12 +557,35 @@ function fCallLocatioa(pono,tag)
 		Win.window.focus();
 
 	}
+	acc_no()
+	function acc_no(){
+		var e = document.getElementById("vdr_acc");
+		var bank_id = e.options[e.selectedIndex].value;
+	
+	$.ajax({
+                    url: 'getAccNo/'+bank_id,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+						document.getElementById('account_no').value = data[0].ACCOUNT_NO;
+					//alert(data["ACCOUNT_NO"]);
+                    }
+                });
+ }
+ function submitdisable(){
+	var payment_apv = document.getElementById("date0").value;
+ if(payment_apv=='')
+ {
+	document.getElementById("btnSubmit").disabled = true;
+ }
+ }
 
 </script>
 
 	<?php //echo "lklklkl : " . $this->uri->slash_segment(1). "<br>"; include 'content_jv_popup.php';?>
 </div>
-
+<?php include 'ajaxtime.php';?>
+      <?php include 'content_jv_popup.php';?>
 </form>
 
 </body>

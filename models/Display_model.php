@@ -5237,12 +5237,17 @@ function getthepo($whichone,$month,$year,$whatdept="NONE"){
 
 
 	if ($whichone == 0) {
-	$this->db->where('a.Date_Completedc IS NULL', null, false);
-	$this->db->where('a.Date_Completed IS NULL', null, false);
+	$this->db->group_start();
+    	$this->db->where('a.Status <>', 'C');
+    	$this->db->or_where('a.Status', null);
+	$this->db->group_end();
+	// $this->db->where('a.Date_Completedc IS NULL', null, false);
+	// $this->db->where('a.Date_Completed IS NULL', null, false);
 	//$this->db->or_where("(a.Date_Completedc IS NOT NULL AND paytype = 'COD' AND closingdtcc is null AND MONTH(a.PO_Date) = ".$month." AND YEAR(a.PO_Date) = ".$year." AND a.visit = 1)", NULL, FALSE);
 	} elseif ($whichone == 1) {
 	$this->db->where('a.Date_Completedc IS NULL', null, false);
 	$this->db->where('a.Date_Completed IS NOT NULL', null, false);
+	$this->db->where('a.Status', 'C');
 	} else {
 	$this->db->where('a.Date_Completedc IS NOT NULL', null, false);
 	$this->db->where('a.paytype !=', 'COD');
@@ -5264,7 +5269,7 @@ function getthepo($whichone,$month,$year,$whatdept="NONE"){
 	$this->db->group_by('a.PO_No, b.MIRN_No, a.PO_Date');
 	//$this->db->where('a.Date_Completedc',date('Y'));
 	$query = $this->db->get();
-	//echo $this->db->last_query();
+	echo $this->db->last_query();
 	//exit();
 	return $query->result();
 }
@@ -7579,7 +7584,7 @@ a inner join (
 			}
 
 			function wo_detail_pofollow($poNo){
-				$this->db->select('pomr.MIRN_No,mr.WorkOfOrder,  mr.DateCreated,sr.D_date, po.PO_No,po.PO_Date,vi.VENDOR_NAME,mp.Payment_Opt, SUM(QtyReqfx * Unit_Costx)  POamount ');
+				$this->db->select('pomr.MIRN_No,pomr.Vendor_No,mr.WorkOfOrder,  mr.DateCreated,sr.D_date, po.PO_No,po.PO_Date,vi.VENDOR_NAME,mp.Payment_Opt,  SUM( DISTINCT Unit_Costx * QtyReqfx) POamount ');
 				$this->db->from('tbl_po_mirn pomr');
 				$this->db->join('tbl_materialreq mr ', 'mr.DocReferenceNo = pomr.MIRN_No', 'left');
 				$this->db->join('pmis2_egm_service_request sr', 'mr.WorkOfOrder= sr.V_Request_no', 'left');
@@ -7610,6 +7615,39 @@ a inner join (
 
 				$query_result = $query->result();
 				return $query_result;
+
+			}
+
+			function get_vendoracc($vendor){
+				$this->db->select('ID,BANK, ACCOUNT_NO');
+				$this->db->from('tbl_AVL');
+				$this->db->where('VENDOR_CODE', $vendor);
+				
+				$query = $this->db->get();
+				// echo $this->db->last_query();
+				// exit();
+
+				$query_result = $query->result();
+				//return $query_result;
+				foreach($query->result() as $row ){
+					//this sets the key to equal the value so that
+					//the pulldown array lists the same for each
+					$array[$row->ID] = $row->BANK;
+				}
+				return $array;
+			}
+
+			function get_noacc($id){
+				$this->db->select('ACCOUNT_NO');
+				$this->db->from('tbl_avl');
+				$this->db->where('ID', $id);
+				$query = $this->db->get();
+				// echo $this->db->last_query();
+				// exit();
+
+				$query_result = $query->result();
+				echo json_encode($query_result);
+				//return $query_result;
 
 			}
 
