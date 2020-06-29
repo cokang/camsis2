@@ -7620,7 +7620,7 @@ a inner join (
 
 			function get_vendoracc($vendor){
 				$this->db->select('ID,BANK, ACCOUNT_NO');
-				$this->db->from('tbl_AVL');
+				$this->db->from('tbl_avl');
 				$this->db->where('VENDOR_CODE', $vendor);
 				
 				$query = $this->db->get();
