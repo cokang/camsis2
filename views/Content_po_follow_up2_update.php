@@ -558,6 +558,7 @@ function fCallLocatioa(pono,tag)
 
 	}
 	acc_no()
+	submitdisable()
 	function acc_no(){
 		var e = document.getElementById("vdr_acc");
 		var bank_id = e.options[e.selectedIndex].value;
@@ -577,6 +578,8 @@ function fCallLocatioa(pono,tag)
  if(payment_apv=='')
  {
 	document.getElementById("btnSubmit").disabled = true;
+ }else{
+	document.getElementById("btnSubmit").disabled = false;
  }
  }
 

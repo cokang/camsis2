@@ -7634,6 +7634,7 @@ a inner join (
 					//the pulldown array lists the same for each
 					$array[$row->ID] = $row->BANK;
 				}
+				if($query->num_rows()>0)
 				return $array;
 			}
 
