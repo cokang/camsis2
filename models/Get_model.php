@@ -4591,5 +4591,31 @@ function get_stock_asset($searchitem=""){
 
 		}
 
+		function get_po_spend($potype){
+			$this->db->distinct();
+  $this->db->select(' SUM( Unit_Costx * QtyReqfx) as totalPO');
+	$this->db->from('tbl_po_mirn e');
+	$this->db->join('tbl_materialreq a','e.MIRN_No = a.DocReferenceNo');
+	$this->db->join('tbl_zone b','a.ZoneID = b.ZoneID');
+	$this->db->join('tbl_user c','a.RequestUserID = c.UserID');
+	$this->db->join('tbl_status d','a.ApprStatusID = d.StatusID');
+	$this->db->join('tbl_mirn_comp mc', 'mc.MIRNcode = a.DocReferenceNo', 'left');
+	$this->db->join('tbl_vendor va',"(mc.ApprvRmk1x = va.VENDOR OR mc.ApprvRmk1 = va.VENDOR) AND mc.ItemCode = va.Item_Code and mc.Unit_Costx = va.List_Price",'left');
+
+	$this->db->where('MONTH(a.datecreated)',date('m'));
+	$this->db->where('YEAR(a.datecreated)',date('Y'));
+	$this->db->where('va.flag <>', 'D');
+  
+	$this->db->where('a.apprstatusidxx','4');
+	$this->db->where('e.status ', 2);
+	$this->db->like('e.PO_No', $potype);
+	
+	$query = $this->db->get();
+	$ret = $query->row();
+	return $ret->totalPO;
+	// echo $ret->totalPO;
+	// exit();
+		}
+
 }
 ?>

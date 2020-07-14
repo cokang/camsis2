@@ -18,6 +18,17 @@ class Procurement extends CI_Controller {
 		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
 		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
 		$this ->load->view("head");
+		if ($this->input->get('pro') == 'pending'){
+			
+			$this->load->model('get_model');
+			$data['OPU'] = $this->get_model->get_po_spend('OPU');
+			$data['CHO'] = $this->get_model->get_po_spend('CHO');
+			$data['max_opu']= 1000000;
+			$data['max_cho']=11000000;
+			$this ->load->view("budget",$data);
+			
+		}
+		
 		$this ->load->view("left");
 		//if ($this->input->get('pro') == 'mrin'){
 		//	$data['mrintype']= $this->input->get('tab') != '' ? $this->input->get('tab') : 0;
