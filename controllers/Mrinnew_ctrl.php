@@ -143,7 +143,7 @@ class Mrinnew_ctrl extends CI_Controller{
 									 //'ApprNo'
 									 //'RequestRE'
 									 'CategoryDate' => 0,
-									 'ContractStatus' => $this->input->post('n_Contract'),
+									 'ContractStatus' => $this->input->post('contract')=='yes'?$this->input->post('n_Contract'):null,
 									 'Reimbursable' => 0,
 									 'ReqCase' => $this->input->post('n_Case'),
 									 'WorkOfOrder' => $this->input->post('n_request'),
@@ -203,7 +203,7 @@ class Mrinnew_ctrl extends CI_Controller{
 								 //'ApprNo'
 								 //'RequestRE'
 								 'CategoryDate' => 0,
-								 'ContractStatus' => $this->input->post('n_Contract'),
+								 'ContractStatus' => $this->input->post('contract')=='yes'?$this->input->post('n_Contract'):null,
 								 'Reimbursable' => 0,
 								 'ReqCase' => $this->input->post('n_Case'),
 								 'WorkOfOrder' => $this->input->post('n_request'),
@@ -326,7 +326,7 @@ class Mrinnew_ctrl extends CI_Controller{
 								 //'ApprNo'
 								 //'RequestRE'
 								 //'CategoryDate' => 0,
-								 'ContractStatus' => $this->input->post('n_Contract'),
+								 'ContractStatus' => $this->input->post('contract')=='yes'?$this->input->post('n_Contract'):null,
 								 //'Reimbursable' => 0,
 								 'ReqCase' => $this->input->post('n_Case'),
 								 'WorkOfOrder' => $this->input->post('n_request'),
