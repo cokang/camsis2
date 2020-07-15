@@ -56,7 +56,7 @@ echo form_open('mrinnew_ctrl/comfirmation', $attributes);
 																	'3' => 'RIW (Reimbursable Work)',
 																	'4' => 'FMI (Fast Moving Item)',
 																	'5' => 'JIT (Just in Time)'); ?>
-											<?php echo form_dropdown('n_reqtype', $req_type, set_value('n_reqtype'), 'id="req_type" class="dropdown" disabled'); ?>
+											<?php echo form_dropdown('n_Case', $req_type, set_value('n_Case'), 'id="req_type" class="dropdown" '); ?>
 											</td>
 										</tr>
 										<tr>

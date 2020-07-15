@@ -61,7 +61,7 @@ echo form_open('mrinnew_ctrl?pro=edit&mrinno='.$this->input->get('mrinno'));
 																	'3' => 'RIW (Reimbursable Work)',
 																	'4' => 'FMI (Fast Moving Item)',
 																	'5' => 'JIT (Just in Time)'); ?>
-											<?php echo form_dropdown('n_reqtype', $req_type, '', 'id="req_type" class="dropdown" '); ?>
+											<?php echo form_dropdown('n_Case', $req_type, isset($record[0]->ReqCase)?$record[0]->ReqCase:'', 'id="req_type" class="dropdown" '); ?>
 
 											</td>
 										</tr>
