@@ -415,9 +415,22 @@ class Procurement extends CI_Controller {
 	}
 
 	public function e_pr(){
-		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
-		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+		$data['from']= ($this->input->get('from') <> 0) ? $this->input->get('from') : date("Y-m-01",time());
+		$data['to']= ($this->input->get('to') <> 0) ?  $this->input->get('to') : date("Y-m-d",time());
+		$vendor= ($this->input->get('vendor') <> null) ?  $this->input->get('vendor') : 'All';
+		$request_type= ($this->input->get('request_type') <> null) ?  $this->input->get('request_type') : 'All';
+		$payment= ($this->input->get('payment') <> null) ?  $this->input->get('payment') : 'All';
+
+		$this->load->model('display_model');
+		$this->load->model('get_model');
+		$data['OPU'] = $this->get_model->get_po_spend('OPU');
+			$data['CHO'] = $this->get_model->get_po_spend('CHO');
+			$data['max_opu']= 1000000;
+			$data['max_cho']=11000000;
+		$data['vendor_list']= $this->display_model->vendor_name(1);
 		$this ->load->view("head");
+		$this ->load->view("budget",$data);
+		$this ->load->view("prpo_filter",$data);
 		$this ->load->view("left");
 		//$this->load->model('get_model');
 		//$data['newpo'] = $this->get_model->nextponumber($this->input->get('mrinno'));
@@ -445,6 +458,7 @@ class Procurement extends CI_Controller {
 		$data['attrec'] = $this->display_model->attrec($this->input->get('mrinno'));
 		$this ->load->view("Content_mrin_procure",$data);
 		}else{
+			$data['user'] = $this->display_model->user_class($this->session->userdata('v_UserName'));
 			$search = '';
 			if( isset($_POST['searchquestion']) ){
 				if( $this->input->post("searchquestion") == "" ){
@@ -458,10 +472,11 @@ class Procurement extends CI_Controller {
 		$data['tab']= ($this->input->get('tab') != '') ? $this->input->get('tab') : 0;
 		//if ($data['tab'] != 2){
 		if ($data['tab'] == 0){
-			$data['record'] = $this->display_model->prlist($data['month'],$data['year'],$this->input->get('tab'));
+			$data['record'] = $this->display_model->prlist($data['from'],$data['to'],$this->input->get('tab'),$vendor,$request_type,$payment);
 		}
 		else{
-			$data['record'] = $this->display_model->polist($data['month'],$data['year'],$search,$data['tab']);
+			$data['record'] = $this->display_model->polist($data['from'],$data['to'],$search,$data['tab'],$vendor,$request_type,$payment);
+			$data['vendorList'] =$this->display_model->vendor_name();
 		}
 		function toArray($obj)
 {
@@ -686,7 +701,9 @@ class Procurement extends CI_Controller {
 		//print_r($data);
 		//echo "nak brim";
 		//$data['runn'] = $this->input->post('tempno');
-
+		$poNo= $this->input->get('po');
+		$data['WO_detail'] = $this->display_model->wo_detail_pofollow($poNo);
+		$data['vendor_acc'] = $this->display_model->get_vendoracc($data['WO_detail'][0]->Vendor_No);
 
 		if ($this->input->get('powhat') == ''){
 			$this ->load->view("Content_po_follow_up2",$data);
@@ -694,9 +711,7 @@ class Procurement extends CI_Controller {
 		elseif($this->input->get('powhat') == 'update') {
 
 
-			$poNo= $this->input->get('po');
-			$data['WO_detail'] = $this->display_model->wo_detail_pofollow($poNo);
-			$data['vendor_acc'] = $this->display_model->get_vendoracc($data['WO_detail'][0]->Vendor_No);
+			
 			// print_r($data);
 			$this ->load->view("Content_po_follow_up2_update",$data);
 		}
@@ -722,9 +737,9 @@ class Procurement extends CI_Controller {
 			//echo $this->db->last_query();
 			//echo validation_errors();
 			//exit();
-			$poNo= $this->input->get('po');
-			$data['WO_detail'] = $this->display_model->wo_detail_pofollow($poNo);
-			$data['vendor_acc'] = $this->display_model->get_vendoracc($data['WO_detail'][0]->Vendor_No);
+			// $poNo= $this->input->get('po');
+			// $data['WO_detail'] = $this->display_model->wo_detail_pofollow($poNo);
+			// $data['vendor_acc'] = $this->display_model->get_vendoracc($data['WO_detail'][0]->Vendor_No);
 			if($this->form_validation->run()==FALSE)
 			{
 			$data['runningno'] = $this->input->post('tempno');

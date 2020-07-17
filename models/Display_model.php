@@ -5044,10 +5044,10 @@ function status_table(){
 			return $query_result;
 		}
 
-    function prlist($month,$year,$tab=0){
+    function prlist($datefrom,$dateto,$tab=0,$vendor="",$request_type="",$payment=""){
     	$this->db->distinct();
     	//$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PR_No, mp.Payment_Opt, vi.VENDOR_NAME');
-      $this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PR_No, mp.Payment_Opt, vi.VENDOR_NAME,a.ApprCommentsx, GROUP_CONCAT( DISTINCT  VENDOR_NAME ) as VENDOR_NAME, SUM( DISTINCT Unit_Costx * QtyReqfx) as totalPO');
+      $this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PR_No, mp.Payment_Opt, vi.VENDOR_NAME,a.ApprCommentsx, GROUP_CONCAT( DISTINCT  VENDOR_NAME ) as VENDOR_NAME, SUM( DISTINCT Unit_Costx * QtyReqfx) as totalPO, a.ReqCase');
     	$this->db->from('tbl_pr_mirn e');
     	if ($tab == 1){
     	$this->db->join('tbl_pr p','p.PRNo = e.PR_No');
@@ -5060,14 +5060,27 @@ function status_table(){
     	$this->db->join('tbl_mirn_comp mc', 'mc.MIRNcode = a.DocReferenceNo', 'left');
     	$this->db->join('tbl_vendor_info vi', 'vi.VENDOR_CODE = mc.ApprvRmk1x', 'left');
 
-    	$this->db->where('MONTH(a.datecreated)',$month);
-    	$this->db->where('YEAR(a.datecreated)',$year);
+    	// $this->db->where('MONTH(a.datecreated)',$month);
+		// $this->db->where('YEAR(a.datecreated)',$year);
+		$this->db->where('date(a.datecreated) BETWEEN"'.$datefrom.'"and"'.$dateto.'"');
     	if ($tab == 0){
     		$this->db->where('e.PR_No IS NULL');
     	}
     	else if ($tab == 1){
     		$this->db->where('e.PR_No IS NOT NULL');
     		$this->db->where('p.SM_Status IS NULL');
+		}
+		if ($tab == 0){
+    		$this->db->where('e.PR_No IS NULL');
+		}
+		if ($vendor !='All'){
+    		$this->db->where('vi.VENDOR_CODE ', $vendor);
+		}
+		if ($request_type !='All'){
+    		$this->db->where('a.ReqCase ', $request_type);
+		}
+		if ($payment !='All'){
+    		$this->db->where('mp.Payment_Opt ', $payment);
     	}
     	$this->db->where('a.apprstatusidxx','4');
     	$this->db->group_by('a.DocReferenceNo');
@@ -5130,11 +5143,11 @@ function printpr($prno){
 	return $query_result;
 }
 
-function polist($month,$year,$searchitem="",$tab=""){
+function polist($datefrom,$dateto,$searchitem="",$tab="",$vendor="",$request_type="",$payment=""){
 	$this->db->distinct();
 	//$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt,vi.VENDOR_NAME');
   //$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt,vi.VENDOR_NAME, SUM( DISTINCT Unit_Costx * QtyReqfx) as totalPO,sum( DISTINCT Unit_Costx * QtyReqfx) as totalPO ,a.ApprCommentsx , GROUP_CONCAT( DISTINCT  VENDOR_NAME ) as VENDOR_NAME');
-  $this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt,vi.VENDOR_NAME, SUM( DISTINCT Unit_Costx * QtyReqfx) as totalPO, a.ApprCommentsx , GROUP_CONCAT( DISTINCT  VENDOR_NAME ) as VENDOR_NAME,a.DateApproval');
+  $this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt, SUM( Unit_Costx * QtyReqfx) as totalPO, a.ApprCommentsx ,a.DateApproval,mc.ApprvRmk1x, a.ReqCase');
 	$this->db->from('tbl_po_mirn e');
 	$this->db->join('tbl_materialreq a','e.MIRN_No = a.DocReferenceNo');
 	$this->db->join('tbl_zone b','a.ZoneID = b.ZoneID');
@@ -5142,12 +5155,18 @@ function polist($month,$year,$searchitem="",$tab=""){
 	$this->db->join('tbl_status d','a.ApprStatusID = d.StatusID');
 	$this->db->join('tbl_mirn_payment mp', 'mp.MirnCode = a.DocReferenceNo', 'left');
 	$this->db->join('tbl_mirn_comp mc', 'mc.MIRNcode = a.DocReferenceNo', 'left');
-	$this->db->join('tbl_vendor_info vi', 'vi.VENDOR_CODE = mc.ApprvRmk1x', 'left');
-
+	//  $this->db->join('(select VENDOR_NAME from tbl_vendor_info group by  VENDOR_CODE) as vi', 'vi.VENDOR_CODE = mc.ApprvRmk1x', 'inner');
+	$this->db->join('tbl_vendor_info vi', 'vi.VENDOR_CODE = mc.ApprvRmk1x', 'inner');
+	// $this->db->join('(select v1.VENDOR_NAME,v1.VENDOR_CODE from tbl_vendor_info as v1 inner join tbl_vendor_info as v2 ON v1.VENDOR_CODE = v2.VENDOR_CODE) as vi', 'vi.VENDOR_CODE = mc.ApprvRmk1x', 'inner');
+	$this->db->join('tbl_vendor va',"(mc.ApprvRmk1x = va.VENDOR OR mc.ApprvRmk1 = va.VENDOR) AND mc.ItemCode = va.Item_Code and mc.Unit_Costx = va.List_Price",'left');
 
   if ($searchitem == "") {
-	$this->db->where('MONTH(a.datecreated)',$month);
-	$this->db->where('YEAR(a.datecreated)',$year);
+	// $this->db->where('MONTH(a.datecreated)',$month);
+	// $this->db->where('YEAR(a.datecreated)',$year);
+	$this->db->where('date(a.datecreated) BETWEEN"'.$datefrom.'"and"'.$dateto.'"');
+	$this->db->where('va.flag <>', 'D');
+	$this->db->where('mp.Id = (SELECT MAX(Id) FROM tbl_mirn_payment where MirnCode=a.DocReferenceNo)', NULL , FALSE);
+	// $this->db->where('vi.VENDOR_NAME = (SELECT VENDOR_NAME FROM tbl_vendor_info where VENDOR_CODE=vi.VENDOR_CODE group by VENDOR_CODE )', NULL , FALSE);
   }
   if ($searchitem != "") {
     $this->db->group_start();
@@ -5160,8 +5179,20 @@ function polist($month,$year,$searchitem="",$tab=""){
 	}elseif($tab==2){
 		$this->db->where('e.status ', 2);
 	}
-	$this->db->order_by('DateCreated', 'desc');
+	
+	if ($vendor !='All'){
+		$this->db->where('vi.VENDOR_CODE ', $vendor);
+	}
+	if ($request_type !='All'){
+		$this->db->where('a.ReqCase ', $request_type);
+	}
+	if ($payment !='All'){
+		$this->db->where('mp.Payment_Opt ', $payment);
+	}
+	
 	$this->db->group_by('a.DocReferenceNo');
+	$this->db->order_by('a.DateApproval', 'desc');
+	$this->db->order_by('a.DateCreated', 'desc');
 	$query = $this->db->get();
 	//echo $this->db->last_query();
 	//exit();
@@ -7650,6 +7681,28 @@ a inner join (
 				echo json_encode($query_result);
 				//return $query_result;
 
+			}
+
+			function vendor_name($dropdown=''){
+				$this->db->distinct();
+				$this->db->select(' VENDOR_CODE, VENDOR_NAME');
+				$this->db->from('tbl_vendor_info');
+				$this->db->order_by('VENDOR_NAME');
+				
+				$query = $this->db->get();
+				// echo $this->db->last_query();
+				// exit();
+				if($dropdown!=1){
+				$query_result = $query->result();
+				return $query_result;
+				}
+				foreach($query->result() as $row ){
+					$array['All'] = 'All';
+					$array[$row->VENDOR_CODE] = $row->VENDOR_NAME;
+				}
+				if($query->num_rows()>0)
+				return $array;
+				
 			}
 
 

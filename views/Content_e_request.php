@@ -1,5 +1,13 @@
 <div class="ui-middle-screen">
 <div class="div-p"></div>
+<link rel="stylesheet" href="<?php echo base_url(); ?>/css/IntlTableSort.css">
+<script src="<?php echo base_url(); ?>/js/IntlTableSort.js"></script>
+<script src="<?php echo base_url(); ?>/js/IntlTableSort.DateTime.js"></script>
+<script src="<?php echo base_url(); ?>/js/IntlTableSort.String.js"></script>
+<script src="<?php echo base_url(); ?>/js/IntlTableSort.Number.js"></script>
+<link rel="stylesheet" href="<?php echo base_url(); ?>/css/backtotop.css">
+
+<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 
 <!-- <div class="main-box">
 	<div class="box7">
@@ -57,29 +65,31 @@ switch ($procument) {
 			</tr>
 			<tr class="ui-color-contents-style-1">
 				<td colspan="4" style="background-color: #fffefc;" valign="top" >
-					<table class="ui-content-middle-menu-workorder2 ui-landscape" width="100%">
+					<table class="ui-content-middle-menu-workorder2 ui-landscape sortable" width="100%">
+					<thead>
 						<?php if ($procument > 0) {?>
 						<tr class="ui-menu-color-header" style="color:white; font-size:12px;">
-							<th >&nbsp;</th>
-							<th style="text-align:left;">PO Reference No</th>
-							<th >Payment Type</th>
+							<th onclick="numberTableSort(this,true)">&nbsp;</th>
+							<th onclick="tableSort(this)" style="text-align:left;">PO Reference No</th>
+							<th onclick="tableSort(this)">Payment Type</th>
 							<?php if ($procument == "1") { ?>
-							<th >Status</th> <?php }  else {?>
-							<th >Issue Date</th>
-							<th >Status</th><?php } ?>
-							<th >Vendor</th>
+							<th onclick="tableSort(this)">Status</th> <?php }  else {?>
+							<th onclick="dateTimeTableSort(this,'Date')">Issue Date</th>
+							<th onclick="tableSort(this)">Status</th><?php } ?>
+							<th onclick="tableSort(this)">Vendor</th>
 						</tr>
 					<?php } else { ?>
 						<tr class="ui-menu-color-header" style="color:white; font-size:12px;">
-							<th >&nbsp;</th>
-							<th style="text-align:left;">PO Reference No</th>
-							<th >Vendor</th>
-							<th >PO Approval Date</th>
-							<th >Payment Approval Date</th>
-							<th >Payment Status</th>
-							<th >PO Completed Date</th>
+							<th onclick="numberTableSort(this,true)">&nbsp;</th>
+							<th onclick="tableSort(this)" style="text-align:left;">PO Reference No</th>
+							<th onclick="tableSort(this)" >Vendor</th>
+							<th onclick="dateTimeTableSort(this,'Date')">PO Approval Date</th>
+							<th onclick="dateTimeTableSort(this,'Date')">Payment Approval Date</th>
+							<th onclick="tableSort(this)">Payment Status</th>
+							<th onclick="dateTimeTableSort(this,'Date')">PO Completed Date</th>
 						</tr>
 					<?php }?>
+					</thead>
 						<style>
 							.ui-content-middle-menu-workorder2 tr th {padding:8px;font-size:14px;}
 							.ui-content-middle-menu-workorder2 tr td {padding:8px;font-size:14px;}
@@ -239,4 +249,5 @@ function myFunction(nilai) {
  //alert('sucess');
 }
 </script>
+<script src="<?php echo base_url(); ?>/js/backtotop.js"></script>
 </html>
