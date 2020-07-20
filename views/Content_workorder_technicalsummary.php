@@ -3,7 +3,10 @@
 <div class="ui-middle-screen">
 	<div class="content-workorder" align="center">
 			<table class="ui-content-middle-menu-workorder" border="0" height="" width="95%" align="center">
-			<?php include 'content_wrk_ord.php';?>
+			<?php include 'content_wrk_ord.php';
+			$wo = $this->input->get('wrk_ord');
+			$wo = explode("/",$wo);
+			?>
 			
 				
 			<tr class="ui-color-contents-style-1">
@@ -137,11 +140,10 @@
 									<tr> <td width='60%'>Obsolete model </td> <td width='40%'> Others : </td></tr> -->
 									</table>
 									</div>
-									<b>Remark Specialist Team :</b><br><br>
-									<!-- <div style='padding-left: 110px;'>
-									Approved with attachment service report <br><br>
-									Not Approved <br><br>
-									</div> -->
+									<b>Remark by Specialist Team :</b><br><br>
+									<div style='padding-left: 110px;'>
+									<label style="color: blue;"><?php if($wo[1]=='AP19') ?><?= isset($record[0]->V_details) ? $record[0]->V_details : ''?></label>
+									</div>
 									<div style="margin-left: 700px;"><b>Checking by: </b><br></div>
 									<div style="margin-left: 900px;"><b>(Sign & Chop)</b><br></div>
 									<div style="margin-left: 700px;"><b>Date: </b><br></div>

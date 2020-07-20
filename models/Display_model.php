@@ -7483,7 +7483,7 @@ a inner join (
     		}
 
   			function rootcause($wo){
-  				$this->db->select('m.*,s.V_Asset_no,s.D_date,u.Name,ar.V_Asset_name, ar.V_Asset_no, ar.V_Tag_no,ar.V_Brandname, ar.V_Model_no, mc.LastRepDt');
+  				$this->db->select('m.*,s.V_Asset_no,s.D_date,u.Name,ar.V_Asset_name, ar.V_Asset_no, ar.V_Tag_no,ar.V_Brandname, ar.V_Model_no, mc.LastRepDt,s.V_details');
   				$this->db->from('tbl_materialreq m');
   				$this->db->join('pmis2_egm_service_request s','m.WorkOfOrder = s.V_Request_no','left');
   				$this->db->join('tbl_user u','m.RequestUserID = u.UserID','left');

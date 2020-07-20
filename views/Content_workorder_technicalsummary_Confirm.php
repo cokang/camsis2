@@ -171,7 +171,7 @@ echo form_open('rootcause_ctrl/comfirmation');
 									<td><td style="padding-left:10px;"><textarea class="Input n_com2" name="rc_remarkprocument" disabled><?=set_value('rc_remarkprocument')?></textarea></td></td>
 									</tr>
 									<tr>
-										<td style="padding:10px;" valign="top">Remark Specialist Team   :   </td>
+										<td style="padding:10px;" valign="top">Remark by Specialist Team   :   </td>
 									<td><td style="padding-left:10px;"><textarea class="Input n_com2" name="rc_remarkST" disabled><?=set_value('rc_remarkST')?></textarea></td></td>
 									</tr>
 								</table>

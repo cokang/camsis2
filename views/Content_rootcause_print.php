@@ -14,6 +14,8 @@
                 left:0;                          
             } 
 	</style>
+	<?php $wo = $this->input->get('wrk_ord');
+			$wo = explode("/",$wo);?>
 	<div id="Instruction" class="pr-printer">
 		<div class="header-pr">ROOT CAUSE OF BREAKDOWN</div>
 		<button onclick="javascript:myFunction('print_rootcause?wrk_ord=<?=$this->input->get('wrk_ord')?>&none=closed');" class="btn-button btn-primary-button">PRINT</button>
@@ -158,11 +160,10 @@
 									<tr> <td width='60%'>Obsolete model </td> <td width='40%'> Others : </td></tr> -->
 									</table>
 									</div>
-									<b>Remark Specialist Team :</b><br><br>
-									<!-- <div style='padding-left: 110px;'>
-									Approved with attachment service report <br><br>
-									Not Approved <br><br>
-									</div> -->
+									<b>Remark by Specialist Team :</b><br><br>
+									<div style='padding-left: 110px;'>
+									<label style="color: blue;"><?php if($wo[1]=='AP19') ?><?=isset($record[0]->V_details) ? $record[0]->V_details : ''?></label>
+									</div>
 									<div style="margin-left: 300px;"><b>Checking by: </b><br></div>
 									<div style="margin-left: 500px;"><b>(Sign & Chop)</b><br></div>
 									<div style="margin-left: 300px;"><b>Date: </b><br></div>

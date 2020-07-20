@@ -8848,6 +8848,7 @@ $data['dbroot']= $this->get_model->rootChild($result[0]->nama,1);
 }
 }$data['status']=$WOstatus;//print_r($WOstatus);
 //print_r($data['records']);
+$data['remark_specialist'] = $this->display_model->rootcause($data['wrk_ord']);
 
 $this ->load->view("head");
 $this ->load->view("left");

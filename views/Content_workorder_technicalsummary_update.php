@@ -2,7 +2,9 @@
 <?php if($this->input->get('mrin')!=null){
 	$wrkOrdOrMrin = $this->input->get('mrin');
 }else{ $wrkOrdOrMrin = $this->input->get('wrk_ord');
-	}?> 
+	}
+	$wo = $this->input->get('wrk_ord');
+			$wo = explode("/",$wo);?> 
 <div class="ui-middle-screen">
 	<div class="div-p"></div>
 	<div class="content-workorder" align="center">
@@ -197,8 +199,8 @@
 									<td><td style="padding-left:10px;"><textarea class="Input n_com2" name="rc_remarkprocument"><?=set_value('n_finding',isset($record[0]->ApprCommentsx) ? $record[0]->ApprCommentsx : '')?></textarea></td></td>
 									</tr>
 									<tr>
-										<td style="padding:10px;" valign="top">Remark Specialist Team   :   </td>
-									<td><td style="padding-left:10px;"><textarea class="Input n_com2" name="rc_remarkST"></textarea></td></td>
+										<td style="padding:10px;" valign="top">Remark by Specialist Team   :   </td>
+									<td><td style="padding-left:10px;"><textarea class="Input n_com2" name="rc_remarkST"><?php if($wo[1]=='AP19')?><?=isset($record[0]->V_details) ? $record[0]->V_details : ''?></textarea></td></td>
 									</tr>
 								</table>
 							</td>
