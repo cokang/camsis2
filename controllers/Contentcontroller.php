@@ -8873,6 +8873,7 @@ public function request_AP19(){
   $this->form_validation->set_rules('n_priority','Priority','trim|required');
   $this->form_validation->set_rules('fSummary','*Failure Report','trim|required');
   $this->form_validation->set_rules('fSummary2','*Troubleshoot/Corrective Action','trim|required');
+  $this->form_validation->set_rules('n_phone_number','*WO/PPM No','trim|required');
 
 
   if($this->form_validation->run()==FALSE)
