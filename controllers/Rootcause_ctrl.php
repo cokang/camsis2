@@ -33,7 +33,7 @@ class Rootcause_ctrl extends CI_Controller{
 				// $data['recordatt'] = $this->get_model->get_attachments($data['runningno']);
 				$this ->load->view("head");
 				$this ->load->view("left");
-				$this ->load->view("Content_workorder_technicalsummary_update",$data);
+				$this ->load->view("Content_workorder_technicalsummary_Update",$data);
 			}
 			else
 			{
