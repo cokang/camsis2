@@ -25,7 +25,8 @@
 				<div class="middle_d">
 					<table width="100%" class="ui-content-form-reg" style="">
 						<tr class="ui-color-contents-style-1" height="30px">
-								<td colspan="2" class="ui-header-new"><b>Root cause</b></td>
+								<td colspan="2" class="ui-header-new"><b>Root cause <text style="color:red;">*</text></b></td>
+								<text style="color:red;"> (*) This is mandatory fields<span style="color:red;"><?php echo validation_errors(); ?></span></text>
 							</tr>
 							<tr >
 								<td class="ui-desk-style-table">
@@ -33,27 +34,27 @@
 									
 									<tr>
 											<td style="padding-left:10px;" valign="top">Complaint / Error / Problem statement :   </td>
-											<td style="padding-left:10px;" valign="top"> <textarea class="Input n_com2" name="rc_error"><?=set_value('n_finding',isset($record[0]->rone) ? $record[0]->rone : '')?></textarea></td>
+											<td style="padding-left:10px;" valign="top"> <textarea class="Input n_com2" name="rc_error"><?=set_value('rc_error',isset($record[0]->rone) ? $record[0]->rone : '')?></textarea></td>
 										</tr>
 										<tr>
 											<td style="padding-left:10px;" valign="top">Root cause to part faulty :   </td>
-											<td style="padding-left:10px;" valign="top"> <textarea class="Input n_com2" name="rc_partfault"><?=set_value('n_finding',isset($record[0]->rthree) ? $record[0]->rthree : '')?></textarea></td>
+											<td style="padding-left:10px;" valign="top"> <textarea class="Input n_com2" name="rc_partfault"><?=set_value('rc_partfault',isset($record[0]->rthree) ? $record[0]->rthree : '')?></textarea></td>
 										</tr>
 										<tr>
 											<td style="padding-left:10px;" valign="top">Tick where appropriate :   </td>
 											<td style="padding-left:10px;" valign="top">
 												<?php $num = 1; $num2 = 1?>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="0"<?=set_radio('n_Case','0',TRUE)?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 0 ? '' : '' ?>/>
+												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case"  value="0"<?=set_radio('n_Case','0',TRUE)?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 0 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Wear & Tear<br>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="1"<?=set_radio('n_Case','1')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 1 ? '' : '' ?>/>
+												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case"  value="1"<?=set_radio('n_Case','1')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 1 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Accidental<br>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="2"<?=set_radio('n_Case','2')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 2 ? '' : '' ?>/>
+												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case"  value="2"<?=set_radio('n_Case','2')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 2 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Obsolote model<br>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="3"<?=set_radio('n_Case','3')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 3 ? '' : '' ?>/>
+												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case"  value="3"<?=set_radio('n_Case','3')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 3 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Mishandling<br>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="4"<?=set_radio('n_Case','4')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 4 ? '' : '' ?>/>
+												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case"  value="4"<?=set_radio('n_Case','4')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 4 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Environmental<br>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="5"<?=set_radio('n_Case','5')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 5 ? '' : '' ?>/>
+												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case"  value="5"<?=set_radio('n_Case','5')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 5 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Others<br>
 
 											</td>
@@ -66,7 +67,7 @@
 				<div class="middle_d">
 					<table class="ui-content-form-reg" style="">
 						<tr style="color:white;" height="30px">
-							<td colspan="2" class="ui-header-new"><b>Action taken:</b></td>
+							<td colspan="2" class="ui-header-new"><b>Action taken: <text style="color:red;">*</text></b></td>
 						</tr>
 						<tr >
 							<td class="ui-desk-style-table">
@@ -75,7 +76,7 @@
 										<td style="padding-left:10px;" class="ui-w">i) How / Why? : <br>ii) Effect / Action Taken <br>iii) Solution/Remark Technical Report Team </td>
 									</tr>
 									<tr>
-									<td style="padding-left:10px;"><textarea class="Input n_com2" name="rc_why"><?=set_value('n_complaint',isset($record[0]->rtwo) ? $record[0]->rtwo : '')?></textarea></td>
+									<td style="padding-left:10px;"><textarea class="Input n_com2" name="rc_why"><?=set_value('rc_why',isset($record[0]->rtwo) ? $record[0]->rtwo : '')?></textarea></td>
 									</tr>
 									<!-- <tr>
 										<td style="padding-left:10px;">ii) Effect / Action Taken </td>
@@ -92,14 +93,13 @@
 				</div>
 			</div>
 			<div class="ui-main-form-2">
-				<div class="middle_d">
+				<!-- <div class="middle_d">
 					<table class="ui-content-form-reg">
 						<tr style="color:white;" height="30px">
+						<br>
 							<td colspan="2" class="ui-header-new"><b>CMIS</b> </td>
 						</tr>
 						<tr>	<td><div class="form-group" id="sick_leave_img">
-                  <!-- <label>Image Reference</label><br /> -->
-                  <!-- <img src="<?php echo base_url(); ?>uploadassetimages/No_image_available.jpg" width="90%" title="Choose Your Picture" onclick="getFile()" name="file_name" id="file_name" value="picture"/> -->
 				  
 									
 									
@@ -139,11 +139,11 @@
 									</tr>
 						
 					</table>
-				</div>
+				</div> -->
 				<div class="middle_d">
 					<table class="ui-content-form-reg">
 					<tr style="color:white;" height="30px">
-							<td colspan="2" class="ui-header-new"><b>Photo</b> </td>
+							<td colspan="2" class="ui-header-new"><b>Component </b> <text style="color:red;">*</text></td>
 						</tr>
 					
 						
@@ -154,11 +154,11 @@
 										<td style="padding:10px;"></td>
 										
 									</tr>
-									<tr id="trcommaphoto">
+									<tr id="trcommaphoto" >
 										<td style="padding-left:10px; " >
 										
-										<span style="display:inline-block;" id="spcommaphoto"></span>
-										<span id="spphoto">
+										<span style="display:inline-block;" id="spcommaphoto"  ></span>
+										<span id="spphoto" >
 										<?php
 										
 											foreach($recordphoto as $row){
@@ -179,7 +179,22 @@
 										
 										</span>
 										</td>
+									</tr><?php echo form_hidden('uploadphoto',isset($photopath)?$photopath:'');?>
+					</table>
+				</div>
+				<div class="middle_d">
+					<table class="ui-content-form-reg" >
+					<tr style="color:white;" height="30px">
+							<td colspan="2" class="ui-header-new"><b>Related WO/PPM</b> </td>
+						</tr>
+					
+						
+						<tr>
+										<td width="150px"><label>Related WO/PPM: </label></td>
+										<td ><input type="text" class="form-control-button n_wi-date2" name="related_wo" readonly value="<?=set_value('related_wo',isset($wo_details[0]->V_phone_no) ? $wo_details[0]->V_phone_no : '')?>" ></td>
+										
 									</tr>
+								
 					</table>
 				</div>
 			</div>
@@ -187,20 +202,20 @@
 				<div class="middle_d">
 					<table class="ui-content-form-reg">
 						<tr style="color:white;" height="30px">
-							<td colspan="2" class="ui-header-new"><b>Remark Procument & Specialist Team</b></td>
+							<td colspan="2" class="ui-header-new"><b>Remark Procument & Specialist Team <text style="color:red;">*</text></b></td>
 						</tr>
 						<tr >
 							<td class="ui-desk-style-table">
 								<table class="ui-content-form" style="color:black;" width="70%" border="0">
 						
 
-									<tr>
+									<!-- <tr>
 										<td style="padding:10px;" valign="top">Remark Procument   :   </td>
 									<td><td style="padding-left:10px;"><textarea class="Input n_com2" name="rc_remarkprocument"><?=set_value('n_finding',isset($record[0]->ApprCommentsx) ? $record[0]->ApprCommentsx : '')?></textarea></td></td>
-									</tr>
+									</tr> -->
 									<tr>
 										<td style="padding:10px;" valign="top">Remark by Specialist Team   :   </td>
-									<td><td style="padding-left:10px;"><textarea class="Input n_com2" name="rc_remarkST"><?php if($wo[1]=='AP19')?><?=isset($record[0]->V_details) ? $record[0]->V_details : ''?></textarea></td></td>
+									<td><td style="padding-left:10px;"><textarea class="Input n_com2" name="rc_remarkST"><?php if($wo[1]=='AP19')?><?=set_value('rc_remarkST',isset($record[0]->V_details) ? $record[0]->V_details : '')?></textarea></td></td>
 									</tr>
 								</table>
 							</td>

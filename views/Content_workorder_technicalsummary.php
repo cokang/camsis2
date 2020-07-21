@@ -67,17 +67,17 @@
 									<tr><td colspan='2'><b>6. Complaint / Error / Problem statement: </b><label style="color: blue;"><?=isset($record[0]->rone) ? $record[0]->rone : ''?></label></td></tr>
 									<tr><td colspan='2'><b>7. Root cause to part faulty: </b><label style="color: blue;"><?=isset($record[0]->rthree) ? $record[0]->rthree : ''?></label><br><br><b>*Tick (&#10004;) where appropriate</b><br><br>
 									<table style='padding-left: 110px;'><?php $num = 1; $num2 = 1?>
-											<tr>	<td><input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="0"<?=set_radio('n_Case','1')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 0 ? '' : '' ?>/>
+											<tr>	<td><input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="0"<?=set_radio('n_Case','1')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 0 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Wear & Tear</td>
-												<td><input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="1"<?=set_radio('n_Case','0')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 1 ? '' : '' ?>/>
+												<td><input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="1"<?=set_radio('n_Case','0')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 1 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Accidental</td>
-												<td><input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="2"<?=set_radio('n_Case','2')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 2 ? '' : '' ?>/>
+												<td><input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="2"<?=set_radio('n_Case','2')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 2 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Obsolote model</td></tr><tr>
-												<td><input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="3"<?=set_radio('n_Case','3')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 3 ? '' : '' ?>/>
+												<td><input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="3"<?=set_radio('n_Case','3')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 3 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Mishandling</td>
-												<td><input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="4"<?=set_radio('n_Case','4')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 4 ? '' : '' ?>/>
+												<td><input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="4"<?=set_radio('n_Case','4')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 4 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Environmental</td>
-												<td><input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="5"<?=set_radio('n_Case','5')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 5 ? '' : '' ?>/>
+												<td><input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="5"<?=set_radio('n_Case','5')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 5 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Others</tr></table></td>
 									</td></tr>
 									<tr><td colspan='2'><b>8. Action taken:</b><br><br>
@@ -88,7 +88,7 @@
 									<div style='padding-left: 30px;color: blue;'><?=isset($record[0]->rtwo) ? $record[0]->rtwo : ''?></div>
 									<div style="margin-left: 700px;"><b>Prepared by(Technical/SVR): <?php //isset($recordphoto[0]->user_id)?$recordphoto[0]->user_id:'' ?> </b></div><br>
 									</td></tr>
-									<tr><td colspan='2'><b>9. CMIS<br></b>
+									<!-- <tr><td colspan='2'><b>9. CMIS<br></b>
 									<span style="display:inline-block;" id="spcommaCMIS"></span>
 										<span id="spcmis">
 										<?php
@@ -109,8 +109,8 @@
 										?>
 										
 										</span>
-									</td></tr>
-									<tr><td colspan='2'><b>10. Photo<br></b>
+									</td></tr> -->
+									<tr><td colspan='2'><b>10. Component <br></b>
 									<span style="display:inline-block;" id="spcommaphoto"></span>
 										<span id="spphoto">
 										<?php

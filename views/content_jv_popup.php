@@ -851,7 +851,7 @@ if ($this->uri->slash_segment(1) == 'contentcontroller/') {
 
 	function fCallCmisPhoto(wo,tag){
 	winProp = 'width=450,height=270,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-	Win = window.open('<?php if ($this->uri->slash_segment(2) != 'e_pr/') { echo "rootcause_image";} else { echo "asset3_comm_new"; }?>?wo=' + wo + '&act=addnew' + '&tag=' + tag, 'Location', winProp);
+	Win = window.open('<?php if ($this->uri->slash_segment(2) != 'e_pr/') { if($this->uri->slash_segment(1) != 'rootcause_ctrl/'){ echo "rootcause_image";}else{echo "contentcontroller/rootcause_image";}} else { echo "asset3_comm_new"; }?>?wo=' + wo + '&act=addnew' + '&tag=' + tag, 'Location', winProp);
 	Win.window.focus();
 	}
 	function fCallCmisPhotoDel(wo, id, tag)

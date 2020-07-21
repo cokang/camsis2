@@ -1744,9 +1744,11 @@ class Contentcontroller extends CI_Controller {
 		$this ->load->view("Content_workorder_technicalsummary",$data);
 	}
 		public function technicalsummary_update(){
+		
 		$this->load->model('display_model');
 		$this->load->model('get_model');
 		$data['record'] = $this->display_model->rootcause($this->input->get('wrk_ord'));
+		$data['wo_details'] = $this->display_model->request_tab($this->input->get('wrk_ord'));
 		if($data['record']!=null){
 			$workorderOrMrin = $data['record'][0]->DocReferenceNo==''?$this->input->get('wrk_ord'):$data['record'][0]->DocReferenceNo;
 			$data['mrin']= $data['record'][0]->DocReferenceNo;
