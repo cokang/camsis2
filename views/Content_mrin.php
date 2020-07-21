@@ -110,7 +110,7 @@
 									if ($row->ApprStatusID == 6){
 										$pro = 'pending';
 										//$pro = 'approved';
-									}else if ($row->ApprStatusID == 107) {
+									}else if (($row->ApprStatusID == 107) || ($row->ApprStatusID == 114)) {
 										$pro = 'edit';
 									}else {
 										$pro = 'approved';
@@ -122,7 +122,9 @@
 									}else {
 										$pro = 'approved';
 									}
-								}
+								}else{
+                  $pro = 'approved';
+                }
 
 								if ($row->ApprStatusID == 4 && $row->ApprStatusIDx == 4 && $row->ApprStatusIDxx == 4){
 									$r_status = $row->ApprStatusID;
@@ -157,19 +159,27 @@
 										else if ($row->ApprStatusIDx== NULL){
 											$s_Proc = 'Pending';
 										}
+                    /*
 										if ($row->ApprStatusIDxx == $stat->StatusID){
 											$s_Log = $stat->Status;
 										}
 										else if ($row->ApprStatusIDxx== NULL){
 											$s_Log = 'Pending';
 										}
+                    */
+                    if (($row->ApprStatusID == '114') || ($row->ApprStatusID == '107')) {
+											$s_Log = 'Pending';
+										}
+										else {
+											$s_Log = 'Approved';
+										}
 									?>
 									<?php if ($r_status == $stat->StatusID) { ?>
 							<td class="" align="left">
-								<a rel="nofollow" title="Manager : <?=$s_AM?> <?php if ($s_AM != "Pending") { ?> ON <?=isset($row->DateApproval) ? date("d/m/Y H:i:s",strtotime($row->DateApproval)) : ''?>  <?php } ?> &#13;Procument : <?=$s_Proc?> <?php if ($s_Proc != "Pending") { ?> ON <?=isset($row->DateApprovalx) ? date("d/m/Y H:i:s",strtotime($row->DateApprovalx)) : ''?> &#13; <?=isset($row->DateApprovalxx) ? date("d/m/Y H:i:s",strtotime($row->DateApprovalxx)) : ''?>
+								<a rel="nofollow" title="EPSSITE: <?=$s_Log?> HOO : <?=$s_AM?> <?php if ($s_AM != "Pending") { ?> ON <?=isset($row->DateApproval) ? date("d/m/Y H:i:s",strtotime($row->DateApproval)) : ''?>  <?php } ?> &#13;EPSHQ : <?=$s_Proc?> <?php if ($s_Proc != "Pending") { ?> ON <?=isset($row->DateApprovalx) ? date("d/m/Y H:i:s",strtotime($row->DateApprovalx)) : ''?> &#13; <?=isset($row->DateApprovalxx) ? date("d/m/Y H:i:s",strtotime($row->DateApprovalxx)) : ''?>
 								<?php } ?>">
-									<span class="td-desk2">
-										Manager : <?=$s_AM?> <br>Procument : <?=$s_Proc?>
+									<span class="td-desk">
+										<p style="font-size:10px;">EPSSITE : <?=$s_Log?> <br>HOO : <?=$s_AM?> <br>EPSHQ : <?=$s_Proc?></p>
 									</span>
 								</a>
 							</td>
@@ -264,10 +274,10 @@
 							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
 								<td class="td-desk">Status</td>
 								<td class="td-desk">
-									<a rel="nofollow" title="Manager : <?=$s_AM?> <?php if ($s_AM != "Pending") { ?> ON <?=isset($row->DateApproval) ? date("d/m/Y H:i:s",strtotime($row->DateApproval)) : ''?>  <?php } ?> &#13;Procument : <?=$s_Proc?> <?php if ($s_Proc != "Pending") { ?> ON <?=isset($row->DateApprovalx) ? date("d/m/Y H:i:s",strtotime($row->DateApprovalx)) : ''?> &#13; <?=isset($row->DateApprovalxx) ? date("d/m/Y H:i:s",strtotime($row->DateApprovalxx)) : ''?>
+									<a rel="nofollow" title="HOO : <?=$s_AM?> <?php if ($s_AM != "Pending") { ?> ON <?=isset($row->DateApproval) ? date("d/m/Y H:i:s",strtotime($row->DateApproval)) : ''?>  <?php } ?> &#13;EPSHQ : <?=$s_Proc?> <?php if ($s_Proc != "Pending") { ?> ON <?=isset($row->DateApprovalx) ? date("d/m/Y H:i:s",strtotime($row->DateApprovalx)) : ''?> &#13; <?=isset($row->DateApprovalxx) ? date("d/m/Y H:i:s",strtotime($row->DateApprovalxx)) : ''?>
 									<?php } ?>">
 										<span>
-											Manager : <?=$s_AM?> <br>Procument : <?=$s_Proc?>
+											EPSSITE : <?=$s_AM?> <br>HOO : <?=$s_AM?> <br>EPSHQ : <?=$s_Proc?>
 										</span>
 									</a>
 								</td>

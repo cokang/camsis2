@@ -679,6 +679,7 @@ $this->db->where('ap_vo_vvfheader.vvfactionflag <> ', 'D');
 $this->db->where('ap_vo_vvfheader.vvfreportstatus <> ', 'C');
 //$this->db->like('V_asset_no', $assetcd, 'after');
 //    return $this->db->get('pmis2_sa_asset_mapping');
+$this->db->order_by('vvfSubmissionDate','DESC');
 $query = $this->db->get('ap_vo_vvfdetails');
 //echo "laalla".$query->DWRate;
 //echo $this->db->last_query();
@@ -4388,7 +4389,7 @@ function get_stock_asset($searchitem=""){
 		echo json_encode($query->result());
 	}
 
-		function reportChronology($datefrom, $dateto, $filterby,$request_type=""){
+		function reportChronology($datefrom, $dateto, $filterby,$request_type="",$special_cat=""){
 			$this->db->select("d.D_date,
 			b.nama, count(b.id) as total,
 			SUM(CASE
@@ -4407,8 +4408,11 @@ function get_stock_asset($searchitem=""){
 		$this->db->join('pmis2_egm_rootcause b', 'a.v_ReschAuthBy = b.id', 'inner');
 		$this->db->join('pmis2_egm_schconfirmmon c', 'a.v_WrkOrdNo = c.v_WrkOrdNo AND a.v_hospitalcode = c.v_hospitalcode', 'left');
 		$this->db->join('pmis2_egm_service_request d', 'a.v_WrkOrdNo = d.V_Request_no AND a.v_hospitalcode = d.v_hospitalcode', 'left');
+		$this->db->join('pmis2_egm_assetregistration g','d.v_Asset_no = g.V_Asset_no AND d.v_HospitalCode = g.V_Hospitalcode AND g.V_Actionflag <> "D"', 'left outer');
+		$this->db->join('pmis2_sa_asset_mapping mp',"mp.old_asset_type = g.V_Equip_code ",'left outer');
+		$this->db->join('pmis2_sa_add_info ad',"ad.asset_type = mp.new_asset_type ",'left outer');
 		if($datefrom!=null || $dateto!=null){
-		$this->db->where('d.D_date BETWEEN"'.$datefrom.'"and"'.$dateto.'"');
+		$this->db->where('date(d.D_date) BETWEEN"'.$datefrom.'"and"'.$dateto.'"');
 
 		}
 		if($filterby!='All'){
@@ -4416,6 +4420,9 @@ function get_stock_asset($searchitem=""){
 		}
 		if($request_type!='All'){
 			$this->db->where('d.V_request_type', $request_type);
+		}
+		if($special_cat!='All'){
+			$this->db->where('ad.specialty_cat', $special_cat);
 		}
 		$this->db->where('a.n_Visit', 1);
 		$this->db->where('b.id <>', 1);
@@ -4584,6 +4591,48 @@ function get_stock_asset($searchitem=""){
 			return $array;
 
 		}
+
+		function get_po_spend($potype){
+			$this->db->distinct();
+  $this->db->select(' SUM( Unit_Costx * QtyReqfx) as totalPO');
+	$this->db->from('tbl_po_mirn e');
+	$this->db->join('tbl_materialreq a','e.MIRN_No = a.DocReferenceNo');
+	$this->db->join('tbl_zone b','a.ZoneID = b.ZoneID');
+	$this->db->join('tbl_user c','a.RequestUserID = c.UserID');
+	$this->db->join('tbl_status d','a.ApprStatusID = d.StatusID');
+	$this->db->join('tbl_mirn_comp mc', 'mc.MIRNcode = a.DocReferenceNo', 'left');
+	$this->db->join('tbl_vendor va',"(mc.ApprvRmk1x = va.VENDOR OR mc.ApprvRmk1 = va.VENDOR) AND mc.ItemCode = va.Item_Code and mc.Unit_Costx = va.List_Price",'left');
+
+	$this->db->where('MONTH(a.datecreated)',date('m'));
+	$this->db->where('YEAR(a.datecreated)',date('Y'));
+	$this->db->where('va.flag <>', 'D');
+
+	$this->db->where('a.apprstatusidxx','4');
+	$this->db->where('e.status ', 2);
+	$this->db->like('e.PO_No', $potype);
+
+	$query = $this->db->get();
+	$ret = $query->row();
+	return $ret->totalPO;
+	// echo $ret->totalPO;
+	// exit();
+		}
+
+		function getuerp($hosp)
+		{
+		$this->db->select("a.UserID");
+		$this->db->from('tbl_user a');
+		$this->db->join('tbl_user_class b','a.login = b.user_name ');
+		$this->db->join('tbl_zone c','a.ZoneID = c.ZoneID ');
+		$this->db->join('tbl_zone_hosp d','c.ZoneCode = d.Zone_Code');
+		$this->db->where('d.Hosp_Code',$hosp);
+		$query=$this->db->get();
+		// echo $this->db->last_query();
+		// exit();
+		return $query->result();
+
+		}
+
 
 }
 ?>

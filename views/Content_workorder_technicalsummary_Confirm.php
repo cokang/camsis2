@@ -39,17 +39,17 @@ echo form_open('rootcause_ctrl/comfirmation');
 											<td style="padding-left:10px;" valign="top">Tick where appropriate :   </td>
 											<td style="padding-left:10px;" valign="top">
 												<?php $num = 1; $num2 = 1?>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case" disabled value="0"<?=set_radio('n_Case','0',TRUE)?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 0 ? '' : '' ?>/>
+												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case" disabled value="0"<?=set_radio('n_Case','0',TRUE)?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 0 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Wear & Tear<br>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case" disabled value="1"<?=set_radio('n_Case','1')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 1 ? '' : '' ?>/>
+												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case" disabled value="1"<?=set_radio('n_Case','1')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 1 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Accidental<br>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case" disabled value="2"<?=set_radio('n_Case','2')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 2 ? '' : '' ?>/>
+												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case" disabled value="2"<?=set_radio('n_Case','2')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 2 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Obsolote model<br>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case" disabled value="3"<?=set_radio('n_Case','3')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 3 ? '' : '' ?>/>
+												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case" disabled value="3"<?=set_radio('n_Case','3')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 3 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Mishandling<br>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case" disabled value="4"<?=set_radio('n_Case','4')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 4 ? '' : '' ?>/>
+												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case" disabled value="4"<?=set_radio('n_Case','4')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 4 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Environmental<br>
-												<input type="checkbox" id="radio-1-<?=$num++?>" name="n_Case" disabled value="5"<?=set_radio('n_Case','5')?><?=isset($record[0]->ReqCase) && $record[0]->ReqCase == 5 ? '' : '' ?>/>
+												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case" disabled value="5"<?=set_radio('n_Case','5')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 5 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Others<br>
 
 											</td>
@@ -87,7 +87,7 @@ echo form_open('rootcause_ctrl/comfirmation');
 				</div>
 			</div>
 			<div class="ui-main-form-2">
-				<div class="middle_d">
+				<!-- <div class="middle_d">
 					<table class="ui-content-form-reg">
 						<tr style="color:white;" height="30px">
 							<td colspan="2" class="ui-header-new"><b>CMIS</b> </td>
@@ -120,11 +120,11 @@ echo form_open('rootcause_ctrl/comfirmation');
 									</tr>
 						
 					</table>
-				</div>
+				</div> -->
 				<div class="middle_d">
 					<table class="ui-content-form-reg">
 						<tr class="ui-color-contents-style-1" height="30px">
-							<td colspan="2" class="ui-header-new"><b>Photo</b></td>
+							<td colspan="2" class="ui-header-new"><b>Component </b></td>
 						</tr>
 						<tr>
 										<td ><label>Image Reference: </label></td>
@@ -166,12 +166,12 @@ echo form_open('rootcause_ctrl/comfirmation');
 								<table class="ui-content-form" style="color:black;" width="70%" border="0">
 						
 
-									<tr>
+									<!-- <tr>
 										<td style="padding:10px;" valign="top">Remark Procument   :   </td>
 									<td><td style="padding-left:10px;"><textarea class="Input n_com2" name="rc_remarkprocument" disabled><?=set_value('rc_remarkprocument')?></textarea></td></td>
-									</tr>
+									</tr> -->
 									<tr>
-										<td style="padding:10px;" valign="top">Remark Specialist Team   :   </td>
+										<td style="padding:10px;" valign="top">Remark by Specialist Team   :   </td>
 									<td><td style="padding-left:10px;"><textarea class="Input n_com2" name="rc_remarkST" disabled><?=set_value('rc_remarkST')?></textarea></td></td>
 									</tr>
 								</table>

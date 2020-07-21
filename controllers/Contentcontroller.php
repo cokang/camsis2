@@ -70,6 +70,25 @@ class Contentcontroller extends CI_Controller {
 
 	function select()
 	{
+    //$sess_id = $this->session->userdata('usersess');
+    $sess_hosp = $this->session->userdata('hosp_code');
+    //echo "masuk cni1 : ".$sess_id." ni hc :".$_GET["hc"]." ni hosp :".$sess_hosp;
+    //if ((!empty($sess_id)) && (empty($_GET["hc"]))) {
+    /*
+    if ((empty($_GET["hc"])) && (!empty($sess_hosp))) {
+      if ($sess_hosp!="pilih") {
+        //echo "masuk redirect balank";
+        $url = site_url('contentcontroller/select?hc=pilih');
+        redirect($url, 'refresh');
+      }
+    }
+    */
+    /*
+    if(empty($_GET["hc"])&&($_SESSION['hosp_code'])!='pilih'){
+			$url = site_url('contentcontroller/select?hc=pilih');
+			redirect($url);
+		}
+    */
 
 		$this->load->model('insert_model');
 		$this->insert_model->audit_log('login');
@@ -88,11 +107,24 @@ class Contentcontroller extends CI_Controller {
 		// if ( !empty($_GET['continue']) && count($data['service_apa']) > 1 ){echo 123;die;
 		// 	$url = site_url('contentcontroller/content/'.$data['service_apa'][0]->v_servicecode);
 		// }
+    //echo "masuk cni3 : ".$sess_id." ni hc :".$_GET["hc"]." ni hosp :".$sess_hosp;
+
+    $data['waklu'] = "wakluuuuuuu";
+
 		$this->load->view('head');
 		$this->load->view('left');
 		$this->load->view('content_choose3', $data);
+
+
+
 		//$this->load->view('content_choose2', $data);
 		if(!empty($_GET["hc"])){
+      //echo "masuk 1";
+      //exit();
+    //if(!empty($_GET["hc"])){$getto = $_GET["hc"];} else {$getto = "";}
+		//if((!empty($_GET["hc"])) || (!empty($sess_id))){
+      //echo "masuk cni1";
+      //exit();
 			$this->session->set_userdata('hosp_code', $_GET["hc"]);
 			for($i=0;$i<count($data['service_apa2']);$i++){
 				if( $data['service_apa2'][$i]->v_hospitalcode == $_GET['hc'] ){
@@ -100,8 +132,11 @@ class Contentcontroller extends CI_Controller {
 				}
 			}
 
-			if( $_GET["hc"]=="pilih" ){
-				if ( $total_hosp > 1 ){
+      if ($_GET["hc"]=="pilih") {
+      //if(TRUE){
+      //echo "masuk 2";
+      //exit();
+    if ( $total_hosp > 1 ){
 					$url = site_url('contentcontroller/select');
 				}elseif ( $total_service > 1 ) {
 					$url = site_url('contentcontroller/select');
@@ -109,12 +144,15 @@ class Contentcontroller extends CI_Controller {
 					$url = site_url('contentcontroller/content/'.$data['service_apa'][0]->v_servicecode);
 				}
 			}else{
-				if( $total_service == 1 ){
+        //echo "masuk 3";
+        //exit();
+      if( $total_service == 1 ){
 					$url = site_url('contentcontroller/content/'.$data['service_apa'][0]->v_servicecode);
 				}else{
 					$url = site_url('contentcontroller/select');
 				}
 			}
+
 			redirect($url, 'refresh');
 		}
 
@@ -1742,6 +1780,7 @@ class Contentcontroller extends CI_Controller {
 		$this->load->model('display_model');
 		$this->load->model('get_model');
 		$data['record'] = $this->display_model->rootcause($this->input->get('wrk_ord'));
+		$data['wo_details'] = $this->display_model->request_tab($this->input->get('wrk_ord'));
 		if($data['record']!=null){
 			$workorderOrMrin = $data['record'][0]->DocReferenceNo==''?$this->input->get('wrk_ord'):$data['record'][0]->DocReferenceNo;
 			$data['mrin']= $data['record'][0]->DocReferenceNo;
@@ -8842,6 +8881,7 @@ $data['dbroot']= $this->get_model->rootChild($result[0]->nama,1);
 
 }
 }$data['status']=$WOstatus;//print_r($WOstatus);
+$data['remark_specialist'] = $this->display_model->rootcause($data['wrk_ord']);
 //print_r($data['records']);
 
 $this ->load->view("head");
@@ -8867,6 +8907,7 @@ public function request_AP19(){
   $this->form_validation->set_rules('n_priority','Priority','trim|required');
   $this->form_validation->set_rules('fSummary','*Failure Report','trim|required');
   $this->form_validation->set_rules('fSummary2','*Troubleshoot/Corrective Action','trim|required');
+  $this->form_validation->set_rules('n_phone_number','*WO/PPM No','trim|required');
 
 
   if($this->form_validation->run()==FALSE)
@@ -8975,11 +9016,13 @@ public function report_chronology(){
 		$to = $this->input->get('to') ? $this->input->get('to') : $end;
     $filterby= $this->input->get('status')? $this->input->get('status') : 'All';
 		$request_type = $this->input->get('request_type')? $this->input->get('request_type') : 'All';
+    $special_cat = $this->input->get('special_cat')? $this->input->get('special_cat') : 'All';
 		//$from = $this->input->get('from') ? $this->input->get('from') : '';
 		//$to = $this->input->get('to') ? $this->input->get('to') : '';
 		$data['from']=$from;
 		$data['to']=$to;
-    $data['det'] =$this->get_model->reportChronology($from, $to,$filterby,$request_type);
+    $data['special_cat'] = $this->get_model->get_special_cat();
+    $data['det'] =$this->get_model->reportChronology($from, $to,$filterby,$request_type,$special_cat);
 		$this ->load->view("head");
 		$this ->load->view("content_report_chronology",$data);
 	}
@@ -8990,14 +9033,15 @@ public function report_chronology(){
 		$to = $this->input->get('to') ? $this->input->get('to') : '';
 		$nama = $this->input->get('nama');
 		$negeri = $this->input->get('negeri');
-		$filterby= $this->input->get('status');
+		$filterby= ($this->input->get('status')) ? $this->input->get('status') : "All";
 		$request_type= ($this->input->get('request_type')) ? $this->input->get('request_type') : "All";
+    $special_cat= ($this->input->get('special_cat')) ? $this->input->get('special_cat') : "All";
 		// echo 'test'.$nama.$negeri;
 		// exit();
         //$data['records'] = $this->display_model->chrology_sum_report($from, $to,$nama,$negeri);
 
     		$data['year']= date("Y");
-    		$data['records'] = $this->display_model->chrology_sum_report($from, $to,$nama,$negeri,$filterby,$request_type);
+    		$data['records'] = $this->display_model->chrology_sum_report($from, $to,$nama,$negeri,$filterby,$request_type,$special_cat);
     		$cost[]='';
     		if($data['records']!=null){
     		foreach($data['records'] as $key => $val){

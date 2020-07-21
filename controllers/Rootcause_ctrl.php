@@ -9,28 +9,31 @@ class Rootcause_ctrl extends CI_Controller{
 		// load libraries for URL and form processing
 	    $this->load->helper(array('form', 'url'));
 	    // load library for form validation
-	    $this->load->library('form_validation');
-			$this->load->model('get_model');
-			$workorderOrMrin = $this->input->get('mrin')==''?$this->input->get('wrk_ord'):$this->input->get('mrin');
-			$data['recordcmis'] = $this->get_model->get_cmis($workorderOrMrin);
-			$data['recordphoto'] = $this->get_model->get_photo($workorderOrMrin);
+			// load library for form validation
+		   $this->load->library('form_validation');
+			$this->form_validation->set_rules('rc_error','Complaint / Error / Problem statement','trim|required');
+			$this->form_validation->set_rules('rc_partfault','Root cause to part faulty','trim|required');
+		  $this->form_validation->set_rules('rc_why','Action taken','trim|required');
+		  $this->form_validation->set_rules('rc_remarkST','Remark by Specialist Team','trim|required');
+		  if($data['photopath']==null)$this->form_validation->set_rules('uploadphoto','Image Reference','trim|required');
+		  $this->form_validation->set_rules('n_Case','Tick where appropriate','trim|required');
 
-		// if($this->form_validation->run()==FALSE || $this->input->get('act') <> '')
-		// 	{
-		// 		$this->load->model('get_model');
-		// 		$data['runningno'] = $this->input->post('tempno');
-		// 		$data['recordcom'] = $this->get_model->get_components($data['runningno']);
-		// 		$data['recordatt'] = $this->get_model->get_attachments($data['runningno']);
-		// 		$this ->load->view("head");
-		// 		$this ->load->view("left");
-		// 		$this ->load->view("Content_mrin_new",$data);
-		// 	}
-		// 	else
-		// 	{
+		if($this->form_validation->run()==FALSE )
+			{
+				// $this->load->model('get_model');
+				// $data['runningno'] = $this->input->post('tempno');
+				// $data['recordcom'] = $this->get_model->get_components($data['runningno']);
+				// $data['recordatt'] = $this->get_model->get_attachments($data['runningno']);
+				$this ->load->view("head");
+				$this ->load->view("left");
+				$this ->load->view("Content_workorder_technicalsummary_update",$data);
+			}
+			else
+			{
 				$this ->load->view("head");
 				$this ->load->view("left");
 				$this ->load->view("Content_workorder_technicalsummary_Confirm",$data);
-			//}
+			}
 	}
 
 	function comfirmation(){

@@ -52,10 +52,11 @@
 									</tr>
 									<tr>
 										<td style="padding-left:10px;" valign="top">Manufacturer :   </td>
-										<td style="padding-left:10px;" valign="top">
+										<!-- <td style="padding-left:10px;" valign="top">
 										<?php echo form_dropdown('n_manufacturer', $manufacturer_list, set_value('n_manufacturer','') , 'class="dropdown"'); ?>
+										</td> -->
+										<td style="padding-left:10px;" valign="top"><input type="text" name="n_manufacturer" value="<?php echo set_value('n_manufacturer'); ?>" class="form-control-button"></td>
 
-										</td>
 									</tr>
 									<tr>
 										<td style="padding-left:10px;" valign="top">Model :   </td>

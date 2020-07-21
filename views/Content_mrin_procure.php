@@ -9,6 +9,7 @@
 ?>
 <?php $numberdate = 0; ?>
 <?php isset($user[0]->class_id) ? $classid = $user[0]->class_id : $classid = 0; ?>
+
 <div class="ui-middle-screen">
 	<div class="content-workorder">
 		<div class="div-p">&nbsp;</div>
@@ -610,7 +611,7 @@
 										<td style="padding-left:10px; padding-top:5px;" valign="top">Options  :</td>
 										<td>
 											<input type="radio" id="radio-1-<?=$xx++?>" name="n_Payment" class="regular-radio" value="COD"  checked="checked"/>
-											<label for="radio-1-<?=$x++?>"></label> COD (Cash On Delivery) <span style="display:inline-block; width:15px;"></span>
+											<label for="radio-1-<?=$x++?>"></label> CIA (Cash In Advance) <span style="display:inline-block; width:15px;"></span>
 											<input type="radio" id="radio-1-<?=$xx++?>" name="n_Payment" class="regular-radio" value="TERM" />
 											<label for="radio-1-<?=$x++?>"></label> TERM <span style="display:inline-block; width:15px;"></span></br></br>
 											<input type="checkbox" name="chkbox" value="1" id ="checkbox">Returned Required
@@ -744,6 +745,7 @@
 		<?php echo form_hidden('classid',$classid) ?>
 	</div>
 </div>
+	<script src="<?php echo base_url(); ?>/js/budget.js"></script>
 <?php include 'content_jv_popup.php';?>
 </body>
 <?php echo form_close(); ?>

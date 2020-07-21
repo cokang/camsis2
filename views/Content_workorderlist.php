@@ -1,4 +1,6 @@
 <?php echo form_open('contentcontroller/workorderlist_update?wrk_ord='.$this->input->get('wrk_ord'));?>
+<?php $wo = $this->input->get('wrk_ord');
+			$wo = explode("/",$wo);?>
 <div class="ui-middle-screen">
     <table class="table-middle-screen-2" border="0">
 <tr>
@@ -57,6 +59,12 @@
 										<td class="td-assest">Letter Ref. &nbsp;:&nbsp;</td>
 										<td><?= isset($record[0]->V_Location_code) == TRUE ? $record[0]->V_Location_code : 'N/A'?></td>
 									</tr>
+									<?php if($wo[1]=='AP19'){ ?>
+									<tr>
+										<td class="td-assest">Related Work Order &nbsp;:&nbsp;</td>
+										<td><?= ($record[0]->V_phone_no) != null ?  anchor ('contentcontroller/workorderlist?&wrk_ord='.$record[0]->V_phone_no,''.$record[0]->V_phone_no.'','style="font-size:15px;  color:blue;"' ) : 'N/A'?></td>
+									</tr>
+									<?php } ?>
 									<?php } else { ?>
 									<tr>
 										<td class="td-assest">Request Summary&nbsp;:&nbsp;</td>

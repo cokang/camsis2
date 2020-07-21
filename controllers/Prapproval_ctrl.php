@@ -89,6 +89,8 @@ class Prapproval_ctrl extends CI_Controller{
 								 'visit' => '1');
 			$this->insert_model->tbl_po($insert_tbl_po);
 			////////po no tbl_po inc.
+			if($this->input->post('n_options')==107)
+			$this->update_model->resetmirn($this->input->post("mrinno"),6);
 
 		}
 		else {

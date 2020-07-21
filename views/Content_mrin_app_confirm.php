@@ -27,7 +27,7 @@
 											<td style="padding-left:10px; padding-top:5px;" valign="top">Options  :</td>
 											<td>
 												<input type="radio" id="radio-1-<?=$xx++?>" name="n_Payment" class="regular-radio" value="COD"<?=set_radio('n_Payment','COD',TRUE)?>  checked="checked" disabled/>
-												<label for="radio-1-<?=$x++?>"></label> COD (Cash On Delivery) <span style="display:inline-block; width:15px;"></span>
+												<label for="radio-1-<?=$x++?>"></label> CIA (Cash In Advance) <span style="display:inline-block; width:15px;"></span>
 												<input type="radio" id="radio-1-<?=$xx++?>" name="n_Payment" class="regular-radio" value="TERM"<?=set_radio('n_Payment','TERM')?> disabled/>
 												<label for="radio-1-<?=$x++?>"></label> TERM <span style="display:inline-block; width:15px;"></span></br></br>
 												<input type="checkbox" name="chkbox" value="1"<?=set_checkbox('chkbox','1',TRUE)?> id ="checkbox" disabled>Returned Required

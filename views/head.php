@@ -12,11 +12,15 @@
 <?php } }?>
 <html>
 <head>
+	<title>Jquery - notification popup box using toastr JS</title>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+	<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 	<link rel="shortcut icon" href="<?php echo base_url(); ?>images/iconcam2.png" type="image/x-icon"/>
 	<link rel="STYLESHEET" type="text/css" media='all' href="<?php echo base_url(); ?>css/popup-contact.css">
 	<link rel="stylesheet" type='text/css' media='all' href="<?php echo base_url(); ?>icon/style.css">
 	<link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url(); ?>css/style.css" />
-	<link rel='stylesheet' type='text/css' media='all' href="<?php echo base_url(); ?>css/jquery-ui-1.10.0.custom.css"> 
+	<link rel='stylesheet' type='text/css' media='all' href="<?php echo base_url(); ?>css/jquery-ui-1.10.0.custom.css">
 	<link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url(); ?>css/Color-skin3.css" />
 	<link rel="stylesheet" type='text/css' media='all' href="<?php echo base_url(); ?>icon/style.css">
 	<script src="<?php echo base_url(); ?>js/jquery.js"></script>
@@ -32,7 +36,7 @@
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/jquery-ias.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/jquery-ui.custom.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/modernizr.js"></script>
-	<?php 
+	<?php
 	$array = [['contentcontroller/acg_modulesf/'],['contentcontroller/acg/'],['contentcontroller/acg_report/'],['customize_search_ctrl//']];
 	//echo "lkllk : ".$this->uri->slash_segment(1) .$this->uri->slash_segment(2);
 	foreach ($array as $list) {
@@ -61,10 +65,10 @@ $("#date0,#date1,#date2,#date3,#date4,#date5,#date6,#date7,#date8,#date9,#date10
    // });
  // });
 $(document).ready(function() {
-    $body = $("body");                     
+    $body = $("body");
 
     $('tr.ui-content-color-style2 td a,tr.ui-content-color-style td a,tr.ui-left_web td a,<?php if ($this->uri->slash_segment(2) != 'fail_bank/') { echo 'tr.ui-color-contents-style-1 td .btn-button';} ?>,tr.ui-rpt-color-style a,tr.ui-rpt-color-style2 a,div#cssmenu ul li a').click(function(){
-                                  
+
         //var toLoad = $(this).attr('href')+' #content';
         $('#content').hide('fast',loadContent);
         $('#load').remove();
@@ -75,7 +79,7 @@ $(document).ready(function() {
            // alert('test');
            // $('#content').load(toLoad,'',showNewContent())
         }
-       
+
          return false;
     });
 
@@ -91,7 +95,7 @@ $(function() {
         box.toggle();
         button.toggleClass('active');
     });
-    form.mouseup(function() { 
+    form.mouseup(function() {
         return false;
     });
     $(this).mouseup(function(login) {
@@ -121,9 +125,9 @@ function showDiv2() {
     left:       0;
     height:     100%;
     width:      100%;
-    background: rgba( 255, 255, 255, .8 ) 
-                url('<?php echo base_url();?>images/pIkfp.gif') 
-                50% 50% 
+    background: rgba( 255, 255, 255, .8 )
+                url('<?php echo base_url();?>images/pIkfp.gif')
+                50% 50%
                 no-repeat;
 }
 </style>

@@ -1,3 +1,4 @@
+
 <body class="body-screen">
 		<div class="ui-middle-screen-ch">
 			<table class="table-middle-screen-2" border="0">
@@ -8,7 +9,7 @@
 				<?php $urla = str_replace("http://localhost/tutorial/FEMSHospital_v3/index.php/","",$urla)?>
 				<?php //echo "nilai url : ".$urla." nilai continue : ".$this->input->get('continue') ?>
 
-				<div class="ui-padding">			
+				<div class="ui-padding">
 					<?php if ($this->input->get('error') == 'true') { ?>
 
 					<div class="alert alert-info">
@@ -25,7 +26,11 @@
 						<!-- <?php echo anchor ('contentcontroller/select?hc='.$apa->v_hospitalcode,'<img src="'. base_url() .'images/hosp2.png" alt="" class="ui-icon-screen2" /><span class="caption">&nbsp;&nbsp;'.$apa->v_hospitalcode.'&nbsp;&nbsp;</span>'); ?> -->
 
 						<!-- bazli edit -->
-						<?php echo anchor ('contentcontroller/select?hc='.$apa->v_hospitalcode,'<center><img src="'. base_url() .'images/hosp2.png" alt="" style="width: 50px; height: 50px; padding: 10px;"/><br><span class=>&nbsp;&nbsp;'.$apa->v_hospitalcode.'&nbsp;&nbsp;</span></center>'); ?>
+						<?php echo "dfdfd :".$apa->d_run_type."</br>";?>
+						<?php if($apa->d_run_type!='O')$hospIcon='hosp2';
+						else $hospIcon='hosp-old';
+						?>
+						<?php echo anchor ('contentcontroller/select?hc='.$apa->v_hospitalcode,'<center><img src="'. base_url() .'images/'.$hospIcon.'.png" alt="" style="width: 50px; height: 50px; padding: 10px;"/><br><span class=>&nbsp;&nbsp;'.$apa->v_hospitalcode.'&nbsp;&nbsp;</span></center>'); ?>
 					</div>
 
 					<?php };?>
@@ -51,7 +56,34 @@
     document.myForm.submit();
     event.preventDefault();
   }
-	
+	window.onload = function () {
+		//alert('waklu');
+		//toastr.info('It is for your kind information'+'waklu', 'Information', {timeOut: 5000})
+		//var url = "index.php/Getinfotoast";
+		var url = "<?php echo base_url ('index.php/Getinfotoast') ?>";
+
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    var myObj = JSON.parse(this.responseText);
+    for (i in myObj)
+{
+  //alert(myObj[i].data);
+  //toastr.info('It is for your kind info : '+myObj[i].data, 'Warning', {timeOut: 15000})
+	toastr.info('It is for your kind information '+myObj[i].data+' & idnye ialah :'+myObj[i].id, 'Information', {timeOut: 5000})
+}
+    //alert('name obj : '+myObj.Volvo);
+    //toastr.warning('It is for your kind warning : '+myObj.Volvo, 'Warning', {timeOut: 5000})
+  } else {
+
+                        //alert("There was a problem while using XMLHTTP:\n" + xmlhttp.statusText);
+
+                    }
+};
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+	}
+
 </script>
 </body>
 </html>

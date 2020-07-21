@@ -132,6 +132,7 @@
 		        			<td><?=$row->V_servicecode?></td>
 		        			<td><?=$row->V_request_type?></td>
 		        			<td><?php echo anchor ('contentcontroller/workorderlist?&wrk_ord='.$row->V_Request_no,''.$row->V_Request_no.'','style="font-size:16px; font-weight:bold;"' ) ?></td>
+							<?php if ($tulis != "AP19") { ?>
 							<td><?php 
 						
 							foreach($records as $list){
@@ -163,7 +164,7 @@
 							if($list->V_Request_no==$row->V_Request_no){echo anchor ('Procurement?mrinno='.$list->DocReferenceNo.'&pro='.$pro,''.$list->DocReferenceNo.'<br>'.'','style="font-size:16px; font-weight:bold;"' );}//echo $list[$x++]->DocReferenceNo.'<br>';	
 						}
 						
-							?></td>
+							?></td> <?php } ?>
 		        			<td><?php if ($tulis == "AP19") {echo $row->V_phone_no;} else {echo "";}?></td>
 		        			<td><?php if ($tulis == "AP19") {echo $row->V_MohDesg;} else {echo $row->V_priority_code;}?></td>
 		        			<td><?php if ($tulis == "AP19") {echo $row->v_ref_status;} else {echo $row->V_Location_code.'<br>'.$row->v_Location_Name;}?></td>

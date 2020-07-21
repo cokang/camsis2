@@ -35,9 +35,9 @@ echo form_open('mrinnew_ctrl/comfirmation', $attributes);
 											<td style="padding-left:10px;" valign="top"> <input type="text" name="n_date"  value="<?=set_value('n_date')?>" id="date0" class="form-control-button2 n_wi-date2"  disabled></td>
 										</tr>
 										<tr>
-											<td style="padding-left:10px;" valign="top">Case  :   </td>
+											<td style="padding-left:10px;" valign="top">Request Type  :   </td>
 											<td style="padding-left:10px;" valign="top">
-												<?php $num = 1; $num2 = 1?>
+												<!-- <?php $num = 1; $num2 = 1?>
 												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case" class="regular-radio" value="0"<?=set_radio('n_Case','0',TRUE)?> disabled/>
 												<label for="radio-1-<?=$num2++?>"></label> BM<br>
 												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case" class="regular-radio" value="1"<?=set_radio('n_Case','1')?> disabled/>
@@ -49,13 +49,20 @@ echo form_open('mrinnew_ctrl/comfirmation', $attributes);
 												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case" class="regular-radio" value="4"<?=set_radio('n_Case','4')?> disabled/>
 												<label for="radio-1-<?=$num2++?>"></label> RW<br>
 												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case" class="regular-radio" value="5"<?=set_radio('n_Case','5')?> disabled/>
-												<label for="radio-1-<?=$num2++?>"></label> LS<br>
-
+												<label for="radio-1-<?=$num2++?>"></label> LS<br> -->
+												<?php $req_type = array('0' => 'RCM (Request Corrective Maintenance)',
+																	'1' => 'PPM (Planned Preventive Maintenance)', 
+																	'2' => 'TPS (Third Party Service)',
+																	'3' => 'RIW (Reimbursable Work)',
+																	'4' => 'FMI (Fast Moving Item)',
+																	'5' => 'JIT (Just in Time)'); ?>
+											<?php echo form_dropdown('n_Case', $req_type, set_value('n_Case'), 'id="req_type" class="dropdown" '); ?>
 											</td>
 										</tr>
 										<tr>
-											<td style="padding-left:10px;" valign="top">Contract :  </td>
-											<td style="padding-left:10px;" valign="top">
+											<?php  ?>
+											<td style="padding-left:10px;" valign="top">Contract : <input type="checkbox" id="contract" name="contract" value="yes" <?php if($this->input->post('contract')=='yes') echo 'checked'; ?>> Yes </td>
+											<td <?php if($this->input->post('contract')=='') echo 'style="display:none;"' ?> style="padding-left:10px;" valign="top">
 											<input type="radio" id="radio-1-<?=$num++?>" name="n_Contract" class="regular-radio" value="0"<?=set_radio('n_Contract','0',TRUE)?> disabled/>
 												<label for="radio-1-<?=$num2++?>"></label> Comprehensive<br>
 												<input type="radio" id="radio-1-<?=$num++?>" name="n_Contract" class="regular-radio" value="1"<?=set_radio('n_Contract','1')?> disabled/>

@@ -10,16 +10,16 @@
 			$procument = $this->input->get('tab');
 			switch ($procument) {
 				case "1":
-					$tulis = "PO Generated";
-					$tulis2 = "PO Reference No";
+					$tulis = "PO Approval";
+					$tulis2 = "PO No";
 				break;
 				case "2":
-					$tulis = "PO Generated";
-					$tulis2 = "PO Reference No";
+					$tulis = "PO Approved";
+					$tulis2 = "PO No";
 				break;
 				default:
-					$tulis = "PR Generated";
-					$tulis2 = "MRIN Reference No";
+					$tulis = "PO Recommended";
+					$tulis2 = "MRIN No";
 			} ?>
 			<?php include 'content_pr_tab.php';?>
 			<tr class="ui-color-desk desk2">
@@ -54,18 +54,19 @@
 						<tr class="ui-menu-color-header" style="color:white; font-size:12px;">
 							<th >&nbsp;</th>
 							<th style="text-align:left;"><?=$tulis2?></th>
-							<?php if($this->input->get('tab')!=0){ ?><th>PO Amount</th> <?php }?>
 							<?php if($this->input->get('tab')==2){ ?>
-							<th>Issue Date</th>
-							<th>Requestor</th>
-							<th>MRIN</th>
-							<th>Status</th>
-							<th>Date</th>
-								<?php }else{?><th>Payment Type</th> 
-							<th >Issue Date</th>
+							<th>PO Approved Date</th>
+							<!-- <th>Requestor</th> -->
+							<th>MRIN NO</th>
+							<th>MRIN Date</th>
+							<th>Vendor</th>
+							<th>Amount</th>
+							<th>Payment Type</th>
+								<?php }else{?>
+							<?php if($procument==1){?><th >MRIN No</th><?php } ?>
+							<th >MRIN Date</th>
 							<!-- <th >Requestor</th> -->
-							<?php if($procument==1){?><th >MRIN Reference No</th><?php } ?>
-							<th >Status</th>
+							<!-- <th >Status</th> -->
 							<?php if($user[0]->class_id==3){ ?>
 							<?php if($procument==0){?><th>Recommended</th><?php }elseif($procument==1){ ?>
 								<th>Approve</th>
@@ -74,6 +75,8 @@
 							<?php }?>
 							<!-- <th >Date</th> -->
 							<th>Vendor</th>
+							<th>Amount</th>
+							<th>Payment Type</th> 
 							<th>Justification</th>
 							<?php } ?>
 						</tr>
@@ -95,7 +98,7 @@
 								</a>
 							</td>
 					
-							<td><?=isset($row->Payment_Opt) ? $row->Payment_Opt : ''?></td>
+							
 							<td class="td-desk"><?=isset($row->DateCreated) ? date("d-m-Y",strtotime($row->DateCreated)) : ''?></td>
 							<!-- <td class="td-desk"><?=isset($row->name) ? $row->name : ''?></td> -->
 							<!-- <?php if (in_array("cancelpo", $chkers)) { ?>
@@ -107,12 +110,14 @@
 						<?php  }  else {?>
 							<td class="td-desk"><?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?></td>
 							<?php  } ?> -->
-							<td class="td-desk">Pending</td>
+							<!-- <td class="td-desk">Pending</td> -->
 							<?php if($user[0]->class_id==3){ ?>
 							<td class="td-desk"><input type="checkbox" id="chk_status1<?=$row->DocReferenceNo?>" name="chk_status" onclick="recommend_po('4','<?=$row->DocReferenceNo?>');"></td>
 							<td class="td-desk"><input type="checkbox" id="chk_status2<?=$row->DocReferenceNo?>" name="chk_status" onclick="recommend_po('107','<?=$row->DocReferenceNo?>');"></td>
 							<?php } ?>
 							<td class="td-desk"><?=isset($row->VENDOR_NAME) ? $row->VENDOR_NAME : ''?></td>
+							<td><?=isset($row->totalPO) ? 'RM'.number_format($row->totalPO,2) : ''?></td>
+							<td><?=isset($row->Payment_Opt) ? $row->Payment_Opt : ''?></td>
 							<td class="td-desk"><?=isset($row->ApprCommentsx) ? $row->ApprCommentsx : ''?></td>
 						</tr>
 								<?php endforeach; ?>
@@ -127,17 +132,17 @@
 									<?=isset($row->PO_No) ? $row->PO_No : ''?>
 								</a>
 							</td>
-							<td><?=isset($row->totalPO) ? 'RM'.number_format($row->totalPO,2) : ''?></td>
-							<td><?=isset($row->Payment_Opt) ? $row->Payment_Opt : ''?></td>
-							<td class="td-desk"><?=isset($row->DateCreated) ? date("d-m-Y",strtotime($row->DateCreated)) : ''?></td>
-							<!-- <td class="td-desk"><?=isset($row->name) ? $row->name : ''?></td> -->
 							<td class="td-desk"><b><a href="<?php echo base_url();?>index.php/Procurement?mrinno=<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>&pro=approved">
 								<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>
 							</a></b></td>
-							<td class="td-desk">Pending</td>
+							<td class="td-desk"><?=isset($row->DateCreated) ? date("d-m-Y",strtotime($row->DateCreated)) : ''?></td>
+							<!-- <td class="td-desk"><?=isset($row->name) ? $row->name : ''?></td> -->
+							<!-- <td class="td-desk">Pending</td> -->
 							<td class="td-desk"><input type="checkbox" id="chk_status1<?=$row->DocReferenceNo?>" name="chk_status" onclick="approval_po('2','<?=$row->DocReferenceNo?>');"></td>
 							<td class="td-desk"><input type="checkbox" id="chk_status2<?=$row->DocReferenceNo?>" name="chk_status" onclick="approval_po('0','<?=$row->DocReferenceNo?>');"></td>
 							<td class="td-desk"><?=isset($row->VENDOR_NAME) ? $row->VENDOR_NAME : ''?></td>
+							<td><?=isset($row->totalPO) ? 'RM'.number_format($row->totalPO,2) : ''?></td>
+							<td><?=isset($row->Payment_Opt) ? $row->Payment_Opt : ''?></td>
 							<td class="td-desk"><?=isset($row->ApprCommentsx) ? $row->ApprCommentsx : ''?></td>
 						</tr>
 								<?php endforeach; ?>
@@ -150,14 +155,16 @@
 									<?=isset($row->PO_No) ? $row->PO_No : ''?>
 								</a>
 							</td>
-							<td><?=isset($row->totalPO) ? 'RM'.number_format($row->totalPO,2) : ''?></td>
-							<td class="td-desk"><?=isset($row->DateCreated) ? date("d-m-Y",strtotime($row->DateCreated)) : ''?></td>
-							<td class="td-desk"><?=isset($row->name) ? $row->name : ''?></td>
+							<td class="td-desk"><?=isset($row->DateApproval) ? date("d-m-Y",strtotime($row->DateApproval)) : ''?></td>
+							<!-- <td class="td-desk"><?=isset($row->name) ? $row->name : ''?></td> -->
 							<td class="td-desk"><b><a href="<?php echo base_url();?>index.php/Procurement?mrinno=<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>&pro=approved">
 								<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>
 							</a></b></td>
-							<td class="td-desk">Pending</td>
 							<td class="td-desk"><?=isset($row->DateCreated) ? date("d-m-Y",strtotime($row->DateCreated)) : ''?></td>
+							<!-- <td class="td-desk">Pending</td> -->
+							<td class="td-desk"><?=isset($row->VENDOR_NAME) ? $row->VENDOR_NAME : ''?></td>
+							<td><?=isset($row->totalPO) ? 'RM'.number_format($row->totalPO,2) : ''?></td>
+							<td><?=isset($row->Payment_Opt) ? $row->Payment_Opt : ''?></td>
 						</tr>
 								<?php endforeach; ?>
 							<?php } ?>
@@ -174,14 +181,30 @@
 					<table class="ui-portrait" style="color:black;">
 						<tbody style="width: 100%;">
 							<?php if ($record) { ?>
-								<?php if($this->input->get('tab') == 0){?>
+								
 									<?php $rownum = 1; foreach ($record as $row): ?>
 							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
 								<td >No</td>
 								<td class="td-desk">: <?=$rownum;?></td>
 							</tr>
+							<?php if($this->input->get('tab') !=0){?>
 							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
-								<td ><?=$tulis2?></td>
+								<td >PO No</td>
+								<td class="td-desk">:
+								<a href="<?php echo base_url();?>index.php/Procurement/e_po_print?po=<?=isset($row->PO_No) ? $row->PO_No : ''?>&mrin=<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>">
+									<?=isset($row->PO_No) ? $row->PO_No : ''?>
+								</a>
+								</td>
+							</tr>
+							<?php } ?>
+							<?php if($this->input->get('tab') ==2){?>
+								<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
+								<td >PO Approved Date</td>
+								<td class="td-desk"><?=isset($row->DateCreated) ? date("d-m-Y",strtotime($row->DateCreated)) : ''?></td>
+								</tr>
+							<?php }?>
+							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
+								<td >MRIN No</td>
 								<td class="td-desk">:
 									<a href="<?php echo base_url();?>index.php/Procurement/e_pr?pr=pending&mrinno=<?=$row->DocReferenceNo?>">
 										<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>
@@ -189,27 +212,48 @@
 								</td>
 							</tr>
 							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
-								<td >Issue Date</td>
+								<td >MRIN Date</td>
 								<td class="td-desk">: <?=isset($row->DateCreated) ? date("d-m-Y",strtotime($row->DateCreated)) : ''?></td>
 							</tr>
+							<?php if($this->input->get('tab')==0 ){?>
 							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
-								<td>Requestor</td>
-								<td class="td-desk">: <?=isset($row->name) ? $row->name : ''?></td>
+								<td>Recommended</td>
+								<td class="td-desk"><input type="checkbox" id="chk_status1<?=$row->DocReferenceNo?>" name="chk_status" onclick="approval_po('2','<?=$row->DocReferenceNo?>');"></td>
 							</tr>
 							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
-								<td>MRIN</td>
-								<td class="td-desk">: <?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?><b></b></td>
+								<td>Return</td>
+								<td class="td-desk"><input type="checkbox" id="chk_status2<?=$row->DocReferenceNo?>" name="chk_status" onclick="approval_po('0','<?=$row->DocReferenceNo?>');"></td>
+							</tr>
+							<?php }elseif($this->input->get('tab')==1){?>
+								<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
+								<td>Approve</td>
+								<td class="td-desk"><input type="checkbox" id="chk_status1<?=$row->DocReferenceNo?>" name="chk_status" onclick="approval_po('2','<?=$row->DocReferenceNo?>');"></td>
 							</tr>
 							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
-								<td>Status</td>
-								<td class="td-desk">: Pending</td>
+								<td>Return</td>
+								<td class="td-desk"><input type="checkbox" id="chk_status2<?=$row->DocReferenceNo?>" name="chk_status" onclick="approval_po('0','<?=$row->DocReferenceNo?>');"></td>
+							</tr>
+							<?php }?>
+							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
+								<td>Vendor</td>
+								<td class="td-desk"><?=isset($row->VENDOR_NAME) ? $row->VENDOR_NAME : ''?></td>
 							</tr>
 							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
-								<td>Date</td>
-								<td class="td-desk">: <?=isset($row->DateCreated) ? date("d-m-Y",strtotime($row->DateCreated)) : ''?></td>
+								<td>Amount</td>
+								<td><?=isset($row->totalPO) ? 'RM'.number_format($row->totalPO,2) : ''?></td>
 							</tr>
+							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
+								<td>Payment Type</td>
+								<td><?=isset($row->Payment_Opt) ? $row->Payment_Opt : ''?></td>
+							</tr>
+							<?php if($this->input->get('tab') !=2){?>
+							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
+								<td>Justification</td>
+								<td class="td-desk"><?=isset($row->ApprCommentsx) ? $row->ApprCommentsx : ''?></td>
+							</tr>
+							<?php }?>
 									<?php endforeach;?>
-								<?php } ?>
+								
 							<?php }else{?>
 							<tr align="center" style="height:200px; background:white;">
 								<td colspan="" class="default-NO">

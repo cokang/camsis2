@@ -1,4 +1,5 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 class Mrinnew_ctrl extends CI_Controller{
 
 	public function index(){
@@ -83,8 +84,19 @@ class Mrinnew_ctrl extends CI_Controller{
 		$this->load->model('update_model');
 		if ($this->input->post('pro') == 'new'){
 			$this->load->model('get_model');
+			$this->load->model('display_model');
 			//$data['new_mrin'] = $this->get_model->nextmrinnumber();
 			$data['user'] = $this->get_model->tbl_user();
+			$data['class'] = $this->display_model->user_class($data['user'][0]->Login);
+			//$creator = $data['user'][0]->UserID;
+			//echo "nmmmnmmn : ".$data['user'][0]->UserID."::".$data['class'][0]->class_id;
+			//exit();
+			$stat = '6';
+			if ($data['class'][0]->class_id==27){
+				//$data['erp'] = $this->get_model->getuerp($this->session->userdata('hosp_code')); //$data['erp'][0]->UserID //114 pending review
+				//$creator = $this->get_model->getuerp($this->session->userdata('hosp_code'));
+				$stat = '114';
+			}
 			$woppm = substr($this->input->post('n_request'),0,2);
 			if (($woppm == "PP") || ($woppm == "SM") || ($woppm == "RI")) {
 				if ($this->get_model->get_assetnowoppm($this->input->post('n_request'),"1")) {
@@ -143,7 +155,8 @@ class Mrinnew_ctrl extends CI_Controller{
 									 //'ApprNo'
 									 //'RequestRE'
 									 'CategoryDate' => 0,
-									 'ContractStatus' => $this->input->post('n_Contract'),
+									 //'ContractStatus' => $this->input->post('n_Contract'),
+									 'ContractStatus' => $this->input->post('contract')=='yes'?$this->input->post('n_Contract'):null,
 									 'Reimbursable' => 0,
 									 'ReqCase' => $this->input->post('n_Case'),
 									 'WorkOfOrder' => $this->input->post('n_request'),
@@ -188,7 +201,8 @@ class Mrinnew_ctrl extends CI_Controller{
 								 'Comments' => $this->input->post('n_comment'),
 								 'StatusID' => 0,
 								 'CreatorUserID' => $data['user'][0]->UserID,
-								 'ApprStatusID' => 6,
+								 'ApprStatusID' => $stat,
+								 //'ApprStatusID' => 6,
 								 'ReadFlag' => 0,
 								 'CriticalFlag' => 0,
 								 'AttachmentFlag' => 0,
@@ -203,7 +217,8 @@ class Mrinnew_ctrl extends CI_Controller{
 								 //'ApprNo'
 								 //'RequestRE'
 								 'CategoryDate' => 0,
-								 'ContractStatus' => $this->input->post('n_Contract'),
+								 //'ContractStatus' => $this->input->post('n_Contract'),
+								 'ContractStatus' => $this->input->post('contract')=='yes'?$this->input->post('n_Contract'):null,
 								 'Reimbursable' => 0,
 								 'ReqCase' => $this->input->post('n_Case'),
 								 'WorkOfOrder' => $this->input->post('n_request'),
@@ -273,9 +288,15 @@ class Mrinnew_ctrl extends CI_Controller{
 			}
 		}
 		else{
+			$DateSubmitted = date("Y-m-d", strtotime($this->input->post('n_date')));
 			if ($this->input->post('ApprStatusID') == 107 && $this->input->post('class_id') == 2){
 				$ApprStatusId = 128;
 				$DateApproval = date("Y-m-d H:i:s");
+			}
+			elseif ($this->input->post('ApprStatusID') == 114 && $this->input->post('class_id') == 2){
+				$ApprStatusId = 6;
+				$DateSubmitted = date("Y-m-d H:i:s");
+				//$DateApproval = date("Y-m-d H:i:s");
 			}
 			else{
 				$ApprStatusId = $this->input->post('ApprStatusID');
@@ -300,7 +321,7 @@ class Mrinnew_ctrl extends CI_Controller{
 								 //'ZoneID'  => $data['new_mrin'][0]->ZoneID,
 								 //'DocTypeID' => $data['new_mrin'][0]->DocTypeID,
 								 'DateCreated' => date("Y-m-d", strtotime($this->input->post('n_date'))),
-								 'DateSubmitted' => date("Y-m-d", strtotime($this->input->post('n_date'))),
+								 'DateSubmitted' => $DateSubmitted,
 								 'DateChanged' => date("Y-m-d", strtotime($this->input->post('n_date'))),
 								 //'DateRequired'
 								 'DateApproval' => $DateApproval,
@@ -324,7 +345,8 @@ class Mrinnew_ctrl extends CI_Controller{
 								 //'ApprNo'
 								 //'RequestRE'
 								 //'CategoryDate' => 0,
-								 'ContractStatus' => $this->input->post('n_Contract'),
+								 //'ContractStatus' => $this->input->post('n_Contract'),
+								 'ContractStatus' => $this->input->post('contract')=='yes'?$this->input->post('n_Contract'):null,
 								 //'Reimbursable' => 0,
 								 'ReqCase' => $this->input->post('n_Case'),
 								 'WorkOfOrder' => $this->input->post('n_request'),
