@@ -303,7 +303,10 @@
 		function list_personel()
         {
 
-            $query = $this->db->get("pmis2_sa_personal");
+            //$query = $this->db->get("pmis2_sa_personal");
+            $this->db->from('pmis2_sa_personal');
+      			$this->db->where('v_Actionflag <>','D');
+      			$query = $this->db->get();
 
 			$query_result = $query->result();
 			return $query_result;
@@ -4700,7 +4703,7 @@ ORDER BY r.D_date, r.D_time
 			if ($type == 1){
 			$this->db->where('MONTH(DATE(m.DateCreated))',$inter);
 			$this->db->where('YEAR(DATE(m.DateCreated))',$year);
-				if ($kelas == 1) {
+				if (($kelas == 1) || ($kelas == 2)) {
 				$this->db->where('m.ApprStatusID = 4');
 			 } else if ($kelas == 3) {
 				$this->db->where('m.ApprStatusIDx = 4');
@@ -4714,7 +4717,7 @@ ORDER BY r.D_date, r.D_time
 			else if ($type == 2){
 			$this->db->where('MONTH(DATE(m.DateCreated))',$inter);
 			$this->db->where('YEAR(DATE(m.DateCreated))',$year);
-				$status = array(5,107,128);
+				$status = array(5,107,128,114);
 				$this->db->where_in('m.ApprStatusID',$status);
 				//$this->db->or_where('m.ApprStatusID = 107');
 				//$this->db->or_where('m.ApprStatusID = 128');
@@ -4742,9 +4745,11 @@ ORDER BY r.D_date, r.D_time
          $this->db->where('MONTH(DATE(m.DateCreated))',$inter);
          $this->db->where('YEAR(DATE(m.DateCreated))',$year);
          $this->db->group_start();
-				$this->db->where('m.ApprStatusID','6');
-				$this->db->or_where('m.ApprStatusIDx','6');
-				$this->db->or_where('m.ApprStatusIDxx','6');
+				//$this->db->where('m.ApprStatusID','6');
+				//$this->db->or_where('m.ApprStatusIDx','6');
+				//$this->db->or_where('m.ApprStatusIDxx','6');
+        $status = array(107,114);
+				$this->db->where_in('m.ApprStatusID',$status);
         $this->db->group_end();
 			 }
 			}
@@ -5044,7 +5049,7 @@ function status_table(){
 			return $query_result;
 		}
 
-    function prlist($datefrom,$dateto,$tab=0,$vendor="",$request_type="",$payment=""){
+    function prlist($datefrom,$dateto,$tab=0,$vendor="",$request_type="",$payment="",$searchitem=""){
     	$this->db->distinct();
     	//$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PR_No, mp.Payment_Opt, vi.VENDOR_NAME');
       $this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PR_No, mp.Payment_Opt, vi.VENDOR_NAME,a.ApprCommentsx, GROUP_CONCAT( DISTINCT  VENDOR_NAME ) as VENDOR_NAME, SUM( DISTINCT Unit_Costx * QtyReqfx) as totalPO, a.ReqCase');
@@ -5081,7 +5086,12 @@ function status_table(){
 		}
 		if ($payment !='All'){
     		$this->db->where('mp.Payment_Opt ', $payment);
-    	}
+		}
+		if ($searchitem != "") {
+			$this->db->group_start();
+			$this->db->like("a.DocReferenceNo",$searchitem)->or_like("a.DocReferenceNo",$searchitem);
+			$this->db->group_end();
+			}
     	$this->db->where('a.apprstatusidxx','4');
     	$this->db->group_by('a.DocReferenceNo');
     	$query = $this->db->get();
@@ -7614,7 +7624,7 @@ a inner join (
 
 			}
 
-			function wo_detail_pofollow($poNo){
+      function wo_detail_pofollow($poNo){
 				$this->db->select('pomr.MIRN_No,pomr.Vendor_No,mr.WorkOfOrder,  mr.DateCreated,sr.D_date, po.PO_No,po.PO_Date,vi.VENDOR_NAME,mp.Payment_Opt,  SUM( DISTINCT Unit_Costx * QtyReqfx) POamount ');
 				$this->db->from('tbl_po_mirn pomr');
 				$this->db->join('tbl_materialreq mr ', 'mr.DocReferenceNo = pomr.MIRN_No', 'left');
@@ -7649,11 +7659,13 @@ a inner join (
 
 			}
 
+
+
 			function get_vendoracc($vendor){
 				$this->db->select('ID,BANK, ACCOUNT_NO');
 				$this->db->from('tbl_avl');
 				$this->db->where('VENDOR_CODE', $vendor);
-				
+
 				$query = $this->db->get();
 				// echo $this->db->last_query();
 				// exit();
@@ -7682,7 +7694,6 @@ a inner join (
 				//return $query_result;
 
 			}
-
 			function vendor_name($dropdown=''){
 				$this->db->distinct();
 				$this->db->select(' VENDOR_CODE, VENDOR_NAME');
@@ -7704,6 +7715,7 @@ a inner join (
 				return $array;
 				
 			}
+
 
 
 }

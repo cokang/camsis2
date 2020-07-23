@@ -81,6 +81,15 @@ elseif ('Procurement/e_pr/?tab=2' ==  $this->uri->slash_segment(1).$this->uri->s
 	echo "</div>";
 	echo "</div></form>";
 }
+elseif ('Procurement/e_pr/?tab=0' ==  $this->uri->slash_segment(1).$this->uri->slash_segment(2).'?tab='.$this->input->get('tab')||'Procurement/e_pr/' ==  $this->uri->slash_segment(1).$this->uri->slash_segment(2)){
+	echo "<form action=".$url = site_url("Procurement/e_pr?tab=".$this->input->get('tab')."&y=".$this->input->get('y')."&m=".$this->input->get('m'))." method='post' id='myform'>";
+	echo "<div class='search-form'>";
+	echo "<div class='form-group'>";
+	echo "<input type='text' class='form-control login-field' value='".$this->input->post('searchquestion')."' autofocus='autofocus' id='searchquestion' placeholder='Search MRIN' name='searchquestion' size='22'/>";
+	echo "<label class='login-field-icon' for='login-pass'><span align='center' class='icon-search' style='color:; margin-left:-35px;' id='mylink'></span></label>";
+	echo "</div>";
+	echo "</div></form>";
+}
 elseif ('contentcontroller/site_store_status/' == $this->uri->slash_segment(1) .$this->uri->slash_segment(2)){
 	echo '<table style="width:100%;"><tr><td valign="top">';
 	echo '<div align="center" class="ui-header-left-color" style="font-weight:bold; padding-top:5px; padding-bottom:5px; color:black; width:100%;">
