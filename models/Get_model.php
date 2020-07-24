@@ -679,6 +679,7 @@ $this->db->where('ap_vo_vvfheader.vvfactionflag <> ', 'D');
 $this->db->where('ap_vo_vvfheader.vvfreportstatus <> ', 'C');
 //$this->db->like('V_asset_no', $assetcd, 'after');
 //    return $this->db->get('pmis2_sa_asset_mapping');
+$this->db->order_by('vvfSubmissionDate','DESC');
 $query = $this->db->get('ap_vo_vvfdetails');
 //echo "laalla".$query->DWRate;
 //echo $this->db->last_query();
@@ -4605,17 +4606,33 @@ function get_stock_asset($searchitem=""){
 	$this->db->where('MONTH(a.datecreated)',date('m'));
 	$this->db->where('YEAR(a.datecreated)',date('Y'));
 	$this->db->where('va.flag <>', 'D');
-  
+
 	$this->db->where('a.apprstatusidxx','4');
 	$this->db->where('e.status ', 2);
 	$this->db->like('e.PO_No', $potype);
-	
+
 	$query = $this->db->get();
 	$ret = $query->row();
 	return $ret->totalPO;
 	// echo $ret->totalPO;
 	// exit();
 		}
+
+		function getuerp($hosp)
+		{
+		$this->db->select("a.UserID");
+		$this->db->from('tbl_user a');
+		$this->db->join('tbl_user_class b','a.login = b.user_name ');
+		$this->db->join('tbl_zone c','a.ZoneID = c.ZoneID ');
+		$this->db->join('tbl_zone_hosp d','c.ZoneCode = d.Zone_Code');
+		$this->db->where('d.Hosp_Code',$hosp);
+		$query=$this->db->get();
+		// echo $this->db->last_query();
+		// exit();
+		return $query->result();
+
+		}
+
 
 }
 ?>

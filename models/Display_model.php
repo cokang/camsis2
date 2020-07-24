@@ -5267,10 +5267,11 @@ function podet($pono){
 function getthepo($whichone,$month,$year,$whatdept="NONE"){
 	//$this->db->select("CONCAT('PO/',".$this->db->escape(date('m').date('y')).",'/',RIGHT(CONCAT('0000',CAST(po_next_no AS char)), 5)) AS pono,po_next_no",FALSE);
 	//echo "<br> sdkkfjslkdfjl : ".$whichone."<br>";
-	$this->db->select("IFNULL(a.Statusc, '0') AS Statusc, a.PO_No, b.MIRN_No, a.PO_Date, b.Vendor_No AS vendor, a.paytype, c.VENDOR_NAME", FALSE);
+	$this->db->select(" a.PO_No, b.MIRN_No, a.PO_Date, b.Vendor_No AS vendor, a.paytype, c.VENDOR_NAME,d.ReqCase,IF(a.Date_Completed is null,0,1) as  Statusc,a.Date_Completed,RIGHT(b.MIRN_No,1) as mirnstatus", FALSE);
 	$this->db->from('tbl_po a');
 	$this->db->join('tbl_po_mirn b','a.PO_No = b.PO_No', 'left outer');
 	$this->db->join('tbl_vendor_info c','c.VENDOR_CODE = b.Vendor_No', 'left outer');
+	$this->db->join('tbl_materialreq d', 'b.MIRN_No =d.DocReferenceNo', 'left');
 	$this->db->where('MONTH(a.PO_Date)', $month );
 	$this->db->where('YEAR(a.PO_Date)', $year );
 	$this->db->where('a.visit = 1', null, false);
@@ -5308,6 +5309,7 @@ function getthepo($whichone,$month,$year,$whatdept="NONE"){
 	}
 
 	$this->db->group_by('a.PO_No, b.MIRN_No, a.PO_Date');
+	$this->db->having('mirnstatus <>', 'D');
 	//$this->db->where('a.Date_Completedc',date('Y'));
 	$query = $this->db->get();
 	echo $this->db->last_query();
@@ -7257,9 +7259,9 @@ if($filterby!='All'){
 		}
 if($request_type!='All'){
     	$this->db->where('d.V_request_type', $request_type);
-	}
+    }
 if($special_cat!='All'){
-    	$this->db->where('ad.specialty_cat', $special_cat);
+      $this->db->where('ad.specialty_cat', $special_cat);
     }
 $this->db->where('a.n_Visit', 1);
 $this->db->order_by('D_date', 'asc');
@@ -7493,7 +7495,7 @@ a inner join (
     		}
 
   			function rootcause($wo){
-  				$this->db->select('m.*,s.V_Asset_no,s.D_date,u.Name,ar.V_Asset_name, ar.V_Asset_no, ar.V_Tag_no,ar.V_Brandname, ar.V_Model_no, mc.LastRepDt,s.V_details');
+  				$this->db->select('m.*,s.V_Asset_no,s.D_date,u.Name,ar.V_Asset_name, ar.V_Asset_no, ar.V_Tag_no,ar.V_Brandname, ar.V_Model_no, mc.LastRepDt, s.V_details');
   				$this->db->from('tbl_materialreq m');
   				$this->db->join('pmis2_egm_service_request s','m.WorkOfOrder = s.V_Request_no','left');
   				$this->db->join('tbl_user u','m.RequestUserID = u.UserID','left');

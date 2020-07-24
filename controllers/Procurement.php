@@ -473,6 +473,7 @@ class Procurement extends CI_Controller {
 		$data['attrec'] = $this->display_model->attrec($this->input->get('mrinno'));
 		$this ->load->view("Content_mrin_procure",$data);
 		}else{
+			$data['user'] = $this->display_model->user_class($this->session->userdata('v_UserName'));
 			$search = '';
 			if( isset($_POST['searchquestion']) ){
 				if( $this->input->post("searchquestion") == "" ){
@@ -688,7 +689,7 @@ class Procurement extends CI_Controller {
 		$data['run_no'] = $this->get_model->run_no();
 		$update_data = array('Run_no' => $data['run_no'][0]->Run_no + 1,
 							 'time_stamp' => date("Y-m-d H:i:s"));
-		$this->update_model->uprun_no($update_data);
+		// $this->update_model->uprun_no($update_data);
 		$data['runningno'] = 'temp'.$data['run_no'][0]->Run_no;
 
 
@@ -1427,6 +1428,26 @@ class Procurement extends CI_Controller {
 		$this->load->model('display_model');
 		$test =$this->display_model->get_noacc($id);
 		// print_r($test);
+	}
+
+	public function return_PO(){
+		$this->load->model('update_model');
+		$this->load->model('insert_model');
+		// $this->update_model->resetmirn($this->input->post("mrin"),6);
+		$mrin=$this->input->post("mrin");
+		$this->update_model->delete_PO_MIRN($mrin,$data['vencd'][0]->Vendor);
+		$i=0;
+		foreach($items as $item){
+			$insertData[] = array('po_no' => $this->input->post("po"),
+								'item_code' => $item->ItemCode,
+								'price' => $item->Unit_Costx
+			);
+			$this->insert_model->insert_PO_del_item($insertData[$i++]);
+		}
+		$update_data = array('status' => 0);
+		$this->update_model->update_PO_MRIN($mrin, $update_data);
+		$update_data = array('PR_No' => null);
+		$this->update_model->update_PR_MRIN($mrin, $update_data);
 	}
 
 

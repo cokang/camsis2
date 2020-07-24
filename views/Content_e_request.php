@@ -34,8 +34,14 @@ switch ($procument) {
         $tulis = "Completed PO";
         break;
     default:
-        $tulis = "Pending PO";
-} ?>
+        $tulis = "PO Listing";
+}
+$req_type = array('0' => 'RCM',
+								'1' => 'PPM', 
+								'2' => 'TPS',
+								'3' => 'RIW',
+								'4' => 'FMI',
+								'5' => 'JIT'); ?>
 			<?php include 'content_po_tab.php';?>
 			<tr class="ui-color-desk desk2">
 				<td colspan="4" class="t-header" style="color:black; height:40px; padding-left:10px;"><b><?= $tulis ?></b> <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?></td>
@@ -81,12 +87,15 @@ switch ($procument) {
 					<?php } else { ?>
 						<tr class="ui-menu-color-header" style="color:white; font-size:12px;">
 							<th onclick="numberTableSort(this,true)">&nbsp;</th>
-							<th onclick="tableSort(this)" style="text-align:left;">PO Reference No</th>
+							<th onclick="tableSort(this)" style="text-align:left;">PO No</th>
+							<th onclick="dateTimeTableSort(this,'Date')">PO Date</th>
+							<th onclick="tableSort(this)" >Request Type</th>
 							<th onclick="tableSort(this)" >Vendor</th>
 							<th onclick="dateTimeTableSort(this,'Date')">PO Approval Date</th>
 							<th onclick="dateTimeTableSort(this,'Date')">Payment Approval Date</th>
+							<th>Return</th>
 							<th onclick="tableSort(this)">Payment Status</th>
-							<th onclick="dateTimeTableSort(this,'Date')">PO Completed Date</th>
+							<th onclick="dateTimeTableSort(this,'Date')">PO Closing Status</th>
 						</tr>
 					<?php }?>
 					</thead>
@@ -134,13 +143,15 @@ switch ($procument) {
 						<td class="td-desk" style="text-align:left;">
 							<a href="<?php echo base_url();?>index.php/Procurement/po_follow_up2?tab=0&powhat=update&po=<?=isset($row->PO_No) ? $row->PO_No : ''?>"><?=isset($row->PO_No) ? $row->PO_No : ''?></a>
 						</td>
+						<td class="td-desk"><?=isset($row->PO_Date) ? date('d-m-Y',strtotime($row->PO_Date)) : ''?></td>
+						<td class="td-desk"><?=isset($row->ReqCase) ? $req_type[$row->ReqCase] : 'NA'?></td>
 						<td class="td-desk"><?=isset($row->VENDOR_NAME) ? $row->VENDOR_NAME : 'NA'?></td>
 						<td class="td-desk"><?=isset($row->paytype) ? $row->paytype : 'NA'?></td>
 						<?php $status_pay = array(
-												'0' => 'Processing',
-												'1' => 'MD Auth',
-												'2' => 'Hold',
-												'3' => 'Return'
+												'0' => 'UNPAID',
+												'1' => 'PAID',
+												// '2' => 'Hold',
+												// '3' => 'Return'
 											);
 							if ($procument == "1") {
 								$confim = "";
@@ -150,7 +161,8 @@ switch ($procument) {
 							<?=form_dropdown('n_status_pay', $status_pay ,$row->Statusc, 'id= "' . $row->PO_No . '" class="dropdown n_wi-date2" onChange="myFunction(\'' .$row->PO_No. '\');" '.$confim.'');?>
 						</td>
 							<?php }  else {?>
-						<td class="td-desk"><?=isset($row->PO_Date) ? $row->PO_Date : ''?></td>
+						<td class="td-desk"><?=isset($row->Date_Completed) ? date('d-m-Y',strtotime($row->Date_Completed)) : 'NA'?></td>
+						<td class="td-desk"><input  type="checkbox" id="chk_status1<?=$row->MIRN_No?>" name="chk_status" onclick="return_po('<?=$row->MIRN_No?>','<?=$row->PO_No?>');"></td>
 						<td class="td-desk">
 							<?php if ($procument != "2") {echo isset($status_pay[$row->Statusc]) ? $status_pay[$row->Statusc] : '';} else {echo "Completed";}?>
 						</td>
@@ -248,6 +260,19 @@ function myFunction(nilai) {
 
  //alert('sucess');
 }
+function return_po( mrin, po){
+	$.ajax({
+		url: 'return_PO',
+                    type: "POST",
+                    dataType: "json",
+					data: {  mrin: mrin, po: po },
+                    success:function(data) {
+					//   document.getElementById("chk_status").disabled = true;
+                    }
+                });
+	document.getElementById("chk_status1"+mrin).disabled = true;
+	// document.getElementById("chk_status2"+mrin).disabled = true;
+ }
 </script>
 <script src="<?php echo base_url(); ?>/js/backtotop.js"></script>
 </html>
