@@ -105,6 +105,15 @@ elseif ('contentcontroller/site_store_status/' == $this->uri->slash_segment(1) .
 	echo "</div>";
 	echo "</div></form></td></tr></table>";
 }
+elseif ('Procurement/e_request/?tab=0' ==  $this->uri->slash_segment(1).$this->uri->slash_segment(2).'?tab='.$this->input->get('tab')||'Procurement/e_request/' ==  $this->uri->slash_segment(1).$this->uri->slash_segment(2)){
+	echo "<form action=".$url = site_url("Procurement/e_request?tab=".$this->input->get('tab')."&from=".$this->input->get('from')."&to=".$this->input->get('to'))." method='post' id='myform'>";
+	echo "<div class='search-form'>";
+	echo "<div class='form-group'>";
+	echo "<input type='text' class='form-control login-field' value='".$this->input->post('searchquestion')."' autofocus='autofocus' id='searchquestion' placeholder='Search PO' name='searchquestion' size='22'/>";
+	echo "<label class='login-field-icon' for='login-pass'><span align='center' class='icon-search' style='color:; margin-left:-35px;' id='mylink'></span></label>";
+	echo "</div>";
+	echo "</div></form>";
+}
 ?>
 <?php $array = [['contentcontroller/assets/'],
 				['contentcontroller/assetsearch/'],

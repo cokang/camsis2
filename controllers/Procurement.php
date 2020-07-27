@@ -665,19 +665,37 @@ class Procurement extends CI_Controller {
 		//echo "okokookookokoo masuk";
 		//echo "ghghghg : " . $whattab;
 		$this->load->model('display_model');
-		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
-		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
+		// $data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
+		// $data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
 		$data['udept'] = $this->display_model->getuserpodept();
+		$data['from']= ($this->input->get('from') <> 0) ? $this->input->get('from') : date("Y-m-01",time());
+		$data['to']= ($this->input->get('to') <> 0) ?  $this->input->get('to') : date("Y-m-d",time());
+		$vendor= ($this->input->get('vendor') <> null) ?  $this->input->get('vendor') : 'All';
+		$request_type= ($this->input->get('request_type') <> null) ?  $this->input->get('request_type') : 'All';
+		$payment_status= ($this->input->get('payment_status') <> null) ?  $this->input->get('payment_status') : 'All';
+		$data['vendor_list']= $this->display_model->vendor_name(1);
 		//print_r($data['udept']);
 		//echo "nilainya : ".$data['udept'][0]->dept;
 		//exit();
+		$search = '';
+			if( isset($_POST['searchquestion']) ){
+				if( $this->input->post("searchquestion") == "" ){
+					$data['msg_nodata'] = "NO MRIN SELECTED";
+				}else{
+					$data['msg_nodata'] = $this->input->post('searchquestion')." NOT FOUND";
+				}
+				$search = $this->input->post('searchquestion');
+			}
 		if ($data['udept'] == 'NONE') {
-			$data['polist'] = $this->display_model->getthepo($whattab,$data['month'], $data['year']);
+			$data['polist'] = $this->display_model->getthepo($whattab,$data['from'], $data['to'],$vendor,$request_type,$payment_status,$search);
 		} else {
-			$data['polist'] = $this->display_model->getthepo($whattab,$data['month'], $data['year'],$data['udept'][0]->dept);
+			$data['polist'] = $this->display_model->getthepo($whattab,$data['from'], $data['to'],$vendor,$request_type,$payment_status,$search,$data['udept'][0]->dept);
 		}
 		$this ->load->view("head");
+		$this->load->view('pofollowup_filter', $data);
 		$this ->load->view("left");
+		
+		
 		$this ->load->view("Content_e_request",$data);
 	}
 	public function po_follow_up2(){

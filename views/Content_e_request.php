@@ -44,10 +44,10 @@ $req_type = array('0' => 'RCM',
 								'5' => 'JIT'); ?>
 			<?php include 'content_po_tab.php';?>
 			<tr class="ui-color-desk desk2">
-				<td colspan="4" class="t-header" style="color:black; height:40px; padding-left:10px;"><b><?= $tulis ?></b> <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?></td>
+				<!-- <td colspan="4" class="t-header" style="color:black; height:40px; padding-left:10px;"><b><?= $tulis ?></b> <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?></td> -->
 			</tr>
 			<tr class="ui-color-desk bg-red-blood">
-				<td colspan="4">
+				<!-- <td colspan="4">
 					<table width="100%" class="ui-content-middle-menu-desk">
 						<tr style="background:#B3130A;">
 							<td width="3%" height="30px">
@@ -67,7 +67,7 @@ $req_type = array('0' => 'RCM',
 							</td>
 						</tr>
 					</table>
-				</td>
+				</td> -->
 			</tr>
 			<tr class="ui-color-contents-style-1">
 				<td colspan="4" style="background-color: #fffefc;" valign="top" >
@@ -175,7 +175,7 @@ $req_type = array('0' => 'RCM',
 
 						} else {?>
 						<tr align="center" style="height:200px; background:white;">
-							<td colspan="10" class="default-NO">NO PO FOUND FOR <?=date('F', mktime(0, 0, 0, $month, 10))?> <?=$year?></td>
+							<td colspan="10" class="default-NO">NO PO FOUND FROM <?= date('d-m-Y',strtotime($from))?> TO <?=date('d-m-Y',strtotime($to))?></td>
 						</tr>
 						<?php } ?>
 					</table>

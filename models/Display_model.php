@@ -5264,7 +5264,7 @@ function podet($pono){
 	return $query_result;
 }
 
-function getthepo($whichone,$month,$year,$whatdept="NONE"){
+function getthepo($whichone,$datefrom,$dateto,$vendor,$request_type,$payment_status,$searchitem="",$whatdept="NONE"){
 	//$this->db->select("CONCAT('PO/',".$this->db->escape(date('m').date('y')).",'/',RIGHT(CONCAT('0000',CAST(po_next_no AS char)), 5)) AS pono,po_next_no",FALSE);
 	//echo "<br> sdkkfjslkdfjl : ".$whichone."<br>";
 	$this->db->select(" a.PO_No, b.MIRN_No, a.PO_Date, b.Vendor_No AS vendor, a.paytype, c.VENDOR_NAME,d.ReqCase,IF(a.Date_Completed is null,0,1) as  Statusc,a.Date_Completed,RIGHT(b.MIRN_No,1) as mirnstatus", FALSE);
@@ -5272,20 +5272,26 @@ function getthepo($whichone,$month,$year,$whatdept="NONE"){
 	$this->db->join('tbl_po_mirn b','a.PO_No = b.PO_No', 'left outer');
 	$this->db->join('tbl_vendor_info c','c.VENDOR_CODE = b.Vendor_No', 'left outer');
 	$this->db->join('tbl_materialreq d', 'b.MIRN_No =d.DocReferenceNo', 'left');
-	$this->db->where('MONTH(a.PO_Date)', $month );
-	$this->db->where('YEAR(a.PO_Date)', $year );
+	// $this->db->where('MONTH(a.PO_Date)', $month );
+	// $this->db->where('YEAR(a.PO_Date)', $year );
+	$this->db->where('date(a.PO_Date) BETWEEN"'.$datefrom.'"and"'.$dateto.'"');
 	$this->db->where('a.visit = 1', null, false);
 
 
 
 	if ($whichone == 0) {
-	$this->db->group_start();
-    	$this->db->where('a.Status <>', 'C');
-    	$this->db->or_where('a.Status', null);
-	$this->db->group_end();
+	// $this->db->group_start();
+    // 	$this->db->where('a.Status <>', 'C');
+    // 	$this->db->or_where('a.Status', null);
+	// $this->db->group_end();
 	// $this->db->where('a.Date_Completedc IS NULL', null, false);
 	// $this->db->where('a.Date_Completed IS NULL', null, false);
 	//$this->db->or_where("(a.Date_Completedc IS NOT NULL AND paytype = 'COD' AND closingdtcc is null AND MONTH(a.PO_Date) = ".$month." AND YEAR(a.PO_Date) = ".$year." AND a.visit = 1)", NULL, FALSE);
+	if ($searchitem != "") {
+		$this->db->group_start();
+		$this->db->like("a.PO_No",$searchitem)->or_like("a.PO_No",$searchitem);
+		$this->db->group_end();
+		}
 	} elseif ($whichone == 1) {
 	$this->db->where('a.Date_Completedc IS NULL', null, false);
 	$this->db->where('a.Date_Completed IS NOT NULL', null, false);
@@ -5307,12 +5313,21 @@ function getthepo($whichone,$month,$year,$whatdept="NONE"){
 	}elseif ($whatdept != "NONE") {
 	$this->db->where('a.dept', $whatdept);
 	}
+	if ($vendor !='All'){
+		$this->db->where('c.VENDOR_CODE ', $vendor);
+	}
+	if ($request_type !='All'){
+		$this->db->where('d.ReqCase ', $request_type);
+	}
+	if ($payment_status !='All'){
+		$this->db->having('Statusc ', $payment_status);
+	}
 
 	$this->db->group_by('a.PO_No, b.MIRN_No, a.PO_Date');
 	$this->db->having('mirnstatus <>', 'D');
 	//$this->db->where('a.Date_Completedc',date('Y'));
 	$query = $this->db->get();
-	echo $this->db->last_query();
+	// echo $this->db->last_query();
 	//exit();
 	return $query->result();
 }
