@@ -624,7 +624,7 @@
 				</div>
 			</div>
 			<?php } ?>
-			<?php if($this->input->get('pro') == 'pending' && ($classid == 1 || $classid == 3)){?>
+			<?php if($this->input->get('pro') == 'pending' && ($classid == 1 || $classid == 3 ||  $classid == 27)){?>
 			<div class="ui-main-form-5">
 				<div class="middle_d">
 					<table width="100%" class="ui-content-form-reg" style="">
@@ -723,7 +723,7 @@
 			<table align="center" height="40px" border="0" style="width:100%;" class="ui-main-form-footer">
 				<tr>
 					<td align="center">
-					<?php if(($this->input->get('pro') == 'pending' && ($classid == 1 || $classid == 3)) || ($this->input->get('pr') == 'pending') || ($this->input->get('pr') == 'approved')){?>
+					<?php if(($this->input->get('pro') == 'pending' && ($classid == 1 || $classid == 3 || $classid == 27)) || ($this->input->get('pr') == 'pending') || ($this->input->get('pr') == 'approved')){?>
 						<!--<input type="button" class="btn-button btn-primary-button" style="width: 200px;" name="mysubmit" value="Clear all">-->
 						<input type="submit" class="btn-button btn-primary-button" style="width: 200px;" name="mysubmit" value="Save">
 						<input type="button" class="btn-button btn-primary-button" style="width: 200px;" onclick="window.history.back()" name="Cancel" value="Cancel">
