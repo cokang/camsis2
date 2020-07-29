@@ -1364,6 +1364,7 @@ class Procurement extends CI_Controller {
 	public function resetmirn(){
 		$this ->load->view("headprinter");
 		$this ->load->view("content_resetmirn");
+		$this->load->view("update_vendorprice");
 	}
 
 	public function recommendPO(){
@@ -1466,6 +1467,21 @@ class Procurement extends CI_Controller {
 		$this->update_model->update_PO_MRIN($mrin, $update_data);
 		$update_data = array('PR_No' => null);
 		$this->update_model->update_PR_MRIN($mrin, $update_data);
+	}
+
+	public function update_price(){
+		$this->load->model('update_model');
+		$this->load->helper(array('form', 'url'));
+		//$this ->load->view("update_vendorprice");
+		$itemcode = $this->input->post('itemcode');
+		$mrin = $this->input->post('mrin');
+		$cost = $this->input->post('newcost');
+		
+	
+		$data['status'] = $this->update_model->update_vendorprice($itemcode,$mrin,$cost);
+		$this->load->view("update_vendorprice",$data);
+	
+
 	}
 
 
