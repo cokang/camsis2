@@ -67,7 +67,7 @@ $wo = explode("/",$wo);
     
       <tr>
         <td class="td-assest" valign="top">Details Of Work Progress : </td>
-        <td><textarea class="input n_com" name="n_Action_Taken"><?php if($wo[1]=='AP19'){ echo set_value('n_Action_Taken', isset($records[0]->v_ActionTaken) == TRUE ? $records[0]->v_ActionTaken : $remark_specialist[0]->V_details);}else {echo 'N/A';}?></textarea></td>
+        <td><textarea class="input n_com" name="n_Action_Taken"><?php if($wo[1]=='AP19'){ echo set_value('n_Action_Taken', isset($records[0]->v_ActionTaken) == TRUE ? $records[0]->v_ActionTaken : $remark_specialist[0]->V_details);}else {echo $records[0]->v_ActionTaken;}?></textarea></td>
       </tr>
 			   <tr>
 			    <td colspan="3" class="closedwo"></td>
