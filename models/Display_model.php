@@ -5119,7 +5119,7 @@ function prdet($mrinno){
 	}
 function itemprdet($mrinno, $unitcost=""){
     $this->db->distinct();
-		$this->db->select('a.*,b.ItemName,v.VENDOR_NAME,va.Vendor_Item_Code, va.vendor_item_name');
+		$this->db->select('a.*,b.ItemName,v.VENDOR_NAME,va.Vendor_Item_Code, va.vendor_item_name,va.gst');
 		$this->db->from('tbl_mirn_comp a');
 		$this->db->join('tbl_invitem b','a.ItemCode = b.ItemCode');
 		$this->db->join('tbl_vendor_info v','a.ApprvRmk1x = v.VENDOR_CODE OR a.ApprvRmk1 = v.VENDOR_CODE','left');

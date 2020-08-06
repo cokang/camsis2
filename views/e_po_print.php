@@ -325,6 +325,9 @@ img{
 					$howmanyunit = floatval($rowed->QtyReqfx);
 					$perunit = floatval($rowed->Unit_Costx);
 					$totalcost = $perunit*$howmanyunit;
+						if($rowed->gst=='Y')
+					$tax=.06;
+					else
 					$tax=0;
 					//echo "totalcost : ".$no.":".$totalcost;
 					//$gstcost = $totalcost*.06;
@@ -336,7 +339,7 @@ img{
 					<td align="right"><?=number_format($totalcost,2)?></td>
 
 
-					<td align="right"><?=$tax.'%' ?></td>
+					<td align="right"><?=$tax*100 .'%' ?></td>
 					<td align="right"><?=number_format($gstcost,2)?></td>
 					<td align="right"><?=number_format($totalwgst,2)?></td>
 
