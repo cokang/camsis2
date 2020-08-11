@@ -60,7 +60,8 @@ class Rootcause_ctrl extends CI_Controller{
 			'rone' => $this->input->post('rc_error'),
 			'rthree' => $this->input->post('rc_partfault'),
 			'CriticalFlag' => $this->input->post('n_Case'),
-			'rtwo' => $this->input->post('rc_why'),
+			//'ReqCase' => $this->input->post('n_Case'),
+			'rtwo' => str_replace('"','',str_replace("'","",$this->input->post('rc_why'))),
 			'WorkOfOrder' => $this->input->post('workord')
 
 			);
