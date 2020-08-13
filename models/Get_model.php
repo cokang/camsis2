@@ -1091,18 +1091,18 @@ foreach ($raray as $key => $value) {
 function assetppmlog($assetno)
 {
 
-$this->db->select("j.d_DateDone, j.v_Wrkordno, j.v_summary, j.v_jobTypecode, j.v_FailureCode, j.n_Downtime, j.n_Servicetime, j.v_HospitalCode, ppm.v_closeddate, ppm.d_StartDt",FALSE);
+$this->db->select("j.d_DateDone, ppm.v_Wrkordno, j.v_summary, j.v_jobTypecode, j.v_FailureCode, j.n_Downtime, j.n_Servicetime, j.v_HospitalCode, ppm.v_closeddate, ppm.d_StartDt",FALSE);
 //SELECT (case when DWRate = 999 then (case when 500 <= 2000000 then 0.0075 * 100 else 0.0050 * 100 end) else DWRate end) as DWRate, PWRate, (case when DWRate = 999 then (case when 500 <= 2000000 then (500 * 0.0075) / 12 else (500 * 0.0050) / 12 end) else (500 * ( DWRate / 100)) / 12 end) as 'FeeDW', (500 * ( PWRate / 100) / 12) as 'FeePW'
-$this->db->from('pmis2_egm_jobdonedet j');
-$this->db->join('pmis2_egm_assetregistration ar' , 'j.v_HospitalCode=ar.V_Hospitalcode' );
-$this->db->join('pmis2_egm_schconfirmmon ppm' , 'j.v_HospitalCode=ar.V_Hospitalcode AND ar.V_Asset_no=ppm.v_Asset_no AND j.v_Wrkordno=ppm.v_WrkOrdNo' );
+$this->db->from('pmis2_egm_schconfirmmon ppm');
+$this->db->join('pmis2_egm_assetregistration ar' , 'ppm.v_HospitalCode=ar.V_Hospitalcode AND ppm.v_Asset_no = ar.V_Asset_no'  );
+$this->db->join('pmis2_egm_jobdonedet j' , 'ppm.v_HospitalCode=ar.V_Hospitalcode AND ar.V_Asset_no=ppm.v_Asset_no AND ppm.v_Wrkordno=j.v_WrkOrdNo', 'LEFT' );
 //$this->db->join('asset_depreciate_value C', 'ppm.v_HospitalCode=ar.V_Hospitalcode AND ar.V_Asset_no=ppm.v_Asset_no AND j.v_Wrkordno=ppm.v_WrkOrdNo');
 $this->db->where('ppm.v_Actionflag <> ', 'D');
 $this->db->where('ar.V_Asset_no = ', $assetno);
 $this->db->where('ar.V_Hospitalcode = ', $this->session->userdata('hosp_code'));
 $query = $this->db->get();
 //echo "laalla".$query->DWRate;
-//echo $this->db->last_query();
+echo $this->db->last_query();
 //exit();
 return $query->result();
 
