@@ -1197,11 +1197,11 @@ return $wototal;*/
 function assetwolog($assetno)
 {
 
-$this->db->select("sr.d_date, j.d_DateDone,j.v_Wrkordno, j.v_summary, j.v_jobTypecode, j.v_FailureCode, j.n_Downtime,	j.n_Servicetime, j.v_HospitalCode, sr.v_closeddate",FALSE);
+$this->db->select("sr.d_date, j.d_DateDone,j.v_Wrkordno, j.v_summary, j.v_jobTypecode, j.v_FailureCode, j.n_Downtime,	j.n_Servicetime, j.v_HospitalCode, sr.v_closeddate,sr.V_Request_no",FALSE);
 //SELECT (case when DWRate = 999 then (case when 500 <= 2000000 then 0.0075 * 100 else 0.0050 * 100 end) else DWRate end) as DWRate, PWRate, (case when DWRate = 999 then (case when 500 <= 2000000 then (500 * 0.0075) / 12 else (500 * 0.0050) / 12 end) else (500 * ( DWRate / 100)) / 12 end) as 'FeeDW', (500 * ( PWRate / 100) / 12) as 'FeePW'
-$this->db->from('pmis2_egm_jobdonedet j');
-$this->db->join('pmis2_egm_assetregistration ar' , 'j.v_HospitalCode=ar.V_Hospitalcode' );
-$this->db->join('pmis2_egm_service_request sr' , 'j.v_HospitalCode=sr.V_hospitalcode AND ar.V_Asset_no=sr.v_Asset_no AND j.v_Wrkordno=sr.V_Request_no' );
+$this->db->from('pmis2_egm_service_request sr');
+$this->db->join('pmis2_egm_assetregistration ar' , 'sr.v_HospitalCode=ar.V_Hospitalcode AND sr.v_Asset_no = ar.V_Asset_no' );
+$this->db->join('pmis2_egm_jobdonedet j' , 'sr.V_hospitalcode=j.V_HospitalCode AND ar.V_Asset_no=sr.v_Asset_no AND j.v_Wrkordno=sr.V_Request_no','left' );
 //$this->db->join('asset_depreciate_value C', 'sr.v_HospitalCode=ar.V_Hospitalcode AND ar.V_Asset_no=sr.v_Asset_no AND j.v_Wrkordno=sr.V_Request_no');
 $this->db->where('sr.v_Actionflag <> ', 'D');
 $this->db->where('ar.V_Asset_no = ', $assetno);

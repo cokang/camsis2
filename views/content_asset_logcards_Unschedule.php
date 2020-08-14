@@ -31,7 +31,7 @@ include 'content_logcards.php';
 				    				<tr <?=($kirerow % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?> style="color:black; text-align:center;">
 				    					<td><?= $kirerow++; ?></td>
 				    					<td><?= isset($row->d_date) == TRUE ? date("d-m-Y",strtotime($row->d_date)) : 'N/A'?></td>
-				    					<td><?= isset($row->v_Wrkordno) == TRUE ? $row->v_Wrkordno.'<br>'.$row->v_summary : 'N/A'?></td>
+				    					<td><?= isset($row->V_Request_no) == TRUE ? $row->V_Request_no.'<br>'.$row->v_summary : 'N/A'?></td>
 				    					<td><?= isset($row->v_jobTypecode) == TRUE ? $row->v_jobTypecode : 'N/A'?></td>
 				    					<td><?= isset($row->v_closeddate) == TRUE ? date("d-m-Y",strtotime($row->v_closeddate)) : 'N/A'?></td>
 				    					<td><?= isset($row->v_FailureCode) == TRUE ? $row->v_FailureCode : 'N/A'?></td>
