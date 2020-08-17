@@ -111,7 +111,7 @@ if($this->form_validation->run()==FALSE)
 		'D_time'=>$this->input->post('n_hour').':'.str_pad($this->input->post('n_min'), 2, 0, STR_PAD_LEFT),
 		'V_MohDesg'=>$this->input->post('n_designation'),
 		'V_priority_code'=>$this->input->post('n_priority'),
-		'V_summary'=>$this->input->post('n_summary'),
+		'V_summary'=>str_replace('"','', str_replace("'","",$this->input->post('n_summary'))),
 		//'V_details'=>$this->input->post('V_details'),
 		'V_hospitalcode'=>$this->session->userdata('hosp_code'),
 		'V_actionflag'=>'I',
