@@ -75,7 +75,7 @@ if($this->form_validation->run()==FALSE)
 		$insert_data = array(
 	                         'V_priority_code' => $this->input->post('n_priority'),
 							 'D_time'=>$this->input->post('n_hour').':'.str_pad($this->input->post('n_min'), 2, 0, STR_PAD_LEFT),
-	                         'V_summary' => $this->input->post('n_summary'),
+	                         'V_summary' => str_replace('"','', str_replace("'","",$this->input->post('n_summary'))),
 	                         'V_Asset_no' => $this->input->post('n_asset_number'),
 							 'V_requestor' => $this->input->post('n_requested'),
 							 'V_MohDesg' => $this->input->post('n_designation'),
