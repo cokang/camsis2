@@ -260,7 +260,9 @@ class Mrinnew_ctrl extends CI_Controller{
 											   'Reimbursable' => $this->input->post('a_rem'.$row),
 											   'LastRepDt' => date("Y-m-d",strtotime($this->input->post('startDate'.$row))),
 											   'Unit_Cost' => $this->input->post('n_price'.$row),
-											   'ApprvRmk' => $this->input->post('vendor'.$row));
+											   'ApprvRmk' => $this->input->post('vendor'.$row),
+											   'Part_Discount' => $this->input->post('n_discount'.$row)
+											);
 					}
 				}
 				$this->insert_model->insertmrincomp_b($insert_item);
@@ -379,6 +381,7 @@ class Mrinnew_ctrl extends CI_Controller{
 													   'Reimbursable' => $this->input->post('a_rem'.$row),
 													   'LastRepDt' => date("Y-m-d",strtotime($this->input->post('startDate'.$row))),
 													   //'Unit_Cost' => $this->input->post('n_price'.$row)
+													   'Part_Discount' => $this->input->post('n_discount'.$row)
 													   );
 							}else{
 								$update_item = array(//'ItemCode' => $this->input->post('itemcode'.$row),
@@ -388,6 +391,7 @@ class Mrinnew_ctrl extends CI_Controller{
 													   'Reimbursable' => $this->input->post('a_rem'.$row),
 													   'LastRepDt' => date("Y-m-d",strtotime($this->input->post('startDate'.$row))),
 													   //'Unit_Cost' => $this->input->post('n_price'.$row)
+													   'Part_Discount' => $this->input->post('n_discount'.$row)
 													   );
 							}
 
@@ -408,7 +412,8 @@ class Mrinnew_ctrl extends CI_Controller{
 												   'Reimbursable' => $this->input->post('a_rem'.$row),
 												   'LastRepDt' => date("Y-m-d",strtotime($this->input->post('startDate'.$row))),
 												   'Unit_Cost' => $this->input->post('n_price'.$row),
-												   'ApprvRmk' => $this->input->post('vendor'.$row));
+												   'ApprvRmk' => $this->input->post('vendor'.$row),
+												   'Part_Discount' => $this->input->post('n_discount'.$row));
 												 } else {
 					 		 $insert_item = array('ItemCode' => $this->input->post('itemcode'.$row),
 					 								'MIRNcode' => $this->input->post('mrinno'),
@@ -417,7 +422,8 @@ class Mrinnew_ctrl extends CI_Controller{
 					 								'Reimbursable' => $this->input->post('a_rem'.$row),
 					 								'LastRepDt' => date("Y-m-d",strtotime($this->input->post('startDate'.$row))),
 					 								'Unit_Cost' => $this->input->post('n_price'.$row),
-					 								'ApprvRmk' => $this->input->post('vendor'.$row));
+													'ApprvRmk' => $this->input->post('vendor'.$row),
+													'Part_Discount' => $this->input->post('n_discount'.$row));
 
 												 }
 

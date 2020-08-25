@@ -357,23 +357,27 @@ echo form_open('mrinnew_ctrl?pro=edit&mrinno='.$this->input->get('mrinno'));
 														<th style="width:3%;">Price</th>
 														<th style="width: 3%;">Vendor</th>
 														<?php } ?>
+														<th style="width: 3%;">Discount</th>
 													</tr>
 													<?php if ($this->input->get('pro') == 'edit') { ?>
 													<?php $numrow = 1; foreach ($recordis as $item): ?>
 														<tr>
-															<td><?=$numrow?><input type="hidden" name="rows" value="<?=$numrow?>"><</td>
+															<td><?=$numrow?><input type="hidden" name="rows" value="<?=$numrow?>"></td>
 															<td>
-																<p id="itemcode<?=$numrow?>"><?=isset($item->ItemCode) ? $item->ItemCode : ''?></p><input type="hidden" id="itemcodei<?=$numrow?>" name="itemcode<?=$numrow?>" value="<?=isset($item->ItemCode) ? $item->ItemCode : ''?>"><
+																<p id="itemcode<?=$numrow?>"><?=isset($item->ItemCode) ? $item->ItemCode : ''?></p><input type="hidden" id="itemcodei<?=$numrow?>" name="itemcode<?=$numrow?>" value="<?=isset($item->ItemCode) ? $item->ItemCode : ''?>">
 															</td>
 															<td><?=isset($item->ItemName) ? $item->ItemName : ''?></td>
 															<td>
-																<input type="text" name="n_qty<?=$numrow?>" value="<?=isset($item->Qty) ? $item->Qty : ''?>" class="form-control-button2" style=width:100px;"><
+																<input type="text" name="n_qty<?=$numrow?>" value="<?=isset($item->Qty) ? $item->Qty : ''?>" class="form-control-button2" style=width:100px;">
 															</td>
 															<td>
 																<select name="a_rem<?=$numrow?>" class="dropdown"><option value="" <?=isset($item->Reimbursable) && $item->Reimbursable == 0 ? 'selected="selected"' : 'selected="selected"'?>>None</option><option value="1" <?=isset($item->Reimbursable) && $item->Reimbursable == 1 ? 'selected="selected"' : ''?>>Mishandling</option><option value="2" <?=isset($item->Reimbursable) && $item->Reimbursable == 2 ? 'selected="selected"' : ''?>>Supplementary</option><option value="3" <?=isset($item->Reimbursable) && $item->Reimbursable == 3 ? 'selected="selected"' : ''?>>Upgrading</option><option value="4" <?=isset($item->Reimbursable) && $item->Reimbursable == 4 ? 'selected="selected"' : ''?>>Re-Installation</option><option value="5" <?=isset($item->Reimbursable) && $item->Reimbursable == 5 ? 'selected="selected"' : ''?>>Other</option></select>
 															</td>
 															<td>
 																<INPUT TYPE="text" name="startDate<?=$numrow?>" value="<?=isset($item->LastRepDt) ? date("m/d/Y",strtotime($item->LastRepDt)) : ''?>" class="form-control-button2" style=width:100px;" onChange="validDate(this)"></INPUT>
+															</td>
+															<td>
+																<input TYPE="text" name="n_discount<?=$numrow?>" value="<?=isset($item->Part_Discount) ? $item->Part_Discount : ''?>" class="form-control-button2" style="width:100px;" >
 															</td>
 															<input type="hidden" name="id<?=$numrow?>" value="<?=isset($item->Id) ? $item->Id : ''?>">
 														</tr>

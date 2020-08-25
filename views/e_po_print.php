@@ -290,6 +290,7 @@ img{
 		<th>Unit <br/> Measure</th>
 		<th>Qty</th>
 		<th>Unit Price <br/> (RM)</th>
+		<th>Discount <br> (RM)</th>
 		<th>Amount (RM)<br/> Before SST</th>
 		<th>SST %</th>
 		<th>SST (RM)</th>
@@ -298,6 +299,7 @@ img{
 	<tr >
 		<td></td>
 		<td style="text-align:left;"><b><u><?=$record[0]->V_Asset_name?></u></b><br /><b><u>Model : <?=$record[0]->V_Model_no?></u></b> </td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -322,20 +324,23 @@ img{
 					<td >UNIT</td>
 					<td ><?=$rowed->QtyReqfx?></td>
 					<?php
+					$totaldisc=0;$totalbeforegst=0;$totalgst=0;
 					$howmanyunit = floatval($rowed->QtyReqfx);
+					$Part_Discount = floatval($rowed->Part_Discount);
 					$perunit = floatval($rowed->Unit_Costx);
-					$totalcost = $perunit*$howmanyunit;
-						if($rowed->gst=='Y')
+					$totalcost = $perunit*$howmanyunit-$Part_Discount;
 					$tax=.06;
-					else
-					$tax=0;
 					//echo "totalcost : ".$no.":".$totalcost;
 					//$gstcost = $totalcost*.06;
 					$gstcost = $totalcost*$tax;
 					$totalwgst = $gstcost+$totalcost;
+					$totaldisc +=  $Part_Discount;
+					$totalbeforegst+=$totalcost;
+					$totalgst+=$gstcost;
 					//echo "qwqwqw".$itemrec[0]->Unit_Costx."iuiuiu".$perunit;
 					?>
 					<td align="right"><?=number_format($perunit,2)?></td>
+					<td align="right"><?=number_format($Part_Discount,2)?></td>
 					<td align="right"><?=number_format($totalcost,2)?></td>
 
 
@@ -364,10 +369,12 @@ img{
 		<td></td>
 		<td></td>
 		<td></td>
+		<td></td>
 	</tr>
 	<tr style="height:20px; border-top-style:hidden;">
 		<td></td>
-		<td style="text-align:left;">Discount</td>
+		<td style="text-align:left;"></td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -377,8 +384,12 @@ img{
 		<td></td>
 	</tr>
 	<tr>
-		<td colspan="6" style="text-align:left; padding-left:5px; text-transform: none; height:40px;"><i>Please notify us immediately (refer PO acceptance form) if this order cannot</i><br /><i>be shipped or completed on before 7 days from the last date of signatory</i></td>
-		<td colspan="2">TOTAL PRICE <br /> AFTER SST</td>
+		<td colspan="4" style="text-align:left; padding-left:5px; text-transform: none; height:40px;"><i>Please notify us immediately (refer PO acceptance form) if this order cannot</i><br /><i>be shipped or completed on before 7 days from the last date of signatory</i></td>
+		<td >TOTAL </td>
+		<td align="right"><?=number_format($totaldisc,2)?></td>
+		<td align="right"><?=number_format($totalbeforegst,2)?></td>
+		<td></td>
+		<td align="right"><?=number_format($totalgst,2)?></td>
 		<td align="right"><?=number_format($maintotalcost,2)?></td>
 	</tr>
 </table>
@@ -402,8 +413,8 @@ img{
 		<td></td>
 	</tr>
 	<tr>
-		<td valign="top"><i>iv)<i/></td>
-		<td></i>Payment terms:- <span class="block"></span> Cash on delivery <span class="block"></span> Cash in Advance <span class="block"></span> 30 Days from invoice date</i></td>
+		<td valign="top"><i>iv)</i></td>
+		<td></i>Payment terms:-  <?= $record[0]->Payment_Opt?></i></td>
 		<td></td>
 	</tr>
 	<tr>
@@ -413,7 +424,17 @@ img{
 	</tr>
 	<tr>
 		<td valign="top"><i>vi)</i></td>
-		<td><i>Advance Pact Shd Bhd GST Registration Number : 001458896896</i></td>
+		<td><i>Advance Pact Shd Bhd SST Registration Number : 001458896896</i></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td valign="top"><i>v)</i></td>
+		<td><i>Purchase Order valid for 30 days from date mentioned above.</i></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td valign="top"></td>
+		<td></td>
 		<td>Date :</td>
 	</tr>
 	<tr>
