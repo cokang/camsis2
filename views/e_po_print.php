@@ -329,7 +329,10 @@ img{
 					$Part_Discount = floatval($rowed->Part_Discount);
 					$perunit = floatval($rowed->Unit_Costx);
 					$totalcost = $perunit*$howmanyunit-$Part_Discount;
+					if($rowed->gst=='Y')
 					$tax=.06;
+					else
+					$tax=0;
 					//echo "totalcost : ".$no.":".$totalcost;
 					//$gstcost = $totalcost*.06;
 					$gstcost = $totalcost*$tax;
@@ -424,12 +427,7 @@ img{
 	</tr>
 	<tr>
 		<td valign="top"><i>vi)</i></td>
-		<td><i>Advance Pact Shd Bhd SST Registration Number : 001458896896</i></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td valign="top"><i>v)</i></td>
-		<td><i>Purchase Order valid for 30 days from date mentioned above.</i></td>
+		<td><i>Advance Pact Shd Bhd SST Registration Number : W10-1808-31030461</i></td>
 		<td></td>
 	</tr>
 	<tr>
