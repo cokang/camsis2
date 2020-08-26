@@ -259,6 +259,7 @@ echo form_open('mrinnew_ctrl/comfirmation', $attributes);
 						echo form_hidden('n_price'.($i - $emprow),$this->input->post('n_price'.$i));
 						echo form_hidden('vendor'.($i - $emprow),$this->input->post('vendor'.$i));
 						echo form_hidden('id'.($i - $emprow),$this->input->post('id'.$i));
+						echo form_hidden('n_discount'.($i - $emprow),$this->input->post('n_discount'.$i));
 					}
 					else{
 						$emprow = $emprow + 1;
