@@ -2,6 +2,11 @@
 	.middle_report_tbl .tbl th{
 		font-size: 14px;
 	}
+	#scrollable{
+		width: auto;
+  		height: 120px;
+  		overflow-y: auto;
+	}
 
 </style>
 <body><div style="position:relative;min-width:960px">
@@ -15,7 +20,7 @@
 			<!-- <tr>
 				<th colspan="27" class="middle_report_tbl_tr">RCM > 15 days</th>
 			</tr> -->
-			<tr class="tbl">
+			<tr class="">
 				<th>No</th>
 				<th>Area</th>
 				<th>Hospital</th>
@@ -90,7 +95,7 @@
 				<td><?=date("d/m/Y",strtotime($row->D_date));?></td>
 				<td><?=date("M-y",strtotime($row->D_date));?></td>
 				<td>NA</td>
-				<td><?=$row->V_summary;?></td>
+				<td><div id='scrollable'><?=$row->V_summary;?></div></td>
 				<td><?=$row->V_Asset_no;?></td>
 				<td><?=$row->V_Tag_no;?></td>
 				<td><?=$row->V_Asset_name;?></td>
@@ -102,7 +107,7 @@
 				<td>-</td>
 				<td><?php if($row->v_Personal1!=null)echo '1.'.$row->v_Personal1?></td>
 				<td><?= $row->V_AssetMovement?></td>
-				<td><?= $row->v_ActionTaken?></td>
+				<td><div id='scrollable'><?= $row->v_ActionTaken?></div></td>
 				<td>NA</td>
 				<td>NA</td>
 				<td>-</td>
