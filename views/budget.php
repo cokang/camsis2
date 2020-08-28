@@ -15,14 +15,14 @@
                     <tr>
                     <th >APBES (OPU)</th>
                 <td id='budget-width'>Budget Spent  </td>
-                <td id='budget-width'><div style='background-color:white;' id="log0">RM<?=number_format((float)$OPU, 2, '.', '')?>  </div></td>
+                <td id='budget-width'><div style='background-color:white;' id="log0">RM<?=number_format((float)$OPU, 2, '.', ',')?>  </div></td>
                 <td id='budget-width'>Budget Balance </td>
-                <td id='budget-width'><div style='background-color:white;' id="log2">RM <?=number_format((float)$max_opu-$OPU, 2, '.', '')?> </div></td>
+                <td id='budget-width'><div style='background-color:white;' id="log2">RM <?=number_format((float)$max_opu-$OPU, 2, '.', ',')?> </div></td>
                 <th class="vl" >APMIS (CHO)</th>
                 <td  id='budget-width'>Budget Spent </td>
-                <td id='budget-width'><div style='background-color:white;' id="log1">RM <?=number_format((float)$CHO, 2, '.', '') ?>  </div></td>
+                <td id='budget-width'><div style='background-color:white;' id="log1">RM <?=number_format((float)$CHO, 2, '.', ',') ?>  </div></td>
                 <td id='budget-width'>Budget Balance </td>
-                <td id='budget-width'><div style='background-color:white;' id="log3">RM <?=number_format((float)$max_cho-$CHO, 2, '.', '')?> </div></td>
+                <td id='budget-width'><div style='background-color:white;' id="log3">RM <?=number_format((float)$max_cho-$CHO, 2, '.', ',')?> </div></td>
             <!-- </tr>
                 <tr><td width='20%'>
                 Budget Balance (OPU)</td><td width='20%'>
