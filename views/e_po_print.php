@@ -313,6 +313,9 @@ img{
 
 	$totalcost = 0;
 	$maintotalcost = 0;
+	$totaldisc = 0;
+	$totalbeforegst=0;
+	$totalgst=0;
 	//print_r($itemrec);
 	if(!empty($itemrec)){
 		$no=1;
@@ -324,7 +327,7 @@ img{
 					<td >UNIT</td>
 					<td ><?=$rowed->QtyReqfx?></td>
 					<?php
-					$totaldisc=0;$totalbeforegst=0;$totalgst=0;
+					
 					$howmanyunit = floatval($rowed->QtyReqfx);
 					$Part_Discount = floatval($rowed->Part_Discount);
 					$perunit = floatval($rowed->Unit_Costx);
