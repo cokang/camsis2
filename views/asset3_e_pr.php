@@ -89,7 +89,7 @@
 							<!-- <th >Status</th> -->
 							<?php if($user[0]->class_id==3 || $user[0]->class_id==4){ ?>
 							<?php if($procument==0){?><th>Recommended</th><?php }elseif($procument==1){ ?>
-								<th>Approve</th>
+								<th>Approved</th>
 								<?php } ?>
 							<th>Return</th>
 							<?php }?>
@@ -139,7 +139,7 @@
 							<?php } ?>
 							<td class="td-desk"><?=isset($row->VENDOR_NAME) ? $row->VENDOR_NAME : ''?></td>
 							<td><?=isset($row->totalPO) ? sprintf('%0.2f', round($row->totalPO, 2)) : ''?></td>
-							<td><?=isset($row->Payment_Opt) ? $row->Payment_Opt : ''?></td>
+							<td><?=isset($row->Payment_Opt) ? ($row->Payment_Opt=='COD'?'CIA':$row->Payment_Opt) : ''?></td>
 						</tr>
 								<?php endforeach; ?>
 								
@@ -164,7 +164,7 @@
 							<td class="td-desk"><input <?php if($row->totalPO>=100000 && $user[0]->class_id=='3') echo 'disabled';?> type="checkbox" id="chk_status2<?=$row->DocReferenceNo?>" name="chk_status" onclick="approval_po('0','<?=$row->DocReferenceNo?>');"></td>
 							<td class="td-desk"><?=isset($row->VENDOR_NAME) ? $row->VENDOR_NAME : ''?></td>
 							<td><?=isset($row->totalPO) ? sprintf('%0.2f', round($row->totalPO, 2)) : ''?></td>
-							<td><?=isset($row->Payment_Opt) ? $row->Payment_Opt : ''?></td>
+							<td><?=isset($row->Payment_Opt) ? ($row->Payment_Opt=='COD'?'CIA':$row->Payment_Opt) : ''?></td>
 							<td class="td-desk"><?=isset($row->ApprCommentsx) ? $row->ApprCommentsx : ''?></td>
 						</tr>
 								<?php endforeach; ?>
@@ -187,7 +187,7 @@
 							<!-- <td class="td-desk">Pending</td> -->
 							<td class="td-desk"><?php foreach($vendorList as $vendor){ if($vendor->VENDOR_CODE==$row->ApprvRmk1x)echo $vendor->VENDOR_NAME; }?></td>
 							<td><?=isset($row->totalPO) ? sprintf('%0.2f', round($row->totalPO, 2)) : ''?></td>
-							<td><?=isset($row->Payment_Opt) ? $row->Payment_Opt : ''?></td>
+							<td><?=isset($row->Payment_Opt) ? ($row->Payment_Opt=='COD'?'CIA':$row->Payment_Opt) : ''?></td>
 						</tr>
 								<?php endforeach; ?>
 							<?php } ?>
