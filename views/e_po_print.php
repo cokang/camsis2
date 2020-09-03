@@ -410,26 +410,31 @@ img{
 	</tr>
 	<tr>
 		<td valign="top"><i>ii)</i></td>
-		<td><i>Delivery of part/goods must be made to the address mentioned above.</i></td>
+		<td><i>The supplier shall notify Advance Pact Sdn Bhd of changes in the purchased product prior to implementation<br>of any changes that affect the ability of the purchased product to meet specified purchase requirements.</i></td>
 		<td></td>
 	</tr>
 	<tr>
 		<td valign="top"><i>iii)</i></td>
-		<td><i>Invoice together with job sheet/service report/delivery order shall be sent to : <br /> <span style="font-weight:normal; display:block;">HEAD OFFICE : 2-3A, Perdana The Place, Jalan PJU 8/5G, <br/> Bandar Damansara Perdana , 47820 Petaling Jaya, Selangor </span></i></td>
+		<td><i>Delivery of part/goods must be made to the address mentioned above.</i></td>
 		<td></td>
 	</tr>
 	<tr>
 		<td valign="top"><i>iv)</i></td>
-		<td></i>Payment terms:-  <?= $record[0]->Payment_Opt?></i></td>
+		<td><i>Invoice together with job sheet/service report/delivery order shall be sent to : <br /> <span style="font-weight:normal; display:block;">HEAD OFFICE : 2-3A, Perdana The Place, Jalan PJU 8/5G, <br/> Bandar Damansara Perdana , 47820 Petaling Jaya, Selangor </span></i></td>
 		<td></td>
 	</tr>
 	<tr>
 		<td valign="top"><i>v)</i></td>
-		<td><i>Purchase Order valid for 30 days from date mentioned above.</i></td>
+		<td></i>Payment terms:-  <?= $record[0]->Payment_Opt?></i></td>
 		<td></td>
 	</tr>
 	<tr>
 		<td valign="top"><i>vi)</i></td>
+		<td><i>Purchase Order valid for 30 days from date mentioned above.</i></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td valign="top"><i>vii)</i></td>
 		<td><i>Advance Pact Shd Bhd SST Registration Number : W10-1808-31030461</i></td>
 		<td></td>
 	</tr>
