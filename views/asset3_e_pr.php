@@ -200,7 +200,7 @@
 						</tr>
 						<?php } ?>
 					</table>
-					<tr ><td class="td-desk" colspan="10" ><button class="btn-button btn-primary-button "onClick="window.location.reload()">Refresh</button></td></tr>
+					<tr ><td class="td-desk" colspan="10" ><button class="btn-button btn-primary-button "onClick="window.location.reload()">Submit</button></td></tr>
 					<table class="ui-portrait" style="color:black;">
 						<tbody style="width: 100%;">
 							<?php if ($record) { ?>
