@@ -5063,7 +5063,8 @@ function status_table(){
     	$this->db->join('tbl_status d','a.ApprStatusID = d.StatusID');
     	$this->db->join('tbl_mirn_payment mp', 'mp.MirnCode = a.DocReferenceNo', 'left');
     	$this->db->join('tbl_mirn_comp mc', 'mc.MIRNcode = a.DocReferenceNo', 'left');
-    	$this->db->join('tbl_vendor_info vi', 'vi.VENDOR_CODE = mc.ApprvRmk1x', 'left');
+		$this->db->join('tbl_vendor_info vi', 'vi.VENDOR_CODE = mc.ApprvRmk1x', 'left');
+		$this->db->join('tbl_vendor va',"(mc.ApprvRmk1x = va.VENDOR OR mc.ApprvRmk1 = va.VENDOR) AND mc.ItemCode = va.Item_Code and mc.Unit_Costx = va.List_Price",'left');
 
     	// $this->db->where('MONTH(a.datecreated)',$month);
 		// $this->db->where('YEAR(a.datecreated)',$year);
@@ -5108,7 +5109,6 @@ function prdet($mrinno){
 		$this->db->join('pmis2_egm_assetregistration a','s.V_Asset_no = a.V_Asset_no AND s.V_hospitalcode=a.V_Hospitalcode','left');
 		$this->db->join('pmis2_egm_assetreg_general b','b.V_Asset_no = a.V_Asset_no','left');
 		$this->db->join('tbl_user u','m.RequestUserID = u.UserID','left');
-		//$this->db->join('tbl_status st','m.StatusID = st.StatusID');
 		$this->db->join('tbl_mirn_payment mp','mp.MirnCode = m.DocReferenceNo','left');
 		$this->db->where('m.DocReferenceNo',$mrinno);
 		$this->db->where('s.V_hospitalcode',  substr(substr($this->input->get('mrin'),-14),0,3));
@@ -5265,14 +5265,15 @@ function podet($pono){
 	return $query_result;
 }
 
-function getthepo($whichone,$datefrom,$dateto,$vendor,$request_type,$payment_status,$searchitem="",$whatdept="NONE"){
+function getthepo($whichone,$datefrom,$dateto,$vendor,$request_type,$payment_status,$searchitem="",$whatdept="NONE", $payment_type="", $status=""){
 	//$this->db->select("CONCAT('PO/',".$this->db->escape(date('m').date('y')).",'/',RIGHT(CONCAT('0000',CAST(po_next_no AS char)), 5)) AS pono,po_next_no",FALSE);
 	//echo "<br> sdkkfjslkdfjl : ".$whichone."<br>";
-	$this->db->select(" a.PO_No, b.MIRN_No, a.PO_Date, b.Vendor_No AS vendor, a.paytype, c.VENDOR_NAME,d.ReqCase,IF(a.Date_Completed is null,0,1) as  Statusc,a.Date_Completed,RIGHT(b.MIRN_No,1) as mirnstatus", FALSE);
+	$this->db->select("IFNULL(a.Statusc, '0') AS Statusc, a.PO_No, b.MIRN_No, a.PO_Date, b.Vendor_No AS vendor, a.paytype, c.VENDOR_NAME,d.ReqCase,IF(a.Date_Completed is null,0,1) as  paidstatus,a.Date_Completed,RIGHT(b.MIRN_No,1) as mirnstatus,Payment_Opt,a.closingdtcc, a.Status", FALSE);
 	$this->db->from('tbl_po a');
 	$this->db->join('tbl_po_mirn b','a.PO_No = b.PO_No', 'left outer');
 	$this->db->join('tbl_vendor_info c','c.VENDOR_CODE = b.Vendor_No', 'left outer');
 	$this->db->join('tbl_materialreq d', 'b.MIRN_No =d.DocReferenceNo', 'left');
+	$this->db->join('tbl_mirn_payment mp', 'mp.MirnCode = b.MIRN_No', 'left');
 	// $this->db->where('MONTH(a.PO_Date)', $month );
 	// $this->db->where('YEAR(a.PO_Date)', $year );
 	$this->db->where('date(a.PO_Date) BETWEEN"'.$datefrom.'"and"'.$dateto.'"');
@@ -5288,32 +5289,46 @@ function getthepo($whichone,$datefrom,$dateto,$vendor,$request_type,$payment_sta
 	// $this->db->where('a.Date_Completedc IS NULL', null, false);
 	// $this->db->where('a.Date_Completed IS NULL', null, false);
 	//$this->db->or_where("(a.Date_Completedc IS NOT NULL AND paytype = 'COD' AND closingdtcc is null AND MONTH(a.PO_Date) = ".$month." AND YEAR(a.PO_Date) = ".$year." AND a.visit = 1)", NULL, FALSE);
-	if ($searchitem != "") {
-		$this->db->group_start();
-		$this->db->like("a.PO_No",$searchitem)->or_like("a.PO_No",$searchitem);
-		$this->db->group_end();
-		}
+	
 	} elseif ($whichone == 1) {
-	$this->db->where('a.Date_Completedc IS NULL', null, false);
-	$this->db->where('a.Date_Completed IS NOT NULL', null, false);
-	$this->db->where('a.Status', 'C');
+	// $this->db->where('a.Date_Completedc IS NULL', null, false);
+	// $this->db->where('a.Date_Completed IS NOT NULL', null, false);
+	// $this->db->where('a.Status', 'C');
+	if ($payment_type !='All'){
+	   $this->db->where('mp.Payment_Opt', $payment_type);
+	}
+	if ($status !='All'){
+		if($status =='0') {
+			$this->db->group_start();
+			$this->db->where('a.Status != ', 'C');
+			$this->db->or_where('a.Status is null');
+			$this->db->group_end();
+		}else{
+		$this->db->where('a.Status', $status);}
+		
+	 }
 	} else {
 	$this->db->where('a.Date_Completedc IS NOT NULL', null, false);
 	$this->db->where('a.paytype !=', 'COD');
 	//$this->db->or_where("(a.Date_Completedc IS NOT NULL AND paytype = 'COD' AND closingdtcc is not null AND MONTH(a.PO_Date) = ".$month." AND YEAR(a.PO_Date) = ".$year." AND a.visit = 1)", NULL, FALSE);
 	}
+	if ($searchitem != "") {
+		$this->db->group_start();
+		$this->db->like("a.PO_No",$searchitem)->or_like("a.PO_No",$searchitem);
+		$this->db->group_end();
+		}
 
-	if (($whatdept == "FD") && ($whichone == 1)) {
-	//$this->db->where('a.dept', $whatdept);
-	}elseif (($whatdept != "NONE") && ($whichone == 0)) {
-	$this->db->where('a.dept', $whatdept);
-	$this->db->or_where("(a.dept= '".$whatdept."' AND a.Date_Completedc IS NOT NULL AND paytype = 'COD' AND closingdtcc is null AND MONTH(a.PO_Date) = ".$month." AND YEAR(a.PO_Date) = ".$year." AND a.visit = 1)", NULL, FALSE);
-	}elseif (($whatdept != "NONE") && ($whichone == 2)) {
-	$this->db->where('a.dept', $whatdept);
-	$this->db->or_where("(a.dept= '".$whatdept."' AND a.Date_Completedc IS NOT NULL AND paytype = 'COD' AND closingdtcc is not null AND MONTH(a.PO_Date) = ".$month." AND YEAR(a.PO_Date) = ".$year." AND a.visit = 1)", NULL, FALSE);
-	}elseif ($whatdept != "NONE") {
-	$this->db->where('a.dept', $whatdept);
-	}
+	// if (($whatdept == "FD") && ($whichone == 1)) {
+	// //$this->db->where('a.dept', $whatdept);
+	// }elseif (($whatdept != "NONE") && ($whichone == 0)) {
+	// $this->db->where('a.dept', $whatdept);
+	// $this->db->or_where("(a.dept= '".$whatdept."' AND a.Date_Completedc IS NOT NULL AND paytype = 'COD' AND closingdtcc is null AND MONTH(a.PO_Date) = ".$month." AND YEAR(a.PO_Date) = ".$year." AND a.visit = 1)", NULL, FALSE);
+	// }elseif (($whatdept != "NONE") && ($whichone == 2)) {
+	// $this->db->where('a.dept', $whatdept);
+	// $this->db->or_where("(a.dept= '".$whatdept."' AND a.Date_Completedc IS NOT NULL AND paytype = 'COD' AND closingdtcc is not null AND MONTH(a.PO_Date) = ".$month." AND YEAR(a.PO_Date) = ".$year." AND a.visit = 1)", NULL, FALSE);
+	// }elseif ($whatdept != "NONE") {
+	// $this->db->where('a.dept', $whatdept);
+	// }
 	if ($vendor !='All'){
 		$this->db->where('c.VENDOR_CODE ', $vendor);
 	}
@@ -5321,7 +5336,7 @@ function getthepo($whichone,$datefrom,$dateto,$vendor,$request_type,$payment_sta
 		$this->db->where('d.ReqCase ', $request_type);
 	}
 	if ($payment_status !='All'){
-		$this->db->having('Statusc ', $payment_status);
+		$this->db->having('paidstatus ', $payment_status);
 	}
 
 	$this->db->group_by('a.PO_No, b.MIRN_No, a.PO_Date');
@@ -5351,7 +5366,7 @@ function getpofollow($whatpo,$visitwhat){
 	$this->db->select("*");
 	$this->db->from('tbl_po');
 	$this->db->where('PO_No', $whatpo);
-	$this->db->where('visit', $visitwhat);
+	// $this->db->where('visit', $visitwhat);
 	$query = $this->db->get();
 	//echo $this->db->last_query();
 	//exit();
@@ -5374,7 +5389,8 @@ function getpoat($whatpo,$visitwhat){
  $this->db->select("*");
 $this->db->from('poattach_details');
  $this->db->where('PO_No', $whatpo);
-$this->db->where('visit', $visitwhat);
+ $this->db->where('flag <>', 'D');
+// $this->db->where('visit', $visitwhat);
 
 $query = $this->db->get();
 	/* echo $this->db->last_query();

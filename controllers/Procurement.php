@@ -337,7 +337,8 @@ class Procurement extends CI_Controller {
 		                    $data['upload_data']['user_id'] = $this->session->userdata('v_UserName');
 		                }
 		                else{
-		                	$data['upload_data']['PO_No'] = $this->input->get('pono');
+							$data['upload_data']['PO_No'] = $this->input->get('pono');
+							$data['upload_data']['visit'] = $this->input->get('payment_no');
 		                    $data['upload_data']['Doc_name'] = $this->input->post('att_name');
 		                    $data['upload_data']['doc_id'] = $data['upload_data']['file_name'];
 		                    $data['upload_data']['user_id'] = $this->session->userdata('v_UserName');
@@ -357,7 +358,8 @@ class Procurement extends CI_Controller {
 								$data['insertid'] = $this->insert_model->pocom_details($insert_data);
 							}
 			                else{
-			                	$insert_data = array('PO_No' => $data['upload_data']['PO_No'],
+								$insert_data = array('PO_No' => $data['upload_data']['PO_No'],
+													 'visit' => $data['upload_data']['visit'],
 													 'Doc_name' => $data['upload_data']['Doc_name'],
 													 'doc_id' => $data['upload_data']['doc_id'],
 													 'doc_path' => $data['upload_data']['file_path'],
@@ -673,6 +675,8 @@ class Procurement extends CI_Controller {
 		$vendor= ($this->input->get('vendor') <> null) ?  $this->input->get('vendor') : 'All';
 		$request_type= ($this->input->get('request_type') <> null) ?  $this->input->get('request_type') : 'All';
 		$payment_status= ($this->input->get('payment_status') <> null) ?  $this->input->get('payment_status') : 'All';
+		$payment_type= ($this->input->get('payment_type') <> null) ?  $this->input->get('payment_type') : 'All';
+		$status= ($this->input->get('status') <> null) ?  $this->input->get('status') : 'All';
 		$data['vendor_list']= $this->display_model->vendor_name(1);
 		//print_r($data['udept']);
 		//echo "nilainya : ".$data['udept'][0]->dept;
@@ -689,7 +693,7 @@ class Procurement extends CI_Controller {
 		if ($data['udept'] == 'NONE') {
 			$data['polist'] = $this->display_model->getthepo($whattab,$data['from'], $data['to'],$vendor,$request_type,$payment_status,$search);
 		} else {
-			$data['polist'] = $this->display_model->getthepo($whattab,$data['from'], $data['to'],$vendor,$request_type,$payment_status,$search,$data['udept'][0]->dept);
+			$data['polist'] = $this->display_model->getthepo($whattab,$data['from'], $data['to'],$vendor,$request_type,$payment_status,$search,$data['udept'][0]->dept,$payment_type,$status);
 		}
 		$this ->load->view("head");
 		$this->load->view('pofollowup_filter', $data);
@@ -709,7 +713,7 @@ class Procurement extends CI_Controller {
 							 'time_stamp' => date("Y-m-d H:i:s"));
 		// $this->update_model->uprun_no($update_data);
 		$data['runningno'] = 'temp'.$data['run_no'][0]->Run_no;
-
+		$data['udept'] = $this->display_model->getuserpodept();
 
 		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
 		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
@@ -808,6 +812,9 @@ class Procurement extends CI_Controller {
 		$dt1 = (($this->input->post('n_dodt')) != '') ? date('y-m-d',strtotime($this->input->post('n_dodt'))) : NULL;
 		$dt2 = (($this->input->post('n_invdt')) != '') ? date('y-m-d',strtotime($this->input->post('n_invdt'))) : NULL;
 		$dt3 = (($this->input->post('n_mddt')) != '') ? date('y-m-d',strtotime($this->input->post('n_mddt'))) : NULL;
+		$paydt1 = (($this->input->post('n_paydate1')) != '') ? date('y-m-d',strtotime($this->input->post('n_paydate1'))) : NULL;
+		$paydt2 = (($this->input->post('n_paydate2')) != '') ? date('y-m-d',strtotime($this->input->post('n_paydate2'))) : NULL;
+		$paydt3 = (($this->input->post('n_paydate3')) != '') ? date('y-m-d',strtotime($this->input->post('n_paydate3'))) : NULL;
 		//echo "nilai post : ".$this->input->post('n_codcdt')."nilai nktest : ".$nktest;
 		//exit();
 
@@ -859,7 +866,17 @@ class Procurement extends CI_Controller {
 					'closingdtcc'=>$closingdt,
 					'vendor'=>$this->input->post('n_vendor'),
 					'monthclosed'=>$this->input->post('n_monclosed'),
-					'paytype'=>$this->input->post('n_paytype')
+					'paytype'=>$this->input->post('n_paytype'),
+					'payee_name'=>$this->input->post('payee_name'),
+					'payeeregno'=>$this->input->post('payee_regno'),
+					'vendor_email'=>$this->input->post('vendor_email'),
+					'partial_pay'=>$this->input->post('partial_pay'),
+					'payment_1'=>$this->input->post('n_payamt1'),
+					'payment_2'=>$this->input->post('n_payamt2'),
+					'payment_3'=>$this->input->post('n_payamt3'),
+					'pay1_date'=>$paydt1,
+					'pay2_date'=>$paydt2,
+					'pay3_date'=>$paydt3,
 				);
 				$this->load->model('update_model');
 				$this->update_model->updatepomain($insert_data,$this->input->get('po'),$visitwhat);
@@ -904,7 +921,13 @@ class Procurement extends CI_Controller {
 					'dept'=>$this->input->post('n_dept'),
 					'closingdtcc'=>$closingdt,
 					'vendor'=>$this->input->post('n_vendor'),
-					'paytype'=>$this->input->post('n_paytype')
+					'paytype'=>$this->input->post('n_paytype'),
+					'payment_1'=>$this->input->post('n_payamt1'),
+					'payment_2'=>$this->input->post('n_payamt2'),
+					'payment_3'=>$this->input->post('n_payamt3'),
+					'pay1_date'=>$paydt1,
+					'pay2_date'=>$paydt2,
+					'pay3_date'=>$paydt3,
 				);
 
 				$this->load->model('insert_model');
@@ -1170,6 +1193,7 @@ class Procurement extends CI_Controller {
 
 	public function update_delete_pocom(){
 		$this->load->model('update_model');
+		
 
 		if ($this->input->get('act') == 'delete' && $this->input->get('tag') == 'component'){
 			$this->load->model('delete_model');
@@ -1177,8 +1201,11 @@ class Procurement extends CI_Controller {
 
 
 		} else {
-		$this->load->model('delete_model');
-		 $this->delete_model->deletepoat($this->input->get('pono'),$this->input->get('link'),$this->input->get('id'));
+			$delete_data = array('Doc_name' => $this->input->post('att_name'),
+			'flag' => 'D',
+			'Date_time_stamp' => date("Y-m-d H:i:s"),
+			'user_id' => $this->session->userdata('v_UserName'));
+		 $this->update_model->deletepoat($delete_data,$this->input->get('pono'),$this->input->get('link2'),$this->input->get('id'));
 
 		}
 

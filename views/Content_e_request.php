@@ -76,13 +76,18 @@ $req_type = array('0' => 'RCM',
 						<?php if ($procument > 0) {?>
 						<tr class="ui-menu-color-header" style="color:white; font-size:12px;">
 							<th onclick="numberTableSort(this,true)">&nbsp;</th>
-							<th onclick="tableSort(this)" style="text-align:left;">PO Reference No</th>
-							<th onclick="tableSort(this)">Payment Type</th>
-							<?php if ($procument == "1") { ?>
-							<th onclick="tableSort(this)">Status</th> <?php }  else {?>
-							<th onclick="dateTimeTableSort(this,'Date')">Issue Date</th>
-							<th onclick="tableSort(this)">Status</th><?php } ?>
+							<th onclick="tableSort(this)" style="text-align:left;">PO No</th>
+							<th onclick="dateTimeTableSort(this,'Date')">PO Date</th>
+							<th onclick="tableSort(this)" >Request Type</th>
 							<th onclick="tableSort(this)">Vendor</th>
+							<th onclick="tableSort(this)">Payment Type</th>
+							<!-- <?php if ($procument == "1") { ?> -->
+							<th onclick="tableSort(this)">Status</th> 
+							<th onclick="tableSort(this)">Closing Status</th> 
+							<!-- <?php }  else {?>
+							<th onclick="dateTimeTableSort(this,'Date')">Issue Date</th>
+							<th onclick="tableSort(this)">Status</th><?php } ?> -->
+							
 						</tr>
 					<?php } else { ?>
 						<tr class="ui-menu-color-header" style="color:white; font-size:12px;">
@@ -111,9 +116,12 @@ $req_type = array('0' => 'RCM',
 						<tr align="center" <?= ($numrow%2==0) ?  'class="ui-color-color-color"' :  '' ?> >
 							<td class="td-desk"><?=$numrow++?></td>
 							<td class="td-desk" style="text-align:left;">
-								<a href="<?php echo base_url();?>index.php/Procurement/po_follow_up2?tab=0&po=<?=isset($row->PO_No) ? $row->PO_No : ''?>"><?=isset($row->PO_No) ? $row->PO_No : ''?></a>
+							<a href="<?php echo base_url();?>index.php/Procurement/po_follow_up2?tab=0&powhat=update&po=<?=isset($row->PO_No) ? $row->PO_No : ''?>"><?=isset($row->PO_No) ? $row->PO_No : ''?></a>
 							</td>
-							<td class="td-desk"><?=isset($row->paytype) ? $row->paytype : 'NA'?></td>
+							<td class="td-desk"><?=isset($row->PO_Date) ? date('d-m-Y',strtotime($row->PO_Date)) : ''?></td>
+							<td class="td-desk"><?=isset($row->ReqCase) ? $req_type[$row->ReqCase] : 'NA'?></td>
+							<td class="td-desk"><?=isset($row->VENDOR_NAME) ? $row->VENDOR_NAME : 'NA'?></td>
+							<td class="td-desk"><?=isset($row->Payment_Opt) ? ($row->Payment_Opt=='COD'?'CIA':$row->Payment_Opt) : ''?></td>
 							<?php $status_pay = array(
 													'0' => 'Processing',
 													'1' => 'MD Auth',
@@ -122,18 +130,19 @@ $req_type = array('0' => 'RCM',
 												);
 								if ($procument == "1") {
 									$confim = "";
-									$js = 'id="mrtgCusName" onChange="alert(\\"Hello World\");"';
+									// $js = 'id="mrtgCusName" onChange="alert(\\"Hello World\");"';
 							?>
 							<td class="td-desk">
-								<?=form_dropdown('n_status_pay', $status_pay ,$row->Statusc, 'id= "' . $row->PO_No . '" class="dropdown n_wi-date2" onChange="myFunction(\'' .$row->PO_No. '\');" '.$confim.'');?>
+							<?=($row->Status=='C') ? 'Submitted to Finance' : 'Pending'?>
+								<!-- <?=form_dropdown('n_status_pay', $status_pay ,$row->Statusc, 'id= "' . $row->PO_No . '" class="dropdown n_wi-date2" onChange="myFunction(\'' .$row->PO_No. '\');" '.$confim.'');?> -->
 							</td>
 								<?php }  else {?>
-							<td class="td-desk"><?=isset($row->PO_Date) ? $row->PO_Date : ''?></td>
+							<!-- <td class="td-desk"><?=isset($row->PO_Date) ? $row->PO_Date : ''?></td> -->
 							<td class="td-desk">
 								<?php if ($procument != "2") {echo isset($status_pay[$row->Statusc]) ? $status_pay[$row->Statusc] : '';} else {echo "Completed";}?>
 							</td>
 								<?php } ?>
-							<td class="td-desk"><?=isset($row->vendor) ? $row->vendor : ''?></td>
+							<td class="td-desk"><?=isset($row->closingdtcc) ? date('d-m-Y',strtotime($row->closingdtcc)) : 'NA'?></td>
 						</tr>
 						<?php endforeach;
 					} else {
@@ -155,19 +164,19 @@ $req_type = array('0' => 'RCM',
 											);
 							if ($procument == "1") {
 								$confim = "";
-								$js = 'id="mrtgCusName" onChange="alert(\\"Hello World\");"';
+								// $js = 'id="mrtgCusName" onChange="alert(\\"Hello World\");"';
 						?>
 						<td class="td-desk">
-							<?=form_dropdown('n_status_pay', $status_pay ,$row->Statusc, 'id= "' . $row->PO_No . '" class="dropdown n_wi-date2" onChange="myFunction(\'' .$row->PO_No. '\');" '.$confim.'');?>
+							<?=form_dropdown('n_status_pay', $status_pay ,$row->paidstatus, 'id= "' . $row->PO_No . '" class="dropdown n_wi-date2" onChange="myFunction(\'' .$row->PO_No. '\');" '.$confim.'');?>
 						</td>
 							<?php }  else {?>
 						<td class="td-desk"><?=isset($row->Date_Completed) ? date('d-m-Y',strtotime($row->Date_Completed)) : 'NA'?></td>
 						<td class="td-desk"><input  type="checkbox" id="chk_status1<?=$row->MIRN_No?>" name="chk_status" onclick="return_po('<?=$row->MIRN_No?>','<?=$row->PO_No?>');"></td>
 						<td class="td-desk">
-							<?php if ($procument != "2") {echo isset($status_pay[$row->Statusc]) ? $status_pay[$row->Statusc] : '';} else {echo "Completed";}?>
+							<?php if ($procument != "2") {echo isset($status_pay[$row->paidstatus]) ? $status_pay[$row->paidstatus] : '';} else {echo "Completed";}?>
 						</td>
 							<?php } ?>
-						<td class="td-desk"><?=isset($row->vendor) ? $row->vendor : ''?></td>
+						<td class="td-desk"><?=isset($row->closingdtcc) ? date('d-m-Y',strtotime($row->closingdtcc)) : 'NA'?></td>
 					</tr>
 					<?php endforeach;
 
@@ -198,14 +207,15 @@ $req_type = array('0' => 'RCM',
 								<td >Payment Type</td>
 								<td class="td-desk">: <?=isset($row->paytype) ? $row->paytype : 'NA'?></td>
 							</tr>
-							<?php if ($procument == "1") { ?>
+							<?php if ($procument == "1") { 
 									$confim = "";
 									$js = 'id="mrtgCusName" onChange="alert(\\"Hello World\");"';
 								?>
 							<tr <?=($rownum % 2) == 1 ? 'class="ui-color-color-color"' : 'class="tr_color"'?>>
 								<td >Status</td>
 								<td class="td-desk">:
-									<?=form_dropdown('n_status_pay', $status_pay ,$row->Statusc, 'id= "' . $row->PO_No . '" class="dropdown n_wi-date2" onChange="myFunction(\'' .$row->PO_No. '\');" '.$confim.'');?>
+								<?=isset($row->Status) ? $row->Status : 'NA'?>
+									<!-- <?=form_dropdown('n_status_pay', $status_pay ,$row->Statusc, 'id= "' . $row->PO_No . '" class="dropdown n_wi-date2" onChange="myFunction(\'' .$row->PO_No. '\');" '.$confim.'');?> -->
 								</td>
 							</tr>
 								<?php }else{?>
