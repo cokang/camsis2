@@ -1,8 +1,8 @@
 <tr class="ui-left_web">
 	<?= ($this->input->get('tab') == '0') ? '<td class="ui-highlight" align="center" colspan="0" style=" height:30px; width:25%;">' : '<td class="ui-content-menu-desk-color" align="center" colspan="0" style=" height:30px; width:25%;">'?>
-	<?php echo anchor ('Procurement/e_request?tab=0'.'&y='.$year.'&m='.$month, 'PO Listing'); ?></td>
+	<?php echo anchor ('Procurement/e_request?tab=0'.'&from='.$from.'&to='.$to, 'PO Listing'); ?></td>
 	<?= ($this->input->get('tab') == '1') ? '<td class="ui-highlight" align="center" colspan="0" style="height:30px; width:25%;">' : '<td class="ui-content-menu-desk-color" align="center" colspan="0" style="width:25%;">'?>
-	<?php echo anchor ('Procurement/e_request?tab=1'.'&y='.$year.'&m='.$month, 'Payment Process'); ?></td>
+	<?php echo anchor ('Procurement/e_request?tab=1'.'&from='.$from.'&to='.$to, 'Payment Process'); ?></td>
 	<!-- <?= ($this->input->get('tab') == '2') ? '<td class="ui-highlight" align="center" colspan="0" style="height:30px; width:25%;">' : '<td class="ui-content-menu-desk-color" align="center" colspan="0" style="width:25%;">'?>
 	<?php echo anchor ('Procurement/e_request?tab=2'.'&y='.$year.'&m='.$month, 'Completed PO'); ?></td> -->
 </tr>
