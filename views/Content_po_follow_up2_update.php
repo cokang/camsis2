@@ -65,20 +65,20 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 										$payamt = isset($pofollow[0]->payamt) ? $pofollow[0]->payamt : '';
 										$Date_Completedt = isset($pofollow[0]->Date_Completedc) ? date("d-m-Y",strtotime($pofollow[0]->Date_Completedc)) : '';
 										$payamt = isset($pofollow[0]->totalcost) ? $pofollow[0]->totalcost : '';
-										$payrefno = isset($pofollow[0]->totalcost) ? $pofollow[0]->totalcost : '';
-										$partial = isset($pofollow[0]->partial_pay) ? $pofollow[0]->partial_pay : '0';
-										$payeename =isset($pofollow[0]->payee_name) ? $pofollow[0]->payee_name : '';
-										$payee_regno=isset($pofollow[0]->payeeregno) ? $pofollow[0]->payeeregno : '';
-										$vendor_email=isset($pofollow[0]->vendor_email) ? $pofollow[0]->vendor_email : '';
-										$payment_amount = array('1' => $pofollow[0]->payment_1 ,
-																'2' => $pofollow[0]->payment_2 ,
-																'3' => $pofollow[0]->payment_3  );
-										$payment_balance= array('1' => $WO_detail[0]->POamount-($pofollow[0]->payment_1),
-																'2' => $WO_detail[0]->POamount-($pofollow[0]->payment_1+$pofollow[0]->payment_2),
-																'3' => $WO_detail[0]->POamount-($pofollow[0]->payment_1+$pofollow[0]->payment_2+$pofollow[0]->payment_3) );
-										$paydate = array('1' => isset($pofollow[0]->pay1_date) ?date("d-m-Y",strtotime($pofollow[0]->pay1_date)):'' ,
-																'2' => isset($pofollow[0]->pay2_date) ?date("d-m-Y",strtotime($pofollow[0]->pay2_date)):'' ,
-																'3' => isset($pofollow[0]->pay3_date) ?date("d-m-Y",strtotime($pofollow[0]->pay3_date)):''  );
+										// $payrefno = isset($pofollow[0]->totalcost) ? $pofollow[0]->totalcost : '';
+										// $partial = isset($pofollow[0]->partial_pay) ? $pofollow[0]->partial_pay : '0';
+										// $payeename =isset($pofollow[0]->payee_name) ? $pofollow[0]->payee_name : '';
+										// $payee_regno=isset($pofollow[0]->payeeregno) ? $pofollow[0]->payeeregno : '';
+										// $vendor_email=isset($pofollow[0]->vendor_email) ? $pofollow[0]->vendor_email : '';
+										// $payment_amount = array('1' => $pofollow[0]->payment_1 ,
+										// 						'2' => $pofollow[0]->payment_2 ,
+										// 						'3' => $pofollow[0]->payment_3  );
+										// $payment_balance= array('1' => $WO_detail[0]->POamount-($pofollow[0]->payment_1),
+										// 						'2' => $WO_detail[0]->POamount-($pofollow[0]->payment_1+$pofollow[0]->payment_2),
+										// 						'3' => $WO_detail[0]->POamount-($pofollow[0]->payment_1+$pofollow[0]->payment_2+$pofollow[0]->payment_3) );
+										// $paydate = array('1' => isset($pofollow[0]->pay1_date) ?date("d-m-Y",strtotime($pofollow[0]->pay1_date)):'' ,
+										// 						'2' => isset($pofollow[0]->pay2_date) ?date("d-m-Y",strtotime($pofollow[0]->pay2_date)):'' ,
+										// 						'3' => isset($pofollow[0]->pay3_date) ?date("d-m-Y",strtotime($pofollow[0]->pay3_date)):''  );
 										
 
 										} else {
@@ -97,20 +97,20 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 										$invoice_date = $this->input->post('n_invdt');
 										$Date_Completedt = $this->input->post('n_completeddt');
 										$payamt = $this->input->post('n_payamt');
-										$payrefno = $this->input->post('n_payrefno');
-										$partial= $this->input->post('partial_pay');
-										$payeename = $this->input->post('payee_name');
-										$payee_regno = $this->input->post('payee_regno');
-										$vendor_email = $this->input->post('vendor_email');
-										$payment_amount = array('1' => $this->input->post('n_payamt1') ,
-																'2' => $this->input->post('n_payamt2') ,
-																'3' => $this->input->post('n_payamt3')  );
-										$payment_balance = array('1' => $this->input->post('n_paybal1') ,
-																'2' => $this->input->post('n_paybal2') ,
-																'3' => $this->input->post('n_paybal3')  );
-										$paydate = array('1' => $this->input->post('n_paydate1') ,
-																'2' => $this->input->post('n_paydate2') ,
-																'3' => $this->input->post('n_paydate3')  );
+										// $payrefno = $this->input->post('n_payrefno');
+										// $partial= $this->input->post('partial_pay');
+										// $payeename = $this->input->post('payee_name');
+										// $payee_regno = $this->input->post('payee_regno');
+										// $vendor_email = $this->input->post('vendor_email');
+										// $payment_amount = array('1' => $this->input->post('n_payamt1') ,
+										// 						'2' => $this->input->post('n_payamt2') ,
+										// 						'3' => $this->input->post('n_payamt3')  );
+										// $payment_balance = array('1' => $this->input->post('n_paybal1') ,
+										// 						'2' => $this->input->post('n_paybal2') ,
+										// 						'3' => $this->input->post('n_paybal3')  );
+										// $paydate = array('1' => $this->input->post('n_paydate1') ,
+										// 						'2' => $this->input->post('n_paydate2') ,
+										// 						'3' => $this->input->post('n_paydate3')  );
 
 										$total_rm = '';
 										$md_apprdt = '';
@@ -240,7 +240,7 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 													<td><input type="text"   value="<?=isset($WO_detail[0]->Payment_Opt)?$WO_detail[0]->Payment_Opt:''?>" class="form-control-button2 n_wi-date2" ></td>
 
 												</tr>
-												<tr>
+												<!-- <tr>
 													<td class="td-assest">Payee Name:</td>
 													<td><input type="text" name="payee_name" id="payee_name" value="<?= $payeename?>" class="form-control-button2 n_wi-date2" ></td>
 
@@ -249,7 +249,7 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 													<td class="td-assest">Payee <br> Registration No :</td>
 													<td><input type="text" name="payee_regno" id="payee_regno" value="<?= $payee_regno?>" class="form-control-button2 n_wi-date2" ></td>
 
-												</tr>
+												</tr> -->
 												<!-- <tr>
 													<td class="td-assest">Bank Code :</td>
 													<td>
@@ -384,7 +384,7 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 													<td class="td-assest">Payment Approved Date</td>
 													<td><input type="text"  name="n_completeddt"  readonly onchange="submitdisable()" value="<?=$Date_Completed?>" class="form-control-button2 n_wi-date2" id="date<?php echo $numberdate++; ?>" <?=$confim?>></td>
 												</tr><br>
-												<?php if($udept[0]->dept=='FD'){ ?>
+												<!-- <?php if($udept[0]->dept=='FD'){ ?>
 												<tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">Staff Email Address</td></tr>
 												<?php $staffsEmail = array('1' => 'haiqal@advancepact.com' ,
 																		  '2' => 'azwani@advancepact.com' ,
@@ -392,7 +392,7 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 																		  '4' => 'fahilah@advancepact.com' ,
 																		  '5' => 'nuruladawiyah@advancepact.com' ,
 																		  '6' => 'sitiainol@advancepact.com' 
-												 );?>
+												 );?> -->
 												
 												<?php foreach($staffsEmail as $staffEmail ){ ?>
 												<tr >
@@ -443,7 +443,7 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 								</table>
 							</div>
 						</div>
-										<?php if($udept[0]->dept!='FD'){ ?>
+										<!-- <?php if($udept[0]->dept!='FD'){ ?> -->
 						<div class="ui-main-form-2">
 							<div class="middle_d">
 								<table width="100%" class="ui-content-form-reg" style="">
@@ -561,9 +561,9 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 								</table>
 							</div>
 						</div>
-														<?php }
+														<!-- <?php }
 														$partial_pay = array('0' => 'No' ,'1' => 'Yes' );
-														if($udept[0]->dept=='FD'){ ?>
+														if($udept[0]->dept=='FD'){ ?> -->
 														<div class="ui-main-form-2">
 							<div class="middle_d">
 														<table width="100%" class="ui-content-form" style="">
@@ -640,7 +640,7 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 				<tr class="ui-color-contents-style-1" height="30px">
 					<td colspan="2" class="ui-header-new" align="center">
 					<?php if (validation_errors() == '') { 
-						if ($this->input->get('powhat')=="update" && $udept[0]->dept!='FD') {?>
+						if ($this->input->get('powhat')=="update" ) {?>
 					<input type="submit"  class="btn-button btn-primary-button" name="mysubmit"  value="Save as Draft" style="width:150px;"/>
 					<input type="submit" class="btn-button btn-primary-button"  id="btnSubmit" name="mysubmit" value="Submit" style="width:150px;"/>
 					<?php }else{
