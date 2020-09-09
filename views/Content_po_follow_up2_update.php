@@ -63,6 +63,23 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 										$closemonth = isset($pofollow[0]->monthclosed) ? $pofollow[0]->monthclosed : '';
 										$payrefno = isset($pofollow[0]->payref) ? $pofollow[0]->payref : '';
 										$payamt = isset($pofollow[0]->payamt) ? $pofollow[0]->payamt : '';
+										$Date_Completedt = isset($pofollow[0]->Date_Completedc) ? date("d-m-Y",strtotime($pofollow[0]->Date_Completedc)) : '';
+										$payamt = isset($pofollow[0]->totalcost) ? $pofollow[0]->totalcost : '';
+										$payrefno = isset($pofollow[0]->totalcost) ? $pofollow[0]->totalcost : '';
+										$partial = isset($pofollow[0]->partial_pay) ? $pofollow[0]->partial_pay : '0';
+										$payeename =isset($pofollow[0]->payee_name) ? $pofollow[0]->payee_name : '';
+										$payee_regno=isset($pofollow[0]->payeeregno) ? $pofollow[0]->payeeregno : '';
+										$vendor_email=isset($pofollow[0]->vendor_email) ? $pofollow[0]->vendor_email : '';
+										$payment_amount = array('1' => $pofollow[0]->payment_1 ,
+																'2' => $pofollow[0]->payment_2 ,
+																'3' => $pofollow[0]->payment_3  );
+										$payment_balance= array('1' => $WO_detail[0]->POamount-($pofollow[0]->payment_1),
+																'2' => $WO_detail[0]->POamount-($pofollow[0]->payment_1+$pofollow[0]->payment_2),
+																'3' => $WO_detail[0]->POamount-($pofollow[0]->payment_1+$pofollow[0]->payment_2+$pofollow[0]->payment_3) );
+										$paydate = array('1' => isset($pofollow[0]->pay1_date) ?date("d-m-Y",strtotime($pofollow[0]->pay1_date)):'' ,
+																'2' => isset($pofollow[0]->pay2_date) ?date("d-m-Y",strtotime($pofollow[0]->pay2_date)):'' ,
+																'3' => isset($pofollow[0]->pay3_date) ?date("d-m-Y",strtotime($pofollow[0]->pay3_date)):''  );
+										
 
 										} else {
 										$parts_rm = '';
@@ -78,6 +95,22 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 										$do_date = $this->input->post('n_dodt');
 										$Invoice_No = $this->input->post('n_inv');
 										$invoice_date = $this->input->post('n_invdt');
+										$Date_Completedt = $this->input->post('n_completeddt');
+										$payamt = $this->input->post('n_payamt');
+										$payrefno = $this->input->post('n_payrefno');
+										$partial= $this->input->post('partial_pay');
+										$payeename = $this->input->post('payee_name');
+										$payee_regno = $this->input->post('payee_regno');
+										$vendor_email = $this->input->post('vendor_email');
+										$payment_amount = array('1' => $this->input->post('n_payamt1') ,
+																'2' => $this->input->post('n_payamt2') ,
+																'3' => $this->input->post('n_payamt3')  );
+										$payment_balance = array('1' => $this->input->post('n_paybal1') ,
+																'2' => $this->input->post('n_paybal2') ,
+																'3' => $this->input->post('n_paybal3')  );
+										$paydate = array('1' => $this->input->post('n_paydate1') ,
+																'2' => $this->input->post('n_paydate2') ,
+																'3' => $this->input->post('n_paydate3')  );
 
 										$total_rm = '';
 										$md_apprdt = '';
@@ -132,10 +165,10 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 												$extension = explode(".",$row->doc_id);
 
 												if ($extension[1] == 'docx' || $extension[1] == 'xlsx' || $extension[1] == 'pdf') {
-												echo "<span class='icon-play icon' style='font-size:15px;'></span><span style='font-size:15px; font-weight:bold;'>" .$row->Doc_name. "</span><a href=".base_url()."uploadpofiles/".$row->doc_id."><span class='icon-file-text2 icon'></a></span><a href='javascript:fCallLocatiod(\"".$row->PO_No."\",\"".$row->Id."\",\"attachment\");'><span class='icon-cross icon' style='color:red;'></span></a><a href='javascript:fCallLocatioe(\"".$row->PO_No."\",\"".$row->Id."\",\"attachment\");'><span class='icon-new icon'></span></a>";
+												echo "<span class='icon-play icon' style='font-size:15px;'></span><span style='font-size:15px; font-weight:bold;'>" .$row->Doc_name. "</span><a href=".base_url()."uploadfinfiles/".$row->doc_id."><span class='icon-file-text2 icon'></a></span><a href='javascript:fCallLocatiod(\"".$row->PO_No."\",\"".$row->Id."\",\"attachment\");'><span class='icon-cross icon' style='color:red;'></span></a><a href='javascript:fCallLocatioe(\"".$row->PO_No."\",\"".$row->Id."\",\"attachment\");'><span class='icon-new icon'></span></a>";
 												echo '<br>';
 												} else {
-												echo "<span class='icon-play icon' style='font-size:15px;'></span><span style='font-size:15px; font-weight:bold;'>" .$row->Doc_name. "</span> <br/><img src=".base_url()."uploadpofiles/".$row->doc_id." style='width:50px; height:50px; padding-left:5px;' ><a href='javascript:fCallLocatiod(\"".$row->PO_No."\",\"".$row->Id."\",\"attachment\");'><span class='icon-cross icon' style='color:red;'></span></a><a href='javascript:fCallLocatioe(\"".$row->PO_No."\",\"".$row->Id."\",\"attachment\");'><span class='icon-new icon'></span></a>";
+												echo "<span class='icon-play icon' style='font-size:15px;'></span><span style='font-size:15px; font-weight:bold;'>" .$row->Doc_name. "</span> <br/><img src=".base_url()."uploadfinfiles/".$row->doc_id." style='width:50px; height:50px; padding-left:5px;' ><a href='javascript:fCallLocatiod(\"".$row->PO_No."\",\"".$row->Id."\",\"attachment\");'><span class='icon-cross icon' style='color:red;'></span></a><a href='javascript:fCallLocatioe(\"".$row->PO_No."\",\"".$row->Id."\",\"attachment\");'><span class='icon-new icon'></span></a>";
 												echo '<br>';
 												}
 											}
@@ -208,6 +241,23 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 
 												</tr>
 												<tr>
+													<td class="td-assest">Payee Name:</td>
+													<td><input type="text" name="payee_name" id="payee_name" value="<?= $payeename?>" class="form-control-button2 n_wi-date2" ></td>
+
+												</tr>
+												<tr>
+													<td class="td-assest">Payee <br> Registration No :</td>
+													<td><input type="text" name="payee_regno" id="payee_regno" value="<?= $payee_regno?>" class="form-control-button2 n_wi-date2" ></td>
+
+												</tr>
+												<!-- <tr>
+													<td class="td-assest">Bank Code :</td>
+													<td>
+													<?php echo form_dropdown('vendor_acc', '' ,'', 'onchange="acc_no()" id="vdr_acc" class="dropdown n_wi-date2"'); ?></td>
+													</td>
+
+												</tr> -->
+												<tr>
 													<td class="td-assest">Bank Name :</td>
 													<td>
 													<?php echo form_dropdown('vendor_acc', $vendor_acc ,set_value('vendor_acc',isset($pofollow[0]->gst_rm)?$pofollow[0]->gst_rm:$this->input->post('vendor_acc')), 'onchange="acc_no()" id="vdr_acc" class="dropdown n_wi-date2"'); ?></td>
@@ -219,13 +269,64 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 													<td><input type="text" name="account_no" id="account_no" value="<?= $this->input->post('account_no')?>"  class="form-control-button2 n_wi-date2" ></td>
 
 												</tr>
+												<!-- <tr>
+													<td class="td-assest">Vendor Email <br>Address :</td>
+													<td><input type="text" name="vendor_email" id="vendor_email" value="<?= $vendor_email?>"  class="form-control-button2 n_wi-date2" ></td>
+
+												</tr> -->
 												<tr>
 										<td style="padding:10px;  valign="top">Invoice/Quotation  :   </td>
 										<?php if ( $WO_detail[0]->Payment_Opt == "COD"){ ?>
-										<td style="padding:10px;"><a href="javascript:void(0)" onclick="fCallLocationa('<?=$runningno?>','component')" value="z" ><span class="icon-plus" style="font-size:12px; color:green;" ></span> Upload </a></td>
+										<td style="padding:10px;"><a href="javascript:void(0)" onclick="fCallLocationa('<?=$this->input->get('po')?>','component',1)" value="z" ><span class="icon-plus" style="font-size:12px; color:green;" ></span> Upload </a></td>
+										
 										<?php }  ?>
 										
 									</tr>
+									<!-- <tr >
+									<td></td>
+											<td style="padding:10px; padding-top:5px;" valign="top" id="spcomponent1" >
+												<ul style="list-style-type: none;">
+													<?php if($this->input->get('tab') != 3){?>
+
+													<?php foreach ($pocom as $com[0]): ?>
+											       <?php if (isset($com[0]->component_name)){?>
+													<li><span class="icon-play icon"></span><?=isset($com[0]->component_name) ? $com[0]->component_name : ''?><a href='<?php echo base_url()?>uploadfinfiles/<?=$com[0]->com_id?>'><span class="icon-new icon2"></a></li>
+													<?php } endforeach; ?>
+													<?php }else{ ?>
+													<li><span class="icon-play icon"></span>Root Cause, Cmis, Gambar, Wo  <span class="icon-new icon2"></li>
+													<li><span class="icon-play icon"></span>Quotation <span class="icon-new icon2"></li>
+													<?php } ?>
+												</ul>
+											</td>
+										</tr> -->
+										<tr>
+										<td></td>
+<td colspan='4'  id="spcomponent1"><?php foreach($pocom as $row){
+	if (isset($row->component_name)){
+			$extension = explode(".",$row->com_id);
+
+			if ($extension[1] == 'doc' || $extension[1] == 'docx' || $extension[1] == 'xls' || $extension[1] == 'xlsx' || $extension[1] == 'pdf') {
+			echo "<span class='icon-play icon' style='font-size:15px;'></span><span style='font-size:15px; font-weight:bold;'>" .$row->component_name. "</span><a href=".base_url()."uploadpofiles/".$row->com_id."><span class='icon-file-text2 icon'></a></span><a href='javascript:fCallLocatiod(\"".$row->PO_No."\",\"".$row->Id."\",\"component\");'><span class='icon-cross icon' style='color:red;'></span></a><a href='javascript:fCallLocatioe(\"".$row->PO_No."\",\"".$row->Id."\",\"".$this->input->get('tag')."\");'><span class='icon-new icon'></span></a>";
+			echo '<br>';
+			} else {
+			echo "<span class='icon-play icon' style='font-size:15px;'></span><span style='font-size:15px; font-weight:bold;'>" .$row->component_name. "</span> <br/><a href=".base_url()."uploadpofiles/".$row->com_id."><img src=".base_url()."uploadpofiles/".$row->com_id." style='width:50px; height:50px; padding-left:5px;' ></a><a href='javascript:fCallLocatiod(\"".$row->PO_No."\",\"".$row->Id."\",\"component\");'><span class='icon-cross icon' style='color:red;'></span></a><a href='javascript:fCallLocatioe(\"".$row->PO_No."\",\"".$row->Id."\",\"".$this->input->get('tag')."\");'><span class='icon-new icon'></span></a>";
+			echo '<br>';
+			}}
+		} ?></td>
+</tr>
+<tr style="" id="trcommacomponent1">
+<td></td>
+<td style="padding-left:10px; ">
+<?php if ($this->input->get('powhat')=="update")  { ?>
+<span style="display:inline-block;" id="spcommacomponent1"></span>
+<?php } else { ?>
+<span style="display:inline-block;" id="spcommacomponent1"></span>
+<span id="spcomponent1">
+
+<?php  }?>
+</span>
+</td>
+</tr>
 												<!-- <tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">SHIPMENT</td></tr> -->
 												<!--<tr>
 													<td class="td-assest" style="width:40%;">PARTS (RM)/UNIT </td>
@@ -283,6 +384,22 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 													<td class="td-assest">Payment Approved Date</td>
 													<td><input type="text"  name="n_completeddt"  readonly onchange="submitdisable()" value="<?=$Date_Completed?>" class="form-control-button2 n_wi-date2" id="date<?php echo $numberdate++; ?>" <?=$confim?>></td>
 												</tr><br>
+												<?php if($udept[0]->dept=='FD'){ ?>
+												<tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">Staff Email Address</td></tr>
+												<?php $staffsEmail = array('1' => 'haiqal@advancepact.com' ,
+																		  '2' => 'azwani@advancepact.com' ,
+																		  '3' => 'm.asyraf@advancepact.com' ,
+																		  '4' => 'fahilah@advancepact.com' ,
+																		  '5' => 'nuruladawiyah@advancepact.com' ,
+																		  '6' => 'sitiainol@advancepact.com' 
+												 );?>
+												
+												<?php foreach($staffsEmail as $staffEmail ){ ?>
+												<tr >
+													<td class="td-assest" style='max-width:100%;white-space:nowrap;'><input type="checkbox" id="staff" name="staff" value="<?= $staffEmail?>">
+													<label for="staff"> <?= $staffEmail?></label></td>
+												</tr>
+												<?php } } ?>
 												<!-- <tr>
 													<td class="td-assest">Payment Approved Date :</td>
 													<td><input type="text"  name="n_codcdt" value="<?=$closingdt?><?=$this->input->post('n_codcdt')?>" class="form-control-button2 n_wi-date2" id="date<?php echo $numberdate++; ?>" <?=$confim?>></td>
@@ -303,13 +420,13 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 										<?php
 
 											foreach($recordcom as $row){
-												$extension = explode(".",$row->com_id);
+												$extension = explode(".",$row->doc_id);
 
 												if ($extension[1] == 'docx' || $extension[1] == 'xlsx' || $extension[1] == 'pdf') {
-												echo "<span class='icon-play icon' style='font-size:15px;'></span><span style='font-size:15px; font-weight:bold;'>" .$row->component_name. "</span><a href=".base_url()."uploadpofiles/".$row->com_id."><span class='icon-file-text2 icon'></a></span><a href='javascript:fCallLocatiod(\"".$row->PO_No."\",\"".$row->Id."\",\"component\");'><span class='icon-cross icon' style='color:red;'></span></a><a href='javascript:fCallLocatioe(\"".$row->PO_No."\",\"".$row->Id."\",\"component\");'><span class='icon-new icon'></span></a>";
+												echo "<span class='icon-play icon' style='font-size:15px;'></span><span style='font-size:15px; font-weight:bold;'>" .$row->Doc_name. "</span><a href=".base_url()."uploadfinfiles/".$row->doc_id."><span class='icon-file-text2 icon'></a></span><a href='javascript:fCallLocatiod(\"".$row->PO_No."\",\"".$row->Id."\",\"component\");'><span class='icon-cross icon' style='color:red;'></span></a><a href='javascript:fCallLocatioe(\"".$row->PO_No."\",\"".$row->Id."\",\"component\");'><span class='icon-new icon'></span></a>";
 												echo '<br>';
 												} else {
-												echo "<span class='icon-play icon' style='font-size:15px;'></span><span style='font-size:15px; font-weight:bold;'>" .$row->component_name. "</span> <br/><img src=".base_url()."uploadpofiles/".$row->com_id." style='width:50px; height:50px; padding-left:5px;' ><a href='javascript:fCallLocatiod(\"".$row->PO_No."\",\"".$row->Id."\",\"component\");'><span class='icon-cross icon' style='color:red;'></span></a><a href='javascript:fCallLocatioe(\"".$row->PO_No."\",\"".$row->Id."\",\"component\");'><span class='icon-new icon'></span></a>";
+												echo "<span class='icon-play icon' style='font-size:15px;'></span><span style='font-size:15px; font-weight:bold;'>" .$row->Doc_name. "</span> <br/><img src=".base_url()."uploadfinfiles/".$row->doc_id." style='width:50px; height:50px; padding-left:5px;' ><a href='javascript:fCallLocatiod(\"".$row->PO_No."\",\"".$row->Id."\",\"component\");'><span class='icon-cross icon' style='color:red;'></span></a><a href='javascript:fCallLocatioe(\"".$row->PO_No."\",\"".$row->Id."\",\"component\");'><span class='icon-new icon'></span></a>";
 												echo '<br>';
 												}
 											}
@@ -326,7 +443,7 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 								</table>
 							</div>
 						</div>
-
+										<?php if($udept[0]->dept!='FD'){ ?>
 						<div class="ui-main-form-2">
 							<div class="middle_d">
 								<table width="100%" class="ui-content-form-reg" style="">
@@ -337,6 +454,7 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 												<tr>
 													<td class="td-assest" style="width:40%;">Delivery Order :</td>
 													<td><input type="text"  name="n_do" value="<?=$do_no?>" class="form-control-button2 n_wi-date2" <?=$confim?>></td>
+													<!-- <td><a href="javascript:void(0)" onclick="fCallLocationa('<?=$this->input->get('po')?>','component',2)" value="z" ><span class="icon-plus" style="font-size:12px; color:green;" ></span> Upload </a></td> -->
 												</tr>
 												<tr>
 													<td class="td-assest">Delivery Order Date :</td>
@@ -345,13 +463,14 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 												<tr>
 													<td class="td-assest">Tax Invoice / Invoice :</td>
 													<td><input type="text"  name="n_inv" value="<?=$Invoice_No?>" class="form-control-button2 n_wi-date2" <?=$confim?>></td>
+													<!-- <td><a href="javascript:void(0)" onclick="fCallLocationa('<?=$this->input->get('po')?>','component',3)" value="z" ><span class="icon-plus" style="font-size:12px; color:green;" ></span> Upload </a></td> -->
 												</tr>
 												<tr>
 													<td class="td-assest">Tax Invoice / Invoice Date :</td>
 													<td><input type="text"  name="n_invdt" value="<?=$invoice_date?>" class="form-control-button2 n_wi-date2" id="date<?php echo $numberdate++; ?>" <?=$confim?>></td>
 												</tr>
 												<tr>
-													<td class="td-assest">COD Closing Month :</td>
+													<td class="td-assest">PO Closing :</td>
 													<td><input type="text"  name="n_codcdt" value="<?=$closingdt?>" class="form-control-button2 n_wi-date2" id="date<?php echo $numberdate++; ?>" <?=$confim?>></td>
 
 													<!-- <td><?php echo form_dropdown('n_codcdt', $mon_list ,$closingdt.$this->input->post('n_codcdt'), 'class="dropdown n_wi-date2"'.$confim.''); ?></td> -->
@@ -442,13 +561,86 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 								</table>
 							</div>
 						</div>
+														<?php }
+														$partial_pay = array('0' => 'No' ,'1' => 'Yes' );
+														if($udept[0]->dept=='FD'){ ?>
+														<div class="ui-main-form-2">
+							<div class="middle_d">
+														<table width="100%" class="ui-content-form" style="">
+		<tr>
+<td class="td-assest">Partial Payment</td>
+<td><?php echo form_dropdown('partial_pay', $partial_pay ,$partial!=''?$partial:$this->input->post('partial_pay'), 'id="partial_pay" class="dropdown n_wi-date2" onchange="partial_payment()"'); ?> </td></tr> </table>
+</div></div>
+														<?php 
+															for($no_pay=1;$no_pay<=3;$no_pay++){
+																?>
+															
+					<div class="ui-main-form-2">
+							<div class="middle_d">
+								<table width="100%" class="ui-content-form" style="">
+
+<tr><td colspan="3" class="ui-bottom-border-color" ><?php if($no_pay==1){echo '1st';}elseif($no_pay==2){echo'2nd';}else{ echo '3rd';} echo ' Payment'; ?></td></tr>
+		<tr style="height:20px;">
+			<td class="td-assest">Payment Date</td>
+			<td><input type="text"  name="n_paydate<?=$no_pay?>"  readonly value="<?=$paydate[$no_pay]?>" class="form-control-button2 n_wi-date2" id="date<?=$no_pay?>" ></td>
+			<tr>
+				<td class="td-assest">Payment Amount</td>
+				<td><input type="number" step="0.01" name="n_payamt<?=$no_pay?>" id="n_payamt<?=$no_pay?>" value="<?php echo ($payment_amount[$no_pay]!='')?$payment_amount[$no_pay]:$this->input->post('n_payamt'.$no_pay)?>" class="form-control-button2 n_wi-date2" ></td>
+			</tr>
+			<tr>
+				<td class="td-assest">Payment Balance :</td>
+				<td><input type="number" step="0.01" name="n_paybal<?=$no_pay?>" id="n_paybal<?=$no_pay?>" value="<?=$payment_balance[$no_pay]?>" class="form-control-button2 n_wi-date2" ></td>
+			</tr>
+			
+		</tr>
+
+<tr>
+<td style="padding:10px;" valign="top">Attachments   :   </td>
+<!--<td style="padding:10px;"><a href="" ><span class="icon-plus" style="font-size:12px; color:green;"></span> Add New</a></td>-->
+<?php if ($this->input->get('po') == 3){ ?>
+<td style="padding:10px;"><a href="javascript:void(0)" onclick="fCallLocationa('<?=$runningno?>','attachment')" value="z" ><span class="icon-plus" style="font-size:12px; color:green;" ></span> Add New </a></td>
+<?php } else { ?>
+<td style="padding:10px;"><a href="javascript:void(0)" onclick="fCallLocationa('<?=$this->input->get('po')?>','attachment',<?=$no_pay?>)" value="z" ><span class="icon-plus" style="font-size:12px; color:green;" ></span> Add New </a></td>
+<?php } ?>
+</tr>
+<tr>
+<td colspan='4'  id="spattachment<?=$no_pay?>"><?php foreach($pocat as $row){
+	if (isset($row->Doc_name)&&$row->visit==$no_pay){
+			$extension = explode(".",$row->doc_id);
+
+			if ($extension[1] == 'doc' || $extension[1] == 'docx' || $extension[1] == 'xls' || $extension[1] == 'xlsx' || $extension[1] == 'pdf') {
+			echo "<span class='icon-play icon' style='font-size:15px;'></span><span style='font-size:15px; font-weight:bold;'>" .$row->Doc_name. "</span><a href=".base_url()."uploadfinfiles/".$row->doc_id."><span class='icon-file-text2 icon'></a></span><a href='javascript:fCallLocatiod(\"".$row->PO_No."\",\"".$row->Id."\",\"attachment\");'><span class='icon-cross icon' style='color:red;'></span></a><a href='javascript:fCallLocatioe(\"".$row->PO_No."\",\"".$row->Id."\",\"".$this->input->get('tag')."\");'><span class='icon-new icon'></span></a>";
+			echo '<br>';
+			} else {
+			echo "<span class='icon-play icon' style='font-size:15px;'></span><span style='font-size:15px; font-weight:bold;'>" .$row->Doc_name. "</span> <br/><a href=".base_url()."uploadfinfiles/".$row->doc_id."><img src=".base_url()."uploadfinfiles/".$row->doc_id." style='width:50px; height:50px; padding-left:5px;' ></a><a href='javascript:fCallLocatiod(\"".$row->PO_No."\",\"".$row->Id."\",\"attachment\");'><span class='icon-cross icon' style='color:red;'></span></a><a href='javascript:fCallLocatioe(\"".$row->PO_No."\",\"".$row->Id."\",\"".$this->input->get('tag')."\");'><span class='icon-new icon'></span></a>";
+			echo '<br>';
+			}}
+		} ?></td>
+</tr>
+<tr style="display:<?=($this->input->get('powhat')=="update" ? 'none' : 'block') ?>;" id="trcommaattachment<?=$no_pay?>">
+<td style="padding-left:10px; display:block;">
+<?php if ($this->input->get('powhat')=="update")  { ?>
+<span style="display:inline-block;" id="spcommaattachment<?=$no_pay?>"></span>
+<?php } else { ?>
+<span style="display:inline-block;" id="spcommaattachment<?=$no_pay?>"></span>
+<span id="spattachment<?=$no_pay?>">
+
+<?php  }?>
+</span>
+</td>
+</tr>
+	</table>
+	</div></div>
+					<?php }} ?>
 					</td>
+					
 				</tr>
 				<?php } ?>
+				
 				<tr class="ui-color-contents-style-1" height="30px">
 					<td colspan="2" class="ui-header-new" align="center">
 					<?php if (validation_errors() == '') { 
-						if ($this->input->get('powhat')=="update") {?>
+						if ($this->input->get('powhat')=="update" && $udept[0]->dept!='FD') {?>
 					<input type="submit"  class="btn-button btn-primary-button" name="mysubmit"  value="Save as Draft" style="width:150px;"/>
 					<input type="submit" class="btn-button btn-primary-button"  id="btnSubmit" name="mysubmit" value="Submit" style="width:150px;"/>
 					<?php }else{
@@ -509,24 +701,25 @@ document.getElementById("n_gstrm").value = two.toFixed(2);
 
 }
 
-function fCallLocationa(pono,tag){
+function fCallLocationa(pono,tag,no){
 	winProp = 'width=450,height=270,left=' + ((screen.width - 600) / 2) +',top=' + ((screen.height - 400) / 2) + ',menubar=no, directories=no, location=no, scrollbars=yes, statusbar=no, toolbar=no, resizable=no';
-	Win = window.open('<?php if ($this->uri->slash_segment(2) != 'e_pr/') { echo "asset3_comm_newpo";} else { echo "asset3_comm_newpo"; }?>?pono=' + pono + '&act=addnew' + '&tag=' + tag , 'Location', winProp);
+	Win = window.open('<?php if ($this->uri->slash_segment(2) != 'e_pr/') { echo "asset3_comm_newpo";} else { echo "asset3_comm_newpo"; }?>?pono=' + pono + '&act=addnew' + '&tag=' + tag +'&payment_no='+no , 'Location', winProp);
 	Win.window.focus();
 	}
 
-function fCallLocatioa(pono,tag)
+function fCallLocatioa(pono,tag,payment_no)
 	{
 		setTimeout(function() {
-			var url		=	'<?php echo base_url ('index.php/ajaxproc') ?>?option=pono&pono='+pono+'&tag='+tag;
-	 		document.getElementById('spcomma'+tag).innerHTML = '';
-			$('#spcomma'+tag).load(url);
-	 		document.getElementById('trcomma'+tag).style.display='block';
+			var url		=	'<?php echo base_url ('index.php/ajaxproc') ?>?option=pono&pono='+pono+'&tag='+tag+'&payment_no='+payment_no;
+	 		document.getElementById('spcomma'+tag+payment_no).innerHTML = '';
+			$('#spcomma'+tag+payment_no).load(url);
+			if(tag == 'attachment')
+	 		document.getElementById('trcomma'+tag+payment_no).style.display='block';
 	 		if (tag == 'component') {
-	 		document.getElementById('spcomponent').style.display='none';
+	 		document.getElementById('spcomponent'+payment_no).style.display='none';
 	 		}
 	 		else {
-	 		document.getElementById('spattachment').style.display='none';
+	 		document.getElementById('spattachment'+payment_no).style.display='none';
 	 		}
 		document.body.style.cursor='default';
 		} ,300);
@@ -582,7 +775,22 @@ function fCallLocatioa(pono,tag)
 	document.getElementById("btnSubmit").disabled = false;
  }
  }
-
+ 
+ function partial_payment(){
+	var partial_pay = document.getElementById("partial_pay").value;
+	for(x=2;x<4;x++){
+ if(partial_pay=='0' || partial_pay=='')
+ {
+	document.getElementById("date"+x).disabled = true;
+	document.getElementById("n_payamt"+x).disabled = true;
+	document.getElementById("n_payrefno"+x).disabled = true;
+	
+ }else{
+	document.getElementById("date"+x).disabled = false;
+	document.getElementById("n_payamt"+x).disabled = false;
+	document.getElementById("n_payrefno"+x).disabled = false;
+ }}
+ }
 </script>
 
 	<?php //echo "lklklkl : " . $this->uri->slash_segment(1). "<br>"; include 'content_jv_popup.php';?>
@@ -590,6 +798,11 @@ function fCallLocatioa(pono,tag)
 <?php include 'ajaxtime.php';?>
       <?php include 'content_jv_popup.php';?>
 </form>
-
+    <script>
+    $(document).ready(function() {
+        partial_payment()
+    });
+ 
+    </script>
 </body>
 </html>

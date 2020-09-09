@@ -812,9 +812,9 @@ class Procurement extends CI_Controller {
 		$dt1 = (($this->input->post('n_dodt')) != '') ? date('y-m-d',strtotime($this->input->post('n_dodt'))) : NULL;
 		$dt2 = (($this->input->post('n_invdt')) != '') ? date('y-m-d',strtotime($this->input->post('n_invdt'))) : NULL;
 		$dt3 = (($this->input->post('n_mddt')) != '') ? date('y-m-d',strtotime($this->input->post('n_mddt'))) : NULL;
-		$paydt1 = (($this->input->post('n_paydate1')) != '') ? date('y-m-d',strtotime($this->input->post('n_paydate1'))) : NULL;
-		$paydt2 = (($this->input->post('n_paydate2')) != '') ? date('y-m-d',strtotime($this->input->post('n_paydate2'))) : NULL;
-		$paydt3 = (($this->input->post('n_paydate3')) != '') ? date('y-m-d',strtotime($this->input->post('n_paydate3'))) : NULL;
+		// $paydt1 = (($this->input->post('n_paydate1')) != '') ? date('y-m-d',strtotime($this->input->post('n_paydate1'))) : NULL;
+		// $paydt2 = (($this->input->post('n_paydate2')) != '') ? date('y-m-d',strtotime($this->input->post('n_paydate2'))) : NULL;
+		// $paydt3 = (($this->input->post('n_paydate3')) != '') ? date('y-m-d',strtotime($this->input->post('n_paydate3'))) : NULL;
 		//echo "nilai post : ".$this->input->post('n_codcdt')."nilai nktest : ".$nktest;
 		//exit();
 
@@ -869,14 +869,14 @@ class Procurement extends CI_Controller {
 					'paytype'=>$this->input->post('n_paytype'),
 					'payee_name'=>$this->input->post('payee_name'),
 					'payeeregno'=>$this->input->post('payee_regno'),
-					'vendor_email'=>$this->input->post('vendor_email'),
-					'partial_pay'=>$this->input->post('partial_pay'),
-					'payment_1'=>$this->input->post('n_payamt1'),
-					'payment_2'=>$this->input->post('n_payamt2'),
-					'payment_3'=>$this->input->post('n_payamt3'),
-					'pay1_date'=>$paydt1,
-					'pay2_date'=>$paydt2,
-					'pay3_date'=>$paydt3,
+					// 'vendor_email'=>$this->input->post('vendor_email'),
+					// 'partial_pay'=>$this->input->post('partial_pay'),
+					// 'payment_1'=>$this->input->post('n_payamt1'),
+					// 'payment_2'=>$this->input->post('n_payamt2'),
+					// 'payment_3'=>$this->input->post('n_payamt3'),
+					// 'pay1_date'=>$paydt1,
+					// 'pay2_date'=>$paydt2,
+					// 'pay3_date'=>$paydt3,
 				);
 				$this->load->model('update_model');
 				$this->update_model->updatepomain($insert_data,$this->input->get('po'),$visitwhat);
@@ -922,12 +922,12 @@ class Procurement extends CI_Controller {
 					'closingdtcc'=>$closingdt,
 					'vendor'=>$this->input->post('n_vendor'),
 					'paytype'=>$this->input->post('n_paytype'),
-					'payment_1'=>$this->input->post('n_payamt1'),
-					'payment_2'=>$this->input->post('n_payamt2'),
-					'payment_3'=>$this->input->post('n_payamt3'),
-					'pay1_date'=>$paydt1,
-					'pay2_date'=>$paydt2,
-					'pay3_date'=>$paydt3,
+					// 'payment_1'=>$this->input->post('n_payamt1'),
+					// 'payment_2'=>$this->input->post('n_payamt2'),
+					// 'payment_3'=>$this->input->post('n_payamt3'),
+					// 'pay1_date'=>$paydt1,
+					// 'pay2_date'=>$paydt2,
+					// 'pay3_date'=>$paydt3,
 				);
 
 				$this->load->model('insert_model');
