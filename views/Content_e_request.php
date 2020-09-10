@@ -96,7 +96,7 @@ $req_type = array('0' => 'RCM',
 							<th onclick="dateTimeTableSort(this,'Date')">PO Date</th>
 							<th onclick="tableSort(this)" >Request Type</th>
 							<th onclick="tableSort(this)" >Vendor</th>
-							<th onclick="dateTimeTableSort(this,'Date')">PO Approval Date</th>
+							<!-- <th onclick="dateTimeTableSort(this,'Date')">PO Approval Date</th> -->
 							<th onclick="dateTimeTableSort(this,'Date')">Payment Approval Date</th>
 							<th>Return</th>
 							<th onclick="tableSort(this)">Payment Status</th>
@@ -155,7 +155,7 @@ $req_type = array('0' => 'RCM',
 						<td class="td-desk"><?=isset($row->PO_Date) ? date('d-m-Y',strtotime($row->PO_Date)) : ''?></td>
 						<td class="td-desk"><?=isset($row->ReqCase) ? $req_type[$row->ReqCase] : 'NA'?></td>
 						<td class="td-desk"><?=isset($row->VENDOR_NAME) ? $row->VENDOR_NAME : 'NA'?></td>
-						<td class="td-desk"><?=isset($row->paytype) ? $row->paytype : 'NA'?></td>
+						<!-- <td class="td-desk"><?=isset($row->paytype) ? $row->paytype : 'NA'?></td> -->
 						<?php $status_pay = array(
 												'0' => 'UNPAID',
 												'1' => 'PAID',
