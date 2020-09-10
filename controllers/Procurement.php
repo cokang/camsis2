@@ -295,7 +295,7 @@ class Procurement extends CI_Controller {
 
 				//$config['upload_path']          = '/var/www/vhosts/camsis2.advancepact.com/httpdocs/uploadpofiles';
 	            $config['allowed_types']        = 'jpg|jpeg|gif|tif|png|doc|docx|xls|xlsx|pdf';
-	            $config['max_size']             = '1000';
+	            $config['max_size']             = '2000';
 	            $config['max_width']            = 'auto';
 	            $config['max_height']           = 'auto';
 	            $ext = explode(".",$_FILES["image_file"]['name']);

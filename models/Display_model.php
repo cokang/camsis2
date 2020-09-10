@@ -5377,7 +5377,7 @@ function getpocom($whatpo,$visitwhat){
 $this->db->select("*");
 $this->db->from('po_compodetails');
 $this->db->where('PO_No', $whatpo);
-$this->db->where('visit', $visitwhat);
+// $this->db->where('visit', $visitwhat);
 
 
 $query = $this->db->get();
