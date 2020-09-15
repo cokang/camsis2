@@ -67,9 +67,16 @@
 									<td width='60%'><b>5. Brand : </b><?=isset($record[0]->V_Brandname) ? $record[0]->V_Brandname : ''?></td>
 									<td width='40%'><b>Model: </b><?=isset($record[0]->V_Model_no) ? $record[0]->V_Model_no : ''?></td>
 									</tr>
+									<?php $causes = array('0' => 'Accidental' , 
+														  '1' => 'Wear & Tear',
+														  '2' => 'Obsolote model',
+														  '3' => 'Mishandling',
+														  '4' => 'Environmental',
+														  '5' => 'Others',
+								); ?>
 									<tr height="60px"><td colspan='2'><b>6. Complaint / Error / Problem statement: </b><?=isset($record[0]->rone) ? $record[0]->rone : ''?></td></tr>
-									<tr height="180px" valign= "top"><td colspan='2'><b>7. Root cause to part faulty: </b><?=isset($record[0]->rthree) ? $record[0]->rthree : ''?><br><br><b>*Tick (&#10004;) where appropriate</b><br><br>
-									<table style='padding-left: 110px;'><?php $num = 1; $num2 = 1?>
+									<tr height="60px" valign= "top"><td colspan='2'><b>7. Root cause to part faulty: </b><?=isset($record[0]->rthree) ? $record[0]->rthree : ''?><br><label style="color: blue;"><?=isset($record[0]->CriticalFlag) ? $causes[$record[0]->CriticalFlag] : ''?></label></b>
+									<!-- <table style='padding-left: 110px;'><?php $num = 1; $num2 = 1?>
 											<tr>	<td><input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="0"<?=set_radio('n_Case','0')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 0 ? '' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Wear & Tear</td>
 												<td><input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="1"<?=set_radio('n_Case','1')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 1 ? 'checked' : '' ?>/>
@@ -81,7 +88,7 @@
 												<td><input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="4"<?=set_radio('n_Case','4')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 4 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Environmental</td>
 												<td><input disabled type="checkbox" id="radio-1-<?=$num++?>" name="n_Case"  value="5"<?=set_radio('n_Case','5')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 5 ? 'checked' : '' ?>/>
-												<label for="radio-1-<?=$num2++?>"></label> Others</tr></table></td>
+												<label for="radio-1-<?=$num2++?>"></label> Others</tr></table></td> -->
 									</td></tr>
 									<tr  height="300px" valign= "top"><td colspan='2'><b>8. Action taken:</b><br><br>
 									<table  width="100%" >

@@ -29,14 +29,15 @@ echo form_open('rootcause_ctrl/comfirmation');
 									
 									<tr>
 											<td style="padding-left:10px;" valign="top">Complaint / Error / Problem statement :   </td>
-											<td style="padding-left:10px;" valign="top"> <textarea class="Input n_com2" name="rc_error" disabled><?=set_value('rc_error')?></textarea></td>
+											<td style="padding-left:10px;" valign="top"> <textarea class="Input n_com2" name="rc_error" disabled><?= ($this->input->post('rc_error')=='Other')?set_value('rc_error-other'):set_value('rc_error')?></textarea></td>
+											
 										</tr>
 										<tr>
 											<td style="padding-left:10px;" valign="top">Root cause to part faulty :   </td>
-											<td style="padding-left:10px;" valign="top"><textarea class="Input n_com2" name="rc_partfault" disabled><?=set_value('rc_partfault')?></textarea></td>
+											<td style="padding-left:10px;" valign="top"><textarea class="Input n_com2" name="rc_partfault" disabled><?=($this->input->post('rc_partfault')=='Other')?set_value('rc_partfault-other'):set_value('rc_partfault')?></textarea></td>
 										</tr>
 										<tr>
-											<td style="padding-left:10px;" valign="top">Tick where appropriate :   </td>
+											<td style="padding-left:10px;" valign="top">Problem Cause :   </td>
 											<td style="padding-left:10px;" valign="top">
 												<?php $num = 1; $num2 = 1?>
 												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case" disabled value="0"<?=set_radio('n_Case','0',TRUE)?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 0 ? 'checked' : '' ?>/>
@@ -235,8 +236,8 @@ echo form_open('rootcause_ctrl/comfirmation');
 				</tr>
 			</table>
 			<?php echo form_hidden('workord',$this->input->get('wrk_ord')) ?>
-			<?php echo form_hidden('rc_error',$this->input->post('rc_error')) ?>
-			<?php echo form_hidden('rc_partfault',$this->input->post('rc_partfault')) ?>
+			<?php echo form_hidden('rc_error',($this->input->post('rc_error')=='Other')?$this->input->post('rc_error-other'):$this->input->post('rc_error')) ?>
+			<?php echo form_hidden('rc_partfault',($this->input->post('rc_partfault')=='Other')?$this->input->post('rc_partfault-other'):$this->input->post('rc_partfault')) ?>
 			<?php echo form_hidden('n_Case',$this->input->post('n_Case')) ?>
 			<?php echo form_hidden('rc_why',$this->input->post('rc_why')) ?>
 			<?php echo form_hidden('rc_remarkprocument',$this->input->post('rc_remarkprocument')) ?>
@@ -244,6 +245,7 @@ echo form_open('rootcause_ctrl/comfirmation');
 			<!-- <?php echo form_hidden('ApprStatusIDxx',isset($record[0]->ApprStatusIDxx) ? $record[0]->ApprStatusIDxx : NULL) ?>
 			<?php echo form_hidden('DateApprovalxx',isset($record[0]->DateApprovalxx) ? $record[0]->DateApprovalxx : '') ?>
 			<?php echo form_hidden('class_id',isset($user[0]->class_id) ? $user[0]->class_id : '') ?> -->
+			<?php echo form_hidden('hosp',$this->input->get('hosp')) ?>
 		</div>
 	</div>
 </div>
