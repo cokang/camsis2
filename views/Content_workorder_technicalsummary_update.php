@@ -47,18 +47,18 @@
 										<td style="padding-left:10px;" valign="top">
 											<?php foreach($errors as $error ){
 												?>
-										    <input type="radio" name="rc_error" value="<?=$error?>" onchange="other_error('<?=$error?>')" <?=set_radio('rc_error','0',TRUE)?><?=isset($record[0]->rone) && $record[0]->rone == $error ? 'checked' : $record[0]->rone!='' &&$record[0]->rone != $errors[0] && $record[0]->rone != $errors[1]?'checked':''?>><?=$error?> <br>
+										    <input type="radio" name="rc_error" value="<?=$error?>" onchange="other_error('<?=$error?>')" <?=set_radio('rc_error','0',TRUE)?><?=isset($record[0]->rone) && $record[0]->rone == $error ? 'checked' : isset($record[0]->rone) &&$record[0]->rone!='' &&$record[0]->rone != $errors[0] && $record[0]->rone != $errors[1]?'checked':''?>><?=$error?> <br>
 											<?php } ?>
-											<textarea <?php if($record[0]->rone!=$errors[0] && $record[0]->rone!=$errors[1] ){?>style="display:block;" <?php }else{?>style="display:none;" <?php }?>class="Input n_com2" id="error-details" name="rc_error-other"><?=set_value('rc_error',isset($record[0]->rone) ? $record[0]->rone : '')?></textarea></td>
+											<textarea <?php if(isset($record[0]->rone) && $record[0]->rone!=$errors[0] && $record[0]->rone!=$errors[1] ){?>style="display:block;" <?php }else{?>style="display:none;" <?php }?>class="Input n_com2" id="error-details" name="rc_error-other"><?=set_value('rc_error',isset($record[0]->rone) ? $record[0]->rone : '')?></textarea></td>
 										</tr>
 										<tr>
 											<td style="padding-left:10px;" valign="top">Root cause to part faulty :   </td>
 											<!-- <td style="padding-left:10px;" valign="top"> <textarea class="Input n_com2" name="rc_partfault"><?=set_value('rc_partfault',isset($record[0]->rthree) ? $record[0]->rthree : '')?></textarea></td> -->
 											<td style="padding-left:10px;" valign="top">
 											<?php foreach($faulty as $fault ){?>
-												<input type="radio" id="rc_partfault" name="rc_partfault" value="<?=$fault?>" onchange="other_faulty('<?=$fault?>')" <?=set_radio('rc_partfault','0',TRUE)?><?=isset($record[0]->rthree) && $record[0]->rthree == $fault? 'checked' : $record[0]->rthree!=''&&$record[0]->rthree != "" && $record[0]->rthree != $faulty[0] && $record[0]->rthree != $faulty[1] && $record[0]->rthree != $faulty[2] ?'checked':'' ?>><?=$fault?><br>
+												<input type="radio" id="rc_partfault" name="rc_partfault" value="<?=$fault?>" onchange="other_faulty('<?=$fault?>')" <?=set_radio('rc_partfault','0',TRUE)?><?=isset($record[0]->rthree) && $record[0]->rthree == $fault? 'checked' : isset($record[0]->rthree) &&$record[0]->rthree!=''&&$record[0]->rthree != "" && $record[0]->rthree != $faulty[0] && $record[0]->rthree != $faulty[1] && $record[0]->rthree != $faulty[2] ?'checked':'' ?>><?=$fault?><br>
 											<?php } ?>
-											<textarea <?php if($record[0]->rthree!=$faulty[0] && $record[0]->rthree!=$faulty[1] && $record[0]->rthree!=$faulty[2]){?>style="display:block;" <?php }else{?>style="display:none;" <?php }?>class="Input n_com2" name="rc_partfault-other" id="partfault-details"><?=set_value('rc_partfault',isset($record[0]->rthree) ? $record[0]->rthree : '')?></textarea></td>
+											<textarea <?php if(isset($record[0]->rthree) &&$record[0]->rthree!=$faulty[0] && $record[0]->rthree!=$faulty[1] && $record[0]->rthree!=$faulty[2]){?>style="display:block;" <?php }else{?>style="display:none;" <?php }?>class="Input n_com2" name="rc_partfault-other" id="partfault-details"><?=set_value('rc_partfault',isset($record[0]->rthree) ? $record[0]->rthree : '')?></textarea></td>
 										</tr>
 										<tr>
 											<td style="padding-left:10px;" valign="top">Problem Cause :   </td>
