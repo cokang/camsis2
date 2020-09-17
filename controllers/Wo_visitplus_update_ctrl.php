@@ -345,7 +345,7 @@ if ($shedule) {
 	
 	$wrk_ord_test = $this->insert_model->visitplus_woexist('v_WrkOrdNo',$RN,'n_Visit',$visit);
 	if ($this->input->post('chkbox') == 'ON'){
-					//$this->insert_model->job_woexist('v_WrkOrdNo',$variable);
+					$this->insert_model->job_woexist('v_WrkOrdNo',$variable);
 					echo "nk closed";
 					//exit();
 					
