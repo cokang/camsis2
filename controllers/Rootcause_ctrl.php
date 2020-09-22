@@ -58,6 +58,24 @@ class Rootcause_ctrl extends CI_Controller{
 	  	$this->load->model('display_model');
 		$this->load->model('insert_model');
 		$this->load->model('update_model');
+		$this->load->model('get_model');
+		$hosp= $this->session->userdata('hosp_code');
+		$woppm = substr($this->input->post('wrk_ord'),0,2);
+		if($hosp=='HSA' || $hosp=='HSI' ||$hosp=='MUR'){
+			if (($woppm == "PP") || ($woppm == "SM") || ($woppm == "RI")) {
+				if ($this->get_model->get_assetnowoppm($this->input->get('wrk_ord'),"1")) {
+					$data['new_mrin'] = $this->get_model->nextmrinnumberimg();
+				} else {
+					$data['new_mrin'] = $this->get_model->nextmrinnumber();
+				}
+			} else {
+				if ($this->get_model->get_assetnowoppm($this->input->get('wrk_ord'),"2")) {
+					$data['new_mrin'] = $this->get_model->nextmrinnumberimg();
+				} else {
+					$data['new_mrin'] = $this->get_model->nextmrinnumber();
+				}
+			}
+		}
 		$data['record'] = $this->display_model->rootcause($this->input->post('workord'));
 		$insert_data = array(
 			'rone' => $this->input->post('rc_error'),
@@ -69,6 +87,25 @@ class Rootcause_ctrl extends CI_Controller{
 
 			);
 
+			if($hosp=='HSA' || $hosp=='HSI' ||$hosp=='MUR'){
+				if (($woppm == "PP") || ($woppm == "SM") || ($woppm == "RI")) {
+					if ($this->get_model->get_assetnowoppm($this->input->get('wrk_ord'),"1")) {
+						$data['new_mrin'] = $this->get_model->nextmrinnumberimg();
+					} else {
+						$data['new_mrin'] = $this->get_model->nextmrinnumber();
+					}
+				} else {
+					if ($this->get_model->get_assetnowoppm($this->input->get('wrk_ord'),"2")) {
+						$data['new_mrin'] = $this->get_model->nextmrinnumberimg();
+					} else {
+						$data['new_mrin'] = $this->get_model->nextmrinnumber();
+					}
+				}
+				if($data['record'][0]->DocReferenceNo==null)
+				$insert_data['DocReferenceNo']= $data['new_mrin'][0]->mrinno;
+			}
+			// print_r($insert_data);
+			// exit();
 			if($data['record']){
 				$this->update_model->updaterootcause($insert_data,$this->input->post('workord'));
 			}else{

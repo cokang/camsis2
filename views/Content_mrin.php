@@ -6,7 +6,7 @@
 	padding-left: 80px;
 }
 </style>
-
+<?php (($this->session->userdata('hosp_code')=='HSI' || $this->session->userdata('hosp_code')=='HSA' ||  $this->session->userdata('hosp_code')=='MUR') && $user[0]->class_id=='27')?$disableMrin='onclick="return false"' : $disableMrin='' ?>
 <div class="ui-middle-screen">
 	<div class="div-p"></div>
 	<div class="main-box">
@@ -18,7 +18,7 @@
 					<p>New MRIN</p>
 				</div>
 				<div class="icon"><i class="icon-file-text2"></i></div>
-				<?php echo anchor ('Procurement?pro=new','<span class="ui-left_web">More Info <i class="icon-arrow-right"></i></span>','class="small-box-footer"'); ?>
+				<?php echo anchor ('Procurement?pro=new','<span class="ui-left_web">More Info <i class="icon-arrow-right"></i></span>','class="small-box-footer" '.$disableMrin); ?>
 			</div>
     <?php } ?>
 		</div>
