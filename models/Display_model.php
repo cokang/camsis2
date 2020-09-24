@@ -5102,7 +5102,7 @@ function status_table(){
     	return $query_result;
     }
 function prdet($mrinno){
-		$this->db->select('m.*,s.V_Asset_no,u.Name,a.V_Asset_name,a.V_Model_no,a.V_Brandname,(YEAR(NOW()) - YEAR(b.D_commission)) AS Age,IFNULL(b.N_Cost, 0) AS N_Cost,p.PR_No, s.V_Request_no, a.V_User_Dept_code, a.V_Tag_no,mp.Payment_Opt',FALSE);
+		$this->db->select('m.*,s.V_Asset_no,u.Name,a.V_Asset_name,a.V_Model_no,a.V_Brandname,(YEAR(NOW()) - YEAR(b.D_commission)) AS Age,IFNULL(b.N_Cost, 0) AS N_Cost,p.PR_No, s.V_Request_no, a.V_User_Dept_code, a.V_Tag_no,mp.Payment_Opt,pra.WHO_Apprv',FALSE);
 		$this->db->from('tbl_materialreq m');
 		$this->db->join('tbl_pr_mirn p','m.DocReferenceNo = p.MIRN_No');
 		$this->db->join('pmis2_egm_service_request s','m.WorkOfOrder = s.V_Request_no','left');
@@ -5110,6 +5110,7 @@ function prdet($mrinno){
 		$this->db->join('pmis2_egm_assetreg_general b','b.V_Asset_no = a.V_Asset_no','left');
 		$this->db->join('tbl_user u','m.RequestUserID = u.UserID','left');
 		$this->db->join('tbl_mirn_payment mp','mp.MirnCode = m.DocReferenceNo','left');
+		$this->db->join('tbl_pr_apprv pra', 'pra.PR_No = p.PR_No', 'left');
 		$this->db->where('m.DocReferenceNo',$mrinno);
 		$this->db->where('s.V_hospitalcode',  substr(substr($this->input->get('mrin'),-14),0,3));
 		$query = $this->db->get();
@@ -5154,7 +5155,7 @@ function printpr($prno){
 	return $query_result;
 }
 
-function polist($datefrom,$dateto,$searchitem="",$tab="",$vendor="",$request_type="",$payment=""){
+function polist($datefrom,$dateto,$searchitem="",$tab="",$classid="",$vendor="",$request_type="",$payment=""){
 	$this->db->distinct();
 	//$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt,vi.VENDOR_NAME');
   //$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt,vi.VENDOR_NAME, SUM( DISTINCT Unit_Costx * QtyReqfx) as totalPO,sum( DISTINCT Unit_Costx * QtyReqfx) as totalPO ,a.ApprCommentsx , GROUP_CONCAT( DISTINCT  VENDOR_NAME ) as VENDOR_NAME');
@@ -5190,7 +5191,9 @@ function polist($datefrom,$dateto,$searchitem="",$tab="",$vendor="",$request_typ
 	}elseif($tab==2){
 		$this->db->where('e.status ', 2);
 	}
-	
+	if($classid==4){
+		$this->db->having('totalPO >=', 100000);
+	}
 	if ($vendor !='All'){
 		$this->db->where('vi.VENDOR_CODE ', $vendor);
 	}

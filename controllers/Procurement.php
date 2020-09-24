@@ -592,6 +592,10 @@ class Procurement extends CI_Controller {
 		//print_r($insertData);
 		$this->load->model('update_model');
 		$this->load->model('insert_model');
+		$this->load->model('get_model');
+		//($data['record'][0]->WHO_Apprv);
+		$data['signdata']= $this->get_model->getsign($data['record'][0]->WHO_Apprv);
+		//print_r($data['signdata']);
 		if($this->input->get("reset")==1){
 		$this->update_model->resetmirn($this->input->get("mrin"),6);
 		$this->update_model->delete_PO_MIRN($this->input->get("mrin"),$data['vencd'][0]->Vendor);
@@ -1462,8 +1466,11 @@ class Procurement extends CI_Controller {
 		$action = $this->input->post('action');
 		$mrin = $this->input->post('mrin');
 		$this->load->model('update_model');
+		$this->load->model('get_model');
 		$update_data = array('status' => $action);
 		$this->update_model->update_PO_MRIN($mrin, $update_data);
+		$prno =  $this->get_model->getprno($mrin);
+		$this->update_model->update_pr_apprv($prno[0]->PR_No);
 		if($action==0){
 		$update_data = array('PR_No' => null);
 		$this->update_model->update_PR_MRIN($mrin, $update_data);}

@@ -4633,6 +4633,30 @@ function get_stock_asset($searchitem=""){
 
 		}
 
+		function getprno($mrin)
+		{
+		$this->db->select("PR_No");
+		$this->db->from('tbl_pr_mirn ');
+		$this->db->where('MIRN_No',$mrin);
+		$query=$this->db->get();
+		// echo $this->db->last_query();
+		// exit();
+		return $query->result();
+
+		}
+
+		function getsign($whoaprv)
+		{
+		$this->db->select("*");
+		$this->db->from('tbl_signature ');
+		$this->db->where('sign_owner', $whoaprv);
+		$query=$this->db->get();
+		// echo $this->db->last_query();
+		// exit();
+		return $query->result();
+
+		}
+
 
 }
 ?>

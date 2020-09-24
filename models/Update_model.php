@@ -731,6 +731,23 @@ function update_vendorprice($item, $mrin, $cost){
 	  return $this->db->affected_rows() > 0;
 	  }
 
+function deletepoat($data,$pono,$link,$id){
+	//$RN = $this->input->post('wrk_ord');
+	$this->db->where('PO_No',$pono);
+	$this->db->where('Id',$id);
+	$this->db->where('doc_id',$link);
+	$this->db->update('poattach_details', $data);
+	//echo $this->db->last_query();
+	//exit();
+}
+
+function update_pr_apprv($prno){
+	$this->db->set('WHO_Apprv',$this->session->userdata('v_UserName'));
+	$this->db->where('PR_No',$prno);
+	$this->db->update('tbl_pr_apprv');
+
+}
+
 
 }
 ?>
