@@ -2262,7 +2262,7 @@ return $query->result();
 			return $query->result();
 
 		}
-		function poprequest_rcm($hosp,$y,$m,$s){
+		function poprequest_rcm($hosp,$y,$m,$s,$wo=''){
 			$this->db->select('s.V_Request_no,s.V_Asset_no,s.D_date,s.D_time,s.V_requestor,s.V_phone_no,s.V_User_dept_code,s.V_Location_code,s.V_summary,s.V_priority_code,s.V_request_status');
 			$this->db->select('s.v_closeddate,s.v_closedtime,s.V_MohDesg,a.V_Asset_no,a.V_Tag_no,a.V_Serial_no,a.V_Asset_name,a.V_Manufacturer,a.V_Brandname,a.V_Model_no,b.V_PO_date,b.N_Cost,c.rone,c.rtwo,c.rthree');//,DATEDIFF(%m,b.D_commission,CURDATE()) AS Ages
 			$this->db->from('pmis2_egm_service_request s');
@@ -2276,8 +2276,12 @@ return $query->result();
 			//$this->db->where('s.V_Asset_no','a.V_Asset_no');
 			//$this->db->where('a.V_Hospitalcode','b.V_Hospital_code');
 			//$this->db->where('a.V_Asset_no','b.V_Asset_no');
+			if($wo==''){
 			$this->db->where('YEAR(s.D_date)',$y);
 			$this->db->where('MONTH(s.D_date)',$m);
+			}else{
+			$this->db->where('V_Request_no', $wo);
+			}
 			//$this->db->where('MONTH(s.D_date)','04');//test
 			if($s == '' or $s == 0){
 				$this->db->order_by('s.V_Request_no','desc');

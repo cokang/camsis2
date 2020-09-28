@@ -11,7 +11,14 @@ echo form_open('mrinnew_ctrl?pro=edit&mrinno='.$this->input->get('mrinno'));
 <div class="ui-middle-screen">
 	<div class="content-workorder">
 		<div class="div-p"></div>
+
 		<div class="ui-main-form">
+		<?php if($this->input->get('wo')!=''){?>
+		<br>
+		<input  type="button" onclick="location.href='<?php echo base_url();?>index.php/contentcontroller/technicalsummary?wrk_ord=<?=$this->input->get('wo')?>&wo=3'"class="btn-button btn-primary-button" name="back" value="Back To WorkOrder" style="width:200px;" />
+		<br>
+		<br>
+		<?php } ?>
 			<div class="ui-main-form-header">
 				<table align="center" height="40px" border="0">
 					<tr>
@@ -427,6 +434,30 @@ echo form_open('mrinnew_ctrl?pro=edit&mrinno='.$this->input->get('mrinno'));
 	 color:green;
 	}
 </style>
+<?php $RequestNo = isset($rootCause[0]->V_Request_no) ? $rootCause[0]->V_Request_no : '';
+			$Date = isset($rootCause[0]->D_date) ? date('d-m-Y',strtotime($rootCause[0]->D_date)) : '';
+			$Status = isset($rootCause[0]->V_request_status) ? $rootCause[0]->V_request_status : '';
+			$UserDept = isset($rootCause[0]->V_User_dept_code) ? $rootCause[0]->V_User_dept_code : '';
+			$AssetNo = isset($rootCause[0]->V_Asset_no) ? $rootCause[0]->V_Asset_no : '';
+			$Location = isset($rootCause[0]->V_Location_code) ? $rootCause[0]->V_Location_code : '';
+			$Summary = isset($rootCause[0]->V_summary) ? $rootCause[0]->V_summary : '';
+			$Priority = isset($rootCause[0]->V_priority_code) ? $rootCause[0]->V_priority_code : '';
+			$ClosedDate = isset($rootCause[0]->v_closeddate) ? $rootCause[0]->v_closeddate : '';
+			$ClosedTime = isset($rootCause[0]->v_closedtime) ? $rootCause[0]->v_closedtime : '';
+			$Requestor = isset($rootCause[0]->V_requestor) ? $rootCause[0]->V_requestor : '';
+			$TagNo = isset($rootCause[0]->V_Tag_no) ? $rootCause[0]->V_Tag_no : '';
+			$SerialNo = isset($rootCause[0]->V_Serial_no) ? $rootCause[0]->V_Serial_no : '';
+			$Phone = isset($rootCause[0]->V_phone_no) ? $rootCause[0]->V_phone_no : '';
+			$Time = isset($rootCause[0]->D_time) ? $rootCause[0]->D_time : '';
+			$Designation = isset($rootCause[0]->V_MohDesg) ? $rootCause[0]->V_MohDesg : '';
+			$Description = isset($rootCause[0]->V_Asset_name) ? $rootCause[0]->V_Asset_name : '';
+			$RBM = isset($rootCause[0]->V_Brandname) || isset($rootCause[0]->V_Manufacturer) ? $rootCause[0]->V_Brandname.' / '.$rootCause[0]->V_Manufacturer : '';
+			$Model = isset($rootCause[0]->V_Model_no) ? $rootCause[0]->V_Model_no : '';
+			$PCost = isset($rootCause[0]->N_Cost) ? $rootCause[0]->N_Cost : '';
+			$PDate = isset($rootCause[0]->V_PO_date) ? $rootCause[0]->V_PO_date : '';
+			$rone = isset($rootCause[0]->rone) ? $rootCause[0]->rone : '';
+			$rtwo = isset($rootCause[0]->rtwo) ? $rootCause[0]->rtwo : '';
+			$rthree = isset($rootCause[0]->rthree) ? $rootCause[0]->rthree : ''; ?>
 <script>
 	// $(function(){
 	// 	$("#item_specification").css("width", $("#col-itm-spec").width());
@@ -436,6 +467,22 @@ echo form_open('mrinnew_ctrl?pro=edit&mrinno='.$this->input->get('mrinno'));
         var inputValue = $(this).attr("value");
         $("." + inputValue).toggle();
     });
+			
+			document.getElementById("n_request").value='<?php echo $RequestNo; ?>';
+			document.getElementById("n_requested").value='<?php echo $Date; ?>';
+			document.getElementById("n_summary").value='<?php echo $Summary; ?>';
+			document.getElementById("n_brand").value='<?php echo $RBM; ?>';
+			document.getElementById("n_description").value='<?php echo $Description; ?>';
+			document.getElementById("n_model").value='<?php echo $Model; ?>';
+			document.getElementById("n_assettag").value='<?php echo $TagNo; ?>';
+			document.getElementById("n_assetnumber").value='<?php echo $AssetNo; ?>';
+			document.getElementById("n_assetserial").value='<?php echo $SerialNo; ?>';
+			document.getElementById("n_purchasecost").value='<?php echo $PCost; ?>';
+			document.getElementById("n_purchasedate").value='<?php echo $PDate; ?>';
+			document.getElementById("n_age").value='<?php echo $PDate; ?>';
+			document.getElementById("n_complaint").value='<?php echo $rone; ?>';
+			document.getElementById("n_troubleshooting").value='<?php echo $rtwo; ?>';
+			document.getElementById("n_finding").value='<?php echo $rthree; ?>';
 });
 </script>
 </body>

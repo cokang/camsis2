@@ -292,6 +292,7 @@
 			<table align="center" height="40px" border="0" style="width:100%;" class="ui-main-form-footer">
 				<tr>
 					<td align="center">
+						<input type="button" <?php if($record==null)echo 'disabled'; ?> onclick="location.href='<?php echo base_url();?>index.php/Procurement?pro=new&wo=<?=$this->input->get('wrk_ord')?>'"class="btn-button btn-primary-button" name="generate" value="Generate MRIN" style="width:150px;" />
 						<input type="submit" class="btn-button btn-primary-button" name="mysubmit" value="Save" style="width:150px;"/>
 						<input type="button" class="btn-button btn-primary-button" name="Cancel" value="Cancel" onclick="window.history.back()" style="width:150px;"/>
 					</td>
