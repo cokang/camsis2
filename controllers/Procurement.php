@@ -110,7 +110,7 @@ class Procurement extends CI_Controller {
 			echo "masuk D";
 			//exit();
 			if($this->input->get('wo') !=''){
-				$data['rootCause'] = $this->display_model->poprequest_rcm($this->session->userdata('hosp_code'),'','','',$this->input->get('wo'));
+				$data['record'] = $this->display_model->poprequest_rcm($this->session->userdata('hosp_code'),'','','',$this->input->get('wo'));
 			}
 			$this->load->model('get_model');
 			$this->load->model('update_model');
