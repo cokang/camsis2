@@ -544,7 +544,7 @@
 			<?php if(($classid == 3 && (isset($record[0]->ApprStatusIDx) && $record[0]->ApprStatusIDx != 107)) || ($this->input->get('pro') == 'approved' && $classid == 1 && (isset($record[0]->ApprStatusID) && $record[0]->ApprStatusID != 107))) {?>
 			<div class="ui-main-form-2">
 				<div class="middle_d">
-					<table width="100%" class="ui-content-form-reg" style="">
+					<!-- <table width="100%" class="ui-content-form-reg" style="">
 						<tr >
 							<td class="ui-desk-style-table">
 								<table class="ui-content-form" width="100%" border="0">
@@ -556,7 +556,7 @@
 								</table>
 							</td>
 						</tr>
-					</table>
+					</table> -->
 				</div>
 			</div>
 			<?php } ?>
@@ -637,9 +637,9 @@
 										<td style="padding-left:10px; padding-top:5px;" valign="top">Options  :</td>
 										<td>
 											<input type="radio" id="radio-1-<?=$xx++?>" name="n_options" class="regular-radio" value="4"<?=set_radio('n_options','4',TRUE)?>  checked="checked"/>
-											<label for="radio-1-<?=$x++?>"></label> Approved <span style="display:inline-block; width:15px;"></span>
+											<label for="radio-1-<?=$x++?>"></label> Recommended <span style="display:inline-block; width:15px;"></span>
 											<input type="radio" id="radio-1-<?=$xx++?>" name="n_options" class="regular-radio" value="5"<?=set_radio('n_options','5')?> />
-											<label for="radio-1-<?=$x++?>"></label> Reject <span style="display:inline-block; width:15px;"></span>
+											<label for="radio-1-<?=$x++?>"></label> Rejected <span style="display:inline-block; width:15px;"></span>
 											<input type="radio" id="radio-1-<?=$xx++?>" name="n_options" class="regular-radio" value="107"<?=set_radio('n_options','107')?> />
 											<label for="radio-1-<?=$x++?>"></label> Returned
 										</td>
