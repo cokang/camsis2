@@ -123,7 +123,7 @@ echo form_open('mrinnew_ctrl?pro=edit&mrinno='.$this->input->get('mrinno'));
 								<table class="ui-content-form" style="color:black;" width="100%" border="0">
 									<tr>
 										<td style="padding-left:10px;" class="ui-w" valign="top">Comments :   </td>
-										<td style="padding-left:10px;" ><textarea <?php if( !($user[0]->class_id==27 || $user[0]->class_id==3)  )echo 'readonly'?> class="Input n_com2" name="n_comment"><?=set_value('n_comment',isset($record[0]->Comments) ? $record[0]->Comments : '')?></textarea></td>
+										<td style="padding-left:10px;" ><textarea  class="Input n_com2" name="n_comment"><?=set_value('n_comment',isset($record[0]->Comments) ? $record[0]->Comments : '')?></textarea></td>
 									</tr>
 								</table>
 							</td>
