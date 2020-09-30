@@ -44,7 +44,7 @@ echo form_open('mrinnew_ctrl?pro=edit&mrinno='.$this->input->get('mrinno'));
 										</tr>
 										<tr>
 											<td style="padding-left:10px;" valign="top">Date Issue :   </td>
-											<td style="padding-left:10px;" valign="top"> <input type="text" name="n_date"  value="<?=set_value('n_date',isset($record[0]->DateCreated) ? date("d-m-Y",strtotime($record[0]->DateCreated)) : '')?>" id="date0" class="form-control-button2 n_wi-date2" readonly></td>
+											<td style="padding-left:10px;" valign="top"> <input type="text" name="n_date"  value="<?=set_value('n_date',isset($record[0]->DateCreated) ? date("d-m-Y",strtotime($record[0]->DateCreated)) : $this->input->get('wo')!=''?date("d-m-Y"):'')?>" id="date0" class="form-control-button2 n_wi-date2" readonly></td>
 										</tr>
 										<tr>
 											<td style="padding-left:10px;" valign="top">Request Type  :   </td>
@@ -123,7 +123,7 @@ echo form_open('mrinnew_ctrl?pro=edit&mrinno='.$this->input->get('mrinno'));
 								<table class="ui-content-form" style="color:black;" width="100%" border="0">
 									<tr>
 										<td style="padding-left:10px;" class="ui-w" valign="top">Comments :   </td>
-										<td style="padding-left:10px;" ><textarea class="Input n_com2" name="n_comment"><?=set_value('n_comment',isset($record[0]->Comments) ? $record[0]->Comments : '')?></textarea></td>
+										<td style="padding-left:10px;" ><textarea <?php if( !($user[0]->class_id==27 || $user[0]->class_id==3)  )echo 'readonly'?> class="Input n_com2" name="n_comment"><?=set_value('n_comment',isset($record[0]->Comments) ? $record[0]->Comments : '')?></textarea></td>
 									</tr>
 								</table>
 							</td>
@@ -214,9 +214,9 @@ echo form_open('mrinnew_ctrl?pro=edit&mrinno='.$this->input->get('mrinno'));
 										<?php } ?>
 									</tr>
 
-									<tr style="display:<?=($this->uri->slash_segment(1) != 'mrinnew_ctrl/') && $this->input->get('pro') == 'new' ? 'none' : 'block' ?>;" id="trcommacomponent">
+									<tr style="display:<?=($this->uri->slash_segment(1) != 'mrinnew_ctrl/') && $this->input->get('pro') == 'new' &&  $this->input->get('wo') == ''? 'none' : 'block' ?>;" id="trcommacomponent">
 										<td style="padding-left:10px; display:block;">
-										<?php if ($this->uri->slash_segment(1) != 'mrinnew_ctrl/' && $this->input->get('pro') == 'new') { ?>
+										<?php if ($this->uri->slash_segment(1) != 'mrinnew_ctrl/' && $this->input->get('wo') == '') { ?>
 										<span style="display:inline-block;" id="spcommacomponent"></span>
 										<?php } else { ?>
 										<span style="display:inline-block;" id="spcommacomponent"></span>

@@ -107,11 +107,15 @@ class Procurement extends CI_Controller {
 			$this ->load->view("Content_mrin_procure",$data);
 		}elseif ($this->input->get('pro') == 'new'){
 			$this->load->model('display_model');
+			$this->load->model('get_model');
 			echo "masuk D";
+			$data['user'] = $this->display_model->user_class($this->session->userdata('v_UserName'));
 			//exit();
 			if($this->input->get('wo') !=''){
 				$data['record'] = $this->display_model->poprequest_rcm($this->session->userdata('hosp_code'),'','','',$this->input->get('wo'));
+				$data['recordcom'] = $this->get_model->get_components($this->input->get('wo'));
 			}
+			
 			$this->load->model('get_model');
 			$this->load->model('update_model');
 			$data['run_no'] = $this->get_model->run_no();
