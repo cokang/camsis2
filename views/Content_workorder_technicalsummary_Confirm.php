@@ -160,7 +160,7 @@ echo form_open('rootcause_ctrl/comfirmation');
 				<div class="middle_d">
 					<table class="ui-content-form-reg">
 						<tr style="color:white;" height="30px">
-							<td colspan="2" class="ui-header-new"><b>Remark Procument & Specialist Team</b></td>
+							<td colspan="2" class="ui-header-new"><b>Remark By Specialist Team</b></td>
 						</tr>
 						<tr >
 							<td class="ui-desk-style-table">
@@ -230,7 +230,7 @@ echo form_open('rootcause_ctrl/comfirmation');
 			<table align="center" height="40px" border="0" style="width:100%;" class="ui-main-form-footer">
 				<tr>
 					<td align="center">
-						<input type="submit" class="btn-button btn-primary-button" name="mysubmit" value="Save" style="width:150px;"/>
+						<input type="submit" class="btn-button btn-primary-button" name="mysubmit" value="Confirm" style="width:150px;"/>
 						<input type="button" class="btn-button btn-primary-button" name="Cancel" value="Cancel" onclick="window.history.back()" style="width:150px;"/>
 					</td>
 				</tr>

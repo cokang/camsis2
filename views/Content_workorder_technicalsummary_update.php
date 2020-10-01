@@ -211,18 +211,19 @@
 						
 						<tr>
 										<td width="150px"><label>Related WO/PPM: </label></td>
-										<td ><input type="text" class="form-control-button n_wi-date2" name="related_wo" readonly value="<?=set_value('related_wo',isset($wo_details[0]->V_phone_no) ? $wo_details[0]->V_phone_no : '')?>" ></td>
+										<td ><input type="text" class="form-control-button n_wi-date2" name="related_wo" readonly value="<?php if($wo[1]=='AP19')?><?=set_value('related_wo',isset($wo_details[0]->V_phone_no) ? $wo_details[0]->V_phone_no : '')?>" ></td>
 										
 									</tr>
 								
 					</table>
 				</div>
+				
 			</div>
 			<div class="ui-main-form-5">
 				<div class="middle_d">
 					<table class="ui-content-form-reg">
 						<tr style="color:white;" height="30px">
-							<td colspan="2" class="ui-header-new"><b>Remark Procument & Specialist Team <text style="color:red;">*</text></b></td>
+										<td colspan="2" class="ui-header-new"><b>Remark By Specialist Team <?php if($wo[1]=='AP19'){?><text style="color:red;">*</text><?php } ?></b></td>
 						</tr>
 						<tr >
 							<td class="ui-desk-style-table">
@@ -235,7 +236,7 @@
 									</tr> -->
 									<tr>
 										<td style="padding:10px;" valign="top">Remark by Specialist Team   :   </td>
-									<td><td style="padding-left:10px;"><textarea class="Input n_com2" name="rc_remarkST"><?php if($wo[1]=='AP19')?><?=set_value('rc_remarkST',isset($record[0]->V_details) ? $record[0]->V_details : '')?></textarea></td></td>
+									<td><td style="padding-left:10px;"><textarea class="Input n_com2" <?php if($wo[1]!='AP19')echo 'readonly';?> name="rc_remarkST"><?php if($wo[1]=='AP19')?><?=set_value('rc_remarkST',isset($record[0]->V_details) ? $record[0]->V_details : '')?></textarea></td></td>
 									</tr>
 								</table>
 							</td>
@@ -292,8 +293,8 @@
 			<table align="center" height="40px" border="0" style="width:100%;" class="ui-main-form-footer">
 				<tr>
 					<td align="center">
-						<input type="button" <?php if($record==null)echo 'disabled'; ?> onclick="location.href='<?php echo base_url();?>index.php/Procurement?pro=new&wo=<?=$this->input->get('wrk_ord')?>'"class="btn-button btn-primary-button" name="generate" value="Generate MRIN" style="width:150px;" />
 						<input type="submit" class="btn-button btn-primary-button" name="mysubmit" value="Save" style="width:150px;"/>
+						<input type="button" <?php if($record==null)echo 'disabled'; ?> onclick="location.href='<?php echo base_url();?>index.php/Procurement?pro=new&wo=<?=$this->input->get('wrk_ord')?>'"class="btn-button btn-primary-button" name="generate" value="Generate MRIN" style="width:150px;" />
 						<input type="button" class="btn-button btn-primary-button" name="Cancel" value="Cancel" onclick="window.history.back()" style="width:150px;"/>
 					</td>
 				</tr>

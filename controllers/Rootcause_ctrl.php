@@ -19,12 +19,15 @@ class Rootcause_ctrl extends CI_Controller{
 		 $data['photopath']=$data['recordphoto']!=null?$data['recordphoto'][0]->com_path:'';
 		 $data['hosp']= $this->input->get('hosp');
 		 $data['record'] = $this->display_model->rootcause($this->input->get('wrk_ord'));
+		 $wo = $this->input->get('wrk_ord');
+		 $wo = explode("/",$wo);
 		 $this->load->helper(array('form', 'url'));
 		 // load library for form validation
 			$this->load->library('form_validation');
 		 $this->form_validation->set_rules('rc_error','Complaint / Error / Problem statement','trim|required');
 		 $this->form_validation->set_rules('rc_partfault','Root cause to part faulty','trim|required');
 		 $this->form_validation->set_rules('rc_why','Action taken','trim|required');
+		 if($wo[1]=='AP19')
 		 $this->form_validation->set_rules('rc_remarkST','Remark by Specialist Team','trim|required');
 		 if($data['photopath']==null)$this->form_validation->set_rules('uploadphoto','Image Reference','trim|required');
 		 $this->form_validation->set_rules('n_Case','Tick where appropriate','trim|required');
@@ -61,21 +64,6 @@ class Rootcause_ctrl extends CI_Controller{
 		$this->load->model('get_model');
 		$hosp= $this->session->userdata('hosp_code');
 		$woppm = substr($this->input->post('wrk_ord'),0,2);
-		if($hosp=='HSA' || $hosp=='HSI' ||$hosp=='MUR'){
-			if (($woppm == "PP") || ($woppm == "SM") || ($woppm == "RI")) {
-				if ($this->get_model->get_assetnowoppm($this->input->get('wrk_ord'),"1")) {
-					$data['new_mrin'] = $this->get_model->nextmrinnumberimg();
-				} else {
-					$data['new_mrin'] = $this->get_model->nextmrinnumber();
-				}
-			} else {
-				if ($this->get_model->get_assetnowoppm($this->input->get('wrk_ord'),"2")) {
-					$data['new_mrin'] = $this->get_model->nextmrinnumberimg();
-				} else {
-					$data['new_mrin'] = $this->get_model->nextmrinnumber();
-				}
-			}
-		}
 		$data['record'] = $this->display_model->rootcause($this->input->post('workord'));
 		$insert_data = array(
 			'rone' => $this->input->post('rc_error'),
@@ -87,23 +75,6 @@ class Rootcause_ctrl extends CI_Controller{
 
 			);
 
-			if($hosp=='HSA' || $hosp=='HSI' ||$hosp=='MUR'){
-				if (($woppm == "PP") || ($woppm == "SM") || ($woppm == "RI")) {
-					if ($this->get_model->get_assetnowoppm($this->input->get('wrk_ord'),"1")) {
-						$data['new_mrin'] = $this->get_model->nextmrinnumberimg();
-					} else {
-						$data['new_mrin'] = $this->get_model->nextmrinnumber();
-					}
-				} else {
-					if ($this->get_model->get_assetnowoppm($this->input->get('wrk_ord'),"2")) {
-						$data['new_mrin'] = $this->get_model->nextmrinnumberimg();
-					} else {
-						$data['new_mrin'] = $this->get_model->nextmrinnumber();
-					}
-				}
-				if($data['record'][0]->DocReferenceNo==null)
-				$insert_data['DocReferenceNo']= $data['new_mrin'][0]->mrinno;
-			}
 			// print_r($insert_data);
 			// exit();
 			if($data['record']){
@@ -113,7 +84,7 @@ class Rootcause_ctrl extends CI_Controller{
 			}
 
 
-		redirect('contentcontroller/technicalsummary?wrk_ord='.$this->input->post('workord').'&wo=3');
+		redirect('contentcontroller/technicalsummary_update?wrk_ord='.$this->input->post('workord').'&mrin='.$this->input->post('mrin'));
 
 
 	}
