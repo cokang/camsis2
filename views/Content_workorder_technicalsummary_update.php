@@ -211,7 +211,7 @@
 						
 						<tr>
 										<td width="150px"><label>Related WO/PPM: </label></td>
-										<td ><input type="text" class="form-control-button n_wi-date2" name="related_wo" readonly value="<?php if($wo[1]=='AP19')?><?=set_value('related_wo',isset($wo_details[0]->V_phone_no) ? $wo_details[0]->V_phone_no : '')?>" ></td>
+										<td ><input type="text" class="form-control-button n_wi-date2" name="related_wo" readonly value="<?=set_value('related_wo',$wo[1]=='AP19'?isset($wo_details[0]->V_phone_no) ? $wo_details[0]->V_phone_no : '':'')?>" ></td>
 										
 									</tr>
 								
