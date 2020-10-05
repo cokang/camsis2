@@ -245,20 +245,24 @@ function fCallitem(){
     var cell4 = row.insertCell(3);
 	var cell5 = row.insertCell(4);
 	var cell6 = row.insertCell(5);
-	<?php if ($this->input->get('pro') != 'edit') { ?>
 	var cell7 = row.insertCell(6);
+	<?php if ($this->input->get('pro') != 'edit') { ?>
 	var cell8 = row.insertCell(7);
+	var cell9 = row.insertCell(8);
 	<?php } ?>
+	
     cell1.innerHTML = rows+'<input type="hidden" name="rows" value="'+rows+'">';
     cell2.innerHTML = '<p id="itemcode'+rows+'"></p><input type="hidden" id="itemcodei'+rows+'" name="itemcode'+rows+'" value="">';
     cell3.innerHTML = '<div id="itemname'+rows+'" style="display:inline-block; padding-right:5px;"></div><span class="icon-windows" style="display:inline-block;" onclick="pecodes3('+rows+')"></span>';
 	cell4.innerHTML = '<input type="text" name="n_qty'+rows+'" value="" class="form-control-button2" style=width:100px;">';
 	cell5.innerHTML = '<select name="a_rem'+rows+'" class="dropdown"><option value="" selected="selected">None</option><option value="1">Mishandling</option><option value="2">Supplementary</option><option value="3">Upgrading</option><option value="4">Re-Installation</option><option value="5">Other</option></select>'; 	
 	cell6.innerHTML = '<INPUT TYPE="text" name="startDate'+rows+'" class="form-control-button2" style=width:100px;" onChange="validDate(this)">';
+	cell7.innerHTML = '<input type="text" name="n_discount'+rows+'" value="" class="form-control-button2" style=width:100px;">';
 	<?php if ($this->input->get('pro') != 'edit') { ?>
-	cell7.innerHTML = '<input type="text" name="n_price'+rows+'" id="n_price'+rows+'" value="" class="form-control-button2" style=width:100px;"><span class="icon-windows" style="display:inline-block; padding-left:5px;" id="itemc'+rows+'" onclick="fCallpricexx(\'n_price'+rows+'\',\'vendor'+rows+'\', this.value)" value=""></span>';
-	cell8.innerHTML = '<p id="vendor'+rows+'"></p><input type="hidden" id="vendori'+rows+'" name="vendor'+rows+'" value="">';
+	cell8.innerHTML = '<input type="text" name="n_price'+rows+'" id="n_price'+rows+'" value="" class="form-control-button2" style=width:100px;"><span class="icon-windows" style="display:inline-block; padding-left:5px;" id="itemc'+rows+'" onclick="fCallpricexx(\'n_price'+rows+'\',\'vendor'+rows+'\', this.value)" value=""></span>';
+	cell9.innerHTML = '<p id="vendor'+rows+'"></p><input type="hidden" id="vendori'+rows+'" name="vendor'+rows+'" value="">';
 	<?php } ?>
+	
 }
 function validDate(fld) {
     var testMo, testDay, testYr, inpMo, inpDay, inpYr, msg
@@ -323,10 +327,10 @@ function fCallpricexx(price,vendor,itemcode){
 	Win = window.open(url, 'Location', winProp);
 	Win.window.focus();
 }
-function fCallLocatioa(mrinno,tag)
+function fCallLocatioa(pono,tag,payment_no)
 	{
 		setTimeout(function() {
-			var url		=	'<?php echo base_url ('index.php/ajaxproc') ?>?mrinno='+mrinno+'&tag='+tag;
+			var url		=	'<?php echo base_url ('index.php/ajaxproc') ?>?option=pono&pono='+pono+'&tag='+tag;
 	 		document.getElementById('spcomma'+tag).innerHTML = '';
 			$('#spcomma'+tag).load(url);
 	 		document.getElementById('trcomma'+tag).style.display='block';
@@ -334,11 +338,11 @@ function fCallLocatioa(mrinno,tag)
 	 		document.getElementById('spcomponent').style.display='none';
 	 		}
 	 		else {
-	 		document.getElementById('spattachment').style.display='none';
+	 		document.getElementById('spcommaattachment').style.display='none';
 	 		}
 		document.body.style.cursor='default';
 		} ,300);
- 			
+
 	}
 	function fCallLocatiod(mrinno, id, tag)
 	{
@@ -532,6 +536,7 @@ function fCallitem(){
 	var cell7 = row.insertCell(6);
 	var cell8 = row.insertCell(7);
 	<?php } ?>
+	var cell9 = row.insertCell(8);
     cell1.innerHTML = rows+'<input type="hidden" name="rows" value="'+rows+'">';
     cell2.innerHTML = '<p id="itemcode'+rows+'"></p><input type="hidden" id="itemcodei'+rows+'" name="itemcode'+rows+'" value="">';
     cell3.innerHTML = '<div id="itemname'+rows+'" style="display:inline-block; padding-right:5px;"></div><span class="icon-windows" style="display:inline-block;" onclick="fCallitemxx(\'itemname'+rows+'\',\'itemcode'+rows+'\')"></span>';
@@ -541,7 +546,8 @@ function fCallitem(){
 	<?php if ($this->input->get('pro') != 'edit') { ?>
 	cell7.innerHTML = '<input type="text" name="n_price'+rows+'" id="n_price'+rows+'" value="" class="form-control-button2" style=width:100px;"><span class="icon-windows" style="display:inline-block; padding-left:5px;" id="itemc'+rows+'" onclick="fCallpricexx(\'n_price'+rows+'\',\'vendor'+rows+'\', this.value)" value=""></span>';
 	cell8.innerHTML = '<p id="vendor'+rows+'"></p><input type="hidden" id="vendori'+rows+'" name="vendor'+rows+'" value="">';
-	<?php } ?>		
+	<?php } ?>	
+	cell9.innerHTML = '<input type="text" name="n_discount'+rows+'" value="" class="form-control-button2" style=width:100px;">';	
 		
         //document.getElementById('btnSearch').click();
         return false;

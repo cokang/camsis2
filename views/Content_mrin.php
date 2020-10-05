@@ -123,7 +123,7 @@
 										$pro = 'approved';
 									}
 								}else{
-									 if (($row->ApprStatusID == 107) ) {
+									 if (($row->ApprStatusID == 107) || ($row->ApprStatusID == 114) ) {
 										$pro = 'pending';
 									}else {
 										$pro = 'approved';
