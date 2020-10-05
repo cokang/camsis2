@@ -58,13 +58,14 @@
 
             //$tabber =  $this->input->get('work-a');
                 //$this->db->select('s.*,l.v_Location_Name,m.v_Tag_no');
-                $this->db->select('s.*,l.v_Location_Name,m.v_Tag_no,mr.DocReferenceNo, mr.DocReferenceNo, mr.ApprStatusIDx, mr.ApprStatusID');
+                $this->db->select('s.*,l.v_Location_Name,m.v_Tag_no,mr.DocReferenceNo, mr.DocReferenceNo, mr.ApprStatusIDx, mr.ApprStatusID,pom.PO_No');
                 $this->db->from('pmis2_egm_service_request s');
                 $this->db->join('pmis2_egm_assetlocation l','s.V_Location_code = l.V_location_code AND s.V_hospitalcode = l.V_Hospitalcode AND l.V_Actionflag <> "D"','left outer');
                 //$this->db->join('pmis2_egm_assetregistration m','s.V_Asset_no = m.V_Asset_no AND s.V_hospitalcode = m.V_Hospitalcode','left outer');
                 $this->db->join('pmis2_egm_assetregistration m','s.V_Location_code = m.V_Location_code AND s.V_hospitalcode = m.V_Hospitalcode AND s.V_Asset_no = m.V_Asset_no AND s.V_servicecode = m.V_service_code AND m.V_Actionflag <> "D"','left outer');
                 //$this->db->join('pmis2_egm_assetlocation l','s.V_Location_code = l.V_location_code AND s.V_hospitalcode = l.V_Hospitalcode', 'left outer');
-                $this->db->join('tbl_materialreq mr', 'mr.WorkOfOrder = s.V_Request_no', 'left outer');
+				$this->db->join('tbl_materialreq mr', 'mr.WorkOfOrder = s.V_Request_no', 'left outer');
+				$this->db->join('tbl_po_mirn pom', 'pom.MIRN_No= mr.DocReferenceNo', 'left');
               $this->db->where('s.V_servicecode = ',$this->session->userdata('usersess'));
             $this->db->where("DATE_FORMAT(s.D_date,'%m') = ",$maklumat['month']);
             $this->db->where("DATE_FORMAT(s.D_date,'%Y') = ",$maklumat['year']);

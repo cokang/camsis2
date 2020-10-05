@@ -95,30 +95,31 @@
 					<table class="ui-content-middle-menu-workorder2 ui-left_web" width="100%" height="25px">
 						<?php if ($tulis == "AP19") {?>
 						<tr class="ui-menu-color-header" style="color:white; font-weight:bold;">
-							<td width="">Team</td>
-							<td width="">Type</td>
+							<td width="">Specialty</td>
 							<td width="">Hosp</td>
-							<td width="">Request Number</td>
+							<td width="">Work Order</td>
+							<td width="">WO Date</td>
+							<td>PO No</td>
 							<td width="">Related WO</td>
 							<td width="">Part Item</td>
 							<td width="">Price</td>
 							<td width="">Vendor Price</td>
-							<td width="">Date</td>
 							<td width="">Status</td>
 							<td>Summary
 						</tr>
 					<?php } else {?>
 					<tr class="ui-menu-color-header" style="color:white; font-weight:bold;"></td>
-							<td width="">Requestor</td>
+							<!-- <td width="">Requestor</td> -->
 							<td width="">Type</td>
-							<td width="">Hosp</td>
-							<td width="">Request Number</td>
+							<!-- <td width="">Hosp</td> -->
+							<td width="">Work Order</td>
+							<td width="">WO Date</td>
 							<td width="">MRIN</td>
+							<td>PO No</td>
 							<td width="">QAP</td>
 							<td width="">Priority</td>
 							<td width="">Location</td>
 							<td width="">Asset</td>
-							<td width="">Date</td>
 							<td width="">Status</td>
 							<td>Summary</td>
 					</tr>
@@ -128,10 +129,12 @@
 
 						<?php echo ($numrow%2==0) ? '<tr class="ui-color-color-color">' : '<tr>'; 	
 						if($row->V_Request_no==$prevwo){continue;}?>
-	    					<td style="text-transform: capitalize;"><?php if ($tulis == "AP19") {echo $row->V_User_dept_code;} else {echo $row->V_requestor;}?></td>
-		        			<td><?=$row->V_servicecode?></td>
-		        			<td><?=$row->V_request_type?></td>
+						<?php if ($tulis == "AP19") { ?>
+	    					<td style="text-transform: capitalize;"><?= $row->V_User_dept_code ?></td> <?php }?>
+		        			<td><?=$row->V_hospitalcode?></td>
+		        			<!-- <td><?=$row->V_request_type?></td> -->
 		        			<td><?php echo anchor ('contentcontroller/workorderlist?&wrk_ord='.$row->V_Request_no,''.$row->V_Request_no.'','style="font-size:16px; font-weight:bold;"' ) ?></td>
+							<td style="width:100px;"><?=date("d-m-Y",strtotime($row->D_date))?></td>
 							<?php if ($tulis != "AP19") { ?>
 							<td><?php 
 						
@@ -163,15 +166,17 @@
 								}else if ($userclass == 27){
 										$pro = 'approved';
 								}else{$pro=null;}
-							if($list->V_Request_no==$row->V_Request_no){echo anchor ('Procurement?mrinno='.$list->DocReferenceNo.'&pro='.$pro,''.$list->DocReferenceNo.'<br>'.'','style="font-size:16px; font-weight:bold;"' );}//echo $list[$x++]->DocReferenceNo.'<br>';	
+							if($list->V_Request_no==$row->V_Request_no){echo anchor ('Procurement?mrinno='.$list->DocReferenceNo.'&pro='.$pro,''.$list->DocReferenceNo.'<br>'.'','style="font-size:16px; font-weight:bold;"' ); if($list->ApprStatusID=='5'){echo '<div style="color:grey;">(Rejected)</div>';}elseif($list->ApprStatusID=='107'){echo '<div style="color:red;">(Returned)</div>';}}//echo $list[$x++]->DocReferenceNo.'<br>';	
+							// if($list->ApprStatusIDx=='5'){echo '(Rejected)';}elseif($list->ApprStatusIDx=='107'){echo '(Returned)';}
 						}
 						
-							?></td> <?php } ?>
+							?>
+							</td> <?php } ?>
+							<td><?=$row->PO_No?></td>
 		        			<td><?php if ($tulis == "AP19") {echo $row->V_phone_no;} else {echo "";}?></td>
 		        			<td><?php if ($tulis == "AP19") {echo $row->V_MohDesg;} else {echo $row->V_priority_code;}?></td>
 		        			<td><?php if ($tulis == "AP19") {echo $row->v_ref_status;} else {echo $row->V_Location_code.'<br>'.$row->v_Location_Name;}?></td>
 		        			<td><?php if ($tulis == "AP19") {echo $row->takenby;} else {echo $row->v_Tag_no;}?></td>
-		        			<td style="width:100px;"><?=date("d-m-Y",strtotime($row->D_date))?></td>
 		        			<td><?=$row->V_request_status?></td>
 		        			<td style="width:100px; text-align:left;"><?=$row->V_summary?></td>
 	        			</tr>
