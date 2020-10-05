@@ -161,8 +161,8 @@
 							<!-- <td class="td-desk"><?=isset($row->name) ? $row->name : ''?></td> -->
 							<!-- <td class="td-desk">Pending</td> -->
 							<?php if($user[0]->class_id==3 || $user[0]->class_id==4){ ?>
-							<td class="td-desk"><input <?php if($row->totalPO>=100000 && $user[0]->class_id=='3') echo 'disabled';?> type="checkbox" id="chk_status1<?=$row->DocReferenceNo?>" name="chk_status" onclick="approval_po('2','<?=$row->DocReferenceNo?>');"></td>
-							<td class="td-desk"><input <?php if($row->totalPO>=100000 && $user[0]->class_id=='3') echo 'disabled';?> type="checkbox" id="chk_status2<?=$row->DocReferenceNo?>" name="chk_status" onclick="approval_po('0','<?=$row->DocReferenceNo?>');"></td>
+							<td class="td-desk"><input <?php //if($row->totalPO>=100000 && $user[0]->class_id=='3') echo 'disabled';?> type="checkbox" id="chk_status1<?=$row->DocReferenceNo?>" name="chk_status" onclick="approval_po('2','<?=$row->DocReferenceNo?>');"></td>
+							<td class="td-desk"><input <?php //if($row->totalPO>=100000 && $user[0]->class_id=='3') echo 'disabled';?> type="checkbox" id="chk_status2<?=$row->DocReferenceNo?>" name="chk_status" onclick="approval_po('0','<?=$row->DocReferenceNo?>');"></td>
 							<?php } ?>
 							<td class="td-desk"><?=isset($row->VENDOR_NAME) ? $row->VENDOR_NAME : ''?></td>
 							<td><?=isset($row->totalPO) ? sprintf('%0.2f', round($row->totalPO, 2)) : ''?></td>
