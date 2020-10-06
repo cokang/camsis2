@@ -18,7 +18,7 @@
 					<p>New MRIN</p>
 				</div>
 				<div class="icon"><i class="icon-file-text2"></i></div>
-				<?php echo anchor ('Procurement?pro=new','<span class="ui-left_web">More Info <i class="icon-arrow-right"></i></span>','class="small-box-footer" '.$disableMrin); ?>
+				<?php echo anchor ('Procurement?pro=new','<span class="ui-left_web">More Info <i class="icon-arrow-right"></i></span>','class="small-box-footer" '); ?>
 			</div>
     <?php } ?>
 		</div>
