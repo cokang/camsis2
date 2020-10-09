@@ -216,6 +216,7 @@ class Contentcontroller extends CI_Controller {
 		$this->session->set_userdata('usersessn',$data['servnm'][0]->service_name);
 		$this->load->model('display_model');
 		//echo 'jdt:'.$data['access_apa'];
+		$access['dept'] = $this->display_model->getuserpodept();
 		$this->session->set_userdata('accessr',$data['access_apa']);
 		function toArray($obj)
 {

@@ -1,9 +1,9 @@
 
-<?php $b = $this->session->userdata('accessr'); ?>
+<?php $b = $this->session->userdata('accessr');?>
 <div class="main-box ui-left_web">            
 <?php 
-	$mn = array("Work Modules" => "contentcontroller/content/", "Central Functions" => "contentcontroller/Central/",  "Business Intelligent Reports" => "contentcontroller/Business/", "System Administration" => "contentcontroller/sys_admin/","Procurement Modules" => "contentcontroller/Procurement/" );
-	$color = array('bg-purple', 'bg-red', 'bg-yellow', 'bg-aqua', 'bg-light-blue');
+	$mn = array("Work Modules" => "contentcontroller/content/", "Central Functions" => "contentcontroller/Central/",  "Business Intelligent Reports" => "contentcontroller/Business/", "System Administration" => "contentcontroller/sys_admin/","Procurement Modules" => "contentcontroller/Procurement/", "Finance Modules" => "Procurement/e_request/" );
+	$color = array('bg-purple', 'bg-red', 'bg-yellow', 'bg-aqua', 'bg-light-blue', 'bg-green');
 	$nom = 0; 
 	shuffle($color);
 	foreach ($mn as $value => $apa) {
@@ -52,6 +52,20 @@
 					echo '</div>';
 					echo '</div>';
 					}
+				}
+				elseif ($d == 5 and $value == 'Finance Modules' and isset($dept[0]->dept)){
+					if ($this->uri->slash_segment(1) .$this->uri->slash_segment(2) != 'Procurement/e_request/' && $dept[0]->dept=='FD' ){
+					echo '<div class="box8">';
+			    	echo '<div class="small-box '.$e.' ">';
+			    	echo '<div class="inner">';
+			    	echo '<span class="">&nbsp</span>';
+			    	echo '<p>' .$value. '</p>';
+			    	echo '</div>';
+			    	echo '<div class="icon"><i class="icon-credit-card"></i></div>';
+					echo anchor ($apa. '?tab=1','More Info <i class="icon-arrow-right"></i>','class="small-box-footer"');
+					echo '</div>';
+					echo '</div>';
+					}
 	    		}
 	    		elseif ($d == 4 and $value == 'Business Intelligent Reports'){
 					if ($this->uri->slash_segment(1) .$this->uri->slash_segment(2) != 'contentcontroller/Business/'){
@@ -80,7 +94,8 @@
 					echo '</div>';
 					echo '</div>';
 					}
-	    		}
+				}
+				
 	    	}
 			$nom++;
 
