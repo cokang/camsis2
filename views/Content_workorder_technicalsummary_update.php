@@ -205,13 +205,13 @@
 				<div class="middle_d">
 					<table class="ui-content-form-reg" >
 					<tr style="color:white;" height="30px">
-							<td colspan="2" class="ui-header-new"><b>Related WO/PPM</b> </td>
+							<td colspan="2" class="ui-header-new"><b>Related Work Order AP19</b> </td>
 						</tr>
 					
 						
 						<tr>
-										<td width="150px"><label>Related WO/PPM: </label></td>
-										<td ><input type="text" class="form-control-button n_wi-date2" name="related_wo" readonly value="<?=set_value('related_wo',$wo[1]=='AP19'?isset($wo_details[0]->V_phone_no) ? $wo_details[0]->V_phone_no : '':'')?>" ></td>
+										<td width="200px"><label>Related Work Order AP19: </label></td>
+										<?php if($wo[1]=='AP19'){ ?><td ><?php echo anchor ('contentcontroller/workorderlist?&wrk_ord='.$wo_details[0]->V_phone_no,''. $wo_details[0]->V_phone_no .'' ) ?></td> <?php } ?>
 										
 									</tr>
 								
