@@ -294,8 +294,9 @@
 				<tr>
 					<td align="center">
 						<input type="submit" class="btn-button btn-primary-button" name="mysubmit" value="Save" style="width:150px;"/>
-						<input type="button" <?php if($record==null)echo 'disabled'; ?> onclick="location.href='<?php echo base_url();?>index.php/Procurement?pro=new&wo=<?=$this->input->get('wrk_ord')?>'"class="btn-button btn-primary-button" name="generate" value="Generate MRIN" style="width:150px;" />
 						<input type="button" class="btn-button btn-primary-button" name="Cancel" value="Cancel" onclick="window.history.back()" style="width:150px;"/>
+						<input type="button" <?php if($record==null)echo 'disabled'; ?> onclick="location.href='<?php echo base_url();?>index.php/Procurement?pro=new&wo=<?=$this->input->get('wrk_ord')?>'"class="btn-button btn-primary-button" name="generate" value="Generate MRIN" style="width:150px;" />
+
 					</td>
 				</tr>
 			</table>
