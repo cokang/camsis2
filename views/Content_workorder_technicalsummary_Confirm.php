@@ -29,7 +29,7 @@ echo form_open('rootcause_ctrl/comfirmation');
 									
 									<tr>
 											<td style="padding-left:10px;" valign="top">Complaint / Error / Problem statement :   </td>
-											<td style="padding-left:10px;" valign="top"> <textarea class="Input n_com2" name="rc_error" disabled><?= ($this->input->post('rc_error')=='Other')?set_value('rc_error-other'):set_value('rc_error')?></textarea></td>
+											<td style="padding-left:10px;" valign="top"> <textarea class="Input n_com2" name="rc_error" disabled><?= ($this->input->post('rc_error')=='Error Message')?set_value('rc_error-other'):set_value('rc_error')?></textarea></td>
 											
 										</tr>
 										<tr>
@@ -44,14 +44,15 @@ echo form_open('rootcause_ctrl/comfirmation');
 												<label for="radio-1-<?=$num2++?>"></label> Wear & Tear<br>
 												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case" disabled value="1"<?=set_radio('n_Case','1')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 1 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Accidental<br>
-												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case" disabled value="2"<?=set_radio('n_Case','2')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 2 ? 'checked' : '' ?>/>
-												<label for="radio-1-<?=$num2++?>"></label> Obsolote model<br>
+												
 												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case" disabled value="3"<?=set_radio('n_Case','3')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 3 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Mishandling<br>
 												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case" disabled value="4"<?=set_radio('n_Case','4')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 4 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Environmental<br>
 												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case" disabled value="5"<?=set_radio('n_Case','5')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 5 ? 'checked' : '' ?>/>
-												<label for="radio-1-<?=$num2++?>"></label> Others<br>
+												<label for="radio-1-<?=$num2++?>"></label> Ageing<br>
+												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case" disabled value="2"<?=set_radio('n_Case','2')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 2 ? 'checked' : '' ?>/>
+												<label for="radio-1-<?=$num2++?>"></label> Recertificate<br>
 
 											</td>
 										</tr>
@@ -236,7 +237,7 @@ echo form_open('rootcause_ctrl/comfirmation');
 				</tr>
 			</table>
 			<?php echo form_hidden('workord',$this->input->get('wrk_ord')) ?>
-			<?php echo form_hidden('rc_error',($this->input->post('rc_error')=='Other')?$this->input->post('rc_error-other'):$this->input->post('rc_error')) ?>
+			<?php echo form_hidden('rc_error',($this->input->post('rc_error')=='Error Message')?$this->input->post('rc_error-other'):$this->input->post('rc_error')) ?>
 			<?php echo form_hidden('rc_partfault',($this->input->post('rc_partfault')=='Other')?$this->input->post('rc_partfault-other'):$this->input->post('rc_partfault')) ?>
 			<?php echo form_hidden('n_Case',$this->input->post('n_Case')) ?>
 			<?php echo form_hidden('rc_why',$this->input->post('rc_why')) ?>

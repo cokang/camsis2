@@ -64,12 +64,12 @@
 									<td width='60%'><b>5. Brand : </b><?=isset($record[0]->V_Brandname) ? $record[0]->V_Brandname : ''?></td>
 									<td width='40%'><b>Model: </b><?=isset($record[0]->V_Model_no) ? $record[0]->V_Model_no : ''?></td>
 									</tr>
-									<?php $causes = array('0' => 'Accidental' , 
-														  '1' => 'Wear & Tear',
-														  '2' => 'Obsolote model',
+									<?php $causes = array('0' => 'Wear & Tear' , 
+														  '1' => 'Accidental',
+														  '2' => 'Recertificate',
 														  '3' => 'Mishandling',
 														  '4' => 'Environmental',
-														  '5' => 'Others',
+														  '5' => 'Ageing',
 								); ?>
 									<tr><td colspan='2'><b>6. Complaint / Error / Problem statement: </b><label style="color: blue;"><?=isset($record[0]->rone) ? $record[0]->rone : ''?></label></td></tr>
 									<tr><td colspan='2'><b>7. Root cause to part faulty: </b><label style="color: blue;"><?=isset($record[0]->rthree) ? $record[0]->rthree : ''?></label><label style="color: blue;"><br><?=isset($record[0]->CriticalFlag) ? $causes[$record[0]->CriticalFlag] : ''?></label><br>

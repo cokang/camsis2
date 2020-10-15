@@ -33,12 +33,18 @@
 								<td class="ui-desk-style-table">
 									<table class="ui-content-form" width="100%" border="0">
 									<?php $errors = array('0' => 'Equipment Problem', 
-														'1' => 'Equipment not functions', 
-														'2' => 'Other');
+														// '1' => 'Equipment not functions', 
+														'1' => 'PPM Due', 
+														'2' => 'Calibration Due', 
+														'3' => 'Error Message');
 														$faulty = array('0' => 'Spare Part', 
-														'1' => 'Internal parts /components and PCBs', 
+														'1' => 'PCBs', 
 														'2' => 'Software', 
-														'3' => 'Other', 
+														'3' => 'Accessories', 
+														'4' => 'Maintenance Kit', 
+														'5' => 'Calibration Expired', 
+														'6' => 'Labour', 
+														'7' => 'Need 3rd Party Services'
 														);
 														?>
 									<tr>
@@ -58,7 +64,7 @@
 											<?php foreach($faulty as $fault ){?>
 												<input type="radio" id="rc_partfault" name="rc_partfault" value="<?=$fault?>" onchange="other_faulty('<?=$fault?>')" <?=set_radio('rc_partfault','0',TRUE)?><?=isset($record[0]->rthree) && $record[0]->rthree == $fault? 'checked' : isset($record[0]->rthree) &&$record[0]->rthree!=''&&$record[0]->rthree != "" && $record[0]->rthree != $faulty[0] && $record[0]->rthree != $faulty[1] && $record[0]->rthree != $faulty[2] ?'checked':'' ?>><?=$fault?><br>
 											<?php } ?>
-											<textarea <?php if(isset($record[0]->rthree) &&$record[0]->rthree!=$faulty[0] && $record[0]->rthree!=$faulty[1] && $record[0]->rthree!=$faulty[2]){?>style="display:block;" <?php }else{?>style="display:none;" <?php }?>class="Input n_com2" name="rc_partfault-other" id="partfault-details"><?=set_value('rc_partfault',isset($record[0]->rthree) ? $record[0]->rthree : '')?></textarea></td>
+											<!-- <textarea <?php if(isset($record[0]->rthree) &&$record[0]->rthree!=$faulty[0] && $record[0]->rthree!=$faulty[1] && $record[0]->rthree!=$faulty[2]){?>style="display:block;" <?php }else{?>style="display:none;" <?php }?>class="Input n_com2" name="rc_partfault-other" id="partfault-details"><?=set_value('rc_partfault',isset($record[0]->rthree) ? $record[0]->rthree : '')?></textarea></td> -->
 										</tr>
 										<tr>
 											<td style="padding-left:10px;" valign="top">Problem Cause :   </td>
@@ -68,14 +74,15 @@
 												<label for="radio-1-<?=$num2++?>"></label> Wear & Tear<br>
 												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case"  value="1"<?=set_radio('n_Case','1')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 1 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Accidental<br>
-												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case"  value="2"<?=set_radio('n_Case','2')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 2 ? 'checked' : '' ?>/>
-												<label for="radio-1-<?=$num2++?>"></label> Obsolote model<br>
+												
 												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case"  value="3"<?=set_radio('n_Case','3')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 3 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Mishandling<br>
 												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case"  value="4"<?=set_radio('n_Case','4')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 4 ? 'checked' : '' ?>/>
 												<label for="radio-1-<?=$num2++?>"></label> Environmental<br>
 												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case"  value="5"<?=set_radio('n_Case','5')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 5 ? 'checked' : '' ?>/>
-												<label for="radio-1-<?=$num2++?>"></label> Others<br>
+												<label for="radio-1-<?=$num2++?>"></label> Ageing<br>
+												<input type="radio" id="radio-1-<?=$num++?>" name="n_Case"  value="2"<?=set_radio('n_Case','2')?><?=isset($record[0]->CriticalFlag) && $record[0]->CriticalFlag == 2 ? 'checked' : '' ?>/>
+												<label for="radio-1-<?=$num2++?>"></label> Recertificate<br>
 
 											</td>
 										</tr>
@@ -319,7 +326,7 @@ function other_faulty(rc_partfault) {
 }
 
 function other_error(error) {
-  if(error=='Other'){
+  if(error=='Error Message'){
   document.getElementById('error-details').style.display='block';
   document.getElementById("error-details").value='';
   }else{
