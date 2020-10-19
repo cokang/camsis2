@@ -35,7 +35,7 @@
 		<td><?php echo $upload_data['client_name']?></td>
 	</tr>
 	<tr>
-		<td colspan="2"><button type="button" value="Change" onclick="location.href = '<?php echo base_url();?>index.php/Procurement/asset3_comm_newpo?pono=<?php echo $this->input->get('pono')?>&act=<?php echo $this->input->get('act')?>&id=<?=isset($insertid)?$insertid : $this->input->get('id')?>&tag=<?=$this->input->get('tag')?>';" >Change</button> <input type="submit" value="Add" onClick="javascript:showmg('<?php echo $this->input->get('pono');?>','<?php echo $this->input->get('tag') ?>');"> </td>
+		<td colspan="2"><button type="button" value="Change" onclick="location.href = '<?php echo base_url();?>index.php/Procurement/asset3_comm_newpo?pono=<?php echo $this->input->get('pono')?>&act=<?php echo $this->input->get('act')?>&id=<?=isset($insertid)?$insertid : $this->input->get('id')?>&tag=<?=$this->input->get('tag')?>';" >Change</button> <input type="submit" value="Add" onClick="javascript:showmg('<?php echo $this->input->get('pono');?>','<?php echo $this->input->get('tag') ?>','<?php echo $this->input->get('payment_no') ?>');"> </td>
 	</tr>
 <?php }else{ ?>
 	<tr>
@@ -77,7 +77,7 @@
 		<?php if ($this->input->get('act') != 'update' && $this->input->get('act') != 'delete'){ ?>
 		<input type="submit" value="Save" onClick="if(verifyFile()){document.fileUpForm.submit();}">
 		<?php } else { ?>
-		<input type="button" value="<?=($this->input->get('act') != 'update') ? 'Delete' : 'Save'?>" onClick="javascript:showupdate('<?php echo $this->input->get('pono');?>','<?php echo $this->input->get('tag') ?>');">
+		<input type="button" value="<?=($this->input->get('act') != 'update') ? 'Delete' : 'Save'?>" onClick="javascript:showupdate('<?php echo $this->input->get('pono');?>','<?php echo $this->input->get('tag') ?>','<?php echo $this->input->get('payment_no') ?>');">
 		<?php } ?>
 		<button type="cancel"  onclick="window.parent.close();">Cancel</button> </td>
 	</tr>
@@ -108,7 +108,7 @@
         filename = filename.substring(1);
     }
 	}
-	document.getElementById("form").action = "asset3_comm_newpo?pono=<?php echo $this->input->get('pono')?>&id=<?php echo $this->input->get('id')?>&act=<?php echo $this->input->get('act')?>&MC=1&tag=<?=$this->input->get('tag')?>";
+	document.getElementById("form").action = "asset3_comm_newpo?pono=<?php echo $this->input->get('pono')?>&id=<?php echo $this->input->get('id')?>&act=<?php echo $this->input->get('act')?>&MC=1&tag=<?=$this->input->get('tag')?>&payment_no=<?=$this->input->get('payment_no')?>";
 	return true;
 	}
 <?php }else{ ?>
@@ -121,17 +121,17 @@ function verifyFile()
 	return true;
 	}
 <?php } ?>
-		function showmg(pono,tag)
+		function showmg(pono,tag,payment_no)
 		{
 			self.close();
-			window.opener.fCallLocatioa(pono,tag);
+			window.opener.fCallLocatioa(pono,tag,payment_no);
 			self.close();
 		}
-		function showupdate(pono,tag)
+		function showupdate(pono,tag,payment_no)
 		{
-
+			
 			window.document.forms['form'].submit();
-			window.opener.fCallLocatioa(pono,tag);
+			window.opener.fCallLocatioa(pono,tag,payment_no);
 		}
 
 </script>

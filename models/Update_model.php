@@ -741,6 +741,16 @@ function deletepoat($data,$pono,$link,$id){
 	//exit();
 }
 
+function deletepocom($data,$pono,$link,$id){
+	//$RN = $this->input->post('wrk_ord');
+	$this->db->where('PO_No',$pono);
+	$this->db->where('Id',$id);
+	$this->db->where('com_id',$link);
+	$this->db->update('po_compodetails', $data);
+	//echo $this->db->last_query();
+	//exit();
+}
+
 function update_pr_apprv($prno){
 	$this->db->set('WHO_Apprv',$this->session->userdata('v_UserName'));
 	$this->db->where('PR_No',$prno);

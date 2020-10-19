@@ -5385,6 +5385,7 @@ function getpocom($whatpo,$visitwhat){
 $this->db->select("*");
 $this->db->from('po_compodetails');
 $this->db->where('PO_No', $whatpo);
+$this->db->where('flag <>', 'D');
 // $this->db->where('visit', $visitwhat);
 
 
