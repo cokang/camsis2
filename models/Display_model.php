@@ -4722,7 +4722,7 @@ ORDER BY r.D_date, r.D_time
 			else if ($type == 2){
 			$this->db->where('MONTH(DATE(m.DateCreated))',$inter);
 			$this->db->where('YEAR(DATE(m.DateCreated))',$year);
-				$status = array(5,107,128,114);
+				$status = array(5,107,128);
 				$this->db->where_in('m.ApprStatusID',$status);
 				//$this->db->or_where('m.ApprStatusID = 107');
 				//$this->db->or_where('m.ApprStatusID = 128');
@@ -4744,7 +4744,7 @@ ORDER BY r.D_date, r.D_time
 				//$this->db->or_where('m.ApprStatusIDxx','6');
         $this->db->where('MONTH(DATE(m.DateCreated))',$inter);
         $this->db->where('YEAR(DATE(m.DateCreated))',$year);
-        $this->db->where('(m.ApprStatusID = 6 OR m.ApprStatusIDx = 6 OR m.ApprStatusIDxx = 6)');
+        $this->db->where('( m.ApprStatusIDx = 6 OR m.ApprStatusIDxx = 6)');
 			 } else {
 
          $this->db->where('MONTH(DATE(m.DateCreated))',$inter);
