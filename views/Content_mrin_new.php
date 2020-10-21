@@ -216,9 +216,9 @@ echo form_open('mrinnew_ctrl?pro=edit&mrinno='.$this->input->get('mrinno'));
 
 									<tr style="display:<?=($this->uri->slash_segment(1) != 'mrinnew_ctrl/') && $this->input->get('pro') == 'new' &&  $this->input->get('wo') == ''? 'none' : 'block' ?>;" id="trcommacomponent">
 										<td style="padding-left:10px; display:block;">
-										<?php if ($this->uri->slash_segment(1) != 'mrinnew_ctrl/' && $this->input->get('wo') == '') { ?>
-										<span style="display:inline-block;" id="spcommacomponent"></span>
-										<?php } else { ?>
+										<?php //if ($this->uri->slash_segment(1) != 'mrinnew_ctrl/' && $this->input->get('wo') == '' ) { ?>
+										<!-- <span style="display:inline-block;" id="spcommacomponent"></span> -->
+										<?php // } else { ?>
 										<span style="display:inline-block;" id="spcommacomponent"></span>
 										<span id="spcomponent">
 										<?php
@@ -234,7 +234,7 @@ echo form_open('mrinnew_ctrl?pro=edit&mrinno='.$this->input->get('mrinno'));
 												}
 											}
 										?>
-										<?php } ?>
+										<?php // } ?>
 										</span>
 										</td>
 									</tr>
