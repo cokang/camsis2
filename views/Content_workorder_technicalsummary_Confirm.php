@@ -237,6 +237,7 @@ echo form_open('rootcause_ctrl/comfirmation');
 				</tr>
 			</table>
 			<?php echo form_hidden('workord',$this->input->get('wrk_ord')) ?>
+			<?php echo form_hidden('mrin',$this->input->get('mrin')) ?>
 			<?php echo form_hidden('rc_error',($this->input->post('rc_error')=='Error Message')?$this->input->post('rc_error-other'):$this->input->post('rc_error')) ?>
 			<?php echo form_hidden('rc_partfault',($this->input->post('rc_partfault')=='Other')?$this->input->post('rc_partfault-other'):$this->input->post('rc_partfault')) ?>
 			<?php echo form_hidden('n_Case',$this->input->post('n_Case')) ?>
