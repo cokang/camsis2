@@ -32,6 +32,10 @@
 										<td colspan="2" class="ui-bottom-border-color" style="font-weight: bold;">Details</td>
 									</tr>
 									<tr>
+										<td style="padding-left:10px; padding-top:5px;" valign="top" class="ui-w">Work Order:</td>
+										<td><?=isset($record[0]->WorkOfOrder) ? $record[0]->WorkOfOrder : ''?></td>
+									</tr>
+									<tr>
 										<td style="padding-left:10px; padding-top:5px;" valign="top" class="ui-w">MRIN Reference No.:</td>
 										<td><?=isset($record[0]->DocReferenceNo) ? $record[0]->DocReferenceNo : ''?></td>
 									</tr>
