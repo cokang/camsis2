@@ -32,10 +32,6 @@
 										<td colspan="2" class="ui-bottom-border-color" style="font-weight: bold;">Details</td>
 									</tr>
 									<tr>
-										<td style="padding-left:10px; padding-top:5px;" valign="top" class="ui-w">Work Order:</td>
-										<td><?=isset($record[0]->WorkOfOrder) ? $record[0]->WorkOfOrder : ''?></td>
-									</tr>
-									<tr>
 										<td style="padding-left:10px; padding-top:5px;" valign="top" class="ui-w">MRIN Reference No.:</td>
 										<td><?=isset($record[0]->DocReferenceNo) ? $record[0]->DocReferenceNo : ''?></td>
 									</tr>
@@ -56,6 +52,10 @@
 									<tr>
 										<td style="padding-left:10px;" valign="top">MRIN Related Asset : </td>
 										<td><?=isset($record[0]->V_Asset_no) ? $record[0]->V_Asset_no : ''?><span class="icon-windows" <?=isset($record[0]->V_Asset_no) ? 'onclick="fkmrin(this)"' : ''?> value="<?=isset($record[0]->V_Asset_no) ? $record[0]->V_Asset_no : ''?>" valuex="<?=substr(substr($this->input->get('mrinno'),-14),0,3)?>"></span></td>
+									</tr>
+									<tr>
+										<td style="padding-left:10px; padding-top:5px;" valign="top" class="ui-w">Work Order:</td>
+										<td><?=isset($record[0]->WorkOfOrder) ? $record[0]->WorkOfOrder : ''?></td>
 									</tr>
 									<?php if ($this->input->get('pr') == 'approved') { ?>
 									<tr>
