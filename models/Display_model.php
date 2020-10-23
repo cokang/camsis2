@@ -5181,7 +5181,6 @@ function polist($datefrom,$dateto,$searchitem="",$tab="",$classid="",$vendor="",
 	// $this->db->where('MONTH(a.datecreated)',$month);
 	// $this->db->where('YEAR(a.datecreated)',$year);
 	$this->db->where('date(a.datecreated) BETWEEN"'.$datefrom.'"and"'.$dateto.'"');
-	$this->db->where('va.flag <>', 'D');
 	$this->db->where('mp.Id = (SELECT MAX(Id) FROM tbl_mirn_payment where MirnCode=a.DocReferenceNo)', NULL , FALSE);
 	// $this->db->where('vi.VENDOR_NAME = (SELECT VENDOR_NAME FROM tbl_vendor_info where VENDOR_CODE=vi.VENDOR_CODE group by VENDOR_CODE )', NULL , FALSE);
   }
@@ -5189,7 +5188,8 @@ function polist($datefrom,$dateto,$searchitem="",$tab="",$classid="",$vendor="",
     $this->db->group_start();
     $this->db->like("e.PO_No",$searchitem)->or_like("e.MIRN_No",$searchitem);
     $this->db->group_end();
-    }
+	}
+	$this->db->where('va.flag <>', 'D');
 	$this->db->where('a.apprstatusidxx','4');
 	if($tab==1){
 		$this->db->where('e.status', 1);
