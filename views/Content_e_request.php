@@ -77,13 +77,16 @@ $req_type = array('0' => 'RCM',
 						<tr class="ui-menu-color-header" style="color:white; font-size:12px;">
 							<th onclick="numberTableSort(this,true)">&nbsp;</th>
 							<th onclick="tableSort(this)" style="text-align:left;">PO No</th>
-							<th onclick="dateTimeTableSort(this,'Date')">PO Date</th>
 							<th onclick="tableSort(this)" >Request Type</th>
 							<th onclick="tableSort(this)">Vendor</th>
-							<th onclick="tableSort(this)">Payment Type</th>
+							<th onclick="tableSort(this)">Amount</th>
+							<th onclick="dateTimeTableSort(this,'Date')">Payment Approval Date</th>
+							
+							<!-- <th onclick="tableSort(this)">Payment Type</th> -->
 							<!-- <?php if ($procument == "1") { ?> -->
-							<th onclick="tableSort(this)">Status</th> 
-							<th onclick="tableSort(this)">Closing Status</th> 
+							<th onclick="tableSort(this)">Payment Status</th> 
+							<th onclick="tableSort(this)">Payment Date</th> 
+							<th>Attachment</th> 
 							<!-- <?php }  else {?>
 							<th onclick="dateTimeTableSort(this,'Date')">Issue Date</th>
 							<th onclick="tableSort(this)">Status</th><?php } ?> -->
@@ -118,10 +121,13 @@ $req_type = array('0' => 'RCM',
 							<td class="td-desk" style="text-align:left;">
 							<a href="<?php echo base_url();?>index.php/Procurement/po_follow_up2?tab=0&powhat=update&po=<?=isset($row->PO_No) ? $row->PO_No : ''?>"><?=isset($row->PO_No) ? $row->PO_No : ''?></a>
 							</td>
-							<td class="td-desk"><?=isset($row->PO_Date) ? date('d-m-Y',strtotime($row->PO_Date)) : ''?></td>
 							<td class="td-desk"><?=isset($row->ReqCase) ? $req_type[$row->ReqCase] : 'NA'?></td>
 							<td class="td-desk"><?=isset($row->VENDOR_NAME) ? $row->VENDOR_NAME : 'NA'?></td>
-							<td class="td-desk"><?=isset($row->Payment_Opt) ? ($row->Payment_Opt=='COD'?'CIA':$row->Payment_Opt) : ''?></td>
+							<td class="td-desk"><?=isset($row->payment_1) ? $row->payment_1+$row->payment_2+$row->payment_3 : 'NA'?></td>
+							<!-- <td class="td-desk"><?=isset($row->PO_Date) ? date('d-m-Y',strtotime($row->PO_Date)) : ''?></td> -->
+							<td class="td-desk"><?=isset($row->Date_Completed) ? date('d-m-Y',strtotime($row->Date_Completed)) : 'NA'?></td>
+							
+							<!-- <td class="td-desk"><?=isset($row->Payment_Opt) ? ($row->Payment_Opt=='COD'?'CIA':$row->Payment_Opt) : ''?></td> -->
 							<?php $status_pay = array(
 													'0' => 'Processing',
 													'1' => 'MD Auth',
@@ -142,7 +148,11 @@ $req_type = array('0' => 'RCM',
 								<?php if ($procument != "2") {echo isset($status_pay[$row->Statusc]) ? $status_pay[$row->Statusc] : '';} else {echo "Completed";}?>
 							</td>
 								<?php } ?>
-							<td class="td-desk"><?=isset($row->closingdtcc) ? date('d-m-Y',strtotime($row->closingdtcc)) : 'NA'?></td>
+							<td class="td-desk"><?=isset($row->latest_paymentdate) ? date('d-m-Y',strtotime($row->latest_paymentdate)) : 'NA'?></td>
+							<td class="td-desk">
+							<a href="<?php echo base_url();?>uploadfinfiles/<?=isset($row->doc_id) ? $row->doc_id : ''?>"><?=isset($row->doc_id) ? $row->Doc_name : ''?></a>
+							</td>
+							
 						</tr>
 						<?php endforeach;
 					} else {
