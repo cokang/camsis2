@@ -4660,7 +4660,7 @@ function get_stock_asset($searchitem=""){
 		}
 
 		function get_payee($vendor){
-			$this->db->select('no,PAYEE_NAME, PAYEE_REG_NO');
+			$this->db->select('id,PAYEE_NAME, PAYEE_REG_NO');
 			$this->db->from('tbl_avl_payee');
 			$this->db->where('VENDOR_CODE', $vendor);
 
@@ -4673,7 +4673,7 @@ function get_stock_asset($searchitem=""){
 			foreach($query->result() as $row ){
 				//this sets the key to equal the value so that
 				//the pulldown array lists the same for each
-				$array[$row->no] = $row->PAYEE_NAME;
+				$array[$row->id] = $row->PAYEE_NAME;
 			}
 			if($query->num_rows()>0)
 			return $array;
@@ -4682,7 +4682,7 @@ function get_stock_asset($searchitem=""){
 		function get_regno($id){
 			$this->db->select('PAYEE_REG_NO');
 			$this->db->from('tbl_avl_payee');
-			$this->db->where('no', $id);
+			$this->db->where('id', $id);
 			$query = $this->db->get();
 			// echo $this->db->last_query();
 			// exit();
