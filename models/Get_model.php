@@ -3750,11 +3750,12 @@ function get_attachments($tempno){
 	//exit();
 	return $query->result();
 }
-function get_pocom($tempno){
+function get_pocom($tempno,$payment_no=''){
 	$this->db->select('*');
 	$this->db->from('po_compodetails');
 	$this->db->where('PO_No',$tempno);
 	$this->db->where('flag <>','D');
+	$this->db->where('visit', $payment_no);
 	$this->db->order_by('com_id','DESC');
 	$query = $this->db->get();
 	//echo $this->db->last_query();
@@ -3762,11 +3763,12 @@ function get_pocom($tempno){
 	//exit();
 	return $query->result();
 }
-function get_poattached($tempno){
+function get_poattached($tempno,$payment_no=''){
 	$this->db->select('*');
 	$this->db->from('poattach_details');
 	$this->db->where('PO_No',$tempno);
 	$this->db->where('flag <>','D');
+	$this->db->where('visit', $payment_no);
 	$this->db->order_by('doc_id','DESC');
 	$query = $this->db->get();
 	//echo $this->db->last_query();
@@ -4654,6 +4656,40 @@ function get_stock_asset($searchitem=""){
 		// echo $this->db->last_query();
 		// exit();
 		return $query->result();
+
+		}
+
+		function get_payee($vendor){
+			$this->db->select('no,PAYEE_NAME, PAYEE_REG_NO');
+			$this->db->from('tbl_avl_payee');
+			$this->db->where('VENDOR_CODE', $vendor);
+
+			$query = $this->db->get();
+			// echo $this->db->last_query();
+			// exit();
+
+			$query_result = $query->result();
+			//return $query_result;
+			foreach($query->result() as $row ){
+				//this sets the key to equal the value so that
+				//the pulldown array lists the same for each
+				$array[$row->no] = $row->PAYEE_NAME;
+			}
+			if($query->num_rows()>0)
+			return $array;
+		}
+
+		function get_regno($id){
+			$this->db->select('PAYEE_REG_NO');
+			$this->db->from('tbl_avl_payee');
+			$this->db->where('no', $id);
+			$query = $this->db->get();
+			// echo $this->db->last_query();
+			// exit();
+
+			$query_result = $query->result();
+			echo json_encode($query_result);
+			//return $query_result;
 
 		}
 

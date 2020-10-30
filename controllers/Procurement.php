@@ -756,6 +756,8 @@ class Procurement extends CI_Controller {
 		$poNo= $this->input->get('po');
 		$data['WO_detail'] = $this->display_model->wo_detail_pofollow($poNo);
 		$data['vendor_acc'] = $this->display_model->get_vendoracc($data['WO_detail'][0]->Vendor_No);
+		$data['payees'] = $this->get_model->get_payee($data['WO_detail'][0]->Vendor_No);
+		$data['bankcodes'] = $this->display_model->bank_codes();
 
 		if ($this->input->get('powhat') == ''){
 			$this ->load->view("Content_po_follow_up2",$data);
@@ -892,6 +894,8 @@ class Procurement extends CI_Controller {
 					'pay1_date'=>$paydt1,
 					'pay2_date'=>$paydt2,
 					'pay3_date'=>$paydt3,
+					'payee_id' =>$this->input->post('payees'),
+					'bank_id' =>$this->input->post('bankcodes'),
 				);
 				$this->load->model('update_model');
 				$this->update_model->updatepomain($insert_data,$this->input->get('po'),$visitwhat);
@@ -943,6 +947,8 @@ class Procurement extends CI_Controller {
 					'pay1_date'=>$paydt1,
 					'pay2_date'=>$paydt2,
 					'pay3_date'=>$paydt3,
+					'payee_id' =>$this->input->post('payees'),
+					'bank_id' =>$this->input->post('bankcodes'),
 				);
 
 				$this->load->model('insert_model');
@@ -955,6 +961,39 @@ class Procurement extends CI_Controller {
 
 			}
 		}
+			$num = 1;
+			$to_mail =  array();
+			while($num<20){
+				
+				if($this->input->post('staff'.$num)!=null)
+				array_push($to_mail,$this->input->post('staff'.$num));
+				$num++;
+			}
+			$from_email = ""; //to be set by en nezam
+			//Load email library
+			$this->load->library('email');
+			$this->email->initialize($config);
+			$this->email->from($from_email, 'Identification');
+			$this->email->to($to_mail);
+			// $this->email->cc($to_email);
+			$this->email->subject('PAYMENT TO THE FOLLOWING VENDOR (APBES)');
+			// $this->email->message('The email send using codeigniter library');
+			$this->load->model('display_model');
+			$po_attachment = $this->display_model->getpoat($this->input->get('po'),'');
+			$attach_email = array();
+			foreach($po_attachment as $attach){
+				// array_push($attach_email,$attach->doc_path.$attach->doc_id);
+				$file = $attach->doc_path.$attach->doc_id;
+            	$this->email->attach($file);
+			}
+			// $this->email->attach($attach_email);
+			//Send mail
+			if($this->email->send()){
+				$this->session->set_flashdata("email_sent","Congragulation Email Send Successfully.");
+			}
+			else{
+				$this->session->set_flashdata("email_sent","You have encountered an error");
+			}
 
 		 //closed 4
 		//echo $this->db->last_query();
@@ -1494,6 +1533,13 @@ class Procurement extends CI_Controller {
 		//$id = $this->input->get('id');
 		$this->load->model('display_model');
 		$test =$this->display_model->get_noacc($id);
+		// print_r($test);
+	}
+
+	public function getPayeeRegNo($id){
+		//$id = $this->input->get('id');
+		$this->load->model('get_model');
+		$this->get_model->get_regno($id);
 		// print_r($test);
 	}
 

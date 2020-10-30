@@ -7670,7 +7670,7 @@ a inner join (
 			}
 
       function wo_detail_pofollow($poNo){
-				$this->db->select('pomr.MIRN_No,pomr.Vendor_No,mr.WorkOfOrder,  mr.DateCreated,sr.D_date, po.PO_No,po.PO_Date,vi.VENDOR_NAME,mp.Payment_Opt,  SUM( DISTINCT Unit_Costx * QtyReqfx) POamount ');
+				$this->db->select('pomr.MIRN_No,pomr.Vendor_No,mr.WorkOfOrder,  mr.DateCreated,sr.D_date, po.PO_No,po.PO_Date,vi.VENDOR_NAME,mp.Payment_Opt,  SUM( DISTINCT Unit_Costx * QtyReqfx) POamount,vi.VENDOR_EMAIL ');
 				$this->db->from('tbl_po_mirn pomr');
 				$this->db->join('tbl_materialreq mr ', 'mr.DocReferenceNo = pomr.MIRN_No', 'left');
 				$this->db->join('pmis2_egm_service_request sr', 'mr.WorkOfOrder= sr.V_Request_no', 'left');
@@ -7759,6 +7759,19 @@ a inner join (
 				if($query->num_rows()>0)
 				return $array;
 				
+			}
+			function bank_codes(){
+				$this->db->select('*');
+				$this->db->from('tbl_bank_info');
+				$query = $this->db->get();
+				// echo $this->db->last_query();
+				// exit();
+
+				foreach($query->result() as $row ){
+					$array[$row->BANK_ID] = $row->BANK_CODE;
+				}
+				return $array;
+
 			}
 
 

@@ -67,9 +67,9 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 										$payamt = isset($pofollow[0]->totalcost) ? $pofollow[0]->totalcost : '';
 										$payrefno = isset($pofollow[0]->totalcost) ? $pofollow[0]->totalcost : '';
 										$partial = isset($pofollow[0]->partial_pay) ? $pofollow[0]->partial_pay : '0';
-										// $payeename =isset($pofollow[0]->payee_name) ? $pofollow[0]->payee_name : '';
-										// $payee_regno=isset($pofollow[0]->payeeregno) ? $pofollow[0]->payeeregno : '';
-										// $vendor_email=isset($pofollow[0]->vendor_email) ? $pofollow[0]->vendor_email : '';
+										$payeename =isset($pofollow[0]->payee_name) ? $pofollow[0]->payee_name : '';
+										$payee_regno=isset($pofollow[0]->payeeregno) ? $pofollow[0]->payeeregno : '';
+										$vendor_email=isset($WO_detail[0]->VENDOR_EMAIL) ? $WO_detail[0]->VENDOR_EMAIL : '';
 										$payment_amount = array('1' => $pofollow[0]->payment_1 ,
 																'2' => $pofollow[0]->payment_2 ,
 																'3' => $pofollow[0]->payment_3  );
@@ -99,9 +99,9 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 										$payamt = $this->input->post('n_payamt');
 										$payrefno = $this->input->post('n_payrefno');
 										$partial= $this->input->post('partial_pay');
-										// $payeename = $this->input->post('payee_name');
-										// $payee_regno = $this->input->post('payee_regno');
-										// $vendor_email = $this->input->post('vendor_email');
+										$payeename = $this->input->post('payee_name');
+										$payee_regno = $this->input->post('payee_regno');
+										$vendor_email = $this->input->post('vendor_email');
 										$payment_amount = array('1' => $this->input->post('n_payamt1') ,
 																'2' => $this->input->post('n_payamt2') ,
 																'3' => $this->input->post('n_payamt3')  );
@@ -240,23 +240,27 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 													<td><input type="text"   value="<?=isset($WO_detail[0]->Payment_Opt)?$WO_detail[0]->Payment_Opt:''?>" class="form-control-button2 n_wi-date2" ></td>
 
 												</tr>
-												<!-- <tr>
+												<tr>
 													<td class="td-assest">Payee Name:</td>
-													<td><input type="text" name="payee_name" id="payee_name" value="<?= $payeename?>" class="form-control-button2 n_wi-date2" ></td>
-
+													<!-- <td><input type="text" name="payee_name" id="payee_name" value="<?= $payeename?>" class="form-control-button2 n_wi-date2" ></td> -->
+													<td>
+													<?php echo form_dropdown('payees', $payees ,set_value('payees',isset($pofollow[0]->payee_id)?$pofollow[0]->payee_id:$this->input->post('payees')), 'onchange="payee_no()" id="payeelist" class="dropdown n_wi-date2"'); ?></td>
+													</td>
 												</tr>
 												<tr>
 													<td class="td-assest">Payee <br> Registration No :</td>
-													<td><input type="text" name="payee_regno" id="payee_regno" value="<?= $payee_regno?>" class="form-control-button2 n_wi-date2" ></td>
+													<td><input type="text" name="payee_regno" id="payee_regno" value="<?= $this->input->post('payee_regno')?>" class="form-control-button2 n_wi-date2" ></td>
 
-												</tr> -->
-												<!-- <tr>
+												</tr>
+												<?php if($udept[0]->dept=='FD'){ ?>
+												<tr>
 													<td class="td-assest">Bank Code :</td>
 													<td>
-													<?php echo form_dropdown('vendor_acc', '' ,'', 'onchange="acc_no()" id="vdr_acc" class="dropdown n_wi-date2"'); ?></td>
+													<?php echo form_dropdown('bankcodes', $bankcodes ,set_value('bankcodes',isset($pofollow[0]->bank_id)?$pofollow[0]->bank_id:$this->input->post('bankcodes')), ' id="bankcodes" class="dropdown n_wi-date2"'); ?></td>
 													</td>
 
-												</tr> -->
+												</tr>
+												<?php } ?>
 												<tr>
 													<td class="td-assest">Bank Name :</td>
 													<td>
@@ -269,11 +273,11 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 													<td><input type="text" name="account_no" id="account_no" value="<?= $this->input->post('account_no')?>"  class="form-control-button2 n_wi-date2" ></td>
 
 												</tr>
-												<!-- <tr>
+												<tr>
 													<td class="td-assest">Vendor Email <br>Address :</td>
 													<td><input type="text" name="vendor_email" id="vendor_email" value="<?= $vendor_email?>"  class="form-control-button2 n_wi-date2" ></td>
 
-												</tr> -->
+												</tr>
 												<tr>
 										<td style="padding:10px;  valign="top">Invoice/Quotation  :   </td>
 										<?php if ( $WO_detail[0]->Payment_Opt == "COD"){ ?>
@@ -384,22 +388,29 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 													<td class="td-assest">Payment Approved Date</td>
 													<td><input type="text"  name="n_completeddt"  readonly onchange="submitdisable()" value="<?=$Date_Completed?>" class="form-control-button2 n_wi-date2" id="date<?php echo $numberdate++; ?>" <?=$confim?>></td>
 												</tr><br>
-												<!-- <?php if($udept[0]->dept=='FD'){ ?>
+												<?php if($udept[0]->dept=='FD'){ ?>
 												<tr><td colspan="3" class="ui-bottom-border-color" style="font-weight: bold;">Staff Email Address</td></tr>
-												<?php $staffsEmail = array('1' => 'haiqal@advancepact.com' ,
+												<?php $staffsEmail = array('0' => 'nordyana@advancepact.com' ,
+																			'1' => 'nurfatin@advancepact.com' ,
 																		  '2' => 'azwani@advancepact.com' ,
 																		  '3' => 'm.asyraf@advancepact.com' ,
 																		  '4' => 'fahilah@advancepact.com' ,
 																		  '5' => 'nuruladawiyah@advancepact.com' ,
-																		  '6' => 'sitiainol@advancepact.com' 
+																		  '6' => 'sitiainol@advancepact.com' ,
+																		  '7' => 'khalid@advancepact.com' ,
+																		  '8' => 'mariana@advancepact.com' ,
+																		  '9' => 'norhazlin@advancepact.com' ,
+																		  '10' => 'nordiyana@advancepact.com' ,
+																		  '11' => 'noraziarwani@advancepact.com' ,
 												 );?>
 												
-												<?php foreach($staffsEmail as $staffEmail ){ ?>
+												<?php $id=1;
+												foreach($staffsEmail as $staffEmail ){ ?>
 												<tr >
-													<td class="td-assest" style='max-width:100%;white-space:nowrap;'><input type="checkbox" id="staff" name="staff" value="<?= $staffEmail?>">
+													<td class="td-assest" style='max-width:100%;white-space:nowrap;'><input type="checkbox" id="staff<?=$id?>" name="staff<?=$id?>" value="<?= $staffEmail?>" <?php if($this->input->post('staff'.$id)==$staffEmail) echo 'checked';?>>
 													<label for="staff"> <?= $staffEmail?></label></td>
 												</tr>
-												<?php } } ?> -->
+												<?php $id++;} } ?>
 												<!-- <tr>
 													<td class="td-assest">Payment Approved Date :</td>
 													<td><input type="text"  name="n_codcdt" value="<?=$closingdt?><?=$this->input->post('n_codcdt')?>" class="form-control-button2 n_wi-date2" id="date<?php echo $numberdate++; ?>" <?=$confim?>></td>
@@ -753,6 +764,7 @@ function fCallLocatioa(pono,tag,payment_no)
 
 	}
 	acc_no()
+	payee_no()
 	submitdisable()
 	function acc_no(){
 		var e = document.getElementById("vdr_acc");
@@ -768,6 +780,20 @@ function fCallLocatioa(pono,tag,payment_no)
                     }
                 });
  }
+ function payee_no(){
+		var e = document.getElementById("payeelist");
+		var payee_id = e.options[e.selectedIndex].value;
+	
+	$.ajax({
+                    url: 'getPayeeRegNo/'+payee_id,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+						document.getElementById('payee_regno').value = data[0].PAYEE_REG_NO;
+					//alert(data["ACCOUNT_NO"]);
+                    }
+                });
+ }
  function submitdisable(){
 	var payment_apv = document.getElementById("date0").value;
  if(payment_apv=='')
@@ -777,20 +803,20 @@ function fCallLocatioa(pono,tag,payment_no)
 	document.getElementById("btnSubmit").disabled = false;
  }
  }
- 
  function partial_payment(){
 	var partial_pay = document.getElementById("partial_pay").value;
-	for(x=2;x<4;x++){
+	for(var x=2; x<4; x++){
+		console.log(x);
  if(partial_pay=='0' || partial_pay=='')
  {
 	document.getElementById("date"+x).disabled = true;
 	document.getElementById("n_payamt"+x).disabled = true;
-	document.getElementById("n_payrefno"+x).disabled = true;
+	document.getElementById("n_paybal"+x).disabled = true;
 	
  }else{
 	document.getElementById("date"+x).disabled = false;
 	document.getElementById("n_payamt"+x).disabled = false;
-	document.getElementById("n_payrefno"+x).disabled = false;
+	document.getElementById("n_paybal"+x).disabled = false;
  }}
  }
 </script>
