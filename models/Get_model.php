@@ -4693,6 +4693,19 @@ function get_stock_asset($searchitem=""){
 
 		}
 
+		function get_budgetamount($budgetcode)
+		{
+		$this->db->select("BUDGET_AMOUNT");
+		$this->db->from('tbl_budget');
+		$this->db->where('BUDGET_CODE', $budgetcode);
+		$query=$this->db->get();
+		// echo $this->db->last_query();
+		// exit();
+		$ret = $query->row();
+		return $ret->BUDGET_AMOUNT;
+
+		}
+
 
 }
 ?>
