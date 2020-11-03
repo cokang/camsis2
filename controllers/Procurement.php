@@ -543,22 +543,26 @@ class Procurement extends CI_Controller {
 			case "PER" :
 			case "KUL" :
 			case "SGT" :
-       //$hospapa = "HSA";
+	   //$hospapa = "HSA";
+	  		case "HSI" :
+			case "MKJ" :
 			 $hoswakil = "Norhayati binti Md Yunos";
        break;
-			case "HSI" :
-			case "MER" :
-			case "MKJ" :
-			case "BPH" :
-       //$hospapa = "HSA";
-			 $hoswakil = "Rafidah binti Abdul Wahab";
-       break;
+	// 		case "HSI" :
+	// 		case "MER" :
+	// 		case "MKJ" :
+	// 		case "BPH" :
+    //    //$hospapa = "HSA";
+	// 		 $hoswakil = "Rafidah binti Abdul Wahab";
+    //    break;
 			case "KTG" :
 			case "SGT" :
 			case "TGK" :
 			case "MUR" :
 			case "KLN" :
 			case "PON" :
+			case "BPH" :
+			case "MER" :
        //$hospapa = "HSA";
 			 $hoswakil = "Azhani Binti Hasnol Hadi";
        break;

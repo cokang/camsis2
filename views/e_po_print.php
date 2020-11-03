@@ -399,7 +399,7 @@ img{
 		<td align="right"><?=number_format($maintotalcost,2)?></td>
 	</tr>
 </table>
-<table class="tbl-info-tc">
+<table class="tbl-info-tc" >
 	<tr>
 		<td colspan="3"><i>Terms & Condition :-</i></td>
 	</tr>
@@ -412,8 +412,9 @@ img{
 				<?php ?>
 		<td valign="top"><i>ii)</i></td>
 		<td><i>The supplier shall notify Advance Pact Sdn Bhd of changes in the purchased product prior to implementation<br>of any changes that affect the ability of the purchased product to meet specified purchase requirements.</i></td>
-		<?php if(!empty($signdata)){ ?><td rowspan='4'><img src="<?php echo base_url();echo $signdata[0]->img_path.$signdata[0]->img_name; ?>" class="imglogoap"/></td>
-		<?php } ?>
+		<td style="text-align: center;">The PO is generated automatically by system. No signature is required</td>
+		<!-- <?php if(!empty($signdata)){ ?><td rowspan='3'><img src="<?php echo base_url();echo $signdata[0]->img_path.$signdata[0]->img_name; ?>" class="imglogoap"/></td>
+		<?php } ?> -->
 	</tr>
 	<tr>
 		<td valign="top"><i>iii)</i></td>
@@ -431,6 +432,7 @@ img{
 		<td valign="top"><i>vi)</i></td>
 		<td><i>Purchase Order valid for 30 days from date mentioned above.</i></td>
 	</tr>
+	<tr></tr>
 	<tr>
 		<td valign="top"><i>vii)</i></td>
 		<td><i>Advance Pact Shd Bhd SST Registration Number : W10-1808-31030461</i></td>
