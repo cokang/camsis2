@@ -412,7 +412,7 @@ img{
 				<?php ?>
 		<td valign="top"><i>ii)</i></td>
 		<td><i>The supplier shall notify Advance Pact Sdn Bhd of changes in the purchased product prior to implementation<br>of any changes that affect the ability of the purchased product to meet specified purchase requirements.</i></td>
-		<td style="text-align: center;">The PO is generated automatically by system. No signature is required</td>
+		<td >The PO is generated automatically by system. No signature is required</td>
 		<!-- <?php if(!empty($signdata)){ ?><td rowspan='3'><img src="<?php echo base_url();echo $signdata[0]->img_path.$signdata[0]->img_name; ?>" class="imglogoap"/></td>
 		<?php } ?> -->
 	</tr>
