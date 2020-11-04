@@ -8,7 +8,13 @@
 //echo "lalalalala : ".substr(substr($this->input->get('mrinno'),-14),0,3);
 ?>
 <?php $numberdate = 0; ?>
-<?php isset($user[0]->class_id) ? $classid = $user[0]->class_id : $classid = 0; ?>
+<?php isset($user[0]->class_id) ? $classid = $user[0]->class_id : $classid = 0; 
+$req_type = array('0' => 'RCM',
+'1' => 'PPM', 
+'2' => 'TPS',
+'3' => 'RIW',
+'4' => 'FMI',
+'5' => 'JIT');?>
 
 <div class="ui-middle-screen">
 	<div class="content-workorder">
@@ -56,6 +62,14 @@
 									<tr>
 										<td style="padding-left:10px; padding-top:5px;" valign="top" class="ui-w">Work Order:</td>
 										<td><?=isset($record[0]->WorkOfOrder) ? $record[0]->WorkOfOrder : ''?></td>
+									</tr>
+									<tr>
+										<td style="padding-left:10px; padding-top:5px;" valign="top" class="ui-w">Work Order Date:</td>
+										<td><?=isset($record[0]->D_date) ? date("d M Y",strtotime($record[0]->D_date)) : ''?></td>
+									</tr>
+									<tr>
+										<td style="padding-left:10px; padding-top:5px;" valign="top" class="ui-w">Request Type:</td>
+										<td><?=isset($record[0]->ReqCase) ? $req_type[$record[0]->ReqCase] : ''?></td>
 									</tr>
 									<?php if ($this->input->get('pr') == 'approved') { ?>
 									<tr>

@@ -23,8 +23,8 @@ class Procurement extends CI_Controller {
 			$this->load->model('get_model');
 			$data['OPU'] = $this->get_model->get_po_spend('OPU');
 			$data['CHO'] = $this->get_model->get_po_spend('CHO');
-			$data['max_opu']= 1000000;
-			$data['max_cho']=11000000;
+			$data['max_opu']= $this->get_model->get_budgetamount('OPU');
+			$data['max_cho']= $this->get_model->get_budgetamount('CHO');
 			$this ->load->view("budget",$data);
 
 		}
