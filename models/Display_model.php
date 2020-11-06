@@ -5057,7 +5057,7 @@ function status_table(){
     function prlist($datefrom,$dateto,$tab=0,$vendor="",$request_type="",$payment="",$searchitem=""){
     	$this->db->distinct();
     	//$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PR_No, mp.Payment_Opt, vi.VENDOR_NAME');
-      $this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PR_No, mp.Payment_Opt, vi.VENDOR_NAME,a.ApprCommentsx, GROUP_CONCAT( DISTINCT  VENDOR_NAME ) as VENDOR_NAME, SUM( DISTINCT Unit_Costx * QtyReqfx) as totalPO, a.ReqCase');
+      $this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PR_No, mp.Payment_Opt, vi.VENDOR_NAME,a.ApprCommentsx, GROUP_CONCAT( DISTINCT  VENDOR_NAME ) as VENDOR_NAME, (SUM( Unit_Costx * QtyReqfx)) as totalPO, a.ReqCase');
     	$this->db->from('tbl_pr_mirn e');
     	if ($tab == 1){
     	$this->db->join('tbl_pr p','p.PRNo = e.PR_No');
@@ -5164,7 +5164,7 @@ function polist($datefrom,$dateto,$searchitem="",$tab="",$classid="",$vendor="",
 	$this->db->distinct();
 	//$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt,vi.VENDOR_NAME');
   //$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt,vi.VENDOR_NAME, SUM( DISTINCT Unit_Costx * QtyReqfx) as totalPO,sum( DISTINCT Unit_Costx * QtyReqfx) as totalPO ,a.ApprCommentsx , GROUP_CONCAT( DISTINCT  VENDOR_NAME ) as VENDOR_NAME');
-  $this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt, SUM( Unit_Costx * QtyReqfx) as totalPO, a.ApprCommentsx ,a.DateApproval,mc.ApprvRmk1x, a.ReqCase');
+  $this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt, (SUM( Unit_Costx * QtyReqfx)) as totalPO, a.ApprCommentsx ,a.DateApprovalxx,mc.ApprvRmk1x, a.ReqCase');
 	$this->db->from('tbl_po_mirn e');
 	$this->db->join('tbl_materialreq a','e.MIRN_No = a.DocReferenceNo');
 	$this->db->join('tbl_zone b','a.ZoneID = b.ZoneID');
@@ -5175,7 +5175,7 @@ function polist($datefrom,$dateto,$searchitem="",$tab="",$classid="",$vendor="",
 	//  $this->db->join('(select VENDOR_NAME from tbl_vendor_info group by  VENDOR_CODE) as vi', 'vi.VENDOR_CODE = mc.ApprvRmk1x', 'inner');
 	$this->db->join('tbl_vendor_info vi', 'vi.VENDOR_CODE = mc.ApprvRmk1x', 'inner');
 	// $this->db->join('(select v1.VENDOR_NAME,v1.VENDOR_CODE from tbl_vendor_info as v1 inner join tbl_vendor_info as v2 ON v1.VENDOR_CODE = v2.VENDOR_CODE) as vi', 'vi.VENDOR_CODE = mc.ApprvRmk1x', 'inner');
-	$this->db->join('tbl_vendor va',"(mc.ApprvRmk1x = va.VENDOR OR mc.ApprvRmk1 = va.VENDOR) AND mc.ItemCode = va.Item_Code and mc.Unit_Costx = va.List_Price",'left');
+	$this->db->join('tbl_vendor va',"(mc.ApprvRmk1x = va.VENDOR OR mc.ApprvRmk1 = va.VENDOR) AND mc.ItemCode = va.Item_Code and mc.Unit_Costx = va.List_Price and va.flag <>'D'",'left');
 
   if ($searchitem == "") {
 	// $this->db->where('MONTH(a.datecreated)',$month);
@@ -7522,7 +7522,7 @@ a inner join (
 
     	function itemprdet2($mrinno,$vendorcode){
     		$this->db->distinct();
-    		$this->db->select('a.*,b.ItemName,v.VENDOR_NAME,va.Vendor_Item_Code, va.vendor_item_name');
+    		$this->db->select('a.*,b.ItemName,v.VENDOR_NAME,va.Vendor_Item_Code, va.vendor_item_name,va.gst');
     		$this->db->from('tbl_mirn_comp a');
     		$this->db->join('tbl_invitem b','a.ItemCode = b.ItemCode');
     		$this->db->join('tbl_vendor_info v',"v.VENDOR_CODE = '$vendorcode' OR a.ApprvRmk1 = v.VENDOR_CODE",'left');
