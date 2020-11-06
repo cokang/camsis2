@@ -5189,7 +5189,7 @@ function polist($datefrom,$dateto,$searchitem="",$tab="",$classid="",$vendor="",
     $this->db->like("e.PO_No",$searchitem)->or_like("e.MIRN_No",$searchitem);
     $this->db->group_end();
 	}
-	$this->db->where('va.flag <>', 'D');
+	// $this->db->where('va.flag <>', 'D');
 	$this->db->where('a.apprstatusidxx','4');
 	if($tab==1){
 		$this->db->where('e.status', 1);
