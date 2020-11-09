@@ -179,7 +179,7 @@
 									<?=isset($row->PO_No) ? $row->PO_No : ''?>
 								</a>
 							</td>
-							<td class="td-desk"><?=isset($row->DateApproval) ? date("d-M-Y",strtotime($row->DateApproval)) : ''?></td>
+							<td class="td-desk"><?=isset($row->DateApprovalxx) ? date("d-M-Y",strtotime($row->DateApprovalxx)) : ''?></td>
 							<td style="color:blue;"><?=isset($row->ReqCase) ? $req_type[$row->ReqCase] : ''?></td>
 							<!-- <td class="td-desk"><?=isset($row->name) ? $row->name : ''?></td> -->
 							<td class="td-desk"><b><a href="<?php echo base_url();?>index.php/Procurement?mrinno=<?=isset($row->DocReferenceNo) ? $row->DocReferenceNo : ''?>&pro=approved">
