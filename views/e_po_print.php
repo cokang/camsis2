@@ -441,7 +441,7 @@ img{
 	<tr>
 		<td valign="top"></td>
 		<td></td>
-		<td>Date :</td>
+		<td>Date : <?= date("d F Y",strtotime($record[0]->DateApprovalxx)) ?></td>
 	</tr>
 	<tr>
 		<td class="tc-address" colspan="3">HEAD OFFICE : 2-3A, Perdana The Place, Jalan PJU 8/5G, Bandar Damansara Perdana , 47820 Petaling Jaya, Selangor Darul Ehsan Malaysia <br /> Tel :+6(03)-77268632 &nbsp;&nbsp;&nbsp; Fax :+6(03)-77258836</td>
