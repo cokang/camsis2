@@ -40,7 +40,7 @@
 								<td><?= isset($row->V_Model_no) == TRUE ? $row->V_Model_no : 'N/A'?></td>
 								<td><?= isset($row->V_Manufacturer) == TRUE ? $row->V_Manufacturer : 'N/A'?></td>
 								<td><?= isset($row->V_Serial_no) == TRUE ? $row->V_Serial_no : 'N/A'?></td>
-								<td><?= isset($row->n_cost) == TRUE ? $row->n_cost : 'N/A'?></td>
+								<td><?= isset($row->N_Cost) == TRUE ? 'RM '.$row->N_Cost : 'N/A'?></td>
 								</tr>
 						<?php $numrow++; ?> 			 
     					<?php endforeach;?>  

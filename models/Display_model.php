@@ -499,9 +499,10 @@
 		}
 
 		function searchassettag($srch){
-			$this->db->select('R.V_Asset_no, R.V_Asset_name, R.V_Tag_no, R.V_User_Dept_code, R.V_Location_code, R.V_Manufacturer , M.V_Criticality, M.V_AssetCondition, M.v_AssetStatus, R.V_Model_no, R.V_Serial_no, R.V_hospitalcode');
+			$this->db->select('R.V_Asset_no, R.V_Asset_name, R.V_Tag_no, R.V_User_Dept_code, R.V_Location_code, R.V_Manufacturer , M.V_Criticality, M.V_AssetCondition, M.v_AssetStatus, R.V_Model_no, R.V_Serial_no, R.V_hospitalcode,G.N_Cost');
 			$this->db->from('pmis2_egm_assetregistration R');
 			$this->db->join("pmis2_egm_assetmaintenance M","M.v_AssetNo = R.V_Asset_no AND M.v_Hospitalcode=R.V_Hospitalcode AND R.V_Actionflag <> 'D'");
+			$this->db->join('pmis2_egm_assetreg_general G','R.v_asset_no = G.v_asset_no AND R.v_hospitalcode = G.v_hospital_code');
 			$this->db->like('R.v_tag_no', trim(str_replace("TAG:","",strtoupper($srch))));
 			$this->db->or_like('R.v_asset_name', trim($srch));
 			$this->db->or_like('R.v_user_dept_code', trim($srch));
