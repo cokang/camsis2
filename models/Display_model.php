@@ -5274,7 +5274,7 @@ function podet($pono){
 	return $query_result;
 }
 
-function getthepo($whichone,$datefrom,$dateto,$vendor,$request_type,$payment_status,$searchitem="",$whatdept="NONE", $payment_type="", $status=""){
+function getthepo($whichone,$datefrom,$dateto,$vendor,$request_type,$payment_status,$searchitem="",$whatdept="NONE", $payment_type="", $status="", $approve=""){
 	//$this->db->select("CONCAT('PO/',".$this->db->escape(date('m').date('y')).",'/',RIGHT(CONCAT('0000',CAST(po_next_no AS char)), 5)) AS pono,po_next_no",FALSE);
 	//echo "<br> sdkkfjslkdfjl : ".$whichone."<br>";
 	$this->db->select("IFNULL(a.Statusc, '0') AS Statusc, a.PO_No, b.MIRN_No, a.PO_Date, b.Vendor_No AS vendor, a.paytype, c.VENDOR_NAME,d.ReqCase,IF(a.Date_Completed is null,0,1) as  paidstatus,a.Date_Completed,RIGHT(b.MIRN_No,1) as mirnstatus,Payment_Opt,a.closingdtcc, a.Status,IFNULL(a.pay3_date, IFNULL(a.pay2_date,a.pay1_date)) as latest_paymentdate, a.payment_1,a.payment_2,a.payment_3 , pod.Doc_name,pod.doc_id,pod.doc_path", FALSE);
@@ -5287,7 +5287,10 @@ function getthepo($whichone,$datefrom,$dateto,$vendor,$request_type,$payment_sta
 	
 	// $this->db->where('MONTH(a.PO_Date)', $month );
 	// $this->db->where('YEAR(a.PO_Date)', $year );
+	if($approve==0)
 	$this->db->where('date(a.PO_Date) BETWEEN"'.$datefrom.'"and"'.$dateto.'"');
+	else
+	$this->db->where('date(a.Date_Completed) BETWEEN"'.$datefrom.'"and"'.$dateto.'"');
 	$this->db->where('a.visit = 1', null, false);
 
 

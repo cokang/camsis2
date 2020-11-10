@@ -23,9 +23,14 @@
 							$status = array('All'=> 'All',
 	                        '0' => 'Pending',
 							'C' => 'Submitted');
+							$approved = array('0'=> 'No',
+							'1'=> 'Yes');
 	echo form_dropdown('vendor', $vendor_list,set_value('vender', $this->input->get('vendor')), 'class="form-control-button2 "');
  ?>
  <br>
+ <label for="to">Approve Date only</label>
+ <?php echo form_dropdown('filter_approve', $approved,set_value('filter_approve', $this->input->get('filter_approve')), 'class="form-control-button2 "'); ?>
+
  <label for="to">Request Type</label>
  <?php echo form_dropdown('request_type', $request_type,set_value('request_type', $this->input->get('request_type')), 'class="form-control-button2 "'); ?>
  <?php if($this->input->get('tab')==0 || $this->input->get('tab')== ''){?>

@@ -697,6 +697,7 @@ class Procurement extends CI_Controller {
 		$payment_status= ($this->input->get('payment_status') <> null) ?  $this->input->get('payment_status') : 'All';
 		$payment_type= ($this->input->get('payment_type') <> null) ?  $this->input->get('payment_type') : 'All';
 		$status= ($this->input->get('status') <> null) ?  $this->input->get('status') : 'All';
+		$approve= ($this->input->get('filter_approve') <> null) ?  $this->input->get('filter_approve') : '0';
 		$data['vendor_list']= $this->display_model->vendor_name(1);
 		//print_r($data['udept']);
 		//echo "nilainya : ".$data['udept'][0]->dept;
@@ -713,7 +714,7 @@ class Procurement extends CI_Controller {
 		if ($data['udept'] == 'NONE') {
 			$data['polist'] = $this->display_model->getthepo($whattab,$data['from'], $data['to'],$vendor,$request_type,$payment_status,$search);
 		} else {
-			$data['polist'] = $this->display_model->getthepo($whattab,$data['from'], $data['to'],$vendor,$request_type,$payment_status,$search,$data['udept'][0]->dept,$payment_type,$status);
+			$data['polist'] = $this->display_model->getthepo($whattab,$data['from'], $data['to'],$vendor,$request_type,$payment_status,$search,$data['udept'][0]->dept,$payment_type,$status,$approve);
 		}
 		$this ->load->view("head");
 		$this->load->view('pofollowup_filter', $data);
