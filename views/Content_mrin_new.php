@@ -104,7 +104,7 @@ echo form_open('mrinnew_ctrl?pro=edit&mrinno='.$this->input->get('mrinno'));
 									</tr>
 									<tr>
 										<td style="padding-left:10px;">Possible Root Cause of Finding </td>
-										<td style="padding-left:10px;"><textarea class="Input n_com2" name="n_finding" id="n_finding"></textarea></td>
+										<td style="padding-left:10px;"><textarea class="Input n_com2" name="n_finding" id="n_finding"><?=set_value('n_troubleshooting',isset($record[0]->rthree) ? $record[0]->rthree : '')?></textarea></td>
 									</tr>
 								</table>
 							</td>
@@ -360,10 +360,10 @@ echo form_open('mrinnew_ctrl?pro=edit&mrinno='.$this->input->get('mrinno'));
 														<th style="width: 3%;">Qty Req</th>
 														<th style="width: 3%;">Reimbursable</th>
 														<th style="width: 3%;">Last Replaced<br/>(MM/DD/YYYY)</th>
-														<?php if ($this->input->get('pro') != 'edit') { ?>
+														<?php //if ($this->input->get('pro') != 'edit') { ?>
 														<th style="width:3%;">Price</th>
 														<th style="width: 3%;">Vendor</th>
-														<?php } ?>
+														<?php //} ?>
 														<th style="width: 3%;">Discount</th>
 													</tr>
 													<?php if ($this->input->get('pro') == 'edit') { ?>
@@ -382,6 +382,13 @@ echo form_open('mrinnew_ctrl?pro=edit&mrinno='.$this->input->get('mrinno'));
 															</td>
 															<td>
 																<INPUT TYPE="text" name="startDate<?=$numrow?>" value="<?=isset($item->LastRepDt) ? date("m/d/Y",strtotime($item->LastRepDt)) : ''?>" class="form-control-button2" style=width:100px;" onChange="validDate(this)"></INPUT>
+															</td>
+															<td>
+																<input TYPE="text" name="n_price<?=$numrow?>" value="<?=isset($item->Part_Discount) ? $item->Part_Discount : ''?>" class="form-control-button2" style="width:100px;" >
+															</td>
+															<td>
+																<p></p>
+																<input TYPE="hidden" name="vendor<?=$numrow?>" value="<?=isset($item->Part_Discount) ? $item->Part_Discount : ''?>" class="form-control-button2" style="width:100px;" >
 															</td>
 															<td>
 																<input TYPE="text" name="n_discount<?=$numrow?>" value="<?=isset($item->Part_Discount) ? $item->Part_Discount : ''?>" class="form-control-button2" style="width:100px;" >
