@@ -316,12 +316,13 @@ class Procurement extends CI_Controller {
 					$new_name = 'attach_'.$data['attc_details'][0]->Attachment_no.'.'.$ext[1];
 				}
 				if ($this->input->get('tag') == 'component'){
-	            	$config['upload_path']          = 'C:\inetpub\wwwroot\FEMSHospital_v3\uploadpofiles';
-								//$config['upload_path']          = '/var/www/vhosts/camsis2.advancepact.com/httpdocs/uploadpofiles';
+					// $config['upload_path']          = 'C:\inetpub\wwwroot\FEMSHospital_v3\uploadpofiles';
+					// $config['upload_path']          = 'C:\wamp64\www\camsis\uploadpofiles';
+								$config['upload_path']          = '/var/www/vhosts/camsis2.advancepact.com/httpdocs/uploadpofiles';
 	            }
 				else{
-					$config['upload_path']          = 'C:\inetpub\wwwroot\FEMSHospital_v3\uploadfinfiles';
-					//$config['upload_path']          = '/var/www/vhosts/camsis2.advancepact.com/httpdocs/uploadfinfiles';
+					// $config['upload_path']          = 'C:\wamp64\www\camsis\uploadfinfiles';
+					$config['upload_path']          = '/var/www/vhosts/camsis2.advancepact.com/httpdocs/uploadfinfiles';
 				}
 
 				$config['file_name'] = $new_name;
@@ -408,8 +409,8 @@ class Procurement extends CI_Controller {
 
 								$this->update_model->update_delpo_attc($insert_data,$this->input->get('pono'),$this->input->get('id'));
 			                }
-								echo $this->db->last_query();
-	                            exit();
+								// echo $this->db->last_query();
+	                            // exit();
 						}
 
 						//$this->load->model('get_model');
@@ -452,7 +453,6 @@ class Procurement extends CI_Controller {
 			$data['CHO'] = $this->get_model->get_po_spend('CHO');
 			$data['max_opu']= $this->get_model->get_budgetamount('OPU');
 			$data['max_cho']= $this->get_model->get_budgetamount('CHO');
-			print_r($data['max_opu']);
 		$data['vendor_list']= $this->display_model->vendor_name(1);
 		$this ->load->view("head");
 		$this ->load->view("budget",$data);
@@ -638,7 +638,7 @@ class Procurement extends CI_Controller {
 
 		//echo "nilai id : ".print_r($idArray);
 		$data['chkers'] = $idArray;
-
+	
 		//echo "nilai ".$hoswakil.$hospapa."abis";
 		$data['year']= ($this->input->get('y') <> 0) ? $this->input->get('y') : date("Y");
 		$data['month']= ($this->input->get('m') <> 0) ? sprintf("%02d", $this->input->get('m')) : date("m");
@@ -726,7 +726,6 @@ class Procurement extends CI_Controller {
 	public function po_follow_up2(){
 
 		$this->load->model('display_model');
-		$this->load->model('get_model');
 		$this->load->model('get_model');
 		$this->load->model('update_model');
 		$data['run_no'] = $this->get_model->run_no();
