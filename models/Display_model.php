@@ -5165,16 +5165,16 @@ function polist($datefrom,$dateto,$searchitem="",$tab="",$classid="",$vendor="",
 	$this->db->distinct();
 	//$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt,vi.VENDOR_NAME');
   //$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt,vi.VENDOR_NAME, SUM( DISTINCT Unit_Costx * QtyReqfx) as totalPO,sum( DISTINCT Unit_Costx * QtyReqfx) as totalPO ,a.ApprCommentsx , GROUP_CONCAT( DISTINCT  VENDOR_NAME ) as VENDOR_NAME');
-  $this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt, (SUM( DISTINCT Unit_Costx * QtyReqfx)) as totalPO, a.ApprCommentsx ,a.DateApprovalxx,mc.ApprvRmk1x, a.ReqCase');
+  $this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt, (SUM(  Unit_Costx * QtyReqfx)) as totalPO, a.ApprCommentsx ,a.DateApprovalxx,mc.ApprvRmk1x, a.ReqCase');
 	$this->db->from('tbl_po_mirn e');
 	$this->db->join('tbl_materialreq a','e.MIRN_No = a.DocReferenceNo');
 	$this->db->join('tbl_zone b','a.ZoneID = b.ZoneID');
 	$this->db->join('tbl_user c','a.RequestUserID = c.UserID');
 	$this->db->join('tbl_status d','a.ApprStatusID = d.StatusID');
 	$this->db->join('tbl_mirn_payment mp', 'mp.MirnCode = a.DocReferenceNo', 'left');
-	$this->db->join('tbl_mirn_comp mc', 'mc.MIRNcode = a.DocReferenceNo', 'left');
+	$this->db->join('tbl_mirn_comp mc', 'mc.MIRNcode = a.DocReferenceNo and mc.ApprvRmk1x IS NOT NULL and mc.ApprvRmk1x <> ""', 'left');
 	//  $this->db->join('(select VENDOR_NAME from tbl_vendor_info group by  VENDOR_CODE) as vi', 'vi.VENDOR_CODE = mc.ApprvRmk1x', 'inner');
-	$this->db->join('tbl_vendor_info vi', 'vi.VENDOR_CODE = mc.ApprvRmk1x', 'inner');
+	// $this->db->join('tbl_vendor_info vi', 'vi.VENDOR_CODE = mc.ApprvRmk1x', 'inner');
 	// $this->db->join('(select v1.VENDOR_NAME,v1.VENDOR_CODE from tbl_vendor_info as v1 inner join tbl_vendor_info as v2 ON v1.VENDOR_CODE = v2.VENDOR_CODE) as vi', 'vi.VENDOR_CODE = mc.ApprvRmk1x', 'inner');
 	$this->db->join('tbl_vendor va',"(mc.ApprvRmk1x = va.VENDOR OR mc.ApprvRmk1 = va.VENDOR) AND mc.ItemCode = va.Item_Code and mc.Unit_Costx = va.List_Price and va.flag <>'D'",'left');
 
@@ -5201,7 +5201,7 @@ function polist($datefrom,$dateto,$searchitem="",$tab="",$classid="",$vendor="",
 		$this->db->having('totalPO >=', 100000);
 	}
 	if ($vendor !='All'){
-		$this->db->where('vi.VENDOR_CODE ', $vendor);
+		$this->db->where('mc.ApprvRmk1x ', $vendor);
 	}
 	if ($request_type !='All'){
 		$this->db->where('a.ReqCase ', $request_type);
