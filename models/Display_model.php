@@ -5058,7 +5058,7 @@ function status_table(){
     function prlist($datefrom,$dateto,$tab=0,$vendor="",$request_type="",$payment="",$searchitem=""){
     	$this->db->distinct();
     	//$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PR_No, mp.Payment_Opt, vi.VENDOR_NAME');
-      $this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PR_No, mp.Payment_Opt, vi.VENDOR_NAME,a.ApprCommentsx, GROUP_CONCAT( DISTINCT  VENDOR_NAME ) as VENDOR_NAME, (SUM( DISTINCT Unit_Costx * QtyReqfx)) as totalPO, a.ReqCase');
+      $this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PR_No, mp.Payment_Opt, vi.VENDOR_NAME,a.ApprCommentsx, GROUP_CONCAT( DISTINCT  VENDOR_NAME ) as VENDOR_NAME, (SUM( DISTINCT Unit_Costx * QtyReqfx)-Part_Discount) as totalPO, a.ReqCase');
     	$this->db->from('tbl_pr_mirn e');
     	if ($tab == 1){
     	$this->db->join('tbl_pr p','p.PRNo = e.PR_No');
@@ -5165,7 +5165,7 @@ function polist($datefrom,$dateto,$searchitem="",$tab="",$classid="",$vendor="",
 	$this->db->distinct();
 	//$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt,vi.VENDOR_NAME');
   //$this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt,vi.VENDOR_NAME, SUM( DISTINCT Unit_Costx * QtyReqfx) as totalPO,sum( DISTINCT Unit_Costx * QtyReqfx) as totalPO ,a.ApprCommentsx , GROUP_CONCAT( DISTINCT  VENDOR_NAME ) as VENDOR_NAME');
-  $this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt, (SUM(  Unit_Costx * QtyReqfx)) as totalPO, a.ApprCommentsx ,a.DateApprovalxx,mc.ApprvRmk1x, a.ReqCase');
+  $this->db->select('a.MaterialReqID, a.DocReferenceNo, a.DateCreated, b.ZoneName, c.name, d.status, e.PO_No, mp.Payment_Opt, (SUM(  Unit_Costx * QtyReqfx)-Part_Discount) as totalPO, a.ApprCommentsx ,a.DateApprovalxx,mc.ApprvRmk1x, a.ReqCase');
 	$this->db->from('tbl_po_mirn e');
 	$this->db->join('tbl_materialreq a','e.MIRN_No = a.DocReferenceNo');
 	$this->db->join('tbl_zone b','a.ZoneID = b.ZoneID');

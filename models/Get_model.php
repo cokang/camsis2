@@ -4596,7 +4596,7 @@ function get_stock_asset($searchitem=""){
 
 		function get_po_spend($potype){
 			$this->db->distinct();
-  $this->db->select(' SUM( Unit_Costx * QtyReqfx) as totalPO');
+  $this->db->select(' SUM( Unit_Costx * QtyReqfx)-SUM(Part_Discount) as totalPO');
 	$this->db->from('tbl_po_mirn e');
 	$this->db->join('tbl_materialreq a','e.MIRN_No = a.DocReferenceNo');
 	$this->db->join('tbl_zone b','a.ZoneID = b.ZoneID');
