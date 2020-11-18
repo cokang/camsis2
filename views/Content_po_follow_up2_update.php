@@ -280,10 +280,8 @@ echo form_open('Procurement/po_follow_upsv?pr='.$this->input->get('pr').'&po='.$
 												</tr>
 												<tr>
 										<td style="padding:10px;  valign="top">Invoice/Quotation  :   </td>
-										<?php if ( $WO_detail[0]->Payment_Opt == "COD"){ ?>
 										<td style="padding:10px;"><a href="javascript:void(0)" onclick="fCallLocationa('<?=$this->input->get('po')?>','component',1)" value="z" ><span class="icon-plus" style="font-size:12px; color:green;" ></span> Upload </a></td>
 										
-										<?php }  ?>
 										
 									</tr>
 									<!-- <tr >
