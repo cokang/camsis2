@@ -4781,12 +4781,18 @@ ORDER BY r.D_date, r.D_time
 	}
 
 function mrindet($mrinno){
-		$this->db->select('m.*,s.V_Asset_no,u.Name');
+		$this->db->select('m.*,s.V_Asset_no,u.Name,s.D_date');
 		$this->db->from('tbl_materialreq m');
 		$this->db->join('pmis2_egm_service_request s','m.WorkOfOrder = s.V_Request_no','left');
 		$this->db->join('tbl_user u','m.RequestUserID = u.UserID','left');
 		//$this->db->join('tbl_status st','m.StatusID = st.StatusID');
 		$this->db->where('m.DocReferenceNo',$mrinno);
+		$hosp = explode('/',$mrinno);
+		if($hosp[2]=='IMG')
+		$hosp = $hosp[3];
+		else
+		$hosp = $hosp[2];
+		$this->db->where('s.V_hospitalcode',$hosp);
 		$query = $this->db->get();
 		//echo $this->db->last_query();
 		//exit();
